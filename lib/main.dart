@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Text(
-      "Bismillahirrahmanirrahhim sadagallahulazim",
+      "Bismillahirrahmanirrahhim ::",
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
