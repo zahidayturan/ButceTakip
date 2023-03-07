@@ -1,3 +1,4 @@
+import 'package:butcekontrol/appbar.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,11 +33,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text(
-        "Bismillahirrahmanirrahhim",
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("SelamHello"),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
