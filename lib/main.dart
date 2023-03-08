@@ -1,3 +1,4 @@
+import 'package:butcekontrol/UI/Generalinfo.dart';
 import 'package:butcekontrol/constains/MaterialColor.dart';
 import 'package:butcekontrol/appbar.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Bütce Kontol Uygulaması',
       theme: ThemeData(
 
         primarySwatch: Colors.grey,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Bütce Kontol Uygulaması'),
     );
   }
 }
@@ -35,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar:appbarCustom(),
+      body: Generalinfo()   // arkadaşlar istediğiniz düzenlemeyi yapabilirsiniz devam widgetler için bunu Ccolumn içine almak lazım Zahid Stack widgetine bakmak isteyebilirsin.
     );
   }
 }
