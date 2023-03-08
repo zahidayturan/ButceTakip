@@ -38,7 +38,7 @@ class _GeneralinfoState extends State<Generalinfo> {
                     child: Container(
                       height: 25,
                       width: 105,
-                      color: Colors.amber,
+                      color: CustomColors.koyuuRenk,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: Row(
@@ -47,7 +47,8 @@ class _GeneralinfoState extends State<Generalinfo> {
                               month,
                               style: const TextStyle(
                                 color:  Colors.white,
-                                fontSize: 18,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
                               ),
                             ), // Ay gösterge
                             const SizedBox(width: 5),
@@ -55,7 +56,9 @@ class _GeneralinfoState extends State<Generalinfo> {
                               year,
                              style: const TextStyle(
                                color:  Colors.white,
-                               fontSize: 18,
+                               fontSize: 16,
+                               fontWeight: FontWeight.bold,
+
                              ),
                             ), // Yıl gösterge
                           ],
@@ -75,7 +78,7 @@ class _GeneralinfoState extends State<Generalinfo> {
               DecoratedBox(
                 decoration: const BoxDecoration(
                   border: Border(
-                    bottom: BorderSide(width: 5),
+                    bottom: BorderSide(width: 3),
                   ),
                 ),
                 child: Padding(
@@ -91,6 +94,7 @@ class _GeneralinfoState extends State<Generalinfo> {
                             style: TextStyle(
                               fontSize: 22,
                               fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
@@ -98,6 +102,7 @@ class _GeneralinfoState extends State<Generalinfo> {
                             style: const TextStyle(
                               fontSize: 22,
                               fontStyle: FontStyle.normal,
+                              color: Colors.green,
                             ),
                           ),
                         ],
@@ -111,6 +116,8 @@ class _GeneralinfoState extends State<Generalinfo> {
                             style: TextStyle(
                               fontSize: 22,
                               fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.bold,
+
                             ),
                           ),
                         Text(
@@ -132,6 +139,8 @@ class _GeneralinfoState extends State<Generalinfo> {
                             style: TextStyle(
                               fontSize: 22,
                               fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.bold,
+
                             ),
                           ),
                           Text(
