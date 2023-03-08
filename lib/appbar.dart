@@ -7,10 +7,21 @@ class appbarCustom extends StatelessWidget  implements  PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Color(0xFF0D1C26),
-      title:  const Text(
-        "Aylık Durum\n+255,40 TL ",
-        style: TextStyle(
-          color: Color(0xFFF2CB05),
+      title: RichText(
+        text: const TextSpan(
+            text: "Aylık Durum",
+            style: TextStyle(
+                color: Color(0xFFFFFFFF),
+                fontSize: 21,
+            ),
+            children: [
+              TextSpan(
+                text: "\n248.40 ₺",
+                style: TextStyle(
+                    color: Color(0xFFF2CB05),
+                ),
+              ),
+            ],
         ),
       ),
       actions: [
@@ -21,14 +32,8 @@ class appbarCustom extends StatelessWidget  implements  PreferredSizeWidget {
             icon: const Icon(
               Icons.bookmark_outlined,
               color: Color(0xFFFFFFFF),
-            )
-        ),
-        IconButton(
-            onPressed:() => print("reset"),
-            icon: const Icon(
-              Icons.lock_reset,
-              color: Color(0xFFFFFFFF),
-            )
+            ),
+          iconSize: 20.0,
         ),
         IconButton(
             onPressed:() => print("?"),
@@ -37,6 +42,14 @@ class appbarCustom extends StatelessWidget  implements  PreferredSizeWidget {
               color: Color(0xFFFFFFFF),
             )
         ),
+        IconButton(
+            onPressed:() => print("reset"),
+            icon: const Icon(
+              Icons.refresh,
+              color: Color(0xFFFFFFFF),
+            )
+        ),
+
         IconButton(
             onPressed:() => print("settings"),
             icon: const Icon(

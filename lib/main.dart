@@ -1,4 +1,4 @@
-import 'package:butcekontrol/MaterialColor.dart';
+import 'package:butcekontrol/constains/MaterialColor.dart';
 import 'package:butcekontrol/appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +8,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,9 +30,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  CustomColors renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       appBar:appbarCustom(),
     );
   }
