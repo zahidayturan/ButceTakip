@@ -7,5 +7,4 @@ class CustomColors{
   static Color kirmiziRenk = const Color(0xFFD91A2A); //kırmızımız
   static Color yesilRenk = const Color(0xFF1A8E58); //yesilimiz
   static Color ArkaRenk = const Color(0xFFE9E9E9); // tile arkası border rengi
-
 }

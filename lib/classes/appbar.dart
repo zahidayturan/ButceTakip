@@ -16,7 +16,7 @@ class appbarCustom extends StatelessWidget  implements  PreferredSizeWidget {
             ),
             children: [
               TextSpan(
-                text: "\n248.40 ₺",
+                text: "\n+248.40 ₺",
                 style: TextStyle(
                     color: Color(0xFFF2CB05),
                 ),
