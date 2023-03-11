@@ -1,7 +1,8 @@
 import 'package:butcekontrol/UI/Generalinfo.dart';
-import 'package:butcekontrol/appbar.dart';
+import 'package:butcekontrol/classes/appbar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
+import 'package:butcekontrol/classes/navBar.dart';
 
 class ButceKontrolApp extends StatelessWidget {
   const ButceKontrolApp({Key? key}) : super(key: key);
@@ -29,8 +30,12 @@ class _MyHomePageState extends State <MyHomePage> {
     return Scaffold(
       appBar: appbarCustom(),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Generalinfo(),
+          navBar()
         ],
       ),
     );
