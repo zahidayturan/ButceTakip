@@ -51,13 +51,8 @@ class _MyHomePageState extends State<navBar> {
                           ),
                           onPressed: () {},
                         ),
-                        IconButton(
-                          icon: Icon(
-                            size: 0,
-                            Icons.dangerous,
-                            color: Color(0xffF2CB05),
-                          ),
-                          onPressed: () {},
+                        SizedBox(
+                          width: size.width / 5,
                         ),
                         IconButton(
                           icon: Icon(
