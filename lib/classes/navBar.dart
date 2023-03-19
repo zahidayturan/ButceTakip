@@ -1,4 +1,7 @@
+import 'package:butcekontrol/App/Aylikinfo.dart';
+import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:flutter/material.dart';
+import '../utils/dpHelper.dart';
 
 class navBar extends StatefulWidget {
   //const navBar({Key? key}) : super(key: key);
@@ -7,6 +10,7 @@ class navBar extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<navBar> {
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -36,7 +40,7 @@ class _MyHomePageState extends State<navBar> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             size: 30,
                             Icons.equalizer,
                             color: Colors.white,
@@ -44,7 +48,7 @@ class _MyHomePageState extends State<navBar> {
                           onPressed: () {},
                         ),
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             size: 30,
                             Icons.calendar_month_sharp,
                             color: Colors.white,
@@ -55,7 +59,7 @@ class _MyHomePageState extends State<navBar> {
                           width: size.width / 5,
                         ),
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             size: 30,
                             Icons.calculate_sharp,
                             color: Colors.white,
@@ -63,7 +67,7 @@ class _MyHomePageState extends State<navBar> {
                           onPressed: () {},
                         ),
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             size: 30,
                             Icons.keyboard_control_sharp,
                             color: Colors.white,
@@ -88,7 +92,8 @@ class _MyHomePageState extends State<navBar> {
               child: Center(
                 heightFactor: 1,
                 child: FloatingActionButton.large(
-                  onPressed: () {},
+                  onPressed: () {
+                    },
                   backgroundColor: Color(0xffF2CB05),
                   child: Icon(Icons.add_rounded, color: Colors.white, size: 64),
                   elevation: 0,

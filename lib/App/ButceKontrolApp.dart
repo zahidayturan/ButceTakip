@@ -6,6 +6,7 @@ import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:flutter/material.dart';
 import 'package:butcekontrol/classes/navBar.dart';
 
+
 class ButceKontrolApp extends StatelessWidget {
   const ButceKontrolApp({Key? key}) : super(key: key);
 
@@ -17,7 +18,7 @@ class ButceKontrolApp extends StatelessWidget {
         primaryColor: Colors.white,
         fontFamily: "Nexa",
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
@@ -35,7 +36,7 @@ class _MyHomePageState extends State <MyHomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
-        children: const [
+        children: [
           Generalinfo(),
           Aylikinfo(),
         ],

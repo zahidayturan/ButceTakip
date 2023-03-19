@@ -9,7 +9,7 @@ class Generalinfo extends StatefulWidget {
 }
 
 class Calender_Bka {
-  List <String> Mounths = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık" ];
+  List <String> Mounths = ["Ocak", "Subat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Agustos", "Eylül", "Ekim", "Kasım", "Aralık" ];
   List <String> Years = ["2020","2021","2022","2023","2024","2025", "2026", "2027", "2028", "2029", "2030"];
   List <String> Days = ["Monday", "Thuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 }
