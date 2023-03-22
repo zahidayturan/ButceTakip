@@ -8,17 +8,23 @@ class Generalinfo extends StatefulWidget {
   State<Generalinfo> createState() => _GeneralinfoState();
 }
 
+class Calender_Bka {
+  List <String> Mounths = ["Ocak", "Subat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Agustos", "Eylül", "Ekim", "Kasım", "Aralık" ];
+  List <String> Years = ["2020","2021","2022","2023","2024","2025", "2026", "2027", "2028", "2029", "2030"];
+  List <String> Days = ["Monday", "Thuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+}
+
 class _GeneralinfoState extends State<Generalinfo> {
-  var month = "Ağustos";
-  var year = " 2023" ;
   var gelir = 6950.0 ;
   var gider = 440.5 ;
   var toplam = "+255.4" ;
   var renkler = CustomColors();
-
+  int indexyear  = Calender_Bka().Years.indexOf(DateTime.now().year.toString()) ;
+  int indexmounth = DateTime.now().month - 1 ;
   @override
   Widget build(BuildContext context) {
     final double devicedata = MediaQuery.of(context).size.width;
+    Calender_Bka calender = new Calender_Bka();  // aşağıdaki classı tanımladık.
     return Container(
       constraints: const BoxConstraints(
         maxHeight: double.infinity, //container in boyutunu içindekiler belirliyor.
@@ -39,33 +45,46 @@ class _GeneralinfoState extends State<Generalinfo> {
                   minHeight: 28,
                   minWidth: 25,
                 ),
-                onPressed: () {},),
+                onPressed: () {
+                    if (indexmounth > 0 ) {
+                      indexmounth -= 1 ;
+                    } else {
+                      if (indexyear != 0) {
+                        indexyear -= 1 ;
+                        indexmounth = 11 ;
+                      }
+                    }
+                    setState(() {
+
+                    });
+                },
+              ),
               ClipRRect( // yuvarlıyorum ay değişimi barını
                 borderRadius: BorderRadius.only(topRight:Radius.circular(50),bottomRight: Radius.circular(50)),
                 child: Container(
                   height: 24,
-                  width: 110,
-                  color: CustomColors.koyuuRenk,
+                  width: 120 ,
+                  color: renkler.koyuuRenk,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 5),
+                    padding: const EdgeInsets.only(left: 5, right: 5),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          month,
+                          calender.Mounths[indexmounth],
                           style: const TextStyle(
                             color:  Colors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
                         ), // Ay gösterge
-                        const SizedBox(width: 2), // bunu verdim çünkü yıl ile ay arsnıdna boşluk yapmam gereiyordu.
+                        const SizedBox(width: 6), // bunu verdim çünkü yıl ile ay arsnıdna boşluk yapmam gereiyordu.
                         Text(
-                          year,
+                          calender.Years[indexyear],
                          style: const TextStyle(
                            color:  Colors.white,
                            fontSize: 16,
                            fontWeight: FontWeight.bold,
-
                          ),
                         ), // Yıl gösterge
                       ],
@@ -84,7 +103,16 @@ class _GeneralinfoState extends State<Generalinfo> {
                   minHeight: 28,
                   minWidth: 25,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  if (indexmounth < calender.Mounths.length - 1 ){
+                    indexmounth += 1 ;
+                  } else {
+                    indexmounth = 0 ;
+                    indexyear += 1 ;
+                  }
+                  setState(() {
+                  });
+                },
               ),
             ],
           ),
@@ -95,9 +123,9 @@ class _GeneralinfoState extends State<Generalinfo> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
+              padding: const EdgeInsets.only(bottom: 12.0,left: 11),
               child: SizedBox(
-                width: devicedata - 110.0 ,
+                width: devicedata - 132.0 ,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -170,7 +198,7 @@ class _GeneralinfoState extends State<Generalinfo> {
                       ),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(
-                        minWidth: 45,
+                        minWidth: 30,
                       ),
                       onPressed: () {  },
                     ), //Ayrıntılı gösterme butonu

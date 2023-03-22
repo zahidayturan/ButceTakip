@@ -1,8 +1,11 @@
+import 'package:butcekontrol/App/Aylikinfo.dart';
 import 'package:butcekontrol/UI/Generalinfo.dart';
 import 'package:butcekontrol/classes/appbar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
+import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:flutter/material.dart';
 import 'package:butcekontrol/classes/navBar.dart';
+
 
 class ButceKontrolApp extends StatelessWidget {
   const ButceKontrolApp({Key? key}) : super(key: key);
@@ -13,8 +16,9 @@ class ButceKontrolApp extends StatelessWidget {
       title: "Bütçe Kontrol Uygulaması",
       theme: ThemeData(
         primaryColor: Colors.white,
+        fontFamily: "Nexa",
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
@@ -31,13 +35,14 @@ class _MyHomePageState extends State <MyHomePage> {
       appBar: appbarCustom(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Generalinfo(),
-          navBar()
+          Aylikinfo(),
         ],
       ),
+      bottomNavigationBar: navBar(),
     );
   }
 }
+
