@@ -1,4 +1,5 @@
 import 'package:butcekontrol/App/Aylikinfo.dart';
+import 'package:butcekontrol/Pages/gunlukpage.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:flutter/material.dart';
 import '../utils/dpHelper.dart';
@@ -64,7 +65,9 @@ class _MyHomePageState extends State<navBar> {
                             Icons.calculate_sharp,
                             color: Colors.white,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => gunlukpages(),));
+                          },
                         ),
                         IconButton(
                           icon: const Icon(

@@ -1,4 +1,7 @@
+import 'package:butcekontrol/Pages/gunlukpage.dart';
+import 'package:butcekontrol/UI/spenddetail.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
+import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/utils/dpHelper.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +11,7 @@ class Aylikinfo extends StatefulWidget {
   State<Aylikinfo> createState() => _AylikinfoState();
 }
 class _AylikinfoState extends State<Aylikinfo> {
-  _AylikinfoState();
+  CustomColors renkler = CustomColors();
   List<spendinfo> _spendinfolist = [];
   Future<List<spendinfo>> ?_taskList;
   bool _isLoading = true;
@@ -29,6 +32,7 @@ class _AylikinfoState extends State<Aylikinfo> {
   @override
   Widget build(BuildContext context) {
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;
+    var size = MediaQuery.of(context).size ;
     return Center(
       child: Column(
         children: [
@@ -43,14 +47,14 @@ class _AylikinfoState extends State<Aylikinfo> {
                 child: Theme(
                   data: Theme.of(context).copyWith(
                     scrollbarTheme: ScrollbarThemeData(
-                      thumbColor: MaterialStateProperty.all(Color(0xFFF2CB05)),
+                      thumbColor: MaterialStateProperty.all(renkler.sariRenk),
                     )
                   ),
                   child: Scrollbar(
                     scrollbarOrientation: ScrollbarOrientation.left,
                     isAlwaysShown: true,
                     interactive: true,
-                    thickness: 8,
+                    thickness: 7,
                     radius: Radius.circular(15.0),
                     child: ListView.builder(
                         itemCount : _spendinfolist.length,
@@ -64,67 +68,73 @@ class _AylikinfoState extends State<Aylikinfo> {
                                 padding: const EdgeInsets.only(left: 15, right: 10),
                                 child: ClipRRect(           //Borderradius vermek için kullanıyoruz
                                   borderRadius: BorderRadius.circular(10.0),
-                                  child: Container(
-                                    height: 27.4,
-                                    color:  CustomColors.ArkaRenk,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 12, right: 15),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          SizedBox(
-                                              width: ceyrekwsize ,
-                                              child: Text(
-                                                _spendinfolist[index].day.toString(),
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              )
-                                          ),
-                                          SizedBox(
-                                            width: ceyrekwsize,
-                                            child: Center(
-                                              child: Text(
-                                                this._spendinfolist[index].gelir.toString(),
-                                                style: const TextStyle(
-                                                  color: Colors.green,
-                                                ),
-                                              ),
+                                  child: InkWell(
+                                    onTap : () {
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => gunlukpages()));
+                                    },
+                                    child: Container(
+                                      height: 27.4,
+                                      color:  renkler.ArkaRenk,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 12, right: 15),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            SizedBox(
+                                                width: ceyrekwsize ,
+                                                child: Text(
+                                                  _spendinfolist[index].day.toString(),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                )
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: ceyrekwsize,
-                                            child: Center(
-                                              child: Text(
-                                                _spendinfolist[index].gider.toString(),
-                                                style: const TextStyle(
-                                                  color: Colors.red,
+                                            SizedBox(
+                                              width: ceyrekwsize,
+                                              child: Center(
+                                                child: Text(
+                                                  this._spendinfolist[index].gelir.toString(),
+                                                  style: const TextStyle(
+                                                    color: Colors.green,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: ceyrekwsize,
-                                            child: Center(
-                                              child: Text(
-                                                "99",
-                                                style: const TextStyle(
-                                                  color: Colors.black87,
+                                            SizedBox(
+                                              width: ceyrekwsize,
+                                              child: Center(
+                                                child: Text(
+                                                  _spendinfolist[index].gider.toString(),
+                                                  style: const TextStyle(
+                                                    color: Colors.red,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          IconButton(
-                                            constraints: const BoxConstraints(
-                                              maxHeight: 30,
+                                            SizedBox(
+                                              width: ceyrekwsize,
+                                              child: const Center(
+                                                child: Text(
+                                                  "0",
+                                                  style: TextStyle(
+                                                    color: Colors.black87,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                            padding: const EdgeInsets.all(1),
-                                            icon: eyeColorChoice(12.2),
-                                            onPressed: () {
-                                            },
-                                          )
-                                        ],
+                                            IconButton(
+                                              constraints: const BoxConstraints(
+                                                maxHeight: 30,
+                                              ),
+                                              padding: const EdgeInsets.all(1),
+                                              icon: eyeColorChoice(12.2),
+                                              onPressed: () {
+                                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => gunlukpages()));
+                                              },
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -140,19 +150,30 @@ class _AylikinfoState extends State<Aylikinfo> {
               ),
             ),
           ),
-          ElevatedButton(
-              onPressed:() {
-                SQLHelper.createItem(spendinfo("200", "200", "pazar", "Mayıs", "2023"));
-                _refreshSpendinfoList();
-              },
-              child: Text("Ekle"),
-          ),
-          ElevatedButton(
-            onPressed:() {
-              SQLHelper.deleteItem(_spendinfolist[0].id!);
-              _refreshSpendinfoList();
-            },
-            child: Text("Sil"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed:() {
+                  SQLHelper.createItem(spendinfo("0", "0", "MART", "mart", "MART"));
+                  _refreshSpendinfoList();
+                },
+                child: Text("Ekle"),
+              ),
+              ElevatedButton(
+                onPressed:() {
+                  SQLHelper.deleteItem(_spendinfolist[0].id!);
+                  _refreshSpendinfoList();
+                },
+                child: Text("Sil"),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+
+                  },
+                  child: Text("dene")
+              )
+            ],
           ),
         ],
       ),
