@@ -19,8 +19,8 @@ class _GeneralinfoState extends State<Generalinfo> {
   var gider = 440.5 ;
   var toplam = "+255.4" ;
   var renkler = CustomColors();
-  int indexyear  = Calender_Bka().Years.indexOf(DateTime.now().year.toString()) ;
-  int indexmounth = DateTime.now().month - 1 ;
+  int indexyear  = Calender_Bka().Years.indexOf(DateTime.now().year.toString());
+  int indexmounth = DateTime.now().month - 1;
   @override
   Widget build(BuildContext context) {
     final double devicedata = MediaQuery.of(context).size.width;
@@ -106,7 +106,7 @@ class _GeneralinfoState extends State<Generalinfo> {
                 onPressed: () {
                   if (indexmounth < calender.Mounths.length - 1 ){
                     indexmounth += 1 ;
-                  } else {
+                  } else if(indexyear < calender.Years.length - 1){
                     indexmounth = 0 ;
                     indexyear += 1 ;
                   }

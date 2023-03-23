@@ -28,7 +28,7 @@ class _AylikinfoState extends State<Aylikinfo> {
     super.initState();
     _refreshSpendinfoList();
   }
-
+ var renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;
