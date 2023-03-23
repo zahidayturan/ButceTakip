@@ -28,10 +28,11 @@ class _AylikinfoState extends State<Aylikinfo> {
     super.initState();
     _refreshSpendinfoList();
   }
- var renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
+    CustomColors renkler = CustomColors();
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;
+    ScrollController Scrolbarcontroller1 = ScrollController();
     var size = MediaQuery.of(context).size ;
     return Center(
       child: Column(
@@ -57,6 +58,7 @@ class _AylikinfoState extends State<Aylikinfo> {
                     thickness: 7,
                     radius: Radius.circular(15.0),
                     child: ListView.builder(
+                        controller: Scrolbarcontroller1,
                         itemCount : _spendinfolist.length,
                         itemBuilder: (BuildContext context, index) {
                           double? x = double.tryParse(_spendinfolist[index].gelir!) ;

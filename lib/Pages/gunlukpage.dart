@@ -165,6 +165,27 @@ class _gunlukpagesState extends State<gunlukpages> {
                                                     ],
                                                   ),
                                                   Column(
+                                                    children: [
+                                                      DecoratedBox(decoration: BoxDecoration(
+                                                        color: renkler.sariRenk,
+                                                        borderRadius: BorderRadius.circular(20),
+                                                      ),
+                                                        child: IconButton(
+                                                          icon: Icon(
+                                                            Icons.delete,
+                                                            size: 30,
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.of(context).pop();
+                                                          },),
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(top: 4.0),
+                                                        child: Textmod("Sil", renkler.sariRenk, 12),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Column(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       DecoratedBox(decoration: BoxDecoration(
