@@ -64,7 +64,7 @@ class _GeneralinfoState extends State<Generalinfo> {
                 child: Container(
                   height: 24,
                   width: 120 ,
-                  color: CustomColors.koyuuRenk,
+                  color: renkler.koyuuRenk,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 5, right: 5),
                     child: Row(

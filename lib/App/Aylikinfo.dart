@@ -25,7 +25,7 @@ class _AylikinfoState extends State<Aylikinfo> {
     super.initState();
     _refreshSpendinfoList();
   }
-
+ var renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;
@@ -66,7 +66,7 @@ class _AylikinfoState extends State<Aylikinfo> {
                                   borderRadius: BorderRadius.circular(10.0),
                                   child: Container(
                                     height: 27.4,
-                                    color:  CustomColors.ArkaRenk,
+                                    color:  renkler.ArkaRenk,
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 12, right: 15),
                                       child: Row(
