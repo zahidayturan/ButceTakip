@@ -108,7 +108,7 @@ class _AylikinfoState extends State<Aylikinfo> {
                                             width: ceyrekwsize,
                                             child: Center(
                                               child: Text(
-                                                "99",
+                                                "$toplam",
                                                 style: const TextStyle(
                                                   color: Colors.black87,
                                                 ),
@@ -139,20 +139,6 @@ class _AylikinfoState extends State<Aylikinfo> {
                 ),
               ),
             ),
-          ),
-          ElevatedButton(
-              onPressed:() {
-                SQLHelper.createItem(spendinfo("200", "200", "pazar", "Mayıs", "2023"));
-                _refreshSpendinfoList();
-              },
-              child: Text("Ekle"),
-          ),
-          ElevatedButton(
-            onPressed:() {
-              SQLHelper.deleteItem(_spendinfolist[0].id!);
-              _refreshSpendinfoList();
-            },
-            child: Text("Sil"),
           ),
         ],
       ),
