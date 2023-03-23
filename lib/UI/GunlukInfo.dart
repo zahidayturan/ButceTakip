@@ -9,7 +9,24 @@ class GunlukInfo extends StatefulWidget{
 
 }
 
-class _GunlukInfoState extends State{
+class _GunlukInfoState extends State<GunlukInfo>{
+  bool _isLoading = true;
+/*
+  void _refreshSpendinfoList() async {
+    final data = await SQLHelper.getItems();
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshSpendinfoList();
+  }
+
+ */
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +56,7 @@ class _GunlukInfoState extends State{
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only( right: 10, top: 5,),
+                padding: const EdgeInsets.only( right: 25, top: 5,),
                 child: Text(
                     '22.11.2023',
                   style: TextStyle(
@@ -51,6 +68,54 @@ class _GunlukInfoState extends State{
             ],
           ),
 
+          Column(
+            children: [
+              SizedBox(
+                height: 180,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 3, top: 10),
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      border: Border(left: BorderSide(width: 5, color: Color(0xFF0D1C26)))
+                    ),
+                    child: Theme(
+                      data: Theme.of(context).copyWith(
+                          scrollbarTheme: ScrollbarThemeData(
+                            thumbColor: MaterialStateProperty.all(Color(0xFFF2CB05)),
+                          )
+                      ),
+                      child: Scrollbar(
+                        scrollbarOrientation: ScrollbarOrientation.left,
+                        isAlwaysShown: true,
+                        interactive: true,
+                        thickness: 8,
+                        radius: Radius.circular(15),
+                        child: Padding(  // buraya ListView.builder gelecek
+                          padding: const EdgeInsets.only(left: 20,right: 20),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Kategori             Odeme            Miktar            Saat",
+                                style: TextStyle(
+                                  fontSize: 17,
+                                ),
+                              ),
+                              Text(
+                                "Yemek                  Nakit                  200                 13.5",
+                                style: TextStyle(
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ), // buraya ListView.builder gelecek
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
         ],
       )
     );
