@@ -45,7 +45,9 @@ class _MyHomePageState extends State<navBar> {
                             Icons.equalizer,
                             color: Colors.white,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+
+                          },
                         ),
                         IconButton(
                           icon: const Icon(
