@@ -1,5 +1,6 @@
 import 'package:butcekontrol/App/Aylikinfo.dart';
 import 'package:butcekontrol/Pages/gunlukpage.dart';
+import 'package:butcekontrol/Pages/testPages.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:flutter/material.dart';
 import '../utils/dpHelper.dart';
@@ -66,7 +67,6 @@ class _MyHomePageState extends State<navBar> {
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => gunlukpages(),));
                           },
                         ),
                         IconButton(
