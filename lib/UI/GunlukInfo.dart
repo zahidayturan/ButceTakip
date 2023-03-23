@@ -63,186 +63,193 @@ class _GunlukInfoState extends State<GunlukInfo>{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 10),
-      child: Column(
-        children: [
-          Row( // günlük yarcama yazı ve tarih kısmı
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(bottomRight:Radius.circular(20), topRight:Radius.circular(20)),
-                      color: renkler.sariRenk,
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 25.0, right: 10, top: 5,),
-                      child: Text(
-                          "Bügünün islem bilgileri",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.only( right: 25, top: 5,),
-                child: Text(
-                    '22.11.2023',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              )
-
-            ],
-          ),
-
-        Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 27, top: 15,),
-                child: Row( // tür bilgilendirme kısmı.(kategori, ödeme, miktar, saat)
+    var size = MediaQuery.of(context).size ;
+    
+    return SizedBox(
+      height: size.height/3,
+      child: Container(
+        margin: const EdgeInsets.only(top: 10),
+        child: Column(
+          children: [
+            Row( // günlük yarcama yazı ve tarih kısmı
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
                   children: [
-                    Text(
-                      'Kategori',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: renkler.koyuuRenk,
-                        fontWeight: FontWeight.w800,
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(bottomRight:Radius.circular(20), topRight:Radius.circular(20)),
+                         color: renkler.koyuuRenk,
                       ),
-                    ),
-                    SizedBox(width: 42),
-                    Text(
-                      'Ödeme',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: renkler.koyuuRenk,
-                        fontWeight: FontWeight.w800,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 25.0, right: 10, top: 5,bottom: 2),
+                        child: Text(
+                            "Bügünün islem bilgileri",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 19,
+                            ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 48),
-                    Text(
-                      'Miktar',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: renkler.koyuuRenk,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    SizedBox(width: 45),
-                    Text(
-                      'Saat',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: renkler.koyuuRenk,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+                    )
                   ],
                 ),
-              ),
-
-              SizedBox(
-                height: 160,
-                child: Padding(      //borderin scroll ile birleşimi gözüksü diye soldan padding
-                  padding: const EdgeInsets.only(left: 3.0, top: 5, bottom: 10),
-                  child: DecoratedBox( // border için
-                    decoration: const BoxDecoration(
-                        border: Border(left: BorderSide(width: 5,color: Color(0xFF0D1C26)))
+                const Padding(
+                  padding: EdgeInsets.only( right: 25, top: 5,),
+                  child: Text(
+                      '22.11.2023',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900
                     ),
-                    child: Theme(
-                      data: Theme.of(context).copyWith(
-                          scrollbarTheme: ScrollbarThemeData(
-                            thumbColor: MaterialStateProperty.all(renkler.sariRenk),
-                          )
+                  ),
+                )
+
+              ],
+            ),
+
+          Center(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 27, top: 10),
+                  child: Row( // tür bilgilendirme kısmı.(kategori, ödeme, miktar, saat)
+                    children: [
+                      Text(
+                        'Kategori',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: renkler.koyuuRenk,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
-                      child: Scrollbar(
-                        controller: Scrollbarcontroller2,
-                        thumbVisibility: true,
-                        scrollbarOrientation: ScrollbarOrientation.left,
-                        interactive: true,
-                        thickness: 8,
-                        radius: Radius.circular(15.0),
-                        child: ListView.builder(
-                            itemCount : myData.length,
-                            itemBuilder: (BuildContext context, index) {
-                              return Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15, right: 10),
-                                    child: ClipRRect(           //Borderradius vermek için kullanıyoruz
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Container(
-                                        height: 27.4,
-                                        color:  renkler.ArkaRenk,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 12, right: 15),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(right: 30,left: 10),
-                                                child: SizedBox(
-                                                  child: Text(
-                                                    '${myData[index]['kategori']}'
+                      SizedBox(width: 42),
+                      Text(
+                        'Ödeme',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: renkler.koyuuRenk,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      SizedBox(width: 48),
+                      Text(
+                        'Miktar',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: renkler.koyuuRenk,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      SizedBox(width: 45),
+                      Text(
+                        'Saat',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: renkler.koyuuRenk,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(
+                  height: 165,
+                  child: Padding(      //borderin scroll ile birleşimi gözüksü diye soldan padding
+                    padding: const EdgeInsets.only(left: 3.0, top: 5, bottom: 10),
+                    child: DecoratedBox( // border için
+                      decoration: const BoxDecoration(
+                          border: Border(left: BorderSide(width: 5,color: Color(0xFF0D1C26)))
+                      ),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                            scrollbarTheme: ScrollbarThemeData(
+                              thumbColor: MaterialStateProperty.all(renkler.sariRenk),
+                            )
+                        ),
+                        child: Scrollbar(
+                          controller: Scrollbarcontroller2,
+                          thumbVisibility: true,
+                          scrollbarOrientation: ScrollbarOrientation.left,
+                          interactive: true,
+                          thickness: 7,
+                          radius: Radius.circular(15.0),
+                          child: ListView.builder(
+                              itemCount : myData.length,
+                              itemBuilder: (BuildContext context, index) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15, right: 10),
+                                      child: ClipRRect(           //Borderradius vermek için kullanıyoruz
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        child: Container(
+                                          height: 26,
+                                          color:  renkler.ArkaRenk,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 12, right: 15),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(right: 30,left: 10),
+                                                  child: SizedBox(
+                                                    child: Text(
+                                                      '${myData[index]['kategori']}'
+                                                    ),
+                                                    width: 80,
                                                   ),
-                                                  width: 80,
                                                 ),
-                                              ),
 
-                                              Padding(
-                                                padding: const EdgeInsets.only(right: 30),
-                                                child: SizedBox(
-                                                  child: Text(
-                                                      '${myData[index]['odeme']}'
+                                                Padding(
+                                                  padding: const EdgeInsets.only(right: 30),
+                                                  child: SizedBox(
+                                                    child: Text(
+                                                        '${myData[index]['odeme']}'
+                                                    ),
+                                                    width: 80,
                                                   ),
-                                                  width: 80,
                                                 ),
-                                              ),
 
-                                              Padding(
-                                                padding: const EdgeInsets.only(right:4 ),
-                                                child: SizedBox(
-                                                  child: gelirGiderInfo(index, myData),
-                                                  width: 80,
+                                                Padding(
+                                                  padding: const EdgeInsets.only(right:4 ),
+                                                  child: SizedBox(
+                                                    child: gelirGiderInfo(index, myData),
+                                                    width: 80,
+                                                  ),
                                                 ),
-                                              ),
 
-                                              SizedBox(
-                                                child: Text(
-                                                    '${myData[index]['saat']}'
+                                                SizedBox(
+                                                  child: Text(
+                                                      '${myData[index]['saat']}'
+                                                  ),
+                                                  width: 40,
                                                 ),
-                                                width: 40,
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 5)   // elemanlar arasına bşluk bırakmak için kulllandım.
-                                ],
-                              );
-                            }
+                                    const SizedBox(height: 5)   // elemanlar arasına bşluk bırakmak için kulllandım.
+                                  ],
+                                );
+                              }
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
 
+          )
+          ],
         )
-        ],
-      )
+      ),
     );
 }
 

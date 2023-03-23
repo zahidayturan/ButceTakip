@@ -8,18 +8,24 @@ class SQLHelper {
   static Future<void> createTables(sql.Database database) async {
     await database.execute("""CREATE TABLE spendinfo(
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        gelir TEXT,
-        gider TEXT,
-        day TEXT,
-        month TEXT,
-        year TEXT,
+        operationType TEXT,
+        category TEXT,
+        operationTool TEXT,
+        registration INTEGER,
+        amount REAL,
+        note TEXT,
+        operationDay TEXT,
+        operationMonth TEXT,
+        operationYear TEXT,
+        operationTime TEXT,
+        operationDate TEXT,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
       """);
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
-      'bka_db.db',
+      'bka_db3.db',
       version: 1,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
@@ -27,7 +33,6 @@ class SQLHelper {
     );
   }
 
-  // Create new item (journal)
   static Future<int> createItem(spendinfo info) async {
     final db = await SQLHelper.db();
 
@@ -36,7 +41,6 @@ class SQLHelper {
     return id;
   }
 
-  // Read all items (journals)
   static Future<List<spendinfo>> getItems() async {
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', orderBy: "id");
@@ -44,10 +48,6 @@ class SQLHelper {
       return spendinfo.fromObject(result[index]);
     });
   }
-
-  // Read a single item by id
-  // The app doesn't use this method but I put here in case you want to see it
-
 
   static Future<int> updateItem(spendinfo info) async {
     final db = await SQLHelper.db();
@@ -65,4 +65,21 @@ class SQLHelper {
       debugPrint("Something went wrong when deleting an item: $err");
     }
   }
+
+  static Future<List<spendinfo>> getItemsByOperationMonthAndYear(String operationMonth, String operationYear) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationMonth = ? AND operationYear = ?", whereArgs: [operationMonth, operationYear], orderBy: "id");
+    return List.generate(result.length, (index){
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+
+  static Future<List<spendinfo>> getItemsByOperationDay(String operationDay) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationDay = ?", whereArgs: [operationDay], orderBy: "id");
+    return List.generate(result.length, (index){
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+
 }
