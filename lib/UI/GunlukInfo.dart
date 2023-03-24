@@ -1,6 +1,6 @@
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
-import 'package:butcekontrol/utils/dpHelper.dart';
+import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
 
 class GunlukInfo extends StatefulWidget{
@@ -176,6 +176,7 @@ class _GunlukInfoState extends State<GunlukInfo>{
                           thickness: 7,
                           radius: Radius.circular(15.0),
                           child: ListView.builder(
+                              controller: Scrollbarcontroller2,
                               itemCount : myData.length,
                               itemBuilder: (BuildContext context, index) {
                                 return Column(

@@ -3,7 +3,7 @@ import 'package:butcekontrol/UI/spenddetail.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
-import 'package:butcekontrol/utils/dpHelper.dart';
+import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
 
 class Aylikinfo extends StatefulWidget {
@@ -52,6 +52,7 @@ class _AylikinfoState extends State<Aylikinfo> {
                     )
                   ),
                   child: Scrollbar(
+                    controller: Scrolbarcontroller1,
                     scrollbarOrientation: ScrollbarOrientation.left,
                     isAlwaysShown: true,
                     interactive: true,

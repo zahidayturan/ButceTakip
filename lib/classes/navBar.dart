@@ -1,9 +1,10 @@
 import 'package:butcekontrol/App/Aylikinfo.dart';
+import 'package:butcekontrol/Pages/addData.dart';
 import 'package:butcekontrol/Pages/gunlukpage.dart';
 import 'package:butcekontrol/Pages/testPages.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:flutter/material.dart';
-import '../utils/dpHelper.dart';
+import '../utils/dbHelper.dart';
 
 class navBar extends StatefulWidget {
   //const navBar({Key? key}) : super(key: key);
@@ -98,6 +99,7 @@ class _MyHomePageState extends State<navBar> {
                 heightFactor: 1,
                 child: FloatingActionButton.large(
                   onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AddData()));
                     },
                   backgroundColor: Color(0xffF2CB05),
                   child: Icon(Icons.add_rounded, color: Colors.white, size: 64),
