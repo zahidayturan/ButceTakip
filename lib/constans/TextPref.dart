@@ -12,9 +12,10 @@ class Textmod extends StatelessWidget {
     return Text(
           text,
           style: TextStyle(
-            fontFamily: "Hexa",
+            fontFamily: "Nexa",
             color: this.color,
-            fontSize: this.size
+            fontSize: this.size,
+            fontWeight: FontWeight.w900,
           ),
       );
   }
