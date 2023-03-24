@@ -30,7 +30,7 @@ class _GunlukInfoState extends State<GunlukInfo>{
 
  */ // şuan kullanılmadığı için yorum satırı yaptım
   final ScrollController Scrollbarcontroller2 = ScrollController();
-  var renkler = CustomColors();
+  CustomColors renkler = CustomColors();
   List<Map<String, dynamic>> myData = [
     {'kategori': 'Burs', 'odeme': 'Kart', 'miktar' : 20, 'saat' : 14.55, 'gelir' : 1},
     {'kategori': 'Diger', 'odeme': 'Nakit', 'miktar' : 40, 'saat' : 16.21, 'gelir' : 0},

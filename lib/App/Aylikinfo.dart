@@ -28,6 +28,11 @@ class _AylikinfoState extends State<Aylikinfo> {
     super.initState();
     _refreshSpendinfoList();
   }
+<<<<<<< Updated upstream
+=======
+ var renkler = CustomColors();
+
+>>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
     CustomColors renkler = CustomColors();
