@@ -1,8 +1,7 @@
-import 'package:butcekontrol/App/Aylikinfo.dart';
+
 import 'package:butcekontrol/Pages/addData.dart';
-import 'package:butcekontrol/Pages/gunlukpage.dart';
+import 'package:butcekontrol/Pages/calculatorPage.dart';
 import 'package:butcekontrol/Pages/testPages.dart';
-import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:flutter/material.dart';
 import '../utils/dbHelper.dart';
 
@@ -58,7 +57,9 @@ class _MyHomePageState extends State<navBar> {
                             Icons.calendar_month_sharp,
                             color: Colors.white,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => testPages(),));
+                          },
                         ),
                         SizedBox(
                           width: size.width / 5,
@@ -70,6 +71,7 @@ class _MyHomePageState extends State<navBar> {
                             color: Colors.white,
                           ),
                           onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Calculator(),));
                           },
                         ),
                         IconButton(
