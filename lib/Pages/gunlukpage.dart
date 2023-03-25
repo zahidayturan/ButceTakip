@@ -14,7 +14,7 @@ class _gunlukpagesState extends State<gunlukpages> {
   CustomColors renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
-    spendinfo a =new spendinfo("200", "300", "Cumartesi", "Mart", "2023");
+    spendinfo a = new spendinfo("gelir", "Diğer", "Nakit", 1, 250, "Dünya boştur lo","23", "Mart", "2023", "23.54", DateTime.now().toString());
     List <spendinfo> anam = [a,a,a,a,a,a,a,a,a,a,a,a,a,a,a] ;
     var size = MediaQuery.of(context).size ;
     return Scaffold(
@@ -161,7 +161,10 @@ class _gunlukpagesState extends State<gunlukpages> {
                                                           onPressed: () {
                                                           },),
                                                       ),
-                                                      Textmod("işaretle", renkler.sariRenk, 12),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(top: 4.0),
+                                                        child: Textmod("işaretle", renkler.sariRenk, 12),
+                                                      ),
                                                     ],
                                                   ),
                                                   Column(
@@ -201,7 +204,10 @@ class _gunlukpagesState extends State<gunlukpages> {
                                                           onPressed: () {},
                                                         ),
                                                       ),
-                                                      Textmod("Düzenle", renkler.sariRenk, 12),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(top: 4.0),
+                                                        child: Textmod("Düzenle", renkler.sariRenk, 12),
+                                                      ),
                                                     ],
                                                   )
                                                 ],

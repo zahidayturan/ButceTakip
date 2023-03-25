@@ -3,7 +3,7 @@ import 'package:butcekontrol/UI/spenddetail.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
-import 'package:butcekontrol/utils/dpHelper.dart';
+import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
 
 class Aylikinfo extends StatefulWidget {
@@ -43,7 +43,7 @@ class _AylikinfoState extends State<Aylikinfo> {
       child: Column(
         children: [
           SizedBox(
-            height: 221,
+            height: size.height/3.04,
             child: Padding(      //borderin scroll ile birleşimi gözüksü diye soldan padding
               padding: const EdgeInsets.only(left: 3.0),
               child: DecoratedBox( // border için
@@ -57,6 +57,7 @@ class _AylikinfoState extends State<Aylikinfo> {
                     )
                   ),
                   child: Scrollbar(
+                    controller: Scrolbarcontroller1,
                     scrollbarOrientation: ScrollbarOrientation.left,
                     isAlwaysShown: true,
                     interactive: true,
@@ -66,8 +67,8 @@ class _AylikinfoState extends State<Aylikinfo> {
                         controller: Scrolbarcontroller1,
                         itemCount : _spendinfolist.length,
                         itemBuilder: (BuildContext context, index) {
-                          double? x = double.tryParse(_spendinfolist[index].gelir!) ;
-                          double? y = double.tryParse(_spendinfolist[index].gider!) ;
+                          double? x = double.tryParse(_spendinfolist[index].amount!.toString()) ;
+                          double? y = double.tryParse(_spendinfolist[index].amount!.toString()) ;
                           String? toplam = (x! - y!).toString() ;
                           return Column(
                             children: [
@@ -91,7 +92,7 @@ class _AylikinfoState extends State<Aylikinfo> {
                                             SizedBox(
                                                 width: ceyrekwsize ,
                                                 child: Text(
-                                                  _spendinfolist[index].day.toString(),
+                                                  _spendinfolist[index].operationDay.toString(),
                                                   style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -101,7 +102,7 @@ class _AylikinfoState extends State<Aylikinfo> {
                                               width: ceyrekwsize,
                                               child: Center(
                                                 child: Text(
-                                                  this._spendinfolist[index].gelir.toString(),
+                                                  this._spendinfolist[index].amount.toString(),
                                                   style: const TextStyle(
                                                     color: Colors.green,
                                                   ),
@@ -112,7 +113,7 @@ class _AylikinfoState extends State<Aylikinfo> {
                                               width: ceyrekwsize,
                                               child: Center(
                                                 child: Text(
-                                                  _spendinfolist[index].gider.toString(),
+                                                  _spendinfolist[index].amount.toString(),
                                                   style: const TextStyle(
                                                     color: Colors.red,
                                                   ),
@@ -156,31 +157,6 @@ class _AylikinfoState extends State<Aylikinfo> {
                 ),
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed:() {
-                  SQLHelper.createItem(spendinfo("0", "0", "MART", "mart", "MART"));
-                  _refreshSpendinfoList();
-                },
-                child: Text("Ekle"),
-              ),
-              ElevatedButton(
-                onPressed:() {
-                  SQLHelper.deleteItem(_spendinfolist[0].id!);
-                  _refreshSpendinfoList();
-                },
-                child: Text("Sil"),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-
-                  },
-                  child: Text("dene")
-              )
-            ],
           ),
         ],
       ),
