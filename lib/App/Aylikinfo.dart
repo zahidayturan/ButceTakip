@@ -14,11 +14,6 @@ class Aylikinfo extends StatefulWidget {
 class _AylikinfoState extends State<Aylikinfo> {
   final ScrollController Scrolbarcontroller1 = ScrollController();
   CustomColors renkler = CustomColors();
-<<<<<<< Updated upstream
-=======
-  List<spendinfo> _spendinfolist = [];
-  bool _isLoading = true;
->>>>>>> Stashed changes
 
   static String month = "3";
   static String year = "2023";
@@ -79,23 +74,6 @@ class _AylikinfoState extends State<Aylikinfo> {
                   child: Theme(
                     data: Theme.of(context).copyWith(
                         scrollbarTheme: ScrollbarThemeData(
-=======
-    var size = MediaQuery.of(context).size ;
-    return Center(
-      child: Column(
-        children: [
-          SizedBox(
-            height: size.height/3.04,
-            child: Padding(      //borderin scroll ile birleşimi gözüksü diye soldan padding
-              padding: const EdgeInsets.only(left: 3.0),
-              child: DecoratedBox( // border için
-                decoration: const BoxDecoration(
-                  border: Border(left: BorderSide(width: 5,color: Color(0xFF0D1C26)))
-                ),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    scrollbarTheme: ScrollbarThemeData(
->>>>>>> Stashed changes
                       thumbColor: MaterialStateProperty.all(renkler.sariRenk),
                     )),
                     child: Stack(
