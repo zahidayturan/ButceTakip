@@ -1,13 +1,13 @@
 import 'package:butcekontrol/Pages/gunlukpage.dart';
-import 'package:butcekontrol/UI/spenddetail.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
-import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
 class Aylikinfo extends StatefulWidget {
+  const Aylikinfo({super.key});
+
   @override
   State<Aylikinfo> createState() => _AylikinfoState();
 }
@@ -18,8 +18,8 @@ class _AylikinfoState extends State<Aylikinfo> {
   static String month = "3";
   static String year = "2023";
 
+
   static Stream<Map<String, Object>> myMethod() async* {
-    while (true) {
       List<spendinfo> items =
           await SQLHelper.getItemsByOperationMonthAndYear(month, year);
       var groupedItems = groupBy(items, (item) => item.operationDay);
@@ -41,8 +41,7 @@ class _AylikinfoState extends State<Aylikinfo> {
       dailyTotals = Map.fromEntries(dailyTotals.entries.toList()
         ..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
       yield {'items': items, 'dailyTotals': dailyTotals};
-      await Future.delayed(const Duration(seconds: 10));
-    }
+
   }
 
   @override
@@ -56,11 +55,10 @@ class _AylikinfoState extends State<Aylikinfo> {
       builder:
           (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         if (!snapshot.hasData) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        List<spendinfo> items = snapshot.data!['items'];
         var dailyTotals = snapshot.data!['dailyTotals'];
         return Center(
           child: Column(
@@ -92,10 +90,10 @@ class _AylikinfoState extends State<Aylikinfo> {
                         Scrollbar(
                           controller: Scrolbarcontroller1,
                           scrollbarOrientation: ScrollbarOrientation.left,
-                          isAlwaysShown: true,
+                          thumbVisibility: true,
                           interactive: true,
                           thickness: 7,
-                          radius: Radius.circular(15.0),
+                          radius: const Radius.circular(15.0),
                           child: ListView.builder(
                               controller: Scrolbarcontroller1,
                               itemCount: dailyTotals.length,
@@ -129,7 +127,7 @@ class _AylikinfoState extends State<Aylikinfo> {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        gunlukpages()));
+                                                        const gunlukpages()));
                                           },
                                           child: Container(
                                             height: 27.4,
@@ -144,12 +142,24 @@ class _AylikinfoState extends State<Aylikinfo> {
                                                 children: [
                                                   SizedBox(
                                                       width: ceyrekwsize,
-                                                      child: Text(
-                                                        '$day $dayOfWeekName',
-                                                        style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                      child: RichText(
+                                                        text:TextSpan(
+                                                          style: const TextStyle(
+                                                            fontFamily: 'Nexa',
+                                                            fontSize: 14,
+                                                            color: Colors.black,
+                                                          ),
+                                                          children: [
+                                                            TextSpan(
+                                                              text: '$day ',
+                                                              style: const TextStyle(fontWeight: FontWeight.w900),
+                                                            ),
+                                                            TextSpan(
+                                                              text: dayOfWeekName,
+                                                            ),
+                                                          ],
                                                         ),
+
                                                       )),
                                                   SizedBox(
                                                     width: ceyrekwsize,
@@ -191,12 +201,12 @@ class _AylikinfoState extends State<Aylikinfo> {
                                                     ),
                                                     padding:
                                                         const EdgeInsets.all(1),
-                                                    icon: eyeColorChoice(12.2),
+                                                    icon: eyeColorChoice(formattedTotal),
                                                     onPressed: () {
                                                       Navigator.of(context).push(
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  gunlukpages()));
+                                                                  const gunlukpages()));
                                                     },
                                                   )
                                                 ],
@@ -225,8 +235,8 @@ class _AylikinfoState extends State<Aylikinfo> {
     );
   }
 
-  Widget eyeColorChoice(double toplam) {
-    if (toplam < 0) {
+  Widget eyeColorChoice(String toplam) {
+    if (toplam.contains('-')) {
       return const Icon(
         Icons.remove_red_eye,
         color: Colors.red,
@@ -264,19 +274,19 @@ class _AylikinfoState extends State<Aylikinfo> {
   String _getDayOfWeekName(int dayOfWeek) {
     switch (dayOfWeek) {
       case 1:
-        return 'Pzti';
+        return 'Pzrtsi';
       case 2:
         return 'Salı';
       case 3:
-        return 'Çarş';
+        return 'Çrşmba';
       case 4:
-        return 'Perş';
+        return 'Perşmb';
       case 5:
         return 'Cuma';
       case 6:
-        return 'Ctsi';
+        return 'Cmrtsi';
       case 7:
-        return 'Pazr';
+        return 'Pazar';
       default:
         return '';
     }
