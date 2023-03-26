@@ -1,12 +1,9 @@
 import 'package:butcekontrol/constans/MaterialColor.dart';
+import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Generalinfo extends StatefulWidget {
-  const Generalinfo({Key? key}) : super(key: key);
 
-  @override
-  State<Generalinfo> createState() => _GeneralinfoState();
-}
 
 class Calender_Bka {
   List <String> Mounths = ["Ocak", "Subat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Agustos", "Eylül", "Ekim", "Kasım", "Aralık" ];
@@ -14,15 +11,20 @@ class Calender_Bka {
   List <String> Days = ["Monday", "Thuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 }
 
-class _GeneralinfoState extends State<Generalinfo> {
-  var gelir = 6950.0 ;
-  var gider = 440.5 ;
-  var toplam = "+255.4" ;
-  var renkler = CustomColors();
-  int indexyear  = Calender_Bka().Years.indexOf(DateTime.now().year.toString());
-  int indexmounth = DateTime.now().month - 1;
+class Generalinfo extends ConsumerWidget { //statelesswidget
+  const Generalinfo({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var readhome = ref.read(homeRiverpod);
+    var watchhome = ref.watch(homeRiverpod);
+    var readdatabase = ref.read(databaseRiverpod);
+    var gelir = 6950.0 ;
+    var gider = 440.5 ;
+    var toplam = "+255.4" ;
+    var renkler = CustomColors();
+    int indexyear  = readhome.indexyear;
+    int indexmounth = readhome.indexmounth;
     final double devicedata = MediaQuery.of(context).size.width;
     Calender_Bka calender = new Calender_Bka();  // aşağıdaki classı tanımladık.
     return Container(
@@ -54,9 +56,8 @@ class _GeneralinfoState extends State<Generalinfo> {
                         indexmounth = 11 ;
                       }
                     }
-                    setState(() {
-
-                    });
+                    readhome.changeindex(indexmounth, indexyear);
+                    readdatabase.setMonthandYear((indexmounth + 1).toString(), calender.Years[indexyear]);
                 },
               ),
               ClipRRect( // yuvarlıyorum ay değişimi barını
@@ -71,7 +72,7 @@ class _GeneralinfoState extends State<Generalinfo> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          calender.Mounths[indexmounth],
+                          calender.Mounths[readhome.indexmounth],
                           style: const TextStyle(
                             color:  Colors.white,
                             fontSize: 15,
@@ -80,7 +81,7 @@ class _GeneralinfoState extends State<Generalinfo> {
                         ), // Ay gösterge
                         const SizedBox(width: 6), // bunu verdim çünkü yıl ile ay arsnıdna boşluk yapmam gereiyordu.
                         Text(
-                          calender.Years[indexyear],
+                          calender.Years[readhome.indexyear],
                          style: const TextStyle(
                            color:  Colors.white,
                            fontSize: 16,
@@ -104,14 +105,16 @@ class _GeneralinfoState extends State<Generalinfo> {
                   minWidth: 25,
                 ),
                 onPressed: () {
-                  if (indexmounth < calender.Mounths.length - 1 ){
+                  if (indexmounth < calender.Mounths.length - 1){
                     indexmounth += 1 ;
                   } else if(indexyear < calender.Years.length - 1){
                     indexmounth = 0 ;
                     indexyear += 1 ;
                   }
-                  setState(() {
-                  });
+                  print(indexmounth) ;
+                  readhome.changeindex(indexmounth, indexyear);
+                  readdatabase.setMonthandYear((indexmounth +1 ).toString(), calender.Years[indexyear]);
+
                 },
               ),
             ],

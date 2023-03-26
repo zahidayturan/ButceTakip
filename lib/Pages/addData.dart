@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/utils/DateTimeManager.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
+
+import '../riverpod_management.dart';
 
 
 
@@ -24,12 +27,13 @@ class _AddDataState extends State<AddData> {
   }
 }
 
-class _AddAppBar extends StatelessWidget implements PreferredSizeWidget {
+class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const _AddAppBar({Key? key}) : super(key: key);
   @override
   Size get preferredSize => const Size.fromHeight(60);
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var read = ref.read(botomNavBarRiverpod);
     final Size size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width,
@@ -82,7 +86,7 @@ class _AddAppBar extends StatelessWidget implements PreferredSizeWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          read.setCurrentindex(0);
                         },
                       ),
                     )
@@ -159,7 +163,7 @@ class _ButtonMenu extends State<ButtonMenu> {
   final TextEditingController _note = TextEditingController(text: "NOT");
   final TextEditingController _amount = TextEditingController(text: "154.50");
   final TextEditingController _operationType =
-  TextEditingController(text: "Gelir");
+  TextEditingController(text: "Gider");
   final TextEditingController _category = TextEditingController(text: "Harclik");
   final TextEditingController _operationTool =
   TextEditingController(text: "Nakit");
@@ -174,8 +178,6 @@ class _ButtonMenu extends State<ButtonMenu> {
   //int _registration = 0;
   int clickedNoteID = -1;
   String operation = "";
-
-
   DateTime? _selectedDate;
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -193,17 +195,17 @@ class _ButtonMenu extends State<ButtonMenu> {
   }
 
   var heightt1 = 45.0;
-  var widthh1 = 75.0;
+  var widthh1 = 85.0;
   var top1 = 1.0;
   var bottom1;
   var right1;
-  var left1 = 1.0;
+  var left1 = 0.0;
   var heightt2 = 45.0;
-  var widthh2 = 75.0;
+  var widthh2 = 85.0;
   var top2 = 1.0;
   var bottom2;
   var right2;
-  var left2 = 1.0;
+  var left2 = 0.0;
 
   int selecteed = 0;
   int regss = 0;
@@ -270,28 +272,28 @@ class _ButtonMenu extends State<ButtonMenu> {
                               TextButton(
                                   onPressed: () {
                                     setState(() {
-                                      selecteed = 1;
+                                      selecteed = 0;
                                       left1 = 0.0;
                                       top1 = 1.0;
                                       widthh1 = size.width / 4.8;
-                                      _operationType.text = "Gelir";
+                                      _operationType.text = "Gider";
                                     });
                                   },
-                                  child: const Text("GELIR",
+                                  child: const Text("GIDER",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 17))),
                               TextButton(
                                   onPressed: () {
                                     setState(() {
-                                      selecteed = 0;
+                                      selecteed = 1;
                                       top1 = 0.8;
                                       left1 = size.width / 5.8;
                                       widthh1 = size.width / 5;
-                                      _operationType.text = "Gider";
+                                      _operationType.text = "Gelir";
                                     });
                                   },
-                                  child: const Text("GIDER",
+                                  child: const Text("GELIR",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 17))),
