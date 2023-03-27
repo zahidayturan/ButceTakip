@@ -1,3 +1,4 @@
+import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -86,6 +87,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
+                          Navigator.of(context).pop();
                           read.setCurrentindex(0);
                         },
                       ),
@@ -181,10 +183,37 @@ class _ButtonMenu extends State<ButtonMenu> {
   DateTime? _selectedDate;
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
+      locale: Locale("tr"),
+
       context: context,
       initialDate: _selectedDate ?? DateTime.now(),
       firstDate: DateTime(2020),
       lastDate: DateTime(2030),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme(
+                brightness: Brightness.light,
+                primary: renkler.koyuuRenk, // üst taraf arkaplan rengi
+                onPrimary: renkler.sariRenk,
+                secondary: renkler.koyuuRenk,
+                onSecondary: renkler.yesilRenk,
+                error: renkler.kirmiziRenk,
+                onError: renkler.kirmiziRenk,
+                background: renkler.sariRenk,
+                onBackground: renkler.sariRenk,
+                surface: renkler.sariRenk,
+                onSurface: renkler.koyuuRenk   //günlerin rengi
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                primary: Colors.red,
+              )
+            )
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null) {
       setState(() {
@@ -209,6 +238,7 @@ class _ButtonMenu extends State<ButtonMenu> {
 
   int selecteed = 0;
   int regss = 0;
+  CustomColors renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
