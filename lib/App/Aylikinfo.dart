@@ -12,8 +12,10 @@ class Aylikinfo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ScrollController Scrolbarcontroller1 = ScrollController();
     var read = ref.read(databaseRiverpod);
-    var watch = ref.watch(databaseRiverpod);
-    read.refreshDB();
+    var listen = ref.listen(databaseRiverpod, (previous, next) { }
+
+
+    );
     CustomColors renkler = CustomColors();
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;
     var size = MediaQuery.of(context).size;
@@ -198,7 +200,7 @@ class Aylikinfo extends ConsumerWidget {
                                                                  '$formattedTotal',
                                                                  style: const TextStyle(
                                                                    color: Colors
-                                                                       .red,
+                                                                       .black,
                                                                  ),
                                                                ),
                                                              ),

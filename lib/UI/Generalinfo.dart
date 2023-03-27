@@ -19,8 +19,7 @@ class Generalinfo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var readhome = ref.read(homeRiverpod);
     var watchhome = ref.watch(homeRiverpod);
-    var watchdb = ref.watch(databaseRiverpod);
-    var readdatabase = ref.read(databaseRiverpod);
+    var readdb = ref.read(databaseRiverpod);
     CustomColors renkler = CustomColors();
     int indexyear = watchhome.indexyear;
     int indexmounth = watchhome.indexmounth;
@@ -28,9 +27,9 @@ class Generalinfo extends ConsumerWidget {
         .of(context)
         .size
         .width;
-    Calender_Bka calender = new Calender_Bka(); // aşağıdaki classı tanımladık.
+    Calender_Bka calender = Calender_Bka(); // aşağıdaki classı tanımladık.
     return StreamBuilder<Map<String, dynamic>>(
-        stream: watchdb.myMethod(),
+        stream: readdb.myMethod(),
         builder:
             (BuildContext context,
             AsyncSnapshot<Map<String, dynamic>> snapshot) {
@@ -73,13 +72,13 @@ class Generalinfo extends ConsumerWidget {
                           }
                         }
                         readhome.changeindex(indexmounth, indexyear);
-                        readdatabase.setMonthandYear(
+                        readdb.setMonthandYear(
                             (indexmounth + 1).toString(),
                             calender.Years[indexyear]);
                       },
                     ),
                     ClipRRect( // yuvarlıyorum ay değişimi barını
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(50),
                           bottomRight: Radius.circular(50)),
                       child: Container(
@@ -136,7 +135,7 @@ class Generalinfo extends ConsumerWidget {
                         }
                         print(indexmounth);
                         readhome.changeindex(indexmounth, indexyear);
-                        readdatabase.setMonthandYear(
+                        readdb.setMonthandYear(
                             (indexmounth + 1).toString(),
                             calender.Years[indexyear]);
                       },
@@ -159,7 +158,7 @@ class Generalinfo extends ConsumerWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 "Gelir",
                                 style: TextStyle(
                                   fontSize: 22,
@@ -168,8 +167,8 @@ class Generalinfo extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                readdatabase.getTotalAmountPositive(items),
-                                style: TextStyle(
+                                readdb.getTotalAmountPositive(items),
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontStyle: FontStyle.normal,
                                   color: Colors.green,
@@ -189,7 +188,7 @@ class Generalinfo extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                readdatabase.getTotalAmountNegative(items),
+                                readdb.getTotalAmountNegative(items),
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontStyle: FontStyle.normal,
@@ -210,7 +209,7 @@ class Generalinfo extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                readdatabase.getTotalAmount(items),
+                                readdb.getTotalAmount(items),
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontStyle: FontStyle.normal,

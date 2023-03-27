@@ -12,6 +12,7 @@ class DbProvider extends ChangeNotifier {
   void setMonthandYear(month, year) {
     this.month = month;
     this.year = year;
+    myMethod();
     notifyListeners();
   }
 
