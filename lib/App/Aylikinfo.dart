@@ -1,10 +1,11 @@
 import 'package:butcekontrol/Pages/gunlukpage.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
-import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../constans/TextPref.dart';
 
 
 class Aylikinfo extends ConsumerWidget {
@@ -13,9 +14,11 @@ class Aylikinfo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ScrollController Scrolbarcontroller1 = ScrollController();
     var read = ref.read(databaseRiverpod);
-    var listen = ref.listen(databaseRiverpod, (previous, next) { }
-
-
+    var listen = ref.listen(databaseRiverpod, (previous, next) {
+      ref.watch(databaseRiverpod).month;
+      ref.watch(databaseRiverpod).isuseinsert ;
+      return ref.watch(databaseRiverpod);
+    }
     );
     CustomColors renkler = CustomColors();
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;
