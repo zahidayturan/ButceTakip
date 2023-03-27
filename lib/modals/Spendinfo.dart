@@ -12,8 +12,33 @@ class spendinfo {
   String ?operationYear ;
   String ?operationTime ;
 
-  spendinfo(this.operationType, this.category,this.operationTool, this.registration, this.amount, this.note, this.operationDay,this.operationMonth, this.operationYear,this.operationTime, this.operationDate);
-  spendinfo.withId(this.id, this.operationType, this.category,this.operationTool, this.registration, this.amount, this.note, this.operationDay,this.operationMonth, this.operationYear,this.operationTime, this.operationDate);
+  spendinfo(
+      this.operationType,
+      this.category,
+      this.operationTool,
+      this.registration,
+      this.amount,
+      this.note,
+      this.operationDay,
+      this.operationMonth,
+      this.operationYear,
+      this.operationTime,
+      this.operationDate
+      );
+  spendinfo.withId(
+      this.id,
+      this.operationType,
+      this.category,
+      this.operationTool,
+      this.registration,
+      this.amount,
+      this.note,
+      this.operationDay,
+      this.operationMonth,
+      this.operationYear,
+      this.operationTime,
+      this.operationDate
+      );
 
   Map<String,dynamic> toMap(){
     var map = < String, dynamic>{} ;

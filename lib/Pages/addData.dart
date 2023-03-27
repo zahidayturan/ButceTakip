@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/utils/DateTimeManager.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
+
+import '../riverpod_management.dart';
 
 
 
@@ -24,12 +27,13 @@ class _AddDataState extends State<AddData> {
   }
 }
 
-class _AddAppBar extends StatelessWidget implements PreferredSizeWidget {
+class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const _AddAppBar({Key? key}) : super(key: key);
   @override
   Size get preferredSize => const Size.fromHeight(60);
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var read = ref.read(botomNavBarRiverpod);
     final Size size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width,
@@ -82,7 +86,7 @@ class _AddAppBar extends StatelessWidget implements PreferredSizeWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          read.setCurrentindex(0);
                         },
                       ),
                     )
