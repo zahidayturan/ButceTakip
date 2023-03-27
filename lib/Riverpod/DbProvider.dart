@@ -7,18 +7,17 @@ class DbProvider extends ChangeNotifier {
 
   String month = DateTime.now().month.toString();
   String year = DateTime.now().year.toString() ;
+  bool isuseinsert = false ;
   List<spendinfo> anan = [];
 
   void setMonthandYear(month, year) {
     this.month = month;
     this.year = year;
-    myMethod();
     notifyListeners();
   }
 
   void refreshDB() async {
     var data = await SQLHelper.getItems();
-    myMethod();
     anan = data ;
     notifyListeners();
   }
@@ -51,7 +50,7 @@ class DbProvider extends ChangeNotifier {
             _operationDate
         );
         await SQLHelper.createItem(newinfo);
-        refreshDB();
+        isuseinsert = !isuseinsert ;
         notifyListeners();
       }
 

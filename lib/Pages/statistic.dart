@@ -16,7 +16,7 @@ class statistic extends ConsumerWidget {
       body:  Column(
         children: [
           ElevatedButton(
-            onPressed: () => readdb.insertDataBase("Gelir", "Giyim", "Nakit", 0 , 30.0, "Zahidin dogum gunu harcamaları","16.03.2023"),
+            onPressed: () => readdb.insertDataBase("Gelir", "Giyim", "Nakit", 0 , 30.0, "Zahidin dogum gunu harcamaları","16.02.2023"),
             child: Text("ekle"),
           ),
           ElevatedButton(

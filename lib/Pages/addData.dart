@@ -155,13 +155,13 @@ class BNBCustomPainter2 extends CustomPainter {
   }
 }
 
-class ButtonMenu extends StatefulWidget {
+class ButtonMenu extends ConsumerStatefulWidget {
   const ButtonMenu({Key? key}) : super(key: key);
   @override
-  _ButtonMenu createState() => _ButtonMenu();
+  ConsumerState<ButtonMenu> createState() => _ButtonMenu();
 }
 
-class _ButtonMenu extends State<ButtonMenu> {
+class _ButtonMenu extends ConsumerState<ButtonMenu> {
   final TextEditingController _note = TextEditingController(text: "NOT");
   final TextEditingController _amount = TextEditingController(text: "154.50");
   final TextEditingController _operationType =
@@ -239,8 +239,21 @@ class _ButtonMenu extends State<ButtonMenu> {
   int selecteed = 0;
   int regss = 0;
   CustomColors renkler = CustomColors();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var read = ref.read(databaseRiverpod);
     var size = MediaQuery.of(context).size;
     //resizeToAvoidBottomInset: false,
     return SizedBox(
@@ -764,10 +777,14 @@ class _ButtonMenu extends State<ButtonMenu> {
                           padding: const EdgeInsets.only(left: 6),
                           child: TextButton(
                             onPressed: () {
+                              read.insertDataBase(_operationType.text, _category.text, _operationTool.text, int.parse(_registration.text), double.parse(_amount.text), _note.text, _operationDate.text);
+                              /*
                               _addItem(
                                 int.parse(_registration.text),
                                 double.parse(_amount.text),
                               );
+
+                               */
                               Navigator.pop(context);
                             },
                             child: const Text("KAYDET",

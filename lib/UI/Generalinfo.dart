@@ -133,7 +133,6 @@ class Generalinfo extends ConsumerWidget {
                           indexmounth = 0;
                           indexyear += 1;
                         }
-                        print(indexmounth);
                         readhome.changeindex(indexmounth, indexyear);
                         readdb.setMonthandYear(
                             (indexmounth + 1).toString(),

@@ -13,9 +13,11 @@ class Aylikinfo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ScrollController Scrolbarcontroller1 = ScrollController();
     var read = ref.read(databaseRiverpod);
-    var listen = ref.listen(databaseRiverpod, (previous, next) { }
-
-
+    var listen = ref.listen(databaseRiverpod, (previous, next) {
+      ref.watch(databaseRiverpod)!.month;
+      ref.watch(databaseRiverpod)?.isuseinsert ;
+      return ref.watch(databaseRiverpod);
+    }
     );
     CustomColors renkler = CustomColors();
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;
@@ -206,25 +208,7 @@ class Aylikinfo extends ConsumerWidget {
                                                                ),
                                                              ),
                                                            ),
-                                                           IconButton(
-                                                             constraints:
-                                                             const BoxConstraints(
-                                                               maxHeight: 30,
-                                                             ),
-                                                             padding:
-                                                             const EdgeInsets
-                                                                 .all(1),
-                                                             icon: eyeColorChoice(formattedTotal),
-                                                             onPressed: () {
-                                                               Navigator.of(
-                                                                   context)
-                                                                   .push(
-                                                                   MaterialPageRoute(
-                                                                       builder: (
-                                                                           context) =>
-                                                                           gunlukpages()));
-                                                             },
-                                                           )
+                                                           eyeColorChoice(formattedTotal),
                                                          ],
                                                        ),
                                                      ),

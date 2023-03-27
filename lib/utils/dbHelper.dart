@@ -37,7 +37,6 @@ class SQLHelper {
 
   static Future<int> createItem(spendinfo info) async {
     final db = await SQLHelper.db();
-
     final data = info.toMap();
     final id = await db.insert('spendinfo', data, conflictAlgorithm: sql.ConflictAlgorithm.replace);
     return id;
