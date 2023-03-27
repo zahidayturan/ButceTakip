@@ -9,21 +9,24 @@ class statistic extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var read = ref.read(databaseRiverpod);
+    var readdb = ref.read(databaseRiverpod);
+    var readnvbar = ref.read(botomNavBarRiverpod);
     return Scaffold(
       appBar:  appbarCustom(),
       body:  Column(
         children: [
           ElevatedButton(
-            onPressed: () => read.insertDataBase("gider", "Giyim", "Nakit", 0 , 20.0, "Zahidin dogum gunu harcamaları","16.08.2023"),
+            onPressed: () => readdb.insertDataBase("Gelir", "Giyim", "Nakit", 0 , 30.0, "Zahidin dogum gunu harcamaları","16.03.2023"),
             child: Text("ekle"),
           ),
           ElevatedButton(
-            onPressed: () => read.Delete(),
+            onPressed: () => readdb.Delete(),
             child: Text("sil"),
           ),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home(),)),
+            onPressed: () {
+              readnvbar.setCurrentindex(0);
+            },
             child: Text("don"),
           ),
         ],

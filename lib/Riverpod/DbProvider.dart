@@ -5,10 +5,9 @@ import '../modals/Spendinfo.dart';
 import 'package:collection/collection.dart';
 class DbProvider extends ChangeNotifier {
 
-  List <spendinfo> anan = [];
-  List <spendinfo> sortedbymonth = [];
   String month = DateTime.now().month.toString();
   String year = DateTime.now().year.toString() ;
+  List<spendinfo> anan = [];
 
   void setMonthandYear(month, year) {
     this.month = month;
@@ -18,6 +17,7 @@ class DbProvider extends ChangeNotifier {
 
   void refreshDB() async {
     var data = await SQLHelper.getItems();
+    myMethod();
     anan = data ;
     notifyListeners();
   }
@@ -70,6 +70,7 @@ class DbProvider extends ChangeNotifier {
             .where((element) => element.operationType == 'Gelir')
             .fold(
             0, (previousValue, element) => previousValue + element.amount!);
+
         double totalAmount2 = dayItems
             .where((element) => element.operationType == 'Gider')
             .fold(
@@ -84,5 +85,30 @@ class DbProvider extends ChangeNotifier {
       notifyListeners();
       yield {"items" : items, "dailyTotals" : dailyTotals};
       }
+    String getTotalAmount(List<spendinfo> items) {
+      double totalAmount = items
+          .where((element) => element.operationType == 'Gelir')
+          .fold(0, (previousValue, element) => previousValue + element.amount!);
+      double totalAmount2 = items
+          .where((element) => element.operationType == 'Gider')
+          .fold(0, (previousValue, element) => previousValue + element.amount!);
+      return (totalAmount - totalAmount2).toStringAsFixed(1);
+    }
+
+    String getTotalAmountPositive(List<spendinfo> items) {
+      double totalAmount = items
+          .where((element) => element.operationType == 'Gelir')
+          .fold(0, (previousValue, element) => previousValue + element.amount!);
+
+      return totalAmount.toStringAsFixed(1);
+    }
+
+    String getTotalAmountNegative(List<spendinfo> items) {
+      double totalAmount2 = items
+          .where((element) => element.operationType == 'Gider')
+          .fold(0, (previousValue, element) => previousValue + element.amount!);
+      return totalAmount2.toStringAsFixed(1);
+    }
+
 
 }

@@ -27,8 +27,6 @@ class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
         return Calculator();
       case 4 :
         return More();
-      case 5 :
-        return AddData();
       default :
         return Home();
     }
