@@ -5,6 +5,7 @@ import '../modals/Spendinfo.dart';
 import 'package:collection/collection.dart';
 class DbProvider extends ChangeNotifier {
 
+  bool isuseinsert = false ;
   String month = DateTime.now().month.toString();
   String year = DateTime.now().year.toString() ;
   List<spendinfo> anan = [];
@@ -32,28 +33,28 @@ class DbProvider extends ChangeNotifier {
       String? _note,
       String _operationDate,
       )async {
-      String time = _operationDate ;
-      List <String> parts = time.split(".");
-      int parseDay = int.parse(parts[0]);
-      int parseMonth = int.parse(parts[1]);
-      int parseYear = int.parse(parts[2]);
-        final newinfo = spendinfo(
-            _operationType,
-            _category,
-            _operationTool,
-            _registration,
-            _amount,
-            _note,
-            parseDay.toString(),
-            parseMonth.toString(),
-            parseYear.toString(),
-            DateTimeManager.getCurrentTime(),
-            _operationDate
-        );
-        await SQLHelper.createItem(newinfo);
-        refreshDB();
-        notifyListeners();
-      }
+    String time = _operationDate ;
+    List <String> parts = time.split(".");
+    int parseDay = int.parse(parts[0]);
+    int parseMonth = int.parse(parts[1]);
+    int parseYear = int.parse(parts[2]);
+    final newinfo = spendinfo(
+        _operationType,
+        _category,
+        _operationTool,
+        _registration,
+        _amount,
+        _note,
+        parseDay.toString(),
+        parseMonth.toString(),
+        parseYear.toString(),
+        DateTimeManager.getCurrentTime(),
+        _operationDate
+    );
+    await SQLHelper.createItem(newinfo);
+    isuseinsert = !isuseinsert ;
+    notifyListeners();
+  }
 
     Future Delete() async{
       await SQLHelper.deleteItem(anan[anan.length - 1].id!);

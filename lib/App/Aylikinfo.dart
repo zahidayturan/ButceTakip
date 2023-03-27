@@ -5,6 +5,8 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../constans/TextPref.dart';
+
 
 class Aylikinfo extends ConsumerWidget {
   const Aylikinfo({Key ? key})  : super(key : key);
@@ -12,9 +14,11 @@ class Aylikinfo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ScrollController Scrolbarcontroller1 = ScrollController();
     var read = ref.read(databaseRiverpod);
-    var listen = ref.listen(databaseRiverpod, (previous, next) { }
-
-
+    var listen = ref.listen(databaseRiverpod, (previous, next) {
+      ref.watch(databaseRiverpod).month;
+      ref.watch(databaseRiverpod).isuseinsert ;
+      return ref.watch(databaseRiverpod);
+    }
     );
     CustomColors renkler = CustomColors();
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;

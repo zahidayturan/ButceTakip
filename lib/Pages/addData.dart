@@ -155,13 +155,13 @@ class BNBCustomPainter2 extends CustomPainter {
   }
 }
 
-class ButtonMenu extends StatefulWidget {
+class ButtonMenu extends ConsumerStatefulWidget {
   const ButtonMenu({Key? key}) : super(key: key);
   @override
-  _ButtonMenu createState() => _ButtonMenu();
+  ConsumerState<ButtonMenu> createState() => _ButtonMenu();
 }
 
-class _ButtonMenu extends State<ButtonMenu> {
+class _ButtonMenu extends ConsumerState<ButtonMenu> {
   final TextEditingController _note = TextEditingController(text: "NOT");
   final TextEditingController _amount = TextEditingController(text: "154.50");
   final TextEditingController _operationType =
@@ -243,6 +243,8 @@ class _ButtonMenu extends State<ButtonMenu> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     //resizeToAvoidBottomInset: false,
+    var read = ref.read(databaseRiverpod);
+    var read2 = ref.read(botomNavBarRiverpod);
     return SizedBox(
       height: size.height,
       child: Padding(
@@ -764,11 +766,9 @@ class _ButtonMenu extends State<ButtonMenu> {
                           padding: const EdgeInsets.only(left: 6),
                           child: TextButton(
                             onPressed: () {
-                              _addItem(
-                                int.parse(_registration.text),
-                                double.parse(_amount.text),
-                              );
-                              Navigator.pop(context);
+                              read.insertDataBase(_operationType.text, _category.text, _operationTool.text, int.parse(_registration.text), double.parse(_amount.text), _note.text, _operationDate.text);
+                              Navigator.of(context).pop();
+                              read2.setCurrentindex(0);
                             },
                             child: const Text("KAYDET",
                                 style: TextStyle(
