@@ -11,7 +11,7 @@ class Statistics extends StatefulWidget{
 
 }
 
-class _StatisticsState extends State<Statistics>{  
+class _StatisticsState extends State<Statistics>{
   var listMonths = ["OCAK", "SUBAT", "MART", "NISAN", "MAYIS", "HAZIRAN", "TEMMUZ", "AGUSTOS", "EYLUL", "EKIM", "KASIM", "ARALIK"];
   var renkler = CustomColors();
   @override
@@ -33,44 +33,7 @@ class _StatisticsState extends State<Statistics>{
                       children: [
                         RotatedBox( //butonları çevirmek için
                             quarterTurns: 3,
-                            child: Container(
-                              height: 40,
-                              width: 180,
-                              decoration: BoxDecoration(
-                                  color: renkler.koyuuRenk,
-                                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  TextButton(
-                                      onPressed: () {
-
-                                      },
-                                      child: Text(
-                                        "GELIR",
-                                        style: TextStyle(
-                                            color: renkler.YaziRenk,
-                                            fontSize: 20
-                                        ),
-
-                                      )
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-
-                                    },
-                                    child: Text(
-                                      "GIDER",
-                                      style: TextStyle(
-                                          color: renkler.YaziRenk,
-                                          fontSize: 20
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
+                            child: CustomButton(),
                         ),
                       ],
                     ),
@@ -148,5 +111,130 @@ class _StatisticsState extends State<Statistics>{
       bottomNavigationBar: navBar(),
     );
   }
+}
 
+
+class CustomButton extends StatefulWidget { // gelir gider buton animasyonlari
+  @override
+  _CustomButtonState createState() => _CustomButtonState();
+}
+
+class _CustomButtonState extends State<CustomButton> {
+  double buttonHeight = 34; //Basılmamış yükseklik
+  double buttonHeight2 = 40; //Basılmış yükseklik
+  Color containerColor2 = const Color(0xff0D1C26); //Basılmamış renk
+  Color containerColor = const Color(0xffF2CB05); //Basılmış renk
+  Color textColor2 = Colors.white; //Basılmamış yazı rengi
+  Color textColor = const Color(0xff0D1C26); //Basılmış yazı rengi
+  int index = 0; // Gider ve Gelir butonları arasında geçiş yapmak için
+
+  void changeColor2(int index) {
+    if (index == 0) { //index 0 olunca Gider için ayarlanıyor
+      setState(() {
+        buttonHeight2 = 40;
+        buttonHeight = 34;
+        containerColor = const Color(0xffF2CB05);
+        containerColor2 = const Color(0xff0D1C26);
+        textColor = const Color(0xff0D1C26);
+        textColor2 = Colors.white;
+        this.index = 1;
+      });
+    } else { //index 0'dan farklı olunca Gelir için ayarlanıyor
+      setState(() {
+        buttonHeight = 40;
+        buttonHeight2 = 34;
+        containerColor2 = const Color(0xffF2CB05);
+        containerColor = const Color(0xff0D1C26);
+        textColor = Colors.white;
+        textColor2 = const Color(0xff0D1C26);
+        this.index = 0;
+      });
+    }
+  }
+
+  Widget customButtonTheme2() {
+    return SizedBox(
+      height: 40,
+      child: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(20)),
+              color: Color(0xff0D1C26),
+            ),
+            height: 34,
+            width: 170,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 11),
+            child: Row(
+              //mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1200),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(15),
+                        bottomLeft: Radius.circular(15)),
+                    color: containerColor,
+                  ),
+                  height: buttonHeight2,
+                  child: SizedBox(
+                    width: 75,
+                    child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            changeColor2(0);
+                          });
+                        },
+                        child: Text("GİDER",
+                            style: TextStyle(
+                                color: textColor,
+                                fontSize: 17,
+                                fontFamily: 'Nexa4',
+                                fontWeight: FontWeight.w800))),
+                  ),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1200),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(15),
+                        bottomLeft: Radius.circular(15)),
+                    color: containerColor2,
+                  ),
+                  height: buttonHeight,
+                  child: SizedBox(
+                    width: 75,
+                    child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            changeColor2(1);
+                          });
+                        },
+                        child: Text("GELİR",
+                            style: TextStyle(
+                                color: textColor2,
+                                fontSize: 17,
+                                fontFamily: 'Nexa4',
+                                fontWeight: FontWeight.w800))),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return customButtonTheme2();
+  }
 }

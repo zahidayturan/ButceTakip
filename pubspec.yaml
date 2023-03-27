@@ -33,7 +33,7 @@ dependencies:
   flutter_localization: ^0.1.10
   sqflite: ^2.2.6
   path: ^1.8.0
-  intl: ^0.18.0
+  intl: ^0.17.0
   pie_chart:
   flutter_riverpod: ^2.3.2
 
@@ -82,8 +82,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Nexa
+    - family: Nexa4
       fonts:
+       - asset: fonts/NEXAHEAVY.OTF
        - asset: assets/fonts/NEXABOLD.OTF
        - asset: assets/fonts/NEXA_BOLD.OTF
        - asset: assets/fonts/NEXAHEAVY.OTF

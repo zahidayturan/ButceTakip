@@ -97,7 +97,7 @@ class _GunlukInfoState extends State<GunlukInfo>{
                 const Padding(
                   padding: EdgeInsets.only( right: 25, top: 5,),
                   child: Text(
-                      '22.11.2023',
+                      "22.11.2023",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w900
