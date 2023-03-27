@@ -256,6 +256,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     var read = ref.read(databaseRiverpod);
     var size = MediaQuery.of(context).size;
     //resizeToAvoidBottomInset: false,
+    var read = ref.read(databaseRiverpod);
+    var read2 = ref.read(botomNavBarRiverpod);
     return SizedBox(
       height: size.height,
       child: Padding(
@@ -778,14 +780,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           child: TextButton(
                             onPressed: () {
                               read.insertDataBase(_operationType.text, _category.text, _operationTool.text, int.parse(_registration.text), double.parse(_amount.text), _note.text, _operationDate.text);
-                              /*
-                              _addItem(
-                                int.parse(_registration.text),
-                                double.parse(_amount.text),
-                              );
-
-                               */
-                              Navigator.pop(context);
+                              Navigator.of(context).pop();
+                              read2.setCurrentindex(0);
                             },
                             child: const Text("KAYDET",
                                 style: TextStyle(
