@@ -11,7 +11,7 @@ class Statistics extends StatefulWidget{
 
 }
 
-class _StatisticsState extends State<Statistics>{
+class _StatisticsState extends State<Statistics>{  
   var listMonths = ["OCAK", "SUBAT", "MART", "NISAN", "MAYIS", "HAZIRAN", "TEMMUZ", "AGUSTOS", "EYLUL", "EKIM", "KASIM", "ARALIK"];
   var renkler = CustomColors();
   @override
