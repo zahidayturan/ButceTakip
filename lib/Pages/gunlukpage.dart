@@ -14,7 +14,7 @@ class _gunlukpagesState extends State<gunlukpages> {
   CustomColors renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
-    spendinfo a = new spendinfo("gelir", "Diğer", "Nakit", 1, 250, "Dünya boştur lo","23", "Mart", "2023", "23.54", DateTime.now().toString());
+    spendinfo a = new spendinfo("gelir", "Diğer", "Nakit", 1, 250, "Dünya boştur lo", "23", "Mart", "2023", "23.54", DateTime.now().toString());
     List <spendinfo> anam = [a,a,a,a,a,a,a,a,a,a,a,a,a,a,a] ;
     var size = MediaQuery.of(context).size ;
     return Scaffold(

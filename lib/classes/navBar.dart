@@ -1,22 +1,23 @@
-import 'package:butcekontrol/App/Aylikinfo.dart';
+
 import 'package:butcekontrol/Pages/addData.dart';
 import 'package:butcekontrol/Pages/gunlukpage.dart';
 import 'package:butcekontrol/Pages/statistics.dart';
 import 'package:butcekontrol/Pages/testPages.dart';
-import 'package:butcekontrol/modals/Spendinfo.dart';
+import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../riverpod_management.dart';
 import '../utils/dbHelper.dart';
 
-class navBar extends StatefulWidget {
-  //const navBar({Key? key}) : super(key: key);
-  @override
-  State<navBar> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<navBar> {
+class navBar extends ConsumerWidget {
+  const navBar({Key ?key}) : super(key : key) ;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var watch = ref.watch(botomNavBarRiverpod);
+    var read = ref.read(botomNavBarRiverpod);
+    var selectindex = watch.currentindex;
+    CustomColors renkler = CustomColors();
     final Size size = MediaQuery.of(context).size;
     return Container(
       //alignment: Alignment.bottomCenter,
@@ -59,7 +60,11 @@ class _MyHomePageState extends State<navBar> {
                             Icons.calendar_month_sharp,
                             color: Colors.white,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            read.setCurrentindex(2);
+                            print("takvim");
+                            //Navigator.of(context).push(MaterialPageRoute(builder: (context) => testPages(),));
+                          }
                         ),
                         SizedBox(
                           width: size.width / 5,
@@ -69,9 +74,13 @@ class _MyHomePageState extends State<navBar> {
                             size: 30,
                             Icons.calculate_sharp,
                             color: Colors.white,
+
                           ),
-                          onPressed: () {
-                          },
+                          onPressed:() {
+                            read.setCurrentindex(3);
+                            print("hesap makinesi");
+                            //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Calculator(),));
+                          }
                         ),
                         IconButton(
                           icon: const Icon(
@@ -79,7 +88,10 @@ class _MyHomePageState extends State<navBar> {
                             Icons.keyboard_control_sharp,
                             color: Colors.white,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            read.setCurrentindex(4);
+                            print("Daha Fazla");
+                          }
                         )
                       ],
                     ),
@@ -100,7 +112,7 @@ class _MyHomePageState extends State<navBar> {
                 heightFactor: 1,
                 child: FloatingActionButton.large(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AddData()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddData(),));
                     },
                   backgroundColor: Color(0xffF2CB05),
                   child: Icon(Icons.add_rounded, color: Colors.white, size: 64),

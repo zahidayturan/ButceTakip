@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 import '../modals/Spendinfo.dart';
@@ -22,6 +23,7 @@ class SQLHelper {
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
       """);
+
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
@@ -83,3 +85,4 @@ class SQLHelper {
   }
 
 }
+
