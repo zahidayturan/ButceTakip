@@ -19,7 +19,6 @@ class Generalinfo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var readhome = ref.read(homeRiverpod);
     var watchhome = ref.watch(homeRiverpod);
-    var watchdb = ref.watch(databaseRiverpod);
     var readdb = ref.read(databaseRiverpod);
     CustomColors renkler = CustomColors();
     int indexyear = watchhome.indexyear;
