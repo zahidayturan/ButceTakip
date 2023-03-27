@@ -1,6 +1,7 @@
 import 'package:butcekontrol/App/Aylikinfo.dart';
 import 'package:butcekontrol/Pages/addData.dart';
 import 'package:butcekontrol/Pages/gunlukpage.dart';
+import 'package:butcekontrol/Pages/statistics.dart';
 import 'package:butcekontrol/Pages/testPages.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class _MyHomePageState extends State<navBar> {
                             color: Colors.white,
                           ),
                           onPressed: () {
-
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Statistics()));
                           },
                         ),
                         IconButton(
