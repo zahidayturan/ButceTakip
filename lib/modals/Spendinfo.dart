@@ -1,33 +1,75 @@
 class spendinfo {
   int ?id ;
-  String ?gelir;
-  String ?gider;
-  String ?day ;
-  String ?month ;
-  String ?year ;
+  String ?operationType;
+  String ?category;
+  String ?operationTool ;
+  int ?registration ;
+  double ?amount ;
+  String ?note ;
+  String ?operationDate ;
+  String ?operationDay ;
+  String ?operationMonth ;
+  String ?operationYear ;
+  String ?operationTime ;
 
-  spendinfo(this.gelir, this.gider,this.day, this.month, this.year);
-  spendinfo.withId(this.id, this.gelir, this.gider,this.day, this.month, this.year);
+  spendinfo(
+      this.operationType,
+      this.category,
+      this.operationTool,
+      this.registration,
+      this.amount,
+      this.note,
+      this.operationDay,
+      this.operationMonth,
+      this.operationYear,
+      this.operationTime,
+      this.operationDate
+      );
+  spendinfo.withId(
+      this.id,
+      this.operationType,
+      this.category,
+      this.operationTool,
+      this.registration,
+      this.amount,
+      this.note,
+      this.operationDay,
+      this.operationMonth,
+      this.operationYear,
+      this.operationTime,
+      this.operationDate
+      );
 
   Map<String,dynamic> toMap(){
     var map = < String, dynamic>{} ;
     print("tomap çalıştı.");
-    map["id"] = id ;
-    map["gelir"] = gelir ;
-    map["gider"] = gider ;
-    map["day"] = day ;
-    map["month"] = month ;
-    map["year"] = year ;
+    map["operationType"] = operationType ;
+    map["category"] = category ;
+    map["operationTool"] = operationTool ;
+    map["registration"] = registration ;
+    map["amount"] = amount ;
+    map["note"] = note ;
+    map["operationDay"] = operationDay ;
+    map["operationMonth"] = operationMonth ;
+    map["operationYear"] = operationYear ;
+    map["operationTime"] = operationTime ;
+    map["operationDate"] = operationDate ;
     print("tomap sonlandı");
     return map ;
   }
   spendinfo.fromObject(dynamic o){
     id =  o["id"] as int ;
-    gelir = o["gelir"]  ;
-    gider = o["gider"]  ;
-    day   = o["day"];
-    month = o["month"];
-    year  = o["year"] ;
+    operationType = o["operationType"]  ;
+    category = o["category"]  ;
+    operationTool   = o["operationTool"];
+    registration = o["registration"];
+    amount  = o["amount"] ;
+    note  = o["note"] ;
+    operationDay = o["operationDay"]  ;
+    operationMonth = o["operationMonth"]  ;
+    operationYear   = o["operationYear"];
+    operationTime = o["operationTime"];
+    operationDate  = o["operationDate"] ;
   }
 
 }
