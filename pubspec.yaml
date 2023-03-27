@@ -84,10 +84,8 @@ flutter:
   fonts:
     - family: Nexa4
       fonts:
-       - asset: fonts/NEXAHEAVY.OTF
        - asset: assets/fonts/NEXABOLD.OTF
        - asset: assets/fonts/NEXA_BOLD.OTF
-       - asset: assets/fonts/NEXAHEAVY.OTF
        - asset: assets/fonts/NEXABLACK.OTF
          weight: 300
   # For details regarding fonts from package dependencies,

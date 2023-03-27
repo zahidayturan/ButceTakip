@@ -12,7 +12,6 @@ class Statistics extends StatefulWidget{
 }
 
 class _StatisticsState extends State<Statistics>{
-  var listMonths = ["OCAK", "SUBAT", "MART", "NISAN", "MAYIS", "HAZIRAN", "TEMMUZ", "AGUSTOS", "EYLUL", "EKIM", "KASIM", "ARALIK"];
   var renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
@@ -46,57 +45,14 @@ class _StatisticsState extends State<Statistics>{
                     ],
                   ),
                 ),
-                Expanded(
+                Expanded( // (ay, hafta, yıl) butonları
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Column(
                       children: [
                         RotatedBox(
                           quarterTurns: 3,
-                          child: Row(
-                            children: [
-                              Container(
-                                height: 40,
-                                width: 170,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                                  color: renkler.koyuuRenk,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container( // bunu ayrı bir dart dosyasında yazmaya çalış
-                                      alignment: Alignment.center,
-                                      height: 40,
-                                      width: 40,
-                                      child: Text('AY'),
-                                      decoration: BoxDecoration(
-                                        color: renkler.sariRenk,
-                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                                        // buraya ay yıl hafta açılabilir menu gelecek, veya stack i kullanarak position ile üstüne yazarız
-                                      ),
-                                    ),
-
-                                    Text( // yukarıdaki oluşturulan ay listesinden indexleme ile ay çekiliyor
-                                      "${listMonths[DateTime.now().month - 1]}",
-                                      style: TextStyle(
-                                        color: renkler.YaziRenk,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                    Text(
-                                      " ${DateTime.now().year}",
-                                      style: TextStyle(
-                                        color: renkler.YaziRenk,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                          child: CustomBotton2(),
                         )
                       ],
                     ),
@@ -113,8 +69,121 @@ class _StatisticsState extends State<Statistics>{
   }
 }
 
+class CustomBotton2 extends StatefulWidget{ // sağ taraftaki (ay, hafta, yıl) butonları
+  @override
+    _CustomButtonState2 createState() => _CustomButtonState2();
 
-class CustomButton extends StatefulWidget { // gelir gider buton animasyonlari
+}
+class _CustomButtonState2 extends State<CustomBotton2>{
+  var listMonths = ["OCAK", "SUBAT", "MART", "NISAN", "MAYIS", "HAZIRAN", "TEMMUZ", "AGUSTOS", "EYLUL", "EKIM", "KASIM", "ARALIK"];
+  var renkler = CustomColors();
+  var zaman = DateTime.now();
+  var monthYearWeekButton = "AY"; // popup menunun butonunun yazısıdır
+  late var monthYearWeekButtonResult = "${listMonths[zaman.month - 1]} ${zaman.year}";
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                height: 40,
+                width: 190,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                  color: renkler.koyuuRenk,
+                ),
+                child: Padding( // row içindeki yazıları sağ yasladığımız için onlara sağdan padding verdik
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end, // yazıları sağ yasladık
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+
+                      Text( // yukarıdaki oluşturulan ay listesinden indexleme ile ay çekiliyor
+                        monthYearWeekButtonResult,
+                        style: TextStyle(
+                          color: renkler.YaziRenk,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: -10,
+                width:70,
+                height: 50,
+                child: Container( // bunu ayrı bir dart dosyasında yazmaya çalış
+                  key: UniqueKey(),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: renkler.sariRenk,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                    // buraya ay yıl hafta açılabilir menu gelecek, veya stack i kullanarak position ile üstüne yazarız
+                  ),
+                  child: PopupMenuButton(
+                      onSelected: (value){
+                        setState(() {
+                          monthYearWeekSelect(value);
+                        });
+                      },
+                      color: renkler.sariRenk,
+                      child: Text(
+                        "${monthYearWeekButton}",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: renkler.koyuuRenk,
+                        ),
+                      ),
+                      itemBuilder: (BuildContext context) => [
+                        PopupMenuItem(child: Text('AY'), value: "AY",),
+                        PopupMenuItem(child: Text('HAFTA'), value: "HAFTA",),
+                        PopupMenuItem(child: Text('YIL'), value: "YIL",),
+                      ]),
+                ),
+              ),
+            ]
+        ),
+      ],
+    );
+  }
+  monthYearWeekSelect(var value){ // bu metod (ay,yıl,hafta) seçeneklerden birisini seçince butonun yanındaki yazılar seçilene göre değişecektir.
+    if(value == "AY") {
+      monthYearWeekButton = value;
+      monthYearWeekButtonResult = "${listMonths[zaman.month - 1]} ${zaman.year}";
+    }
+    else if(value == "HAFTA"){
+      monthYearWeekButton = value;
+      if(zaman.day >= 1 && zaman.day <= 7){
+        monthYearWeekButtonResult = "1.${zaman.month}~7.${zaman.month}";
+      }
+      else if(zaman.day >= 8 && zaman.day <= 14){
+        monthYearWeekButtonResult = "8.${zaman.month}~14.${zaman.month}";
+      }
+      else if(zaman.day >= 15 && zaman.day <= 21){
+        monthYearWeekButtonResult = "15.${zaman.month}~21.${zaman.month}";
+      }
+      else if(zaman.day >= 22){
+        if(zaman.month == 12) // aralık ayında isek başa döneceği için bu şekilde koşul koyduk
+          monthYearWeekButtonResult = "22.${zaman.month}  ~  1.1";
+        else
+          monthYearWeekButtonResult = "22.${zaman.month}  ~  1.${zaman.month + 1}";
+      }
+    }
+    else if(value == "YIL"){
+      monthYearWeekButton = value;
+      monthYearWeekButtonResult = "${zaman.year}~${zaman.year + 1}";
+    }
+  }
+}
+
+
+class CustomButton extends StatefulWidget { // sol taraftaki gelir gider buton animasyonlari
   @override
   _CustomButtonState createState() => _CustomButtonState();
 }
@@ -238,3 +307,4 @@ class _CustomButtonState extends State<CustomButton> {
     return customButtonTheme2();
   }
 }
+
