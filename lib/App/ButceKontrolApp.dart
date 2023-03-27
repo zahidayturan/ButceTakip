@@ -10,19 +10,10 @@ class ButceKontrolApp extends StatelessWidget {
     return MaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: [
-        const Locale('en'),
-        const Locale('zh'),
-        const Locale('he'),
-        const Locale('ru'),
-        const Locale('fr', 'BE'),
-        const Locale('fr', 'CA'),
-        const Locale('ja'),
-        const Locale('de'),
-        const Locale('hi'),
-        const Locale('ar'),
         const Locale('tr'),
       ],
       locale: const Locale('tr'),
