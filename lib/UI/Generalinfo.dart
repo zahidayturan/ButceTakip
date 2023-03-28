@@ -133,7 +133,6 @@ class Generalinfo extends ConsumerWidget {
                           indexmounth = 0;
                           indexyear += 1;
                         }
-                        print(indexmounth);
                         readhome.changeindex(indexmounth, indexyear);
                         readdb.setMonthandYear(
                             (indexmounth + 1).toString(),
@@ -222,7 +221,7 @@ class Generalinfo extends ConsumerWidget {
                               Icons.search,
                               size: 35,
                             ),
-                            padding: EdgeInsets.zero,
+                            padding: EdgeInsets.only(right: 12),
                             constraints: const BoxConstraints(
                               minWidth: 30,
                             ),

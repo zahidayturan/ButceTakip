@@ -88,7 +88,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();
-                          read.setCurrentindex(0);
+                          read.setCurrentindex(read.current!);
                         },
                       ),
                     )
@@ -239,6 +239,18 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   int selecteed = 0;
   int regss = 0;
   CustomColors renkler = CustomColors();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
