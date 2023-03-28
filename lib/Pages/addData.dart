@@ -88,7 +88,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();
-                          read.setCurrentindex(0);
+                          read.setCurrentindex(read.current!);
                         },
                       ),
                     )
@@ -253,7 +253,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
 
   @override
   Widget build(BuildContext context) {
-    var read = ref.read(databaseRiverpod);
     var size = MediaQuery.of(context).size;
     //resizeToAvoidBottomInset: false,
     var read = ref.read(databaseRiverpod);

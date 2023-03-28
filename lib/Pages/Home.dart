@@ -1,7 +1,7 @@
 import 'package:butcekontrol/classes/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../App/Aylikinfo.dart';
+import '../UI/Aylikinfo.dart';
 import '../UI/Generalinfo.dart';
 import '../UI/GunlukInfo.dart';
 

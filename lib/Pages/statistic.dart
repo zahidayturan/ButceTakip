@@ -20,10 +20,6 @@ class statistic extends ConsumerWidget {
             child: Text("ekle"),
           ),
           ElevatedButton(
-            onPressed: () => readdb.Delete(),
-            child: Text("sil"),
-          ),
-          ElevatedButton(
             onPressed: () {
               readnvbar.setCurrentindex(0);
             },

@@ -74,11 +74,21 @@ class SQLHelper {
       return spendinfo.fromObject(result[index]);
     });
   }
-
+   //sadece günlük sorgu tehlikeli
   static Future<List<spendinfo>> getItemsByOperationDay(String operationDay) async {
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "operationDay = ?", whereArgs: [operationDay], orderBy: "id");
     return List.generate(result.length, (index){
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+  static Future<List<spendinfo>> getItemsByOperationDayMonthAndYear(String operaitonDay, String operationMonth,String operationYear) async{
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationDay = ? AND operationMonth = ? AND operationYear = ?",
+      whereArgs: [operaitonDay,operationMonth, operationYear],
+      orderBy: "id",
+    );
+    return List.generate(result.length, (index) {
       return spendinfo.fromObject(result[index]);
     });
   }

@@ -221,7 +221,7 @@ class Generalinfo extends ConsumerWidget {
                               Icons.search,
                               size: 35,
                             ),
-                            padding: EdgeInsets.zero,
+                            padding: EdgeInsets.only(right: 12),
                             constraints: const BoxConstraints(
                               minWidth: 30,
                             ),
