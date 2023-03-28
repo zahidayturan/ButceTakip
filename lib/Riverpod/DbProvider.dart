@@ -3,24 +3,40 @@ import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
 import '../modals/Spendinfo.dart';
 import 'package:collection/collection.dart';
+
 class DbProvider extends ChangeNotifier {
 
   bool isuseinsert = false ;
   String month = DateTime.now().month.toString();
   String year = DateTime.now().year.toString() ;
-  List<spendinfo> anan = [];
+  Future<List<spendinfo>> ?daylist ;
+  String ?status ;
+  String ?day ;
+  String ?Date ;
+  void setDate(String date) {
+    this.Date = date ;
+    notifyListeners();
+  }
+
+  void setStatus(String status){
+    this.status = status ;
+    notifyListeners();
+  }
+
+  void setDay(String day){
+    this.day = day ;
+    notifyListeners();
+  }
 
   void setMonthandYear(month, year) {
     this.month = month;
     this.year = year;
-    myMethod();
     notifyListeners();
   }
 
   void refreshDB() async {
     var data = await SQLHelper.getItems();
-    myMethod();
-    anan = data ;
+    myMethod2();
     notifyListeners();
   }
 
@@ -56,8 +72,14 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-    Future Delete() async{
-      await SQLHelper.deleteItem(anan[anan.length - 1].id!);
+    Future Delete(int id) async{
+      await SQLHelper.deleteItem(id);
+      print("silindi");
+      refreshDB();
+      notifyListeners();
+    }
+    Future Update(spendinfo info) async{
+      await SQLHelper.updateItem(info);
       refreshDB();
       notifyListeners();
     }
@@ -87,6 +109,14 @@ class DbProvider extends ChangeNotifier {
       notifyListeners();
       yield {"items" : items, "dailyTotals" : dailyTotals};
       }
+
+    Future <List<spendinfo>> myMethod2() async{
+      List<spendinfo> items =
+      await SQLHelper.getItemsByOperationDayMonthAndYear(day!, month, year);
+      notifyListeners();
+      return items;
+    }
+
     String getTotalAmount(List<spendinfo> items) {
       double totalAmount = items
           .where((element) => element.operationType == 'Gelir')

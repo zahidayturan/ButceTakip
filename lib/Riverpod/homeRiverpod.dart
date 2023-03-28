@@ -10,7 +10,16 @@ class HomeRiverpod extends ChangeNotifier {
 
   int indexyear = Calender_Bka().Years.indexOf(DateTime.now().year.toString());
   int indexmounth = DateTime.now().month - 1  ;
+  String ?income  ;
+  String ?expense ;
+  String ?totally ;
 
+  void setDailyStatus(String income, String expense, String totally){
+     this.income = income;
+     this.expense = expense ;
+     this.totally = totally ;
+     notifyListeners();
+  }
   void changeindex(indexmounthh, indexyearr){
     indexmounth = indexmounthh;
     indexyear = indexyearr ;
