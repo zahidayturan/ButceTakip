@@ -1,5 +1,7 @@
 
 import 'package:butcekontrol/Pages/addData.dart';
+import 'package:butcekontrol/Pages/gunlukpage.dart';
+import 'package:butcekontrol/Pages/statistics.dart';
 import 'package:butcekontrol/Pages/testPages.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +50,9 @@ class navBar extends ConsumerWidget {
                             Icons.equalizer,
                             color: Colors.white,
                           ),
-                          onPressed:() {
-                            print("istatistik");
-                            read.setCurrentindex(1);
-                          }
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Statistics()));
+                          },
                         ),
                         IconButton(
                           icon: const Icon(
