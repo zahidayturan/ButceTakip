@@ -113,6 +113,7 @@ class navBar extends ConsumerWidget {
                 child: FloatingActionButton.large(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddData(),));
+                    read.setcur();
                     },
                   backgroundColor: Color(0xffF2CB05),
                   child: Icon(Icons.add_rounded, color: Colors.white, size: 64),

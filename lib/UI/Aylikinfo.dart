@@ -1,21 +1,26 @@
 import 'package:butcekontrol/Pages/gunlukpage.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
-import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../constans/TextPref.dart';
 
 
 class Aylikinfo extends ConsumerWidget {
   const Aylikinfo({Key ? key})  : super(key : key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ScrollController Scrolbarcontroller1 = ScrollController();
+    final ScrollController scrolbarcontroller1 = ScrollController();
     var read = ref.read(databaseRiverpod);
-    var listen = ref.listen(databaseRiverpod, (previous, next) { }
-
-
+    var readNavBar = ref.read(botomNavBarRiverpod);
+    var readHome = ref.read(homeRiverpod);
+    ref.listen(databaseRiverpod, (previous, next) { ///bune mk bakılacak ? bunun sayesinde çlaışıyor bakıcam
+      ref.watch(databaseRiverpod).month;
+      ref.watch(databaseRiverpod).isuseinsert ;
+      return ref.watch(databaseRiverpod);
+    }
     );
     CustomColors renkler = CustomColors();
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;
@@ -30,6 +35,7 @@ class Aylikinfo extends ConsumerWidget {
                    );
                  }
                  var dailyTotals = snapshot.data!['dailyTotals'];
+                 var items = snapshot.data!["items"];
                  return Center(
                    child: Column(
                      children: [
@@ -54,17 +60,17 @@ class Aylikinfo extends ConsumerWidget {
                                          width: 110,
                                          child: DecoratedBox(
                                              decoration: BoxDecoration(
-                                               borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+                                               borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
                                                border: Border.all(
                                                    color: Colors.black, width: 2),
                                              ),
-                                             child: Center(child: Textmod(
+                                             child: const Center(child: Textmod(
                                                  "Kayıt Yok", Colors.amber, 18))
                                              ),
-                                           ),
+                                         ),
                                      ],
                                    ),
-                                     )
+                                )
                                : Theme(
                                    data: Theme.of(context).copyWith(
                                        scrollbarTheme: ScrollbarThemeData(
@@ -87,15 +93,15 @@ class Aylikinfo extends ConsumerWidget {
                                        ),
                                      ),
                                      Scrollbar(
-                                       controller: Scrolbarcontroller1,
+                                       controller: scrolbarcontroller1,
+                                       thumbVisibility: true,
                                        scrollbarOrientation: ScrollbarOrientation
                                            .left,
-                                       isAlwaysShown: true,
                                        interactive: true,
                                        thickness: 7,
                                        radius: Radius.circular(15.0),
                                        child: ListView.builder(
-                                           controller: Scrolbarcontroller1,
+                                           controller: scrolbarcontroller1,
                                            itemCount: dailyTotals.length,
                                            itemBuilder: (BuildContext context,
                                                index) {
@@ -126,11 +132,15 @@ class Aylikinfo extends ConsumerWidget {
                                                  BorderRadius.circular(10.0),
                                                  child: InkWell(
                                                    onTap: () {
-                                                     Navigator.of(context).push(
-                                                         MaterialPageRoute(
-                                                             builder: (
-                                                                 context) =>
-                                                                 gunlukpages()));
+                                                     readHome.setDailyStatus(totalAmount.toString(), totalAmount2.toString(), formattedTotal.toString());
+                                                     if (double.parse(formattedTotal) <= 0) {
+                                                       read.setStatus("-");
+                                                     }else{
+                                                       read.setStatus("+");
+                                                     }
+                                                     read.setDay(day);
+                                                     read.setDate(items[index].operationDate);
+                                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  gunlukpages(),));
                                                    },
                                                    child: Container(
                                                      height: 27.4,
@@ -175,7 +185,7 @@ class Aylikinfo extends ConsumerWidget {
                                                              child: Center(
                                                                child: Text(
                                                                  "$totalAmount",
-                                                                 style: TextStyle(
+                                                                 style: const TextStyle(
                                                                    color: Colors
                                                                        .green,
                                                                  ),
@@ -206,25 +216,7 @@ class Aylikinfo extends ConsumerWidget {
                                                                ),
                                                              ),
                                                            ),
-                                                           IconButton(
-                                                             constraints:
-                                                             const BoxConstraints(
-                                                               maxHeight: 30,
-                                                             ),
-                                                             padding:
-                                                             const EdgeInsets
-                                                                 .all(1),
-                                                             icon: eyeColorChoice(formattedTotal),
-                                                             onPressed: () {
-                                                               Navigator.of(
-                                                                   context)
-                                                                   .push(
-                                                                   MaterialPageRoute(
-                                                                       builder: (
-                                                                           context) =>
-                                                                           gunlukpages()));
-                                                             },
-                                                           )
+                                                           eyeColorChoice(formattedTotal),
                                                          ],
                                                        ),
                                                      ),
