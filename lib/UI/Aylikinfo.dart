@@ -1,6 +1,5 @@
 import 'package:butcekontrol/Pages/gunlukpage.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
-import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +13,6 @@ class Aylikinfo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ScrollController scrolbarcontroller1 = ScrollController();
     var read = ref.read(databaseRiverpod);
-    var readNavBar = ref.read(botomNavBarRiverpod);
     var readHome = ref.read(homeRiverpod);
     ref.listen(databaseRiverpod, (previous, next) { ///bune mk bakılacak ? bunun sayesinde çlaışıyor bakıcam
       ref.watch(databaseRiverpod).month;
@@ -99,7 +97,7 @@ class Aylikinfo extends ConsumerWidget {
                                            .left,
                                        interactive: true,
                                        thickness: 7,
-                                       radius: Radius.circular(15.0),
+                                       radius: const Radius.circular(15.0),
                                        child: ListView.builder(
                                            controller: scrolbarcontroller1,
                                            itemCount: dailyTotals.length,
@@ -107,8 +105,8 @@ class Aylikinfo extends ConsumerWidget {
                                                index) {
                                              var keys = dailyTotals.keys.toList();
                                              var day = keys[index];
-                                             var _month = read.month;
-                                             var _year = read.year;
+                                             var month = read.month;
+                                             var year = read.year;
                                              var dayTotals = dailyTotals[day]!;
                                              var totalAmount = dayTotals['totalAmount']!;
                                              var totalAmount2 = dayTotals['totalAmount2']!;
@@ -117,8 +115,8 @@ class Aylikinfo extends ConsumerWidget {
                                                  .toStringAsFixed(2);
 
                                              var dateTime = DateTime(
-                                                 int.parse(_year),
-                                                 int.parse(_month), int.parse(day));
+                                                 int.parse(year),
+                                                 int.parse(month), int.parse(day));
                                              var dayOfWeekName =
                                              _getDayOfWeekName(dateTime.weekday);
                                          return Column(
@@ -140,7 +138,7 @@ class Aylikinfo extends ConsumerWidget {
                                                      }
                                                      read.setDay(day);
                                                      read.setDate(items[index].operationDate);
-                                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  gunlukpages(),));
+                                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const gunlukpages(),));
                                                    },
                                                    child: Container(
                                                      height: 27.4,
@@ -254,30 +252,6 @@ class Aylikinfo extends ConsumerWidget {
       return const Icon(Icons.remove_red_eye, color: Colors.black);
     }
   }
-  String getTotalAmount(List<spendinfo> items) {
-    double totalAmount = items
-        .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    double totalAmount2 = items
-        .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(2);
-  }
-
-  String getTotalAmountPositive(List<spendinfo> items) {
-    double totalAmount = items
-        .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    return totalAmount.toStringAsFixed(2);
-  }
-
-  String getTotalAmountNegative(List<spendinfo> items) {
-    double totalAmount2 = items
-        .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    return totalAmount2.toStringAsFixed(2);
-  }
-
   String _getDayOfWeekName(int dayOfWeek) {
     switch (dayOfWeek) {
       case 1:
