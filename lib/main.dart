@@ -8,5 +8,5 @@ void main() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,  // Sadece Dikeyde çalışması için .
   ]);
-  runApp(ProviderScope(child: ButceKontrolApp()));
+  runApp(const ProviderScope(child: ButceKontrolApp()));
 }
