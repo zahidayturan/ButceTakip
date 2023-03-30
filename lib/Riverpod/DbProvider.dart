@@ -6,6 +6,8 @@ import 'package:collection/collection.dart';
 
 class DbProvider extends ChangeNotifier {
 
+  int geliramount = 0 ;
+  int gideramount = 0 ;
   bool isuseinsert = false ;
   String month = DateTime.now().month.toString();
   String year = DateTime.now().year.toString() ;
@@ -13,9 +15,18 @@ class DbProvider extends ChangeNotifier {
   String ?status ;
   String ?day ;
   String ?Date ;
-  void setDate(String date) {
-    this.Date = date ;
-    notifyListeners();
+  void setDate() {  ///aylık info da onclicked de kullanılıyor appbar tip 2 için
+    if(day!.length == 1){
+      if (month.length == 1) {
+        this.Date = "0" + day! + "." + "0" + month + "." + year;
+      } else
+        this.Date = "0" + day! + "." + month + "." + year;
+    } else {
+      if (month.length == 1) {
+        this.Date = day! + "." + "0" + month + "." + year;
+      } else
+        this.Date = day! + "." + month + "." + year;
+    }
   }
 
   void setStatus(String status){
@@ -23,12 +34,12 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setDay(String day){
+  void setDay(String day){ /// aylık info da guncelliyoruz gunlukpage de filitre icin.
     this.day = day ;
     notifyListeners();
   }
 
-  void setMonthandYear(month, year) {
+  void setMonthandYear(month, year) {  /// generalinfo da guncelleniyor
     this.month = month;
     this.year = year;
     notifyListeners();
@@ -72,7 +83,7 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-    Future Delete(int id) async{
+    Future Delete(int id) async{   /// gunlukpage de kullanıyoruz
       await SQLHelper.deleteItem(id);
       print("silindi");
       refreshDB();
@@ -83,8 +94,23 @@ class DbProvider extends ChangeNotifier {
       refreshDB();
       notifyListeners();
     }
+    Future <List<spendinfo>> myMethod2() async{  /// gunlukpage filitreleme
+      geliramount = 0;
+      gideramount = 0;
+      List<spendinfo> items =
+      await SQLHelper.getItemsByOperationDayMonthAndYear(day!, month, year);  /// month ve year general info da guncelleniyor day ise aylık info onclick:
+      for (int index = 0; index < items.length ; index++ ){
+        if (items[index].operationType == "Gelir"){
+          geliramount++ ;
+        }else{
+          gideramount++ ;
+        }
+      }
+      notifyListeners();
+      return items;
+    }
 
-    Stream <Map<String, Object>> myMethod() async* {
+    Stream <Map<String, Object>> myMethod() async* {  /// aylık info filitre için
       List<spendinfo> items =
       await SQLHelper.getItemsByOperationMonthAndYear(month ,year);
       var groupedItems = groupBy(items, (item) => item.operationDay);
@@ -110,12 +136,6 @@ class DbProvider extends ChangeNotifier {
       yield {"items" : items, "dailyTotals" : dailyTotals};
       }
 
-    Future <List<spendinfo>> myMethod2() async{
-      List<spendinfo> items =
-      await SQLHelper.getItemsByOperationDayMonthAndYear(day!, month, year);
-      notifyListeners();
-      return items;
-    }
 
     String getTotalAmount(List<spendinfo> items) {
       double totalAmount = items

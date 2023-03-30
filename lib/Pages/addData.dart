@@ -1509,7 +1509,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
 
   Widget OperationCustomButton(BuildContext context) {
     var read = ref.read(databaseRiverpod);
-    var read2 = ref.read(botomNavBarRiverpod);
+    var readNavBar = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width * 0.9,
@@ -1560,7 +1560,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     onPressed: () {
                       read.insertDataBase(_operationType.text, _category.text, _operationTool.text, int.parse(_registration.text), double.parse(_amount.text), _note.text, _operationDate.text);
                       Navigator.of(context).pop();
-                      read2.setCurrentindex(0);
+                      readNavBar.setCurrentindex(0);
                     },
                     child: const Text("KAYDET",style: TextStyle(
                         color: Color(0xff0D1C26),

@@ -113,7 +113,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 10),
+                      padding: const EdgeInsets.only(left: 10, top: 4.8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         // tür bilgilendirme kısmı.(kategori, ödeme, miktar, saat)
@@ -174,9 +174,9 @@ class _GunlukInfoState extends State<GunlukInfo> {
                             child: Theme(
                               data: Theme.of(context).copyWith(
                                   scrollbarTheme: ScrollbarThemeData(
-                                thumbColor:
+                                    thumbColor:
                                     MaterialStateProperty.all(renkler.sariRenk),
-                              )),
+                                  )),
                               child: Stack(
                                 children: [
                                   Padding(
@@ -195,7 +195,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                     controller: Scrollbarcontroller2,
                                     thumbVisibility: true,
                                     scrollbarOrientation:
-                                        ScrollbarOrientation.left,
+                                    ScrollbarOrientation.left,
                                     interactive: true,
                                     thickness: 7,
                                     radius: const Radius.circular(15.0),
@@ -205,7 +205,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                         itemBuilder:
                                             (BuildContext context, index) {
                                           spendinfo item =
-                                              snapshot.data![index];
+                                          snapshot.data![index];
                                           return Column(
                                             children: [
                                               Padding(
@@ -214,8 +214,8 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                                 child: ClipRRect(
                                                   //Borderradius vermek için kullanıyoruz
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
+                                                  BorderRadius.circular(
+                                                      10.0),
                                                   child: Container(
                                                     height: 26,
                                                     color: renkler.ArkaRenk,
@@ -253,7 +253,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                               ),
                                               const SizedBox(
                                                   height:
-                                                      5) // elemanlar arasına bşluk bırakmak için kulllandım.
+                                                  5) // elemanlar arasına bşluk bırakmak için kulllandım.
                                             ],
                                           );
                                         }),

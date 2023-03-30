@@ -136,8 +136,8 @@ class Aylikinfo extends ConsumerWidget {
                                                      }else{
                                                        read.setStatus("+");
                                                      }
-                                                     read.setDay(day);
-                                                     read.setDate(items[index].operationDate);
+                                                     read.setDay(day); // day guncellenmesi sonrasında gunluk date filitrelemesi yapılabiliyor
+                                                     read.setDate(); //appbar tip 2 için tarih verisi
                                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const gunlukpages(),));
                                                    },
                                                    child: Container(
