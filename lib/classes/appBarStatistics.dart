@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
+import 'package:butcekontrol/Pages/statistics.dart';
 
-class AppBarStatistics extends StatelessWidget implements PreferredSizeWidget{
+class AppBarStatistics extends StatefulWidget implements PreferredSizeWidget{
   AppBarStatistics({Key? key}) : super(key: key);
+
+  @override
+  State<AppBarStatistics> createState() => _AppBarStatisticsState();
+
   @override
   Size get preferredSize => const Size.fromHeight(60);
+}
+
+class _AppBarStatisticsState extends State<AppBarStatistics> {
+  @override
+
   @override
   var renkler = CustomColors();
 
   Widget build(BuildContext context) {
     return AppBar(
+
       backgroundColor: renkler.koyuuRenk,
       toolbarHeight: 65,
       leadingWidth: 70,
@@ -38,7 +49,6 @@ class AppBarStatistics extends StatelessWidget implements PreferredSizeWidget{
           ),
         ),
       ),
-
 
       actions: [
         IconButton(
@@ -84,9 +94,7 @@ class AppBarStatistics extends StatelessWidget implements PreferredSizeWidget{
         ),
         const SizedBox(width: 5),
       ],
+
     );
   }
-
-
-
 }

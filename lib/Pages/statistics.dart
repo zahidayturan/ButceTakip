@@ -25,9 +25,10 @@ class _StatisticsState extends State<Statistics>{
             SizedBox(height: 20,),
             Row(    // burasi üç sütundan oluşmaktadır ilk sütün gelir gider tuşları, ikinci sütun pasta şeması, üçüncü sütun tarih ve buton var
               children: [
-                Expanded( // gelir gider butonlari, expanded kullanma nedeni satırı üç ayrı kolona ayırabilmek için.
+                Expanded(
+                  flex: 1,// gelir gider butonlari, expanded kullanma nedeni satırı üç ayrı kolona ayırabilmek için.
                   child: Align( // butonları sola yasladım
-                    alignment: Alignment.centerLeft,
+                    alignment: Alignment.topLeft,
                     child: Column(
                       children: [
                         RotatedBox( //butonları çevirmek için
@@ -39,13 +40,18 @@ class _StatisticsState extends State<Statistics>{
                   ),
                 ),
                 Expanded( // burasi pasta modelinin olduğu kısımç
-                  child: Column(
-                    children: [
-                      Text("slam")
-                    ],
+                  flex: 4,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      children: [
+                        PieModel(),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded( // (ay, hafta, yıl) butonları
+                  flex: 1,
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Column(
@@ -60,7 +66,9 @@ class _StatisticsState extends State<Statistics>{
                 ),
               ],
             ),
-            Row(),
+            Row(
+
+            ),
           ],
         ),
       ),
@@ -78,7 +86,7 @@ class _CustomButtonState2 extends State<CustomBotton2>{
   var listMonths = ["OCAK", "SUBAT", "MART", "NISAN", "MAYIS", "HAZIRAN", "TEMMUZ", "AGUSTOS", "EYLUL", "EKIM", "KASIM", "ARALIK"];
   var renkler = CustomColors();
   var zaman = DateTime.now();
-  var monthYearWeekButton = "AY"; // popup menunun butonunun yazısıdır
+  var monthYearWeekButton = "AY"; // popup menüsünün buton yazısıdır
   late var monthYearWeekButtonResult = "${listMonths[zaman.month - 1]} ${zaman.year}";
   @override
   Widget build(BuildContext context) {
@@ -90,7 +98,7 @@ class _CustomButtonState2 extends State<CustomBotton2>{
             children: [
               Container(
                 height: 40,
-                width: 190,
+                width: 180,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
                   color: renkler.koyuuRenk,
@@ -102,11 +110,12 @@ class _CustomButtonState2 extends State<CustomBotton2>{
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
 
-                      Text( // yukarıdaki oluşturulan ay listesinden indexleme ile ay çekiliyor
+                      Text( // popup menüden seçilene göre tarih bilgisi veriyor
                         monthYearWeekButtonResult,
                         style: TextStyle(
                           color: renkler.YaziRenk,
                           fontSize: 20,
+                          fontFamily: 'Nexa4',
                         ),
                       ),
                     ],
@@ -115,11 +124,10 @@ class _CustomButtonState2 extends State<CustomBotton2>{
               ),
               Positioned(
                 bottom: 0,
-                left: -10,
-                width:70,
+                left: -38,
+                width:85,
                 height: 50,
                 child: Container( // bunu ayrı bir dart dosyasında yazmaya çalış
-                  key: UniqueKey(),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: renkler.sariRenk,
@@ -127,6 +135,7 @@ class _CustomButtonState2 extends State<CustomBotton2>{
                     // buraya ay yıl hafta açılabilir menu gelecek, veya stack i kullanarak position ile üstüne yazarız
                   ),
                   child: PopupMenuButton(
+                    shadowColor: null,
                       onSelected: (value){
                         setState(() {
                           monthYearWeekSelect(value);
@@ -134,9 +143,10 @@ class _CustomButtonState2 extends State<CustomBotton2>{
                       },
                       color: renkler.sariRenk,
                       child: Text(
-                        "${monthYearWeekButton}",
+                        "< ${monthYearWeekButton}",
                         style: TextStyle(
                           fontSize: 20,
+                          fontFamily: 'Nexa4',
                           color: renkler.koyuuRenk,
                         ),
                       ),
@@ -187,7 +197,6 @@ class CustomButton extends StatefulWidget { // sol taraftaki gelir gider buton a
   @override
   _CustomButtonState createState() => _CustomButtonState();
 }
-
 class _CustomButtonState extends State<CustomButton> {
   double buttonHeight = 34; //Basılmamış yükseklik
   double buttonHeight2 = 40; //Basılmış yükseklik
@@ -234,12 +243,12 @@ class _CustomButtonState extends State<CustomButton> {
               color: Color(0xff0D1C26),
             ),
             height: 34,
-            width: 170,
+            width: 180,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 11),
+            padding: const EdgeInsets.only(left: 15),
             child: Row(
-              //mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AnimatedContainer(
@@ -308,3 +317,26 @@ class _CustomButtonState extends State<CustomButton> {
   }
 }
 
+class PieModel extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => _PieModelState();
+
+}
+class _PieModelState extends State<PieModel>{
+  Map<String, double> dataMap = {
+    "yemek": 329,
+    "market": 243,
+    "hobi": 183,
+    "dolmus": 53,
+    "kira": 900,
+  };
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+        children: [ //buraya pasta modeli gelecek
+
+        ],
+    );
+  }
+
+}
