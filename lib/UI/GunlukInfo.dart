@@ -114,7 +114,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 10),
+                      padding: const EdgeInsets.only(left: 10, top: 4.8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         // tür bilgilendirme kısmı.(kategori, ödeme, miktar, saat)
@@ -279,7 +279,9 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                                   ),
                                                 ),
                                               ),
-                                              const SizedBox(height: 5), // elemanlar arasına bşluk bırakmak için kulllandım.
+                                              const SizedBox(
+                                                  height:
+                                                  5) // elemanlar arasına bşluk bırakmak için kulllandım.
                                             ],
                                           );
                                         }),

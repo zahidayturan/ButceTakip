@@ -1,3 +1,4 @@
+import 'package:butcekontrol/Pages/addData.dart';
 import 'package:butcekontrol/classes/appbarType2.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/constans/TextPref.dart';
@@ -12,10 +13,13 @@ class gunlukpages extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     CustomColors renkler = CustomColors();
+    int gelirlength = 0;
+    int giderlength = 0 ;
     var read = ref.read(databaseRiverpod);
     var readHome = ref.read(homeRiverpod);
     var size = MediaQuery.of(context).size ;
     var readnavbar = ref.read(botomNavBarRiverpod);
+    var readeditInfo = ref.read(editinfoProvider);
 
     return Scaffold(
       backgroundColor: renkler.ArkaRenk,
@@ -33,7 +37,7 @@ class gunlukpages extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  height: size.height - 169,
+                  height: size.height - 171,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: DecoratedBox(
@@ -62,6 +66,8 @@ class gunlukpages extends ConsumerWidget {
                                 child: InkWell(
                                   onTap: () {
                                     {
+                                      print(gelirlength);
+                                      print(giderlength);
                                       ref.watch(databaseRiverpod).Delete ;
                                       showModalBottomSheet(
                                         context: context,
@@ -144,9 +150,7 @@ class gunlukpages extends ConsumerWidget {
                                                               child: Text(
                                                                 "${item[index]
                                                                     .operationDate}",
-                                                                style: TextStyle(
-                                                                  fontSize: 15,
-                                                                ),
+                                                                style: TextStyle(fontSize: 15,),
                                                               ),
                                                             ),
                                                           ),
@@ -253,51 +257,38 @@ class gunlukpages extends ConsumerWidget {
                                                                 size: 30,
                                                               ),
                                                               onPressed: () {
-                                                                read.Delete(
-                                                                    item[index]
-                                                                        .id!);
-                                                                read
-                                                                    .myMethod2();
-                                                                readnavbar
-                                                                    .setCurrentindex(
-                                                                    5);
-                                                                Navigator.of(
-                                                                    context)
-                                                                    .pop();
+                                                                read.Delete(item[index].id!);
+                                                                read.myMethod2();
+                                                                readnavbar.setCurrentindex(5);
+                                                                Navigator.of(context).pop();
                                                               },
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding: const EdgeInsets
-                                                                .only(top: 4.0),
-                                                            child: Textmod(
-                                                                "Sil",
-                                                                renkler
-                                                                    .sariRenk,
-                                                                12),
+                                                            padding: const EdgeInsets.only(top: 4.0),
+                                                            child: Textmod("Sil", renkler.sariRenk, 12),
                                                           ),
                                                         ],
                                                       ),
                                                       Column(
-                                                        mainAxisAlignment: MainAxisAlignment
-                                                            .spaceBetween,
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
                                                           DecoratedBox(
                                                             decoration: BoxDecoration(
-                                                              color: renkler
-                                                                  .sariRenk,
-                                                              borderRadius: BorderRadius
-                                                                  .circular(20),
+                                                              color: renkler.sariRenk,
+                                                              borderRadius: BorderRadius.circular(20),
                                                             ),
                                                             child: IconButton(
                                                               icon: Icon(
-                                                                Icons
-                                                                    .create_rounded,
+                                                                Icons.create_rounded,
                                                                 size: 35,
-                                                                color: renkler
-                                                                    .YaziRenk,
+                                                                color: renkler.YaziRenk,
                                                               ),
-                                                              onPressed: () {},
+                                                              onPressed: () {
+                                                                readeditInfo.set_id(item[index].id!);
+                                                                Navigator.of(context).pop();
+                                                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddData()));
+                                                              },
                                                             ),
                                                           ),
                                                           Padding(
@@ -349,9 +340,7 @@ class gunlukpages extends ConsumerWidget {
                                                 right: 8.0),
                                             child: item[index].operationType == "Gelir"
                                               ? Textmod(
-                                                item[index].amount.toString()
-                                                    .toUpperCase(),
-                                                Colors.green, 18)
+                                                item[index].amount.toString().toUpperCase(), Colors.green, 18)
                                               :Textmod(item[index].amount.toString(), Colors.red, 18),
                                           )
                                         ],
@@ -427,8 +416,7 @@ class gunlukpages extends ConsumerWidget {
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               color: renkler.yesilRenk,
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(20)),
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
                             ),
                           ),
                         ),
@@ -461,9 +449,9 @@ class gunlukpages extends ConsumerWidget {
                       vertical: 10, horizontal: 30),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text("0 Gelir Bilgisi"),
-                      Text("15 gider bilgisi"),
+                    children:  [
+                      Text("${read.geliramount} Gelir Bilgisi"),
+                      Text("${read.gideramount} gider bilgisi"),
                     ],
                   ),
                 ), //degisim turune gore kayıt sayısı gosterilecek.
