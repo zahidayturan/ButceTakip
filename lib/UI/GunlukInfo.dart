@@ -232,15 +232,13 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                         itemCount: snapshot.data!.length,
                                         itemBuilder:
                                             (BuildContext context, index) {
-                                          spendinfo item =
-                                          snapshot.data![index];
+                                          spendinfo item = snapshot.data![index];
                                           return Column(
                                             children: [
                                               Padding(
                                                 padding: const EdgeInsets.only(
                                                     left: 15, right: 10),
-                                                child: ClipRRect(
-//Borderradius vermek için kullanıyoruz
+                                                child: ClipRRect(  //Borderradius vermek için kullanıyoruz
                                                   borderRadius:
                                                   BorderRadius.circular(
                                                       10.0),
@@ -269,9 +267,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                                           width: 60,
                                                           child: Padding(
                                                             padding: const EdgeInsets.only(right: 10),
-                                                            child: Text(item
-                                                                .operationTime
-                                                                .toString(),textAlign: TextAlign.center),
+                                                            child: Text(item.operationTime.toString(),textAlign: TextAlign.center),
                                                           ),
                                                         ),
                                                       ],
@@ -280,8 +276,8 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                                 ),
                                               ),
                                               const SizedBox(
-                                                  height:
-                                                  5) // elemanlar arasına bşluk bırakmak için kulllandım.
+                                                  height: 5
+                                              ) // elemanlar arasına bşluk bırakmak için kulllandım.
                                             ],
                                           );
                                         }),

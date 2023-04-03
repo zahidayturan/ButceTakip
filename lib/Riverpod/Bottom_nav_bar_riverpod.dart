@@ -1,11 +1,10 @@
-
 import 'package:butcekontrol/Pages/Calculator.dart';
 import 'package:butcekontrol/Pages/Home.dart';
 import 'package:butcekontrol/Pages/addData.dart';
 import 'package:butcekontrol/Pages/calendar.dart';
 import 'package:butcekontrol/Pages/gunlukpage.dart';
 import 'package:butcekontrol/Pages/more.dart';
-import 'package:butcekontrol/Pages/statistic.dart';
+import 'package:butcekontrol/Pages/statistics.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
@@ -29,7 +28,7 @@ class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
       case 0 :
         return Home();
       case 1:
-        return statistic();
+        return Statistics();
       case 2:
         return Calendar() ;
       case 3 :

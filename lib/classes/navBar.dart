@@ -1,4 +1,3 @@
-
 import 'package:butcekontrol/Pages/addData.dart';
 import 'package:butcekontrol/Pages/gunlukpage.dart';
 import 'package:butcekontrol/Pages/statistics.dart';
@@ -51,6 +50,7 @@ class navBar extends ConsumerWidget {
                             color: Colors.white,
                           ),
                           onPressed: () {
+                            //read.setCurrentindex(1);
                             Navigator.push(context, MaterialPageRoute(builder: (context) => Statistics()));
                           },
                         ),
