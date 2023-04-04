@@ -8,7 +8,7 @@ class StatisticsRiverpod extends ChangeNotifier{
   gelirGiderSet(String type){
     this.type = type;
   }
-  
+
 
   dayWeekMonthYearSet(){
 

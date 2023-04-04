@@ -13,6 +13,26 @@ import 'package:path/path.dart';
 class Statistics extends ConsumerWidget{
   var renkler = CustomColors();
   var incomExpenseState = ExpenseIncomSection().createState();
+  List<Map<String, String>> expenseList = [ // deneme amacli
+    {'kategori': "Yemek", 'miktar': "304"},
+    {'kategori': "Ulasim", 'miktar': "230"},
+    {'kategori': "Eglence", 'miktar': "134"},
+    {'kategori': "Aidat", 'miktar': "87"},
+    {'kategori': "Seyahat", 'miktar': "221"},
+    {'kategori': "ulasim", 'miktar': "55"},
+    {'kategori': "harcama", 'miktar': "23"},
+    {'kategori': "Market", 'miktar': "33"},
+    {'kategori': "Kira", 'miktar': "123"},
+    {'kategori': "Diger", 'miktar': "222"},
+  ];
+
+  double resultOfExpenseSum(List<Map<String, String>> entry){
+    double sumOfTehMiktar = 0;
+    for(int index = 0; index < entry.length; index++){
+      sumOfTehMiktar = sumOfTehMiktar + int.parse(entry[index]['miktar']!);
+    }
+    return sumOfTehMiktar;
+  }
 
   Statistics({super.key});
   @override
@@ -40,7 +60,7 @@ class Statistics extends ConsumerWidget{
                 ),
               ),
               Expanded( // burasi pasta modelinin olduğu kısımç
-                flex: 5,
+                flex: 8,
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Column(
@@ -66,131 +86,35 @@ class Statistics extends ConsumerWidget{
               ),
             ],
           ),
-          Row(
+          Row( // listView kısmı
             children: [
               ExpenseIncomSection(),
             ],
           ),
-          Text("")
-        ],
-      ),
-      bottomNavigationBar: const navBar(),
-    );
-  }
-}
-
-
-class CustomBotton2 extends StatefulWidget{ // sağ taraftaki (ay, hafta, yıl) butonları
-  @override
-    _CustomButtonState2 createState() => _CustomButtonState2();
-}
-class _CustomButtonState2 extends State<CustomBotton2>{
-  var listMonths = ["OCAK", "SUBAT", "MART", "NISAN", "MAYIS", "HAZIRAN", "TEMMUZ", "AGUSTOS", "EYLUL", "EKIM", "KASIM", "ARALIK"];
-  var renkler = CustomColors();
-  var zaman = DateTime.now();
-  var monthYearWeekButton = "AY"; // popup menüsünün buton yazısıdır
-  late var monthYearWeekButtonResult = "${listMonths[zaman.month - 1]} ${zaman.year}";
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Stack(
-            clipBehavior: Clip.none,
-            alignment: Alignment.bottomCenter,
-            children: [
-              Container(
-                height: 40,
-                width: 180,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                  color: renkler.koyuuRenk,
-                ),
-                child: Padding( // row içindeki yazıları sağ yasladığımız için onlara sağdan padding verdik
-                  padding: const EdgeInsets.only(right: 10),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+                padding: const EdgeInsets.only(right: 22, top: 5),
+                child: Container(
+                  width: size.width / 5.5,
+                  padding: EdgeInsets.only(top: 2,bottom: 2),
+                  decoration: BoxDecoration(
+                    color: renkler.koyuuRenk,
+                    borderRadius: BorderRadius.all(Radius.circular(30))
+                  ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end, // yazıları sağ yasladık
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
-                      Text( // popup menüden seçilene göre tarih bilgisi veriyor
-                        monthYearWeekButtonResult,
-                        style: TextStyle(
-                          color: renkler.YaziRenk,
-                          fontSize: 20,
-                          fontFamily: 'Nexa4',
-                        ),
-                      ),
+                      Textmod("${resultOfExpenseSum(expenseList)} ₺", renkler.YaziRenk, 17),
                     ],
                   ),
                 ),
               ),
-              Positioned(
-                bottom: 0,
-                left: -38,
-                width:85,
-                height: 50,
-                child: Container( // bunu ayrı bir dart dosyasında yazmaya çalış
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: renkler.sariRenk,
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                    // buraya ay yıl hafta açılabilir menu gelecek, veya stack i kullanarak position ile üstüne yazarız
-                  ),
-                  child: PopupMenuButton(
-                    shadowColor: null,
-                      onSelected: (value){
-                        setState(() {
-                          monthYearWeekSelect(value);
-                        });
-                      },
-                      color: renkler.sariRenk,
-                      child: Text(
-                        "< ${monthYearWeekButton}",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Nexa4',
-                          color: renkler.koyuuRenk,
-                        ),
-                      ),
-                      itemBuilder: (BuildContext context) => [
-                        PopupMenuItem(child: Text('AY'), value: "AY",),
-                        PopupMenuItem(child: Text('HAFTA'), value: "HAFTA",),
-                        PopupMenuItem(child: Text('YIL'), value: "YIL",),
-                      ]),
-                ),
-              ),
-            ]
-        ),
-      ],
+          )
+        ],
+      ),
+      bottomNavigationBar: const navBar(),
     );
-  }
-  monthYearWeekSelect(var value){ // bu metod (ay,yıl,hafta) seçeneklerden birisini seçince butonun yanındaki yazılar seçilene göre değişecektir.
-    if(value == "AY") {
-      monthYearWeekButton = value;
-      monthYearWeekButtonResult = "${listMonths[zaman.month - 1]} ${zaman.year}";
-    }
-    else if(value == "HAFTA"){
-      monthYearWeekButton = value;
-      if(zaman.day >= 1 && zaman.day <= 7){
-        monthYearWeekButtonResult = "1.${zaman.month}~7.${zaman.month}";
-      }
-      else if(zaman.day >= 8 && zaman.day <= 14){
-        monthYearWeekButtonResult = "8.${zaman.month}~14.${zaman.month}";
-      }
-      else if(zaman.day >= 15 && zaman.day <= 21){
-        monthYearWeekButtonResult = "15.${zaman.month}~21.${zaman.month}";
-      }
-      else if(zaman.day >= 22){
-        if(zaman.month == 12) // aralık ayında isek başa döneceği için bu şekilde koşul koyduk
-          monthYearWeekButtonResult = "22.${zaman.month}  ~  1.1";
-        else
-          monthYearWeekButtonResult = "22.${zaman.month}  ~  1.${zaman.month + 1}";
-      }
-    }
-    else if(value == "YIL"){
-      monthYearWeekButton = value;
-      monthYearWeekButtonResult = "${zaman.year}~${zaman.year + 1}";
-    }
   }
 }
 
@@ -337,20 +261,43 @@ class PieModel extends StatefulWidget{
   State<StatefulWidget> createState() => _PieModelState();
 }
 class _PieModelState extends State<PieModel>{
-  var listMap = [
-    {"kategori": "yemek", "miktar": 123},
-    {"kategori": "market", "miktar": 24},
-    {"kategori": "dolmus", "miktar": 123},
-    {"kategori": "yemek", "miktar": 123},
+  var renkler = CustomColors();
+  List<Map<String, dynamic>> listMap = [ // domain ve measure disinda deisken kabul etmiyor
+    {'domain': 'gezme', 'measure': 100},
+    {'domain': 'market', 'measure': 93},
+    {'domain': 'dolmus', 'measure': 59},
+    {'domain': 'yemek', 'measure': 56},
+    {'domain': 'dolasma', 'measure': 26},
   ];
+
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Row(
         children: [ //buraya pasta modeli gelecek
-
+          Expanded(
+            child: SizedBox(
+              height: size.height / 4,
+              child: DChartPie(
+                data: listMap, // liste buraya gelecek, kategori ismi ve miktar
+                fillColor: (pieData, index) {
+                  return ColorsOfTheCategories().colorsList[index!];
+                },
+                pieLabel: (pieData, index) {
+                  return "${pieData['domain']}:\n${pieData['measure']}%";
+                },
+                labelPosition: PieLabelPosition.outside,
+                showLabelLine: true,
+                labelColor: renkler.koyuuRenk,
+                labelFontSize: 10,
+                labelLinelength: 10,
+              ),
+            ),
+          ),
         ],
     );
   }
+
 }
 
 class ExpenseIncomSection extends StatefulWidget{
@@ -360,36 +307,24 @@ class ExpenseIncomSection extends StatefulWidget{
 class _ExpenseIncomSectionState extends State<ExpenseIncomSection>{
   final ScrollController Scrollbarcontroller = ScrollController();
   var renkler = CustomColors();
-  var incomList = [ // deneme amacli
-    {"kategori": "maas", "miktar": 304},
-    {"kategori": "maas", "miktar": 230},
-    {"kategori": "burs", "miktar": 134},
-    {"kategori": "fazla mesai", "miktar": 87},
-    {"kategori": "maas", "miktar": 221},
-    {"kategori": "maas", "miktar": 55},
-    {"kategori": "burs", "miktar": 23},
-    {"kategori": "harclik", "miktar": 33},
-    {"kategori": "burs", "miktar": 123},
-    {"kategori": "burs", "miktar": 222},
-  ];
-  var expenseList = [ // deneme amacli
-    {"kategori": "Yemek", "miktar": 304},
-    {"kategori": "Ulasim", "miktar": 230},
-    {"kategori": "Eglence", "miktar": 134},
-    {"kategori": "Aidat", "miktar": 87},
-    {"kategori": "Seyahat", "miktar": 221},
-    {"kategori": "ulasim", "miktar": 55},
-    {"kategori": "harcama", "miktar": 23},
-    {"kategori": "Market", "miktar": 33},
-    {"kategori": "Kira", "miktar": 123},
-    {"kategori": "Diger", "miktar": 222},
+  List<Map<String, dynamic>> expenseList = [ // deneme amacli
+    {'kategori': "Yemek", 'miktar': 304},
+    {'kategori': "Ulasim", 'miktar': 230},
+    {'kategori': "Eglence", 'miktar': 134},
+    {'kategori': "Aidat", 'miktar': 87},
+    {'kategori': "Seyahat", 'miktar': 221},
+    {'kategori': "ulasim", 'miktar': 55},
+    {'kategori': "harcama", 'miktar': 23},
+    {'kategori': "Market", 'miktar': 33},
+    {'kategori': "Kira", 'miktar': 123},
+    {'kategori': "Diger", 'miktar': 222},
   ];
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size ;
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(top: 40),
+        padding: const EdgeInsets.only(top: 30),
         child: SizedBox(
           height: size.height / 2.5,
           child: Theme(
@@ -462,7 +397,7 @@ class _ExpenseIncomSectionState extends State<ExpenseIncomSection>{
                                           SizedBox(width: size.width / 30,),
                                           SizedBox(
                                             width: 100,
-                                            child: Textmod("${expenseList[index]["kategori"]}", renkler.koyuuRenk, 17),
+                                            child: Textmod("${expenseList[index]['kategori']}", renkler.koyuuRenk, 17),
                                           ),
                                         ],
                                       ),
@@ -474,7 +409,7 @@ class _ExpenseIncomSectionState extends State<ExpenseIncomSection>{
                                         padding: const EdgeInsets.only(right: 10),
                                         child: Align(
                                             alignment: Alignment.centerRight,
-                                            child: Textmod("${expenseList[index]["miktar"]} ₺", renkler.sariRenk, 17)
+                                            child: Textmod("${expenseList[index]['miktar']} ₺", renkler.sariRenk, 17)
                                         ),
                                       ),
                                     ),
@@ -512,7 +447,7 @@ class ColorsOfTheCategories{
     Colors.teal,
     Colors.blue,
     Colors.indigo,
-    Colors.purple,
     Colors.deepPurple,
+    Colors.purple,
   ];
 }
