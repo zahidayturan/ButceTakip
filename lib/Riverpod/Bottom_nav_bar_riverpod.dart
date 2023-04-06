@@ -2,8 +2,8 @@ import 'package:butcekontrol/Pages/Calculator.dart';
 import 'package:butcekontrol/Pages/Home.dart';
 import 'package:butcekontrol/Pages/calendar.dart';
 import 'package:butcekontrol/Pages/more.dart';
-import 'package:butcekontrol/Pages/statistics.dart';
 import 'package:flutter/material.dart';
+import 'package:butcekontrol/Pages/statistic.dart';
 
 class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
   int currentindex = 0 ;
