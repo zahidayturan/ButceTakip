@@ -35,6 +35,7 @@ dependencies:
   path: ^1.8.0
   intl: ^0.17.0-nullsafety.2
   flutter_riverpod: ^2.3.2
+  d_chart: ^2.2.11
 
 
 

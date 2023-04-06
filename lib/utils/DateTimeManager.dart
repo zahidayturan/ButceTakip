@@ -32,4 +32,13 @@ class DateTimeManager {
     String formattedDate = DateFormat('dd.MM.yyyy').format(now);
     return formattedDate;
   }
+
+  static int getCurrentYearInt() {
+    DateTime currentTime = DateTime.now();
+    return currentTime.year;
+  }
+  static int getCurrentMonthInt() {
+    DateTime currentTime = DateTime.now();
+    return currentTime.month;
+  }
 }

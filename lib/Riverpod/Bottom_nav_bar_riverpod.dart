@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
   int currentindex = 0 ;
   int ?current ;
+  Color currentColor = Colors.white;
   void refreshbuidl(){
     currentindex = currentindex ;
   }
@@ -23,13 +24,16 @@ class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
     currentindex = index ;
     notifyListeners();
   }
+  void setBackColor(Color color){
+    currentColor = color ;
+  }
 
   Widget body(){
     switch(currentindex) {
       case 0 :
         return Home();
       case 1:
-        return statistic();
+        return Statistics();
       case 2:
         return Calendar() ;
       case 3 :

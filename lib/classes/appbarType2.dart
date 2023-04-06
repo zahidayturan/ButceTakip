@@ -58,7 +58,7 @@ class appbarType2 extends ConsumerWidget implements PreferredSizeWidget {
                     color: Colors.white,
                     ),
                     onPressed:() {
-                     readNavBar.setCurrentindex(0);
+                     //readNavBar.setCurrentindex(0);
                      Navigator.of(context).pop();
                       },
                   ),

@@ -15,23 +15,7 @@ class GunlukInfo extends StatefulWidget {
 }
 
 class _GunlukInfoState extends State<GunlukInfo> {
-  //bool _isLoading = true;
 
-/*
-  void _refreshSpendinfoList() async {
-    final data = await SQLHelper.getItems();
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _refreshSpendinfoList();
-  }
-
- */ // şuan kullanılmadığı için yorum satırı yaptım
   final ScrollController Scrollbarcontroller2 = ScrollController();
   var renkler = CustomColors();
 
@@ -61,7 +45,6 @@ class _GunlukInfoState extends State<GunlukInfo> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
@@ -88,12 +71,13 @@ class _GunlukInfoState extends State<GunlukInfo> {
                         ),
                         child: const Padding(
                           padding: EdgeInsets.only(
-                              left: 15.0, right: 20, top: 5, bottom: 2),
+                              left: 15.0, right: 20, top: 6, bottom: 3),
                           child: Text(
-                            "Bügünün Islem Bilgileri",
+                            "Bügünün İşlem Bilgileri",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 19,
+                              fontFamily: 'Nexa3',
+                              fontSize: 18,
                             ),
                           ),
                         ),
@@ -113,7 +97,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 10),
+                      padding: const EdgeInsets.only(left: 10, top: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         // tür bilgilendirme kısmı.(kategori, ödeme, miktar, saat)
@@ -184,10 +168,10 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                     child: SizedBox(
                                       width: 4,
                                       height: size.height / 3.04,
-                                      child: const DecoratedBox(
+                                      child:  DecoratedBox(
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(Radius.circular(30)),
-                                            color: Color(0xff0D1C26)),
+                                            color: snapshot.data!.length <= 4 ? renkler.ArkaRenk : Color(0xFF0D1C26)),
                                       ),
                                     ),
                                   ),
