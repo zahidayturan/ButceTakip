@@ -407,7 +407,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 selectedMonthIndex = DateTime.now().month;
                                 selectedWeekIndex = 1;
                                 selectDateMenu = 3;
-                                validDateMenu =3;
+                                //validDateMenu =3;
                               });
                             },
                             child: const Text(
@@ -452,7 +452,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 selectedMonthIndex = DateTime.now().month;
                                 selectedDayIndex = DateTime.now().day;
                                 selectDateMenu = 4;
-                                //validDateMenu = 4;
+                                validDateMenu = 4;
                               });
                             },
                             child: const Text(
