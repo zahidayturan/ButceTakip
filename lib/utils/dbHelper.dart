@@ -74,6 +74,13 @@ class SQLHelper {
       return spendinfo.fromObject(result[index]);
     });
   }
+  static Future<List<spendinfo>> getItemsByOperationYear(String operationYear) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationYear = ?", whereArgs: [operationYear], orderBy: "id");
+    return List.generate(result.length, (index){
+      return spendinfo.fromObject(result[index]);
+    });
+  }
    //sadece günlük sorgu tehlikeli
   static Future<List<spendinfo>> getItemsByOperationDay(String operationDay) async {
     final db = await SQLHelper.db();
@@ -82,10 +89,18 @@ class SQLHelper {
       return spendinfo.fromObject(result[index]);
     });
   }
-  static Future<List<spendinfo>> getItemsByOperationDayMonthAndYear(String operaitonDay, String operationMonth,String operationYear) async{
+  static Future<List<spendinfo>> getItemsByOperationDayRange(String startDate, String endDate) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationDate >= ? AND operationDate <= ?", whereArgs: [startDate, endDate], orderBy: "id");
+    return List.generate(result.length, (index){
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+
+  static Future<List<spendinfo>> getItemsByOperationDayMonthAndYear(String operationDay, String operationMonth,String operationYear) async{
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "operationDay = ? AND operationMonth = ? AND operationYear = ?",
-      whereArgs: [operaitonDay,operationMonth, operationYear],
+      whereArgs: [operationDay,operationMonth, operationYear],
       orderBy: "id",
     );
     return List.generate(result.length, (index) {

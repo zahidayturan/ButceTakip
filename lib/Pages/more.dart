@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,9 +9,15 @@ class More extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: appbarCustom(),
-      body: Text("hello mada faka"),
+    return Container(
+      color: Color(0xff0D1C26),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Color(0xffF2F2F2),
+          appBar: AppBarForPage(title: "DİĞER İŞLEMLER"),
+          body: Text("Diğer İşlemler"),
+        ),
+      ),
     );
   }
 }

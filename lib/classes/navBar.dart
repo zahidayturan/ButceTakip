@@ -20,6 +20,7 @@ class navBar extends ConsumerWidget {
     final Size size = MediaQuery.of(context).size;
     return Container(
       //alignment: Alignment.bottomCenter,
+      color: read.currentColor,
       width: size.width,
       height: 64,
       child: Stack(
@@ -62,7 +63,6 @@ class navBar extends ConsumerWidget {
                           ),
                           onPressed: () {
                             read.setCurrentindex(2);
-                            print("takvim");
                             //Navigator.of(context).push(MaterialPageRoute(builder: (context) => testPages(),));
                           }
                         ),
