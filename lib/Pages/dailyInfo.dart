@@ -1,5 +1,4 @@
 import 'package:butcekontrol/constans/MaterialColor.dart';
-import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +10,6 @@ class dailyInfo extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     CustomColors renkler = CustomColors();
-    var read = ref.read(databaseRiverpod);
-    var readDailyInfo = ref.read(dailyInfoRiverpod);
-    var size = MediaQuery.of(context).size;
-    Future<List<spendinfo>> myList = readDailyInfo.myMethod2();
-    var readHome = ref.read(homeRiverpod);
-    var readnavbar = ref.read(botomNavBarRiverpod);
     return Scaffold(
       backgroundColor: renkler.ArkaRenk,
       appBar: const appbarDailyInfo(),

@@ -1,4 +1,4 @@
-import 'package:butcekontrol/Pages/gunlukpage.dart';
+import 'package:butcekontrol/Pages/dailyInfo.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ class Aylikinfo extends ConsumerWidget {
     final ScrollController scrolbarcontroller1 = ScrollController();
     var read = ref.read(databaseRiverpod);
     var readHome = ref.read(homeRiverpod);
+    var readDailyInfo = ref.read(dailyInfoRiverpod);
     ref.listen(databaseRiverpod, (previous, next) { ///bune mk bakılacak ? bunun sayesinde çlaışıyor bakıcam
       ref.watch(databaseRiverpod).month;
       ref.watch(databaseRiverpod).isuseinsert ;
@@ -110,13 +111,8 @@ class Aylikinfo extends ConsumerWidget {
                                              var dayTotals = dailyTotals[day]!;
                                              var totalAmount = dayTotals['totalAmount']!;
                                              var totalAmount2 = dayTotals['totalAmount2']!;
-                                             final formattedTotal =
-                                             (totalAmount - totalAmount2)
-                                                 .toStringAsFixed(2);
-
-                                             var dateTime = DateTime(
-                                                 int.parse(year),
-                                                 int.parse(month), int.parse(day));
+                                             final formattedTotal =(totalAmount - totalAmount2).toStringAsFixed(2);
+                                             var dateTime = DateTime(int.parse(year),int.parse(month), int.parse(day));
                                              var dayOfWeekName =
                                              _getDayOfWeekName(dateTime.weekday);
                                          return Column(
@@ -138,7 +134,8 @@ class Aylikinfo extends ConsumerWidget {
                                                      }
                                                      read.setDay(day);
                                                      read.setDate(items[index].operationDate);
-                                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const gunlukpages(),));
+                                                     readDailyInfo.setDate(int.parse(day), int.parse(month), int.parse(year));
+                                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const dailyInfo()));
                                                    },
                                                    child: Container(
                                                      height: 27.4,

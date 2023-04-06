@@ -220,7 +220,7 @@ class StatisticsRiverpod extends ChangeNotifier {
       }
       categoryBaseAmounts = categoryAmounts;
     }
-    else if(dataType  == 3 ){
+    /*else if(dataType  == 3 ){
       var date = DateTime.utc(year, month, 1);
       var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
       var startDate = date.add(Duration(days: daysToAdd));
@@ -265,7 +265,7 @@ class StatisticsRiverpod extends ChangeNotifier {
         categoryAmounts = GelirKategoriTutarlari;
       }
       categoryBaseAmounts = categoryAmounts;
-    }
+    }*/
     else if(dataType  == 4 ){
       List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(),
           month.toString(), year.toString());
