@@ -82,11 +82,11 @@ class Aylikinfo extends ConsumerWidget {
                                        child: SizedBox(
                                          width: 4,
                                          height: size.height / 3.04,
-                                         child: const DecoratedBox(
+                                         child:  DecoratedBox(
                                            decoration: BoxDecoration(
                                                borderRadius: BorderRadius.all(
                                                    Radius.circular(30)),
-                                               color: Color(0xff0D1C26)),
+                                               color: dailyTotals.length <= 6 ? renkler.ArkaRenk : Color(0xFF0D1C26)),
                                          ),
                                        ),
                                      ),
