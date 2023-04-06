@@ -452,7 +452,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 selectedMonthIndex = DateTime.now().month;
                                 selectedDayIndex = DateTime.now().day;
                                 selectDateMenu = 4;
-                                validDateMenu = 4;
+                                //validDateMenu = 4;
                               });
                             },
                             child: const Text(
@@ -1363,7 +1363,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               return "${pieData['domain']}:\n${pieData['measure']}%";
             },
             labelPosition: PieLabelPosition.outside,
-            donutWidth: 15,
+            //donutWidth: 15,
             showLabelLine: true,
             labelColor: Color(0xff0D1C26),
             labelFontSize: 11,
