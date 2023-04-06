@@ -2,6 +2,7 @@ import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../classes/appBarForPage.dart';
 import '../riverpod_management.dart';
 
 class Calculator extends ConsumerWidget {
@@ -12,93 +13,92 @@ class Calculator extends ConsumerWidget {
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size ;
     var readNavBar = ref.read(botomNavBarRiverpod);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Hesap Makinresi"),
-        backgroundColor: renkler.koyuuRenk,
-        leading: IconButton(
-          icon : Icon(Icons.home_filled),
-          onPressed: () => readNavBar.setCurrentindex(0),
-        ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 15.0,
-              bottom: 7.0,
-              right: 20.0,
-              left: 20.0,
-            ),
-            child: SizedBox(
-              height: size.height*00.584 ,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(40),
-                    topLeft: Radius.circular(40),
-                    bottomLeft:  Radius.circular(40),
+    return Container(
+      color: renkler.koyuuRenk,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Color(0xffF2F2F2),
+          appBar: AppBarForPage(title: 'HESAP MAKİNESİ'),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 15.0,
+                  bottom: 7.0,
+                  right: 20.0,
+                  left: 20.0,
                 ),
-                child: Container(
-                  color: renkler.koyuuRenk,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.max,
+                child: SizedBox(
+                  height: size.height*00.584 ,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(40),
+                        topLeft: Radius.circular(40),
+                        bottomLeft:  Radius.circular(40),
+                    ),
+                    child: Container(
+                      color: renkler.koyuuRenk,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15.0),
-                              child: Text(
-                                "LEBLEBİ",
-                                style: TextStyle(
-                                  color: renkler.sariRenk,
-                                  fontSize: 35,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: Text(
+                                    "LEBLEBİ",
+                                    style: TextStyle(
+                                      color: renkler.sariRenk,
+                                      fontSize: 35,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
+                            Divider(color: Colors.white, thickness: 2),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Buttoncreate("AC",size),
+                                      Buttoncreate("<=",size),
+                                      Buttoncreate("½",size),
+                                      Buttoncreate("/",size)
+                                    ],
+                                  ),
+                                  SizedBox(height: 12),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Buttoncreate("7",size),
+                                      Buttoncreate("8",size),
+                                      Buttoncreate("9",size),
+                                      Buttoncreate("x",size)
+                                    ],
+                                  ),
+
+                                ],
+                              ),
+                            ), //Tus takımı bulunacaktır.
                           ],
                         ),
-                        Divider(color: Colors.white, thickness: 2),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Buttoncreate("AC",size),
-                                  Buttoncreate("<=",size),
-                                  Buttoncreate("½",size),
-                                  Buttoncreate("/",size)
-                                ],
-                              ),
-                              SizedBox(height: 12),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Buttoncreate("7",size),
-                                  Buttoncreate("8",size),
-                                  Buttoncreate("9",size),
-                                  Buttoncreate("x",size)
-                                ],
-                              ),
-
-                            ],
-                          ),
-                        ), //Tus takımı bulunacaktır.
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+              Row(),///orta cizgi gelicek
+              Row(),/// Sayfa butonları gelecek.
+            ],
           ),
-          Row(),///orta cizgi gelicek
-          Row(),/// Sayfa butonları gelecek.
-        ],
+        ),
       ),
     );
   }
