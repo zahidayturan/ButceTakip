@@ -1,4 +1,3 @@
-
 import 'package:butcekontrol/Pages/Calculator.dart';
 import 'package:butcekontrol/Pages/Home.dart';
 import 'package:butcekontrol/Pages/calendar.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
   int currentindex = 0 ;
   int ?current ;
+  Color currentColor = Colors.white;
   void refreshbuidl(){
     currentindex = currentindex ;
   }
@@ -20,6 +20,9 @@ class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
   void setCurrentindex(int index) {
     currentindex = index ;
     notifyListeners();
+  }
+  void setBackColor(Color color){
+    currentColor = color ;
   }
 
   Widget body(){

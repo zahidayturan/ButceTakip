@@ -36,6 +36,7 @@ dependencies:
   intl: ^0.17.0
   pie_chart:
   flutter_riverpod: ^2.3.2
+  d_chart: ^2.2.11
 
 
   # The following adds the Cupertino Icons font to your application.

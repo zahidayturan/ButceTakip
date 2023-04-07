@@ -21,6 +21,7 @@ class navBar extends ConsumerWidget {
     final Size size = MediaQuery.of(context).size;
     return Container(
       //alignment: Alignment.bottomCenter,
+      color: read.currentColor,
       width: size.width,
       height: 64,
       child: Stack(
