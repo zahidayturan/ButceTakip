@@ -85,6 +85,36 @@ class Calculator extends ConsumerWidget {
                                   Buttoncreate("x",size)
                                 ],
                               ),
+                              SizedBox(height: 12),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Buttoncreate("7",size),
+                                  Buttoncreate("8",size),
+                                  Buttoncreate("9",size),
+                                  Buttoncreate("x",size)
+                                ],
+                              ),
+                              SizedBox(height: 12),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Buttoncreate("7",size),
+                                  Buttoncreate("8",size),
+                                  Buttoncreate("9",size),
+                                  Buttoncreate("x",size)
+                                ],
+                              ),
+                              SizedBox(height: 12),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Buttoncreate("7",size),
+                                  Buttoncreate("8",size),
+                                  Buttoncreate("9",size),
+                                  Buttoncreate("x",size)
+                                ],
+                              ),
 
                             ],
                           ),

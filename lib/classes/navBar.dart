@@ -51,7 +51,7 @@ class navBar extends ConsumerWidget {
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Statistics()));
+                            read.setCurrentindex(1);
                           },
                         ),
                         IconButton(
@@ -62,7 +62,6 @@ class navBar extends ConsumerWidget {
                           ),
                           onPressed: () {
                             read.setCurrentindex(2);
-                            print("takvim");
                             //Navigator.of(context).push(MaterialPageRoute(builder: (context) => testPages(),));
                           }
                         ),
@@ -78,7 +77,6 @@ class navBar extends ConsumerWidget {
                           ),
                           onPressed:() {
                             read.setCurrentindex(3);
-                            print("hesap makinesi");
                             //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Calculator(),));
                           }
                         ),
@@ -90,7 +88,6 @@ class navBar extends ConsumerWidget {
                           ),
                           onPressed: () {
                             read.setCurrentindex(4);
-                            print("Daha Fazla");
                           }
                         )
                       ],
@@ -113,7 +110,7 @@ class navBar extends ConsumerWidget {
                 child: FloatingActionButton.large(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddData(),));
-                    read.setcur();
+                    read.setcur();  /// arastırılacak
                     },
                   backgroundColor: Color(0xffF2CB05),
                   child: Icon(Icons.add_rounded, color: Colors.white, size: 64),

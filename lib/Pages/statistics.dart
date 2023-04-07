@@ -64,7 +64,6 @@ class _StatisticsState extends State<Statistics>{
           ],
         ),
       ),
-      bottomNavigationBar: navBar(),
     );
   }
 }

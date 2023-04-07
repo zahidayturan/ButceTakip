@@ -37,7 +37,7 @@ class gunlukpages extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  height: size.height - 171,
+                  height: size.height - 179,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: DecoratedBox(
@@ -53,7 +53,7 @@ class gunlukpages extends ConsumerWidget {
                         ),
                         child: Scrollbar(
                           scrollbarOrientation: ScrollbarOrientation.right,
-                          isAlwaysShown: true,
+                          thumbVisibility: true,
                           interactive: true,
                           thickness: 7,
                           radius: Radius.circular(15),
@@ -65,10 +65,9 @@ class gunlukpages extends ConsumerWidget {
                                     left: 10, right: 15, top: 5, bottom: 5),
                                 child: InkWell(
                                   onTap: () {
-                                    {
-                                      print(gelirlength);
+                                    {print(gelirlength);
                                       print(giderlength);
-                                      ref.watch(databaseRiverpod).Delete ;
+                                      ref.watch(databaseRiverpod).Delete ; //silme işlemi sonrası listeyi yeniletiyor.
                                       showModalBottomSheet(
                                         context: context,
                                         shape: const RoundedRectangleBorder(
@@ -359,7 +358,7 @@ class gunlukpages extends ConsumerWidget {
                 SizedBox(
                   height: 15,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 5.0, right: 5),
+                    padding: EdgeInsets.only(top: 5.0, right: size.width * 0.017),
                     child: Row( //Toplam kayıt sayısını gösterecek
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -376,26 +375,30 @@ class gunlukpages extends ConsumerWidget {
                   child: Stack(
                     fit: StackFit.passthrough,
                     children: [
-                      SizedBox( //arkaborder sabit kalıyor.
-                        height: 26,
-                        width: size.width - 60,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: renkler.koyuuRenk,
-                            borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(15)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        child: SizedBox( //arkaborder sabit kalıyor.
+                          height: size.height * 0.038 , //26
+                          width: size.width * 0.85,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: renkler.koyuuRenk,
+                              borderRadius: BorderRadius.vertical(
+                                  bottom: Radius.circular(15)),
+                            ),
                           ),
                         ),
                       ),
-                      Positioned(right: size.width / 1.6,
-                          top: 6,
-                          child: Textmod("${readHome.income}", renkler.YaziRenk, 18)),
+                      Positioned(
+                          right: size.width * 0.65,
+                          top: size.height * 0.008,
+                          child: Textmod("${readHome.income}", renkler.YaziRenk, 17)),
                       //gelir bilgisi
                       Positioned(
-                        left: size.width / 3.7,
+                        left: size.width * 0.27,
                         child: SizedBox(
-                          height: 30,
-                          width: size.width / 3.5,
+                          height: size.height * 0.05 , //30,
+                          width: size.width * 0.2857,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(
@@ -403,30 +406,30 @@ class gunlukpages extends ConsumerWidget {
                               color: renkler.sariRenk,
                             ),
                             child: Center(child: Textmod(
-                                "${readHome.totally}", Colors.black, 20)), //Toplam değişim.
+                                "${readHome.totally}", Colors.black, 17)), //Toplam değişim.
                           ),
                         ),
                       ),
                       Positioned(
-                        left: size.width / 3.9,
-                        top: 5,
+                        left: size.width * 0.256 ,
+                        top: size.height * 0.011,
                         child: SizedBox( //yesil top
-                          height: 18,
-                          width: 18,
+                          height: size.width* 0.043,
+                          width: size.width* 0.043,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               color: renkler.yesilRenk,
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              borderRadius: BorderRadius.all(Radius.circular(size.width * 0.048)),
                             ),
                           ),
                         ),
                       ),
                       Positioned(
-                        right: size.width / 3.6,
-                        top: 5,
+                        left: size.width * 0.5279 ,
+                        top: size.height * 0.011,
                         child: SizedBox( //kırmızı nokta
-                          width: 18,
-                          height: 18,
+                          height: size.width* 0.043,
+                          width: size.width* 0.043,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               color: renkler.kirmiziRenk,
@@ -436,17 +439,18 @@ class gunlukpages extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      Positioned(left: size.width / 1.6,
-                          top: 6,
+                      Positioned(
+                          left: size.width * 0.6569,
+                          top: size.height * 0.008,
                           child: Center(
-                              child: Textmod("${readHome.expense}", renkler.YaziRenk, 18))),
+                              child: Textmod("${readHome.expense}", renkler.YaziRenk, 17))),
                       //Gider bilgisi
                     ],
                   ),
                 ), //Değişim miktarları gosterilecek
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10, horizontal: 30),
+                  padding:  EdgeInsets.symmetric(
+                      vertical: size.height * 0.0146 , horizontal: size.width * 0.0729 ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:  [
@@ -460,8 +464,5 @@ class gunlukpages extends ConsumerWidget {
         }
       ),
     );
-  }
-  void say(){
-
   }
 }

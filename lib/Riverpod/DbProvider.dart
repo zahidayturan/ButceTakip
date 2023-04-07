@@ -8,7 +8,9 @@ class DbProvider extends ChangeNotifier {
 
   int geliramount = 0 ;
   int gideramount = 0 ;
-  bool isuseinsert = false ;
+  double income = 0;
+  double expense = 0;
+  bool isuseinsert = false ; //veri eklendi mi?  veri eklenince durum değişir ve aylık info da izlenir.
   String month = DateTime.now().month.toString();
   String year = DateTime.now().year.toString() ;
   Future<List<spendinfo>> ?daylist ;
@@ -95,7 +97,7 @@ class DbProvider extends ChangeNotifier {
       notifyListeners();
     }
     Future <List<spendinfo>> myMethod2() async{  /// gunlukpage filitreleme
-      geliramount = 0;
+      geliramount = 0; //gunlukpage toplam kayıt degisimi için
       gideramount = 0;
       List<spendinfo> items =
       await SQLHelper.getItemsByOperationDayMonthAndYear(day!, month, year);  /// month ve year general info da guncelleniyor day ise aylık info onclick:

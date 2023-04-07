@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AppBarStatistics extends StatelessWidget implements PreferredSizeWidget{
+import '../riverpod_management.dart';
+
+class AppBarStatistics extends ConsumerWidget implements PreferredSizeWidget{
   AppBarStatistics({Key? key}) : super(key: key);
   @override
   Size get preferredSize => const Size.fromHeight(60);
   @override
   var renkler = CustomColors();
 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var readNavBar = ref.read(botomNavBarRiverpod);
     return AppBar(
       backgroundColor: renkler.koyuuRenk,
       toolbarHeight: 65,
@@ -29,7 +33,9 @@ class AppBarStatistics extends StatelessWidget implements PreferredSizeWidget{
           padding: const EdgeInsets.only(right: 5),
           child: (
               IconButton(
-                  onPressed: () {Navigator.of(context).pop();},
+                  onPressed: () {
+                    readNavBar.setCurrentindex(0);
+                  },
                   icon: Icon(
                     Icons.home_outlined,
                     size: 50,

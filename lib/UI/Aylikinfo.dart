@@ -14,15 +14,16 @@ class Aylikinfo extends ConsumerWidget {
     final ScrollController scrolbarcontroller1 = ScrollController();
     var read = ref.read(databaseRiverpod);
     var readHome = ref.read(homeRiverpod);
-    ref.listen(databaseRiverpod, (previous, next) { ///bune mk bakılacak ? bunun sayesinde çlaışıyor bakıcam
-      ref.watch(databaseRiverpod).month;
+    ref.listen(databaseRiverpod, (previous, next) { ///ay değişince ve veri eklenince yeniden built ediyor aylıkinfoyu
+      ref.watch(databaseRiverpod).month;   /// HATA VAR BİRDEN FAZLA BUİLD VAR.
       ref.watch(databaseRiverpod).isuseinsert ;
-      return ref.watch(databaseRiverpod);
     }
     );
+    var size = MediaQuery.of(context).size;
+    print("yukseklik : ${size.height}");
+    print("genıslık : ${size.width}");
     CustomColors renkler = CustomColors();
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;
-    var size = MediaQuery.of(context).size;
        return StreamBuilder<Map<String, dynamic>>(
            stream: read.myMethod(),
            builder:
@@ -33,12 +34,11 @@ class Aylikinfo extends ConsumerWidget {
                    );
                  }
                  var dailyTotals = snapshot.data!['dailyTotals'];
-                 var items = snapshot.data!["items"];
                  return Center(
                    child: Column(
                      children: [
                        SizedBox(
-                         height: size.height / 3.04,
+                         height:  size.height * 0.333,
                          child: Padding(
                            //borderin scroll ile birleşimi gözüksü diye soldan padding
                            padding: const EdgeInsets.only(left: 4.0),
@@ -122,54 +122,49 @@ class Aylikinfo extends ConsumerWidget {
                                          return Column(
                                            children: [
                                              Padding(
-                                               padding: const EdgeInsets.only(
-                                                   left: 15, right: 10),
+                                               padding: EdgeInsets.only(left: size.height * 0.025, right: size.height * 0.014),
                                                child: ClipRRect(
                                                  //Borderradius vermek için kullanıyoruz
                                                  borderRadius:
                                                  BorderRadius.circular(10.0),
                                                  child: InkWell(
                                                    onTap: () {
-                                                     readHome.setDailyStatus(totalAmount.toString(), totalAmount2.toString(), formattedTotal.toString());
-                                                     if (double.parse(formattedTotal) <= 0) {
+                                                     readHome.setDailyStatus(totalAmount.toString(), totalAmount2.toString(), formattedTotal.toString()); ///
+                                                     if (double.parse(formattedTotal) <= 0) { //gunlukpage tarih arkası renk ayarlıyor.
                                                        read.setStatus("-");
                                                      }else{
                                                        read.setStatus("+");
+
                                                      }
                                                      read.setDay(day); // day guncellenmesi sonrasında gunluk date filitrelemesi yapılabiliyor
                                                      read.setDate(); //appbar tip 2 için tarih verisi
-                                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const gunlukpages(),));
+                                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  gunlukpages(),));
                                                    },
                                                    child: Container(
-                                                     height: 27.4,
+                                                     height: size.height * 0.0409 ,//27.9,
                                                      color: renkler.ArkaRenk,
                                                      child: Padding(
-                                                       padding: const EdgeInsets
-                                                           .only(
-                                                           left: 12, right: 15),
+                                                       padding:  EdgeInsets.only(left: size.width * 0.029 , right: size.width * 0.03165 ), //  12   15
                                                        child: Row(
-                                                         mainAxisAlignment:
-                                                         MainAxisAlignment
-                                                             .center,
-                                                         mainAxisSize: MainAxisSize
-                                                             .max,
+                                                         mainAxisAlignment: MainAxisAlignment.center,
+                                                         mainAxisSize: MainAxisSize.max,
                                                          children: [
                                                            SizedBox(
                                                                width: ceyrekwsize,
                                                                child: RichText(
                                                                  text: TextSpan(
-                                                                   style: const TextStyle(
+                                                                   style: TextStyle(
                                                                      fontFamily: 'Nexa',
-                                                                     fontSize: 14,
-                                                                     color: Colors
-                                                                         .black,
+                                                                     fontSize: size.height  * 0.0205,//14
+                                                                     color: Colors.black,
                                                                    ),
                                                                    children: [
                                                                      TextSpan(
                                                                        text: '$day ',
-                                                                       style: const TextStyle(
-                                                                           fontWeight: FontWeight
-                                                                               .w900),
+                                                                       style: TextStyle(
+                                                                           fontWeight: FontWeight.w900,
+                                                                          fontSize:  size.height  * 0.0205,
+                                                                       ),
                                                                      ),
                                                                      TextSpan(
                                                                        text: dayOfWeekName,
@@ -183,9 +178,9 @@ class Aylikinfo extends ConsumerWidget {
                                                              child: Center(
                                                                child: Text(
                                                                  "$totalAmount",
-                                                                 style: const TextStyle(
-                                                                   color: Colors
-                                                                       .green,
+                                                                 style: TextStyle(
+                                                                   fontSize : size.height  * 0.0205 ,
+                                                                   color: Colors.green,
                                                                  ),
                                                                ),
                                                              ),
@@ -195,9 +190,9 @@ class Aylikinfo extends ConsumerWidget {
                                                              child: Center(
                                                                child: Text(
                                                                  '$totalAmount2',
-                                                                 style: const TextStyle(
-                                                                   color: Colors
-                                                                       .red,
+                                                                 style:  TextStyle(
+                                                                   color: Colors.red,
+                                                                   fontSize: size.height  * 0.0205,
                                                                  ),
                                                                ),
                                                              ),
@@ -207,9 +202,9 @@ class Aylikinfo extends ConsumerWidget {
                                                              child: Center(
                                                                child: Text(
                                                                  '$formattedTotal',
-                                                                 style: const TextStyle(
-                                                                   color: Colors
-                                                                       .black,
+                                                                 style: TextStyle(
+                                                                   color: Colors.black,
+                                                                   fontSize: size.height  * 0.0205,
                                                                  ),
                                                                ),
                                                              ),
@@ -222,9 +217,7 @@ class Aylikinfo extends ConsumerWidget {
                                                  ),
                                                ),
                                              ),
-                                             const SizedBox(
-                                                 height:
-                                                 5)
+                                              SizedBox(height: size.height*0.007)
                                              // elemanlar arasına bşluk bırakmak için kulllandım.
                                            ],
                                          );
