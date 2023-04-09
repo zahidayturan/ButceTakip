@@ -34,6 +34,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [CalendarDesign(context, ref)],
     );
   }
@@ -63,69 +64,55 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     var intMonths = months.map((ay) => int.parse(ay.toString())).toList();
     var intYears = years.map((yil) => int.parse(yil.toString())).toList();
 
-    return SizedBox(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 15),
-            dateSelector(context),
-            SizedBox(height: 10),
-            monthGuide(context),
-            SizedBox(
-              width: size.width * 0.92,
-              height: size.height * 0.08,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  containerDayAdd(context, "Pt"),
-                  containerDayAdd(context, "Sa"),
-                  containerDayAdd(context, "Ça"),
-                  containerDayAdd(context, "Pe"),
-                  containerDayAdd(context, "Cu"),
-                  containerDayAdd(context, "Ct"),
-                  containerDayAdd(context, "Pz"),
-                ],
-              ),
+    return Center(
+      child: Column(
+        //mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 10),
+          dateSelector(context),
+          SizedBox(height: 10),
+          monthGuide(context),
+          SizedBox(
+            width: size.width * 0.92,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                containerDayAdd(context, "Pt"),
+                containerDayAdd(context, "Sa"),
+                containerDayAdd(context, "Ça"),
+                containerDayAdd(context, "Pe"),
+                containerDayAdd(context, "Cu"),
+                containerDayAdd(context, "Ct"),
+                containerDayAdd(context, "Pz"),
+              ],
             ),
-            SizedBox(
-              height: size.height * 0.46,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  for (var x = 0; x < 6; x++)
-                    SizedBox(
-                      width: size.width * 0.92,
-                      height: size.height * 0.07,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          for (var y = 0; y < 7; y++)
-                            Stack(
-                              children: [
-                                containerAdd(context),
-                                containerColorChange(
-                                    context,
-                                    read.getDateColor(
-                                        intDays[x * 7 + y],
-                                        intMonths[x * 7 + y],
-                                        intYears[x * 7 + y]),
-                                    intMonths[x * 7 + y]),
-                                dateText(context, intDays[x * 7 + y],
-                                    intMonths[x * 7 + y], intYears[x * 7 + y])
-                              ],
-                            ),
-                        ],
-                      ),
+          ),
+          SizedBox(height: 10),
+          SizedBox(
+            width: size.width * 0.92,
+            height: size.height * 0.44,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                for (var x = 0; x < 6; x++)
+                  SizedBox(
+                    width: size.width * 0.92,
+                    height: size.height * 0.07,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        for (var y = 0; y < 7; y++)
+                          containerAdd(context, intDays[x * 7 + y],intMonths[x * 7 + y], intYears[x * 7 + y]),
+                      ],
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
-            SizedBox(height: 15),
-            monthDetailsGuide(context),
-          ],
-        ),
+          ),
+          SizedBox(height: 15),
+          monthDetailsGuide(context),
+        ],
       ),
     );
   }
@@ -145,7 +132,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     return Stack(
       children: [
         Positioned(
-          top: 5,
+          top: 5.5,
           child: Container(
             height: size.height * 0.060,
             width: size.width * 0.52,
@@ -386,14 +373,24 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     );
   }
 
-  Widget containerAdd(BuildContext context) {
+  Widget containerAdd(BuildContext context, int days, int months, int years) {
     var size = MediaQuery.of(context).size;
+    var read = ref.read(calendarRiverpod);
     return Container(
-      height: size.height * 0.065,
-      width: size.width * 0.11,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-        color: Colors.white,
+      height: 45,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Container(
+          //height: size.height * 0.065,
+          //width: size.width * 0.12,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: Colors.white,
+          ),
+          child: Stack(children:[
+          containerColorChange(context,read.getDateColor(days,months,years),months),
+          dateText(context, days,months, years)]),
+        ),
       ),
     );
   }
@@ -401,21 +398,25 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
   Widget containerDayAdd(BuildContext context, String day) {
     var size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.065,
-      width: size.width * 0.11,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-        color: Color(0xff0D1C26),
-      ),
-      child: Center(
-        child: Text(
-          day,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontFamily: 'Nexa3',
-            fontWeight: FontWeight.w900,
-            height: 1.4,
+      height:45,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: Color(0xff0D1C26),
+          ),
+          child: Center(
+            child: Text(
+              day,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: 'Nexa3',
+                fontWeight: FontWeight.w900,
+                height: 1.4,
+              ),
+            ),
           ),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:butcekontrol/Riverpod/UpdateDataRiverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,13 +6,13 @@ import 'package:intl/intl.dart';
 import 'package:butcekontrol/utils/DateTimeManager.dart';
 import '../riverpod_management.dart';
 
-class AddData extends StatefulWidget {
-  const AddData({Key? key}) : super(key: key);
+class UpdateData extends StatefulWidget {
+  const UpdateData({Key? key}) : super(key: key);
   @override
-  State<AddData> createState() => _AddDataState();
+  State<UpdateData> createState() => _AddDataState();
 }
 
-class _AddDataState extends State<AddData> {
+class _AddDataState extends State<UpdateData> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,7 +57,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 child: const Padding(
                   padding: EdgeInsets.only(left: 20, top: 20),
                   child: Text(
-                    'GELİR / GİDER EKLE',
+                    'İŞLEM DÜZENLEME',
                     style: TextStyle(
                       fontFamily: 'Nexa4',
                       fontSize: 26,
@@ -110,9 +111,6 @@ class ButtonMenu extends ConsumerStatefulWidget {
 
 class _ButtonMenu extends ConsumerState<ButtonMenu> {
   final TextEditingController _note = TextEditingController(text: "");
-  final TextEditingController _amount = TextEditingController(text: "0.0");
-  final TextEditingController _operationType =
-      TextEditingController(text: "Gider");
   final TextEditingController _category = TextEditingController(text: "Yemek");
   final TextEditingController _operationTool =
       TextEditingController(text: "Nakit");
@@ -164,7 +162,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             const SizedBox(
               height: 15,
             ),
-            AmountCustomButton(),
+            AmountCustomButton(context),
             const SizedBox(
               height: 5,
             ),
@@ -182,6 +180,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   Color _textColorType = const Color(0xff0D1C26);
   Color _textColorType2 = Colors.white;
   Widget TypeCustomButton(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final _operationType = readUpdateData.getType();
+    int indexx ;
+    _operationType == 'Gider' ? indexx = 0: indexx =1;
     void changeColorType(int index) {
       if (index == 0) {
         setState(() {
@@ -394,7 +396,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     );
   }
 
-  Widget AmountCustomButton() {
+  Widget AmountCustomButton(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final _amount = readUpdateData.getAmount();
     var size = MediaQuery.of(context).size;
     return SizedBox(
       height: 40,
@@ -1545,6 +1549,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     var read = ref.read(databaseRiverpod);
     var read2 = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final _amount = readUpdateData.getAmount();
+    final _operationType = readUpdateData.getType();
     return SizedBox(
       width: size.width * 0.9,
       height: 80,
@@ -1592,6 +1599,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   width: 100,
                   child: TextButton(
                     onPressed: () {
+
+                    },
+                    /*onPressed: () {
                       double amount = double.tryParse(_amount.text) ?? 0.0;
                       if (amount != 0.0) {
                         read.insertDataBase(
@@ -1625,8 +1635,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                               );
                             });
                       }
-                    },
-                    child: const Text("EKLE",
+                    },*/
+                    child: const Text("UPDATE",
                         style: TextStyle(
                             color: Color(0xff0D1C26),
                             fontSize: 17,

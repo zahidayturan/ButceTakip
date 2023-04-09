@@ -143,11 +143,9 @@ class Aylikinfo extends ConsumerWidget {
                                                      child: Padding(
                                                        padding: const EdgeInsets
                                                            .only(
-                                                           left: 12, right: 15),
+                                                           left: 12, right: 6),
                                                        child: Row(
-                                                         mainAxisAlignment:
-                                                         MainAxisAlignment
-                                                             .center,
+                                                         mainAxisAlignment:  MainAxisAlignment.center,
                                                          mainAxisSize: MainAxisSize
                                                              .max,
                                                          children: [
@@ -221,7 +219,7 @@ class Aylikinfo extends ConsumerWidget {
                                              ),
                                              const SizedBox(
                                                  height:
-                                                 5)
+                                                 6)
                                              // elemanlar arasına bşluk bırakmak için kulllandım.
                                            ],
                                          );
@@ -241,12 +239,12 @@ class Aylikinfo extends ConsumerWidget {
 
   Widget eyeColorChoice(String toplam) {
     if (toplam.contains('-')) {
-      return const Icon(
+      return  Icon(
         Icons.remove_red_eye,
         color: Colors.red,
       );
     } else {
-      return const Icon(Icons.remove_red_eye, color: Colors.black);
+      return  Icon(Icons.remove_red_eye, color: Colors.black);
     }
   }
   String _getDayOfWeekName(int dayOfWeek) {

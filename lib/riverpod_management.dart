@@ -1,3 +1,4 @@
+import 'package:butcekontrol/Riverpod/UpdateDataRiverpod.dart';
 import 'package:butcekontrol/Riverpod/appbarType2Riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'Riverpod/Bottom_nav_bar_riverpod.dart';
@@ -16,3 +17,4 @@ final calendarRiverpod = ChangeNotifierProvider((ref) => CalendarRiverpod());
 final dailyInfoRiverpod = ChangeNotifierProvider((ref) => DailyInfoRiverpod());
 final statisticsRiverpod = ChangeNotifierProvider((ref) => StatisticsRiverpod());
 final categoryInfoRiverpod = ChangeNotifierProvider((ref) => CategoryInfoRiverpod());
+final updateDataRiverpod = ChangeNotifierProvider((ref) => UpdateDataRiverpod());

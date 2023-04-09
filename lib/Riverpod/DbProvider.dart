@@ -7,9 +7,11 @@ import 'package:collection/collection.dart';
 class DbProvider extends ChangeNotifier {
 
   bool isuseinsert = false ;
+  bool deletst = false ;
   String month = DateTime.now().month.toString();
   String year = DateTime.now().year.toString() ;
   Future<List<spendinfo>> ?daylist ;
+  List<spendinfo> ?registeryListTile ;
   String ?status ;
   String ?day ;
   String ?Date ;
@@ -35,7 +37,7 @@ class DbProvider extends ChangeNotifier {
   }
 
   void refreshDB() async {
-    var data = await SQLHelper.getItems();
+    await SQLHelper.getItems();
     myMethod2();
     notifyListeners();
   }
@@ -72,75 +74,81 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-    Future Delete(int id) async{
-      await SQLHelper.deleteItem(id);
-      print("silindi");
-      refreshDB();
-      notifyListeners();
-    }
-    Future Update(spendinfo info) async{
-      await SQLHelper.updateItem(info);
-      refreshDB();
-      notifyListeners();
-    }
+  Future Delete(int id) async{
+    await SQLHelper.deleteItem(id);
+    print("silindi");
+    deletst = !deletst ;
+    refreshDB();
+    notifyListeners();
+  }
+  Future Update(spendinfo info) async{
+    await SQLHelper.updateItem(info);
+    refreshDB();
+    notifyListeners();
+  }
 
-    Stream <Map<String, Object>> myMethod() async* {
-      List<spendinfo> items =
-      await SQLHelper.getItemsByOperationMonthAndYear(month ,year);
-      var groupedItems = groupBy(items, (item) => item.operationDay);
-      var dailyTotals = <String, Map<String, double>>{};
-      groupedItems.forEach((day, dayItems) {
-        double totalAmount = dayItems
-            .where((element) => element.operationType == 'Gelir')
-            .fold(
-            0, (previousValue, element) => previousValue + element.amount!);
-
-        double totalAmount2 = dayItems
-            .where((element) => element.operationType == 'Gider')
-            .fold(
-            0, (previousValue, element) => previousValue + element.amount!);
-        dailyTotals[day!] = {
-          'totalAmount': totalAmount,
-          'totalAmount2': totalAmount2
-        };
-      });
-      dailyTotals = Map.fromEntries(dailyTotals.entries.toList()
-        ..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
-      notifyListeners();
-      yield {"items" : items, "dailyTotals" : dailyTotals};
-      }
-
-    Future <List<spendinfo>> myMethod2() async{
-      List<spendinfo> items =
-      await SQLHelper.getItemsByOperationDayMonthAndYear(day!, month, year);
-      notifyListeners();
-      return items;
-    }
-
-    String getTotalAmount(List<spendinfo> items) {
-      double totalAmount = items
+  Stream <Map<String, Object>> myMethod() async* {
+    List<spendinfo> items =
+    await SQLHelper.getItemsByOperationMonthAndYear(month ,year);
+    var groupedItems = groupBy(items, (item) => item.operationDay);
+    var dailyTotals = <String, Map<String, double>>{};
+    groupedItems.forEach((day, dayItems) {
+      double totalAmount = dayItems
           .where((element) => element.operationType == 'Gelir')
-          .fold(0, (previousValue, element) => previousValue + element.amount!);
-      double totalAmount2 = items
+          .fold(
+          0, (previousValue, element) => previousValue + element.amount!);
+
+      double totalAmount2 = dayItems
           .where((element) => element.operationType == 'Gider')
-          .fold(0, (previousValue, element) => previousValue + element.amount!);
-      return (totalAmount - totalAmount2).toStringAsFixed(1);
-    }
+          .fold(
+          0, (previousValue, element) => previousValue + element.amount!);
+      dailyTotals[day!] = {
+        'totalAmount': totalAmount,
+        'totalAmount2': totalAmount2
+      };
+    });
+    dailyTotals = Map.fromEntries(dailyTotals.entries.toList()
+      ..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
+    notifyListeners();
+    yield {"items" : items, "dailyTotals" : dailyTotals};
+  }
 
-    String getTotalAmountPositive(List<spendinfo> items) {
-      double totalAmount = items
-          .where((element) => element.operationType == 'Gelir')
-          .fold(0, (previousValue, element) => previousValue + element.amount!);
+  Future <List<spendinfo>> myMethod2() async{
+    List<spendinfo> items =
+    registeryListTile =  await SQLHelper.getItemsByOperationDayMonthAndYear(day!, month, year);
+    notifyListeners();
+    return items;
+  }
 
-      return totalAmount.toStringAsFixed(1);
-    }
+  Future <List<spendinfo>> registeryList() async {
+    List<spendinfo> items = await SQLHelper.getRegisteryQuery();
+    registeryListTile = items ;
+    notifyListeners();
+    return items ;
+  }
 
-    String getTotalAmountNegative(List<spendinfo> items) {
-      double totalAmount2 = items
-          .where((element) => element.operationType == 'Gider')
-          .fold(0, (previousValue, element) => previousValue + element.amount!);
-      return totalAmount2.toStringAsFixed(1);
-    }
+  String getTotalAmount(List<spendinfo> items) {
+    double totalAmount = items
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.amount!);
+    double totalAmount2 = items
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.amount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(1);
+  }
 
+  String getTotalAmountPositive(List<spendinfo> items) {
+    double totalAmount = items
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.amount!);
 
+    return totalAmount.toStringAsFixed(1);
+  }
+
+  String getTotalAmountNegative(List<spendinfo> items) {
+    double totalAmount2 = items
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.amount!);
+    return totalAmount2.toStringAsFixed(1);
+  }
 }

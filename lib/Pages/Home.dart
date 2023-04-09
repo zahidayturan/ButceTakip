@@ -18,7 +18,7 @@ class Home extends ConsumerWidget {
       appBar: appbarCustom(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Generalinfo(),
           Aylikinfo(),
