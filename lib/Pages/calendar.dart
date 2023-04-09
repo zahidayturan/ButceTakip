@@ -173,7 +173,6 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         setState(() {
                           selectedMonthIndex = index + 1;
                         });
-                        print(selectedMonthIndex);
                       },
                       children: monthName
                           .map(
@@ -206,7 +205,6 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         setState(() {
                           selectedYearIndex = index + 2020;
                         });
-                        print(selectedYearIndex);
                       },
                       children: yearName
                           .map(
@@ -433,9 +431,6 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
       width: size.height * 0.065,
       child: TextButton(
           onPressed: () {
-            if (month == selectedMonthIndex) {
-              print("${date} ${monthName} ${year}");
-            }
             readDailyInfo.setDate(date, month, year);
             Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  dailyInfo(),));
           },

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
 
+import '../UI/spendDetail.dart';
+
 class dailyInfo extends ConsumerWidget {
   const dailyInfo({Key? key}) : super(key: key);
 
@@ -130,453 +132,7 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
                                               const Color(0xff0D1C26),
                                           builder: (context) {
                                             // genel bilgi sekmesi açılıyor.
-                                            return SizedBox(
-                                              height: size.height / 1.2,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 18.0,
-                                                        vertical: 20.0),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        const Text(
-                                                          "İşlem Detayı  ",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontFamily: 'Nexa4',
-                                                            fontSize: 26,
-                                                          ),
-                                                        ),
-                                                        const Icon(
-                                                          Icons.remove_red_eye,
-                                                          color:
-                                                              Color(0xffF2CB05),
-                                                          size: 34,
-                                                        ),
-                                                        const Spacer(),
-                                                        DecoratedBox(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        40),
-                                                          ),
-                                                          child: IconButton(
-                                                            onPressed: () {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            },
-                                                            icon: const Icon(
-                                                              Icons
-                                                                  .clear_rounded,
-                                                              size: 30,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        const Text("TARİH",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa4',
-                                                              fontSize: 18,
-                                                            )),
-                                                        SizedBox(
-                                                          height: 22,
-                                                          child: DecoratedBox(
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              color:
-                                                                  Colors.white,
-                                                              borderRadius: BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          15)),
-                                                            ),
-                                                            child: Center(
-                                                              child: Padding(
-                                                                padding: const EdgeInsets
-                                                                        .only(
-                                                                    left: 15.0,
-                                                                    right: 15.0,
-                                                                    top: 2.0),
-                                                                child: Text(
-                                                                  "${item[index].operationDate}",
-                                                                  style:
-                                                                      const TextStyle(
-                                                                    fontFamily:
-                                                                        'NEXA4',
-                                                                    fontSize:
-                                                                        18,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        const Text("SAAT",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa4',
-                                                              fontSize: 18,
-                                                            )),
-                                                        Text(
-                                                            "${item[index].operationTime}",
-                                                            style:
-                                                                const TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa4',
-                                                              fontSize: 18,
-                                                            )),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        const Text("KATEGORİ",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa4',
-                                                              fontSize: 18,
-                                                            )),
-                                                        Text(
-                                                            "${item[index].category}",
-                                                            style:
-                                                                const TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa4',
-                                                              fontSize: 18,
-                                                            )),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        const Text("ÖDEME TÜRÜ",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa4',
-                                                              fontSize: 18,
-                                                            )),
-                                                        Text(
-                                                            "${item[index].operationTool}",
-                                                            style:
-                                                                const TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa4',
-                                                              fontSize: 18,
-                                                            )),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        const Text("TUTAR",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa4',
-                                                              fontSize: 18,
-                                                            )),
-                                                        Text(
-                                                            "${item[index].amount}",
-                                                            style:
-                                                                const TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa4',
-                                                              fontSize: 18,
-                                                            )),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        const Text("NOT",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa4',
-                                                              fontSize: 18,
-                                                            )),
-                                                        Text(
-                                                            "${item[index].note}",
-                                                            style:
-                                                                const TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'Nexa3',
-                                                              fontSize: 18,
-                                                            )),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        Column(
-                                                          children: [
-                                                            DecoratedBox(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: const Color(
-                                                                    0xFFF2CB05),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            50),
-                                                              ),
-                                                              child: IconButton(
-                                                                onPressed: () {
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                  readDailyInfo.regChange(item[
-                                                                              index]
-                                                                          .registration =
-                                                                      item[index].registration ==
-                                                                              0
-                                                                          ? 1
-                                                                          : 0);
-                                                                  readDailyInfo.updateRegistration(
-                                                                      item[index]
-                                                                          .id,
-                                                                      item[index]
-                                                                          .registration);
-                                                                  setState(() {
-                                                                    item[index]
-                                                                            .registration =
-                                                                        item[index].registration ==
-                                                                                0
-                                                                            ? 1
-                                                                            : 0;
-                                                                    readDailyInfo
-                                                                        .setReg();
-                                                                  });
-                                                                  ScaffoldMessenger.of(
-                                                                          context)
-                                                                      .showSnackBar(
-                                                                    SnackBar(
-                                                                      backgroundColor:
-                                                                          Color(
-                                                                              0xff0D1C26),
-                                                                      duration: Duration(
-                                                                          seconds:
-                                                                              1),
-                                                                      content: item[index].registration ==
-                                                                              1
-                                                                          ? const Text(
-                                                                              'İşaret Kaldırıldı',
-                                                                              style: TextStyle(
-                                                                                color: Colors.white,
-                                                                                fontSize: 16,
-                                                                                fontFamily: 'Nexa3',
-                                                                                fontWeight: FontWeight.w600,
-                                                                                height: 1.3,
-                                                                              ),
-                                                                            )
-                                                                          : const Text(
-                                                                        'İşaret Eklendi',
-                                                                        style: TextStyle(
-                                                                          color: Colors.white,
-                                                                          fontSize: 16,
-                                                                          fontFamily: 'Nexa3',
-                                                                          fontWeight: FontWeight.w600,
-                                                                          height: 1.3,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                },
-                                                                iconSize: 30,
-                                                                icon: ref
-                                                                            .watch(
-                                                                                dailyInfoRiverpod)
-                                                                            .setReg() ==
-                                                                        0
-                                                                    ? const Icon(
-                                                                        Icons
-                                                                            .bookmark_outline)
-                                                                    : const Icon(
-                                                                        Icons
-                                                                            .bookmark_outlined),
-                                                              ),
-                                                            ),
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 4.0),
-                                                              child: Text(
-                                                                "İşaretle",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Color(
-                                                                      0xFFF2CB05),
-                                                                  fontFamily:
-                                                                      'Nexa3',
-                                                                  fontSize: 15,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          children: [
-                                                            DecoratedBox(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: const Color(
-                                                                    0xFFF2CB05),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            50),
-                                                              ),
-                                                              child: IconButton(
-                                                                icon:
-                                                                    const Icon(
-                                                                  Icons.delete,
-                                                                  size: 30,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                                onPressed: () {
-                                                                  read.Delete(
-                                                                      item[index]
-                                                                          .id!);
-                                                                  read.myMethod2();
-                                                                  readnavbar
-                                                                      .setCurrentindex(
-                                                                          5);
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                },
-                                                              ),
-                                                            ),
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 4.0),
-                                                              child: Text(
-                                                                "Sil",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Color(
-                                                                      0xFFF2CB05),
-                                                                  fontFamily:
-                                                                      'Nexa3',
-                                                                  fontSize: 15,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            DecoratedBox(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: const Color(
-                                                                    0xFFF2CB05),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            50),
-                                                              ),
-                                                              child: IconButton(
-                                                                icon:
-                                                                    const Icon(
-                                                                  Icons
-                                                                      .create_rounded,
-                                                                  size: 35,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                                onPressed:
-                                                                    () {
-                                                                  readUpdateData.setItems(spendinfo.withId(item[index].id!, item[index].operationType, item[index].category, item[index].operationTool, item[index].registration, item[index].amount, item[index].note, item[index].operationDay, item[index].operationMonth, item[index].operationYear, item[index].operationTime, item[index].operationDate));
-                                                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateData(),));
-                                                                  },
-                                                              ),
-                                                            ),
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 4.0),
-                                                              child: Text(
-                                                                "Düzenle",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Color(
-                                                                      0xFFF2CB05),
-                                                                  fontFamily:
-                                                                      'Nexa3',
-                                                                  fontSize: 15,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            );
+                                            return spendDetail(item: item, index: index);
                                           },
                                         );
                                       }
@@ -913,4 +469,98 @@ class appbarDailyInfo extends ConsumerWidget implements PreferredSizeWidget {
       },
     );
   }
+  /*
+  IconButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  readDailyInfo.regChange(item[
+                                                                              index]
+                                                                          .registration =
+                                                                      item[index].registration ==
+                                                                              0
+                                                                          ? 1
+                                                                          : 0);
+                                                                  readDailyInfo.updateRegistration(
+                                                                      item[index]
+                                                                          .id,
+                                                                      item[index]
+                                                                          .registration);
+                                                                  setState(() {
+                                                                    item[index]
+                                                                            .registration =
+                                                                        item[index].registration ==
+                                                                                0
+                                                                            ? 1
+                                                                            : 0;
+                                                                    readDailyInfo
+                                                                        .setReg();
+                                                                  });
+                                                                  ScaffoldMessenger.of(
+                                                                          context)
+                                                                      .showSnackBar(
+                                                                    SnackBar(
+                                                                      backgroundColor:
+                                                                          Color(
+                                                                              0xff0D1C26),
+                                                                      duration: Duration(
+                                                                          seconds:
+                                                                              1),
+                                                                      content: item[index].registration ==
+                                                                              1
+                                                                          ? const Text(
+                                                                              'İşaret Kaldırıldı',
+                                                                              style: TextStyle(
+                                                                                color: Colors.white,
+                                                                                fontSize: 16,
+                                                                                fontFamily: 'Nexa3',
+                                                                                fontWeight: FontWeight.w600,
+                                                                                height: 1.3,
+                                                                              ),
+                                                                            )
+                                                                          : const Text(
+                                                                        'İşaret Eklendi',
+                                                                        style: TextStyle(
+                                                                          color: Colors.white,
+                                                                          fontSize: 16,
+                                                                          fontFamily: 'Nexa3',
+                                                                          fontWeight: FontWeight.w600,
+                                                                          height: 1.3,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                                iconSize: 30,
+                                                                icon: ref
+                                                                            .watch(
+                                                                                dailyInfoRiverpod)
+                                                                            .setReg() ==
+                                                                        0
+                                                                    ? const Icon(
+                                                                        Icons
+                                                                            .bookmark_outline)
+                                                                    : const Icon(
+                                                                        Icons
+                                                                            .bookmark_outlined),
+                                                              ),
+   */
 }
+/*
+IconButton(
+                                                                icon:
+                                                                    const Icon(
+                                                                  Icons
+                                                                      .create_rounded,
+                                                                  size: 35,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                                onPressed:
+                                                                    () {
+                                                                  readUpdateData.setItems(spendinfo.withId(item[index].id!, item[index].operationType, item[index].category, item[index].operationTool, item[index].registration, item[index].amount, item[index].note, item[index].operationDay, item[index].operationMonth, item[index].operationYear, item[index].operationTime, item[index].operationDate));
+                                                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateData(),));
+                                                                  },
+                                                              ),
+ */
