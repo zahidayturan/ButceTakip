@@ -220,51 +220,51 @@ class StatisticsRiverpod extends ChangeNotifier {
       }
       categoryBaseAmounts = categoryAmounts;
     }
-    /*else if(dataType  == 3 ){
-      var date = DateTime.utc(year, month, 1);
-      var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
-      var startDate = date.add(Duration(days: daysToAdd));
-      var endDate = startDate.add(Duration(days: 6));
-      List<spendinfo> items = await SQLHelper.getItemsByOperationDayRange('2023-02-01','2023-02-09');
-      List<double> categoryAmounts;
+    /*else if(dataType  == 3 ){ /// haftalık veri
+        var date = DateTime.utc(year, month, 1);
+        var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
+        var startDate = date.add(Duration(days: daysToAdd));
+        var endDate = startDate.add(Duration(days: 6));
+        List<spendinfo> items = await SQLHelper.getItemsByOperationDayRange('2023-02-01','2023-02-09');
+        List<double> categoryAmounts;
 
-      if (type == 'Gider') {
-        for (var i = 0; i < GiderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == GiderKategorileri[i])
+        if (type == 'Gider') {
+          for (var i = 0; i < GiderKategorileri.length; i++) {
+            double amount = items
+                .where((element) => element.operationType == 'Gider')
+                .where((element) => element.category == GiderKategorileri[i])
 
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+                .fold(
+                0, (previousValue, element) => previousValue + element.amount!);
 
-          GiderKategoriTutarlari[i] = amount;
+            GiderKategoriTutarlari[i] = amount;
+          }
+          categoryAmounts = GiderKategoriTutarlari;
         }
-        categoryAmounts = GiderKategoriTutarlari;
-      }
-      else if (type == 'Hepsi'){
-        for (var i = 0; i < HepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == HepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+        else if (type == 'Hepsi'){
+          for (var i = 0; i < HepsiKategorileri.length; i++) {
+            double amount = items
+                .where((element) => element.category == HepsiKategorileri[i])
+                .fold(
+                0, (previousValue, element) => previousValue + element.amount!);
 
-          HepsiKategoriTutarlari[i] = amount;
+            HepsiKategoriTutarlari[i] = amount;
+          }
+          categoryAmounts = HepsiKategoriTutarlari;
         }
-        categoryAmounts = HepsiKategoriTutarlari;
-      }
-      else {
-        for (var i = 0; i < GelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == GelirKategorileri[i])
+        else {
+          for (var i = 0; i < GelirKategorileri.length; i++) {
+            double amount = items
+                .where((element) => element.operationType == 'Gelir')
+                .where((element) => element.category == GelirKategorileri[i])
 
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          GelirKategoriTutarlari[i] = amount;
+                .fold(
+                0, (previousValue, element) => previousValue + element.amount!);
+            GelirKategoriTutarlari[i] = amount;
+          }
+          categoryAmounts = GelirKategoriTutarlari;
         }
-        categoryAmounts = GelirKategoriTutarlari;
-      }
-      categoryBaseAmounts = categoryAmounts;
+        categoryBaseAmounts = categoryAmounts;
     }*/
     else if(dataType  == 4 ){
       List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(),

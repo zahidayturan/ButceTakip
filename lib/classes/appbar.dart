@@ -1,6 +1,5 @@
 import 'package:butcekontrol/UI/registerylistW.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
-import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,7 +14,7 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
       backgroundColor: Color(0xFF0D1C26),
       title: RichText(
         text: const TextSpan(
-          text: "Aylık Durum",
+          text: "Bütçe Kontrol",
 
           style: TextStyle(
             fontFamily: "Nexa",
@@ -24,7 +23,7 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           ),
           children: [
             TextSpan(
-              text: "\n+248.40 TL",
+              text: "\nUYGULAMASI",
               style: TextStyle(
                 color: Color(0xFFF2CB05),
               ),
@@ -35,7 +34,6 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            print("Kaydedilenler");
             showDialog(
               context: context,
               builder: (context) {
