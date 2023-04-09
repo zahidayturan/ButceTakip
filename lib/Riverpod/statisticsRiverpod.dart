@@ -215,39 +215,41 @@ class StatisticsRiverpod extends ChangeNotifier {
       //List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear('24','04','2023');
       List<double> categoryAmounts;
 
-      if (type == 'Gider') {
-        for (var i = 0; i < GiderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == GiderKategorileri[i])
+        if (type == 'Gider') {
+          for (var i = 0; i < GiderKategorileri.length; i++) {
+            double amount = items
+                .where((element) => element.operationType == 'Gider')
+                .where((element) => element.category == GiderKategorileri[i])
 
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+                .fold(
+                0, (previousValue, element) => previousValue + element.amount!);
 
-          GiderKategoriTutarlari[i] = amount;
+            GiderKategoriTutarlari[i] = amount;
+          }
+          categoryAmounts = GiderKategoriTutarlari;
         }
-        categoryAmounts = GiderKategoriTutarlari;
-      }
-      else if (type == 'Hepsi'){
-        for (var i = 0; i < HepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == HepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+        else if (type == 'Hepsi'){
+          for (var i = 0; i < HepsiKategorileri.length; i++) {
+            double amount = items
+                .where((element) => element.category == HepsiKategorileri[i])
+                .fold(
+                0, (previousValue, element) => previousValue + element.amount!);
 
-          HepsiKategoriTutarlari[i] = amount;
+            HepsiKategoriTutarlari[i] = amount;
+          }
+          categoryAmounts = HepsiKategoriTutarlari;
         }
-        categoryAmounts = HepsiKategoriTutarlari;
-      }
-      else {
-        for (var i = 0; i < GelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == GelirKategorileri[i])
+        else {
+          for (var i = 0; i < GelirKategorileri.length; i++) {
+            double amount = items
+                .where((element) => element.operationType == 'Gelir')
+                .where((element) => element.category == GelirKategorileri[i])
 
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          GelirKategoriTutarlari[i] = amount;
+                .fold(
+                0, (previousValue, element) => previousValue + element.amount!);
+            GelirKategoriTutarlari[i] = amount;
+          }
+          categoryAmounts = GelirKategoriTutarlari;
         }
         categoryAmounts = GelirKategoriTutarlari;
       }

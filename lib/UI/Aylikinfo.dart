@@ -24,35 +24,35 @@ class Aylikinfo extends ConsumerWidget {
     CustomColors renkler = CustomColors();
     var ceyrekwsize = MediaQuery.of(context).size.width / 5;
     var size = MediaQuery.of(context).size;
-       return StreamBuilder<Map<String, dynamic>>(
-           stream: read.myMethod(),
-           builder:
-               (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-                 if (!snapshot.hasData) {
-                   return const Center(
-                     child: CircularProgressIndicator(),
-                   );
-                 }
-                 var dailyTotals = snapshot.data!['dailyTotals'];
-                 var items = snapshot.data!["items"];
-                 return Center(
-                   child: Column(
-                     children: [
-                       SizedBox(
-                         height: size.height / 3.04,
-                         child: Padding(
-                           //borderin scroll ile birleşimi gözüksü diye soldan padding
-                           padding: const EdgeInsets.only(left: 4.0),
-                           child: dailyTotals.length == 0
-                               ? Center(
-                                   child: Column(
-                                     mainAxisAlignment: MainAxisAlignment.center,
-                                     children: [
-                                       Image.asset(
-                                         "assets/image/origami_noinfo.png",
-                                         width: 60,
-                                         height: 60,
-                                       ),
+    return StreamBuilder<Map<String, dynamic>>(
+        stream: read.myMethod(),
+        builder:
+            (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          var dailyTotals = snapshot.data!['dailyTotals'];
+          var items = snapshot.data!["items"];
+          return Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: size.height / 3.04,
+                  child: Padding(
+                    //borderin scroll ile birleşimi gözüksü diye soldan padding
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: dailyTotals.length == 0
+                        ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/image/origami_noinfo.png",
+                            width: 60,
+                            height: 60,
+                          ),
 
                                        SizedBox(
                                          height: 30,
@@ -236,6 +236,71 @@ class Aylikinfo extends ConsumerWidget {
            }
        );
     }
+
+                                                            )),
+                                                        SizedBox(
+                                                          width: ceyrekwsize,
+                                                          child: Center(
+                                                            child: Text(
+                                                              "$totalAmount",
+                                                              style: const TextStyle(
+                                                                color: Colors
+                                                                    .green,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: ceyrekwsize,
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$totalAmount2',
+                                                              style: const TextStyle(
+                                                                color: Colors
+                                                                    .red,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: ceyrekwsize,
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$formattedTotal',
+                                                              style: const TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        eyeColorChoice(formattedTotal),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                              height:
+                                              5)
+                                          // elemanlar arasına bşluk bırakmak için kulllandım.
+                                        ],
+                                      );
+                                    }),
+                              ),
+                            ],
+                          ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        }
+    );
+  }
 
   Widget eyeColorChoice(String toplam) {
     if (toplam.contains('-')) {

@@ -255,66 +255,65 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              SizedBox(
-                width: size.width * 0.9,
-                height: size.height * 0.04,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                     SizedBox(
-                      width: 210,
-                      child: Text("$giderGelirHepsi İçin Toplam Tutar",style: const TextStyle(
-                        fontFamily: 'NEXA4',
-                        fontSize: 17,
-                        color: Color(0xff0D1C26),
-                      ),),
-                    ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.white,
+                const SizedBox(
+                  height: 4,
+                ),
+                SizedBox(
+                  width: size.width * 0.9,
+                  height: size.height * 0.04,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 210,
+                        child: Text("$giderGelirHepsi İçin Toplam Tutar",style: const TextStyle(
+                          fontFamily: 'NEXA4',
+                          fontSize: 17,
+                          color: Color(0xff0D1C26),
+                        ),),
                       ),
-                      height: 26,
-                      child: Center(
-                        child: FittedBox(
-                          fit: BoxFit.contain,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10,left: 10),
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: totalAmount.toStringAsFixed(1),style: const TextStyle(
-                                    fontFamily: 'NEXA4',
-                                    fontSize: 17,
-                                    color: Color(0xff0D1C26),
-                                  ),
-                                  ),
-                                  const TextSpan(
-                                    text: ' ₺',
+                      Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        height: 26,
+                        child: Center(
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10,left: 10),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: totalAmount.toStringAsFixed(1),style: const TextStyle(
+                                      fontFamily: 'NEXA4',
+                                      fontSize: 17,
+                                      color: Color(0xff0D1C26),
+                                    ),
+                                    ),
+                                    const TextSpan(
+                                      text: ' ₺',
                                       style: TextStyle(
                                         fontFamily: 'TL',
                                         fontWeight: FontWeight.w600,
                                         fontSize: 17,
                                         color: Color(0xffF2CB05),
                                       ),
-                                  ),
-                                ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          );}
+                    ],
+                  ),
+                )
+              ],
+            );}
         });
   }
 
@@ -339,12 +338,12 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   int selectedWeekIndex = 1;
   int selectedDayIndex = DateTime.now().day;
   final PageController pageDayController =
-      PageController(initialPage: DateTime.now().day - 1);
+  PageController(initialPage: DateTime.now().day - 1);
   final PageController pageWeekController = PageController(initialPage: 0);
   final PageController pageMonthController =
-      PageController(initialPage: DateTime.now().month - 1);
+  PageController(initialPage: DateTime.now().month - 1);
   final PageController pageYearController =
-      PageController(initialPage: DateTime.now().year - 2020);
+  PageController(initialPage: DateTime.now().year - 2020);
 
   Widget dateSelectMenu(BuildContext context) {
     return SizedBox(
@@ -627,18 +626,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: monthName
                             .map(
                               (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
+                            child: Text(
+                              year,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
                               ),
-                            )
+                            ),
+                          ),
+                        )
                             .toList(),
                       ),
                     ),
@@ -672,18 +671,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: yearName
                             .map(
                               (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa4',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
+                            child: Text(
+                              year,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Nexa4',
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
                               ),
-                            )
+                            ),
+                          ),
+                        )
                             .toList(),
                       ),
                     ),
@@ -784,18 +783,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: yearName
                             .map(
                               (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa4',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
+                            child: Text(
+                              year,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Nexa4',
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
                               ),
-                            )
+                            ),
+                          ),
+                        )
                             .toList(),
                       ),
                     ),
@@ -909,7 +908,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
+                          ),
+                        )
                             .toList(),
                       ),
                     ),
@@ -944,18 +945,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: monthName
                             .map(
                               (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
+                            child: Text(
+                              year,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
                               ),
-                            )
+                            ),
+                          ),
+                        )
                             .toList(),
                       ),
                     ),
@@ -989,18 +990,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: yearName
                             .map(
                               (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa4',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
+                            child: Text(
+                              year,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Nexa4',
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
                               ),
-                            )
+                            ),
+                          ),
+                        )
                             .toList(),
                       ),
                     ),
@@ -1103,18 +1104,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: dayName
                             .map(
                               (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
+                            child: Text(
+                              year,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
                               ),
-                            )
+                            ),
+                          ),
+                        )
                             .toList(),
                       ),
                     ),
@@ -1148,18 +1149,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: monthName
                             .map(
                               (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
+                            child: Text(
+                              year,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
                               ),
-                            )
+                            ),
+                          ),
+                        )
                             .toList(),
                       ),
                     ),
@@ -1193,18 +1194,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: yearName
                             .map(
                               (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa4',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
+                            child: Text(
+                              year,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Nexa4',
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
                               ),
-                            )
+                            ),
+                          ),
+                        )
                             .toList(),
                       ),
                     ),

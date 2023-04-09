@@ -1,5 +1,6 @@
 
 import 'package:butcekontrol/Pages/addData.dart';
+import 'package:butcekontrol/Pages/statistic.dart';
 import 'package:butcekontrol/Pages/testPages.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class navBar extends ConsumerWidget {
                           ),
                           onPressed:() {
                             read.setCurrentindex(1);
-                          }
+                          },
                         ),
                         IconButton(
                           icon: const Icon(
@@ -107,7 +108,7 @@ class navBar extends ConsumerWidget {
                 child: FloatingActionButton.large(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddData(),));
-                    read.setcur();
+                    read.setcur();  /// arastırılacak
                     },
                   backgroundColor: Color(0xffF2CB05),
                   child: Icon(Icons.add_rounded, color: Colors.white, size: 64),
