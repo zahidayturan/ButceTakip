@@ -113,9 +113,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       width: 160,
                       decoration: BoxDecoration(
                           color: Color(0xFF0D1C26),
-                        borderRadius: BorderRadius.circular(20)
+                          borderRadius: BorderRadius.circular(20)
                       ),
-                      
+
                       child: const Center(child: Text("Veri bulunamadı.",style: TextStyle(color: Colors.white, fontSize: 16),)),
                     ),
                   ),
@@ -129,131 +129,132 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               ],
             );
           } else {
-          return Column(
-            children: [
-              SizedBox(
-                width: size.width * 0.9,
-                height: size.height * 0.35,
-                child: Stack(
-                  alignment: Alignment.bottomLeft,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 1.5),
-                          child: SizedBox(
-                            width: 4,
-                            height: size.height * 0.35,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 1.5),
-                          child: SizedBox(
-                            width: 4,
-                            height: size.height * 0.35,
-                            child:  DecoratedBox(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                                  color: snapshot.data!.length <= 4 ? Color(0xFFE9E9E9) : Color(0xFF0D1C26)),
+            return Column(
+              children: [
+                SizedBox(
+                  width: size.width * 0.9,
+                  height: size.height * 0.35,
+                  child: Stack(
+                    alignment: Alignment.bottomLeft,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 1.5),
+                            child: SizedBox(
+                              width: 4,
+                              height: size.height * 0.35,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Theme(
-                      data: Theme.of(context).copyWith(
-                          scrollbarTheme: ScrollbarThemeData(
-                            thumbColor:
-                            MaterialStateProperty.all(Color(0xFFF2CB05)),
-                          )),
-                      child: Scrollbar(
-                        thumbVisibility: true,
-                        scrollbarOrientation:
-                        ScrollbarOrientation.right,
-                        interactive: true,
-                        thickness: 7,
-                        radius: const Radius.circular(15.0),
-                        child: ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 8,right: 16),
-                              child: InkWell(
-                                onTap: () {
-                                  readCategoryInfo.setDateAndCategory(selectedDayIndex, selectedMonthIndex, selectedYearIndex, selectedWeekIndex, item[index]['category'],validDateMenu);
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const categoryInfo(),));
+                          Padding(
+                            padding: const EdgeInsets.only(right: 1.5),
+                            child: SizedBox(
+                              width: 4,
+                              height: size.height * 0.35,
+                              child:  DecoratedBox(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                                    color: snapshot.data!.length <= 4 ? Color(0xFFE9E9E9) : Color(0xFF0D1C26)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Theme(
+                        data: Theme.of(context).copyWith(
+                            scrollbarTheme: ScrollbarThemeData(
+                              thumbColor:
+                              MaterialStateProperty.all(Color(0xFFF2CB05)),
+                            )),
+                        child: Scrollbar(
+                          thumbVisibility: true,
+                          scrollbarOrientation:
+                          ScrollbarOrientation.right,
+                          interactive: true,
+                          thickness: 7,
+                          radius: const Radius.circular(15.0),
+                          child: ListView.builder(
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 8,right: 16),
+                                child: InkWell(
+                                  onTap: () {
+                                    readCategoryInfo.setDateAndCategory(selectedDayIndex, selectedMonthIndex, selectedYearIndex, selectedWeekIndex, item[index]['category'],validDateMenu);
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const categoryInfo(),));
                                   },
-                                child: SizedBox(
-                                  height: 42,
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const SizedBox(width: 5),
-                                        Container(
-                                          width: 65,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                            color: colorsList[index],
-                                            borderRadius: BorderRadius.circular(10),
+                                  child: SizedBox(
+                                    height: 42,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          const SizedBox(width: 5),
+                                          Container(
+                                            width: 65,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                              color: colorsList[index],
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Center(
+                                                child: Text(
+                                                  "% ${item[index]['percentages'].toString()}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'NEXA3',
+                                                    color: Colors.white,
+                                                  ),
+                                                )),
                                           ),
-                                          child: Center(
-                                              child: Text(
-                                            "% ${item[index]['percentages'].toString()}",
+                                          const SizedBox(width: 10),
+                                          Text(
+                                            item[index]['category'],
                                             style: const TextStyle(
                                               fontFamily: 'NEXA3',
-                                              color: Colors.white,
+                                              fontSize: 18,
+                                              color: Color(0xff0D1C26),
                                             ),
-                                          )),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          item[index]['category'],
-                                          style: const TextStyle(
-                                            fontFamily: 'NEXA3',
-                                            fontSize: 18,
-                                            color: Color(0xff0D1C26),
                                           ),
-                                        ),
-                                        const Spacer(),
-                                        RichText(
-                                          text: TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text:item[index]['amount'].toString(),style: const TextStyle(
-                                                fontFamily: 'NEXA4',
-                                                fontSize: 16,
-                                                color: Color(0xFFF2CB05),
-                                              ),
-                                              ),
-                                              const TextSpan(
-                                                text: ' ₺',
-                                                style: TextStyle(
-                                                  fontFamily: 'TL',
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600,
+                                          const Spacer(),
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:item[index]['amount'].toString(),style: const TextStyle(
+                                                  fontFamily: 'NEXA4',
+                                                  fontSize: 16,
                                                   color: Color(0xFFF2CB05),
                                                 ),
-                                              ),
-                                            ],
+                                                ),
+                                                const TextSpan(
+                                                  text: ' ₺',
+                                                  style: TextStyle(
+                                                    fontFamily: 'TL',
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Color(0xFFF2CB05),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                      ],
+                                          const SizedBox(width: 10),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 4,
@@ -897,16 +898,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: weekName
                             .map(
                               (week) => Center(
-                                child: Text(
-                                  "$week.",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
+                            child: Text(
+                              "$week.",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
                               ),
                             ),
                           ),

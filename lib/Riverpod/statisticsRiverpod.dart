@@ -215,41 +215,39 @@ class StatisticsRiverpod extends ChangeNotifier {
       //List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear('24','04','2023');
       List<double> categoryAmounts;
 
-        if (type == 'Gider') {
-          for (var i = 0; i < GiderKategorileri.length; i++) {
-            double amount = items
-                .where((element) => element.operationType == 'Gider')
-                .where((element) => element.category == GiderKategorileri[i])
+      if (type == 'Gider') {
+        for (var i = 0; i < GiderKategorileri.length; i++) {
+          double amount = items
+              .where((element) => element.operationType == 'Gider')
+              .where((element) => element.category == GiderKategorileri[i])
 
-                .fold(
-                0, (previousValue, element) => previousValue + element.amount!);
+              .fold(
+              0, (previousValue, element) => previousValue + element.amount!);
 
-            GiderKategoriTutarlari[i] = amount;
-          }
-          categoryAmounts = GiderKategoriTutarlari;
+          GiderKategoriTutarlari[i] = amount;
         }
-        else if (type == 'Hepsi'){
-          for (var i = 0; i < HepsiKategorileri.length; i++) {
-            double amount = items
-                .where((element) => element.category == HepsiKategorileri[i])
-                .fold(
-                0, (previousValue, element) => previousValue + element.amount!);
+        categoryAmounts = GiderKategoriTutarlari;
+      }
+      else if (type == 'Hepsi'){
+        for (var i = 0; i < HepsiKategorileri.length; i++) {
+          double amount = items
+              .where((element) => element.category == HepsiKategorileri[i])
+              .fold(
+              0, (previousValue, element) => previousValue + element.amount!);
 
-            HepsiKategoriTutarlari[i] = amount;
-          }
-          categoryAmounts = HepsiKategoriTutarlari;
+          HepsiKategoriTutarlari[i] = amount;
         }
-        else {
-          for (var i = 0; i < GelirKategorileri.length; i++) {
-            double amount = items
-                .where((element) => element.operationType == 'Gelir')
-                .where((element) => element.category == GelirKategorileri[i])
+        categoryAmounts = HepsiKategoriTutarlari;
+      }
+      else {
+        for (var i = 0; i < GelirKategorileri.length; i++) {
+          double amount = items
+              .where((element) => element.operationType == 'Gelir')
+              .where((element) => element.category == GelirKategorileri[i])
 
-                .fold(
-                0, (previousValue, element) => previousValue + element.amount!);
-            GelirKategoriTutarlari[i] = amount;
-          }
-          categoryAmounts = GelirKategoriTutarlari;
+              .fold(
+              0, (previousValue, element) => previousValue + element.amount!);
+          GelirKategoriTutarlari[i] = amount;
         }
         categoryAmounts = GelirKategoriTutarlari;
       }
@@ -314,19 +312,19 @@ class StatisticsRiverpod extends ChangeNotifier {
     List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(1))).toList();
     List<Map<String, dynamic>> listMap = [];
     for (int i = 0; i < categoryBaseAmounts.length; i++) {
-        if (categoryBaseAmounts[i] != 0) {
-          Map<String, dynamic> map = {
-            'category': categoryBaseType[i],
-            'percentages': percentages[i],
-            'amount': categoryBaseAmounts[i],
-          };
-          listMap.add(map);
-        }
+      if (categoryBaseAmounts[i] != 0) {
+        Map<String, dynamic> map = {
+          'category': categoryBaseType[i],
+          'percentages': percentages[i],
+          'amount': categoryBaseAmounts[i],
+        };
+        listMap.add(map);
+      }
     }
     listMap.sort((a, b) => b['amount'].compareTo(a['amount']));
     return Future.value(listMap);
   }
-    ///pasta için liste
+  ///pasta için liste
   Future <List<Map<String, dynamic>>> getCategoryAndAmount(int dataType,String type, int year, int month, int week, int day) async {
     List<double> categoryBaseAmounts = [];
     List <String> categoryBaseType = [];
