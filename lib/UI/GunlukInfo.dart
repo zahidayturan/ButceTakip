@@ -150,7 +150,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                           );
                         }
                         return SizedBox(
-                          height: 165,
+                          height: 163,
                           child: Padding(
                             //borderin scroll ile birleşimi gözüksü diye soldan padding
                             padding: const EdgeInsets.only(

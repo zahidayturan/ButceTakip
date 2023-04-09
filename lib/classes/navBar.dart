@@ -1,7 +1,6 @@
 
 import 'package:butcekontrol/Pages/addData.dart';
-import 'package:butcekontrol/Pages/gunlukpage.dart';
-import 'package:butcekontrol/Pages/statistics.dart';
+import 'package:butcekontrol/Pages/statistic.dart';
 import 'package:butcekontrol/Pages/testPages.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';

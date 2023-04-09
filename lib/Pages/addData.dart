@@ -1537,6 +1537,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
 
   Widget OperationCustomButton(BuildContext context) {
     var read = ref.read(databaseRiverpod);
+    var read2 = ref.read(botomNavBarRiverpod);
     var readNavBar = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
     return SizedBox(

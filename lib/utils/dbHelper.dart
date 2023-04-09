@@ -66,7 +66,13 @@ class SQLHelper {
       debugPrint("Something went wrong when deleting an item: $err");
     }
   }
-
+  static Future<List<spendinfo>> getRegisteryQuery() async { //register kayıtlananları getirecek
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "registration = ?",whereArgs: [1], orderBy: "id");
+    return List.generate(result.length,(index) {
+      return spendinfo.fromObject(result[index]);
+    });
+  }
   static Future<List<spendinfo>> getItemsByOperationMonthAndYear(String operationMonth, String operationYear) async {
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "operationMonth = ? AND operationYear = ?", whereArgs: [operationMonth, operationYear], orderBy: "id");
