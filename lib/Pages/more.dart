@@ -10,7 +10,6 @@ class More extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var size = MediaQuery.of(context).size;
-
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(

@@ -7,9 +7,11 @@ import 'package:collection/collection.dart';
 class DbProvider extends ChangeNotifier {
 
   bool isuseinsert = false ;
+  bool deletst = false ;
   String month = DateTime.now().month.toString();
   String year = DateTime.now().year.toString() ;
   Future<List<spendinfo>> ?daylist ;
+  List<spendinfo> ?registeryListTile ;
   String ?status ;
   String ?day ;
   String ?Date ;
@@ -35,7 +37,7 @@ class DbProvider extends ChangeNotifier {
   }
 
   void refreshDB() async {
-    var data = await SQLHelper.getItems();
+    await SQLHelper.getItems();
     myMethod2();
     notifyListeners();
   }
@@ -75,6 +77,7 @@ class DbProvider extends ChangeNotifier {
   Future Delete(int id) async{
     await SQLHelper.deleteItem(id);
     print("silindi");
+    deletst = !deletst ;
     refreshDB();
     notifyListeners();
   }
@@ -112,9 +115,16 @@ class DbProvider extends ChangeNotifier {
 
   Future <List<spendinfo>> myMethod2() async{
     List<spendinfo> items =
-    await SQLHelper.getItemsByOperationDayMonthAndYear(day!, month, year);
+    registeryListTile =  await SQLHelper.getItemsByOperationDayMonthAndYear(day!, month, year);
     notifyListeners();
     return items;
+  }
+
+  Future <List<spendinfo>> registeryList() async {
+    List<spendinfo> items = await SQLHelper.getRegisteryQuery();
+    registeryListTile = items ;
+    notifyListeners();
+    return items ;
   }
 
   String getTotalAmount(List<spendinfo> items) {
@@ -141,6 +151,4 @@ class DbProvider extends ChangeNotifier {
         .fold(0, (previousValue, element) => previousValue + element.amount!);
     return totalAmount2.toStringAsFixed(1);
   }
-
-
 }

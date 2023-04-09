@@ -151,7 +151,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                           );
                         }
                         return SizedBox(
-                          height: 165,
+                          height: size.height*0.24,
                           child: Padding(
                             //borderin scroll ile birleşimi gözüksü diye soldan padding
                             padding: const EdgeInsets.only(
@@ -195,7 +195,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                     padding: const EdgeInsets.only(left: 1.75),
                                     child: SizedBox(
                                       width: 4,
-                                      height: size.height / 3.04,
+                                      height: size.height*0.24,
                                       child:  DecoratedBox(
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -227,7 +227,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                                   BorderRadius.circular(
                                                       10.0),
                                                   child: Container(
-                                                    height: 26,
+                                                    height: 28,
                                                     color: renkler.ArkaRenk,
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -260,8 +260,8 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                                 ),
                                               ),
                                               const SizedBox(
-                                                  height: 5
-                                              ) // elemanlar arasına bşluk bırakmak için kulllandım.
+                                                  height:
+                                                      6) // elemanlar arasına bşluk bırakmak için kulllandım.
                                             ],
                                           );
                                         }),

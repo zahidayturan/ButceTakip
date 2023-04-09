@@ -1,9 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import '../modals/Spendinfo.dart';
 import '../utils/dbHelper.dart';
 
 
 class DailyInfoRiverpod extends ChangeNotifier {
+
+  late int? reg;
+  regChange(int? reg){
+    this.reg = reg;
+    notifyListeners();
+  }
+  int? setReg(){
+    return reg;
+  }
 
   late int day ;
   late int month ;
@@ -79,4 +89,11 @@ class DailyInfoRiverpod extends ChangeNotifier {
     List amountList = [count,count2];
     return Future.value(amountList);
   }
+
+  void updateRegistration(int? id, int? currentRegistrationValue) async {
+    int newRegistrationValue = (currentRegistrationValue == 0) ? 1 : 0;
+    await SQLHelper.updateRegistration(id, newRegistrationValue);
+    notifyListeners();
+  }
+
 }

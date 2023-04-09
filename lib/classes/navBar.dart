@@ -1,4 +1,5 @@
 import 'package:butcekontrol/Pages/addData.dart';
+import 'package:butcekontrol/Pages/statistic.dart';
 import 'package:butcekontrol/Pages/testPages.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +15,8 @@ class navBar extends ConsumerWidget {
     var watch = ref.watch(botomNavBarRiverpod);
     var read = ref.read(botomNavBarRiverpod);
     var selectindex = watch.currentindex;
-    CustomColors renkler = CustomColors();
     final Size size = MediaQuery.of(context).size;
     return Container(
-      //alignment: Alignment.bottomCenter,
       color: read.currentColor,
       width: size.width,
       height: 64,
@@ -48,7 +47,7 @@ class navBar extends ConsumerWidget {
                             Icons.equalizer,
                             color: Colors.white,
                           ),
-                          onPressed: () {
+                          onPressed:() {
                             read.setCurrentindex(1);
                           },
                         ),
@@ -75,7 +74,6 @@ class navBar extends ConsumerWidget {
                           ),
                           onPressed:() {
                             read.setCurrentindex(3);
-                            print("hesap makinesi");
                             //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Calculator(),));
                           }
                         ),
@@ -87,7 +85,6 @@ class navBar extends ConsumerWidget {
                           ),
                           onPressed: () {
                             read.setCurrentindex(4);
-                            print("Daha Fazla");
                           }
                         )
                       ],
@@ -110,7 +107,7 @@ class navBar extends ConsumerWidget {
                 child: FloatingActionButton.large(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddData(),));
-                    read.setcur();
+                    read.setcur();  /// arastırılacak
                     },
                   backgroundColor: Color(0xffF2CB05),
                   child: Icon(Icons.add_rounded, color: Colors.white, size: 64),

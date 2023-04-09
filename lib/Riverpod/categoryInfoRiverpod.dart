@@ -52,6 +52,22 @@ class CategoryInfoRiverpod extends ChangeNotifier {
       List<spendinfo> itemsCategory = items.where((element) => element.category == category).toList();
       itemsBase =  itemsCategory;
     }
+    if(validDateMenu ==  3){
+      var date = DateTime.utc(year, month, 1);
+      var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
+      var startDate = date.add(Duration(days: daysToAdd));
+      var endDate = startDate.add(Duration(days: 6));
+      List<List<spendinfo>> allSpendInfo = [];
+      for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
+        var date = startDate.add(Duration(days: i));
+        List<spendinfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
+            date.day.toString(), date.month.toString(), date.year.toString());
+        allSpendInfo.add(spendInfo);
+      }
+      List<spendinfo> items = allSpendInfo.expand((x) => x).toList();
+      List<spendinfo> itemsCategory = items.where((element) => element.category == category).toList();
+      itemsBase =  itemsCategory;
+    }
     if(validDateMenu ==  4){
       List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(),month.toString(), year.toString());
       List<spendinfo> itemsCategory = items.where((element) => element.category == category).toList();
@@ -71,6 +87,24 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     }
     if(validDateMenu ==  2){
       List<spendinfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month.toString(), year.toString());
+      double totalAmount = items
+          .where((element) => element.category == category)
+          .fold(0, (previousValue, element) => previousValue + element.amount!);
+      totalBaseAmount =  totalAmount;
+    }
+    if(validDateMenu ==  3){
+      var date = DateTime.utc(year, month, 1);
+      var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
+      var startDate = date.add(Duration(days: daysToAdd));
+      var endDate = startDate.add(Duration(days: 6));
+      List<List<spendinfo>> allSpendInfo = [];
+      for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
+        var date = startDate.add(Duration(days: i));
+        List<spendinfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
+            date.day.toString(), date.month.toString(), date.year.toString());
+        allSpendInfo.add(spendInfo);
+      }
+      List<spendinfo> items = allSpendInfo.expand((x) => x).toList();
       double totalAmount = items
           .where((element) => element.category == category)
           .fold(0, (previousValue, element) => previousValue + element.amount!);
@@ -98,6 +132,10 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     }
     else if(validDateMenu == 2 ){
       List <String> dateName = ['${year} Yılı  ${getMonthName(month)} Ayı'];
+      dateNameBase = dateName;
+    }
+    else if(validDateMenu == 3 ){
+      List <String> dateName = ['${year} Yılı  ${getMonthName(month)} Ayı ${week}. Haftası'];
       dateNameBase = dateName;
     }
     else if(validDateMenu == 4 ){
