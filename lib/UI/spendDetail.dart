@@ -2,6 +2,9 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../Pages/updateData.dart';
+import '../modals/Spendinfo.dart';
+
 ///örnek kullanım
 /*
 showModalBottomSheet(
@@ -27,6 +30,9 @@ class spendDetail extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var readDB = ref.read(databaseRiverpod);
     var readNavBar = ref.read(botomNavBarRiverpod);
+    var readUpdateData = ref.read(updateDataRiverpod);
+    var readDailyInfo = ref.read(dailyInfoRiverpod);
+    Future<List<spendinfo>> myList = readDailyInfo.myMethod2();
     var size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height / 1.2,
@@ -357,7 +363,10 @@ class spendDetail extends ConsumerWidget {
                           color: Colors
                               .white,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          readUpdateData.setItems(spendinfo.withId(item[index].id!, item[index].operationType, item[index].category, item[index].operationTool, item[index].registration, item[index].amount, item[index].note, item[index].operationDay, item[index].operationMonth, item[index].operationYear, item[index].operationTime, item[index].operationDate));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateData(),));
+                        },
                       ),
                     ),
                     const Padding(

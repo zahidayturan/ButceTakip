@@ -107,11 +107,17 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 SizedBox(
                   width: size.width * 0.9,
                   height: size.height * 0.35,
-                  child: Container(
-                    height: 140,
-                    width: 140,
-                    color: Colors.deepOrange,
-                    child: const Center(child: Text("Abi banka bostir",style: TextStyle(color: Colors.white, fontSize: 16),)),
+                  child: Center(
+                    child: Container(
+                      height: 45,
+                      width: 160,
+                      decoration: BoxDecoration(
+                          color: Color(0xFF0D1C26),
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      
+                      child: const Center(child: Text("Veri bulunamadı.",style: TextStyle(color: Colors.white, fontSize: 16),)),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -466,7 +472,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 selectedMonthIndex = DateTime.now().month;
                                 selectedWeekIndex = 1;
                                 selectDateMenu = 3;
-                                //validDateMenu =3;
+                                validDateMenu =3;
                               });
                             },
                             child: const Text(
@@ -1409,12 +1415,17 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           }
           var item = snapshot.data!; // !
           if (snapshot.data!.isEmpty) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 4,
+            return Center(
+              child: SizedBox(
+                height: 140,
+                width: 140,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(200)
+                  ),
                 ),
-              ],
+              ),
             );
           }
           else {

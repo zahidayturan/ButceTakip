@@ -91,7 +91,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                   ),
                   onPressed: () {
                     Navigator.pop(context);
-                    read.setCurrentindex(read.current!);
+                    read.setCurrentindex(0);
                   },
                 ),
               ),
@@ -1599,7 +1599,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   width: 100,
                   child: TextButton(
                     onPressed: () {
-
+                      Navigator.of(context).pop();
+                      read2.setCurrentindex(0);
                     },
                     /*onPressed: () {
                       double amount = double.tryParse(_amount.text) ?? 0.0;

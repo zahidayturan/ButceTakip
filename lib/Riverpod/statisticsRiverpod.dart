@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class StatisticsRiverpod extends ChangeNotifier {
 
@@ -195,12 +196,23 @@ class StatisticsRiverpod extends ChangeNotifier {
       }
       categoryBaseAmounts = categoryAmounts;
     }
-    /*else if(dataType  == 3 ){
+    else if(dataType  == 3 ){
       var date = DateTime.utc(year, month, 1);
       var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
       var startDate = date.add(Duration(days: daysToAdd));
       var endDate = startDate.add(Duration(days: 6));
-      List<spendinfo> items = await SQLHelper.getItemsByOperationDayRange('2023-02-01','2023-02-09');
+      List<List<spendinfo>> allSpendInfo = [];
+      for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
+        var date = startDate.add(Duration(days: i));
+        List<spendinfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
+            date.day.toString(), date.month.toString(), date.year.toString());
+        allSpendInfo.add(spendInfo);
+      }
+      List<spendinfo> items = allSpendInfo.expand((x) => x).toList();
+
+
+
+      //List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear('24','04','2023');
       List<double> categoryAmounts;
 
       if (type == 'Gider') {
@@ -240,7 +252,7 @@ class StatisticsRiverpod extends ChangeNotifier {
         categoryAmounts = GelirKategoriTutarlari;
       }
       categoryBaseAmounts = categoryAmounts;
-    }*/
+    }
     else if(dataType  == 4 ){
       List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(),
           month.toString(), year.toString());
@@ -402,12 +414,23 @@ class StatisticsRiverpod extends ChangeNotifier {
       }
       categoryBaseAmounts = categoryAmounts;
     }
-    /*else if(dataType  == 3 ){
+    else if(dataType  == 3 ){
       var date = DateTime.utc(year, month, 1);
       var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
       var startDate = date.add(Duration(days: daysToAdd));
-      var endDate = startDate.add(const Duration(days: 6));
-      List<spendinfo> items = await SQLHelper.getItemsByOperationDayRange(startDate.toString(),endDate.toString());
+      var endDate = startDate.add(Duration(days: 6));
+      List<List<spendinfo>> allSpendInfo = [];
+      for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
+        var date = startDate.add(Duration(days: i));
+        List<spendinfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
+            date.day.toString(), date.month.toString(), date.year.toString());
+        allSpendInfo.add(spendInfo);
+      }
+      List<spendinfo> items = allSpendInfo.expand((x) => x).toList();
+
+
+
+      //List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear('24','04','2023');
       List<double> categoryAmounts;
 
       if (type == 'Gider') {
@@ -447,7 +470,7 @@ class StatisticsRiverpod extends ChangeNotifier {
         categoryAmounts = GelirKategoriTutarlari;
       }
       categoryBaseAmounts = categoryAmounts;
-    }*/
+    }
     else if(dataType  == 4 ){
       List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(), month.toString(), year.toString());
       List<double> categoryAmounts;
@@ -536,7 +559,7 @@ class StatisticsRiverpod extends ChangeNotifier {
       'Şubat',
       'Mart',
       'Nisan',
-      'Ağustos',
+      'Mayıs',
       'Haziran',
       'Temmuz',
       'Ağustos',
