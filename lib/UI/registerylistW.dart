@@ -131,34 +131,34 @@ class registeryListW extends ConsumerWidget {
                                       child: ListView.builder(
                                         itemCount: item.length,
                                         itemBuilder:  (context, index) {
-                                          return  InkWell(
-                                            onTap: () {
-                                              showModalBottomSheet(
-                                                context: context,
-                                                shape: const RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.vertical(
-                                                        top: Radius.circular(25))),
-                                                backgroundColor:
-                                                const Color(0xff0D1C26),
-                                                builder: (context) {
-                                                  // genel bilgi sekmesi açılıyor.
-                                                  ref.watch(databaseRiverpod).deletst;
-                                                  return spendDetail(item: item, index: index);
-                                                },
-                                              );
-                                            },
-                                            child: SizedBox(
-                                              height: 35,
-                                              child: Stack(
-                                                fit: StackFit.expand,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical:7,horizontal: 15),
-                                                    child: ClipRRect(
-                                                      borderRadius: BorderRadius.circular(20),
-                                                      child: Container(
-                                                        color: renkler.ArkaRenk,
-                                                        height: 1,
+                                          return  SizedBox(
+                                            height: 35,
+                                            child: Stack(
+                                              fit: StackFit.expand,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical:7,horizontal: 15),
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    child: Container(
+                                                      color: renkler.ArkaRenk,
+                                                      height: 1,
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          showModalBottomSheet(
+                                                            context: context,
+                                                            shape: const RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.vertical(
+                                                                    top: Radius.circular(25))),
+                                                            backgroundColor:
+                                                            const Color(0xff0D1C26),
+                                                            builder: (context) {
+                                                              // genel bilgi sekmesi açılıyor.
+                                                              ref.watch(databaseRiverpod).deletst;
+                                                              return spendDetail(item: item, index: index);
+                                                            },
+                                                          );
+                                                        },
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.start,
                                                           children: [
@@ -200,26 +200,26 @@ class registeryListW extends ConsumerWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  Positioned(
-                                                    top: 2,
-                                                    left :1,
-                                                    child: SizedBox(
-                                                      width:  30,
-                                                      height: 30,
-                                                      child: DecoratedBox(
-                                                        decoration: BoxDecoration(
-                                                            color: renkler.ArkaRenk,
-                                                            borderRadius: BorderRadius.circular(20)
-                                                        ),
-                                                        child: Icon(
-                                                          Icons.remove_red_eye,
-                                                          color: renkler.sariRenk,
-                                                        ),
+                                                ),
+                                                Positioned(
+                                                  top: 2,
+                                                  left :1,
+                                                  child: SizedBox(
+                                                    width:  30,
+                                                    height: 30,
+                                                    child: DecoratedBox(
+                                                      decoration: BoxDecoration(
+                                                          color: renkler.ArkaRenk,
+                                                          borderRadius: BorderRadius.circular(20)
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.remove_red_eye,
+                                                        color: renkler.sariRenk,
                                                       ),
                                                     ),
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           );
                                         },

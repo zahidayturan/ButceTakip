@@ -11,6 +11,14 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
+  final PageController _pagecont = PageController(initialPage: 0);
+  int _currentPageindex = 0 ;
+  void changePage(int pageindex){
+    setState(() {
+      _currentPageindex = pageindex ;
+    });
+    _pagecont.jumpToPage(pageindex);
+  }
   String result = "0";
   String num1 = "";
   String num2 = "";
@@ -71,6 +79,9 @@ class _CalculatorState extends State<Calculator> {
       }
     }
     setState(() {
+      if(result.length > 15){
+        result =  "overFlow";
+      }
     });
   }
   @override
@@ -105,81 +116,89 @@ class _CalculatorState extends State<Calculator> {
                       color: renkler.koyuuRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Column(
+                        child: PageView(
+                          controller: _pagecont,
+                          onPageChanged: (value) => setState(() => _currentPageindex = value),
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              mainAxisSize: MainAxisSize.max,
+                            Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: Text(
-                                    "${result}",
-                                    style: TextStyle(
-                                      color: renkler.sariRenk,
-                                      fontSize: 35,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15.0),
+                                      child: Text(
+                                        "${result}",
+                                        style: TextStyle(
+                                          color: renkler.sariRenk,
+                                          fontSize: 35,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
+                                Divider(color: Colors.white, thickness: 2),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Buttoncreate("C",size,),
+                                          Buttoncreate("<=",size),
+                                          Buttoncreate("½",size),
+                                          Buttoncreate("/",size)
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Buttoncreate("7",size),
+                                          Buttoncreate("8",size),
+                                          Buttoncreate("9",size),
+                                          Buttoncreate("x",size)
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Buttoncreate("4",size),
+                                          Buttoncreate("5",size),
+                                          Buttoncreate("6",size),
+                                          Buttoncreate("-",size)
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Buttoncreate("1",size),
+                                          Buttoncreate("2",size),
+                                          Buttoncreate("3",size),
+                                          Buttoncreate("+",size)
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Buttoncreate("?",size),
+                                          Buttoncreate("0",size),
+                                          Buttoncreate(",",size),
+                                          equalsBtnCreat(size),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ), //Tus takımı bulunacaktır.
                               ],
                             ),
-                            Divider(color: Colors.white, thickness: 2),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.0),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Buttoncreate("C",size,),
-                                      Buttoncreate("<=",size),
-                                      Buttoncreate("½",size),
-                                      Buttoncreate("/",size)
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Buttoncreate("7",size),
-                                      Buttoncreate("8",size),
-                                      Buttoncreate("9",size),
-                                      Buttoncreate("x",size)
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Buttoncreate("4",size),
-                                      Buttoncreate("5",size),
-                                      Buttoncreate("6",size),
-                                      Buttoncreate("-",size)
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Buttoncreate("1",size),
-                                      Buttoncreate("2",size),
-                                      Buttoncreate("3",size),
-                                      Buttoncreate("+",size)
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Buttoncreate("?",size),
-                                      Buttoncreate("0",size),
-                                      Buttoncreate(",",size),
-                                      equalsBtnCreat(size),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ), //Tus takımı bulunacaktır.
+                            YuzdePAge(),
+                            Container(), //Page 3
                           ],
                         ),
                       ),
@@ -236,6 +255,7 @@ class _CalculatorState extends State<Calculator> {
                 children: [
                   InkWell(
                     onTap: () {
+                      changePage(1);
                       print("Yüzde HEsaplama");
                     },
                     child: SizedBox(
@@ -321,7 +341,7 @@ class _CalculatorState extends State<Calculator> {
                               ),
                               const Center(
                                 child: Text(
-                                  " Yüzde\nHesapla",
+                                  " Döviz\nÇevirici",
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -341,6 +361,80 @@ class _CalculatorState extends State<Calculator> {
       ),
     );
   }
+    Widget YuzdePAge(){
+      TextEditingController Sayi1controller = TextEditingController();
+      CustomColors renkler = CustomColors();
+      return Container(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  SizedBox(
+                    height: 40,
+                    width: 40 ,
+                    child: DecoratedBox(
+                        decoration:  BoxDecoration(
+                          color: renkler.ArkaRenk,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      child: IconButton(
+                        icon: Icon(
+                            Icons.clear,
+                          size: 25,
+                        ),
+                        color: renkler.koyuuRenk,
+                        onPressed: () {
+                          changePage(0);
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Text("SAYI 1"),
+                      SizedBox(
+                        height: 20,
+                        width: 60,
+                        child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: renkler.ArkaRenk,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          child: TextField(
+                            controller: Sayi1controller,
+
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(),
+                  const Divider(
+                    thickness: 4,
+                      color: Colors.white,
+                  ),
+                  Column(
+                    children: [
+                      Row(),
+                      Row(),
+                      Row(),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    }
     Widget equalsBtnCreat(Size size){
       return SizedBox(
         height: size.width * 00.135 ,
@@ -359,7 +453,7 @@ class _CalculatorState extends State<Calculator> {
                   "=",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: 35,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -370,8 +464,6 @@ class _CalculatorState extends State<Calculator> {
       );
     }
     Widget Buttoncreate(String symbol, Size size) {
-      int secondnum ;
-      int firstnum ;
       return SizedBox(
         height: size.width* 00.135 ,
         width: size.width* 00.135 ,
@@ -400,4 +492,3 @@ class _CalculatorState extends State<Calculator> {
       );
   }
 }
-
