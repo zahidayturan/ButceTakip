@@ -514,6 +514,7 @@ class _CalculatorState extends State<Calculator> {
                                     }
                                   },
                                   controller: Yuzdeorancontroller,
+                                  keyboardType: TextInputType.number,
                                   enabled: (firstselect || secondselect) && sayi2ishere  ? false : true,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(
@@ -574,6 +575,7 @@ class _CalculatorState extends State<Calculator> {
                                       }
                                   },
                                   controller: Sayi2controller,
+                                  keyboardType: TextInputType.number,
                                   decoration: const InputDecoration(
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.horizontal(left: Radius.circular(20)),

@@ -245,3 +245,23 @@ class More extends ConsumerWidget {
   }
 
 }
+
+///cvs yi pubscyaml ye kaydetmek gerekecek
+///Verileri indir seçeneği için
+/*
+    import 'dart:io';
+    import 'package:path_provider/path_provider.dart';
+    import 'package:csv/csv.dart';
+
+    Future<File> saveDataToCsv(List<List<dynamic>> rows) async {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/data.csv');
+
+      List<spendinfo> allItems =  await SQLHelper.getItems()
+      String csv = const ListToCsvConverter().convert(allItems);
+      await file.writeAsString(csv);
+
+      return file;
+    }
+
+ */
