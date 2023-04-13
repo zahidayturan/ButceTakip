@@ -394,6 +394,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     );
   }
 
+
   Widget AmountCustomButton() {
     var size = MediaQuery.of(context).size;
     return SizedBox(
@@ -1466,16 +1467,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 Positioned(
                     bottom: 0,
                     right: 20,
-                    child: Container(
-                      child: Text(
-                        '${textLength.toString()}/${maxLength.toString()}',
-                        style: const TextStyle(
-                          backgroundColor: Colors.white,
-                          color: Color(0xffF2CB05),
-                          fontSize: 13,
-                          fontFamily: 'Nexa4',
-                          fontWeight: FontWeight.w800,
-                        ),
+                    child: Text(
+                      '${textLength.toString()}/${maxLength.toString()}',
+                      style: const TextStyle(
+                        backgroundColor: Colors.white,
+                        color: Color(0xffF2CB05),
+                        fontSize: 13,
+                        fontFamily: 'Nexa4',
+                        fontWeight: FontWeight.w800,
                       ),
                     )),
               ],
@@ -1604,22 +1603,38 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             _operationDate.text);
                         Navigator.of(context).pop();
                         read2.setCurrentindex(0);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor:
+                            Color(0xff0D1C26),
+                            duration: Duration(seconds: 1),
+                            content: Text(
+                              'İşlem verisi eklendi',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w600,
+                                height: 1.3,
+                              ),
+                            ),
+                          ),
+                        );
                       } else {
                         showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: Text("Eksik İşlem"),
-                                content: Text("Lütfen bir tutar girin!"),
+                                title: const Text("Eksik İşlem"),
+                                content: const Text("Lütfen bir tutar girin!"),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       _amount.clear();
-                                      FocusScope.of(context)
-                                          .requestFocus(amountFocusNode);
+                                      //FocusScope.of(context).requestFocus(amountFocusNode);
                                     },
-                                    child: Text("Tamam"),
+                                    child: const Text("Tamam"),
                                   )
                                 ],
                               );

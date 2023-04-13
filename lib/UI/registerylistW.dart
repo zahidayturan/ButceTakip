@@ -17,6 +17,7 @@ class registeryListW extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readDB = ref.read(databaseRiverpod);
+    var readDailyInfo = ref.read(dailyInfoRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size ;
     return FutureBuilder(
@@ -133,6 +134,7 @@ class registeryListW extends ConsumerWidget {
                                         itemBuilder:  (context, index) {
                                           return  InkWell(
                                             onTap: () {
+                                              readDailyInfo.setSpendDetail(item, index);
                                               showModalBottomSheet(
                                                 context: context,
                                                 shape: const RoundedRectangleBorder(
@@ -143,7 +145,7 @@ class registeryListW extends ConsumerWidget {
                                                 builder: (context) {
                                                   // genel bilgi sekmesi açılıyor.
                                                   ref.watch(databaseRiverpod).deletst;
-                                                  return spendDetail(item: item, index: index);
+                                                  return SpendDetail();
                                                 },
                                               );
                                             },
