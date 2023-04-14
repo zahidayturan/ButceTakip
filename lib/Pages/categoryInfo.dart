@@ -47,6 +47,7 @@ class _categoryInfoBody extends ConsumerState<categoryInfoBody> {
   Widget list(BuildContext context) {
     var read = ref.read(databaseRiverpod);
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
+    var readDailyInfo = ref.read(dailyInfoRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<spendinfo>> myList = readCategoryInfo.myMethod2();
     var readnavbar = ref.read(botomNavBarRiverpod);
@@ -112,6 +113,7 @@ class _categoryInfoBody extends ConsumerState<categoryInfoBody> {
                                   child: InkWell(
                                     onTap: () {
                                       {
+                                        readDailyInfo.setSpendDetail(item, index);
                                         ref.watch(databaseRiverpod).Delete;
                                         showModalBottomSheet(
                                           context: context,
@@ -122,7 +124,7 @@ class _categoryInfoBody extends ConsumerState<categoryInfoBody> {
                                               const Color(0xff0D1C26),
                                           builder: (context) {
                                             // genel bilgi sekmesi açılıyor.
-                                            return spendDetail(item: item, index: index);
+                                            return SpendDetail();
                                           },
                                         );
                                       }

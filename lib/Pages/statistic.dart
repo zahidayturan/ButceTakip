@@ -45,7 +45,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             children: [
               RotatedBox(
                 quarterTurns: 3,
-                child: GelirGiderButon(context),
+                child: gelirGiderButon(context),
               ),
               SizedBox(
                 width: size.width*0.78,
@@ -101,6 +101,12 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           for (var item in item) {
             totalAmount += item['amount'];
           }
+          int colorChangeCount = 0;  ///Yüzde 5\'ten büyük olan eleman sayısı:
+          for (int i = 0; i < item.length; i++) {
+            if (item[i]['percentages'] != null && item[i]['percentages'] > 5) {
+              colorChangeCount++;
+            }
+          }
           if (snapshot.data!.isEmpty) {
             return Column(
               children: [
@@ -112,8 +118,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       height: 45,
                       width: 160,
                       decoration: BoxDecoration(
-                          color: Color(0xFF0D1C26),
-                          borderRadius: BorderRadius.circular(20)
+                          color: const Color(0xFF0D1C26),
+                        borderRadius: BorderRadius.circular(20)
                       ),
 
                       child: const Center(child: Text("Veri bulunamadı.",style: TextStyle(color: Colors.white, fontSize: 16),)),
@@ -147,68 +153,61 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                               height: size.height * 0.35,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 1.5),
-                            child: SizedBox(
-                              width: 4,
-                              height: size.height * 0.35,
-                              child:  DecoratedBox(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                                    color: snapshot.data!.length <= 4 ? Color(0xFFE9E9E9) : Color(0xFF0D1C26)),
-                              ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 1.5),
+                          child: SizedBox(
+                            width: 4,
+                            height: size.height * 0.35,
+                            child:  DecoratedBox(
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                                  color: snapshot.data!.length <= 4 ? const Color(0xFFE9E9E9) : const Color(0xFF0D1C26)),
                             ),
                           ),
-                        ],
-                      ),
-                      Theme(
-                        data: Theme.of(context).copyWith(
-                            scrollbarTheme: ScrollbarThemeData(
-                              thumbColor:
-                              MaterialStateProperty.all(Color(0xFFF2CB05)),
-                            )),
-                        child: Scrollbar(
-                          thumbVisibility: true,
-                          scrollbarOrientation:
-                          ScrollbarOrientation.right,
-                          interactive: true,
-                          thickness: 7,
-                          radius: const Radius.circular(15.0),
-                          child: ListView.builder(
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 8,right: 16),
-                                child: InkWell(
-                                  onTap: () {
-                                    readCategoryInfo.setDateAndCategory(selectedDayIndex, selectedMonthIndex, selectedYearIndex, selectedWeekIndex, item[index]['category'],validDateMenu);
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const categoryInfo(),));
+                        ),
+                      ],
+                    ),
+                    Theme(
+                      data: Theme.of(context).copyWith(
+                          scrollbarTheme: ScrollbarThemeData(
+                            thumbColor:
+                            MaterialStateProperty.all(const Color(0xFFF2CB05)),
+                          )),
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        scrollbarOrientation:
+                        ScrollbarOrientation.right,
+                        interactive: true,
+                        thickness: 7,
+                        radius: const Radius.circular(15.0),
+                        child: ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            int colorCount = 0;
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 8,right: 16),
+                              child: InkWell(
+                                onTap: () {
+                                  readCategoryInfo.setDateAndCategory(selectedDayIndex, selectedMonthIndex, selectedYearIndex, selectedWeekIndex, item[index]['category'],validDateMenu);
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const categoryInfo(),));
                                   },
-                                  child: SizedBox(
-                                    height: 42,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          const SizedBox(width: 5),
-                                          Container(
-                                            width: 65,
-                                            height: 25,
-                                            decoration: BoxDecoration(
-                                              color: colorsList[index],
-                                              borderRadius: BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                                child: Text(
-                                                  "% ${item[index]['percentages'].toString()}",
-                                                  style: const TextStyle(
-                                                    fontFamily: 'NEXA3',
-                                                    color: Colors.white,
-                                                  ),
-                                                )),
+                                child: SizedBox(
+                                  height: 42,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        const SizedBox(width: 5),
+                                        Container(
+                                          width: 65,
+                                          height: 25,
+                                          decoration: BoxDecoration(
+                                            color: colorChangeCount > 12 ? colorsList[index]:colorsList2[index],
+                                            borderRadius: BorderRadius.circular(10),
                                           ),
                                           const SizedBox(width: 10),
                                           Text(
@@ -553,7 +552,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
-
   Widget monthSelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List monthName = read.getMonths();
@@ -709,7 +707,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
-
   Widget yearSelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List yearName = read.getYears();
@@ -821,7 +818,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
-
   Widget weekSelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List yearName = read.getYears();
@@ -1026,7 +1022,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
-
   Widget daySelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List yearName = read.getYears();
@@ -1242,7 +1237,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   Color textColor2 = Colors.white; //Basılmamış yazı rengi
   Color textColor = const Color(0xff0D1C26); //Basılmış yazı rengi
   int index = 0; // Gider ve Gelir butonları arasında geçiş yapmak için
-  Widget GelirGiderButon(BuildContext context) {
+  Widget gelirGiderButon(BuildContext context) {
     void changeColor2(int index) {
       if (index == 0) {
         setState(() {
@@ -1433,7 +1428,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               data: item,
               // liste buraya gelecek, kategori ismi ve miktar
               fillColor: (pieData, index) {
-                return colorsList[index!];
+                return pieData['domain'].length >12 ? colorsList[index!] : colorsList2[index!];
               },
               pieLabel: (pieData, index) {
                 return "${pieData['domain']}:\n${pieData['measure']}%";
@@ -1470,6 +1465,20 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     Colors.redAccent,
     Colors.redAccent,
     Colors.redAccent,
+  ];
+  var colorsList2 = [
+    Colors.red,
+    Colors.orange,
+    Colors.amber,
+    Colors.yellow,
+    Colors.lime,
+    Colors.lightGreen,
+    Colors.green,
+    Colors.teal,
+    Colors.cyanAccent,
+    Colors.blue,
+    Colors.indigo,
+    Colors.deepPurple,
   ];
 }
 

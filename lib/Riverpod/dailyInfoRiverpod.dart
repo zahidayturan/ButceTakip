@@ -90,10 +90,22 @@ class DailyInfoRiverpod extends ChangeNotifier {
     return Future.value(amountList);
   }
 
-  void updateRegistration(int? id, int? currentRegistrationValue) async {
-    int newRegistrationValue = (currentRegistrationValue == 0) ? 1 : 0;
+  void updateRegistration(int? id) async {
+    int newRegistrationValue = (reg == 0) ? 1 : 0;
+    //int newRegistrationValue = (currentRegistrationValue == 0) ? 0 : 1;
     await SQLHelper.updateRegistration(id, newRegistrationValue);
-    notifyListeners();
   }
 
+  late List<spendinfo> item;
+  late  int index;
+  setSpendDetail(List<spendinfo> item, int index){
+    this.item = item;
+    this.index = index;
+  }
+  getSpendDetailItem(){
+    return item;
+  }
+  getSpendDetailIndex(){
+    return index;
+  }
 }

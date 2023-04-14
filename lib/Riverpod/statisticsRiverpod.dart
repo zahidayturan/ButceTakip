@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class StatisticsRiverpod extends ChangeNotifier {
 
@@ -530,7 +529,7 @@ class StatisticsRiverpod extends ChangeNotifier {
     List<Map<String, dynamic>> listMap = [];
     for (int i = 0; i < categoryBaseAmounts.length; i++) {
       if(type != 'Hepsi') {
-        if (percentages[i] >= 2) {
+        if (percentages[i] >= 4) {
           Map<String, dynamic> map = {
             'domain': categoryBaseType[i],
             'measure': percentages[i]
@@ -539,7 +538,7 @@ class StatisticsRiverpod extends ChangeNotifier {
         }
       }
       else{
-        if (percentages[i] >= 4) {
+        if (percentages[i] >= 5) {
           Map<String, dynamic> map = {
             'domain': categoryBaseType[i],
             'measure': percentages[i]
