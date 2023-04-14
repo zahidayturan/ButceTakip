@@ -11,6 +11,17 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
+  bool sayi2ishere = false;
+  bool firstselect = false;
+  bool secondselect = false;
+  final PageController _pagecont = PageController(initialPage: 0);
+  int _currentPageindex = 0 ;
+  void changePage(int pageindex){
+    setState(() {
+      _currentPageindex = pageindex ;
+    });
+    _pagecont.jumpToPage(pageindex);
+  }
   String result = "0";
   String num1 = "";
   String num2 = "";
@@ -71,8 +82,12 @@ class _CalculatorState extends State<Calculator> {
       }
     }
     setState(() {
+      if(result.length > 15){
+        result =  "overFlow";
+      }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     CustomColors renkler = CustomColors();
@@ -83,168 +98,186 @@ class _CalculatorState extends State<Calculator> {
         child: Scaffold(
           backgroundColor: Color(0xffF2F2F2),
           appBar: AppBarForPage(title: 'HESAP MAKİNESİ'),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 15.0,
-                  bottom: 7.0,
-                  right: 20.0,
-                  left: 20.0,
-                ),
-                child: SizedBox(
-                  height: size.height*00.584 ,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(40),
-                        topLeft: Radius.circular(40),
-                        bottomLeft:  Radius.circular(40),
-                    ),
-                    child: Container(
-                      color: renkler.koyuuRenk,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: Text(
-                                    "${result}",
-                                    style: TextStyle(
-                                      color: renkler.sariRenk,
-                                      fontSize: 35,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Divider(color: Colors.white, thickness: 2),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.0),
-                              child: Column(
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10.0,
+                    bottom: 7.0,
+                    right: 20.0,
+                    left: 20.0,
+                  ),
+                  child: SizedBox(
+                    height: size.height*00.584 ,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                          bottomRight: Radius.circular(40),
+                          topLeft: Radius.circular(40),
+                          bottomLeft:  Radius.circular(40),
+                      ),
+                      child: Container(
+                        color: renkler.koyuuRenk,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: PageView(
+                            controller: _pagecont,
+                            onPageChanged: (value) => setState(() => _currentPageindex = value),
+                            children: [
+                              Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Buttoncreate("C",size,),
-                                      Buttoncreate("<=",size),
-                                      Buttoncreate("½",size),
-                                      Buttoncreate("/",size)
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 7.0),
+                                        child: Text(
+                                          "${result}",
+                                          style: TextStyle(
+                                            color: renkler.sariRenk,
+                                            fontSize: 35,
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Buttoncreate("7",size),
-                                      Buttoncreate("8",size),
-                                      Buttoncreate("9",size),
-                                      Buttoncreate("x",size)
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Buttoncreate("4",size),
-                                      Buttoncreate("5",size),
-                                      Buttoncreate("6",size),
-                                      Buttoncreate("-",size)
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Buttoncreate("1",size),
-                                      Buttoncreate("2",size),
-                                      Buttoncreate("3",size),
-                                      Buttoncreate("+",size)
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Buttoncreate("?",size),
-                                      Buttoncreate("0",size),
-                                      Buttoncreate(",",size),
-                                      equalsBtnCreat(size),
-                                    ],
-                                  ),
+                                  Divider(color: Colors.white, thickness: 2),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Buttoncreate("C",size,),
+                                            Buttoncreate("<=",size),
+                                            Buttoncreate("½",size),
+                                            Buttoncreate("/",size)
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Buttoncreate("7",size),
+                                            Buttoncreate("8",size),
+                                            Buttoncreate("9",size),
+                                            Buttoncreate("x",size)
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Buttoncreate("4",size),
+                                            Buttoncreate("5",size),
+                                            Buttoncreate("6",size),
+                                            Buttoncreate("-",size)
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Buttoncreate("1",size),
+                                            Buttoncreate("2",size),
+                                            Buttoncreate("3",size),
+                                            Buttoncreate("+",size)
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Buttoncreate("?",size),
+                                            Buttoncreate("0",size),
+                                            Buttoncreate(",",size),
+                                            equalsBtnCreat(size),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ), //Tus takımı bulunacaktır.
                                 ],
                               ),
-                            ), //Tus takımı bulunacaktır.
-                          ],
+                              YuzdePAge(),// Page 2
+                              Container(), //Page 3
+                              Container(), //Page 4
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5.0),
-                child: Row(
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: size.width /3,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2.0 ,
+                                color : renkler.koyuuRenk,
+                              ),
+                            ),
+                        ),
+                      ),
+                      ),
+                      SizedBox(
+                        width: 25,
+                        height: 25,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: renkler.koyuuRenk,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width /3,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2.0 ,
+                                color : renkler.koyuuRenk,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),///orta cizgi gelicek
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(
-                      width: size.width /3,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              width: 2.0 ,
-                              color : renkler.koyuuRenk,
-                            ),
+                    InkWell(
+                      onTap: () {
+                        changePage(1);
+                        print("Yüzde HEsaplama");
+                      },
+                      child: SizedBox(
+                        height: size.width/4.8,
+                        width: size.width/4.8,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: renkler.koyuuRenk,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 1
+                            ? Border.all(
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
+                            :null,
                           ),
-                      ),
-                    ),
-                    ),
-                    SizedBox(
-                      width: 25,
-                      height: 25,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: renkler.koyuuRenk,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: size.width /3,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              width: 2.0 ,
-                              color : renkler.koyuuRenk,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),///orta cizgi gelicek
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      print("Yüzde HEsaplama");
-                    },
-                    child: SizedBox(
-                      height: size.width/5,
-                      width: size.width/5,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          color: renkler.koyuuRenk,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -266,18 +299,25 @@ class _CalculatorState extends State<Calculator> {
                         ),
                       ),
                     ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      print("Faiz-Kredi Hesaplama");
-                    },
-                    child: SizedBox(
-                      height: size.width/5,
-                      width: size.width/5,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          color: renkler.koyuuRenk,
+                    InkWell(
+                      onTap: () {
+                        changePage(2);
+                        print("Faiz-Kredi Hesaplama");
+                      },
+                      child: SizedBox(
+                        height: size.width/4.8,
+                        width: size.width/4.8,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: renkler.koyuuRenk,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 2
+                                ? Border.all(
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
+                                :null,
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -299,18 +339,25 @@ class _CalculatorState extends State<Calculator> {
                         ),
                       ),
                     ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      print("Yüzde Hesapla");
-                    },
-                    child: SizedBox(
-                      height: size.width/5,
-                      width: size.width/5,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          color: renkler.koyuuRenk,
+                    InkWell(
+                      onTap: () {
+                        changePage(3);
+                        print("Yüzde Hesapla");
+                      },
+                      child: SizedBox(
+                        height: size.width/4.8,
+                        width: size.width/4.8,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: renkler.koyuuRenk,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 3
+                                ? Border.all(
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
+                                :null,
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -321,7 +368,7 @@ class _CalculatorState extends State<Calculator> {
                               ),
                               const Center(
                                 child: Text(
-                                  " Yüzde\nHesapla",
+                                  " Döviz\nÇevirici",
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -332,16 +379,377 @@ class _CalculatorState extends State<Calculator> {
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),/// Sayfa butonları gelecek.
-            ],
+                  ],
+                ),/// Sayfa butonları gelecek.
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-    Widget equalsBtnCreat(Size size){
+
+  Widget YuzdePAge(){
+    TextEditingController Sayi2controller = TextEditingController();
+    TextEditingController Sayi1controller = TextEditingController();
+    TextEditingController Yuzdeorancontroller = TextEditingController();
+    TextEditingController Sonuccontroller = TextEditingController();
+    double Sonuc = 0 ;
+    var size =  MediaQuery.of(context).size;
+    CustomColors renkler = CustomColors();
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15.0 , right: 2, bottom: 15.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SizedBox(
+                  height: 40,
+                  width: 40 ,
+                  child: DecoratedBox(
+                      decoration:  BoxDecoration(
+                        color: renkler.ArkaRenk,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    child: IconButton(
+                      icon: const Icon(
+                          Icons.clear,
+                        size: 25,
+                      ),
+                      color: renkler.koyuuRenk,
+                      onPressed: () {
+                        changePage(0);
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ), ///kapatma butonu
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: size.width/2.3,
+                    height: 72,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Sayı 1",
+                              style: TextStyle(
+                                fontFamily: "Nexa2",
+                                fontSize: 17,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: renkler.ArkaRenk,
+                                borderRadius: BorderRadius.horizontal(left: Radius.circular(20)),
+                              ),
+                              child: SizedBox(
+                                height: 26,
+                                width: 90,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    if(firstselect == true) {
+                                      if (Sayi2controller.text != "" &&
+                                          Sayi1controller.text != "") {
+                                        Sonuc = ((double.parse(Sayi2controller.text) / double.parse(Sayi1controller.text)) * 100);
+                                        Yuzdeorancontroller.text = Sonuc.toString();
+                                      }
+                                    }else if(secondselect == true){
+                                      if(Sayi1controller.text != "" && Sayi2controller.text != ""){
+                                        Sonuc = ((double.parse(Sayi2controller.text) - double.parse(Sayi1controller.text)) * 100 ) / double.parse(Sayi1controller.text) ;
+                                        Yuzdeorancontroller.text = Sonuc.toString() ;
+                                      }
+                                    }
+                                    else if(Yuzdeorancontroller.text != ""){
+                                      Sonuc = double.parse(Sayi1controller.text) * (double.parse(Yuzdeorancontroller.text) / 100)  ;
+                                      Sonuccontroller.text = Sonuc.toString() ;
+                                    }
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  controller: Sayi1controller,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.horizontal(left: Radius.circular(20)),
+                                    )
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Yüzde Oranı",
+                              style: TextStyle(
+                                fontFamily: "Nexa2",
+                                fontSize: 14,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: renkler.ArkaRenk,
+                                borderRadius: BorderRadius.horizontal(left: Radius.circular(20)),
+                              ),
+                              child: SizedBox(
+                                height: 26,
+                                width: 90,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    if(Sayi1controller != ""){
+                                      Sonuc = double.parse(Sayi1controller.text) * (double.parse(Yuzdeorancontroller.text) / 100);
+                                      Sonuccontroller.text = Sonuc.toString() ;
+                                    }
+                                  },
+                                  controller: Yuzdeorancontroller,
+                                  keyboardType: TextInputType.number,
+                                  enabled: (firstselect || secondselect) && sayi2ishere  ? false : true,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.horizontal(left: Radius.circular(20))
+                                    ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  SizedBox(
+                    width: size.width/2.6,
+                    height: 72,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        sayi2ishere ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Sayı 2",
+                              style: TextStyle(
+                                fontFamily: "Nexa 4",
+                                fontSize: 17,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: renkler.ArkaRenk,
+                                borderRadius: BorderRadius.horizontal(left: Radius.circular(20)),
+                              ),
+                              child: SizedBox(
+                                height: 26,
+                                width: 90,
+                                child: TextField(
+                                  onChanged: (value) {
+                                      if(firstselect == true) {
+                                        if (Sayi2controller.text != "" &&
+                                            Sayi1controller.text != "") {
+                                          Sonuc =
+                                          ((double.parse(Sayi2controller.text) /
+                                              double.parse(
+                                                  Sayi1controller.text)) * 100);
+                                          Yuzdeorancontroller.text =
+                                              Sonuc.toString();
+                                        }
+                                    }else if(secondselect == true){
+                                        if(Sayi1controller.text != "" && Sayi2controller.text != ""){
+                                          Sonuc = ((double.parse(Sayi2controller.text) - double.parse(Sayi1controller.text)) * 100 ) / double.parse(Sayi1controller.text) ;
+                                          Yuzdeorancontroller.text = Sonuc.toString() ;
+                                        }
+                                      }
+                                  },
+                                  controller: Sayi2controller,
+                                  keyboardType: TextInputType.number,
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.horizontal(left: Radius.circular(20)),
+                                      )
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                       : SizedBox(height: 1),
+                       SizedBox(height: 26),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ), ///2. satır
+            Padding(
+              padding: const EdgeInsets.only(left: 93.0, right: 20),
+              child: Divider(
+                height: 60,
+                color: renkler.sariRenk,
+                thickness: 3,
+              ),
+            ),  ///divider koyduk
+            Padding(
+              padding: const EdgeInsets.only(right: 50,left: 10),
+              child: !sayi2ishere
+              ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    "Sonuç",
+                    style: TextStyle(
+                      fontFamily: "Nexa2",
+                      fontSize: 18,
+                      color: renkler.ArkaRenk
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: renkler.ArkaRenk,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: SizedBox(
+                      height: 26,
+                      width: 200,
+                      child: TextField(
+                        enabled: false,
+                        controller: Sonuccontroller,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                            )
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            :SizedBox(height: 26),
+            ), /// sonuc
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: renkler.sariRenk,
+                            width: 4,
+                          ),
+                          borderRadius: BorderRadius.circular(4)
+                      ),
+                      activeColor: renkler.sariRenk,
+                      value: sayi2ishere,
+                      onChanged:(value) {
+                        if (value != null) {
+                          setState(() {
+                            sayi2ishere = value;
+                            firstselect= true ;
+                            secondselect = false ;
+                          });
+                        }
+                      },
+                    ),
+                    Text(
+                      "Sayı 2 yi ekle",
+                      style: TextStyle(
+                        color: renkler.ArkaRenk,
+                        fontFamily: "Nexa2",
+                        fontSize: 15,
+                      ),
+                    )
+                  ],
+                ),
+                sayi2ishere ? Row( mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: renkler.sariRenk,
+                          width: 4,
+                        ),
+                        borderRadius: BorderRadius.circular(4)
+                      ),
+                      activeColor: renkler.sariRenk,
+                      value: firstselect,
+                      onChanged: (value) {
+                        if(secondselect){
+                          setState(() {
+                            firstselect = value!;
+                            secondselect = false;
+                          });
+                        }
+                      },
+                    ),
+                    Text(
+                      "Sayı 2 Sayı 1'in Yüzde kaçı ?",
+                      style: TextStyle(
+                        color: renkler.ArkaRenk,
+                        fontFamily: "Nexa2",
+                        fontSize: 15,
+                      ),
+                    )
+                  ],
+                )
+                    :SizedBox(width: 1,),
+                sayi2ishere
+                ?Row( mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: renkler.sariRenk,
+                            width: 4,
+                            style: BorderStyle.solid
+                          ),
+                          borderRadius: BorderRadius.circular(4)
+                      ),
+                      activeColor: renkler.sariRenk,
+                      value: secondselect,
+                      onChanged:(value) {
+                        if (value != null) {
+                          if(firstselect){
+                            setState(() {
+                              firstselect = false ;
+                              secondselect = value;
+                            });
+                          }
+                        }
+                      },
+                    ),
+                    Text(
+                      "Sayı 1'den Sayı 2'ye Değişimin oranı kaçtır?",
+                      style: TextStyle(
+                        color: renkler.ArkaRenk,
+                        fontFamily: "Nexa2",
+                        fontSize: 14,
+                      ),
+                    )
+                  ],)
+                    :SizedBox(width: 1),
+              ],
+            ), ///checkboxlar
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget equalsBtnCreat(Size size){
       return SizedBox(
         height: size.width * 00.135 ,
         width: size.width * 00.135 ,
@@ -359,7 +767,7 @@ class _CalculatorState extends State<Calculator> {
                   "=",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: 35,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -369,9 +777,8 @@ class _CalculatorState extends State<Calculator> {
         ),
       );
     }
-    Widget Buttoncreate(String symbol, Size size) {
-      int secondnum ;
-      int firstnum ;
+
+  Widget Buttoncreate(String symbol, Size size) {
       return SizedBox(
         height: size.width* 00.135 ,
         width: size.width* 00.135 ,
@@ -399,5 +806,5 @@ class _CalculatorState extends State<Calculator> {
         ),
       );
   }
-}
 
+}

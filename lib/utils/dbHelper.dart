@@ -1,3 +1,4 @@
+import 'package:butcekontrol/modals/settingsinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqflite/sqflite.dart' as sql;
@@ -5,6 +6,21 @@ import 'package:sqflite/sqflite.dart' as sql;
 import '../modals/Spendinfo.dart';
 
 class SQLHelper {
+
+  static Future <void> createSettingTable(sql.Database database) async{
+    await database.execute(
+      """
+      CREATE TABLE setting(
+      id INTEGER PRİMARY KEY AUTOINCREMENT NOT NULL,
+      Prefix TEXT,
+      DarkMode BOOLEAN,
+      isPassword BOOLEAN,
+      Language TEXT,
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      )
+      """
+    );
+  }
 
   static Future<void> createTables(sql.Database database) async {
     await database.execute("""CREATE TABLE spendinfo(
@@ -31,16 +47,23 @@ class SQLHelper {
       version: 1,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
+        await createSettingTable(database);
       },
     );
   }
-
+  static Future <int> addItemSetting(settingsinfo info) async{
+    final db = await SQLHelper.db();
+    final data = info.toMap();
+    final id = await db.insert("setting", data, conflictAlgorithm:  sql.ConflictAlgorithm.replace);
+    return id;
+  }
   static Future<int> createItem(spendinfo info) async {
     final db = await SQLHelper.db();
     final data = info.toMap();
     final id = await db.insert('spendinfo', data, conflictAlgorithm: sql.ConflictAlgorithm.replace);
     return id;
   }
+  //if()
 
   static Future<List<spendinfo>> getItems() async {
     final db = await SQLHelper.db();

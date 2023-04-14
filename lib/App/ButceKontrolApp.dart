@@ -8,13 +8,13 @@ class ButceKontrolApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: [
-        const Locale('tr'),
+      supportedLocales: const [
+        Locale('tr'),
       ],
       locale: const Locale('tr'),
       debugShowCheckedModeBanner: false,
@@ -22,6 +22,7 @@ class ButceKontrolApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
         fontFamily: "Nexa",
+        unselectedWidgetColor: Colors.orange // checkbox border rengi için kullandım.
       ),
       home: base_BKA(),
     );

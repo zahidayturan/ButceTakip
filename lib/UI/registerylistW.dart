@@ -202,26 +202,26 @@ class registeryListW extends ConsumerWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  Positioned(
-                                                    top: 2,
-                                                    left :1,
-                                                    child: SizedBox(
-                                                      width:  30,
-                                                      height: 30,
-                                                      child: DecoratedBox(
-                                                        decoration: BoxDecoration(
-                                                            color: renkler.ArkaRenk,
-                                                            borderRadius: BorderRadius.circular(20)
-                                                        ),
-                                                        child: Icon(
-                                                          Icons.remove_red_eye,
-                                                          color: renkler.sariRenk,
-                                                        ),
+                                                ),
+                                                Positioned(
+                                                  top: 2,
+                                                  left :1,
+                                                  child: SizedBox(
+                                                    width:  30,
+                                                    height: 30,
+                                                    child: DecoratedBox(
+                                                      decoration: BoxDecoration(
+                                                          color: renkler.ArkaRenk,
+                                                          borderRadius: BorderRadius.circular(20)
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.remove_red_eye,
+                                                        color: renkler.sariRenk,
                                                       ),
                                                     ),
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           );
                                         },

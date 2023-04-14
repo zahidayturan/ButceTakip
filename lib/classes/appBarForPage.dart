@@ -53,13 +53,29 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
             child: IconButton(
               padding: const EdgeInsets.only(right: 0),
               iconSize: 48,
-              icon: const Icon(
-                Icons.home_outlined,
+              icon: title == "YARDIM"
+                  || title == "YARDIM<"
+                  || title == "AYARLAR"
+                  || title == "İLETİŞİM"
+                  || title == "YEDEKLE"
+              ?const Icon(
+                Icons.arrow_back,
                 color: Colors.white,
+              )
+              :const Icon(
+                Icons.home_outlined,
+                color : Colors.white,
+                size: 40,
               ),
               onPressed: () {
+                if(title == "YARDIM<" ){
+                  read2.setCurrentindex(5);
+                }else if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE"){
+                  read2.setCurrentindex(4);
+                }else{
+                  read2.setCurrentindex(0);
+                }
                 //Navigator.of(context).pop();
-                read2.setCurrentindex(0);
               },
             ),
           ),
