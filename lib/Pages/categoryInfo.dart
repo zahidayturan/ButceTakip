@@ -1,3 +1,4 @@
+import 'package:butcekontrol/UI/spendDetail.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';

@@ -33,10 +33,10 @@ dependencies:
   flutter_localization: ^0.1.10
   sqflite: ^2.2.6
   path: ^1.8.0
-  intl: ^0.17.0-nullsafety.2
+  intl: ^0.17.0
+  pie_chart:
   flutter_riverpod: ^2.3.2
   d_chart: ^2.2.11
-
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -83,7 +83,7 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Nexa
+    - family: Nexa4
       fonts:
        - asset: assets/fonts/NEXABOLD.OTF
     - family: Nexa2

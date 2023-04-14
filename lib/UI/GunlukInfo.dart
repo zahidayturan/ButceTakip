@@ -158,9 +158,9 @@ class _GunlukInfoState extends State<GunlukInfo> {
                             child: Theme(
                               data: Theme.of(context).copyWith(
                                   scrollbarTheme: ScrollbarThemeData(
-                                thumbColor:
+                                    thumbColor:
                                     MaterialStateProperty.all(renkler.sariRenk),
-                              )),
+                                  )),
                               child: Stack(
                                 children: [
                                   Padding(
@@ -179,7 +179,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                     controller: Scrollbarcontroller2,
                                     thumbVisibility: true,
                                     scrollbarOrientation:
-                                        ScrollbarOrientation.left,
+                                    ScrollbarOrientation.left,
                                     interactive: true,
                                     thickness: 7,
                                     radius: const Radius.circular(15.0),
@@ -189,7 +189,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                         itemBuilder:
                                             (BuildContext context, index) {
                                           spendinfo item =
-                                              snapshot.data![index];
+                                          snapshot.data![index];
                                           return Column(
                                             children: [
                                               Padding(
@@ -198,8 +198,8 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                                 child: ClipRRect(
                                                   //Borderradius vermek için kullanıyoruz
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
+                                                  BorderRadius.circular(
+                                                      10.0),
                                                   child: Container(
                                                     height: 28,
                                                     color: renkler.ArkaRenk,

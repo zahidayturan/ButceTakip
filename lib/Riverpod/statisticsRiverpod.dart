@@ -311,19 +311,19 @@ class StatisticsRiverpod extends ChangeNotifier {
     List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(1))).toList();
     List<Map<String, dynamic>> listMap = [];
     for (int i = 0; i < categoryBaseAmounts.length; i++) {
-        if (categoryBaseAmounts[i] != 0) {
-          Map<String, dynamic> map = {
-            'category': categoryBaseType[i],
-            'percentages': percentages[i],
-            'amount': categoryBaseAmounts[i],
-          };
-          listMap.add(map);
-        }
+      if (categoryBaseAmounts[i] != 0) {
+        Map<String, dynamic> map = {
+          'category': categoryBaseType[i],
+          'percentages': percentages[i],
+          'amount': categoryBaseAmounts[i],
+        };
+        listMap.add(map);
+      }
     }
     listMap.sort((a, b) => b['amount'].compareTo(a['amount']));
     return Future.value(listMap);
   }
-    ///pasta için liste
+  ///pasta için liste
   Future <List<Map<String, dynamic>>> getCategoryAndAmount(int dataType,String type, int year, int month, int week, int day) async {
     List<double> categoryBaseAmounts = [];
     List <String> categoryBaseType = [];
