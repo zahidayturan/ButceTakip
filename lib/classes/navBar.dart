@@ -118,7 +118,7 @@ class navBar extends ConsumerWidget {
                                 color: Colors.white,
 
                               ),
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                   minHeight: 45,
                                   minWidth: 50
                               ),
@@ -158,7 +158,16 @@ class navBar extends ConsumerWidget {
                               }
                             ),
                             read.currentindex == 4
-                                ? ClipRRect(
+                          || read.currentindex == 5
+                          || read.currentindex == 6
+                          || read.currentindex == 7
+                          || read.currentindex == 8
+                          || read.currentindex == 9
+                          || read.currentindex == 10
+                          ||read.currentindex == 11
+                          || read.currentindex == 12
+                          || read.currentindex == 13
+                                ? ClipRRect( ///navbar sarı pointer
                                   borderRadius: BorderRadius.vertical(top:Radius.circular(20)),
                                   child: Container(
                                     padding: EdgeInsets.only(left: 10),

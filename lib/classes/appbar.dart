@@ -1,5 +1,6 @@
 import 'package:butcekontrol/UI/registerylistW.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
+import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +10,7 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(60);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var readNavBAr = ref.read(botomNavBarRiverpod);
     CustomColors renkler = CustomColors();
     return AppBar(
       backgroundColor: Color(0xFF0D1C26),
@@ -50,7 +52,7 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           iconSize: 20.0,
         ),
         IconButton(
-          onPressed:() => print("?"),
+          onPressed:() => readNavBAr.setCurrentindex(5),
           icon: const Icon(
             Icons.question_mark,
             color: Color(0xFFFFFFFF),
@@ -70,7 +72,7 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
         ),
 
         IconButton(
-          onPressed:() => print("settings"),
+          onPressed:() => readNavBAr.setCurrentindex(11),
           icon: const Icon(
             Icons.settings,
             color: Color(0xFFFFFFFF),

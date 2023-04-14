@@ -45,31 +45,31 @@ class Aylikinfo extends ConsumerWidget {
                     padding: const EdgeInsets.only(left: 4.0),
                     child: dailyTotals.length == 0
                         ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/image/origami_noinfo.png",
-                            width: 60,
-                            height: 60,
-                          ),
-
-                          SizedBox(
-                            height: 30,
-                            width: 110,
-                            child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
-                                  border: Border.all(
-                                      color: Colors.black, width: 2),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/image/origami_noinfo.png",
+                                  width: 60,
+                                  height: 60,
                                 ),
-                                child: const Center(child: Textmod(
-                                    "Kayıt Yok", Colors.amber, 18))
+
+                                SizedBox(
+                                  height: 30,
+                                  width: 110,
+                                  child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+                                        border: Border.all(
+                                            color: Colors.black, width: 2),
+                                      ),
+                                      child: const Center(child: Textmod(
+                                          "Kayıt Yok", Colors.amber, 18))
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                    )
+                          )
                         : Theme(
                           data: Theme.of(context).copyWith(
                               scrollbarTheme: ScrollbarThemeData(
