@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../classes/appBarForPage.dart';
 
 
@@ -442,26 +445,49 @@ class _CalculatorState extends State<Calculator> {
   Widget KrediPage(){
     TextEditingController anaPara = TextEditingController();
     TextEditingController faizYuzde = TextEditingController();
+    GlobalKey dropDownKey = GlobalKey();
+    GlobalKey heseplamalarSonucu = GlobalKey();
     var size = MediaQuery.of(context).size ;
     var renkler = CustomColors();
-    List<String> tutarList = ["0.0", "0.0", "0.0", "0.0"];
     final List<String> monthList = ["3", "6", "9", "12", "18", "24", "30", "36", "44", "48"];
     String? selectedValue = monthList[0]; /// vade kismindaki
     double toplamAnaPara = 0;
     double faizTutari = 0;
     double toplamOdenecekTutar = 0;
     double aylikTaksit = 0;
+    List<String> tutarList = ["$aylikTaksit", "$toplamAnaPara", "$faizTutari", "$toplamOdenecekTutar"];
+
 
     void faizHesapla(TextEditingController anaPara, TextEditingController faizYuzde, int vadeSuresi){
-      faizTutari = double.parse(anaPara.text) / 100 * double.parse(faizYuzde.text);
-      toplamAnaPara = double.parse(anaPara.text);
-      toplamOdenecekTutar = faizTutari + toplamAnaPara;
-      aylikTaksit = toplamOdenecekTutar / vadeSuresi;
+      if(faizYuzde.text.isEmpty || anaPara.text.isEmpty){
+        showModalBottomSheet(context: context, builder: (BuildContext context){
+          return Container(
+            height: 40,
+            color: renkler.koyuuRenk,
+              child: Center(
+                child: Text(
+                  'gerekli alanları doldurun',
+                  style: TextStyle(
+                    fontFamily: 'Nexa4',
+                    fontSize: 20,
+                    color: renkler.sariRenk,
+                  ),
+                ),
+              ),
+          );
+        });
+      }
+      else{
+        faizTutari = double.parse(anaPara.text) / 100 * double.parse(faizYuzde.text);
+        toplamAnaPara = double.parse(anaPara.text);
+        toplamOdenecekTutar = faizTutari + toplamAnaPara;
+        aylikTaksit = toplamOdenecekTutar / vadeSuresi;
 
-      tutarList[0] = aylikTaksit.toString();
-      tutarList[1] = toplamAnaPara.toString();
-      tutarList[2] = faizTutari.toString();
-      tutarList[3] = toplamOdenecekTutar.toString();
+        tutarList[0] = aylikTaksit.toString();
+        tutarList[1] = toplamAnaPara.toString();
+        tutarList[2] = faizTutari.toString();
+        tutarList[3] = toplamOdenecekTutar.toString();
+      }
     }
 
     return Container(
@@ -529,14 +555,19 @@ class _CalculatorState extends State<Calculator> {
                         width: 112,
                         height: size.height / 20,
                         child: TextFormField(
+                          maxLength: 7,
                           controller: anaPara,
                           keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
                           style: TextStyle(
                             color: renkler.koyuuRenk,
                             fontFamily: 'Nexa4',
                             fontSize: 22,
                           ),
                           decoration: InputDecoration(
+                            counterText: '', /// kalan karakteri gösteren yazıyı kaldırıyor.
                             enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   style: BorderStyle.none
@@ -600,6 +631,10 @@ class _CalculatorState extends State<Calculator> {
                         width: 80,
                         height: size.height / 20,
                         child: TextFormField(
+                          maxLength: 2,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
                           controller: faizYuzde,
                           keyboardType: TextInputType.number,
                           style: TextStyle(
@@ -608,6 +643,7 @@ class _CalculatorState extends State<Calculator> {
                             fontFamily: 'Nexa4',
                           ),
                           decoration: InputDecoration(
+                            counterText: '',
                             enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   style: BorderStyle.none,
@@ -663,6 +699,7 @@ class _CalculatorState extends State<Calculator> {
                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), topLeft: Radius.circular(20))
                   ),
                   child: DropdownButtonFormField<String>(
+                    key: dropDownKey, /// bunun kullanim nedeni sıfırla yapınca varsayılan vade gelmesi için
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     iconSize: 30,
                     alignment: Alignment.centerRight,
@@ -708,6 +745,7 @@ class _CalculatorState extends State<Calculator> {
                       anaPara.clear();
                       faizYuzde.clear();
                       selectedValue = monthList[0];
+                      dropDownKey = GlobalKey();
                     });
                     print("reset");
                   },
@@ -732,10 +770,12 @@ class _CalculatorState extends State<Calculator> {
                 InkWell(
                   onTap: () {
                       faizHesapla(anaPara, faizYuzde, int.parse(selectedValue.toString()));
+                      heseplamalarSonucu = GlobalKey();
                       print(tutarList[0]);
                       print(tutarList[1]);
                       print(tutarList[2]);
                       print(tutarList[3]);
+
                     print("run");
                   },
                   child: Container(
@@ -760,6 +800,7 @@ class _CalculatorState extends State<Calculator> {
             ), /// sıfırla ve hesapla butonları
             SizedBox(height: size.height / 45,),
             Container(
+              key: heseplamalarSonucu,
               height: size.height / 5.4,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
