@@ -1,12 +1,8 @@
 import 'package:butcekontrol/Pages/addData.dart';
-import 'package:butcekontrol/Pages/statistic.dart';
-import 'package:butcekontrol/Pages/testPages.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';
-import '../utils/dbHelper.dart';
-
 class navBar extends ConsumerWidget {
   const navBar({Key ?key}) : super(key : key) ;
 
@@ -14,6 +10,7 @@ class navBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var watch = ref.watch(botomNavBarRiverpod);
     var read = ref.read(botomNavBarRiverpod);
+    CustomColors renkler = CustomColors();
     var selectindex = watch.currentindex;
     final Size size = MediaQuery.of(context).size;
     return Container(
@@ -41,51 +38,140 @@ class navBar extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(
-                          icon: const Icon(
-                            size: 30,
-                            Icons.equalizer,
-                            color: Colors.white,
-                          ),
-                          onPressed:() {
-                            read.setCurrentindex(1);
-                          },
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                size: 30,
+                                Icons.equalizer,
+                                color: Colors.white,
+                              ),
+                              constraints: BoxConstraints(
+                                minHeight: 45,
+                                minWidth: 50
+                              ),
+                              onPressed: () {
+                                read.setCurrentindex(1);
+                              },
+                            ),
+                            read.currentindex == 1
+                                ? ClipRRect(
+                                  borderRadius: BorderRadius.vertical(top:Radius.circular(20)),
+                                  child: Container(
+                                    padding: EdgeInsets.only(left: 10),
+                                    height : 7,
+                                    width : 25 ,
+                                    color: renkler.sariRenk,
+                                  ),
+                                )
+                                :SizedBox(width: 1,)
+                          ],
                         ),
-                        IconButton(
-                          icon: const Icon(
-                            size: 30,
-                            Icons.calendar_month_sharp,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            read.setCurrentindex(2);
-                            //Navigator.of(context).push(MaterialPageRoute(builder: (context) => testPages(),));
-                          }
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                size: 30,
+                                Icons.calendar_month_sharp,
+                                color: Colors.white,
+                              ),
+                              constraints: BoxConstraints(
+                                  minHeight: 45,
+                                  minWidth: 50
+                              ),
+                              onPressed: () {
+                                read.setCurrentindex(2);
+                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => testPages(),));
+                              }
+                            ),
+                            read.currentindex == 2
+                                ? ClipRRect(
+                                  borderRadius: BorderRadius.vertical(top:Radius.circular(20)),
+                                  child: Container(
+                                    padding: EdgeInsets.only(left: 10),
+                                    height : 7,
+                                    width : 25 ,
+                                    color: renkler.sariRenk,
+                              ),
+                            )
+                                :SizedBox(width: 1,)
+                          ],
                         ),
                         SizedBox(
                           width: size.width / 5,
                         ),
-                        IconButton(
-                          icon: const Icon(
-                            size: 30,
-                            Icons.calculate_sharp,
-                            color: Colors.white,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                size: 30,
+                                Icons.calculate_sharp,
+                                color: Colors.white,
 
-                          ),
-                          onPressed:() {
-                            read.setCurrentindex(3);
-                            //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Calculator(),));
-                          }
+                              ),
+                              constraints: const BoxConstraints(
+                                  minHeight: 45,
+                                  minWidth: 50
+                              ),
+                              onPressed:() {
+                                read.setCurrentindex(3);
+                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Calculator(),));
+                              }
+                            ),
+                            read.currentindex == 3
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.vertical(top:Radius.circular(20)),
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 10),
+                                      height : 7,
+                                      width : 25 ,
+                                      color: renkler.sariRenk,
+                                    ),
+                                  )
+                                :SizedBox(width: 1,)
+                          ],
                         ),
-                        IconButton(
-                          icon: const Icon(
-                            size: 30,
-                            Icons.keyboard_control_sharp,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            read.setCurrentindex(4);
-                          }
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                size: 30,
+                                Icons.keyboard_control_sharp,
+                                color: Colors.white,
+                              ),
+                              constraints: BoxConstraints(
+                                  minHeight: 45,
+                                  minWidth: 50
+                              ),
+                              onPressed: () {
+                                read.setCurrentindex(4);
+                              }
+                            ),
+                            read.currentindex == 4
+                          || read.currentindex == 5
+                          || read.currentindex == 6
+                          || read.currentindex == 7
+                          || read.currentindex == 8
+                          || read.currentindex == 9
+                          || read.currentindex == 10
+                          ||read.currentindex == 11
+                          || read.currentindex == 12
+                          || read.currentindex == 13
+                                ? ClipRRect( ///navbar sarı pointer
+                                  borderRadius: BorderRadius.vertical(top:Radius.circular(20)),
+                                  child: Container(
+                                    padding: EdgeInsets.only(left: 10),
+                                    height : 7,
+                                    width : 25 ,
+                                    color: renkler.sariRenk,
+                                    ),
+                                  )
+                                :SizedBox(width: 1,)
+                          ],
                         )
                       ],
                     ),
