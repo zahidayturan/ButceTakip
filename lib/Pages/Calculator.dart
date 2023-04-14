@@ -243,6 +243,16 @@ class _CalculatorState extends State<Calculator> {
                                 color: renkler.koyuuRenk,
                               ),
                             ),
+                        ),
+                      ),
+                      ),
+                      SizedBox(
+                        width: 25,
+                        height: 25,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: renkler.koyuuRenk,
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
                       ),
@@ -1031,4 +1041,5 @@ class _CalculatorState extends State<Calculator> {
       ),
     );
   }
+
 }

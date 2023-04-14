@@ -1,6 +1,5 @@
 import 'package:butcekontrol/Riverpod/UpdateDataRiverpod.dart';
 import 'package:butcekontrol/Riverpod/appbarType2Riverpod.dart';
-import 'package:butcekontrol/Riverpod/editInfo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'Riverpod/Bottom_nav_bar_riverpod.dart';
 import 'Riverpod/DbProvider.dart';

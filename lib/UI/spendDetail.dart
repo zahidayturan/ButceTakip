@@ -39,13 +39,15 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
     List<spendinfo> item = readDailyInfo.getSpendDetailItem();
     int index = readDailyInfo.getSpendDetailIndex();
     var size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: size.height / 1.2,
-      child: Padding(
-        padding:
-        const EdgeInsets.symmetric(
-            horizontal: 18.0,
-            vertical: 20.0),
+    return Padding(
+      padding:
+      const EdgeInsets.symmetric(
+          horizontal: 18.0,
+          vertical: 20.0),
+      child: Container(
+        constraints: BoxConstraints(
+          minHeight: double.infinity
+        ),
         child: Column(
           mainAxisAlignment:
           MainAxisAlignment
@@ -236,14 +238,7 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
                       fontFamily: 'Nexa4',
                       fontSize: 18,
                     )),
-                Text(
-                    "${item[index].note}",
-                    style:
-                    const TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Nexa3',
-                      fontSize: 18,
-                    )),
+                Widet01(item, index),
               ],
             ),
             Row(
@@ -432,6 +427,34 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget Widet01(var item, var index) {  //not uzunluğuna karşın taşmayı önlemek için kurulmuştur.
+    String longText = item[index].note ;
+    List<String> parts = [];
+
+    while (longText.isNotEmpty) {
+      if (longText.length > 25) {
+        parts.add(longText.substring(0, 25));
+        longText = longText.substring(25);
+      } else {
+        parts.add(longText);
+        longText = '';
+      }
+    }
+
+    List<Text> textWidgets = parts.map((line) => Text(
+        line,
+      style: const TextStyle(
+        color: Colors.white,
+        fontFamily: "Nexa3",
+        fontSize: 18
+      ),
+    )).toList();
+
+    return Column(
+      children: textWidgets,
     );
   }
 }
