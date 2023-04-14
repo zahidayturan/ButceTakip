@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 import '../modals/Spendinfo.dart';
@@ -22,6 +23,7 @@ class SQLHelper {
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
       """);
+
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
@@ -35,7 +37,6 @@ class SQLHelper {
 
   static Future<int> createItem(spendinfo info) async {
     final db = await SQLHelper.db();
-
     final data = info.toMap();
     final id = await db.insert('spendinfo', data, conflictAlgorithm: sql.ConflictAlgorithm.replace);
     return id;
@@ -53,6 +54,13 @@ class SQLHelper {
     final db = await SQLHelper.db();
     final result =
     await db.update("spendinfo", info.toMap(),where: "id= ?", whereArgs: [info.id]);
+    return result;
+  }
+  static Future<int> updateRegistration(int? id, int registration) async {
+    final db = await SQLHelper.db();
+    final currentRegistration = await db.query("spendinfo", columns: ["registration"], where: "id = ?", whereArgs: [id]);
+    final newRegistration = (currentRegistration.first["registration"] == 0) ? 1 : 0;
+    final result = await db.update("spendinfo", {"registration": newRegistration}, where: "id = ?", whereArgs: [id]);
     return result;
   }
 
@@ -73,7 +81,14 @@ class SQLHelper {
       return spendinfo.fromObject(result[index]);
     });
   }
-
+  static Future<List<spendinfo>> getItemsByOperationYear(String operationYear) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationYear = ?", whereArgs: [operationYear], orderBy: "id");
+    return List.generate(result.length, (index){
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+  //sadece günlük sorgu tehlikeli
   static Future<List<spendinfo>> getItemsByOperationDay(String operationDay) async {
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "operationDay = ?", whereArgs: [operationDay], orderBy: "id");
@@ -81,5 +96,31 @@ class SQLHelper {
       return spendinfo.fromObject(result[index]);
     });
   }
+  static Future<List<spendinfo>> getItemsByOperationDayRange(String startDate, String endDate) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationDate >= ? AND operationDate <= ?", whereArgs: [startDate, endDate], orderBy: "id");
+    return List.generate(result.length, (index){
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+
+  static Future<List<spendinfo>> getItemsByOperationDayMonthAndYear(String operationDay, String operationMonth,String operationYear) async{
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationDay = ? AND operationMonth = ? AND operationYear = ?",
+      whereArgs: [operationDay,operationMonth, operationYear],
+      orderBy: "id",
+    );
+    return List.generate(result.length, (index) {
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+  static Future<List<spendinfo>> getRegisteryQuery() async { //register kayıtlananları getirecek
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "registration = ?",whereArgs: [1], orderBy: "id");
+    return List.generate(result.length,(index) {
+      return spendinfo.fromObject(result[index]);
+    });
+  }
 
 }
+

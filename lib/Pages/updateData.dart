@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:butcekontrol/utils/DateTimeManager.dart';
 import '../riverpod_management.dart';
 
-class AddData extends StatefulWidget {
-  const AddData({Key? key}) : super(key: key);
+class UpdateData extends StatefulWidget {
+  const UpdateData({Key? key}) : super(key: key);
   @override
-  State<AddData> createState() => _AddDataState();
+  State<UpdateData> createState() => _AddDataState();
 }
 
-class _AddDataState extends State<AddData> {
+class _AddDataState extends State<UpdateData> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,7 +55,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 child: const Padding(
                   padding: EdgeInsets.only(left: 20, top: 20),
                   child: Text(
-                    'GELİR / GİDER EKLE',
+                    'İŞLEM DÜZENLEME',
                     style: TextStyle(
                       fontFamily: 'Nexa4',
                       fontSize: 26,
@@ -90,7 +89,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                   ),
                   onPressed: () {
                     Navigator.pop(context);
-                    read.setCurrentindex(read.current!);
+                    read.setCurrentindex(0);
                   },
                 ),
               ),
@@ -109,21 +108,20 @@ class ButtonMenu extends ConsumerStatefulWidget {
 }
 
 class _ButtonMenu extends ConsumerState<ButtonMenu> {
-  final TextEditingController _note = TextEditingController(text: "");
-  final TextEditingController _amount = TextEditingController(text: "0.0");
-  final TextEditingController _operationType =
-      TextEditingController(text: "Gider");
-  final TextEditingController _category = TextEditingController(text: "Yemek");
-  final TextEditingController _operationTool =
-      TextEditingController(text: "Nakit");
-  final TextEditingController _registration = TextEditingController(text: "0");
-  final TextEditingController _operationDate =
-      TextEditingController(text: DateTimeManager.getCurrentDayMonthYear());
+
   FocusNode amountFocusNode = FocusNode();
   FocusNode dateFocusNode = FocusNode();
-
   @override
   Widget build(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final id = readUpdateData.getId();
+    final operationType = readUpdateData.getType();
+    final note = readUpdateData.getNote();
+    final amount = readUpdateData.getAmount();
+    final category = readUpdateData.getCategory();
+    final operationTool = readUpdateData.getOperationTool();
+    final operationDate = readUpdateData.getOperationDate();
+    final registration = readUpdateData.getRegistration();
     var size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -162,13 +160,18 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             ),
             NoteCustomButton(context),
             const SizedBox(
-              height: 15,
+              //height: 15,
+              height : 5,
             ),
-            AmountCustomButton(),
+            AmountCustomButton(context),
             const SizedBox(
               height: 5,
             ),
             OperationCustomButton(context),
+            SizedBox(
+                width: 350,
+                height: 10,
+                child: Text(id+operationType.text + operationDate.text + category.text + operationTool.text + registration.text+amount.text+note.text)),
           ],
         ),
       ),
@@ -182,6 +185,31 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   Color _textColorType = const Color(0xff0D1C26);
   Color _textColorType2 = Colors.white;
   Widget TypeCustomButton(BuildContext context) {
+
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final operationType = readUpdateData.getType();
+    final category = readUpdateData.getCategory();
+    int indexx ;
+    operationType.text == 'Gider' ? indexx = 0: indexx =1;
+
+    if(indexx == 0){
+        heightType2_ = 40;
+        heightType_ = 34;
+        _containerColorType = const Color(0xffF2CB05);
+        _containerColorType2 = const Color(0xff0D1C26);
+        _textColorType = const Color(0xff0D1C26);
+        _textColorType2 = Colors.white;
+        selectedCategory = 0;
+    }
+    else{
+        heightType_ = 40;
+        heightType2_ = 34;
+        _containerColorType2 = const Color(0xffF2CB05);
+        _containerColorType = const Color(0xff0D1C26);
+        _textColorType = Colors.white;
+        _textColorType2 = const Color(0xff0D1C26);
+        selectedCategory = 1;
+    }
     void changeColorType(int index) {
       if (index == 0) {
         setState(() {
@@ -192,6 +220,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           _textColorType = const Color(0xff0D1C26);
           _textColorType2 = Colors.white;
           index = 1;
+          selectedCategory = 0;
         });
       } else {
         heightType_ = 40;
@@ -201,6 +230,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
         _textColorType = Colors.white;
         _textColorType2 = const Color(0xff0D1C26);
         index = 0;
+        selectedCategory = 1;
       }
     }
 
@@ -234,8 +264,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeColorType(0);
-                          _operationType.text = "Gider";
+                          operationType.text = "Gider";
                           selectedCategory = 0;
+                          category.text = 'Yemek';
+                          indexx = 1;
                         });
                       },
                       child: Text("GİDER",
@@ -259,9 +291,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeColorType(1);
-                          _operationType.text = "Gelir";
+                          operationType.text = "Gelir";
                           selectedCategory = 1;
-                          _category.text = 'Harçlık';
+                          category.text = 'Harçlık';
+                          indexx = 0;
                         });
                       },
                       child: Text("GELİR",
@@ -281,6 +314,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
 
   DateTime? _selectedDate;
   Widget DateCustomButton(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final operationDate = readUpdateData.getOperationDate();
     Future<void> _selectDate(BuildContext context) async {
       final DateTime? picked = await showDatePicker(
         locale: const Locale("tr"),
@@ -317,7 +352,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       if (picked != null) {
         setState(() {
           _selectedDate = picked;
-          _operationDate.text = DateFormat('dd.MM.yyyy').format(_selectedDate!);
+          operationDate.text = DateFormat('dd.MM.yyyy').format(_selectedDate!);
         });
       }
     }
@@ -374,7 +409,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           fontSize: 17,
                           fontFamily: 'Nexa4',
                           fontWeight: FontWeight.w800),
-                      controller: _operationDate,
+                      controller: operationDate,
                       autofocus: false,
                       keyboardType: TextInputType.datetime,
                       textAlign: TextAlign.center,
@@ -394,8 +429,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     );
   }
 
-
-  Widget AmountCustomButton() {
+  Widget AmountCustomButton(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final amount = readUpdateData.getAmount();
     var size = MediaQuery.of(context).size;
     return SizedBox(
       height: 40,
@@ -448,14 +484,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     width: 110,
                     child: TextFormField(
                         onTap: () {
-                          _amount.clear();
+                          amount.clear();
                         },
                         style: const TextStyle(
                             color: Color(0xff0D1C26),
                             fontSize: 17,
                             fontFamily: 'Nexa4',
                             fontWeight: FontWeight.w100),
-                        controller: _amount,
+                        controller: amount,
                         autofocus: false,
                         focusNode: amountFocusNode,
                         keyboardType: const TextInputType.numberWithOptions(
@@ -510,6 +546,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   Color colorTextHobi = const Color(0xff0D1C26);
   Color colorTextDiger = const Color(0xff0D1C26);
   Widget CategoryCustomButton(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+  final category = readUpdateData.getCategory();
     void resetColor() {
       colorContainerYemek = Colors.white;
       colorContainerGiyim = Colors.white;
@@ -536,7 +574,55 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       colorTextHobi = const Color(0xff0D1C26);
       colorTextDiger = const Color(0xff0D1C26);
     }
-
+      if (category.text == 'Yemek' || category.text == 'Harçlık') {
+        resetColor();
+        colorContainerYemek = const Color(0xffF2CB05);
+        colorTextYemek = Colors.white;
+      } else if (category.text == 'Giyim' || category.text == 'Burs') {
+        resetColor();
+        colorContainerGiyim = const Color(0xffF2CB05);
+        colorTextGiyim = Colors.white;
+      } else if (category.text == 'Eğlence' || category.text == 'Maaş') {
+        resetColor();
+        colorContainerEglence = const Color(0xffF2CB05);
+        colorTextEglence = Colors.white;
+      } else if (category.text == 'Eğitim' || category.text == 'Kredi') {
+        resetColor();
+        colorContainerEgitim = const Color(0xffF2CB05);
+        colorTextEgitim = Colors.white;
+      } else if (category.text == 'Aidat/Kira' || category.text == 'Özel+') {
+        resetColor();
+        colorContainerAidat = const Color(0xffF2CB05);
+        colorTextAidat = Colors.white;
+      } else if (category.text == 'Alışveriş' || category.text == 'Kira/Ödenek') {
+        resetColor();
+        colorContainerAlisveris = const Color(0xffF2CB05);
+        colorTextAlisveris = Colors.white;
+      } else if (category.text == 'Özel-' || category.text == 'Fazla Mesai') {
+        resetColor();
+        colorContainerOzel = const Color(0xffF2CB05);
+        colorTextOzel = Colors.white;
+      } else if (category.text == 'Ulaşım' || category.text == 'İş Getirisi') {
+        resetColor();
+        colorContainerUlasim = const Color(0xffF2CB05);
+        colorTextUlasim = Colors.white;
+      } else if (category.text == 'Sağlık' || category.text == 'Döviz Getirisi') {
+        resetColor();
+        colorContainerSaglik = const Color(0xffF2CB05);
+        colorTextSaglik = Colors.white;
+      } else if (category.text == 'Günlük Yaşam' || category.text == 'Yatırım Getirisi') {
+        resetColor();
+        colorContainerGunluk = const Color(0xffF2CB05);
+        colorTextGunluk = Colors.white;
+      } else if (category.text == 'Hobi' || category.text == 'Diğer+') {
+        resetColor();
+        colorContainerHobi = const Color(0xffF2CB05);
+        colorTextHobi = Colors.white;
+      } else if (category.text == 'Diğer-') {
+        resetColor();
+        colorContainerDiger = const Color(0xffF2CB05);
+        colorTextDiger = Colors.white;
+      }
     void changeCategoryColor1(int index) {
       if (index == 1) {
         resetColor();
@@ -610,7 +696,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(1);
-                          _category.text = 'Yemek';
+                          category.text = 'Yemek';
                         });
                       },
                       child: Text("Yemek",
@@ -632,7 +718,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(2);
-                          _category.text = 'Giyim';
+                          category.text = 'Giyim';
                         });
                       },
                       child: Text("Giyim",
@@ -654,7 +740,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(3);
-                          _category.text = 'Eğlence';
+                          category.text = 'Eğlence';
                         });
                       },
                       child: Text("Eğlence",
@@ -676,7 +762,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(4);
-                          _category.text = 'Eğitim';
+                          category.text = 'Eğitim';
                         });
                       },
                       child: Text("Eğitim",
@@ -704,7 +790,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(5);
-                          _category.text = 'Aidat/Kira';
+                          category.text = 'Aidat/Kira';
                         });
                       },
                       child: Text("Aidat/Kira",
@@ -726,7 +812,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(6);
-                          _category.text = 'Alışveriş';
+                          category.text = 'Alışveriş';
                         });
                       },
                       child: Text("Alışveriş",
@@ -748,7 +834,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(7);
-                          _category.text = 'Özel-';
+                          category.text = 'Özel-';
                         });
                       },
                       child: Text("Özel",
@@ -770,7 +856,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(8);
-                          _category.text = 'Ulaşım';
+                          category.text = 'Ulaşım';
                         });
                       },
                       child: Text("Ulaşım",
@@ -798,7 +884,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(9);
-                          _category.text = 'Sağlık';
+                          category.text = 'Sağlık';
                         });
                       },
                       child: Text("Sağlık",
@@ -820,7 +906,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(10);
-                          _category.text = 'Günlük Yaşam';
+                          category.text = 'Günlük Yaşam';
                         });
                       },
                       child: Text("Günlük Yaşam",
@@ -842,7 +928,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(11);
-                          _category.text = 'Hobi';
+                          category.text = 'Hobi';
                         });
                       },
                       child: Text("Hobi",
@@ -864,7 +950,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(12);
-                          _category.text = 'Diğer-';
+                          category.text = 'Diğer-';
                         });
                       },
                       child: Text("Diğer",
@@ -899,7 +985,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(1);
-                          _category.text = 'Harçlık';
+                          category.text = 'Harçlık';
                         });
                       },
                       child: Text("Harçlık",
@@ -921,7 +1007,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(2);
-                          _category.text = 'Burs';
+                          category.text = 'Burs';
                         });
                       },
                       child: Text("Burs",
@@ -943,7 +1029,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(3);
-                          _category.text = 'Maaş';
+                          category.text = 'Maaş';
                         });
                       },
                       child: Text("Maaş",
@@ -965,7 +1051,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(4);
-                          _category.text = 'Kredi';
+                          category.text = 'Kredi';
                         });
                       },
                       child: Text("Kredi",
@@ -987,7 +1073,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(5);
-                          _category.text = 'Özel+';
+                          category.text = 'Özel+';
                         });
                       },
                       child: Text("Özel",
@@ -1015,7 +1101,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(6);
-                          _category.text = 'Kira/Ödenek';
+                          category.text = 'Kira/Ödenek';
                         });
                       },
                       child: Text("Kira/Ödenek",
@@ -1037,7 +1123,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(7);
-                          _category.text = 'Fazla Mesai';
+                          category.text = 'Fazla Mesai';
                         });
                       },
                       child: Text("Fazla Mesai",
@@ -1059,7 +1145,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(8);
-                          _category.text = 'İş Getirisi';
+                          category.text = 'İş Getirisi';
                         });
                       },
                       child: Text("İş Getirisi",
@@ -1087,7 +1173,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(9);
-                          _category.text = 'Döviz Getirisi';
+                          category.text = 'Döviz Getirisi';
                         });
                       },
                       child: Text("Döviz Getirisi",
@@ -1109,7 +1195,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(10);
-                          _category.text = 'Yatırım Getirisi';
+                          category.text = 'Yatırım Getirisi';
                         });
                       },
                       child: Text("Yatırım Getirisi",
@@ -1131,7 +1217,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       onPressed: () {
                         setState(() {
                           changeCategoryColor1(11);
-                          _category.text = 'Diğer+';
+                          category.text = 'Diğer+';
                         });
                       },
                       child: Text("Diğer",
@@ -1160,6 +1246,43 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   Color _textColorTool3 = Colors.white;
   int index = 0;
   Widget ToolCustomButton(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final operationTool = readUpdateData.getOperationTool();
+    if(operationTool.text == 'Nakit'){
+      heightTool2_ = 40;
+      heightTool_ = 34;
+      heightTool3_ = 34;
+      _containerColorTool = const Color(0xffF2CB05);
+      _containerColorTool2 = const Color(0xff0D1C26);
+      _containerColorTool3 = const Color(0xff0D1C26);
+      _textColorTool = const Color(0xff0D1C26);
+      _textColorTool2 = Colors.white;
+      _textColorTool3 = Colors.white;
+    }
+    else if(operationTool.text == 'Kart'){
+      heightTool_ = 40;
+      heightTool2_ = 34;
+      heightTool3_ = 34;
+      _containerColorTool2 = const Color(0xffF2CB05);
+      _containerColorTool = const Color(0xff0D1C26);
+      _containerColorTool3 = const Color(0xff0D1C26);
+      _textColorTool = Colors.white;
+      _textColorTool2 = const Color(0xff0D1C26);
+      _textColorTool3 = Colors.white;
+    }
+    else{
+      heightTool_ = 34;
+      heightTool2_ = 34;
+      heightTool3_ = 40;
+      _containerColorTool3 = const Color(0xffF2CB05);
+      _containerColorTool = const Color(0xff0D1C26);
+      _containerColorTool2 = const Color(0xff0D1C26);
+      _textColorTool = Colors.white;
+      _textColorTool2 = Colors.white;
+      _textColorTool3 = const Color(0xff0D1C26);
+    }
+
+
     void changeColor(int index) {
       if (index == 0) {
         setState(() {
@@ -1229,7 +1352,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   child: TextButton(
                       onPressed: () {
                         setState(() {
-                          _operationTool.text = "Nakit";
+                          operationTool.text = "Nakit";
                           changeColor(0);
                         });
                       },
@@ -1253,7 +1376,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   child: TextButton(
                       onPressed: () {
                         setState(() {
-                          _operationTool.text = "Kart";
+                          operationTool.text = "Kart";
                           changeColor(1);
                         });
                       },
@@ -1277,7 +1400,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   child: TextButton(
                       onPressed: () {
                         setState(() {
-                          _operationTool.text = "Diger";
+                          operationTool.text = "Diger";
                           changeColor(2);
                         });
                       },
@@ -1386,26 +1509,29 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   }
 
   Widget registration(int regs) {
-    if (regs == 0) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final registration = readUpdateData.getRegistration();
+    if(registration.text== '0'){
       return IconButton(
           padding: EdgeInsets.zero,
           onPressed: () {
             setState(() {
               regss = 1;
-              _registration.text = '1';
+              registration.text = '1';
             });
           },
           icon: const Icon(
             Icons.bookmark_add_outlined,
             color: Colors.white,
           ));
-    } else {
+    }
+    else{
       return IconButton(
           padding: EdgeInsets.zero,
           onPressed: () {
             setState(() {
               regss = 0;
-              _registration.text = '0';
+              registration.text = '0';
             });
           },
           icon: const Icon(
@@ -1418,6 +1544,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   int maxLength = 108;
   int textLength = 0;
   Widget NoteCustomButton(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final note = readUpdateData.getNote();
     var size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width * 0.9,
@@ -1460,7 +1588,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       });
                     },
                     keyboardType: TextInputType.text,
-                    controller: _note,
+                    controller: note,
                     //maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   ),
                 ),
@@ -1519,7 +1647,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 child: TextButton(
                   onPressed: () {
                     setState(() {
-                      _note.text = "";
+                      note.text = "";
                     });
                   },
                   child: const Text(
@@ -1541,131 +1669,100 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   }
 
   Widget OperationCustomButton(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
     var read = ref.read(databaseRiverpod);
-    var read2 = ref.read(botomNavBarRiverpod);
-    var readNavBar = ref.read(botomNavBarRiverpod);
+    final id = readUpdateData.getId();
+    final operationType = readUpdateData.getType();
+    final note = readUpdateData.getNote();
+    final amount0 = readUpdateData.getAmount();
+    final category = readUpdateData.getCategory();
+    final operationTool = readUpdateData.getOperationTool();
+    final operationDate = readUpdateData.getOperationDate();
+    final registration = readUpdateData.getRegistration();
     var size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width * 0.9,
-      height: 80,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          SizedBox(
-            width: 100,
-            child: Stack(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Color(0xffF2CB05),
-                  ),
-                  height: 34,
-                  width: 100,
-                  child: TextButton(
-                    onPressed: () {
-                      _note.text = "";
-                      _amount.text = "0.0";
-                      OperationCustomButton(context);
-                    },
-                    child: const Text("SIFIRLA",
-                        style: TextStyle(
-                            color: Color(0xff0D1C26),
-                            fontSize: 17,
-                            fontFamily: 'Nexa4',
-                            fontWeight: FontWeight.w900)),
-                  ),
+      height: 70,
+      child: Center(
+        child: SizedBox(
+          width: 140,
+          child: Stack(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Color(0xffF2CB05),
                 ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: 100,
-            child: Stack(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Color(0xffF2CB05),
-                  ),
-                  height: 34,
-                  width: 100,
-                  child: TextButton(
-                    onPressed: () {
-                      double amount = double.tryParse(_amount.text) ?? 0.0;
-                      if (amount != 0.0) {
-                        read.insertDataBase(
-                            _operationType.text,
-                            _category.text,
-                            _operationTool.text,
-                            int.parse(_registration.text),
-                            amount,
-                            _note.text,
-                            _operationDate.text);
-                        Navigator.of(context).pop();
-                        read2.setCurrentindex(0);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            backgroundColor:
-                            Color(0xff0D1C26),
-                            duration: Duration(seconds: 1),
-                            content: Text(
-                              'İşlem verisi eklendi',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontFamily: 'Nexa3',
-                                fontWeight: FontWeight.w600,
-                                height: 1.3,
-                              ),
+                height: 40,
+                width: 140,
+                child: TextButton(
+                  onPressed: () {
+                    double amount = double.tryParse(amount0.text) ?? 0.0;
+                    if (amount != 0.0) {
+                      read.Update();
+                      readUpdateData.updateDataBase(
+                          int.parse(id),
+                          operationType.text,
+                          category.text,
+                          operationTool.text,
+                          int.parse(registration.text),
+                          amount,
+                          note.text,
+                          operationDate.text);
+                      Navigator.of(context).pop();
+                      //read2.setCurrentindex(0);
+                      Navigator.of(context).pop();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          backgroundColor:
+                          Color(0xff0D1C26),
+                          duration: Duration(seconds: 1),
+                          content: Text(
+                            'İşlem bilgisi güncellendi',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w600,
+                              height: 1.3,
                             ),
                           ),
-                        );
-                      } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text("Eksik İşlem"),
-                                content: const Text("Lütfen bir tutar girin!"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      _amount.clear();
-                                      //FocusScope.of(context).requestFocus(amountFocusNode);
-                                    },
-                                    child: const Text("Tamam"),
-                                  )
-                                ],
-                              );
-                            });
-                      }
-                    },
-                    child: const Text("EKLE",
-                        style: TextStyle(
-                            color: Color(0xff0D1C26),
-                            fontSize: 17,
-                            fontFamily: 'Nexa4',
-                            fontWeight: FontWeight.w900)),
-                  ),
+                        ),
+                      );
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("Eksik İşlem"),
+                              content: const Text("Lütfen bir tutar girin!"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    amount0.clear();
+                                    FocusScope.of(context)
+                                        .requestFocus(amountFocusNode);
+                                  },
+                                  child: const Text("Tamam"),
+                                )
+                              ],
+                            );
+                          });
+                    }
+                  },
+                  child: const Text("GÜNCELLE",
+                      style: TextStyle(
+                          color: Color(0xff0D1C26),
+                          fontSize: 17,
+                          fontFamily: 'Nexa4',
+                          fontWeight: FontWeight.w900)),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 }
-/*
-  // Update an existing journal
-  Future<void> _updateItem(int id) async {
-    await SQLHelper.updateItem(
-        cli, _harcamatipiController.text, _odemeyontemiController.text, _kategoriController.text, _tutarController.text);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Successfully updated'),
-    ));
-    _refreshSpendinfoList();
-  }
-*/
