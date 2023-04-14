@@ -15,6 +15,7 @@ class navBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var watch = ref.watch(botomNavBarRiverpod);
     var read = ref.read(botomNavBarRiverpod);
+    var readDB = ref.read(databaseRiverpod) ;
     var selectindex = watch.currentindex;
     CustomColors renkler = CustomColors();
     final Size size = MediaQuery.of(context).size;

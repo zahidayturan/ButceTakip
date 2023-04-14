@@ -1,3 +1,4 @@
+import 'package:butcekontrol/modals/settingsinfo.dart';
 import 'package:butcekontrol/utils/DateTimeManager.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,6 @@ import '../modals/Spendinfo.dart';
 import 'package:collection/collection.dart';
 
 class DbProvider extends ChangeNotifier {
-
   bool isuseinsert = false ;
   bool deletst = false ;
   String month = DateTime.now().month.toString();
@@ -15,6 +15,7 @@ class DbProvider extends ChangeNotifier {
   String ?status ;
   String ?day ;
   String ?Date ;
+
   void setDate(String date) {
     this.Date = date ;
     notifyListeners();
