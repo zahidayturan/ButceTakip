@@ -70,6 +70,7 @@ flutter:
   assets:
     - assets/image/origami_noinfo.png
     - assets/image/LogoBkaShort.png
+    - assets/image/icon_BKA/LOGOBKA-2.png
     - assets/image/icon_BKA/İKON.png
   #  - images/a_dot_ham.jpeg
 
