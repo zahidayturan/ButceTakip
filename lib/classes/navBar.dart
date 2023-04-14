@@ -1,13 +1,8 @@
-
 import 'package:butcekontrol/Pages/addData.dart';
-import 'package:butcekontrol/Pages/statistic.dart';
-import 'package:butcekontrol/Pages/testPages.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';
-import '../utils/dbHelper.dart';
-
 class navBar extends ConsumerWidget {
   const navBar({Key ?key}) : super(key : key) ;
 
@@ -15,6 +10,7 @@ class navBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var watch = ref.watch(botomNavBarRiverpod);
     var read = ref.read(botomNavBarRiverpod);
+    CustomColors renkler = CustomColors();
     var selectindex = watch.currentindex;
     final Size size = MediaQuery.of(context).size;
     return Container(

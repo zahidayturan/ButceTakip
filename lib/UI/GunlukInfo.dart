@@ -51,7 +51,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
     String formattedDate = DateFormat('dd.MM.yyyy').format(now);
     var size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.height / 3,
+      height: size.height / 2.99,
       child: Container(
           margin: const EdgeInsets.only(top: 10),
           child: Column(

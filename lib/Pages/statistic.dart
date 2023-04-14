@@ -119,7 +119,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       width: 160,
                       decoration: BoxDecoration(
                           color: const Color(0xFF0D1C26),
-                        borderRadius: BorderRadius.circular(20)
+                          borderRadius: BorderRadius.circular(20)
                       ),
 
                       child: const Center(child: Text("Veri bulunamadı.",style: TextStyle(color: Colors.white, fontSize: 16),)),
@@ -153,61 +153,69 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                               height: size.height * 0.35,
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 1.5),
-                          child: SizedBox(
-                            width: 4,
-                            height: size.height * 0.35,
-                            child:  DecoratedBox(
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(Radius.circular(30)),
-                                  color: snapshot.data!.length <= 4 ? const Color(0xFFE9E9E9) : const Color(0xFF0D1C26)),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 1.5),
+                            child: SizedBox(
+                              width: 4,
+                              height: size.height * 0.35,
+                              child:  DecoratedBox(
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                                    color: snapshot.data!.length <= 4 ? const Color(0xFFE9E9E9) : const Color(0xFF0D1C26)),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Theme(
-                      data: Theme.of(context).copyWith(
-                          scrollbarTheme: ScrollbarThemeData(
-                            thumbColor:
-                            MaterialStateProperty.all(const Color(0xFFF2CB05)),
-                          )),
-                      child: Scrollbar(
-                        thumbVisibility: true,
-                        scrollbarOrientation:
-                        ScrollbarOrientation.right,
-                        interactive: true,
-                        thickness: 7,
-                        radius: const Radius.circular(15.0),
-                        child: ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            int colorCount = 0;
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 8,right: 16),
-                              child: InkWell(
-                                onTap: () {
-                                  readCategoryInfo.setDateAndCategory(selectedDayIndex, selectedMonthIndex, selectedYearIndex, selectedWeekIndex, item[index]['category'],validDateMenu);
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const categoryInfo(),));
+                        ],
+                      ),
+                      Theme(
+                        data: Theme.of(context).copyWith(
+                            scrollbarTheme: ScrollbarThemeData(
+                              thumbColor:
+                              MaterialStateProperty.all(const Color(0xFFF2CB05)),
+                            )),
+                        child: Scrollbar(
+                          thumbVisibility: true,
+                          scrollbarOrientation:
+                          ScrollbarOrientation.right,
+                          interactive: true,
+                          thickness: 7,
+                          radius: const Radius.circular(15.0),
+                          child: ListView.builder(
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              int colorCount = 0;
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 8,right: 16),
+                                child: InkWell(
+                                  onTap: () {
+                                    readCategoryInfo.setDateAndCategory(selectedDayIndex, selectedMonthIndex, selectedYearIndex, selectedWeekIndex, item[index]['category'],validDateMenu);
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const categoryInfo(),));
                                   },
-                                child: SizedBox(
-                                  height: 42,
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const SizedBox(width: 5),
-                                        Container(
-                                          width: 65,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                            color: colorChangeCount > 12 ? colorsList[index]:colorsList2[index],
-                                            borderRadius: BorderRadius.circular(10),
+                                  child: SizedBox(
+                                    height: 42,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          const SizedBox(width: 5),
+                                          Container(
+                                            width: 65,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                              color: colorChangeCount > 12 ? colorsList[index]:colorsList2[index],
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Center(
+                                                child: Text(
+                                                  "% ${item[index]['percentages'].toString()}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'NEXA3',
+                                                    color: Colors.white,
+                                                  ),
+                                                )),
                                           ),
                                           const SizedBox(width: 10),
                                           Text(
