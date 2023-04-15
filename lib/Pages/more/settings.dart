@@ -1,3 +1,4 @@
+import 'package:butcekontrol/Pages/more/Backup.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/riverpod_management.dart';
@@ -10,19 +11,26 @@ class settings extends ConsumerStatefulWidget {
   @override
   ConsumerState<settings> createState() => _settingsState();
 }
-
+///Koyu tema , Yedeklenme durumunun  database ile implementi sağlanrı
 class _settingsState extends ConsumerState<settings> {
-  List<String> MoneyPrefix = <String>['TRY', 'USD', 'EUR'];
-  List<String> Dilestegi = <String>["Türkçe", "English"];
+  List<String> MoneyPrefix = <String>['TRY'];
+  List<String> Dilestegi = <String>["Türkçe"];
   CustomColors renkler = CustomColors();
-  bool darkthememode = false ;
-  bool isPassword = false ;
-  String Languagefirst = "Türkçe" ;
-  String dropdownshowitem = 'TRY';
   @override
   Widget build(BuildContext context) {
-    var readNavBar = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
+    var readNavBar = ref.read(botomNavBarRiverpod);
+    var readSetting = ref.read(settingsRiverpod);
+
+    //readSetting.controlSettings(); ///db kayıt var mı sorgu yapıyoruz.
+    bool darkthememode = readSetting.DarkMode == 1 ? true : false ;
+    bool isPassword = readSetting.isPassword == 1 ? true : false ;
+    bool isBackup = readSetting.isBackUp == 1 ? true : false ;
+    String? Language = readSetting.Language;
+    String? Prefix = readSetting.Prefix ;
+    String Languagefirst = "Türkçe" ;
+    String dropdownshowitem = 'TRY';
+
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
@@ -40,25 +48,25 @@ class _settingsState extends ConsumerState<settings> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
                           children: [
-                            Text(
+                            const Text(
                               "Koyu Tema",
                                 style: TextStyle(
                                   fontFamily: "Nexa3",
                                 ),
                             ),
                             Spacer(),
-                            darkthememode ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                          : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                            darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                          : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                             Switch(
-                                value: darkthememode ,
+                                value: darkthememode,
                                 onChanged: (bool value) {
                                   setState(() {
-                                    darkthememode = value;
+                                    readSetting.setDarkMode(value) ;
                                   });
                                 },
                             ),
@@ -75,29 +83,29 @@ class _settingsState extends ConsumerState<settings> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          children: [
-                            const Text(
-                              "Giriş Şifresi",
-                              style: TextStyle(
-                                fontFamily: "Nexa3",
+                        child: InkWell(
+                          onTap: () {
+                            readNavBar.setCurrentindex(14);
+                          },
+                          child: Row(
+                            children: [
+                              const Text(
+                                "Giriş Şifresi",
+                                style: TextStyle(
+                                  fontFamily: "Nexa3",
+                                ),
                               ),
-                            ),
-                            Spacer(),
-                            isPassword ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
-                            Switch(
-                              value: isPassword ,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  isPassword = value;
-                                });
-                              },
-                            ),
-                          ],
+                              Spacer(),
+                              isPassword  ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                  : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -110,21 +118,23 @@ class _settingsState extends ConsumerState<settings> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: InkWell(
                           onTap: () => readNavBar.setCurrentindex(13),
                           child: Row(
-                            children: const [
-                              Text(
-                                "Yedekleme Durumu",
+                            children:  [
+                              const Text(
+                                "Yedeklenme Durumu",
                                 style: TextStyle(
                                   fontFamily: "Nexa3",
                                 ),
                               ),
                               Spacer(),
-                              Icon(
+                              isBackup  ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                  : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                              const Icon(
                                 Icons.arrow_forward_ios,
                               )
                             ],
@@ -141,7 +151,7 @@ class _settingsState extends ConsumerState<settings> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
@@ -198,7 +208,7 @@ class _settingsState extends ConsumerState<settings> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
@@ -237,6 +247,9 @@ class _settingsState extends ConsumerState<settings> {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(value),
+                                      onTap: () {
+
+                                      },
                                     );
                                   }).toList(),
                                 ),
@@ -255,4 +268,5 @@ class _settingsState extends ConsumerState<settings> {
       ),
     );
   }
+
 }

@@ -58,6 +58,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                   || title == "AYARLAR"
                   || title == "İLETİŞİM"
                   || title == "YEDEKLE"
+                  || title == "GİRİŞ ŞİFRESİ"
               ?const Icon(
                 Icons.arrow_back,
                 color: Colors.white,
@@ -70,7 +71,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
               onPressed: () {
                 if(title == "YARDIM<" ){
                   read2.setCurrentindex(5);
-                }else if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE"){
+                }else if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE" || title == "GİRİŞ ŞİFRESİ"){
                   read2.setCurrentindex(4);
                 }else{
                   read2.setCurrentindex(0);

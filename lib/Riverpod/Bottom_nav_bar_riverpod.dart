@@ -1,19 +1,18 @@
 import 'package:butcekontrol/Pages/Calculator.dart';
 import 'package:butcekontrol/Pages/Home.dart';
 import 'package:butcekontrol/Pages/calendar.dart';
-import 'package:butcekontrol/Pages/more/Help/Backup.dart';
+import 'package:butcekontrol/Pages/more/Backup.dart';
 import 'package:butcekontrol/Pages/more/Help/Communicate.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpCalculator.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpCalender.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpStatistic.dart';
 import 'package:butcekontrol/Pages/more/Help/VersionsHelp.dart';
 import 'package:butcekontrol/Pages/more/Help/helpPage.dart';
+import 'package:butcekontrol/Pages/more/Password.dart';
 import 'package:butcekontrol/Pages/more/more.dart';
 import 'package:butcekontrol/Pages/more/settings.dart';
 import 'package:butcekontrol/Pages/statistic.dart';
 import 'package:flutter/material.dart';
-import 'package:butcekontrol/Pages/statistic.dart';
-
 import '../Pages/more/Help/HelpHomePage.dart';
 
 class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
@@ -66,6 +65,8 @@ class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
         return communicate();
       case 13 :
         return backUp();
+      case 14 :
+        return passwordPage();
       default :
         return Home();
     }

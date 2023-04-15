@@ -11,6 +11,8 @@ class More extends ConsumerWidget {
   final renkler = CustomColors();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var readDB = ref.read(databaseRiverpod);
+    ref.read(settingsRiverpod).controlSettings();
     var size = MediaQuery.of(context).size;
     var readNavBar = ref.read(botomNavBarRiverpod);
     return Container(
@@ -70,6 +72,7 @@ class More extends ConsumerWidget {
                             ),
                           ),
                           SizedBox(width: size.width / 15),
+                          /*
                           InkWell(
                             onTap: () => print("Theme"),
                             child: Container(
@@ -88,15 +91,11 @@ class More extends ConsumerWidget {
                               ),
                             ),
                           ),
-                        ],
-                      ),
-
-                      SizedBox(height: size.width / 15,),
-
-                      Row(
-                        children: [
+                           */
                           InkWell(
-                            onTap: () => print("Password"),
+                            onTap: () {
+                              readNavBar.setCurrentindex(14);
+                            },
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -107,15 +106,25 @@ class More extends ConsumerWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Icon(Icons.lock, color: renkler.YaziRenk, size: 35),
+                                  ref.read(settingsRiverpod).isPassword == 1
+                                      ? Icon(Icons.lock, color: renkler.YaziRenk, size: 35)
+                                      : Icon(Icons.lock_open, color: renkler.YaziRenk, size: 35),
                                   Textmod("Giriş Şifresi", renkler.YaziRenk, 10),
                                 ],
                               ),
                             ),
                           ),
-                          SizedBox(width: size.width / 15),
+                        ],
+                      ),
+
+                      SizedBox(height: size.width / 15,),
+
+                      Row(
+                        children: [
                           InkWell(
-                            onTap: () => readNavBar.setCurrentindex(13),
+                            onTap: () {
+                              readNavBar.setCurrentindex(13);
+                            },
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -153,9 +162,8 @@ class More extends ConsumerWidget {
                           ),
                         ],
                       ),
-
+                      /*
                       SizedBox(height: size.width / 15,),
-
                       Row(
                         children: [
                           InkWell(
@@ -216,6 +224,7 @@ class More extends ConsumerWidget {
                           ),
                         ],
                       ),
+                       */
                     ],
                   ),
                 ],
@@ -225,17 +234,14 @@ class More extends ConsumerWidget {
                 children: [
                   Column(
                     children: [
-                      SizedBox(
-                        height: size.height / 15,
-                        child: Row(
-                          children: [
-                            Textmod('bütçe', renkler.koyuuRenk, 28),
-                            Textmod('takip', renkler.sariRenk, 28),
-                          ],
-                        ),
+                      Image.asset(
+                        "assets/image/icon_BKA/LOGOBKA-4.png",
+                        height: 70,
                       ),
-                      Textmod("1.0", renkler.koyuuRenk, 12),
-                      Textmod("KatamonuSpor", renkler.koyuuRenk, 10),
+                      SizedBox(height: 2,),
+                      Textmod("version 1.0", renkler.koyuuRenk, 13),
+                      SizedBox(height: 2,),
+                      Textmod("Osmanlı Torunları", renkler.koyuuRenk, 10),
                     ],
                   )
                 ],
