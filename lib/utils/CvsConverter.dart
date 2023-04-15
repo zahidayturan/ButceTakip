@@ -13,9 +13,8 @@ Future <void> writeToCvs() async{
   if (permissionStatus == PermissionStatus.granted) {
     final Database db = await SQLHelper.db();
     final List<Map<String, dynamic>> allData = await db.query("spendinfo", orderBy: "id") ;
-
     final List<List<dynamic>> rows = <List<dynamic>>[];
-    File f = File('/storage/emulated/0/Download' + "/alldata.csv");
+    //File f = File('/storage/emulated/0/Download' + "/alldata.csv");
     var path = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
     print("dir $path");
     String file = "$path";
@@ -25,25 +24,33 @@ Future <void> writeToCvs() async{
       print(row) ;
       rows.add(row);
     }
+    final String fileName = "alldata.cvs";
+    //final directory = await getExternalStorageDirectory() ; // deneniyor
+    //final String filePath = '${directory?.path}/$fileName' ;
+    //final File f = File(filePath);
 
+    final directory = "$path/$fileName";
+    final File f = File(directory);
     final String cvs = ListToCsvConverter().convert(rows);
     await f.writeAsString(cvs);
+    //print(filePath);
     print("Yüklendi");
   } else {
     // İzin reddedildi, bir hata mesajı gösterin veya başka bir işlem yapın
   }
 
-  //final String fileName = "alldata.cvs";
-  final directory = await getExternalStorageDirectory() ;
-  //final String filePath = '${directory?.path}/$fileName' ;
-
-  //final File file = File(filePath);
   //await file.writeAsString(cvs);
 }
 Future<void> restore() async{
   final fileName = "alldata.cvs" ;
-  final File file = File('/storage/emulated/0/Download' + "/alldata.csv");
-  final List<List<dynamic>> csvData = CsvToListConverter().convert(await file.readAsString());
+  //final File file = File('/storage/emulated/0/Download' + "/alldata.csv");
+  //final directory = await getExternalStorageDirectory() ; // deneniyor
+  //final String filePath = '${directory?.path}/$fileName' ;
+  //final File file = File(filePath);
+  var path = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+  final directory = "$path/$fileName";
+  final File f = File(directory);
+  final List<List<dynamic>> csvData = CsvToListConverter().convert(await f.readAsString());
   final List<spendinfo> lastList = csvData.map((csvRow) => spendinfo.fromCVSObjetct(csvRow)).toList();
   for(var i =0 ; i < lastList.length  ;i++){
     print(lastList[i].operationType);

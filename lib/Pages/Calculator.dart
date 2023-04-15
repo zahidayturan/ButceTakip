@@ -1,5 +1,6 @@
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../classes/appBarForPage.dart';
 
 
@@ -265,8 +266,8 @@ class _CalculatorState extends State<Calculator> {
                         print("Yüzde HEsaplama");
                       },
                       child: SizedBox(
-                        height: size.width/4.8,
-                        width: size.width/4.8,
+                        height: size.width/4,
+                        width: size.width/4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: renkler.koyuuRenk,
@@ -305,8 +306,8 @@ class _CalculatorState extends State<Calculator> {
                         print("Faiz-Kredi Hesaplama");
                       },
                       child: SizedBox(
-                        height: size.width/4.8,
-                        width: size.width/4.8,
+                        height: size.width/4,
+                        width: size.width/4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: renkler.koyuuRenk,
@@ -345,8 +346,8 @@ class _CalculatorState extends State<Calculator> {
                         print("Yüzde Hesapla");
                       },
                       child: SizedBox(
-                        height: size.width/4.8,
-                        width: size.width/4.8,
+                        height: size.width/4,
+                        width: size.width/4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: renkler.koyuuRenk,
@@ -748,7 +749,6 @@ class _CalculatorState extends State<Calculator> {
       ),
     );
   }
-
   Widget equalsBtnCreat(Size size){
       return SizedBox(
         height: size.width * 00.135 ,

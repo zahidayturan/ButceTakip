@@ -8,6 +8,7 @@ import 'package:butcekontrol/Pages/more/Help/HelpCalender.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpStatistic.dart';
 import 'package:butcekontrol/Pages/more/Help/VersionsHelp.dart';
 import 'package:butcekontrol/Pages/more/Help/helpPage.dart';
+import 'package:butcekontrol/Pages/more/Password.dart';
 import 'package:butcekontrol/Pages/more/more.dart';
 import 'package:butcekontrol/Pages/more/settings.dart';
 import 'package:butcekontrol/Pages/statistic.dart';
@@ -65,6 +66,8 @@ class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
         return communicate();
       case 13 :
         return backUp();
+      case 14 :
+        return passwordPage();
       default :
         return Home();
     }

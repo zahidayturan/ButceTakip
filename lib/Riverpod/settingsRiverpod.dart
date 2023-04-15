@@ -11,7 +11,7 @@ class SettingsRiverpod extends ChangeNotifier{
   int ?isBackUp;
   String ?Backuptimes ;
 
-  Future a() async{
+  Future readDb() async{
     List<settingsinfo> setting = await SQLHelper.settingsControl() ;
     id = setting[setting.length - 1].id ;
     Prefix = setting[setting.length - 1].Prefix ;
@@ -26,7 +26,7 @@ class SettingsRiverpod extends ChangeNotifier{
   Future controlSettings() async{ //settings Kayıt değerlendiriyoruz.
     List<settingsinfo> ?settingsReglength = await SQLHelper.settingsControl();
     if(settingsReglength.length > 0) {
-      a();
+      readDb();
     }else{
       final info = settingsinfo("TRY", 0, 0, "Turkce", 0, "day") ;
       await SQLHelper.addItemSetting(info);
@@ -35,19 +35,14 @@ class SettingsRiverpod extends ChangeNotifier{
   }
 
   void setDarkMode(bool mode){
-    if (mode) {
-      DarkMode = 1 ;
-    }
-    else{
-      DarkMode = 0 ;
-    }
+    DarkMode = mode ? 1 : 0 ;
     Updating();
   }
   void setBackup(bool mode) {
-    mode ? isBackUp = 1 : isBackUp = 0 ;
+    isBackUp = mode ? 1 : 0 ;
     Updating();
   }
-  void setBackuotimes(String time) {
+  void setBackuptimes(String time) {
     if(time == "Günlük") {
       Backuptimes = "Günlük";
     } else if(time == "Haftalık") {

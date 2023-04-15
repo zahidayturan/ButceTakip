@@ -94,6 +94,7 @@ class More extends ConsumerWidget {
                            */
                           InkWell(
                             onTap: () {
+                              readNavBar.setCurrentindex(14);
                             },
                             child: Container(
                               height: size.height / 9,
@@ -105,7 +106,9 @@ class More extends ConsumerWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Icon(Icons.lock, color: renkler.YaziRenk, size: 35),
+                                  ref.read(settingsRiverpod).isPassword == 1
+                                      ? Icon(Icons.lock, color: renkler.YaziRenk, size: 35)
+                                      : Icon(Icons.lock_open, color: renkler.YaziRenk, size: 35),
                                   Textmod("Giriş Şifresi", renkler.YaziRenk, 10),
                                 ],
                               ),

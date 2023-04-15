@@ -48,7 +48,7 @@ class _settingsState extends ConsumerState<settings> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
@@ -83,24 +83,29 @@ class _settingsState extends ConsumerState<settings> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          children: [
-                            const Text(
-                              "Giriş Şifresi",
-                              style: TextStyle(
-                                fontFamily: "Nexa3",
+                        child: InkWell(
+                          onTap: () {
+                            readNavBar.setCurrentindex(14);
+                          },
+                          child: Row(
+                            children: [
+                              const Text(
+                                "Giriş Şifresi",
+                                style: TextStyle(
+                                  fontFamily: "Nexa3",
+                                ),
                               ),
-                            ),
-                            Spacer(),
-                            isPassword!  ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                            )
-                          ],
+                              Spacer(),
+                              isPassword  ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                  : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -113,7 +118,7 @@ class _settingsState extends ConsumerState<settings> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: InkWell(
@@ -146,7 +151,7 @@ class _settingsState extends ConsumerState<settings> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
@@ -203,7 +208,7 @@ class _settingsState extends ConsumerState<settings> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(

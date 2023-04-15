@@ -1,12 +1,9 @@
 
 import 'package:butcekontrol/Pages/addData.dart';
-import 'package:butcekontrol/Pages/statistic.dart';
-import 'package:butcekontrol/Pages/testPages.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';
-import '../utils/dbHelper.dart';
 
 class navBar extends ConsumerWidget {
   const navBar({Key ?key}) : super(key : key) ;
@@ -150,7 +147,7 @@ class navBar extends ConsumerWidget {
                                 Icons.keyboard_control_sharp,
                                 color: Colors.white,
                               ),
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                   minHeight: 45,
                                   minWidth: 50
                               ),
@@ -168,6 +165,7 @@ class navBar extends ConsumerWidget {
                           ||read.currentindex == 11
                           || read.currentindex == 12
                           || read.currentindex == 13
+                          || read.currentindex == 14
                                 ? ClipRRect( ///navbar sarı pointer
                                   borderRadius: BorderRadius.vertical(top:Radius.circular(20)),
                                   child: Container(

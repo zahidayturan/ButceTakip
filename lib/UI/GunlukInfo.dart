@@ -4,6 +4,7 @@ import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../constans/TextPref.dart';
 import '../utils/DateTimeManager.dart';
 
 class GunlukInfo extends StatefulWidget {
@@ -149,7 +150,37 @@ class _GunlukInfoState extends State<GunlukInfo> {
                             child: CircularProgressIndicator(),
                           );
                         }
-                        return SizedBox(
+                        return snapshot.data!.length == 0
+                        ?SizedBox(
+                          height: 163,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/image/origami_noinfo.png",
+                                  width: 45,
+                                  height: 45,
+                                ),
+
+                                SizedBox(
+                                  height: 25,
+                                  width: 80,
+                                  child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+                                        border: Border.all(
+                                            color: Colors.black, width: 2),
+                                      ),
+                                      child: const Center(child: Textmod(
+                                          "Kayıt Yok", Colors.amber, 14))
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                        :SizedBox(
                           height: 163,
                           child: Padding(
                             //borderin scroll ile birleşimi gözüksü diye soldan padding

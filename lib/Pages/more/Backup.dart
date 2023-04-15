@@ -43,7 +43,7 @@ class _backUpState extends ConsumerState<backUp> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: Color(0xffD9D9D9),
+                      color: renkler.ArkaRenk,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
@@ -171,7 +171,7 @@ class _backUpState extends ConsumerState<backUp> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         child: Container(
-                          color:  Color(0xffD9D9D9),
+                          color:  renkler.ArkaRenk,
                           child: ExpansionTile(
                             title: Text("CVS formatında indir (.cvs)"),
                             onExpansionChanged: (bool expanding) => setState(() => isExpandCvs = expanding),
@@ -356,7 +356,7 @@ class _backUpState extends ConsumerState<backUp> {
                       onPressed: () {
                         setState(() {
                           //_operationTool.text = "Nakit";
-                          readSetting.setBackuotimes("Günlük");
+                          readSetting.setBackuptimes("Günlük");
                         });
                       },
                       child: Text("Günlük",
@@ -380,7 +380,7 @@ class _backUpState extends ConsumerState<backUp> {
                       onPressed: () {
                         setState(() {
                           //_operationTool.text = "Kart";
-                          readSetting.setBackuotimes("Haftalık");
+                          readSetting.setBackuptimes("Haftalık");
                         });
                       },
                       child: Text("Haftalık",
@@ -404,7 +404,7 @@ class _backUpState extends ConsumerState<backUp> {
                       onPressed: () {
                         setState(() {
                           //_operationTool.text = "Diger";
-                          readSetting.setBackuotimes("Yıllık");
+                          readSetting.setBackuptimes("Yıllık");
                         });
                       },
                       child: Text("Yıllık",
