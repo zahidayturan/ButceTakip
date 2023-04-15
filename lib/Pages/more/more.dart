@@ -4,12 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/constans/TextPref.dart';
 
+import '../../riverpod_management.dart';
+
 class More extends ConsumerWidget {
   More({Key? key}) : super(key: key);
   final renkler = CustomColors();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var size = MediaQuery.of(context).size;
+    var readNavBar = ref.read(botomNavBarRiverpod);
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
@@ -28,7 +31,9 @@ class More extends ConsumerWidget {
                         //mainAxisAlignment: MainAxisAlignment.spaceEvenly, conteınerlar fixed sizes oldukları için bu kodun bir etkisi olmuyor
                         children: [
                           InkWell(
-                            onTap: () => print("Settings"),
+                            onTap: () {
+                              readNavBar.setCurrentindex(11);
+                            },
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -47,7 +52,7 @@ class More extends ConsumerWidget {
                           ),
                           SizedBox(width: size.width / 15),
                           InkWell(
-                            onTap: () => print("Help"),
+                            onTap: () => readNavBar.setCurrentindex(5),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -110,7 +115,7 @@ class More extends ConsumerWidget {
                           ),
                           SizedBox(width: size.width / 15),
                           InkWell(
-                            onTap: () => print("Download data"),
+                            onTap: () => readNavBar.setCurrentindex(13),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -129,7 +134,7 @@ class More extends ConsumerWidget {
                           ),
                           SizedBox(width: size.width / 15),
                           InkWell(
-                            onTap: () => print("Communication"),
+                            onTap: () => readNavBar.setCurrentindex(12),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -244,3 +249,23 @@ class More extends ConsumerWidget {
   }
 
 }
+
+///cvs yi pubscyaml ye kaydetmek gerekecek
+///Verileri indir seçeneği için
+/*
+    import 'dart:io';
+    import 'package:path_provider/path_provider.dart';
+    import 'package:csv/csv.dart';
+
+    Future<File> saveDataToCsv(List<List<dynamic>> rows) async {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/data.csv');
+
+      List<spendinfo> allItems =  await SQLHelper.getItems()
+      String csv = const ListToCsvConverter().convert(allItems);
+      await file.writeAsString(csv);
+
+      return file;
+    }
+
+ */

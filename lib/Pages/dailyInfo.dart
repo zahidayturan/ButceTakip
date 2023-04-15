@@ -1,11 +1,8 @@
-import 'package:butcekontrol/Pages/updateData.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:butcekontrol/utils/dbHelper.dart';
-
 import '../UI/spendDetail.dart';
 
 class dailyInfo extends ConsumerWidget {
@@ -47,12 +44,9 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
 
   int? registrationState;
   Widget list(BuildContext context) {
-    var read = ref.read(databaseRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
-    var readUpdateData = ref.read(updateDataRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<spendinfo>> myList = readDailyInfo.myMethod2();
-    var readnavbar = ref.read(botomNavBarRiverpod);
     return FutureBuilder(
         future: myList,
         builder: (context, AsyncSnapshot<List<spendinfo>> snapshot) {
@@ -118,8 +112,8 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
                                   child: InkWell(
                                     onTap: () {
                                       {
-                                        readDailyInfo.regChange(
-                                            item[index].registration);
+                                        readDailyInfo.setSpendDetail(item, index);
+                                        readDailyInfo.regChange(item[index].registration);
                                         ref.watch(databaseRiverpod).Delete;
                                         showModalBottomSheet(
                                           context: context,
@@ -131,8 +125,9 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
                                           backgroundColor:
                                               const Color(0xff0D1C26),
                                           builder: (context) {
+                                            //ref.watch(databaseRiverpod).updatest;
                                             // genel bilgi sekmesi açılıyor.
-                                            return spendDetail(item: item, index: index);
+                                            return SpendDetail();
                                           },
                                         );
                                       }

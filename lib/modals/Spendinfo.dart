@@ -42,7 +42,6 @@ class spendinfo {
 
   Map<String,dynamic> toMap(){
     var map = < String, dynamic>{} ;
-    print("tomap çalıştı.");
     map["operationType"] = operationType ;
     map["category"] = category ;
     map["operationTool"] = operationTool ;
@@ -54,7 +53,6 @@ class spendinfo {
     map["operationYear"] = operationYear ;
     map["operationTime"] = operationTime ;
     map["operationDate"] = operationDate ;
-    print("tomap sonlandı");
     return map ;
   }
   spendinfo.fromObject(dynamic o){
