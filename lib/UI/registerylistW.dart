@@ -17,6 +17,7 @@ class registeryListW extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readDB = ref.read(databaseRiverpod);
+    var readDailyInfo = ref.read(dailyInfoRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size ;
     return FutureBuilder(
@@ -116,49 +117,50 @@ class registeryListW extends ConsumerWidget {
                                     padding: const EdgeInsets.only(right: 1),
                                     child:  DecoratedBox(
                                       decoration: BoxDecoration(
-                                          border:item.length > 8 ? Border(
-                                              right: BorderSide(
-                                                width: 5,
-                                                color: renkler.ArkaRenk,
-                                              )
-                                          )
-                                              : const Border(
+                                        border:item.length > 8 ? Border(
+                                            right: BorderSide(
+                                              width: 5,
+                                              color: renkler.ArkaRenk,
+                                            )
+                                        )
+                                            : const Border(
                                             right: BorderSide(
                                               width: 0,
                                             )
-                                          ) ,
+                                        ) ,
                                       ),
                                       child: ListView.builder(
                                         itemCount: item.length,
                                         itemBuilder:  (context, index) {
-                                          return  SizedBox(
-                                            height: 35,
-                                            child: Stack(
-                                              fit: StackFit.expand,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.symmetric(vertical:7,horizontal: 15),
-                                                  child: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    child: Container(
-                                                      color: renkler.ArkaRenk,
-                                                      height: 1,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          showModalBottomSheet(
-                                                            context: context,
-                                                            shape: const RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius.vertical(
-                                                                    top: Radius.circular(25))),
-                                                            backgroundColor:
-                                                            const Color(0xff0D1C26),
-                                                            builder: (context) {
-                                                              // genel bilgi sekmesi açılıyor.
-                                                              ref.watch(databaseRiverpod).deletst;
-                                                              return spendDetail(item: item, index: index);
-                                                            },
-                                                          );
-                                                        },
+                                          return  InkWell(
+                                            onTap: () {
+                                              readDailyInfo.setSpendDetail(item, index);
+                                              showModalBottomSheet(
+                                                context: context,
+                                                shape: const RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.vertical(
+                                                        top: Radius.circular(25))),
+                                                backgroundColor:
+                                                const Color(0xff0D1C26),
+                                                builder: (context) {
+                                                  // genel bilgi sekmesi açılıyor.
+                                                  ref.watch(databaseRiverpod).deletst;
+                                                  return SpendDetail();
+                                                },
+                                              );
+                                            },
+                                            child: SizedBox(
+                                              height: 35,
+                                              child: Stack(
+                                                fit: StackFit.expand,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.symmetric(vertical:7,horizontal: 15),
+                                                    child: ClipRRect(
+                                                      borderRadius: BorderRadius.circular(20),
+                                                      child: Container(
+                                                        color: renkler.ArkaRenk,
+                                                        height: 1,
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.start,
                                                           children: [
@@ -187,8 +189,8 @@ class registeryListW extends ConsumerWidget {
                                                                   "${item[index].amount}",
                                                                   style: TextStyle(
                                                                     color: item[index].operationType == "Gelir"
-                                                                      ? Colors.green
-                                                                      : Colors.red ,
+                                                                        ? Colors.green
+                                                                        : Colors.red ,
                                                                     fontFamily: "Nexa4",
                                                                     fontSize: 15,
                                                                   ),
@@ -200,26 +202,26 @@ class registeryListW extends ConsumerWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                Positioned(
-                                                  top: 2,
-                                                  left :1,
-                                                  child: SizedBox(
-                                                    width:  30,
-                                                    height: 30,
-                                                    child: DecoratedBox(
-                                                      decoration: BoxDecoration(
-                                                          color: renkler.ArkaRenk,
-                                                          borderRadius: BorderRadius.circular(20)
-                                                      ),
-                                                      child: Icon(
-                                                        Icons.remove_red_eye,
-                                                        color: renkler.sariRenk,
+                                                  Positioned(
+                                                    top: 2,
+                                                    left :1,
+                                                    child: SizedBox(
+                                                      width:  30,
+                                                      height: 30,
+                                                      child: DecoratedBox(
+                                                        decoration: BoxDecoration(
+                                                            color: renkler.ArkaRenk,
+                                                            borderRadius: BorderRadius.circular(20)
+                                                        ),
+                                                        child: Icon(
+                                                          Icons.remove_red_eye,
+                                                          color: renkler.sariRenk,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           );
                                         },

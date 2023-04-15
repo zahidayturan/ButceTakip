@@ -1,6 +1,11 @@
+import 'package:butcekontrol/Riverpod/dailyInfoRiverpod.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../Pages/updateData.dart';
+import '../modals/Spendinfo.dart';
 
 ///örnek kullanım
 /*
@@ -18,15 +23,21 @@ showModalBottomSheet(
 );
  */
 
-class spendDetail extends ConsumerWidget {
-  final item ;
-  final index ;
-  const spendDetail({Key? key, required this.item, required this.index}) : super(key: key);
-
+class SpendDetail extends ConsumerStatefulWidget {
+  const SpendDetail({super.key});
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _SpendDetailState createState() => _SpendDetailState();
+}
+
+class _SpendDetailState extends ConsumerState<SpendDetail> {
+  @override
+  Widget build(BuildContext context) {
     var readDB = ref.read(databaseRiverpod);
     var readNavBar = ref.read(botomNavBarRiverpod);
+    var readUpdateData = ref.read(updateDataRiverpod);
+    var readDailyInfo = ref.read(dailyInfoRiverpod);
+    List<spendinfo> item = readDailyInfo.getSpendDetailItem();
+    int index = readDailyInfo.getSpendDetailIndex();
     var size = MediaQuery.of(context).size;
     return Padding(
       padding:
@@ -248,19 +259,41 @@ class spendDetail extends ConsumerWidget {
                             50),
                       ),
                       child: IconButton(
-                          iconSize: 30,
-                          icon: item[index]
-                              .registration ==
-                              0
-                              ? const Icon(
-                              Icons
-                                  .bookmark_outline)
-                              : const Icon(
-                              Icons
-                                  .bookmark_outlined),
-                          onPressed: () {
-                            ///updateedd DATA BAASEE LOOKK AT HERE
-                          }),
+                        onPressed: () {
+                          readDailyInfo.regChange(item[index].registration);
+                          readDailyInfo.updateRegistration(item[index].id);
+                          //readDailyInfo.regChange(item[index].registration = item[index].registration == 0 ? 1 : 0);
+                          Navigator.of(context).pop();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor:
+                              Color(0xff0D1C26),
+                              duration: Duration(seconds: 1),
+                              content: item[index].registration == 1 ? const Text(
+                                'İşaret Kaldırıldı',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontFamily: 'Nexa3',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                ),
+                              ) : const Text(
+                                'İşaret Eklendi',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontFamily: 'Nexa3',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        iconSize: 30,
+                        icon: item[index].registration == 0 ? const Icon(Icons.bookmark_outline) : const Icon(Icons.bookmark_outlined),
+                      ),
                     ),
                     const Padding(
                       padding:
@@ -303,12 +336,26 @@ class spendDetail extends ConsumerWidget {
                               item[index]
                                   .id!);
                           readDB.myMethod2();
-                          readNavBar
-                              .setCurrentindex(
-                              5);
                           Navigator.of(
                               context)
                               .pop();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor:
+                              Color(0xff0D1C26),
+                              duration: Duration(seconds: 1),
+                              content: Text(
+                                'İşlem bilgisi silindi',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontFamily: 'Nexa3',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                ),
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ),
@@ -352,7 +399,10 @@ class spendDetail extends ConsumerWidget {
                           color: Colors
                               .white,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          readUpdateData.setItems(spendinfo.withId(item[index].id!, item[index].operationType, item[index].category, item[index].operationTool, item[index].registration, item[index].amount, item[index].note, item[index].operationDay, item[index].operationMonth, item[index].operationYear, item[index].operationTime, item[index].operationDate));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateData(),));
+                        },
                       ),
                     ),
                     const Padding(
@@ -377,7 +427,7 @@ class spendDetail extends ConsumerWidget {
           ],
         ),
       ),
-    );;
+    );
   }
 
   Widget Widet01(var item, var index) {  //not uzunluğuna karşın taşmayı önlemek için kurulmuştur.

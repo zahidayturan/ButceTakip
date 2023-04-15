@@ -34,7 +34,6 @@ dependencies:
   sqflite: ^2.2.6
   path: ^1.8.0
   intl: ^0.17.0
-  pie_chart:
   flutter_riverpod: ^2.3.2
   d_chart: ^2.2.11
   csv: ^5.0.0-nullsafety.0
@@ -74,6 +73,7 @@ flutter:
     - assets/image/origami_noinfo.png
     - assets/image/
     - assets/image/icon_BKA/LOGOBKA-2.png
+    - assets/image/
     - assets/image/icon_BKA/İKON.png
     - assets/image/icon_BKA/LOGOBKA-4.png
   #  - images/a_dot_ham.jpeg

@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:d_chart/d_chart.dart';
 
 class Statistics extends ConsumerWidget {
-  Statistics({super.key});
+  const Statistics({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
@@ -32,38 +32,43 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var read = ref.read(statisticsRiverpod);
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         const SizedBox(
-          height: 10,
+          height: 5,
         ),
         SizedBox(
           width: size.width,
-          //height: size.height*0.3,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               RotatedBox(
                 quarterTurns: 3,
-                child: GelirGiderButon(context),
+                child: gelirGiderButon(context),
               ),
               SizedBox(
-                width: 330,
-                height: 200,
+                width: size.width*0.78,
+                height: size.height*0.26,
                 child: pasta(context),
               ),
               RotatedBox(
                 quarterTurns: 3,
-                child: TarihButon(context),
+                child: tarihButon(context),
               ),
             ],
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 5,
         ),
-        categoryList(context),
+        SizedBox(
+            width: size.width * 0.9,
+            height: size.height * 0.40,
+            child: categoryList(context)),
+        const SizedBox(
+          height: 5,
+        ),
         /*SizedBox(
           child: Text(
               "data ${validDateMenu} tür ${giderGelirHepsi} yıl ${selectedYearIndex} ay ${selectedMonthIndex} hafta ${selectedWeekIndex} gün ${selectedDayIndex}"),
@@ -96,16 +101,38 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           for (var item in item) {
             totalAmount += item['amount'];
           }
+          int colorChangeCount = 0;  ///Yüzde 5\'ten büyük olan eleman sayısı:
+          for (int i = 0; i < item.length; i++) {
+            if (item[i]['percentages'] != null && item[i]['percentages'] > 5) {
+              colorChangeCount++;
+            }
+          }
           if (snapshot.data!.isEmpty) {
-            return Center(
-              child: SizedBox(
-                height: 100,
-                width: 140,
-                child: Container(
-                  color: Colors.deepOrange,
-                  child: Center(child: Text("Abi banka bostir",style: TextStyle(color: Colors.white, fontSize: 16),)),
+            return Column(
+              children: [
+                SizedBox(
+                  width: size.width * 0.9,
+                  height: size.height * 0.35,
+                  child: Center(
+                    child: Container(
+                      height: 45,
+                      width: 160,
+                      decoration: BoxDecoration(
+                          color: const Color(0xFF0D1C26),
+                          borderRadius: BorderRadius.circular(20)
+                      ),
+
+                      child: const Center(child: Text("Veri bulunamadı.",style: TextStyle(color: Colors.white, fontSize: 16),)),
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  height: 4,
+                ),
+                SizedBox(
+                  height: size.height * 0.04,
+                )
+              ],
             );
           } else {
             return Column(
@@ -113,82 +140,127 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 SizedBox(
                   width: size.width * 0.9,
                   height: size.height * 0.35,
-                  child: ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: InkWell(
-                          onTap: () {
-                            readCategoryInfo.setDateAndCategory(selectedDayIndex, selectedMonthIndex, selectedYearIndex, selectedWeekIndex, item[index]['category'],validDateMenu);
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  categoryInfo(),));
-                          },
-                          child: SizedBox(
-                            height: 42,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white,
-                              ),
-                              child: Row(
-                                children: [
-                                  const SizedBox(width: 5),
-                                  Container(
-                                    width: 65,
-                                    height: 25,
-                                    decoration: BoxDecoration(
-                                      color: colorsList[index],
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                          "% ${item[index]['percentages'].toString()}",
-                                          style: const TextStyle(
-                                            fontFamily: 'NEXA3',
-                                            color: Colors.white,
-                                          ),
-                                        )),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    item[index]['category'],
-                                    style: const TextStyle(
-                                      fontFamily: 'NEXA3',
-                                      fontSize: 18,
-                                      color: Color(0xff0D1C26),
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text:item[index]['amount'].toString(),style: const TextStyle(
-                                          fontFamily: 'NEXA4',
-                                          fontSize: 16,
-                                          color: Color(0xFFF2CB05),
-                                        ),
-                                        ),
-                                        const TextSpan(
-                                          text: ' ₺',
-                                          style: TextStyle(
-                                            fontFamily: 'TL',
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFF2CB05),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                ],
+                  child: Stack(
+                    alignment: Alignment.bottomLeft,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 1.5),
+                            child: SizedBox(
+                              width: 4,
+                              height: size.height * 0.35,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 1.5),
+                            child: SizedBox(
+                              width: 4,
+                              height: size.height * 0.35,
+                              child:  DecoratedBox(
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                                    color: snapshot.data!.length <= 4 ? const Color(0xFFE9E9E9) : const Color(0xFF0D1C26)),
                               ),
                             ),
                           ),
+                        ],
+                      ),
+                      Theme(
+                        data: Theme.of(context).copyWith(
+                            scrollbarTheme: ScrollbarThemeData(
+                              thumbColor:
+                              MaterialStateProperty.all(const Color(0xFFF2CB05)),
+                            )),
+                        child: Scrollbar(
+                          thumbVisibility: true,
+                          scrollbarOrientation:
+                          ScrollbarOrientation.right,
+                          interactive: true,
+                          thickness: 7,
+                          radius: const Radius.circular(15.0),
+                          child: ListView.builder(
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              int colorCount = 0;
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 8,right: 16),
+                                child: InkWell(
+                                  onTap: () {
+                                    readCategoryInfo.setDateAndCategory(selectedDayIndex, selectedMonthIndex, selectedYearIndex, selectedWeekIndex, item[index]['category'],validDateMenu);
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const categoryInfo(),));
+                                  },
+                                  child: SizedBox(
+                                    height: 42,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          const SizedBox(width: 5),
+                                          Container(
+                                            width: 65,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                              color: colorChangeCount > 12 ? colorsList[index]:colorsList2[index],
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Center(
+                                                child: Text(
+                                                  "% ${item[index]['percentages'].toString()}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'NEXA3',
+                                                    color: Colors.white,
+                                                  ),
+                                                )),
+                                          ),
+                                          const SizedBox(width: 10),
+                                          Text(
+                                            item[index]['category'],
+                                            style: const TextStyle(
+                                              fontFamily: 'NEXA3',
+                                              fontSize: 18,
+                                              color: Color(0xff0D1C26),
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:item[index]['amount'].toString(),style: const TextStyle(
+                                                  fontFamily: 'NEXA4',
+                                                  fontSize: 16,
+                                                  color: Color(0xFFF2CB05),
+                                                ),
+                                                ),
+                                                const TextSpan(
+                                                  text: ' ₺',
+                                                  style: TextStyle(
+                                                    fontFamily: 'TL',
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Color(0xFFF2CB05),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: 10),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(
@@ -253,7 +325,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         });
   }
 
-  TarihButon(BuildContext context) {
+  tarihButon(BuildContext context) {
     if (selectDateMenu == 0) {
       return dateSelectMenu(context);
     } else if (selectDateMenu == 1) {
@@ -262,7 +334,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       return monthSelectMenu(context);
     } else if (selectDateMenu == 3) {
       return weekSelectMenu(context);
-    } else if (selectDateMenu == 4) {
+    } else {
       return daySelectMenu(context);
     }
   }
@@ -282,7 +354,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   PageController(initialPage: DateTime.now().year - 2020);
 
   Widget dateSelectMenu(BuildContext context) {
-    var read = ref.read(statisticsRiverpod);
     return SizedBox(
       height: 40,
       width: 240,
@@ -408,7 +479,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 selectedMonthIndex = DateTime.now().month;
                                 selectedWeekIndex = 1;
                                 selectDateMenu = 3;
-                                //validDateMenu =3;
+                                validDateMenu =3;
                               });
                             },
                             child: const Text(
@@ -444,7 +515,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   child: Stack(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 4),
+                        padding: const EdgeInsets.only(top: 4),
                         child: Center(
                           child: TextButton(
                             onPressed: () {
@@ -489,7 +560,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
-
   Widget monthSelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List monthName = read.getMonths();
@@ -550,7 +620,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 ),
                 Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 34,
                       width: 60,
                       child: PageView(
@@ -595,7 +665,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 ),
                 Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 34,
                       width: 48,
                       child: PageView(
@@ -645,7 +715,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
-
   Widget yearSelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List yearName = read.getYears();
@@ -707,7 +776,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 ),
                 Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 34,
                       width: 48,
                       child: PageView(
@@ -757,7 +826,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
-
   Widget weekSelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List yearName = read.getYears();
@@ -821,7 +889,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 ),
                 Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 34,
                       width: 16,
                       child: PageView(
@@ -835,7 +903,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             .map(
                               (week) => Center(
                             child: Text(
-                              "${week}.",
+                              "$week.",
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,
@@ -866,7 +934,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 ),
                 Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 34,
                       width: 60,
                       child: PageView(
@@ -875,7 +943,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           setState(() {
                             selectedMonthIndex = index + 1;
                           });
-                          print(selectedMonthIndex);
+
                         },
                         children: monthName
                             .map(
@@ -912,7 +980,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 ),
                 Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 34,
                       width: 48,
                       child: PageView(
@@ -921,7 +989,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           setState(() {
                             selectedYearIndex = index + 2020;
                           });
-                          print(selectedYearIndex);
                         },
                         children: yearName
                             .map(
@@ -963,7 +1030,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
-
   Widget daySelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List yearName = read.getYears();
@@ -1027,7 +1093,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 ),
                 Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 34,
                       width: 20,
                       child: PageView(
@@ -1036,7 +1102,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           setState(() {
                             selectedDayIndex = index + 1;
                           });
-                          print(selectedDayIndex);
                         },
                         children: dayName
                             .map(
@@ -1073,7 +1138,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 ),
                 Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 34,
                       width: 60,
                       child: PageView(
@@ -1082,7 +1147,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           setState(() {
                             selectedMonthIndex = index + 1;
                           });
-                          print(selectedMonthIndex);
                         },
                         children: monthName
                             .map(
@@ -1119,7 +1183,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 ),
                 Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 34,
                       width: 48,
                       child: PageView(
@@ -1128,7 +1192,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           setState(() {
                             selectedYearIndex = index + 2020;
                           });
-                          print(selectedYearIndex);
                         },
                         children: yearName
                             .map(
@@ -1182,8 +1245,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   Color textColor2 = Colors.white; //Basılmamış yazı rengi
   Color textColor = const Color(0xff0D1C26); //Basılmış yazı rengi
   int index = 0; // Gider ve Gelir butonları arasında geçiş yapmak için
-  Widget GelirGiderButon(BuildContext context) {
-    var read = ref.read(statisticsRiverpod);
+  Widget gelirGiderButon(BuildContext context) {
     void changeColor2(int index) {
       if (index == 0) {
         setState(() {
@@ -1355,21 +1417,38 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             );
           }
           var item = snapshot.data!; // !
-          return DChartPie(
-            data: item, // liste buraya gelecek, kategori ismi ve miktar
-            fillColor: (pieData, index) {
-              return colorsList[index!];
-            },
-            pieLabel: (pieData, index) {
-              return "${pieData['domain']}:\n${pieData['measure']}%";
-            },
-            labelPosition: PieLabelPosition.outside,
-            //donutWidth: 15,
-            showLabelLine: true,
-            labelColor: Color(0xff0D1C26),
-            labelFontSize: 11,
-            labelLinelength: 11,
-          );
+          if (snapshot.data!.isEmpty) {
+            return Center(
+              child: SizedBox(
+                height: 140,
+                width: 140,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(200)
+                  ),
+                ),
+              ),
+            );
+          }
+          else {
+            return DChartPie(
+              data: item,
+              // liste buraya gelecek, kategori ismi ve miktar
+              fillColor: (pieData, index) {
+                return pieData['domain'].length >12 ? colorsList[index!] : colorsList2[index!];
+              },
+              pieLabel: (pieData, index) {
+                return "${pieData['domain']}:\n${pieData['measure']}%";
+              },
+              labelPosition: PieLabelPosition.outside,
+              //donutWidth: 15,
+              showLabelLine: true,
+              labelColor: const Color(0xff0D1C26),
+              labelFontSize: 11,
+              labelLinelength: 11,
+            );
+          }
         });
   }
 
@@ -1394,6 +1473,20 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     Colors.redAccent,
     Colors.redAccent,
     Colors.redAccent,
+  ];
+  var colorsList2 = [
+    Colors.red,
+    Colors.orange,
+    Colors.amber,
+    Colors.yellow,
+    Colors.lime,
+    Colors.lightGreen,
+    Colors.green,
+    Colors.teal,
+    Colors.cyanAccent,
+    Colors.blue,
+    Colors.indigo,
+    Colors.deepPurple,
   ];
 }
 

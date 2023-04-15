@@ -1,36 +1,9 @@
 import 'dart:async';
-
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsRiverpod extends ChangeNotifier {
-
-
-  String gelirGiderHepsi = 'Gider';
-  gelirGiderSet(String gelirGiderHepsi) {
-    this.gelirGiderHepsi = gelirGiderHepsi;
-  }
-  int dataForDateType = 1;
-  dataForDateChoiceType(int type) {
-    this.dataForDateType = dataForDateType;
-  }
-  int day = DateTime.now().day;
-  daySet(int day) {
-    this.day = day;
-  }
-  int month = DateTime.now().month;
-  monthSet(int month) {
-    this.month = month;
-  }
-  int year = DateTime.now().year;
-  yearSet(int year) {
-    this.year = year;
-  }
-  int week = 1;
-  weekSet(int week) {
-    this.week = week;
-  }
 
   List<String> GiderKategorileri = [
     "Yemek",
@@ -124,6 +97,8 @@ class StatisticsRiverpod extends ChangeNotifier {
     0
   ];
   List<double> GelirKategoriTutarlari = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  ///metin için liste
   Future <List<Map<String, dynamic>>> getCategoryByMonth(int dataType, String type, int year, int month, int week, int day) async {
     List<double> categoryBaseAmounts = [];
     List <String> categoryBaseType = [];
@@ -220,52 +195,63 @@ class StatisticsRiverpod extends ChangeNotifier {
       }
       categoryBaseAmounts = categoryAmounts;
     }
-    /*else if(dataType  == 3 ){ /// haftalık veri
-        var date = DateTime.utc(year, month, 1);
-        var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
-        var startDate = date.add(Duration(days: daysToAdd));
-        var endDate = startDate.add(Duration(days: 6));
-        List<spendinfo> items = await SQLHelper.getItemsByOperationDayRange('2023-02-01','2023-02-09');
-        List<double> categoryAmounts;
+    else if(dataType  == 3 ){
+      var date = DateTime.utc(year, month, 1);
+      var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
+      var startDate = date.add(Duration(days: daysToAdd));
+      var endDate = startDate.add(Duration(days: 6));
+      List<List<spendinfo>> allSpendInfo = [];
+      for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
+        var date = startDate.add(Duration(days: i));
+        List<spendinfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
+            date.day.toString(), date.month.toString(), date.year.toString());
+        allSpendInfo.add(spendInfo);
+      }
+      List<spendinfo> items = allSpendInfo.expand((x) => x).toList();
 
-        if (type == 'Gider') {
-          for (var i = 0; i < GiderKategorileri.length; i++) {
-            double amount = items
-                .where((element) => element.operationType == 'Gider')
-                .where((element) => element.category == GiderKategorileri[i])
 
-                .fold(
-                0, (previousValue, element) => previousValue + element.amount!);
 
-            GiderKategoriTutarlari[i] = amount;
-          }
-          categoryAmounts = GiderKategoriTutarlari;
+      //List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear('24','04','2023');
+      List<double> categoryAmounts;
+
+      if (type == 'Gider') {
+        for (var i = 0; i < GiderKategorileri.length; i++) {
+          double amount = items
+              .where((element) => element.operationType == 'Gider')
+              .where((element) => element.category == GiderKategorileri[i])
+
+              .fold(
+              0, (previousValue, element) => previousValue + element.amount!);
+
+          GiderKategoriTutarlari[i] = amount;
         }
-        else if (type == 'Hepsi'){
-          for (var i = 0; i < HepsiKategorileri.length; i++) {
-            double amount = items
-                .where((element) => element.category == HepsiKategorileri[i])
-                .fold(
-                0, (previousValue, element) => previousValue + element.amount!);
+        categoryAmounts = GiderKategoriTutarlari;
+      }
+      else if (type == 'Hepsi'){
+        for (var i = 0; i < HepsiKategorileri.length; i++) {
+          double amount = items
+              .where((element) => element.category == HepsiKategorileri[i])
+              .fold(
+              0, (previousValue, element) => previousValue + element.amount!);
 
-            HepsiKategoriTutarlari[i] = amount;
-          }
-          categoryAmounts = HepsiKategoriTutarlari;
+          HepsiKategoriTutarlari[i] = amount;
         }
-        else {
-          for (var i = 0; i < GelirKategorileri.length; i++) {
-            double amount = items
-                .where((element) => element.operationType == 'Gelir')
-                .where((element) => element.category == GelirKategorileri[i])
+        categoryAmounts = HepsiKategoriTutarlari;
+      }
+      else {
+        for (var i = 0; i < GelirKategorileri.length; i++) {
+          double amount = items
+              .where((element) => element.operationType == 'Gelir')
+              .where((element) => element.category == GelirKategorileri[i])
 
-                .fold(
-                0, (previousValue, element) => previousValue + element.amount!);
-            GelirKategoriTutarlari[i] = amount;
-          }
-          categoryAmounts = GelirKategoriTutarlari;
+              .fold(
+              0, (previousValue, element) => previousValue + element.amount!);
+          GelirKategoriTutarlari[i] = amount;
         }
-        categoryBaseAmounts = categoryAmounts;
-    }*/
+        categoryAmounts = GelirKategoriTutarlari;
+      }
+      categoryBaseAmounts = categoryAmounts;
+    }
     else if(dataType  == 4 ){
       List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(),
           month.toString(), year.toString());
@@ -325,19 +311,19 @@ class StatisticsRiverpod extends ChangeNotifier {
     List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(1))).toList();
     List<Map<String, dynamic>> listMap = [];
     for (int i = 0; i < categoryBaseAmounts.length; i++) {
-        if (categoryBaseAmounts[i] != 0) {
-          Map<String, dynamic> map = {
-            'category': categoryBaseType[i],
-            'percentages': percentages[i],
-            'amount': categoryBaseAmounts[i],
-          };
-          listMap.add(map);
-        }
+      if (categoryBaseAmounts[i] != 0) {
+        Map<String, dynamic> map = {
+          'category': categoryBaseType[i],
+          'percentages': percentages[i],
+          'amount': categoryBaseAmounts[i],
+        };
+        listMap.add(map);
+      }
     }
     listMap.sort((a, b) => b['amount'].compareTo(a['amount']));
     return Future.value(listMap);
   }
-
+  ///pasta için liste
   Future <List<Map<String, dynamic>>> getCategoryAndAmount(int dataType,String type, int year, int month, int week, int day) async {
     List<double> categoryBaseAmounts = [];
     List <String> categoryBaseType = [];
@@ -432,7 +418,18 @@ class StatisticsRiverpod extends ChangeNotifier {
       var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
       var startDate = date.add(Duration(days: daysToAdd));
       var endDate = startDate.add(Duration(days: 6));
-      List<spendinfo> items = await SQLHelper.getItemsByOperationDayRange(startDate.toString(),endDate.toString());
+      List<List<spendinfo>> allSpendInfo = [];
+      for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
+        var date = startDate.add(Duration(days: i));
+        List<spendinfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
+            date.day.toString(), date.month.toString(), date.year.toString());
+        allSpendInfo.add(spendInfo);
+      }
+      List<spendinfo> items = allSpendInfo.expand((x) => x).toList();
+
+
+
+      //List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear('24','04','2023');
       List<double> categoryAmounts;
 
       if (type == 'Gider') {
@@ -532,7 +529,7 @@ class StatisticsRiverpod extends ChangeNotifier {
     List<Map<String, dynamic>> listMap = [];
     for (int i = 0; i < categoryBaseAmounts.length; i++) {
       if(type != 'Hepsi') {
-        if (percentages[i] != 0) {
+        if (percentages[i] >= 4) {
           Map<String, dynamic> map = {
             'domain': categoryBaseType[i],
             'measure': percentages[i]
@@ -541,7 +538,7 @@ class StatisticsRiverpod extends ChangeNotifier {
         }
       }
       else{
-        if (percentages[i] >= 4) {
+        if (percentages[i] >= 5) {
           Map<String, dynamic> map = {
             'domain': categoryBaseType[i],
             'measure': percentages[i]
@@ -554,93 +551,6 @@ class StatisticsRiverpod extends ChangeNotifier {
     return Future.value(listMap);
   }
 
-  Future <List<Map<String, dynamic>>> getWeekList(String type, int year, int month, int week) async {
-    List<double> categoryBaseAmounts = [];
-    List <String> categoryBaseType = [];
-
-
-      var date = DateTime.utc(year, month, 1);
-      var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
-      var startDate = date.add(Duration(days: daysToAdd));
-      var endDate = startDate.add(Duration(days: 6));
-      List<spendinfo> items = await SQLHelper.getItemsByOperationDayRange(startDate.toString(),endDate.toString());
-      List<double> categoryAmounts;
-
-
-      if (type == 'Gider') {
-        for (var i = 0; i < GiderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == GiderKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          GiderKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = GiderKategoriTutarlari;
-      }
-      else if (type == 'Hepsi'){
-        for (var i = 0; i < HepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == HepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          HepsiKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = HepsiKategoriTutarlari;
-      }
-      else {
-        for (var i = 0; i < GelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == GelirKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          GelirKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = GelirKategoriTutarlari;
-      }
-      categoryBaseAmounts = categoryAmounts;
-
-
-    if(type == 'Gider'){
-      categoryBaseType = GiderKategorileri;
-    }
-    else if(type == 'Hepsi'){
-      categoryBaseType = HepsiKategorileri;
-    }
-    else{
-      categoryBaseType = GelirKategorileri;
-    }
-    double total = categoryBaseAmounts.fold(0, (a, b) => a + b);
-    List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(1))).toList();
-    List<Map<String, dynamic>> listMap = [];
-    for (int i = 0; i < categoryBaseAmounts.length; i++) {
-      if(type != 'Hepsi') {
-        if (percentages[i] != 0) {
-          Map<String, dynamic> map = {
-            'domain': categoryBaseType[i],
-            'measure': percentages[i]
-          };
-          listMap.add(map);
-        }
-      }
-      else{
-        if (percentages[i] >= 4) {
-          Map<String, dynamic> map = {
-            'domain': categoryBaseType[i],
-            'measure': percentages[i]
-          };
-          listMap.add(map);
-        }
-      }
-    }
-    listMap.sort((a, b) => b['measure'].compareTo(a['measure']));
-    return Future.value(listMap);
-  }
 
   List getMonths() {
     List<String> MonthList = [
@@ -648,7 +558,7 @@ class StatisticsRiverpod extends ChangeNotifier {
       'Şubat',
       'Mart',
       'Nisan',
-      'Ağustos',
+      'Mayıs',
       'Haziran',
       'Temmuz',
       'Ağustos',

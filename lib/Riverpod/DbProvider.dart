@@ -8,6 +8,7 @@ import 'package:collection/collection.dart';
 class DbProvider extends ChangeNotifier {
   bool isuseinsert = false ;
   bool deletst = false ;
+  bool updatest = false ;
   String month = DateTime.now().month.toString();
   String year = DateTime.now().year.toString() ;
   Future<List<spendinfo>> ?daylist ;
@@ -82,9 +83,10 @@ class DbProvider extends ChangeNotifier {
     refreshDB();
     notifyListeners();
   }
-  Future Update(spendinfo info) async{
-    await SQLHelper.updateItem(info);
-    refreshDB();
+
+  void Update(){
+    print("güncellendi");
+    updatest = !updatest ;
     notifyListeners();
   }
 

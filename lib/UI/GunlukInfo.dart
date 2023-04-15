@@ -3,6 +3,7 @@ import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:butcekontrol/constans/TextPref.dart';
 
 import '../constans/TextPref.dart';
 import '../utils/DateTimeManager.dart';
@@ -52,9 +53,9 @@ class _GunlukInfoState extends State<GunlukInfo> {
     String formattedDate = DateFormat('dd.MM.yyyy').format(now);
     var size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.height / 3,
+      height: size.height / 2.99,
       child: Container(
-          margin: const EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 4.5),
           child: Column(
             children: [
               Row(
@@ -186,7 +187,34 @@ class _GunlukInfoState extends State<GunlukInfo> {
                             //borderin scroll ile birleşimi gözüksü diye soldan padding
                             padding: const EdgeInsets.only(
                                 left: 5.0, top: 5, bottom: 10),
-                            child: Theme(
+                            child: snapshot.data!.length == 0
+                                ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "assets/image/origami_noinfo.png",
+                                    width: 50,
+                                    height: 50,
+                                  ),
+
+                                  SizedBox(
+                                    height: 25,
+                                    width: 100,
+                                    child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+                                          border: Border.all(
+                                              color: Colors.black, width: 2),
+                                        ),
+                                        child: const Center(child: Textmod(
+                                            "Kayıt Yok", Colors.amber, 15))
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                                : Theme(
                               data: Theme.of(context).copyWith(
                                   scrollbarTheme: ScrollbarThemeData(
                                     thumbColor:
@@ -198,7 +226,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                     padding: const EdgeInsets.only(left: 1.75),
                                     child: SizedBox(
                                       width: 4,
-                                      height: size.height / 3.04,
+                                      height: size.height*0.24,
                                       child:  DecoratedBox(
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -219,20 +247,18 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                         itemCount: snapshot.data!.length,
                                         itemBuilder:
                                             (BuildContext context, index) {
-                                          spendinfo item =
-                                          snapshot.data![index];
+                                          spendinfo item = snapshot.data![index];
                                           return Column(
                                             children: [
                                               Padding(
                                                 padding: const EdgeInsets.only(
                                                     left: 15, right: 10),
-                                                child: ClipRRect(
-                                                  //Borderradius vermek için kullanıyoruz
+                                                child: ClipRRect(  //Borderradius vermek için kullanıyoruz
                                                   borderRadius:
                                                   BorderRadius.circular(
                                                       10.0),
                                                   child: Container(
-                                                    height: 26,
+                                                    height: 28,
                                                     color: renkler.ArkaRenk,
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -256,9 +282,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                                           width: 60,
                                                           child: Padding(
                                                             padding: const EdgeInsets.only(right: 10),
-                                                            child: Text(item
-                                                                .operationTime
-                                                                .toString(),textAlign: TextAlign.center),
+                                                            child: Text(item.operationTime.toString(),textAlign: TextAlign.center),
                                                           ),
                                                         ),
                                                       ],
@@ -268,7 +292,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                               ),
                                               const SizedBox(
                                                   height:
-                                                  5) // elemanlar arasına bşluk bırakmak için kulllandım.
+                                                      6) // elemanlar arasına bşluk bırakmak için kulllandım.
                                             ],
                                           );
                                         }),

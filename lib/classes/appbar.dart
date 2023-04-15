@@ -36,6 +36,7 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
+            print("Kaydedilenler");
             showDialog(
               context: context,
               builder: (context) {

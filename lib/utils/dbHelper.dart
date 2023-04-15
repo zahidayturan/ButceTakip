@@ -94,6 +94,13 @@ class SQLHelper {
     await db.update("spendinfo", info.toMap(),where: "id= ?", whereArgs: [info.id]);
     return result;
   }
+  static Future<int> updateRegistration(int? id, int registration) async {
+    final db = await SQLHelper.db();
+    final currentRegistration = await db.query("spendinfo", columns: ["registration"], where: "id = ?", whereArgs: [id]);
+    final newRegistration = (currentRegistration.first["registration"] == 0) ? 1 : 0;
+    final result = await db.update("spendinfo", {"registration": newRegistration}, where: "id = ?", whereArgs: [id]);
+    return result;
+  }
 
   // Delete
   static Future<void> deleteItem(int id) async {
@@ -104,13 +111,7 @@ class SQLHelper {
       debugPrint("Something went wrong when deleting an item: $err");
     }
   }
-  static Future<List<spendinfo>> getRegisteryQuery() async { //register kayıtlananları getirecek
-    final db = await SQLHelper.db();
-    var result = await db.query('spendinfo', where: "registration = ?",whereArgs: [1], orderBy: "id");
-    return List.generate(result.length,(index) {
-      return spendinfo.fromObject(result[index]);
-    });
-  }
+
   static Future<List<spendinfo>> getItemsByOperationMonthAndYear(String operationMonth, String operationYear) async {
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "operationMonth = ? AND operationYear = ?", whereArgs: [operationMonth, operationYear], orderBy: "id");
@@ -125,7 +126,7 @@ class SQLHelper {
       return spendinfo.fromObject(result[index]);
     });
   }
-   //sadece günlük sorgu tehlikeli
+  //sadece günlük sorgu tehlikeli
   static Future<List<spendinfo>> getItemsByOperationDay(String operationDay) async {
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "operationDay = ?", whereArgs: [operationDay], orderBy: "id");
@@ -148,6 +149,21 @@ class SQLHelper {
       orderBy: "id",
     );
     return List.generate(result.length, (index) {
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+  static Future<List<spendinfo>> getRegisteryQuery() async { //register kayıtlananları getirecek
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "registration = ?",whereArgs: [1], orderBy: "id");
+    return List.generate(result.length,(index) {
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+
+  static Future<List<spendinfo>> getItemByMonth(int operationMonth) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationMonth = ?", whereArgs: [operationMonth], orderBy: "id");
+    return List.generate(result.length, (index){
       return spendinfo.fromObject(result[index]);
     });
   }

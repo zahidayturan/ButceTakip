@@ -13,6 +13,7 @@ import 'package:butcekontrol/Pages/more/more.dart';
 import 'package:butcekontrol/Pages/more/settings.dart';
 import 'package:butcekontrol/Pages/statistic.dart';
 import 'package:flutter/material.dart';
+import 'package:butcekontrol/Pages/statistic.dart';
 
 import '../Pages/more/Help/HelpHomePage.dart';
 

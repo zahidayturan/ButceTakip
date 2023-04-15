@@ -1,4 +1,3 @@
-
 import 'package:butcekontrol/Pages/addData.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +14,9 @@ class navBar extends ConsumerWidget {
     var readDB = ref.read(databaseRiverpod) ;
     var selectindex = watch.currentindex;
     CustomColors renkler = CustomColors();
+    var selectindex = watch.currentindex;
     final Size size = MediaQuery.of(context).size;
     return Container(
-      //alignment: Alignment.bottomCenter,
       color: read.currentColor,
       width: size.width,
       height: 64,

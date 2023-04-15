@@ -215,18 +215,10 @@ class Generalinfo extends ConsumerWidget {
                                 ),
                               ),
                             ],
-                          ), //Toplam bilgi
-                          IconButton(
-                            icon: const Icon(
-                              Icons.search,
-                              size: 35,
-                            ),
-                            padding: EdgeInsets.only(right: 12),
-                            constraints: const BoxConstraints(
-                              minWidth: 30,
-                            ),
-                            onPressed: () {},
-                          ), //Ayrıntılı gösterme butonu
+                          ),
+                          SizedBox(
+                            width: 5,
+                          )//Toplam bilgi
                         ],
                       ),
                     ),
