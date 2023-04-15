@@ -73,7 +73,10 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
         ),
 
         IconButton(
-          onPressed:() => readNavBAr.setCurrentindex(11),
+          onPressed:() {
+            ref.read(settingsRiverpod).controlSettings();
+            readNavBAr.setCurrentindex(11);
+          },
           icon: const Icon(
             Icons.settings,
             color: Color(0xFFFFFFFF),

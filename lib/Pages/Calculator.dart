@@ -266,8 +266,8 @@ class _CalculatorState extends State<Calculator> {
                         print("Yüzde HEsaplama");
                       },
                       child: SizedBox(
-                        height: size.width/4.8,
-                        width: size.width/4.8,
+                        height: size.width/4,
+                        width: size.width/4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: renkler.koyuuRenk,
@@ -306,8 +306,8 @@ class _CalculatorState extends State<Calculator> {
                         print("Faiz-Kredi Hesaplama");
                       },
                       child: SizedBox(
-                        height: size.width/4.8,
-                        width: size.width/4.8,
+                        height: size.width/4,
+                        width: size.width/4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: renkler.koyuuRenk,
@@ -346,8 +346,8 @@ class _CalculatorState extends State<Calculator> {
                         print("Yüzde Hesapla");
                       },
                       child: SizedBox(
-                        height: size.width/4.8,
-                        width: size.width/4.8,
+                        height: size.width/4,
+                        width: size.width/4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: renkler.koyuuRenk,
