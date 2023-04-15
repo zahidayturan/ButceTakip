@@ -145,5 +145,13 @@ class SQLHelper {
     });
   }
 
+  static Future<List<spendinfo>> getItemByMonth(int operationMonth) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationMonth = ?", whereArgs: [operationMonth], orderBy: "id");
+    return List.generate(result.length, (index){
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+
 }
 

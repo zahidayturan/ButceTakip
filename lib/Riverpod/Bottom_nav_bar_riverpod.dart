@@ -1,6 +1,7 @@
 import 'package:butcekontrol/Pages/Calculator.dart';
 import 'package:butcekontrol/Pages/Home.dart';
 import 'package:butcekontrol/Pages/calendar.dart';
+import 'package:butcekontrol/Pages/more.dart';
 import 'package:butcekontrol/Pages/more/Help/Backup.dart';
 import 'package:butcekontrol/Pages/more/Help/Communicate.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpCalculator.dart';
@@ -12,6 +13,7 @@ import 'package:butcekontrol/Pages/more/more.dart';
 import 'package:butcekontrol/Pages/more/settings.dart';
 import 'package:butcekontrol/Pages/statistic.dart';
 import 'package:flutter/material.dart';
+import 'package:butcekontrol/Pages/statistic.dart';
 
 import '../Pages/more/Help/HelpHomePage.dart';
 
