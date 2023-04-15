@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:butcekontrol/constans/MaterialColor.dart';
-import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../classes/appBarForPage.dart';
@@ -117,9 +114,9 @@ class _CalculatorState extends State<Calculator> {
                     height: size.height*00.584 ,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
-                          bottomRight: Radius.circular(40),
-                          topLeft: Radius.circular(40),
-                          bottomLeft:  Radius.circular(40),
+                        bottomRight: Radius.circular(40),
+                        topLeft: Radius.circular(40),
+                        bottomLeft:  Radius.circular(40),
                       ),
                       child: Container(
                         color: renkler.koyuuRenk,
@@ -207,7 +204,7 @@ class _CalculatorState extends State<Calculator> {
                                 ],
                               ),
                               YuzdePAge(),// Page 2
-                              Container(), //Page 3
+                              KrediPage(), //Page 3
                               Container(), //Page 4
                             ],
                           ),
@@ -231,8 +228,8 @@ class _CalculatorState extends State<Calculator> {
                                 color : renkler.koyuuRenk,
                               ),
                             ),
+                          ),
                         ),
-                      ),
                       ),
                       SizedBox(
                         width: 25,
@@ -256,10 +253,6 @@ class _CalculatorState extends State<Calculator> {
                             ),
                           ),
                         ),
-                        child: TextField(
-                          controller: Sayi1controller,
-
-                        ),
                       ),
                     ],
                   ),
@@ -280,11 +273,11 @@ class _CalculatorState extends State<Calculator> {
                             color: renkler.koyuuRenk,
                             borderRadius: BorderRadius.circular(20),
                             border: _currentPageindex == 1
-                            ? Border.all(
+                                ? Border.all(
                               color: renkler.sariRenk,
                               width: 3,
                             )
-                            :null,
+                                :null,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -294,54 +287,18 @@ class _CalculatorState extends State<Calculator> {
                                 size: 45,
                                 color: renkler.ArkaRenk,
                               ),
-                            focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  style: BorderStyle.none
+                              const Center(
+                                child: Text(
+                                  " Yüzde\nHesapla",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            hintText: "0.0",
-                            isDense: true,
-                            hintStyle: TextStyle(
-                              color: renkler.koyuuRenk,
-                              fontSize: 22,
-                              fontFamily: 'Nexa4',
-                            ),
+                              )
+                            ],
                           ),
-                          textAlign: TextAlign.right,
                         ),
                       ),
-                      Text(
-                        ' ₺',
-                        style: TextStyle(
-                          fontFamily: 'TL',
-                          fontSize: 22,
-                          color: renkler.koyuuRenk,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ), /// ana para
-            SizedBox(height: size.height / 50,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Faiz (yüzde)",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontFamily: 'Nexa4',
-                    color: renkler.YaziRenk,
-                  ),
-                ),
-                Container(
-                  width: 130,
-                  height: size.height / 20,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20)
                     ),
                     InkWell(
                       onTap: () {
@@ -370,71 +327,18 @@ class _CalculatorState extends State<Calculator> {
                                 size: 45,
                                 color: renkler.ArkaRenk,
                               ),
-                            focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  style: BorderStyle.none,
+                              const Center(
+                                child: Text(
+                                  "Faiz-Kredi\n Hesapla",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            hintText: "0.0",
-                            isDense: true,
-                            hintStyle: TextStyle(
-                              color: renkler.koyuuRenk,
-                              fontSize: 22,
-                              fontFamily: 'Nexa4',
-                            ),
+                              )
+                            ],
                           ),
-                          textAlign: TextAlign.right,
                         ),
                       ),
-                      Text(
-                        " %",
-                        style: TextStyle(
-                            fontFamily: 'Nexa4',
-                            fontSize: 22,
-                            color: renkler.koyuuRenk
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ), /// faiz yuzde
-            SizedBox(height: size.height / 50,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Vade",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontFamily: 'Nexa4',
-                    color: renkler.YaziRenk,
-                  ),
-                ),
-                Container(
-                  width: 130,
-                  alignment: Alignment.centerRight,
-                  height: size.height / 19,
-                  decoration: BoxDecoration(
-                    color: renkler.YaziRenk,
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), topLeft: Radius.circular(20))
-                  ),
-                  child: DropdownButtonFormField<String>(
-                    key: dropDownKey, /// bunun kullanim nedeni sıfırla yapınca varsayılan vade gelmesi için
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    iconSize: 30,
-                    alignment: Alignment.centerRight,
-                    decoration:  const InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          style: BorderStyle.none,
-                        )
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          style: BorderStyle.none,
-                        )
-                      )
                     ),
                     InkWell(
                       onTap: () {
@@ -458,21 +362,16 @@ class _CalculatorState extends State<Calculator> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              TextSpan(
-                                text: 'Aylık Eşit Taksi:  ',
-                                style: TextStyle(
-                                  color: renkler.YaziRenk,
-                                  fontFamily: 'Nexa4',
-                                  fontSize: 18,
-                                ),
+                              Icon(
+                                Icons.currency_exchange,
+                                size: 40,
+                                color: renkler.ArkaRenk,
                               ),
                               const Center(
                                 child: Text(
                                   " Döviz\nÇevirici",
                                   style: TextStyle(
-                                    color: renkler.YaziRenk,
-                                    fontFamily: 'Nexa4',
-                                    fontSize: 18,
+                                    color: Colors.white,
                                   ),
                                 ),
                               )
@@ -512,13 +411,13 @@ class _CalculatorState extends State<Calculator> {
                   height: 40,
                   width: 40 ,
                   child: DecoratedBox(
-                      decoration:  BoxDecoration(
-                        color: renkler.ArkaRenk,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                    decoration:  BoxDecoration(
+                      color: renkler.ArkaRenk,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     child: IconButton(
                       icon: const Icon(
-                          Icons.clear,
+                        Icons.clear,
                         size: 25,
                       ),
                       color: renkler.koyuuRenk,
@@ -581,9 +480,9 @@ class _CalculatorState extends State<Calculator> {
                                   keyboardType: TextInputType.number,
                                   controller: Sayi1controller,
                                   decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.horizontal(left: Radius.circular(20)),
-                                    )
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.horizontal(left: Radius.circular(20)),
+                                      )
                                   ),
                                 ),
                               ),
@@ -620,12 +519,12 @@ class _CalculatorState extends State<Calculator> {
                                   enabled: (firstselect || secondselect) && sayi2ishere  ? false : true,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.horizontal(left: Radius.circular(20))
-                                    ),
+                                        borderRadius: BorderRadius.horizontal(left: Radius.circular(20))
                                     ),
                                   ),
                                 ),
                               ),
+                            ),
                           ],
                         )
                       ],
@@ -659,22 +558,22 @@ class _CalculatorState extends State<Calculator> {
                                 width: 90,
                                 child: TextField(
                                   onChanged: (value) {
-                                      if(firstselect == true) {
-                                        if (Sayi2controller.text != "" &&
-                                            Sayi1controller.text != "") {
-                                          Sonuc =
-                                          ((double.parse(Sayi2controller.text) /
-                                              double.parse(
-                                                  Sayi1controller.text)) * 100);
-                                          Yuzdeorancontroller.text =
-                                              Sonuc.toString();
-                                        }
-                                    }else if(secondselect == true){
-                                        if(Sayi1controller.text != "" && Sayi2controller.text != ""){
-                                          Sonuc = ((double.parse(Sayi2controller.text) - double.parse(Sayi1controller.text)) * 100 ) / double.parse(Sayi1controller.text) ;
-                                          Yuzdeorancontroller.text = Sonuc.toString() ;
-                                        }
+                                    if(firstselect == true) {
+                                      if (Sayi2controller.text != "" &&
+                                          Sayi1controller.text != "") {
+                                        Sonuc =
+                                        ((double.parse(Sayi2controller.text) /
+                                            double.parse(
+                                                Sayi1controller.text)) * 100);
+                                        Yuzdeorancontroller.text =
+                                            Sonuc.toString();
                                       }
+                                    }else if(secondselect == true){
+                                      if(Sayi1controller.text != "" && Sayi2controller.text != ""){
+                                        Sonuc = ((double.parse(Sayi2controller.text) - double.parse(Sayi1controller.text)) * 100 ) / double.parse(Sayi1controller.text) ;
+                                        Yuzdeorancontroller.text = Sonuc.toString() ;
+                                      }
+                                    }
                                   },
                                   controller: Sayi2controller,
                                   keyboardType: TextInputType.number,
@@ -688,8 +587,8 @@ class _CalculatorState extends State<Calculator> {
                             ),
                           ],
                         )
-                       : SizedBox(height: 1),
-                       SizedBox(height: 26),
+                            : SizedBox(height: 1),
+                        SizedBox(height: 26),
                       ],
                     ),
                   ),
@@ -707,15 +606,15 @@ class _CalculatorState extends State<Calculator> {
             Padding(
               padding: const EdgeInsets.only(right: 50,left: 10),
               child: !sayi2ishere
-              ? Row(
+                  ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
                     "Sonuç",
                     style: TextStyle(
-                      fontFamily: "Nexa2",
-                      fontSize: 18,
-                      color: renkler.ArkaRenk
+                        fontFamily: "Nexa2",
+                        fontSize: 18,
+                        color: renkler.ArkaRenk
                     ),
                   ),
                   Container(
@@ -739,7 +638,7 @@ class _CalculatorState extends State<Calculator> {
                   ),
                 ],
               )
-            :SizedBox(height: 26),
+                  :SizedBox(height: 26),
             ), /// sonuc
             Column(
               children: [
@@ -780,11 +679,11 @@ class _CalculatorState extends State<Calculator> {
                   children: [
                     Checkbox(
                       shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: renkler.sariRenk,
-                          width: 4,
-                        ),
-                        borderRadius: BorderRadius.circular(4)
+                          side: BorderSide(
+                            color: renkler.sariRenk,
+                            width: 4,
+                          ),
+                          borderRadius: BorderRadius.circular(4)
                       ),
                       activeColor: renkler.sariRenk,
                       value: firstselect,
@@ -809,14 +708,14 @@ class _CalculatorState extends State<Calculator> {
                 )
                     :SizedBox(width: 1,),
                 sayi2ishere
-                ?Row( mainAxisAlignment: MainAxisAlignment.start,
+                    ?Row( mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Checkbox(
                       shape: RoundedRectangleBorder(
                           side: BorderSide(
-                            color: renkler.sariRenk,
-                            width: 4,
-                            style: BorderStyle.solid
+                              color: renkler.sariRenk,
+                              width: 4,
+                              style: BorderStyle.solid
                           ),
                           borderRadius: BorderRadius.circular(4)
                       ),
@@ -848,61 +747,583 @@ class _CalculatorState extends State<Calculator> {
           ],
         ),
       ),
-
     );
-
   }
 
   Widget equalsBtnCreat(Size size){
-      return SizedBox(
-        height: size.width * 00.135 ,
-        width: size.width * 00.135 ,
-        child:DecoratedBox(
-          decoration: const BoxDecoration(
-            color: Colors.orange,
-            borderRadius: BorderRadius.all(Radius.circular(25)),
-          ),
-          child: TextButton(
-            onPressed: () => onTabbtn("="),
-            child: const Center(
-              child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
-                child: Text(
-                  "=",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 35,
-                    fontWeight: FontWeight.w600,
-                  ),
+    return SizedBox(
+      height: size.width * 00.135 ,
+      width: size.width * 00.135 ,
+      child:DecoratedBox(
+        decoration: const BoxDecoration(
+          color: Colors.orange,
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+        ),
+        child: TextButton(
+          onPressed: () => onTabbtn("="),
+          child: const Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Text(
+                "=",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
+
+  double toplamAnaPara = 0;
+  double faizTutari = 0;
+  double toplamOdenecekTutar = 0;
+  double aylikTaksit = 0;
+  List<String> tutarList = ["0", "0", "0", "0"];
+
+  void faizHesapla(TextEditingController anaPara, TextEditingController faizYuzde, int vadeSuresi){
+    if(faizYuzde.text.isEmpty || anaPara.text.isEmpty){
+      showModalBottomSheet(context: context, builder: (BuildContext context){
+        return Container(
+          height: 40,
+          color: const Color(0xFF0D1C26),
+          child: const Center(
+            child: Text(
+              'Lütfen gerekli alanları doldurun',
+              style: TextStyle(
+                fontFamily: 'Nexa4',
+                fontSize: 20,
+                color: Color(0xFFF2CB05),
+              ),
+            ),
+          ),
+        );
+      });
     }
+    else{
+      faizTutari = double.parse(anaPara.text) / 100 * double.parse(faizYuzde.text) * vadeSuresi / 12;
+      toplamAnaPara = double.parse(anaPara.text);
+      toplamOdenecekTutar = faizTutari + toplamAnaPara;
+      aylikTaksit = toplamOdenecekTutar / vadeSuresi;
+
+      tutarList[0] = aylikTaksit.toStringAsFixed(2);
+      tutarList[1] = toplamAnaPara.toStringAsFixed(2);
+      tutarList[2] = faizTutari.toStringAsFixed(2);
+      tutarList[3] = toplamOdenecekTutar.toStringAsFixed(2);
+      setState(() {
+
+      });
+    }
+  }
+  void sifirla(){
+    tutarList = ["0", "0", "0", "0"];
+    setState(() {
+    });
+  }
+  GlobalKey dropDownKey = GlobalKey();
+  TextEditingController anaPara = TextEditingController();
+  TextEditingController faizYuzde = TextEditingController();
+  void dispose() {
+    anaPara.dispose();
+    faizYuzde.dispose();
+    dropDownKey;
+    super.dispose();
+  }
+  Widget KrediPage(){
+    GlobalKey heseplamalarSonucu = GlobalKey();
+    var size = MediaQuery.of(context).size ;
+    var renkler = CustomColors();
+    final List<String> monthList = ["3", "6", "9", "12", "18", "24", "30", "36", "44", "48"];
+    String? selectedValue = monthList[0]; /// vade kismindaki
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  "KREDİ HESAPLAMA",
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontFamily: 'Nexa4',
+                    color: renkler.YaziRenk,
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                  width: 40 ,
+                  child: DecoratedBox(
+                    decoration:  BoxDecoration(
+                      color: renkler.ArkaRenk,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.clear,
+                        size: 25,
+                      ),
+                      color: renkler.koyuuRenk,
+                      onPressed: () {
+                        changePage(0);
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ), /// çıkış butonu
+            SizedBox(height: size.height / 75,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Ana Para",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontFamily: 'Nexa4',
+                    color: renkler.YaziRenk,
+                  ),
+                ),
+                Container( // ana paranin para kisminin arka pilan rengi
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20)
+                    ),
+                    color: renkler.YaziRenk,
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 112,
+                        height: size.height / 20,
+                        child: TextFormField(
+                          maxLength: 7,
+                          controller: anaPara,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          style: TextStyle(
+                            color: renkler.koyuuRenk,
+                            fontFamily: 'Nexa4',
+                            fontSize: 22,
+                          ),
+                          decoration: InputDecoration(
+                            counterText: '', /// kalan karakteri gösteren yazıyı kaldırıyor.
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  style: BorderStyle.none
+                              ),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  style: BorderStyle.none
+                              ),
+                            ),
+                            hintText: "0.0",
+                            isDense: true,
+                            hintStyle: TextStyle(
+                              color: renkler.koyuuRenk,
+                              fontSize: 22,
+                              fontFamily: 'Nexa4',
+                            ),
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                      Text(
+                        ' ₺',
+                        style: TextStyle(
+                          fontFamily: 'TL',
+                          fontSize: 22,
+                          color: renkler.koyuuRenk,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ), /// ana para
+            SizedBox(height: size.height / 75,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Faiz (yüzde)",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontFamily: 'Nexa4',
+                    color: renkler.YaziRenk,
+                  ),
+                ),
+                Container(
+                  width: 130,
+                  height: size.height / 20,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20)
+                    ),
+                    color: renkler.YaziRenk,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: 80,
+                        height: size.height / 20,
+                        child: TextFormField(
+                          maxLength: 2,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          controller: faizYuzde,
+                          keyboardType: TextInputType.number,
+                          style: TextStyle(
+                            color: renkler.koyuuRenk,
+                            fontSize: 22,
+                            fontFamily: 'Nexa4',
+                          ),
+                          decoration: InputDecoration(
+                            counterText: '',
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                style: BorderStyle.none,
+                              ),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                style: BorderStyle.none,
+                              ),
+                            ),
+                            hintText: "0.0",
+                            isDense: true,
+                            hintStyle: TextStyle(
+                              color: renkler.koyuuRenk,
+                              fontSize: 22,
+                              fontFamily: 'Nexa4',
+                            ),
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                      Text(
+                        " %",
+                        style: TextStyle(
+                            fontFamily: 'Nexa4',
+                            fontSize: 22,
+                            color: renkler.koyuuRenk
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ), /// faiz yuzde
+            SizedBox(height: size.height / 75,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Vade",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontFamily: 'Nexa4',
+                    color: renkler.YaziRenk,
+                  ),
+                ),
+                Container(
+                  width: 130,
+                  alignment: Alignment.centerRight,
+                  height: size.height / 19,
+                  decoration: BoxDecoration(
+                      color: renkler.YaziRenk,
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), topLeft: Radius.circular(20))
+                  ),
+                  child: DropdownButtonFormField<String>(
+                    key: dropDownKey, /// bunun kullanim nedeni sıfırla yapınca varsayılan vade gelmesi için
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    iconSize: 30,
+                    alignment: Alignment.centerRight,
+                    decoration:  const InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              style: BorderStyle.none,
+                            )
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              style: BorderStyle.none,
+                            )
+                        )
+                    ),
+                    iconEnabledColor: renkler.koyuuRenk,
+                    value: selectedValue,
+                    style: TextStyle(
+                      color: renkler.koyuuRenk,
+                      fontFamily: 'Nexa4',
+                      fontSize: 22,
+                    ),
+                    onChanged: (value) {
+                      selectedValue = value;
+                    },
+                    items: monthList.map((value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                )
+              ],
+            ), /// kredi suresi
+            SizedBox(height: size.height / 45,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      anaPara.clear();
+                      faizYuzde.clear();
+                      selectedValue = monthList[0];
+                      dropDownKey = GlobalKey();
+                      sifirla();
+                    });
+                    print("reset");
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: size.height / 18,
+                    width: size.width / 3.2,
+                    decoration: BoxDecoration(
+                        color: renkler.sariRenk,
+                        borderRadius: BorderRadius.all(Radius.circular(25))
+                    ),
+                    child: Text(
+                      "SIFIRLA",
+                      style: TextStyle(
+                        color: renkler.koyuuRenk,
+                        fontSize: 20,
+                        fontFamily: "Nexa4",
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    faizHesapla(anaPara, faizYuzde, int.parse(selectedValue.toString()));
+                    heseplamalarSonucu = GlobalKey();
+                    print(tutarList[0]);
+                    print(tutarList[1]);
+                    print(tutarList[2]);
+                    print(tutarList[3]);
+
+                    print("run");
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: size.height / 18,
+                    width: size.width / 3.2,
+                    decoration: BoxDecoration(
+                        color: renkler.sariRenk,
+                        borderRadius: BorderRadius.all(Radius.circular(25))
+                    ),
+                    child: Text(
+                      "HESAPLA",
+                      style: TextStyle(
+                        color: renkler.koyuuRenk,
+                        fontSize: 20,
+                        fontFamily: "Nexa4",
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ), /// sıfırla ve hesapla butonları
+            SizedBox(height: size.height / 45,),
+            Container(
+              height: size.height / 5.4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Aylık Eşit Taksi:  ',
+                                  style: TextStyle(
+                                    color: renkler.YaziRenk,
+                                    fontFamily: 'Nexa4',
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                TextSpan(
+                                    text: '${tutarList[0]}',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'Nexa4',
+                                      color: renkler.YaziRenk,
+                                    )
+                                ),
+                                TextSpan(
+                                  text: ' ₺',
+                                  style: TextStyle(
+                                    fontFamily: 'TL',
+                                    fontSize: 18,
+                                    color: renkler.YaziRenk,
+                                  ),
+                                ),
+                              ]
+                          )
+                      )
+                    ],
+                  ), // aylık eşit taksit
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Toplam Ana Para:  ',
+                                  style: TextStyle(
+                                    color: renkler.YaziRenk,
+                                    fontFamily: 'Nexa4',
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                TextSpan(
+                                    text: '${tutarList[1]}',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'Nexa4',
+                                      color: renkler.YaziRenk,
+                                    )
+                                ),
+                                TextSpan(
+                                  text: ' ₺',
+                                  style: TextStyle(
+                                    fontFamily: 'TL',
+                                    fontSize: 18,
+                                    color: renkler.YaziRenk,
+                                  ),
+                                ),
+                              ]
+                          )
+                      )
+                    ],
+                  ), // toplam ana para
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Toplam Faiz:  ',
+                                  style: TextStyle(
+                                    color: renkler.YaziRenk,
+                                    fontFamily: 'Nexa4',
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                TextSpan(
+                                    text: '${tutarList[2]}',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'Nexa4',
+                                      color: renkler.YaziRenk,
+                                    )
+                                ),
+                                TextSpan(
+                                  text: ' ₺',
+                                  style: TextStyle(
+                                    fontFamily: 'TL',
+                                    fontSize: 18,
+                                    color: renkler.YaziRenk,
+                                  ),
+                                ),
+                              ]
+                          )
+                      )
+                    ],
+                  ), // toplam faiz
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Toplam Ödeme:  ',
+                                  style: TextStyle(
+                                    color: renkler.sariRenk,
+                                    fontFamily: 'Nexa4',
+                                    fontSize: 22,
+                                  ),
+                                ),
+                                TextSpan(
+                                    text: '${tutarList[3]}',
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      fontFamily: 'Nexa4',
+                                      color: renkler.sariRenk,
+                                    )
+                                ),
+                                TextSpan(
+                                  text: ' ₺',
+                                  style: TextStyle(
+                                    fontFamily: 'TL',
+                                    fontSize: 22,
+                                    color: renkler.sariRenk,
+                                  ),
+                                ),
+                              ]
+                          )
+                      )
+                    ],
+                  ), // toplam ödeme
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+
+    );
+  }
 
   Widget Buttoncreate(String symbol, Size size) {
-      return SizedBox(
-        height: size.width* 00.135 ,
-        width: size.width* 00.135 ,
-        child: DecoratedBox(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(13)),
-          ),
-          child: TextButton(
-            onPressed: () => onTabbtn(symbol),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  symbol,
-                  style: const TextStyle(
-                    color:  Colors.black,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w600,
-                  ),
+    return SizedBox(
+      height: size.width* 00.135 ,
+      width: size.width* 00.135 ,
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(13)),
+        ),
+        child: TextButton(
+          onPressed: () => onTabbtn(symbol),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text(
+                symbol,
+                style: const TextStyle(
+                  color:  Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
