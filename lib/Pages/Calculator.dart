@@ -35,9 +35,9 @@ class _CalculatorState extends State<Calculator> {
       num2 = "";
       operand = "";
     }else if(btnValue == "?"){
-      result = "ibrahim ethem";
+     result = "ibrahim ethem";
     }else if(btnValue == "½"){
-      result = (double.parse(result) / 2).toString() ;
+     result = (double.parse(result) / 2).toString() ;
     }else if(btnValue == "<="){
       if(result.length != 1) {
         result = result.substring(0, result.length - 1);
@@ -77,7 +77,7 @@ class _CalculatorState extends State<Calculator> {
       operand = "";
     }else{
       if(result == "0"){
-        result =  btnValue ;
+         result =  btnValue ;
       }else {
         result = result + btnValue;
       }
