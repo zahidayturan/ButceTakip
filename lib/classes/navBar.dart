@@ -14,7 +14,6 @@ class navBar extends ConsumerWidget {
     var readDB = ref.read(databaseRiverpod) ;
     var selectindex = watch.currentindex;
     CustomColors renkler = CustomColors();
-    var selectindex = watch.currentindex;
     final Size size = MediaQuery.of(context).size;
     return Container(
       color: read.currentColor,
