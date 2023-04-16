@@ -6,6 +6,7 @@ class settingsinfo {
   String ?Language;
   int ?isBackUp;
   String ?Backuptimes ;
+  String ?lastBackup ;
   String ?Password ;
 
   settingsinfo(
@@ -15,6 +16,7 @@ class settingsinfo {
       this.Language,
       this.isBackUp,
       this.Backuptimes,
+      this.lastBackup,
       this.Password
       );
   settingsinfo.withId(
@@ -25,6 +27,7 @@ class settingsinfo {
       this.Language,
       this.isBackUp,
       this.Backuptimes,
+      this.lastBackup,
       this.Password
       );
   Map <String, dynamic> toMap(){
@@ -35,6 +38,7 @@ class settingsinfo {
     map["Language"] = Language;
     map["isBackUp"] = isBackUp;
     map["Backuptimes"] = Backuptimes;
+    map["lastBackup"] = lastBackup ;
     map["Password"] = Password ;
     return map ;
   }
@@ -46,6 +50,7 @@ class settingsinfo {
     Language = o["Language"];
     isBackUp = o["isBackUp"] as int;
     Backuptimes = o["Backuptimes"];
+    lastBackup = o["lastBackup"] ;
     Password = o["Password"] ;
   }
 }

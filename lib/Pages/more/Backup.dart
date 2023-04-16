@@ -4,6 +4,7 @@ import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/utils/CvsConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../../classes/appBarForPage.dart';
 import '../../classes/navBar.dart';
 import '../../riverpod_management.dart';
@@ -246,15 +247,14 @@ class _backUpState extends ConsumerState<backUp> {
                                             ),
                                             InkWell(
                                               onTap: () {
-                                                writeToCvs();
+                                                readSetting.Backup(); //CVS KAYDINI YAPIORUZ ve son kayıt date günceli oluyor
                                                 setState(() {
                                                   ScaffoldMessenger.of(context).showSnackBar(
                                                       const SnackBar(
-                                                        backgroundColor:
-                                                        Color(0xff0D1C26),
+                                                        backgroundColor: Color(0xFF0D1C26),
                                                         duration: Duration(seconds: 1),
                                                         content: Text(
-                                                          '/Download/BKA_data.cvs indirildi !',
+                                                          'Downlodand/Klasörünün altına indirildi!',
                                                           style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 16,
@@ -321,7 +321,6 @@ class _backUpState extends ConsumerState<backUp> {
   Color _textColorTool3 = Colors.white;
   Widget ToolCustomButton(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
-    int ?index ;
     if(readSetting.Backuptimes == "Günlük"){
       setState(() {
         heightTool2_ = 40;
@@ -334,7 +333,7 @@ class _backUpState extends ConsumerState<backUp> {
         _textColorTool2 = Colors.white;
         _textColorTool3 = Colors.white;
       });
-    }else if(readSetting.Backuptimes == "Haftalık"){
+    }else if(readSetting.Backuptimes == "Aylık"){
       setState(() {
         heightTool_ = 40;
         heightTool2_ = 34;
@@ -371,7 +370,7 @@ class _backUpState extends ConsumerState<backUp> {
                 color: Color(0xff0D1C26),
               ),
               height: 34,
-              width: 205,
+              width: 180,
             ),
           ),
           Row(
@@ -412,11 +411,10 @@ class _backUpState extends ConsumerState<backUp> {
                   child: TextButton(
                       onPressed: () {
                         setState(() {
-                          //_operationTool.text = "Kart";
-                          readSetting.setBackuptimes("Haftalık");
+                          readSetting.setBackuptimes("Aylık");
                         });
                       },
-                      child: Text("Haftalık",
+                      child: Text("Aylık",
                           style: TextStyle(
                               color: _textColorTool2,
                               fontSize: 15,
@@ -436,7 +434,6 @@ class _backUpState extends ConsumerState<backUp> {
                   child: TextButton(
                       onPressed: () {
                         setState(() {
-                          //_operationTool.text = "Diger";
                           readSetting.setBackuptimes("Yıllık");
                         });
                       },
