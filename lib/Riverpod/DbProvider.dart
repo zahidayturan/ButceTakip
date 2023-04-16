@@ -5,7 +5,6 @@ import '../modals/Spendinfo.dart';
 import 'package:collection/collection.dart';
 
 class DbProvider extends ChangeNotifier {
-
   bool isuseinsert = false ;
   bool deletst = false ;
   bool updatest = false ;
@@ -16,6 +15,7 @@ class DbProvider extends ChangeNotifier {
   String ?status ;
   String ?day ;
   String ?Date ;
+
   void setDate(String date) {
     this.Date = date ;
     notifyListeners();
@@ -86,6 +86,7 @@ class DbProvider extends ChangeNotifier {
   void Update(){
     print("güncellendi");
     updatest = !updatest ;
+    refreshDB();
     notifyListeners();
   }
 
@@ -152,5 +153,12 @@ class DbProvider extends ChangeNotifier {
         .where((element) => element.operationType == 'Gider')
         .fold(0, (previousValue, element) => previousValue + element.amount!);
     return totalAmount2.toStringAsFixed(1);
+  }
+
+
+  static String today = DateTimeManager.getCurrentDay();
+  Future<List<spendinfo>> myDailyMethod() async {
+    List<spendinfo> items = await SQLHelper.getItemsByOperationDay(today);
+    return items;
   }
 }

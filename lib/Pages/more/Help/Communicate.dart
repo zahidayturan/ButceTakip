@@ -2,6 +2,8 @@ import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 
+import '../../../classes/navBar.dart';
+
 class communicate extends StatelessWidget {
   const communicate({Key? key}) : super(key: key);
 
@@ -13,6 +15,7 @@ class communicate extends StatelessWidget {
       color: renkler.koyuuRenk,
       child:SafeArea(
         child: Scaffold(
+          bottomNavigationBar: navBar(),
           appBar: AppBarForPage(title: "İLETİŞİM"),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),

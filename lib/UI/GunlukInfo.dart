@@ -1,29 +1,25 @@
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
+import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../utils/DateTimeManager.dart';
 
-class GunlukInfo extends StatefulWidget {
-  const GunlukInfo({super.key});
+class GunlukInfo extends ConsumerStatefulWidget {
 
 
   @override
-  State<StatefulWidget> createState() => _GunlukInfoState();
+  ConsumerState<GunlukInfo> createState() => _GunlukInfoState();
 }
 
-class _GunlukInfoState extends State<GunlukInfo> {
+class _GunlukInfoState extends ConsumerState<GunlukInfo> {
 
   final ScrollController Scrollbarcontroller2 = ScrollController();
   var renkler = CustomColors();
 
-  static String today = DateTimeManager.getCurrentDay();
-  static Future<List<spendinfo>> myMethod() async {
-    List<spendinfo> items = await SQLHelper.getItemsByOperationDay(today);
-    return items;
-  }
 
   Widget gelirGiderInfo(spendinfo item) {
     if (item.operationType == 'Gelir') {
@@ -44,9 +40,12 @@ class _GunlukInfoState extends State<GunlukInfo> {
       );
     }
   }
-
   @override
   Widget build(BuildContext context) {
+    ref.listen(databaseRiverpod, (previous, next) {
+      return ref.watch(databaseRiverpod);
+    });
+    var readDB = ref.read(databaseRiverpod);
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd.MM.yyyy').format(now);
     var size = MediaQuery.of(context).size;
@@ -141,7 +140,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                       ),
                     ),
                     FutureBuilder<List<spendinfo>>(
-                      future: myMethod(),
+                      future: readDB.myDailyMethod(),
                       builder: (BuildContext context,
                           AsyncSnapshot<List<spendinfo>> snapshot) {
                         if (!snapshot.hasData) {
@@ -237,7 +236,7 @@ class _GunlukInfoState extends State<GunlukInfo> {
                                               ),
                                               const SizedBox(
                                                   height:
-                                                      6) // elemanlar arasına bşluk bırakmak için kulllandım.
+                                                  6) // elemanlar arasına bşluk bırakmak için kulllandım.
                                             ],
                                           );
                                         }),

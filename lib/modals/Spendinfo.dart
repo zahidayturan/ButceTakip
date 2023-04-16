@@ -60,8 +60,8 @@ class spendinfo {
     operationType = o["operationType"]  ;
     category = o["category"]  ;
     operationTool   = o["operationTool"];
-    registration = o["registration"];
-    amount  = o["amount"] ;
+    registration = o["registration"] ;
+    amount  = o["amount"]  ;
     note  = o["note"] ;
     operationDay = o["operationDay"]  ;
     operationMonth = o["operationMonth"]  ;
@@ -69,5 +69,33 @@ class spendinfo {
     operationTime = o["operationTime"];
     operationDate  = o["operationDate"] ;
   }
+  dynamic fromCsvValue(String value) {
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    if (int.tryParse(value) != null) {
+      return int.parse(value);
+    }
+    if (double.tryParse(value) != null) {
+      return double.parse(value);
+    }
+    return value;
+  }
 
+  factory spendinfo.fromCVSObjetct(List<dynamic> o ){
+    return spendinfo.withId(
+      int.parse(o[0].toString()),
+      o[1].toString(),
+      o[2].toString(),
+      o[3].toString(),
+      int.parse(o[4].toString()),
+      double.parse(o[5].toString()),
+      o[6].toString(),
+      o[7].toString(),
+      o[8].toString(),
+      o[9].toString(),
+      o[10].toString(),
+      o[11].toString(),
+    );
+  }
 }

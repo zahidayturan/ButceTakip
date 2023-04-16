@@ -1,3 +1,7 @@
+import 'package:butcekontrol/Pages/more/Help/HelpHomePage.dart';
+import 'package:butcekontrol/Pages/more/Help/PasswordSplash.dart';
+import 'package:butcekontrol/Pages/more/Help/helpPage.dart';
+import 'package:butcekontrol/Pages/more/settings.dart';
 import 'package:butcekontrol/UI/registerylistW.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/riverpod_management.dart';
@@ -14,23 +18,27 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
     CustomColors renkler = CustomColors();
     return AppBar(
       backgroundColor: Color(0xFF0D1C26),
-      title: RichText(
-        text: const TextSpan(
-          text: "Bütçe Kontrol",
+      title: Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: RichText(
+          text: const TextSpan(
+            text: "Bütçe",
 
-          style: TextStyle(
-            fontFamily: "Nexa",
-            color: Color(0xFFFFFFFF),
-            fontSize: 21,
-          ),
-          children: [
-            TextSpan(
-              text: "\nUYGULAMASI",
-              style: TextStyle(
-                color: Color(0xFFF2CB05),
-              ),
+            style: TextStyle(
+              fontFamily: "Nexa3",
+              color: Color(0xFFFFFFFF),
+              fontSize: 21,
             ),
-          ],
+            children: [
+              TextSpan(
+                text: " Takip",
+                style: TextStyle(
+                  fontFamily: "NEXA3",
+                  color: Color(0xFFF2CB05),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       actions: [
@@ -53,7 +61,7 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           iconSize: 20.0,
         ),
         IconButton(
-          onPressed:() => readNavBAr.setCurrentindex(5),
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpCenter())),
           icon: const Icon(
             Icons.question_mark,
             color: Color(0xFFFFFFFF),
@@ -73,7 +81,9 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
         ),
 
         IconButton(
-          onPressed:() => readNavBAr.setCurrentindex(11),
+          onPressed:() {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => settings()));
+          },
           icon: const Icon(
             Icons.settings,
             color: Color(0xFFFFFFFF),

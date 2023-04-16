@@ -3,6 +3,7 @@ import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';
+
 class navBar extends ConsumerWidget {
   const navBar({Key ?key}) : super(key : key) ;
 
@@ -10,8 +11,9 @@ class navBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var watch = ref.watch(botomNavBarRiverpod);
     var read = ref.read(botomNavBarRiverpod);
-    CustomColors renkler = CustomColors();
+    var readDB = ref.read(databaseRiverpod) ;
     var selectindex = watch.currentindex;
+    CustomColors renkler = CustomColors();
     final Size size = MediaQuery.of(context).size;
     return Container(
       color: read.currentColor,
@@ -47,12 +49,14 @@ class navBar extends ConsumerWidget {
                                 Icons.equalizer,
                                 color: Colors.white,
                               ),
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 minHeight: 45,
                                 minWidth: 50
                               ),
                               onPressed: () {
                                 read.setCurrentindex(1);
+                                Navigator.of(context).popUntil((route) => route.isFirst) ; //Butun Navigator stacki boşaltıyor
+
                               },
                             ),
                             read.currentindex == 1
@@ -83,7 +87,7 @@ class navBar extends ConsumerWidget {
                               ),
                               onPressed: () {
                                 read.setCurrentindex(2);
-                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => testPages(),));
+                                Navigator.of(context).popUntil((route) => route.isFirst) ;
                               }
                             ),
                             read.currentindex == 2
@@ -118,7 +122,7 @@ class navBar extends ConsumerWidget {
                               ),
                               onPressed:() {
                                 read.setCurrentindex(3);
-                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Calculator(),));
+                                Navigator.of(context).popUntil((route) => route.isFirst) ;
                               }
                             ),
                             read.currentindex == 3
@@ -143,24 +147,16 @@ class navBar extends ConsumerWidget {
                                 Icons.keyboard_control_sharp,
                                 color: Colors.white,
                               ),
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                   minHeight: 45,
                                   minWidth: 50
                               ),
                               onPressed: () {
                                 read.setCurrentindex(4);
+                                Navigator.of(context).popUntil((route) => route.isFirst) ;
                               }
                             ),
                             read.currentindex == 4
-                          || read.currentindex == 5
-                          || read.currentindex == 6
-                          || read.currentindex == 7
-                          || read.currentindex == 8
-                          || read.currentindex == 9
-                          || read.currentindex == 10
-                          ||read.currentindex == 11
-                          || read.currentindex == 12
-                          || read.currentindex == 13
                                 ? ClipRRect( ///navbar sarı pointer
                                   borderRadius: BorderRadius.vertical(top:Radius.circular(20)),
                                   child: Container(
@@ -170,7 +166,7 @@ class navBar extends ConsumerWidget {
                                     color: renkler.sariRenk,
                                     ),
                                   )
-                                :SizedBox(width: 1,)
+                                :SizedBox(width: 1)
                           ],
                         )
                       ],

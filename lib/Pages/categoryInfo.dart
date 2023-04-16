@@ -1,12 +1,10 @@
 import 'package:butcekontrol/UI/spendDetail.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
-import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../UI/spendDetail.dart';
 
 class categoryInfo extends ConsumerWidget {
   const categoryInfo({Key? key}) : super(key: key);
@@ -18,6 +16,7 @@ class categoryInfo extends ConsumerWidget {
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
+          bottomNavigationBar: null,
           backgroundColor: renkler.ArkaRenk,
           appBar: const appbarCategoryInfo(),
           body: const categoryInfoBody(),
@@ -38,6 +37,9 @@ class _categoryInfoBody extends ConsumerState<categoryInfoBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(
+          height: 6,
+        ),
         list(context),
         dayDetailsGuide(context),
       ],
@@ -45,12 +47,10 @@ class _categoryInfoBody extends ConsumerState<categoryInfoBody> {
   }
 
   Widget list(BuildContext context) {
-    var read = ref.read(databaseRiverpod);
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<spendinfo>> myList = readCategoryInfo.myMethod2();
-    var readnavbar = ref.read(botomNavBarRiverpod);
     return FutureBuilder(
         future: myList,
         builder: (context, AsyncSnapshot<List<spendinfo>> snapshot) {
@@ -64,7 +64,7 @@ class _categoryInfoBody extends ConsumerState<categoryInfoBody> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  height: size.height*0.72,
+                  height: size.height*0.76,
                   child: Stack(
                     children: [
                       Row(
@@ -81,11 +81,11 @@ class _categoryInfoBody extends ConsumerState<categoryInfoBody> {
                             padding: const EdgeInsets.only(right: 11.5),
                             child: SizedBox(
                               width: 4,
-                              height: size.height*0.72,
+                              height: size.height*0.76,
                               child:  DecoratedBox(
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                                    color: snapshot.data!.length <= 8 ? Colors.white : Color(0xFF0D1C26)),
+                                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                                    color: snapshot.data!.length <= 8 ? Colors.white : const Color(0xFF0D1C26)),
                               ),
                             ),
                           ),
@@ -124,7 +124,7 @@ class _categoryInfoBody extends ConsumerState<categoryInfoBody> {
                                               const Color(0xff0D1C26),
                                           builder: (context) {
                                             // genel bilgi sekmesi açılıyor.
-                                            return SpendDetail();
+                                            return const SpendDetail();
                                           },
                                         );
                                       }
@@ -245,9 +245,9 @@ class _categoryInfoBody extends ConsumerState<categoryInfoBody> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 210,
-                  child: Text("Toplam Tutar",style: const TextStyle(
+                  child: Text("Toplam Tutar",style: TextStyle(
                     fontFamily: 'NEXA4',
                     fontSize: 17,
                     color: Color(0xff0D1C26),
@@ -341,7 +341,7 @@ class appbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                         fontSize: 25,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
                     Text(
@@ -367,12 +367,11 @@ class appbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                     borderRadius: BorderRadius.circular(40),
                   ),
                   child: IconButton(
-                    icon: const Icon(
+                    icon:  const Icon(
                       Icons.clear,
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      //readNavBar.setCurrentindex(0);
                       Navigator.of(context).pop();
                     },
                   ),

@@ -8,18 +8,19 @@ import '../modals/Spendinfo.dart';
 class SQLHelper {
 
   static Future <void> createSettingTable(sql.Database database) async{
-    await database.execute(
-      """
-      CREATE TABLE setting(
-      id INTEGER PRİMARY KEY AUTOINCREMENT NOT NULL,
-      Prefix TEXT,
-      DarkMode BOOLEAN,
-      isPassword BOOLEAN,
+    await database.execute("""CREATE TABLE setting(
+      id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      Prefix TEXT ,
+      DarkMode INTEGER,
+      isPassword INTEGER,
       Language TEXT,
+      isBackUp INTEGER,
+      Backuptimes TEXT,
+      lastBackup TEXT,
+      Password TEXT,
       createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
-      """
-    );
+      """);
   }
 
   static Future<void> createTables(sql.Database database) async {
@@ -43,7 +44,7 @@ class SQLHelper {
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
-      'bka_db3.db',
+      'bka_db2.db',
       version: 1,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
@@ -51,12 +52,28 @@ class SQLHelper {
       },
     );
   }
+
+  static Future<List<settingsinfo>> settingsControl() async{ //settings ablosundaki kayıt saysı liste şeklinde dönüyor
+    final db = await SQLHelper.db();
+    var result = await db.query('setting', orderBy: "id");
+    return  List.generate(result.length, (index){
+      return settingsinfo.fromObject(result[index]);
+    });
+  }
   static Future <int> addItemSetting(settingsinfo info) async{
     final db = await SQLHelper.db();
     final data = info.toMap();
     final id = await db.insert("setting", data, conflictAlgorithm:  sql.ConflictAlgorithm.replace);
     return id;
   }
+
+  static updateSetting(settingsinfo info) async{
+    final db = await SQLHelper.db();
+    final result =
+    await db.update("setting", info.toMap(),where: "id= ?", whereArgs: [info.id]);
+    return result;
+  }
+
   static Future<int> createItem(spendinfo info) async {
     final db = await SQLHelper.db();
     final data = info.toMap();
@@ -141,6 +158,14 @@ class SQLHelper {
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "registration = ?",whereArgs: [1], orderBy: "id");
     return List.generate(result.length,(index) {
+      return spendinfo.fromObject(result[index]);
+    });
+  }
+
+  static Future<List<spendinfo>> getItemByMonth(int operationMonth) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationMonth = ?", whereArgs: [operationMonth], orderBy: "id");
+    return List.generate(result.length, (index){
       return spendinfo.fromObject(result[index]);
     });
   }

@@ -10,7 +10,7 @@ class Calendar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readNavBar = ref.read(botomNavBarRiverpod);
-    readNavBar.currentColor = Color(0xffF2F2F2);
+    readNavBar.currentColor = const Color(0xffF2F2F2);
     return Container(
       color: const Color(0xff0D1C26),
       child: const SafeArea(
@@ -31,6 +31,7 @@ class CalendarBody extends ConsumerStatefulWidget {
 }
 
 class _CalendarBody extends ConsumerState<CalendarBody> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,6 +41,12 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
   }
 
   Widget CalendarDesign(BuildContext context, WidgetRef ref) {
+    ref.listen(databaseRiverpod, (previous, next) {
+      ref.watch(databaseRiverpod).isuseinsert ;
+      ref.watch(databaseRiverpod).updatest;
+      return ref.watch(databaseRiverpod);
+    }
+    );
     var read = ref.read(calendarRiverpod);
     var size = MediaQuery.of(context).size;
     var year = selectedYearIndex;
@@ -69,9 +76,9 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
         //mainAxisAlignment: MainAxisAlignment.spaceAround,
         //crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           dateSelector(context),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           monthGuide(context),
           SizedBox(
             width: size.width * 0.92,
@@ -88,7 +95,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               ],
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           SizedBox(
             width: size.width * 0.92,
             height: size.height * 0.44,
@@ -110,7 +117,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               ],
             ),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           monthDetailsGuide(context),
         ],
       ),
@@ -372,9 +379,8 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
   }
 
   Widget containerAdd(BuildContext context, int days, int months, int years) {
-    var size = MediaQuery.of(context).size;
     var read = ref.read(calendarRiverpod);
-    return Container(
+    return SizedBox(
       height: 45,
       child: AspectRatio(
         aspectRatio: 1,
@@ -394,8 +400,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
   }
 
   Widget containerDayAdd(BuildContext context, String day) {
-    var size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       height:45,
       child: AspectRatio(
         aspectRatio: 1,
@@ -423,23 +428,21 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
 
   Widget dateText(BuildContext context, int date, int month, int year) {
     var size = MediaQuery.of(context).size;
-    var read = ref.read(calendarRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
-    var monthName = read.getMonthName(month);
     return SizedBox(
       height: size.height * 0.065,
       width: size.height * 0.065,
       child: TextButton(
           onPressed: () {
             readDailyInfo.setDate(date, month, year);
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  dailyInfo(),));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const dailyInfo(),));
           },
           child: Text(
             date > 0 ? date.toString() : "",
             style: TextStyle(
               color: month == selectedMonthIndex
-                  ? Color(0xff0D1C26)
-                  : Color(0xffF2F2F2),
+                  ? const Color(0xff0D1C26)
+                  : const Color(0xffF2F2F2),
               fontSize: 20,
               fontFamily: 'Nexa3',
               fontWeight: FontWeight.w600,
@@ -475,7 +478,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                 ),
               );
             } else if (toplam == 0) {
-              return SizedBox();
+              return const SizedBox();
             } else {
               return Positioned(
                 right: 3,
@@ -494,7 +497,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             }
           } else if (snapshot.hasError) {
             // handle error case
-            return Text('Error');
+            return const Text('Error');
           } else {
             // handle loading case
             return SizedBox(

@@ -116,7 +116,7 @@ class _CalculatorState extends State<Calculator> {
                     left: 20.0,
                   ),
                   child: SizedBox(
-                    height: size.height * 0.584,
+                    height: size.height * 0.56,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(40),
@@ -231,6 +231,9 @@ class _CalculatorState extends State<Calculator> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: size.height*0.015,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5.0),
                   child: Row(
@@ -246,22 +249,21 @@ class _CalculatorState extends State<Calculator> {
                                 color: renkler.koyuuRenk,
                               ),
                             ),
-                        ),
-                      ),
-                      ),
-                      SizedBox(
-                        width: 25,
-                        height: 25,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: renkler.koyuuRenk,
-                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
                       ),
                       SizedBox(
-                        width: 25,
-                        height: 25,
+                        width: 50,
+                        height: 20,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: renkler.koyuuRenk,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width / 3,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: renkler.koyuuRenk,
@@ -285,7 +287,9 @@ class _CalculatorState extends State<Calculator> {
                     ],
                   ),
                 ),
-
+                SizedBox(
+                  height: size.height*0.015,
+                ),
                 ///orta cizgi gelicek
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -296,8 +300,8 @@ class _CalculatorState extends State<Calculator> {
                         print("Yüzde HEsaplama");
                       },
                       child: SizedBox(
-                        height: size.width / 4.8,
-                        width: size.width / 4.8,
+                        height: size.width / 4,
+                        width: size.width / 4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: renkler.koyuuRenk,
@@ -336,8 +340,8 @@ class _CalculatorState extends State<Calculator> {
                         print("Faiz-Kredi Hesaplama");
                       },
                       child: SizedBox(
-                        height: size.width / 4.8,
-                        width: size.width / 4.8,
+                        height: size.width / 4,
+                        width: size.width / 4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: renkler.koyuuRenk,
@@ -375,8 +379,8 @@ class _CalculatorState extends State<Calculator> {
                         changePage(3);
                       },
                       child: SizedBox(
-                        height: size.width / 4.8,
-                        width: size.width / 4.8,
+                        height: size.width / 4,
+                        width: size.width / 4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: renkler.koyuuRenk,
@@ -477,6 +481,7 @@ class _CalculatorState extends State<Calculator> {
     dropDownKey;
     super.dispose();
   }
+
   Widget KrediPage(){
     GlobalKey heseplamalarSonucu = GlobalKey();
     var size = MediaQuery.of(context).size ;
@@ -495,7 +500,7 @@ class _CalculatorState extends State<Calculator> {
                 Text(
                   "KREDİ HESAPLAMA",
                   style: TextStyle(
-                    fontSize: 26,
+                    fontSize: 22,
                     fontFamily: 'Nexa4',
                     color: renkler.YaziRenk,
                   ),
@@ -509,7 +514,7 @@ class _CalculatorState extends State<Calculator> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: IconButton(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.clear,
                         size: 25,
                       ),
@@ -522,21 +527,21 @@ class _CalculatorState extends State<Calculator> {
                 ),
               ],
             ), /// çıkış butonu
-            SizedBox(height: size.height / 75,),
+            SizedBox(height: size.height / 50,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Ana Para",
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontFamily: 'Nexa4',
                     color: renkler.YaziRenk,
                   ),
                 ),
                 Container( // ana paranin para kisminin arka pilan rengi
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
+                    borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         bottomLeft: Radius.circular(20)
                     ),
@@ -544,9 +549,9 @@ class _CalculatorState extends State<Calculator> {
                   ),
                   child: Row(
                     children: [
-                      Container(
-                        width: 112,
-                        height: size.height / 20,
+                      SizedBox(
+                        width: 100,
+                        height: 27,
                         child: TextFormField(
                           maxLength: 7,
                           controller: anaPara,
@@ -557,10 +562,11 @@ class _CalculatorState extends State<Calculator> {
                           style: TextStyle(
                             color: renkler.koyuuRenk,
                             fontFamily: 'Nexa4',
-                            fontSize: 22,
+                            fontSize: 17,
                           ),
                           decoration: InputDecoration(
                             counterText: '', /// kalan karakteri gösteren yazıyı kaldırıyor.
+                            contentPadding: EdgeInsets.symmetric(vertical: 5),
                             enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                   style: BorderStyle.none
@@ -575,7 +581,7 @@ class _CalculatorState extends State<Calculator> {
                             isDense: true,
                             hintStyle: TextStyle(
                               color: renkler.koyuuRenk,
-                              fontSize: 22,
+                              fontSize: 17,
                               fontFamily: 'Nexa4',
                             ),
                           ),
@@ -586,7 +592,7 @@ class _CalculatorState extends State<Calculator> {
                         ' ₺',
                         style: TextStyle(
                           fontFamily: 'TL',
-                          fontSize: 22,
+                          fontSize: 17,
                           color: renkler.koyuuRenk,
                         ),
                       ),
@@ -595,23 +601,21 @@ class _CalculatorState extends State<Calculator> {
                 ),
               ],
             ), /// ana para
-            SizedBox(height: size.height / 75,),
+            SizedBox(height: size.height / 40,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Faiz (yüzde)",
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontFamily: 'Nexa4',
                     color: renkler.YaziRenk,
                   ),
                 ),
                 Container(
-                  width: 130,
-                  height: size.height / 20,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
+                    borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         bottomLeft: Radius.circular(20)
                     ),
@@ -620,9 +624,9 @@ class _CalculatorState extends State<Calculator> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
-                        width: 80,
-                        height: size.height / 20,
+                      SizedBox(
+                        width: 102,
+                        height: 27,
                         child: TextFormField(
                           maxLength: 2,
                           inputFormatters: [
@@ -632,11 +636,12 @@ class _CalculatorState extends State<Calculator> {
                           keyboardType: TextInputType.number,
                           style: TextStyle(
                             color: renkler.koyuuRenk,
-                            fontSize: 22,
+                            fontSize: 17,
                             fontFamily: 'Nexa4',
                           ),
                           decoration: InputDecoration(
                             counterText: '',
+                            contentPadding: EdgeInsets.symmetric(vertical: 5),
                             enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 style: BorderStyle.none,
@@ -651,7 +656,7 @@ class _CalculatorState extends State<Calculator> {
                             isDense: true,
                             hintStyle: TextStyle(
                               color: renkler.koyuuRenk,
-                              fontSize: 22,
+                              fontSize: 17,
                               fontFamily: 'Nexa4',
                             ),
                           ),
@@ -659,10 +664,10 @@ class _CalculatorState extends State<Calculator> {
                         ),
                       ),
                       Text(
-                        " %",
+                        "%",
                         style: TextStyle(
                             fontFamily: 'Nexa4',
-                            fontSize: 22,
+                            fontSize: 17,
                             color: renkler.koyuuRenk
                         ),
                       ),
@@ -671,66 +676,69 @@ class _CalculatorState extends State<Calculator> {
                 )
               ],
             ), /// faiz yuzde
-            SizedBox(height: size.height / 75,),
+            SizedBox(height: size.height / 40,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Vade",
+                  "Vade (Ay)",
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontFamily: 'Nexa4',
                     color: renkler.YaziRenk,
                   ),
                 ),
                 Container(
-                  width: 130,
+                  width: 115,
                   alignment: Alignment.centerRight,
-                  height: size.height / 19,
+                  height: 27,
                   decoration: BoxDecoration(
                       color: renkler.YaziRenk,
-                      borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topLeft: Radius.circular(20))
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), topLeft: Radius.circular(20))
                   ),
-                  child: DropdownButtonFormField<String>(
-                    key: dropDownKey, /// bunun kullanim nedeni sıfırla yapınca varsayılan vade gelmesi için
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    iconSize: 30,
-                    alignment: Alignment.centerRight,
-                    decoration:  const InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              style: BorderStyle.none,
-                            )
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              style: BorderStyle.none,
-                            )
-                        )
+                  child: SizedBox(
+                    width: 110,
+                    child: DropdownButtonFormField<String>(
+                      key: dropDownKey, /// bunun kullanim nedeni sıfırla yapınca varsayılan vade gelmesi için
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+
+                      decoration:  const InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 15),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                style: BorderStyle.none,
+                              )
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                style: BorderStyle.none,
+                              )
+                          )
+                      ),
+                      iconEnabledColor: renkler.koyuuRenk,
+                      value: selectedValue,
+                      style: TextStyle(
+                        color: renkler.koyuuRenk,
+                        fontFamily: 'Nexa4',
+                        fontSize: 17,
+                      ),
+                      onChanged: (value) {
+                        selectedValue = value;
+                      },
+                      items: monthList.map((value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     ),
-                    iconEnabledColor: renkler.koyuuRenk,
-                    value: selectedValue,
-                    style: TextStyle(
-                      color: renkler.koyuuRenk,
-                      fontFamily: 'Nexa4',
-                      fontSize: 22,
-                    ),
-                    onChanged: (value) {
-                      selectedValue = value;
-                    },
-                    items: monthList.map((value) {
-                      return DropdownMenuItem(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
                   ),
                 )
               ],
             ), /// kredi suresi
-            SizedBox(height: size.height / 45,),
+            SizedBox(height: size.height / 35,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: () {
@@ -745,11 +753,11 @@ class _CalculatorState extends State<Calculator> {
                   },
                   child: Container(
                     alignment: Alignment.center,
-                    height: size.height / 18,
+                    height: size.height / 22,
                     width: size.width / 3.2,
                     decoration: BoxDecoration(
                         color: renkler.sariRenk,
-                        borderRadius: const BorderRadius.all(Radius.circular(25))
+                        borderRadius: BorderRadius.all(Radius.circular(25))
                     ),
                     child: Text(
                       "SIFIRLA",
@@ -774,11 +782,11 @@ class _CalculatorState extends State<Calculator> {
                   },
                   child: Container(
                     alignment: Alignment.center,
-                    height: size.height / 18,
+                    height: size.height / 22,
                     width: size.width / 3.2,
                     decoration: BoxDecoration(
                         color: renkler.sariRenk,
-                        borderRadius: const BorderRadius.all(Radius.circular(25))
+                        borderRadius: BorderRadius.all(Radius.circular(25))
                     ),
                     child: Text(
                       "HESAPLA",
@@ -792,7 +800,7 @@ class _CalculatorState extends State<Calculator> {
                 )
               ],
             ), /// sıfırla ve hesapla butonları
-            SizedBox(height: size.height / 45,),
+            SizedBox(height: size.height / 60,),
             Container(
               height: size.height / 5.4,
               child: Column(
@@ -809,13 +817,13 @@ class _CalculatorState extends State<Calculator> {
                                   style: TextStyle(
                                     color: renkler.YaziRenk,
                                     fontFamily: 'Nexa4',
-                                    fontSize: 18,
+                                    fontSize: 17,
                                   ),
                                 ),
                                 TextSpan(
                                     text: '${tutarList[0]}',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 17,
                                       fontFamily: 'Nexa4',
                                       color: renkler.YaziRenk,
                                     )
@@ -824,7 +832,7 @@ class _CalculatorState extends State<Calculator> {
                                   text: ' ₺',
                                   style: TextStyle(
                                     fontFamily: 'TL',
-                                    fontSize: 18,
+                                    fontSize: 17,
                                     color: renkler.YaziRenk,
                                   ),
                                 ),
@@ -844,13 +852,13 @@ class _CalculatorState extends State<Calculator> {
                                   style: TextStyle(
                                     color: renkler.YaziRenk,
                                     fontFamily: 'Nexa4',
-                                    fontSize: 18,
+                                    fontSize: 17,
                                   ),
                                 ),
                                 TextSpan(
                                     text: '${tutarList[1]}',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 17,
                                       fontFamily: 'Nexa4',
                                       color: renkler.YaziRenk,
                                     )
@@ -859,7 +867,7 @@ class _CalculatorState extends State<Calculator> {
                                   text: ' ₺',
                                   style: TextStyle(
                                     fontFamily: 'TL',
-                                    fontSize: 18,
+                                    fontSize: 17,
                                     color: renkler.YaziRenk,
                                   ),
                                 ),
@@ -879,13 +887,13 @@ class _CalculatorState extends State<Calculator> {
                                   style: TextStyle(
                                     color: renkler.YaziRenk,
                                     fontFamily: 'Nexa4',
-                                    fontSize: 18,
+                                    fontSize: 17,
                                   ),
                                 ),
                                 TextSpan(
                                     text: '${tutarList[2]}',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 17,
                                       fontFamily: 'Nexa4',
                                       color: renkler.YaziRenk,
                                     )
@@ -894,7 +902,7 @@ class _CalculatorState extends State<Calculator> {
                                   text: ' ₺',
                                   style: TextStyle(
                                     fontFamily: 'TL',
-                                    fontSize: 18,
+                                    fontSize: 17,
                                     color: renkler.YaziRenk,
                                   ),
                                 ),
@@ -914,13 +922,13 @@ class _CalculatorState extends State<Calculator> {
                                   style: TextStyle(
                                     color: renkler.sariRenk,
                                     fontFamily: 'Nexa4',
-                                    fontSize: 22,
+                                    fontSize: 20,
                                   ),
                                 ),
                                 TextSpan(
                                     text: '${tutarList[3]}',
                                     style: TextStyle(
-                                      fontSize: 22,
+                                      fontSize: 20,
                                       fontFamily: 'Nexa4',
                                       color: renkler.sariRenk,
                                     )
@@ -929,7 +937,7 @@ class _CalculatorState extends State<Calculator> {
                                   text: ' ₺',
                                   style: TextStyle(
                                     fontFamily: 'TL',
-                                    fontSize: 22,
+                                    fontSize: 20,
                                     color: renkler.sariRenk,
                                   ),
                                 ),
@@ -1063,10 +1071,10 @@ class _CalculatorState extends State<Calculator> {
                     width: 100,
                     child: PageView(
                       onPageChanged: (value) {
-                          selectedCurrency = value;
-                          setState(() {
-                            switchCurrency();
-                          });
+                        selectedCurrency = value;
+                        setState(() {
+                          switchCurrency();
+                        });
                       },
                       controller: pageCurrency,
                       children: listCurrency
@@ -1162,24 +1170,24 @@ class _CalculatorState extends State<Calculator> {
                     height: 40,
                     width: 100,
                     child: Center(
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontFamily: 'Nexa4',
-                          fontSize: 24,
-                          color : Colors.white,
-                        ),
-                        decoration: const InputDecoration(
-                          hintText: 'Sonuç',
-                          hintStyle: TextStyle(
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
                             fontFamily: 'Nexa4',
                             fontSize: 24,
                             color : Colors.white,
                           ),
-                        ),
-                        enabled: false,
-                        controller: sonuc,
-                      )
+                          decoration: const InputDecoration(
+                            hintText: 'Sonuç',
+                            hintStyle: TextStyle(
+                              fontFamily: 'Nexa4',
+                              fontSize: 24,
+                              color : Colors.white,
+                            ),
+                          ),
+                          enabled: false,
+                          controller: sonuc,
+                        )
                     ),
                   ),
                 ],
@@ -1683,15 +1691,12 @@ class _CalculatorState extends State<Calculator> {
         child: TextButton(
           onPressed: () => onTabbtn("="),
           child: const Center(
-            child: Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Text(
-                "=",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w600,
-                ),
+            child: Text(
+              "=",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 35,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -1712,15 +1717,12 @@ class _CalculatorState extends State<Calculator> {
         child: TextButton(
           onPressed: () => onTabbtn(symbol),
           child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                symbol,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w600,
-                ),
+            child: Text(
+              symbol,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
