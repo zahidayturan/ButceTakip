@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/navBar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class versionshelp extends StatelessWidget {
       color: renkler.koyuuRenk ,
         child: SafeArea(
             child: Scaffold(
-
+              bottomNavigationBar: navBar(),
             )
         )
     );

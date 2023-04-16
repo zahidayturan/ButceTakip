@@ -2,6 +2,8 @@ import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 
+import '../../../classes/navBar.dart';
+
 class helpCalender extends StatelessWidget {
   const helpCalender({Key? key}) : super(key: key);
 
@@ -13,6 +15,7 @@ class helpCalender extends StatelessWidget {
       color: renkler.koyuuRenk,
       child: SafeArea(
           child: Scaffold(
+            bottomNavigationBar: navBar(),
             appBar: const AppBarForPage(title: "YARDIM<"),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,

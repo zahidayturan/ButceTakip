@@ -1,3 +1,9 @@
+import 'package:butcekontrol/Pages/more/Backup.dart';
+import 'package:butcekontrol/Pages/more/Help/Communicate.dart';
+import 'package:butcekontrol/Pages/more/Help/HelpHomePage.dart';
+import 'package:butcekontrol/Pages/more/Help/helpPage.dart';
+import 'package:butcekontrol/Pages/more/Password.dart';
+import 'package:butcekontrol/Pages/more/settings.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +18,6 @@ class More extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readDB = ref.read(databaseRiverpod);
-    ref.read(settingsRiverpod).controlSettings();
     var size = MediaQuery.of(context).size;
     var readNavBar = ref.read(botomNavBarRiverpod);
     return Container(
@@ -34,7 +39,7 @@ class More extends ConsumerWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              readNavBar.setCurrentindex(11);
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => settings()));
                             },
                             child: Container(
                               height: size.height / 9,
@@ -54,7 +59,7 @@ class More extends ConsumerWidget {
                           ),
                           SizedBox(width: size.width / 15),
                           InkWell(
-                            onTap: () => readNavBar.setCurrentindex(5),
+                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpCenter())),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -94,7 +99,7 @@ class More extends ConsumerWidget {
                            */
                           InkWell(
                             onTap: () {
-                              readNavBar.setCurrentindex(14);
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => passwordPage()));
                             },
                             child: Container(
                               height: size.height / 9,
@@ -123,7 +128,7 @@ class More extends ConsumerWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              readNavBar.setCurrentindex(13);
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => backUp()));
                             },
                             child: Container(
                               height: size.height / 9,
@@ -143,7 +148,7 @@ class More extends ConsumerWidget {
                           ),
                           SizedBox(width: size.width / 15),
                           InkWell(
-                            onTap: () => readNavBar.setCurrentindex(12),
+                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => communicate())),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
