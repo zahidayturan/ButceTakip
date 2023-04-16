@@ -63,6 +63,7 @@ class _backUpState extends ConsumerState<backUp> {
                               onChanged: (bool value) {
                                 setState(() {
                                   readSetting.setBackup(value);
+                                  readSetting.setisuseinsert();
                                 });
                               },
                             ),

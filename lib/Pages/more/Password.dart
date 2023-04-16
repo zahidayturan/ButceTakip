@@ -66,6 +66,7 @@ class _passwordPageState extends ConsumerState<passwordPage> {
                                 onChanged: (bool value) {
                                   setState(() {
                                     readSetting.setPasswordMode(value);
+                                    readSetting.setisuseinsert();
                                     if(!value){
                                       readSetting.setPassword("null");
                                     }
@@ -291,13 +292,12 @@ class _passwordPageState extends ConsumerState<passwordPage> {
               if (Password1 == Password2) {
                 setState(() {
                   info = "şifreniz ayarlandı" ;
-                  Status = true;
                   password1list.clear();
                   password2list.clear();
                   Status = true ;
-                  ref.read(botomNavBarRiverpod).setCurrentindex(4);
                   ref.read(settingsRiverpod).setPasswordMode(true);
                   ref.read(settingsRiverpod).setPassword(Password1);
+                  Navigator.of(context).pop();
                 });
                 temizle();
               } else {
