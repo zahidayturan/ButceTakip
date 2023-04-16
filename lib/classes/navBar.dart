@@ -49,12 +49,14 @@ class navBar extends ConsumerWidget {
                                 Icons.equalizer,
                                 color: Colors.white,
                               ),
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 minHeight: 45,
                                 minWidth: 50
                               ),
                               onPressed: () {
                                 read.setCurrentindex(1);
+                                Navigator.of(context).popUntil((route) => route.isFirst) ; //Butun Navigator stacki boşaltıyor
+
                               },
                             ),
                             read.currentindex == 1
@@ -85,7 +87,7 @@ class navBar extends ConsumerWidget {
                               ),
                               onPressed: () {
                                 read.setCurrentindex(2);
-                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => testPages(),));
+                                Navigator.of(context).popUntil((route) => route.isFirst) ;
                               }
                             ),
                             read.currentindex == 2
@@ -120,7 +122,7 @@ class navBar extends ConsumerWidget {
                               ),
                               onPressed:() {
                                 read.setCurrentindex(3);
-                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Calculator(),));
+                                Navigator.of(context).popUntil((route) => route.isFirst) ;
                               }
                             ),
                             read.currentindex == 3
@@ -151,6 +153,7 @@ class navBar extends ConsumerWidget {
                               ),
                               onPressed: () {
                                 read.setCurrentindex(4);
+                                Navigator.of(context).popUntil((route) => route.isFirst) ;
                               }
                             ),
                             read.currentindex == 4
