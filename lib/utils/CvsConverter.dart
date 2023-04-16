@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:butcekontrol/modals/Spendinfo.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:csv/csv.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:external_path/external_path.dart';
@@ -24,7 +23,7 @@ Future <void> writeToCvs() async{
       print(row) ;
       rows.add(row);
     }
-    final String fileName = "alldata.cvs";
+    final String fileName = "Bka_data.cvs";
     //final directory = await getExternalStorageDirectory() ; // deneniyor
     //final String filePath = '${directory?.path}/$fileName' ;
     //final File f = File(filePath);
@@ -42,17 +41,25 @@ Future <void> writeToCvs() async{
   //await file.writeAsString(cvs);
 }
 Future<void> restore() async{
-  final fileName = "alldata.cvs" ;
-  //final File file = File('/storage/emulated/0/Download' + "/alldata.csv");
-  //final directory = await getExternalStorageDirectory() ; // deneniyor
-  //final String filePath = '${directory?.path}/$fileName' ;
-  //final File file = File(filePath);
-  var path = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
-  final directory = "$path/$fileName";
-  final File f = File(directory);
-  final List<List<dynamic>> csvData = CsvToListConverter().convert(await f.readAsString());
-  final List<spendinfo> lastList = csvData.map((csvRow) => spendinfo.fromCVSObjetct(csvRow)).toList();
-  for(var i =0 ; i < lastList.length  ;i++){
-    print(lastList[i].operationType);
-  }
+  final PermissionStatus permissionStatus = await Permission.storage.request();
+  if (permissionStatus == PermissionStatus.granted) {
+    final Database db = await SQLHelper.db();
+    await db.delete("spendinfo");
+    final fileName = "Bka_data.cvs";
+    //final File file = File('/storage/emulated/0/Download' + "/alldata.csv");
+    //final directory = await getExternalStorageDirectory() ; // deneniyor
+    //final String filePath = '${directory?.path}/$fileName' ;
+    //final File file = File(filePath);
+    var path = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    final directory = "$path/$fileName";
+    final File f = File(directory);
+    final List<List<dynamic>> csvData = CsvToListConverter().convert(await f.readAsString());
+    final List<spendinfo> lastList = csvData.map((csvRow) => spendinfo.fromCVSObjetct(csvRow)).toList();
+    for (var i = 0; i < lastList.length; i++) {
+      SQLHelper.createItem(lastList[i]);
+      print(lastList[i].id);
+    }
+  }else{
+
+    }
 }

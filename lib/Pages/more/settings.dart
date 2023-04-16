@@ -1,5 +1,6 @@
 import 'package:butcekontrol/Pages/more/Backup.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
+import 'package:butcekontrol/classes/navBar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,6 @@ class _settingsState extends ConsumerState<settings> {
     var size = MediaQuery.of(context).size;
     var readNavBar = ref.read(botomNavBarRiverpod);
     var readSetting = ref.read(settingsRiverpod);
-
-    //readSetting.controlSettings(); ///db kayıt var mı sorgu yapıyoruz.
     bool darkthememode = readSetting.DarkMode == 1 ? true : false ;
     bool isPassword = readSetting.isPassword == 1 ? true : false ;
     bool isBackup = readSetting.isBackUp == 1 ? true : false ;
@@ -35,6 +34,7 @@ class _settingsState extends ConsumerState<settings> {
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
+          bottomNavigationBar: navBar(),
           appBar: AppBarForPage(title: "AYARLAR"),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8),

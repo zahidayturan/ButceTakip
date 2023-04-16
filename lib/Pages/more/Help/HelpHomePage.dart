@@ -1,4 +1,5 @@
 import 'package:butcekontrol/classes/appBarForPage.dart';
+import 'package:butcekontrol/classes/navBar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class helpHomePage extends StatelessWidget {
       color: renkler.koyuuRenk,
       child: SafeArea(
           child: Scaffold(
+            bottomNavigationBar: navBar(),
             appBar: const AppBarForPage(title: "YARDIM<"),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,

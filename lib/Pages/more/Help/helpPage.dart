@@ -1,4 +1,9 @@
+import 'package:butcekontrol/Pages/more/Help/HelpCalculator.dart';
+import 'package:butcekontrol/Pages/more/Help/HelpCalender.dart';
+import 'package:butcekontrol/Pages/more/Help/HelpHomePage.dart';
+import 'package:butcekontrol/Pages/more/Help/HelpStatistic.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
+import 'package:butcekontrol/classes/navBar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +29,7 @@ class _helpCenterState extends ConsumerState<helpCenter> {
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
+          bottomNavigationBar: navBar(),
           //backgroundColor: Color(0xffF2F2F2),
           appBar: AppBarForPage(title: "YARDIM"),
           body: SingleChildScrollView(
@@ -124,7 +130,7 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                             SizedBox(height: 10,),
                             InkWell(
                               onTap: () {
-                                readNavBar.setCurrentindex(6);
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpHomePage()));
                               },
                               child: const Text(
                                 "Ana Sayfa",
@@ -138,7 +144,8 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                             Divider(color: Colors.black, thickness: 1,),
                             InkWell(
                               onTap: () {
-                                readNavBar.setCurrentindex(7);
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpStatisic()));
+
                               },
                               child: const Text(
                                 "İstatistik Sayfası",
@@ -152,7 +159,7 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                             Divider(color: Colors.black, thickness: 1,),
                             InkWell(
                               onTap: () {
-                                readNavBar.setCurrentindex(8);
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpCalender()));
                               },
                               child: const Text(
                                 "Takvim Sayfası",
@@ -166,7 +173,7 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                             Divider(color: Colors.black, thickness: 1,),
                             InkWell(
                               onTap: () {
-                                readNavBar.setCurrentindex(9);
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpCalculator()));
                               },
                               child: const Text(
                                 "Hesap Makinesi",

@@ -1,3 +1,7 @@
+import 'package:butcekontrol/Pages/more/Help/HelpHomePage.dart';
+import 'package:butcekontrol/Pages/more/Help/PasswordSplash.dart';
+import 'package:butcekontrol/Pages/more/Help/helpPage.dart';
+import 'package:butcekontrol/Pages/more/settings.dart';
 import 'package:butcekontrol/UI/registerylistW.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/riverpod_management.dart';
@@ -53,7 +57,7 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           iconSize: 20.0,
         ),
         IconButton(
-          onPressed:() => readNavBAr.setCurrentindex(5),
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpCenter())),
           icon: const Icon(
             Icons.question_mark,
             color: Color(0xFFFFFFFF),
@@ -74,8 +78,7 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
 
         IconButton(
           onPressed:() {
-            ref.read(settingsRiverpod).controlSettings();
-            readNavBAr.setCurrentindex(11);
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => settings()));
           },
           icon: const Icon(
             Icons.settings,
