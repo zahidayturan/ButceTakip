@@ -16,6 +16,7 @@ class SQLHelper {
       Language TEXT,
       isBackUp INTEGER,
       Backuptimes TEXT,
+      lastBackup TEXT,
       Password TEXT,
       createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
@@ -43,7 +44,7 @@ class SQLHelper {
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
-      'bka_db6.db',
+      'bka_db3.db',
       version: 1,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
