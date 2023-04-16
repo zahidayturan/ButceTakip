@@ -16,7 +16,7 @@ class dailyInfo extends ConsumerWidget {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: renkler.ArkaRenk,
-          appBar: const appbarDailyInfo(),
+          appBar: const AppbarDailyInfo(),
           body: const dailyInfoBody(),
         ),
       ),
@@ -41,7 +41,6 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
       ],
     );
   }
-
   int? registrationState;
   Widget list(BuildContext context) {
     var readDailyInfo = ref.read(dailyInfoRiverpod);
@@ -60,7 +59,7 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  height: size.height * 0.72,
+                  height: size.height * 0.73,
                   child: Stack(
                     children: [
                       Row(
@@ -70,7 +69,7 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
                             padding: const EdgeInsets.only(left: 11.5),
                             child: SizedBox(
                               width: 4,
-                              height: size.height * 0.72,
+                              height: size.height * 0.73,
                             ),
                           ),
                           Padding(
@@ -81,10 +80,10 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(30)),
+                                        const BorderRadius.all(Radius.circular(30)),
                                     color: snapshot.data!.length <= 8
                                         ? Colors.white
-                                        : Color(0xFF0D1C26)),
+                                        : const Color(0xFF0D1C26)),
                               ),
                             ),
                           ),
@@ -112,6 +111,7 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
                                   child: InkWell(
                                     onTap: () {
                                       {
+
                                         readDailyInfo.setSpendDetail(item, index);
                                         readDailyInfo.regChange(item[index].registration);
                                         ref.watch(databaseRiverpod).Delete;
@@ -127,7 +127,7 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
                                           builder: (context) {
                                             //ref.watch(databaseRiverpod).updatest;
                                             // genel bilgi sekmesi açılıyor.
-                                            return SpendDetail();
+                                            return const SpendDetail();
                                           },
                                         );
                                       }
@@ -348,7 +348,7 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
         if (snapshot.hasData) {
           List data = snapshot.data!;
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -377,17 +377,25 @@ class _dailyInfoBody extends ConsumerState<dailyInfoBody> {
   }
 }
 
-class appbarDailyInfo extends ConsumerWidget implements PreferredSizeWidget {
-  const appbarDailyInfo({Key? key}) : super(key: key);
+class AppbarDailyInfo extends ConsumerStatefulWidget implements PreferredSizeWidget {
+  const AppbarDailyInfo({Key? key}) : super(key: key);
+  @override
+  ConsumerState<AppbarDailyInfo> createState() => _AppbarDailyInfoState();
   @override
   Size get preferredSize => const Size.fromHeight(80);
+}
+
+class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var read = ref.read(dailyInfoRiverpod);
+  Widget build(BuildContext context) {
+    return appBar(context, ref); 
+  }
+  
+  Widget appBar(BuildContext context,WidgetRef ref){
+    List myDate = ref.read(dailyInfoRiverpod).getDate();
     var size = MediaQuery.of(context).size;
-    List myDate = read.getDate();
     return FutureBuilder<double>(
-      future: read.getResult(),
+      future: ref.read(dailyInfoRiverpod).getResult(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           double result = snapshot.data!;
@@ -446,7 +454,6 @@ class appbarDailyInfo extends ConsumerWidget implements PreferredSizeWidget {
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            //readNavBar.setCurrentindex(0);
                             Navigator.of(context).pop();
                           },
                         ),
@@ -464,98 +471,4 @@ class appbarDailyInfo extends ConsumerWidget implements PreferredSizeWidget {
       },
     );
   }
-  /*
-  IconButton(
-                                                                onPressed: () {
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                  readDailyInfo.regChange(item[
-                                                                              index]
-                                                                          .registration =
-                                                                      item[index].registration ==
-                                                                              0
-                                                                          ? 1
-                                                                          : 0);
-                                                                  readDailyInfo.updateRegistration(
-                                                                      item[index]
-                                                                          .id,
-                                                                      item[index]
-                                                                          .registration);
-                                                                  setState(() {
-                                                                    item[index]
-                                                                            .registration =
-                                                                        item[index].registration ==
-                                                                                0
-                                                                            ? 1
-                                                                            : 0;
-                                                                    readDailyInfo
-                                                                        .setReg();
-                                                                  });
-                                                                  ScaffoldMessenger.of(
-                                                                          context)
-                                                                      .showSnackBar(
-                                                                    SnackBar(
-                                                                      backgroundColor:
-                                                                          Color(
-                                                                              0xff0D1C26),
-                                                                      duration: Duration(
-                                                                          seconds:
-                                                                              1),
-                                                                      content: item[index].registration ==
-                                                                              1
-                                                                          ? const Text(
-                                                                              'İşaret Kaldırıldı',
-                                                                              style: TextStyle(
-                                                                                color: Colors.white,
-                                                                                fontSize: 16,
-                                                                                fontFamily: 'Nexa3',
-                                                                                fontWeight: FontWeight.w600,
-                                                                                height: 1.3,
-                                                                              ),
-                                                                            )
-                                                                          : const Text(
-                                                                        'İşaret Eklendi',
-                                                                        style: TextStyle(
-                                                                          color: Colors.white,
-                                                                          fontSize: 16,
-                                                                          fontFamily: 'Nexa3',
-                                                                          fontWeight: FontWeight.w600,
-                                                                          height: 1.3,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                },
-                                                                iconSize: 30,
-                                                                icon: ref
-                                                                            .watch(
-                                                                                dailyInfoRiverpod)
-                                                                            .setReg() ==
-                                                                        0
-                                                                    ? const Icon(
-                                                                        Icons
-                                                                            .bookmark_outline)
-                                                                    : const Icon(
-                                                                        Icons
-                                                                            .bookmark_outlined),
-                                                              ),
-   */
 }
-/*
-IconButton(
-                                                                icon:
-                                                                    const Icon(
-                                                                  Icons
-                                                                      .create_rounded,
-                                                                  size: 35,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                                onPressed:
-                                                                    () {
-                                                                  readUpdateData.setItems(spendinfo.withId(item[index].id!, item[index].operationType, item[index].category, item[index].operationTool, item[index].registration, item[index].amount, item[index].note, item[index].operationDay, item[index].operationMonth, item[index].operationYear, item[index].operationTime, item[index].operationDate));
-                                                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateData(),));
-                                                                  },
-                                                              ),
- */

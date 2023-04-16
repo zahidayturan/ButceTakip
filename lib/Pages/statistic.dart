@@ -29,15 +29,20 @@ class StaticticsBody extends ConsumerStatefulWidget {
 }
 
 class _StaticticsBody extends ConsumerState<StaticticsBody> {
+
   @override
   Widget build(BuildContext context) {
+    ref.listen(databaseRiverpod, (previous, next) {
+      ref.watch(databaseRiverpod).month;
+      ref.watch(databaseRiverpod).isuseinsert ;
+      categoryList(context);
+      return ref.watch(databaseRiverpod);
+    }
+    );
     var size = MediaQuery.of(context).size;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        const SizedBox(
-          height: 5,
-        ),
         SizedBox(
           width: size.width,
           child: Row(
@@ -66,9 +71,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             width: size.width * 0.9,
             height: size.height * 0.40,
             child: categoryList(context)),
-        const SizedBox(
-          height: 5,
-        ),
         /*SizedBox(
           child: Text(
               "data ${validDateMenu} tür ${giderGelirHepsi} yıl ${selectedYearIndex} ay ${selectedMonthIndex} hafta ${selectedWeekIndex} gün ${selectedDayIndex}"),
@@ -183,7 +185,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           child: ListView.builder(
                             itemCount: snapshot.data!.length,
                             itemBuilder: (BuildContext context, int index) {
-                              int colorCount = 0;
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 8,right: 16),
                                 child: InkWell(

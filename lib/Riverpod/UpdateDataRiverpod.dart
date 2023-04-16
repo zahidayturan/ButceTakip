@@ -7,6 +7,13 @@ import '../utils/dbHelper.dart';
 
 class UpdateDataRiverpod extends ChangeNotifier {
 
+
+  bool controller = false;
+  void refreshSet(){
+    controller = !controller;
+    notifyListeners();
+  }
+
   spendinfo? items;
   var id ;
   setItems(spendinfo items){
