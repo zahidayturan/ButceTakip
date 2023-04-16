@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../utils/CvsConverter.dart';
 
 class SettingsRiverpod extends ChangeNotifier{
+  bool isuseinsert = false ; //Settings verileri pop sonrası güncellenmesi için
   int ?id;
   String ?Prefix;
   int ?DarkMode;
@@ -45,12 +46,16 @@ class SettingsRiverpod extends ChangeNotifier{
     if(settingsReglength.length > 0) {
       readDb();
     }else{
-      final info = settingsinfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "2071") ;
+      final info = settingsinfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null") ;
       await SQLHelper.addItemSetting(info);
+      readDb();
     }
     notifyListeners();
   }
-
+  void setisuseinsert(){
+    isuseinsert = !isuseinsert ;
+    notifyListeners();
+  }
   void Backup(){
     writeToCvs();
     setLastBackup();
