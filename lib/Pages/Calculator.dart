@@ -852,7 +852,7 @@ class _CalculatorState extends State<Calculator> {
                 Text(
                   "KREDİ HESAPLAMA",
                   style: TextStyle(
-                    fontSize: 26,
+                    fontSize: 22,
                     fontFamily: 'Nexa4',
                     color: renkler.YaziRenk,
                   ),
@@ -1090,7 +1090,7 @@ class _CalculatorState extends State<Calculator> {
             ), /// kredi suresi
             SizedBox(height: size.height / 35,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: () {
@@ -1105,7 +1105,7 @@ class _CalculatorState extends State<Calculator> {
                   },
                   child: Container(
                     alignment: Alignment.center,
-                    height: size.height / 18,
+                    height: size.height / 22,
                     width: size.width / 3.2,
                     decoration: BoxDecoration(
                         color: renkler.sariRenk,
@@ -1134,7 +1134,7 @@ class _CalculatorState extends State<Calculator> {
                   },
                   child: Container(
                     alignment: Alignment.center,
-                    height: size.height / 18,
+                    height: size.height / 22,
                     width: size.width / 3.2,
                     decoration: BoxDecoration(
                         color: renkler.sariRenk,
@@ -1154,7 +1154,7 @@ class _CalculatorState extends State<Calculator> {
             ), /// sıfırla ve hesapla butonları
             SizedBox(height: size.height / 50,),
             Container(
-              height: size.height / 4.5,
+              height: size.height / 4.8,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
