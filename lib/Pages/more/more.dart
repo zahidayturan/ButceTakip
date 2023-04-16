@@ -1,6 +1,5 @@
 import 'package:butcekontrol/Pages/more/Backup.dart';
 import 'package:butcekontrol/Pages/more/Help/Communicate.dart';
-import 'package:butcekontrol/Pages/more/Help/HelpHomePage.dart';
 import 'package:butcekontrol/Pages/more/Help/helpPage.dart';
 import 'package:butcekontrol/Pages/more/Password.dart';
 import 'package:butcekontrol/Pages/more/settings.dart';
