@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/utils/CvsConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import '../../classes/appBarForPage.dart';
 import '../../classes/navBar.dart';
 import '../../riverpod_management.dart';
@@ -373,13 +370,8 @@ class _backUpState extends ConsumerState<backUp> {
                 borderRadius: BorderRadius.all(Radius.circular(40)),
                 color: Color(0xff0D1C26),
               ),
-<<<<<<< Updated upstream
               height: 34,
               width: 180,
-=======
-              height: 26,
-              width: 170,
->>>>>>> Stashed changes
             ),
           ),
           Row(
