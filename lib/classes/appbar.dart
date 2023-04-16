@@ -18,23 +18,27 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
     CustomColors renkler = CustomColors();
     return AppBar(
       backgroundColor: Color(0xFF0D1C26),
-      title: RichText(
-        text: const TextSpan(
-          text: "Bütçe Kontrol",
+      title: Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: RichText(
+          text: const TextSpan(
+            text: "Bütçe",
 
-          style: TextStyle(
-            fontFamily: "Nexa",
-            color: Color(0xFFFFFFFF),
-            fontSize: 21,
-          ),
-          children: [
-            TextSpan(
-              text: "\nUYGULAMASI",
-              style: TextStyle(
-                color: Color(0xFFF2CB05),
-              ),
+            style: TextStyle(
+              fontFamily: "Nexa3",
+              color: Color(0xFFFFFFFF),
+              fontSize: 21,
             ),
-          ],
+            children: [
+              TextSpan(
+                text: " Takip",
+                style: TextStyle(
+                  fontFamily: "NEXA3",
+                  color: Color(0xFFF2CB05),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       actions: [

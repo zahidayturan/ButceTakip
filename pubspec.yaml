@@ -46,7 +46,8 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 flutter_native_splash:
-  image: assets/image/icon_BKA/LOGOBKA.png
+  image: assets/image/icon_BKA/splash.png
+  android: true
   color: "#0D1C26"
 
 dev_dependencies:

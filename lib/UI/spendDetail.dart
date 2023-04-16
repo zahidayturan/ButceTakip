@@ -1,6 +1,4 @@
-import 'package:butcekontrol/Riverpod/dailyInfoRiverpod.dart';
 import 'package:butcekontrol/riverpod_management.dart';
-import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,13 +37,14 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
     List<spendinfo> item = readDailyInfo.getSpendDetailItem();
     int index = readDailyInfo.getSpendDetailIndex();
     var size = MediaQuery.of(context).size;
+    ref.watch(updateDataRiverpod).controller;
     return Padding(
       padding:
       const EdgeInsets.symmetric(
           horizontal: 18.0,
           vertical: 20.0),
       child: Container(
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           minHeight: double.infinity
         ),
         child: Column(
@@ -246,7 +245,7 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
               MainAxisAlignment
                   .spaceAround,
               children: [
-                Column(
+                /*Column(
                   children: [
                     DecoratedBox(
                       decoration:
@@ -267,8 +266,8 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               backgroundColor:
-                              Color(0xff0D1C26),
-                              duration: Duration(seconds: 1),
+                              const Color(0xff0D1C26),
+                              duration: const Duration(seconds: 1),
                               content: item[index].registration == 1 ? const Text(
                                 'İşaret Kaldırıldı',
                                 style: TextStyle(
@@ -311,7 +310,7 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
                       ),
                     ),
                   ],
-                ),
+                ),*/
                 Column(
                   children: [
                     DecoratedBox(
@@ -401,7 +400,7 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
                         ),
                         onPressed: () {
                           readUpdateData.setItems(spendinfo.withId(item[index].id!, item[index].operationType, item[index].category, item[index].operationTool, item[index].registration, item[index].amount, item[index].note, item[index].operationDay, item[index].operationMonth, item[index].operationYear, item[index].operationTime, item[index].operationDate));
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateData(),));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UpdateData(),));
                         },
                       ),
                     ),

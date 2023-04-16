@@ -78,11 +78,15 @@ class registeryListW extends ConsumerWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: const [
-                            Text(
-                              "     İşlem\nKategorisi",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Nexa4",
+
+                            Padding(
+                              padding: EdgeInsets.only(left: 15),
+                              child: Text(
+                                "     İşlem\nKategorisi",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Nexa4",
+                                ),
                               ),
                             ),
                             Text(
@@ -123,9 +127,10 @@ class registeryListW extends ConsumerWidget {
                                               color: renkler.ArkaRenk,
                                             )
                                         )
-                                            : const Border(
+                                            : Border(
                                             right: BorderSide(
-                                              width: 0,
+                                              color: renkler.koyuuRenk,
+                                              width: 1,
                                             )
                                         ) ,
                                       ),
@@ -155,49 +160,52 @@ class registeryListW extends ConsumerWidget {
                                                 fit: StackFit.expand,
                                                 children: [
                                                   Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical:7,horizontal: 15),
+                                                    padding: const EdgeInsets.symmetric(vertical:6,horizontal: 15),
                                                     child: ClipRRect(
                                                       borderRadius: BorderRadius.circular(20),
                                                       child: Container(
                                                         color: renkler.ArkaRenk,
                                                         height: 1,
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                          children: [
-                                                            SizedBox(
-                                                              width: size.width / 20,
-                                                            ),
-                                                            SizedBox(
-                                                              width : size.width/4,
-                                                              child: Center(
-                                                                child: Text(
-                                                                  "${item[index].category}",
-                                                                  style: const TextStyle(
-                                                                    fontFamily: "Nexa4",
-                                                                    fontSize: 15,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(top: 2),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                            children: [
+                                                              SizedBox(
+                                                                width: size.width / 20,
+                                                              ),
+                                                              SizedBox(
+                                                                width : size.width/3.6,
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    "${item[index].category}",
+                                                                    style: const TextStyle(
+                                                                      fontFamily: "Nexa4",
+                                                                      fontSize: 15,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: size.width / 13,
-                                                            ),
-                                                            SizedBox(
-                                                              width: size.width/5,
-                                                              child: Center(
-                                                                child: Text(
-                                                                  "${item[index].amount}",
-                                                                  style: TextStyle(
-                                                                    color: item[index].operationType == "Gelir"
-                                                                        ? Colors.green
-                                                                        : Colors.red ,
-                                                                    fontFamily: "Nexa4",
-                                                                    fontSize: 15,
+                                                              SizedBox(
+                                                                width: size.width / 20,
+                                                              ),
+                                                              SizedBox(
+                                                                width: size.width/5,
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    "${item[index].amount}",
+                                                                    style: TextStyle(
+                                                                      color: item[index].operationType == "Gelir"
+                                                                          ? Colors.green
+                                                                          : Colors.red ,
+                                                                      fontFamily: "Nexa4",
+                                                                      fontSize: 15,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),

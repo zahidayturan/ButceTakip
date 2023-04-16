@@ -68,7 +68,6 @@ class CalendarRiverpod extends ChangeNotifier {
         .fold(0, (previousValue, element) => previousValue + element.amount!);
 
     double result = totalAmount - totalAmount2;
-
     return Future.value(result);
   }
 

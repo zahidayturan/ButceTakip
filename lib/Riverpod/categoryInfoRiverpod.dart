@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-
 import '../modals/Spendinfo.dart';
 import '../utils/dbHelper.dart';
 
@@ -56,7 +55,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
       var date = DateTime.utc(year, month, 1);
       var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
       var startDate = date.add(Duration(days: daysToAdd));
-      var endDate = startDate.add(Duration(days: 6));
+      var endDate = startDate.add(const Duration(days: 6));
       List<List<spendinfo>> allSpendInfo = [];
       for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
         var date = startDate.add(Duration(days: i));
@@ -96,7 +95,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
       var date = DateTime.utc(year, month, 1);
       var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
       var startDate = date.add(Duration(days: daysToAdd));
-      var endDate = startDate.add(Duration(days: 6));
+      var endDate = startDate.add(const Duration(days: 6));
       List<List<spendinfo>> allSpendInfo = [];
       for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
         var date = startDate.add(Duration(days: i));
