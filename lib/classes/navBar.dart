@@ -154,16 +154,6 @@ class navBar extends ConsumerWidget {
                               }
                             ),
                             read.currentindex == 4
-                          || read.currentindex == 5
-                          || read.currentindex == 6
-                          || read.currentindex == 7
-                          || read.currentindex == 8
-                          || read.currentindex == 9
-                          || read.currentindex == 10
-                          ||read.currentindex == 11
-                          || read.currentindex == 12
-                          || read.currentindex == 13
-                          || read.currentindex == 14
                                 ? ClipRRect( ///navbar sarı pointer
                                   borderRadius: BorderRadius.vertical(top:Radius.circular(20)),
                                   child: Container(
@@ -173,7 +163,7 @@ class navBar extends ConsumerWidget {
                                     color: renkler.sariRenk,
                                     ),
                                   )
-                                :SizedBox(width: 1,)
+                                :SizedBox(width: 1)
                           ],
                         )
                       ],

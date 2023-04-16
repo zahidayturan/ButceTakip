@@ -6,6 +6,7 @@ class settingsinfo {
   String ?Language;
   int ?isBackUp;
   String ?Backuptimes ;
+  String ?Password ;
 
   settingsinfo(
       this.Prefix,
@@ -13,7 +14,8 @@ class settingsinfo {
       this.isPassword,
       this.Language,
       this.isBackUp,
-      this.Backuptimes
+      this.Backuptimes,
+      this.Password
       );
   settingsinfo.withId(
       this.id,
@@ -22,7 +24,8 @@ class settingsinfo {
       this.isPassword,
       this.Language,
       this.isBackUp,
-      this.Backuptimes
+      this.Backuptimes,
+      this.Password
       );
   Map <String, dynamic> toMap(){
     var map = <String, dynamic>{};
@@ -32,6 +35,7 @@ class settingsinfo {
     map["Language"] = Language;
     map["isBackUp"] = isBackUp;
     map["Backuptimes"] = Backuptimes;
+    map["Password"] = Password ;
     return map ;
   }
   settingsinfo.fromObject(dynamic o){
@@ -42,5 +46,6 @@ class settingsinfo {
     Language = o["Language"];
     isBackUp = o["isBackUp"] as int;
     Backuptimes = o["Backuptimes"];
+    Password = o["Password"] ;
   }
 }

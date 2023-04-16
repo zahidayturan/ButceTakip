@@ -4,9 +4,8 @@ import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/utils/CvsConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path_provider/path_provider.dart';
-
 import '../../classes/appBarForPage.dart';
+import '../../classes/navBar.dart';
 import '../../riverpod_management.dart';
 
 class backUp extends ConsumerStatefulWidget {
@@ -31,6 +30,7 @@ class _backUpState extends ConsumerState<backUp> {
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
+          bottomNavigationBar: navBar(),
           appBar: AppBarForPage(title: "YEDEKLE"),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),
@@ -204,6 +204,23 @@ class _backUpState extends ConsumerState<backUp> {
                                             InkWell(
                                               onTap: () {
                                                 restore();
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                      Color(0xff0D1C26),
+                                                      duration: Duration(seconds: 1),
+                                                      content: Text(
+                                                        'Verileriniz Çekildi',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 16,
+                                                          fontFamily: 'Nexa3',
+                                                          fontWeight: FontWeight.w600,
+                                                          height: 1.3,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                );
                                               },
                                               child: FittedBox(
                                                 child: DecoratedBox(
@@ -231,7 +248,23 @@ class _backUpState extends ConsumerState<backUp> {
                                               onTap: () {
                                                 writeToCvs();
                                                 setState(() {
-
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                      const SnackBar(
+                                                        backgroundColor:
+                                                        Color(0xff0D1C26),
+                                                        duration: Duration(seconds: 1),
+                                                        content: Text(
+                                                          '/Download/BKA_data.cvs indirildi !',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 16,
+                                                            fontFamily: 'Nexa3',
+                                                            fontWeight: FontWeight.w600,
+                                                            height: 1.3,
+                                                          ),
+                                                        ),
+                                                      )
+                                                  );
                                                 });
                                               },
                                               child: FittedBox(

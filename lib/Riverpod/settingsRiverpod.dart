@@ -10,6 +10,8 @@ class SettingsRiverpod extends ChangeNotifier{
   String ?Language;
   int ?isBackUp;
   String ?Backuptimes ;
+  String ?Password ;
+  bool Status  = false ; // şifre girildi mi ?
 
   Future readDb() async{
     List<settingsinfo> setting = await SQLHelper.settingsControl() ;
@@ -20,7 +22,8 @@ class SettingsRiverpod extends ChangeNotifier{
     Language = setting[setting.length - 1].Language;
     isBackUp = setting[setting.length - 1].isBackUp;
     Backuptimes = setting[setting.length - 1].Backuptimes;
-    print("id : ${setting[setting.length - 1].id},\ndil :${setting[setting.length - 1].Prefix},\nDarkmode :${setting[setting.length - 1].DarkMode},\nisPassword : ${setting[setting.length - 1].isPassword}\nLanguage : ${setting[setting.length - 1].Language}\nisBackup :${isBackUp = setting[setting.length - 1].isBackUp}\nBackuptims : ${setting[setting.length - 1].Backuptimes}");
+    Password = setting[setting.length - 1].Password;
+    print("id : ${setting[setting.length - 1].id},\ndil :${setting[setting.length - 1].Prefix},\nDarkmode :${setting[setting.length - 1].DarkMode},\nisPassword : ${setting[setting.length - 1].isPassword}\nLanguage : ${setting[setting.length - 1].Language}\nisBackup :${isBackUp = setting[setting.length - 1].isBackUp}\nBackuptims : ${setting[setting.length - 1].Backuptimes}\nPassword : ${setting[setting.length - 1].Password}");
     notifyListeners();
   }
   Future controlSettings() async{ //settings Kayıt değerlendiriyoruz.
@@ -28,12 +31,11 @@ class SettingsRiverpod extends ChangeNotifier{
     if(settingsReglength.length > 0) {
       readDb();
     }else{
-      final info = settingsinfo("TRY", 0, 0, "Turkce", 0, "day") ;
+      final info = settingsinfo("TRY", 0, 0, "Turkce", 0, "day", "2071") ;
       await SQLHelper.addItemSetting(info);
     }
     notifyListeners();
   }
-
   void setDarkMode(bool mode){
     DarkMode = mode ? 1 : 0 ;
     Updating();
@@ -52,6 +54,14 @@ class SettingsRiverpod extends ChangeNotifier{
     }
     Updating();
   }
+  void setPasswordMode(bool mode) {
+    isPassword = mode ? 1 : 0 ;
+    Updating();
+  }
+  void setPassword(String Password){
+    this.Password = Password ;
+    Updating();
+  }
   Future Updating() async {
     final info = settingsinfo.withId(
         id,
@@ -60,7 +70,13 @@ class SettingsRiverpod extends ChangeNotifier{
         isPassword,
         Language,
         isBackUp,
-        Backuptimes );
+        Backuptimes,
+        Password
+    );
     await SQLHelper.updateSetting(info);
+  }
+  void setStatus(bool value){
+    Status = value ;
+    notifyListeners();
   }
 }
