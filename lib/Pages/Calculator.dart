@@ -266,15 +266,6 @@ class _CalculatorState extends State<Calculator> {
                         width: size.width / 3,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            color: renkler.koyuuRenk,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width / 3,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
                                 width: 2.0,

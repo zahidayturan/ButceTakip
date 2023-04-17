@@ -465,8 +465,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
             ),
           );
         } else {
-          // show loading indicator
-          return const CircularProgressIndicator();
+          return const SizedBox();
         }
       },
     );
