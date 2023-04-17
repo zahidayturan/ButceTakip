@@ -116,7 +116,7 @@ class _CalculatorState extends State<Calculator> {
                     left: 20.0,
                   ),
                   child: SizedBox(
-                    height: size.height * 0.54,
+                    height: size.height * 0.56,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(40),

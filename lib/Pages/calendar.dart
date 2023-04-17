@@ -41,11 +41,9 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
   }
 
   Widget CalendarDesign(BuildContext context, WidgetRef ref) {
-    bool controller = false;
     ref.listen(databaseRiverpod, (previous, next) {
-      ref.watch(databaseRiverpod).month;
       ref.watch(databaseRiverpod).isuseinsert ;
-      controller = !controller;
+      ref.watch(databaseRiverpod).updatest;
       return ref.watch(databaseRiverpod);
     }
     );

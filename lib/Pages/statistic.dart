@@ -33,8 +33,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   @override
   Widget build(BuildContext context) {
     ref.listen(databaseRiverpod, (previous, next) {
-      ref.watch(databaseRiverpod).month;
       ref.watch(databaseRiverpod).isuseinsert ;
+      ref.watch(databaseRiverpod).updatest;
       categoryList(context);
       return ref.watch(databaseRiverpod);
     }

@@ -86,6 +86,7 @@ class DbProvider extends ChangeNotifier {
   void Update(){
     print("güncellendi");
     updatest = !updatest ;
+    refreshDB();
     notifyListeners();
   }
 

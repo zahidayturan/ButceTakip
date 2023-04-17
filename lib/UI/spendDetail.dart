@@ -37,7 +37,6 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
     List<spendinfo> item = readDailyInfo.getSpendDetailItem();
     int index = readDailyInfo.getSpendDetailIndex();
     var size = MediaQuery.of(context).size;
-    ref.watch(updateDataRiverpod).controller;
     return Padding(
       padding:
       const EdgeInsets.symmetric(
