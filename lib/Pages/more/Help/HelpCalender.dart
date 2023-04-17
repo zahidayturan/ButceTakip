@@ -1,3 +1,4 @@
+import 'package:butcekontrol/Pages/more/Help/helpFooter.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
@@ -67,13 +68,13 @@ class helpCalender extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Kullanıcıların girdilerini esas alarak takvimsel olarak gereklilik olduğunu fark ettik bunun üzerine Kendi tasarımımız olan takvimi uygulattık. \n"
+                            "Kullanıcıların girdilerini esas alarak takvimsel olarak gereklilik olduğunu fark ettik bunun üzerine Kendi tasarımımız olan takvimi uygulattık. \n"
                         ),
                         Image.asset(
-                          "assets/image/helpcalender1.png"
+                            "assets/image/helpcalender1.png"
                         ),
                         Text(
-                          "\n\nKayan butonlar ile uygulamamızın bir çok yerinde karşılaşabilirsiniz. Kullanımı son derece kolay olan bu butonları aktif etmek için yapmanızgereken sağ veya sola kaydırmak olacaktır. Hem ay hem de yıl değişimini sağlayan bu yapı takvim kategorimizin güncellenmesini sağlamaktadır.\n"
+                            "\n\nKayan butonlar ile uygulamamızın bir çok yerinde karşılaşabilirsiniz. Kullanımı son derece kolay olan bu butonları aktif etmek için yapmanızgereken sağ veya sola kaydırmak olacaktır. Hem ay hem de yıl değişimini sağlayan bu yapı takvim kategorimizin güncellenmesini sağlamaktadır.\n"
                         ),
                         Image.asset(
                             "assets/image/helpcalender2.png"
@@ -82,6 +83,7 @@ class helpCalender extends StatelessWidget {
                       ],
                     ),
                   ),
+                  HelpFooter(context)
                 ],
               ),
             ),

@@ -11,14 +11,11 @@ class Calendar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var readNavBar = ref.read(botomNavBarRiverpod);
     readNavBar.currentColor = const Color(0xffF2F2F2);
-    return Container(
-      color: const Color(0xff0D1C26),
-      child: const SafeArea(
-        child: Scaffold(
-          backgroundColor: Color(0xffF2F2F2),
-          appBar: AppBarForPage(title: 'İŞLEM TAKVİMİ'),
-          body: CalendarBody(),
-        ),
+    return const SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(0xffF2F2F2),
+        appBar: AppBarForPage(title: 'İŞLEM TAKVİMİ'),
+        body: CalendarBody(),
       ),
     );
   }

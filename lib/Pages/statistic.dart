@@ -9,14 +9,11 @@ class Statistics extends ConsumerWidget {
   const Statistics({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      color: const Color(0xff0D1C26),
-      child: const SafeArea(
-        child: Scaffold(
-          backgroundColor: Color(0xffF2F2F2),
-          appBar: AppBarForPage(title: 'İSTATİSTİKLER'),
-          body: StaticticsBody(),
-        ),
+    return const SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(0xffF2F2F2),
+        appBar: AppBarForPage(title: 'İSTATİSTİKLER'),
+        body: StaticticsBody(),
       ),
     );
   }
@@ -46,16 +43,17 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         SizedBox(
           width: size.width,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               RotatedBox(
                 quarterTurns: 3,
                 child: gelirGiderButon(context),
               ),
-              SizedBox(
-                width: size.width*0.78,
-                height: size.height*0.26,
-                child: pasta(context),
+              Expanded(
+                child: SizedBox(
+                  height: size.height*0.26,
+                  child: pasta(context),
+                ),
               ),
               RotatedBox(
                 quarterTurns: 3,

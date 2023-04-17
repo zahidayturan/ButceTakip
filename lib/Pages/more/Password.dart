@@ -34,7 +34,7 @@ class _passwordPageState extends ConsumerState<passwordPage> {
     bool isopen = readSetting.isPassword == 1 ? true : false ;
     return WillPopScope(
       onWillPop: () async{
-      if(readSetting.isPassword == 1) {
+      if(readSetting.isPassword == 1 && readSetting.Password == "null") {
         bool confirm = await showDialog(
           context: context,
           builder: (context) =>
@@ -111,7 +111,6 @@ class _passwordPageState extends ConsumerState<passwordPage> {
         color: renkler.koyuuRenk,
         child: SafeArea(
           child: Scaffold(
-            bottomNavigationBar: const navBar(),
             appBar: AppBarForPage(title: "GİRİŞ ŞİFRESİ"),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
@@ -374,7 +373,7 @@ class _passwordPageState extends ConsumerState<passwordPage> {
                   Status = true ;
                   ref.read(settingsRiverpod).setPasswordMode(true);
                   ref.read(settingsRiverpod).setPassword(Password1);
-                  ref.read(settingsRiverpod).setisuseinsert();
+                  //ref.read(settingsRiverpod).setisuseinsert();
                   Navigator.of(context).pop();
                 });
                 ScaffoldMessenger.of(context).showSnackBar(

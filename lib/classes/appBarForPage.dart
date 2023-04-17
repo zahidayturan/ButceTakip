@@ -76,7 +76,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                 if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE" || title == "YARDIM<"){
                   Navigator.of(context).pop();
                 }else if(title == "GİRİŞ ŞİFRESİ") {
-                  if(readsetting.isPassword == 1) {
+                  if(readsetting.isPassword == 1 && readsetting.Password == "null") {
                     bool confirm = await showDialog(
                       context: context,
                       builder: (context) =>

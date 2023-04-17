@@ -227,15 +227,15 @@ class More extends ConsumerWidget {
                             onTap: () {
                               //Navigator.of(context).push(MaterialPageRoute(builder: (context) => communicate()));
                               Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                              transitionDuration: Duration(milliseconds: 1),
-                              pageBuilder: (context, animation, nextanim) => communicate(),
-                              reverseTransitionDuration: Duration(milliseconds: 1),
-                              transitionsBuilder: (context, animation, nexttanim, child) {
-                              return FadeTransition(
-                                  opacity: animation,
-                                  child: child,
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: Duration(milliseconds: 1),
+                                  pageBuilder: (context, animation, nextanim) => communicate(),
+                                  reverseTransitionDuration: Duration(milliseconds: 1),
+                                  transitionsBuilder: (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
                                     );
                                   },
                                 ),

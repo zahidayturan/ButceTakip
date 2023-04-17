@@ -27,7 +27,6 @@ class navBar extends ConsumerWidget {
             child: Container(
               width: size.width,
               height: 52,
-              //color: Colors.white,
               child: Stack(
                 children: [
                   CustomPaint(

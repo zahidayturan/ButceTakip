@@ -1,3 +1,4 @@
+import 'package:butcekontrol/Pages/more/Help/helpFooter.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/classes/navBar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
@@ -66,7 +67,7 @@ class helpCalculator extends StatelessWidget {
                           ),
                         ),
                         const Text(
-                          "Mevzu bahis Cüzdan ve Para yönetimi ise Hesapsız ve basit matematik işlemleri olmadan olmaz dedik dolayısıyla uygulamamızda pratik işlemleri yapabileceğiniz küçük bir hesap makinesi oluşturduk.\n"
+                            "Mevzu bahis Cüzdan ve Para yönetimi ise Hesapsız ve basit matematik işlemleri olmadan olmaz dedik dolayısıyla uygulamamızda pratik işlemleri yapabileceğiniz küçük bir hesap makinesi oluşturduk.\n"
                         ),
                         Image.asset(
                           "assets/image/helpcalculator1.png",
@@ -79,7 +80,7 @@ class helpCalculator extends StatelessWidget {
                           "\nsayı 2 ‘yi ekle seçeneği işaretlendiğinde varsayılı olarak 1. seçenek yani Sayı 2 Sayı 1’in Yüzde kaçıdır tarzındaki problemler için yazılmış seçilmiş oluyor burada program yüzdesel oran çıktısını veriyor .\n\n",
                         ),
                         const Text(
-                          "2. seçenek yani Sayı 1’den Sayı 2’ ye Değişim oranı kaçtır bu probleme genel olarak finans alanında çokça karşılaşılır. bu seçeneğimizde yine yüzdesel bir çıktı verir.\n"
+                            "2. seçenek yani Sayı 1’den Sayı 2’ ye Değişim oranı kaçtır bu probleme genel olarak finans alanında çokça karşılaşılır. bu seçeneğimizde yine yüzdesel bir çıktı verir.\n"
                         ),
                         Image.asset(
                           "assets/image/helpcalculator3.png",
@@ -93,11 +94,12 @@ class helpCalculator extends StatelessWidget {
                           width: 180,
                         ),
                         const Text(
-                          "\n\ngirilen yüzde , Ana para ve Vade ile Kredi hesaplaması yapılmaktadır. Kullanıcılarımıza en basit şekli ile sade bir tasarım sunarak hesaplama sonucunda Aylık taksit miktarı, Toplam faiz ve Toplam ödeme gibi başlıklar gösterilmektedir. ",
+                          "\n\ngirilen yüzde , Ana para ve Vade ile Kredi hesaplaması yapılmaktadır. Kullanıcılarımıza en basit şekli ile sade bir tasarım sunarak hesaplama sonucunda Aylık taksit miktarı, Toplam faiz ve Toplam ödeme gibi başlıklar gösterilmektedir. \n\n",
                         ),
                       ],
                     ),
                   ),
+                  HelpFooter(context)
                 ],
               ),
             ),

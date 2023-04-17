@@ -14,15 +14,12 @@ class AddData extends StatefulWidget {
 class _AddDataState extends State<AddData> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xff0D1C26),
-      child: const SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: _AddAppBar(),
-          body: ButtonMenu(),
-          bottomNavigationBar: null,
-        ),
+    return const SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _AddAppBar(),
+        body: ButtonMenu(),
+        bottomNavigationBar: null,
       ),
     );
   }

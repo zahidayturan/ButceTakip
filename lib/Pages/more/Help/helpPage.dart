@@ -54,11 +54,11 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                           width: 60,
                         ),
                         const Text(
-                            "Help Center",
+                          "Help Center",
                           style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: "Nexa3",
-                            fontSize: 25
+                              color: Colors.white,
+                              fontFamily: "Nexa3",
+                              fontSize: 25
                           ),
                         ),
                       ],
@@ -93,25 +93,25 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                                 color: Colors.orange,
                               ),
                               TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        transitionDuration: Duration(milliseconds: 1),
-                                        pageBuilder: (context, animation, nextanim) => versionshelp(),
-                                        reverseTransitionDuration: Duration(milliseconds: 1),
-                                        transitionsBuilder: (context, animation, nexttanim, child) {
-                                          return FadeTransition(
-                                            opacity: animation,
-                                            child: child,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: const Text(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      transitionDuration: Duration(milliseconds: 1),
+                                      pageBuilder: (context, animation, nextanim) => versionshelp(),
+                                      reverseTransitionDuration: Duration(milliseconds: 1),
+                                      transitionsBuilder: (context, animation, nexttanim, child) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: child,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: const Text(
                                     "Android 1.0v Update(17.04.2023)"
-                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -270,42 +270,42 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
                                   color: Color(0xffDDDCDC),
                                   borderRadius: BorderRadius.circular(20)
-                                ),
-                                child: ExpansionTile(
+                              ),
+                              child: ExpansionTile(
 
-                                  title: Text("Uygulamam aniden kapanıyor."),
-                                  trailing: customicom ? const Icon(
-                                    Icons.keyboard_arrow_up,
-                                    size: 30,
-                                  )
-                                  : const Icon(
-                                      Icons.keyboard_arrow_down,
-                                    size: 30,
-                                  ),
-                                  onExpansionChanged: (bool expanded) {
-                                    setState(() => customicom = expanded);
-                                  },
-                                  tilePadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                                      child: Container(
-                                          child: const Text(
-                                              "Bazı durumlarda beklenmeyen sonuçlarla\nkarşılaşabiliyoruz. Böyle bir"
+                                title: Text("Uygulamam aniden kapanıyor."),
+                                trailing: customicom ? const Icon(
+                                  Icons.keyboard_arrow_up,
+                                  size: 30,
+                                )
+                                    : const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  size: 30,
+                                ),
+                                onExpansionChanged: (bool expanded) {
+                                  setState(() => customicom = expanded);
+                                },
+                                tilePadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                                    child: Container(
+                                        child: const Text(
+                                            "Bazı durumlarda beklenmeyen sonuçlarla\nkarşılaşabiliyoruz. Böyle bir"
                                                 "durumda yapmanız gereken güncellemeleri kontrol etmektir. Eğer hala "
                                                 "sorun devam ediyorsa lütfen geri bildirim bırakınız.\n"
-                                          )
-                                      ),
+                                        )
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 3),
                             child: DecoratedBox(
@@ -334,10 +334,10 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                                     child: Container(
                                         child: const Text(
                                           "Uygulama son güncelleme ile gelen bazı yenilikler dolayısıyla "
-                                          "veritabanının güncellenmesi noktasında eski sürümün desteklenmemesi "
-                                          "bu soruna yol açmış olabilir teknik ekibimiz bu durumla karşılaşmamak"
-                                          "için version güncellenmesinde yedekleme işlemini gerçekleştirmektedirler "
-                                          "yinede geri bildirim bırakabilirsiniz.\n",
+                                              "veritabanının güncellenmesi noktasında eski sürümün desteklenmemesi "
+                                              "bu soruna yol açmış olabilir teknik ekibimiz bu durumla karşılaşmamak"
+                                              "için version güncellenmesinde yedekleme işlemini gerçekleştirmektedirler "
+                                              "yinede geri bildirim bırakabilirsiniz.\n",
                                         )
                                     ),
                                   ),
@@ -374,49 +374,49 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             const Text(
-                                                "Uygulamamızda iletişim kısmındaki mail veya Linkedin adreslerimiz üzerinden bizlere ulaşabilirsiniz.\n",
+                                              "Uygulamamızda iletişim kısmındaki mail veya Linkedin adreslerimiz üzerinden bizlere ulaşabilirsiniz.\n",
                                             ),
-                                          InkWell(
-                                            onTap: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    PageRouteBuilder(
-                                                      transitionDuration: Duration(milliseconds: 1),
-                                                      pageBuilder: (context, animation, nextanim) => communicate(),
-                                                      reverseTransitionDuration: Duration(milliseconds: 1),
-                                                      transitionsBuilder: (context, animation, nexttanim, child) {
-                                                        return FadeTransition(
-                                                          opacity: animation,
-                                                          child: child,
-                                                        );
-                                                      },
-                                                    ),
-                                                  );
-                                                },
-                                            child: SizedBox(
-                                              height: 30,
-                                              width: 100,
-                                              child: DecoratedBox(
-                                                decoration: BoxDecoration(
-                                                  color: renkler.koyuuRenk,
-                                                  borderRadius: BorderRadius.circular(20),
-                                                ),
-                                                child: const Center(
-                                                  child: Text(
-                                                    "İLETİŞİM",
-                                                    style: TextStyle(
-                                                        fontFamily: "Nexa2",
-                                                        fontSize: 16,
-                                                      color: Colors.amber
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  PageRouteBuilder(
+                                                    transitionDuration: Duration(milliseconds: 1),
+                                                    pageBuilder: (context, animation, nextanim) => communicate(),
+                                                    reverseTransitionDuration: Duration(milliseconds: 1),
+                                                    transitionsBuilder: (context, animation, nexttanim, child) {
+                                                      return FadeTransition(
+                                                        opacity: animation,
+                                                        child: child,
+                                                      );
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                              child: SizedBox(
+                                                height: 30,
+                                                width: 100,
+                                                child: DecoratedBox(
+                                                  decoration: BoxDecoration(
+                                                    color: renkler.koyuuRenk,
+                                                    borderRadius: BorderRadius.circular(20),
+                                                  ),
+                                                  child: const Center(
+                                                    child: Text(
+                                                      "İLETİŞİM",
+                                                      style: TextStyle(
+                                                          fontFamily: "Nexa2",
+                                                          fontSize: 16,
+                                                          color: Colors.amber
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
                                             SizedBox(height: 10),
-                                        ],
-                                      )
+                                          ],
+                                        )
                                     ),
                                   ),
                                 ],

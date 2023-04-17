@@ -58,20 +58,20 @@ class _settingsState extends ConsumerState<settings> {
                           children: [
                             const Text(
                               "Koyu Tema",
-                                style: TextStyle(
-                                  fontFamily: "Nexa3",
-                                ),
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
+                              ),
                             ),
                             Spacer(),
                             darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                          : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                                : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                             Switch(
-                                value: darkthememode,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    readSetting.setDarkMode(value) ;
-                                  });
-                                },
+                              value: darkthememode,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  readSetting.setDarkMode(value) ;
+                                });
+                              },
                             ),
                           ],
                         ),
@@ -114,7 +114,7 @@ class _settingsState extends ConsumerState<settings> {
                                   pageBuilder: (context, animation, nextanim) =>
                                       passwordPage(),
                                   reverseTransitionDuration:
-                                      Duration(milliseconds: 1),
+                                  Duration(milliseconds: 1),
                                   transitionsBuilder:
                                       (context, animation, nexttanim, child) {
                                     return FadeTransition(
@@ -225,7 +225,7 @@ class _settingsState extends ConsumerState<settings> {
                                 child: DropdownButton(
                                   dropdownColor: renkler.koyuuRenk,
                                   borderRadius: BorderRadius.circular(20),
-                                   value: dropdownshowitem,
+                                  value: dropdownshowitem,
                                   elevation: 16,
                                   style: TextStyle(color: renkler.sariRenk),
                                   underline: Container(
