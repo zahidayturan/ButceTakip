@@ -28,6 +28,7 @@ class _backUpState extends ConsumerState<backUp> {
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: const Color(0xffF2F2F2),
           bottomNavigationBar: const navBar(),
           appBar: const AppBarForPage(title: "YEDEKLE"),
           body: Padding(

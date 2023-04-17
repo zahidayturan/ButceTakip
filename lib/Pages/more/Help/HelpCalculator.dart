@@ -14,6 +14,7 @@ class helpCalculator extends StatelessWidget {
       color: renkler.koyuuRenk,
       child: SafeArea(
           child: Scaffold(
+            backgroundColor: const Color(0xffF2F2F2),
             bottomNavigationBar: navBar(),
             appBar: const AppBarForPage(title: "YARDIM<"),
             body: SingleChildScrollView(
@@ -75,11 +76,25 @@ class helpCalculator extends StatelessWidget {
                           "assets/image/helpcalculator2.png",
                         ),
                         const Text(
-                          "sayı 2 ‘yi ekle seçeneği işaretlendiğinde varsayılı olarak 1. seçenek yani Sayı 2 Sayı 1’in Yüzde kaçıdır tarzındaki problemler için yazılmış seçilmiş oluyor burada program yüzdesel oran çıktısını veriyor .\n\n",
+                          "\nsayı 2 ‘yi ekle seçeneği işaretlendiğinde varsayılı olarak 1. seçenek yani Sayı 2 Sayı 1’in Yüzde kaçıdır tarzındaki problemler için yazılmış seçilmiş oluyor burada program yüzdesel oran çıktısını veriyor .\n\n",
                         ),
                         const Text(
                           "2. seçenek yani Sayı 1’den Sayı 2’ ye Değişim oranı kaçtır bu probleme genel olarak finans alanında çokça karşılaşılır. bu seçeneğimizde yine yüzdesel bir çıktı verir.\n"
-                        )
+                        ),
+                        Image.asset(
+                          "assets/image/helpcalculator3.png",
+                        ),
+                        const Text("Döviz dönüştürücü bölümünde internetin varlığında anlık olarak API üzerinden güncellenen kurlarca hesaplama amaçlanmaktadır lakin şuanlık sabitlenen veriler den hesaplama gösterilmektedir API işlemleri sonraki versiyon güncellenmesinde gelmesi beklenmektedir.\n"),
+                        const Text(
+                          "TL ve USD gibi değişkenleri yana kaydırarak kullanım sağlayabailirsiniz şuanda 3 adet Döviz çeşiti vardır ; TRY, USD, EUR\n",
+                        ),
+                        Image.asset(
+                          "assets/image/helpcalculator4.png",
+                          width: 180,
+                        ),
+                        const Text(
+                          "\n\ngirilen yüzde , Ana para ve Vade ile Kredi hesaplaması yapılmaktadır. Kullanıcılarımıza en basit şekli ile sade bir tasarım sunarak hesaplama sonucunda Aylık taksit miktarı, Toplam faiz ve Toplam ödeme gibi başlıklar gösterilmektedir. ",
+                        ),
                       ],
                     ),
                   ),

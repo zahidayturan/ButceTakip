@@ -12,7 +12,7 @@ class Textmod extends StatelessWidget {
     return Text(
           text,
           style: TextStyle(
-            fontFamily: "Nexa",
+            fontFamily: "Nexa4",
             color: this.color,
             fontSize: this.size,
             fontWeight: FontWeight.w900,

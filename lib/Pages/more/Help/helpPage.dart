@@ -31,8 +31,8 @@ class _helpCenterState extends ConsumerState<helpCenter> {
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: const Color(0xffF2F2F2),
           bottomNavigationBar: navBar(),
-          //backgroundColor: Color(0xffF2F2F2),
           appBar: AppBarForPage(title: "YARDIM"),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,

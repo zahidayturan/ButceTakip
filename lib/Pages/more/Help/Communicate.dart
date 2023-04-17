@@ -15,6 +15,7 @@ class communicate extends StatelessWidget {
       color: renkler.koyuuRenk,
       child:SafeArea(
         child: Scaffold(
+          backgroundColor: const Color(0xffF2F2F2),
           bottomNavigationBar: navBar(),
           appBar: AppBarForPage(title: "İLETİŞİM"),
           body: Padding(

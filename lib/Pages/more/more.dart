@@ -10,6 +10,7 @@ import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/constans/TextPref.dart';
 
 import '../../riverpod_management.dart';
+import 'Help/PasswordSplash.dart';
 
 class More extends ConsumerWidget {
   More({Key? key}) : super(key: key);
@@ -17,9 +18,10 @@ class More extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //var readDB = ref.read(databaseRiverpod);
+    var readSetting = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     //var readNavBar = ref.read(botomNavBarRiverpod);
-    //ref.watch(settingsRiverpod).setisuseinsert();
+    ref.watch(settingsRiverpod).isuseinsert;
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
@@ -127,20 +129,40 @@ class More extends ConsumerWidget {
                            */
                           InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration: Duration(milliseconds: 1),
-                                  pageBuilder: (context, animation, nextanim) => passwordPage(),
-                                  reverseTransitionDuration: Duration(milliseconds: 1),
-                                  transitionsBuilder: (context, animation, nexttanim, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
+                              if(readSetting.isPassword == 1 && readSetting.Password != "null"){
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    transitionDuration: Duration(milliseconds: 1),
+                                    pageBuilder: (context, animation, nextanim) => passwordSplash(mode: "admin"),
+                                    reverseTransitionDuration: Duration(milliseconds: 1),
+                                    transitionsBuilder: (context, animation, nexttanim, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
+                              }else {
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    transitionDuration: Duration(milliseconds: 1),
+                                    pageBuilder: (context, animation, nextanim) =>
+                                        passwordPage(),
+                                    reverseTransitionDuration:
+                                    Duration(milliseconds: 1),
+                                    transitionsBuilder:
+                                        (context, animation, nexttanim, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
+                              }
                             },
                             child: Container(
                               height: size.height / 9,

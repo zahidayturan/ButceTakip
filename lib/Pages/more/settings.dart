@@ -1,4 +1,5 @@
 import 'package:butcekontrol/Pages/more/Backup.dart';
+import 'package:butcekontrol/Pages/more/Help/PasswordSplash.dart';
 import 'package:butcekontrol/Pages/more/Password.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/classes/navBar.dart';
@@ -35,6 +36,7 @@ class _settingsState extends ConsumerState<settings> {
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Color(0xffF2F2F2),
           bottomNavigationBar: navBar(),
           appBar: AppBarForPage(title: "AYARLAR"),
           body: Padding(
@@ -89,20 +91,40 @@ class _settingsState extends ConsumerState<settings> {
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                transitionDuration: Duration(milliseconds: 1),
-                                pageBuilder: (context, animation, nextanim) => passwordPage(),
-                                reverseTransitionDuration: Duration(milliseconds: 1),
-                                transitionsBuilder: (context, animation, nexttanim, child) {
-                                  return FadeTransition(
-                                    opacity: animation,
-                                    child: child,
-                                  );
-                                },
-                              ),
-                            );
+                            if(isPassword && readSetting.Password != "null"){
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: Duration(milliseconds: 1),
+                                  pageBuilder: (context, animation, nextanim) => passwordSplash(mode: "admin"),
+                                  reverseTransitionDuration: Duration(milliseconds: 1),
+                                  transitionsBuilder: (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            }else {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: Duration(milliseconds: 1),
+                                  pageBuilder: (context, animation, nextanim) =>
+                                      passwordPage(),
+                                  reverseTransitionDuration:
+                                      Duration(milliseconds: 1),
+                                  transitionsBuilder:
+                                      (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            }
                           },
                           child: Row(
                             children: [
@@ -113,11 +135,12 @@ class _settingsState extends ConsumerState<settings> {
                                 ),
                               ),
                               Spacer(),
-                              isPassword  ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                              isPassword
+                                  ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
                                   : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
-                              Icon(
+                              const Icon(
                                 Icons.arrow_forward_ios,
-                              )
+                              ),
                             ],
                           ),
                         ),

@@ -1,3 +1,4 @@
+import 'package:butcekontrol/Pages/more/Password.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,7 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../riverpod_management.dart';
 
 class passwordSplash extends ConsumerStatefulWidget {
-  const passwordSplash({Key? key}) : super(key: key);
+  final String ?mode;
+  const passwordSplash({Key? key, this.mode}) : super(key: key);
 
   @override
   ConsumerState<passwordSplash> createState() => _passwordSplashState();
@@ -26,15 +28,40 @@ class _passwordSplashState extends ConsumerState<passwordSplash> {
     String? Password2 = ref.read(settingsRiverpod).Password ;
     var size = MediaQuery.of(context).size;
     return WillPopScope(
-      onWillPop: () async  => false,
+      onWillPop: () async  => widget.mode == "admin" ? true : false,
       child: Container(
         color: renkler.koyuuRenk,
         child: SafeArea(
           child: Scaffold(
+            backgroundColor: const Color(0xffF2F2F2),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
               child: Column(
                 children: [
+                  widget.mode == "admin"
+                  ?Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          icon: Icon(
+                              Icons.arrow_back,
+                            color: renkler.koyuuRenk,
+                            size: 35,
+                          )
+                      ),
+                      SizedBox(width: 20),
+                      Text(
+                        "Vazgeç",
+                        style: TextStyle(
+                          color: renkler.koyuuRenk,
+                          fontSize: 20,
+                          fontFamily: "Nexa2"
+                        ),
+                      )
+                    ],
+                  )
+                  :SizedBox(),
                   SizedBox(height: size.height/60),
                   Column(
                     mainAxisAlignment:  MainAxisAlignment.spaceAround,
@@ -214,6 +241,22 @@ class _passwordSplashState extends ConsumerState<passwordSplash> {
                   ref.read(settingsRiverpod).setStatus(true);
                   Navigator.of(context).pop();
                 });
+                widget.mode == "admin"
+                ?Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    transitionDuration: Duration(milliseconds: 1),
+                    pageBuilder: (context, animation, nextanim) => passwordPage(),
+                    reverseTransitionDuration: Duration(milliseconds: 1),
+                    transitionsBuilder: (context, animation, nexttanim, child) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                  ),
+                )
+                :null;
                 temizle();
               } else {
                 temizle();

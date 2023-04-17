@@ -1,7 +1,9 @@
 import 'package:butcekontrol/classes/appBarForPage.dart';
+import 'package:butcekontrol/constans/TextPref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../classes/navBar.dart';
 import '../../constans/MaterialColor.dart';
 import '../../riverpod_management.dart';
 
@@ -30,202 +32,279 @@ class _passwordPageState extends ConsumerState<passwordPage> {
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     bool isopen = readSetting.isPassword == 1 ? true : false ;
-    return Container(
-      color: renkler.koyuuRenk,
-      child: SafeArea(
-        child: Scaffold(
-          appBar: AppBarForPage(title: "GİRİŞ ŞİFRESİ"),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            child: Column(
-              children: [
-                  SizedBox(height: size.height/80),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(11),
-                      child: Container(
-                        height: 40,
-                        width: size.width,
-                        color: renkler.ArkaRenk,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Row(
-                            children: [
-                              const Text(
-                                "Giriş Şifresi Durumu",
-                                style: TextStyle(
-                                  fontFamily: "Nexa3",
+    return WillPopScope(
+      onWillPop: () async{
+      if(readSetting.isPassword == 1) {
+        bool confirm = await showDialog(
+          context: context,
+          builder: (context) =>
+              AlertDialog(
+                backgroundColor: renkler.koyuuRenk,
+                title: Row(
+                  children: [
+                    Icon(
+                        Icons.warning_amber,
+                      color: renkler.sariRenk,
+                       size: 35,
+                    ),
+                    SizedBox(width: 20),
+                    Textmod("Uyarı", Colors.white, 18),
+                  ],
+                ),
+                content:  Textmod("Herhangi Bir Şifre koymadınız\nŞifre Koymaktan vaz mı geçiyorsunuz ?", Colors.white, 15),
+                actions: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20) ,
+                    child: Container(
+                      height: 30,
+                      width: 80,
+                      color: renkler.sariRenk,
+                      margin: EdgeInsets.all(5),
+                      child:  InkWell(
+                        onTap: () => Navigator.pop(context, false),
+                          child: SizedBox(
+                              child: Center(
+                                  child: Textmod("Geri Dön", renkler.koyuuRenk, 16)
+                              )
+                          )
+                      ) ,
+                    ),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20) ,
+                    child: Container(
+                      height: 30,
+                      width: 80,
+                      color: renkler.sariRenk,
+                      margin: EdgeInsets.all(5),
+                      child:  InkWell(
+                          onTap: () {
+                            Navigator.pop(context, true);
+                            readSetting.setPasswordMode(false);
+                            readSetting.setisuseinsert();
+                          },
+                          child: SizedBox(
+                              child: Center(
+                                  child: Textmod("Vazgeç", renkler.koyuuRenk, 16)
+                              )
+                          )
+                      ) ,
+                    ),
+                  ),
+
+                ],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+        );
+        // Onaylandıysa sayfadan çık
+        if (confirm == true) {
+          Navigator.pop(context);
+        }
+      }else{
+        Navigator.pop(context, true);
+        }
+      return false;
+      },
+      child: Container(
+        color: renkler.koyuuRenk,
+        child: SafeArea(
+          child: Scaffold(
+            bottomNavigationBar: const navBar(),
+            appBar: AppBarForPage(title: "GİRİŞ ŞİFRESİ"),
+            body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+              child: Column(
+                children: [
+                    SizedBox(height: size.height/80),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(11),
+                        child: Container(
+                          height: 40,
+                          width: size.width,
+                          color: renkler.ArkaRenk,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  "Giriş Şifresi Durumu",
+                                  style: TextStyle(
+                                    fontFamily: "Nexa3",
+                                  ),
                                 ),
-                              ),
-                              Spacer(),
-                              isopen ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                  : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
-                              Switch(
-                                value: isopen ,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    readSetting.setPasswordMode(value);
-                                    readSetting.setisuseinsert();
-                                    if(!value){
-                                      readSetting.setPassword("null");
-                                    }
-                                  });
-                                },
-                              ),
-                            ],
+                                Spacer(),
+                                isopen ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                    : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                                Switch(
+                                  value: isopen ,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      readSetting.setPasswordMode(value);
+                                      readSetting.setisuseinsert();
+                                      if(!value){
+                                        readSetting.setPassword("null");
+                                      }
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                !isopen
-                  ? SizedBox(width: 1)
-                  : Column(
-                    mainAxisAlignment:  MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(height: size.height/20) ,
-                      Text(
-                        "$info",
-                        style: TextStyle(
-                          color: renkler.koyuuRenk,
-                          fontFamily: "Nexa4"
+                  !isopen
+                    ? SizedBox(width: 1)
+                    : Column(
+                      mainAxisAlignment:  MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(height: size.height/20) ,
+                        Text(
+                          "$info",
+                          style: TextStyle(
+                            color: renkler.koyuuRenk,
+                            fontFamily: "Nexa4"
+                          ),
                         ),
-                      ),
-                      SizedBox(height: size.height/30) ,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                              child: Container(
-                                color: num1 ? Colors.black : Color(0xffE2E1E1),
-                              ),
-                            )
-                          ),
-                          SizedBox(width: 10),
-                          SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num2 ? Colors.black : Color(0xffE2E1E1),
-                                ),
-                              )
-                          ),
-                          SizedBox(width: 10),
-                          SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num3 ? Colors.black : Color(0xffE2E1E1),
-                                ),
-                              )
-                          ),
-                          SizedBox(width: 10),
-                          SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num4 ? Colors.black : Color(0xffE2E1E1),
-                                ),
-                              )
-                          ),
-                          SizedBox(width: 10),
-                          IconButton(
-                              icon : Icon(Icons.backspace),
-                            onPressed: () {
-                              if(security){
-                                if(num1){
-                                  password2list.removeLast();
-                                }
-                                if(num3){
-                                  setState(() {
-                                    num3 = false;
-                                  });
-                                }else if(num2){
-                                  setState(() {
-                                    num2 = false;
-                                  });
-                                }else if(num1){
-                                  setState(() {
-                                    num1 = false ;
-                                  });
-                                }
-                              }else{
-                                if(num1){
-                                  password1list.removeLast();
-                                }
-                                if(num3){
-                                  setState(() {
-                                    num3 = false;
-                                  });
-                                }else if(num2){
-                                  setState(() {
-                                    num2 = false;
-                                  });
-                                }else if(num1){
-                                  setState(() {
-                                    num1 = false ;
-                                  });
-                                }
-                              }
-                            },
-                          )
-                        ],
-                      ),
-                      SizedBox(height: size.height/30) ,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
-                        child: Column(
+                        SizedBox(height: size.height/30) ,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Buton(context, "1"),
-                                Buton(context, "2"),
-                                Buton(context, "3"),
-                              ],
+                            SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                child: Container(
+                                  color: num1 ? Colors.black : Color(0xffE2E1E1),
+                                ),
+                              )
                             ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Buton(context, "4"),
-                                Buton(context, "5"),
-                                Buton(context, "6"),
-                              ],
+                            SizedBox(width: 10),
+                            SizedBox(
+                                height: 25,
+                                width: 25,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  child: Container(
+                                    color: num2 ? Colors.black : Color(0xffE2E1E1),
+                                  ),
+                                )
                             ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Buton(context, "7"),
-                                Buton(context, "8"),
-                                Buton(context, "9"),
-                              ],
+                            SizedBox(width: 10),
+                            SizedBox(
+                                height: 25,
+                                width: 25,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  child: Container(
+                                    color: num3 ? Colors.black : Color(0xffE2E1E1),
+                                  ),
+                                )
                             ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Buton(context, "0"),
-                              ],
+                            SizedBox(width: 10),
+                            SizedBox(
+                                height: 25,
+                                width: 25,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  child: Container(
+                                    color: num4 ? Colors.black : Color(0xffE2E1E1),
+                                  ),
+                                )
+                            ),
+                            SizedBox(width: 10),
+                            IconButton(
+                                icon : Icon(Icons.backspace),
+                              onPressed: () {
+                                if(security){
+                                  if(num1){
+                                    password2list.removeLast();
+                                  }
+                                  if(num3){
+                                    setState(() {
+                                      num3 = false;
+                                    });
+                                  }else if(num2){
+                                    setState(() {
+                                      num2 = false;
+                                    });
+                                  }else if(num1){
+                                    setState(() {
+                                      num1 = false ;
+                                    });
+                                  }
+                                }else{
+                                  if(num1){
+                                    password1list.removeLast();
+                                  }
+                                  if(num3){
+                                    setState(() {
+                                      num3 = false;
+                                    });
+                                  }else if(num2){
+                                    setState(() {
+                                      num2 = false;
+                                    });
+                                  }else if(num1){
+                                    setState(() {
+                                      num1 = false ;
+                                    });
+                                  }
+                                }
+                              },
                             )
                           ],
                         ),
-                      )//
-                    ],
-                  ),
-              ],
+                        SizedBox(height: size.height/30) ,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Buton(context, "1"),
+                                  Buton(context, "2"),
+                                  Buton(context, "3"),
+                                ],
+                              ),
+                              SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Buton(context, "4"),
+                                  Buton(context, "5"),
+                                  Buton(context, "6"),
+                                ],
+                              ),
+                              SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Buton(context, "7"),
+                                  Buton(context, "8"),
+                                  Buton(context, "9"),
+                                ],
+                              ),
+                              SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Buton(context, "0"),
+                                ],
+                              )
+                            ],
+                          ),
+                        )//
+                      ],
+                    ),
+                ],
+              ),
             ),
           ),
         ),
@@ -295,6 +374,7 @@ class _passwordPageState extends ConsumerState<passwordPage> {
                   Status = true ;
                   ref.read(settingsRiverpod).setPasswordMode(true);
                   ref.read(settingsRiverpod).setPassword(Password1);
+                  ref.read(settingsRiverpod).setisuseinsert();
                   Navigator.of(context).pop();
                 });
                 ScaffoldMessenger.of(context).showSnackBar(

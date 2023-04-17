@@ -14,6 +14,7 @@ class helpStatisic extends StatelessWidget {
       color: renkler.koyuuRenk,
       child: SafeArea(
           child: Scaffold(
+            backgroundColor: const Color(0xffF2F2F2),
             bottomNavigationBar: navBar(),
             appBar: const AppBarForPage(title: "YARDIM<"),
             body: SingleChildScrollView(
@@ -71,7 +72,7 @@ class helpStatisic extends StatelessWidget {
                           "assets/image/helpstatistic1.png"
                         ),
                         const Text(
-                          "\nİstatistik bölümümüzdeki pasta grafiğini en etkili şekilde yeniden biçimlendirmek için pratik işlem menüsü tasarlandı. Dolayısıyla veri havuzunu Yıllık, Aylık, Haftalık ve Günlük olacak şekilde filitreleyip sonuçların analizini yaptırabileceksiniz."
+                          "\nButonlar ham yer hemde görüntü olarak farklı bir tasarım tercih edildi aşağı yukarı hareketlerde bulunarak değişiklik yapabilirsiniz. İstatistik bölümümüzdeki pasta grafiğini en etkili şekilde yeniden biçimlendirmek için pratik işlem menüsü tasarlandı. Dolayısıyla veri havuzunu Yıllık, Aylık, Haftalık ve Günlük olacak şekilde filitreleyip sonuçların analizini yaptırabileceksiniz."
                         ),
                         Image.asset(
                             "assets/image/helpstatistic2.png"
