@@ -24,32 +24,35 @@ class _backUpState extends ConsumerState<backUp> {
     bool isExpandCvs = false ;
     bool isopen = readSetting.isBackUp == 1 ? true : false ; // databaseden alınacak
     var size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: const navBar(),
-        appBar: const AppBarForPage(title: "YEDEKLE"),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(11),
-                  child: Container(
-                    height: 40,
-                    width: size.width,
-                    color: renkler.ArkaRenk,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Row(
-                        children: [
-                          const Text(
-                            "Yedeklenme Durumu",
-                            style: TextStyle(
-                              fontFamily: "Nexa3",
+    return Container(
+      color: renkler.koyuuRenk,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: const Color(0xffF2F2F2),
+          bottomNavigationBar: const navBar(),
+          appBar: const AppBarForPage(title: "YEDEKLE"),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(11),
+                    child: Container(
+                      height: 40,
+                      width: size.width,
+                      color: renkler.ArkaRenk,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Yedeklenme Durumu",
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
+                              ),
                             ),
-                          ),
                           const Spacer(),
                           isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
                               : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
@@ -307,6 +310,7 @@ class _backUpState extends ConsumerState<backUp> {
           ),
         ),
       ),
+      )
     );
   }
   double heightTool_ = 26;

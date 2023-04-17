@@ -11,37 +11,32 @@ class helpHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size ;
-    return SafeArea(
-        child: Scaffold(
-          bottomNavigationBar: navBar(),
-          appBar: const AppBarForPage(title: "YARDIM<"),
-          body: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
-                    child: Container(
-                      color: renkler.koyuuRenk,
-                      height: 65,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(width: size.width/10,),
-                          Image.asset(
-                            "assets/image/LogoBkaShort.png",
-                            height: 60,
-                              width: 60,
-                          ),
-                          const Text(
-                            "Help Center",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Nexa3",
-                                fontSize: 25
+    return Container(
+      color: renkler.koyuuRenk,
+      child: SafeArea(
+          child: Scaffold(
+            backgroundColor: const Color(0xffF2F2F2),
+            bottomNavigationBar: navBar(),
+            appBar: const AppBarForPage(title: "YARDIM<"),
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
+                      child: Container(
+                        color: renkler.koyuuRenk,
+                        height: 65,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: size.width/10,),
+                            Image.asset(
+                              "assets/image/LogoBkaShort.png",
+                              height: 60,
+                                width: 60,
                             ),
-                          ),
                         ],
                       ),
                     ),
@@ -106,6 +101,7 @@ class helpHomePage extends StatelessWidget {
             ),
           ),
         )
+      )
     );
   }
 }

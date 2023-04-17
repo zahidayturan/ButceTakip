@@ -496,7 +496,10 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             // handle error case
             return const Text('Error');
           } else {
-            return const SizedBox();
+            // handle loading case
+            return SizedBox(
+
+            );
           }
         },
       );

@@ -1,5 +1,7 @@
+import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../constans/TextPref.dart';
 import '../riverpod_management.dart';
 
 class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
@@ -10,7 +12,9 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
 
   Widget build(BuildContext context, WidgetRef ref) {
     var read2 = ref.read(botomNavBarRiverpod);
+    var readsetting = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
+    CustomColors renkler = CustomColors();
     return SizedBox(
       width: size.width,
       height: 60,
@@ -68,12 +72,85 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                 color : Colors.white,
                 size: 40,
               ),
-              onPressed: () {
-                if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE" || title == "GİRİŞ ŞİFRESİ"|| title == "YARDIM<"){
+              onPressed: () async {
+                if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE" || title == "YARDIM<"){
                   Navigator.of(context).pop();
-                }else{
-                  read2.setCurrentindex(0);
-                }
+                }else if(title == "GİRİŞ ŞİFRESİ") {
+                  if(readsetting.isPassword == 1 && readsetting.Password == "null") {
+                    bool confirm = await showDialog(
+                      context: context,
+                      builder: (context) =>
+                          AlertDialog(
+                            backgroundColor: renkler.koyuuRenk,
+                            title: Row(
+                              children: [
+                                Icon(
+                                  Icons.warning_amber,
+                                  color: renkler.sariRenk,
+                                  size: 35,
+                                ),
+                                SizedBox(width: 20),
+                                Textmod("Uyarı", Colors.white, 18),
+                              ],
+                            ),
+                            content:  Textmod("Herhangi Bir Şifre koymadınız\nŞifre Koymaktan vaz mı geçiyorsunuz ?", Colors.white, 15),
+                            actions: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(20) ,
+                                child: Container(
+                                  height: 30,
+                                  width: 80,
+                                  color: renkler.sariRenk,
+                                  margin: EdgeInsets.all(5),
+                                  child:  InkWell(
+                                      onTap: () => Navigator.pop(context, false),
+                                      child: SizedBox(
+                                          child: Center(
+                                              child: Textmod("Geri Dön", renkler.koyuuRenk, 16)
+                                          )
+                                      )
+                                  ) ,
+                                ),
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(20) ,
+                                child: Container(
+                                  height: 30,
+                                  width: 80,
+                                  color: renkler.sariRenk,
+                                  margin: EdgeInsets.all(5),
+                                  child:  InkWell(
+                                      onTap: () {
+                                        Navigator.pop(context, true);
+                                        readsetting.setPasswordMode(false);
+                                        readsetting.setisuseinsert();
+                                      },
+                                      child: SizedBox(
+                                          child: Center(
+                                              child: Textmod("Vazgeç", renkler.koyuuRenk, 16)
+                                          )
+                                      )
+                                  ) ,
+                                ),
+                              ),
+
+                            ],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                    );
+                    // Onaylandıysa sayfadan çık
+                    if (confirm == true) {
+                      Navigator.pop(context);
+                    }
+                  }else{
+                    Navigator.pop(context, true);
+                    }
+                  }
+                  else{
+                    read2.setCurrentindex(0);
+                  }
                 //Navigator.of(context).pop();
               },
             ),

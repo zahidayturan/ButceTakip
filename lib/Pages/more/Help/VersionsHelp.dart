@@ -101,6 +101,27 @@ class versionshelp extends StatelessWidget {
                           Row(
                             children: [
                               Image.asset(
+                                "assets/icons/emoji_recycling.png",
+                                height: 25,
+                                width: 25,
+                              ),
+                              SizedBox(width: size.width / 40,),
+                              Text(
+                                "Sık Güncelleme",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontFamily: 'Nexa3',
+                                  color: renkler.koyuuRenk,
+                                ),
+                              )
+                            ],
+                          ), // sık güncelleme
+                          SizedBox(height: size.height / 80,),
+                          Text("Sürekli geliştirmelere ve önerilere açık bir altyapıyla her gün yeni özellikler üzerine çalışmalar yürütülmektedir. Ayrıca uygulamamız OpenSource(Açık kaynaklı kod) olarak yayınlamaktayız dolayısıyla her geliştirici arkadaş uygulamamıza katkıda bulunabilir. Google Play ve AppStrore gibi plartformlar üzüerinden kolay güncellenebilir durumdadır.\n\n"),
+
+                          Row(
+                            children: [
+                              Image.asset(
                                 "assets/icons/Vector.png",
                                 height: 25,
                                 width: 25,
@@ -119,26 +140,6 @@ class versionshelp extends StatelessWidget {
                           SizedBox(height: size.height / 80,),
                           const Text("Uygulamamızın gelecekteki güncellemelerinde farklı para birimleriyle harcama takibi yapma, İngilizce ve Arapça gibi dillerin eklenmesi, harcama kategorilerinin özelleştirilmesi gibi yeni özellikler yer alacaktır. Takipte kalın ve bütçenizi kontrol altında tutmak için Bütçe Kontrol uygulamamızı kullanmaya devam edin.\n\n"),
 
-                          Row(
-                            children: [
-                              Image.asset(
-                                "assets/icons/emoji_recycling.png",
-                                height: 25,
-                                width: 25,
-                              ),
-                              SizedBox(width: size.width / 40,),
-                              Text(
-                                "Sık Güncelleme",
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  fontFamily: 'Nexa3',
-                                  color: renkler.koyuuRenk,
-                                ),
-                              )
-                            ],
-                          ), // sık güncelleme
-                          SizedBox(height: size.height / 80,),
-                          Text("Sürekli geliştirmelere ve önerilere açık bir altyapıyla her gün yeni özellikler üzerine çalışmalar yürütülmektedir. Ayrıca uygulamamız OpenSource(Açık kaynaklı kod) olarak yayınlamaktayız dolayısıyla her geliştirici arkadaş uygulamamıza katkıda bulunabilir. Google Play ve AppStrore gibi plartformlar üzüerinden kolay güncellenebilir durumdadır.\n"),
 
                         ],
                       ), // bilgilendirme yazıları, ikon ve logolar

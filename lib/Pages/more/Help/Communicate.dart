@@ -11,22 +11,25 @@ class communicate extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: navBar(),
-        appBar: AppBarForPage(title: "İLETİŞİM"),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+    return Container(
+      color: renkler.koyuuRenk,
+      child:SafeArea(
+        child: Scaffold(
+          backgroundColor: const Color(0xffF2F2F2),
+          bottomNavigationBar: navBar(),
+          appBar: AppBarForPage(title: "İLETİŞİM"),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
               Align(
-                alignment: Alignment.center,
-                child: Image.asset(
-                  "assets/image/icon_BKA/LOGOBKA-2.png",
-                  width: size.width/1.7,
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    "assets/image/icon_BKA/LOGOBKA-2.png",
+                    width: size.width/1.7,
+                  ),
                 ),
-              ),
               SizedBox(height: 40),
               Row(
                 children: const [
@@ -90,6 +93,7 @@ class communicate extends StatelessWidget {
           ) ,
         ),
       ),
+      )
     );
   }
 }
