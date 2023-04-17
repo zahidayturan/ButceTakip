@@ -19,7 +19,7 @@ class More extends ConsumerWidget {
     var readDB = ref.read(databaseRiverpod);
     var size = MediaQuery.of(context).size;
     var readNavBar = ref.read(botomNavBarRiverpod);
-    ref.watch(settingsRiverpod).setisuseinsert();
+    ref.watch(settingsRiverpod).isuseinsert;
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
