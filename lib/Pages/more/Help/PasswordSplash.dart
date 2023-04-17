@@ -27,142 +27,139 @@ class _passwordSplashState extends ConsumerState<passwordSplash> {
     var size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async  => false,
-      child: Container(
-        color: renkler.koyuuRenk,
-        child: SafeArea(
-          child: Scaffold(
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-              child: Column(
-                children: [
-                  SizedBox(height: size.height/60),
-                  Column(
-                    mainAxisAlignment:  MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(height: size.height/15) ,
-                      Text(
-                        "$info",
-                        style: TextStyle(
-                            color: renkler.koyuuRenk,
-                            fontFamily: "Nexa4"
-                        ),
+      child: SafeArea(
+        child: Scaffold(
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+            child: Column(
+              children: [
+                SizedBox(height: size.height/60),
+                Column(
+                  mainAxisAlignment:  MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(height: size.height/15) ,
+                    Text(
+                      "$info",
+                      style: TextStyle(
+                          color: renkler.koyuuRenk,
+                          fontFamily: "Nexa4"
                       ),
-                      SizedBox(height: size.height/20) ,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                    SizedBox(height: size.height/20) ,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              child: Container(
+                                color: num1 ? Colors.black : Color(0xffE2E1E1),
+                              ),
+                            )
+                        ),
+                        SizedBox(width: 10),
+                        SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              child: Container(
+                                color: num2 ? Colors.black : Color(0xffE2E1E1),
+                              ),
+                            )
+                        ),
+                        SizedBox(width: 10),
+                        SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              child: Container(
+                                color: num3 ? Colors.black : Color(0xffE2E1E1),
+                              ),
+                            )
+                        ),
+                        SizedBox(width: 10),
+                        SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              child: Container(
+                                color: num4 ? Colors.black : Color(0xffE2E1E1),
+                              ),
+                            )
+                        ),
+                        SizedBox(width: 10),
+                        IconButton(
+                          icon : Icon(Icons.backspace),
+                          onPressed: () {
+                              if(num1){
+                                password1list.removeLast();
+                              }
+                              if(num3){
+                                setState(() {
+                                  num3 = false;
+                                });
+                              }else if(num2){
+                                setState(() {
+                                  num2 = false;
+                                });
+                              }else if(num1){
+                                setState(() {
+                                  num1 = false ;
+                                });
+                              }
+                          },
+                        )
+                      ],
+                    ),
+                    SizedBox(height: size.height/30) ,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                      child: Column(
                         children: [
-                          SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num1 ? Colors.black : Color(0xffE2E1E1),
-                                ),
-                              )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Buton(context, "1"),
+                              Buton(context, "2"),
+                              Buton(context, "3"),
+                            ],
                           ),
-                          SizedBox(width: 10),
-                          SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num2 ? Colors.black : Color(0xffE2E1E1),
-                                ),
-                              )
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Buton(context, "4"),
+                              Buton(context, "5"),
+                              Buton(context, "6"),
+                            ],
                           ),
-                          SizedBox(width: 10),
-                          SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num3 ? Colors.black : Color(0xffE2E1E1),
-                                ),
-                              )
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Buton(context, "7"),
+                              Buton(context, "8"),
+                              Buton(context, "9"),
+                            ],
                           ),
-                          SizedBox(width: 10),
-                          SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num4 ? Colors.black : Color(0xffE2E1E1),
-                                ),
-                              )
-                          ),
-                          SizedBox(width: 10),
-                          IconButton(
-                            icon : Icon(Icons.backspace),
-                            onPressed: () {
-                                if(num1){
-                                  password1list.removeLast();
-                                }
-                                if(num3){
-                                  setState(() {
-                                    num3 = false;
-                                  });
-                                }else if(num2){
-                                  setState(() {
-                                    num2 = false;
-                                  });
-                                }else if(num1){
-                                  setState(() {
-                                    num1 = false ;
-                                  });
-                                }
-                            },
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Buton(context, "0"),
+                            ],
                           )
                         ],
                       ),
-                      SizedBox(height: size.height/30) ,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Buton(context, "1"),
-                                Buton(context, "2"),
-                                Buton(context, "3"),
-                              ],
-                            ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Buton(context, "4"),
-                                Buton(context, "5"),
-                                Buton(context, "6"),
-                              ],
-                            ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Buton(context, "7"),
-                                Buton(context, "8"),
-                                Buton(context, "9"),
-                              ],
-                            ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Buton(context, "0"),
-                              ],
-                            )
-                          ],
-                        ),
-                      )//
-                    ],
-                  ),
-                ],
-              ),
+                    )//
+                  ],
+                ),
+              ],
             ),
           ),
         ),

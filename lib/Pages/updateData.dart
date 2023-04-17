@@ -13,15 +13,13 @@ class UpdateData extends StatefulWidget {
 class _AddDataState extends State<UpdateData> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xff0D1C26),
-      child: const SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: _AddAppBar(),
-          body: ButtonMenu(),
-          bottomNavigationBar: null,
-        ),
+    return const SafeArea(
+      bottom: false,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _AddAppBar(),
+        body: ButtonMenu(),
+        bottomNavigationBar: null,
       ),
     );
   }
@@ -128,7 +126,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       child: SizedBox(
         height: size.height*0.85,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(
               height: 20,
@@ -144,16 +142,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             const SizedBox(
               height: 5,
             ),
-            SizedBox(
-                width: size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox(width: 15,),
-                    CategoryCustomButton(context),
-                    const SizedBox(width: 15,),
-                  ],
-                )),
+            Row(
+              children: [
+                SizedBox(width: 15,),
+                Expanded(
+                    child: CategoryCustomButton(context)),
+                SizedBox(width: 15,),
+              ],
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -177,10 +173,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               height: 5,
             ),
             OperationCustomButton(context),
-            SizedBox(
-                width: 350,
-                height: 10,
-                child: Text(id+operationType.text + operationDate.text + category.text + operationTool.text + registration.text+amount.text+note.text)),
           ],
         ),
       ),

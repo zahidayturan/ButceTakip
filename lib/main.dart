@@ -8,7 +8,12 @@ void main() async{
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,  // Sadece Dikeyde çalışması için .
   ]);
-  await Future.delayed(Duration(seconds: 2));
+  await Future.delayed(const Duration(seconds: 2));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    systemNavigationBarColor: Color(0xFF03111A), // navigation bar color
+    statusBarColor: Color(0xFF03111A), // status bar color
+  ));
 
-  runApp(const ProviderScope(child: ButceKontrolApp()));
+  runApp( ProviderScope(child: ButceKontrolApp()));
 }

@@ -30,203 +30,200 @@ class _passwordPageState extends ConsumerState<passwordPage> {
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     bool isopen = readSetting.isPassword == 1 ? true : false ;
-    return Container(
-      color: renkler.koyuuRenk,
-      child: SafeArea(
-        child: Scaffold(
-          appBar: AppBarForPage(title: "GİRİŞ ŞİFRESİ"),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            child: Column(
-              children: [
-                  SizedBox(height: size.height/80),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(11),
-                      child: Container(
-                        height: 40,
-                        width: size.width,
-                        color: renkler.ArkaRenk,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Row(
-                            children: [
-                              const Text(
-                                "Giriş Şifresi Durumu",
-                                style: TextStyle(
-                                  fontFamily: "Nexa3",
-                                ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBarForPage(title: "GİRİŞ ŞİFRESİ"),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+          child: Column(
+            children: [
+                SizedBox(height: size.height/80),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(11),
+                    child: Container(
+                      height: 40,
+                      width: size.width,
+                      color: renkler.ArkaRenk,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Giriş Şifresi Durumu",
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
                               ),
-                              Spacer(),
-                              isopen ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                  : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
-                              Switch(
-                                value: isopen ,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    readSetting.setPasswordMode(value);
-                                    readSetting.setisuseinsert();
-                                    if(!value){
-                                      readSetting.setPassword("null");
-                                    }
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
+                            ),
+                            Spacer(),
+                            isopen ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                            Switch(
+                              value: isopen ,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  readSetting.setPasswordMode(value);
+                                  readSetting.setisuseinsert();
+                                  if(!value){
+                                    readSetting.setPassword("null");
+                                  }
+                                });
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                !isopen
-                  ? SizedBox(width: 1)
-                  : Column(
-                    mainAxisAlignment:  MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(height: size.height/20) ,
-                      Text(
-                        "$info",
-                        style: TextStyle(
-                          color: renkler.koyuuRenk,
-                          fontFamily: "Nexa4"
-                        ),
+                ),
+              !isopen
+                ? SizedBox(width: 1)
+                : Column(
+                  mainAxisAlignment:  MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(height: size.height/20) ,
+                    Text(
+                      "$info",
+                      style: TextStyle(
+                        color: renkler.koyuuRenk,
+                        fontFamily: "Nexa4"
                       ),
-                      SizedBox(height: size.height/30) ,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
+                    ),
+                    SizedBox(height: size.height/30) ,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            child: Container(
+                              color: num1 ? Colors.black : Color(0xffE2E1E1),
+                            ),
+                          )
+                        ),
+                        SizedBox(width: 10),
+                        SizedBox(
                             height: 25,
                             width: 25,
                             child: ClipRRect(
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                               child: Container(
-                                color: num1 ? Colors.black : Color(0xffE2E1E1),
+                                color: num2 ? Colors.black : Color(0xffE2E1E1),
                               ),
                             )
-                          ),
-                          SizedBox(width: 10),
-                          SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num2 ? Colors.black : Color(0xffE2E1E1),
-                                ),
-                              )
-                          ),
-                          SizedBox(width: 10),
-                          SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num3 ? Colors.black : Color(0xffE2E1E1),
-                                ),
-                              )
-                          ),
-                          SizedBox(width: 10),
-                          SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num4 ? Colors.black : Color(0xffE2E1E1),
-                                ),
-                              )
-                          ),
-                          SizedBox(width: 10),
-                          IconButton(
-                              icon : Icon(Icons.backspace),
-                            onPressed: () {
-                              if(security){
-                                if(num1){
-                                  password2list.removeLast();
-                                }
-                                if(num3){
-                                  setState(() {
-                                    num3 = false;
-                                  });
-                                }else if(num2){
-                                  setState(() {
-                                    num2 = false;
-                                  });
-                                }else if(num1){
-                                  setState(() {
-                                    num1 = false ;
-                                  });
-                                }
-                              }else{
-                                if(num1){
-                                  password1list.removeLast();
-                                }
-                                if(num3){
-                                  setState(() {
-                                    num3 = false;
-                                  });
-                                }else if(num2){
-                                  setState(() {
-                                    num2 = false;
-                                  });
-                                }else if(num1){
-                                  setState(() {
-                                    num1 = false ;
-                                  });
-                                }
+                        ),
+                        SizedBox(width: 10),
+                        SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              child: Container(
+                                color: num3 ? Colors.black : Color(0xffE2E1E1),
+                              ),
+                            )
+                        ),
+                        SizedBox(width: 10),
+                        SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              child: Container(
+                                color: num4 ? Colors.black : Color(0xffE2E1E1),
+                              ),
+                            )
+                        ),
+                        SizedBox(width: 10),
+                        IconButton(
+                            icon : Icon(Icons.backspace),
+                          onPressed: () {
+                            if(security){
+                              if(num1){
+                                password2list.removeLast();
                               }
-                            },
+                              if(num3){
+                                setState(() {
+                                  num3 = false;
+                                });
+                              }else if(num2){
+                                setState(() {
+                                  num2 = false;
+                                });
+                              }else if(num1){
+                                setState(() {
+                                  num1 = false ;
+                                });
+                              }
+                            }else{
+                              if(num1){
+                                password1list.removeLast();
+                              }
+                              if(num3){
+                                setState(() {
+                                  num3 = false;
+                                });
+                              }else if(num2){
+                                setState(() {
+                                  num2 = false;
+                                });
+                              }else if(num1){
+                                setState(() {
+                                  num1 = false ;
+                                });
+                              }
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                    SizedBox(height: size.height/30) ,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Buton(context, "1"),
+                              Buton(context, "2"),
+                              Buton(context, "3"),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Buton(context, "4"),
+                              Buton(context, "5"),
+                              Buton(context, "6"),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Buton(context, "7"),
+                              Buton(context, "8"),
+                              Buton(context, "9"),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Buton(context, "0"),
+                            ],
                           )
                         ],
                       ),
-                      SizedBox(height: size.height/30) ,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Buton(context, "1"),
-                                Buton(context, "2"),
-                                Buton(context, "3"),
-                              ],
-                            ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Buton(context, "4"),
-                                Buton(context, "5"),
-                                Buton(context, "6"),
-                              ],
-                            ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Buton(context, "7"),
-                                Buton(context, "8"),
-                                Buton(context, "9"),
-                              ],
-                            ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Buton(context, "0"),
-                              ],
-                            )
-                          ],
-                        ),
-                      )//
-                    ],
-                  ),
-              ],
-            ),
+                    )//
+                  ],
+                ),
+            ],
           ),
         ),
       ),

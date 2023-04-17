@@ -11,14 +11,11 @@ class dailyInfo extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     CustomColors renkler = CustomColors();
-    return Container(
-      color: renkler.koyuuRenk,
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: renkler.ArkaRenk,
-          appBar: const AppbarDailyInfo(),
-          body: const dailyInfoBody(),
-        ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: renkler.ArkaRenk,
+        appBar: const AppbarDailyInfo(),
+        body: const dailyInfoBody(),
       ),
     );
   }
