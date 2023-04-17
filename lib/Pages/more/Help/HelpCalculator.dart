@@ -2,6 +2,8 @@ import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/classes/navBar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
+import 'package:butcekontrol/Pages/more/Help/helpFooter.dart';
+
 
 class helpCalculator extends StatelessWidget {
   const helpCalculator({Key? key}) : super(key: key);
@@ -83,6 +85,7 @@ class helpCalculator extends StatelessWidget {
                       ],
                     ),
                   ),
+                  HelpFooter(context),
                 ],
               ),
             ),

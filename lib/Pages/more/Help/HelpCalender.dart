@@ -1,7 +1,7 @@
 import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:flutter/material.dart';
-
+import 'package:butcekontrol/Pages/more/Help/helpFooter.dart';
 import '../../../classes/navBar.dart';
 
 class helpCalender extends StatelessWidget {
@@ -81,6 +81,8 @@ class helpCalender extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(height: 10,),
+                  HelpFooter(context),
                 ],
               ),
             ),
