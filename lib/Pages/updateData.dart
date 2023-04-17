@@ -1699,8 +1699,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   onPressed: () {
                     double amount = double.tryParse(amount0.text) ?? 0.0;
                     if (amount != 0.0) {
-                      read.Update();
-                      readUpdateData.updateDataBase(
+                          readUpdateData.updateDataBase(
                           int.parse(id),
                           operationType.text,
                           category.text,
@@ -1709,8 +1708,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           amount,
                           note.text,
                           operationDate.text);
+                          read.Update();
                       Navigator.of(context).pop();
-                      //read2.setCurrentindex(0);
                       Navigator.of(context).pop();
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

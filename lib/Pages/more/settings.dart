@@ -1,4 +1,5 @@
 import 'package:butcekontrol/Pages/more/Backup.dart';
+import 'package:butcekontrol/Pages/more/Password.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/classes/navBar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
@@ -19,17 +20,17 @@ class _settingsState extends ConsumerState<settings> {
   CustomColors renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
+    ref.watch(settingsRiverpod).isuseinsert;
     var size = MediaQuery.of(context).size;
-    var readNavBar = ref.read(botomNavBarRiverpod);
     var readSetting = ref.read(settingsRiverpod);
+    String? Language = readSetting.Language;
     bool darkthememode = readSetting.DarkMode == 1 ? true : false ;
     bool isPassword = readSetting.isPassword == 1 ? true : false ;
     bool isBackup = readSetting.isBackUp == 1 ? true : false ;
-    String? Language = readSetting.Language;
     String? Prefix = readSetting.Prefix ;
     String Languagefirst = "Türkçe" ;
     String dropdownshowitem = 'TRY';
-
+    ref.watch(settingsRiverpod).isuseinsert;
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
@@ -88,7 +89,7 @@ class _settingsState extends ConsumerState<settings> {
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: InkWell(
                           onTap: () {
-                            readNavBar.setCurrentindex(14);
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => passwordPage()));
                           },
                           child: Row(
                             children: [
@@ -122,7 +123,7 @@ class _settingsState extends ConsumerState<settings> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: InkWell(
-                          onTap: () => readNavBar.setCurrentindex(13),
+                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => backUp())),
                           child: Row(
                             children:  [
                               const Text(

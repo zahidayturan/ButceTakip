@@ -1,4 +1,3 @@
-import 'package:butcekontrol/modals/settingsinfo.dart';
 import 'package:butcekontrol/utils/DateTimeManager.dart';
 import 'package:butcekontrol/utils/dbHelper.dart';
 import 'package:flutter/material.dart';
@@ -87,6 +86,7 @@ class DbProvider extends ChangeNotifier {
   void Update(){
     print("güncellendi");
     updatest = !updatest ;
+    refreshDB();
     notifyListeners();
   }
 
@@ -153,5 +153,12 @@ class DbProvider extends ChangeNotifier {
         .where((element) => element.operationType == 'Gider')
         .fold(0, (previousValue, element) => previousValue + element.amount!);
     return totalAmount2.toStringAsFixed(1);
+  }
+
+
+  static String today = DateTimeManager.getCurrentDay();
+  Future<List<spendinfo>> myDailyMethod() async {
+    List<spendinfo> items = await SQLHelper.getItemsByOperationDay(today);
+    return items;
   }
 }

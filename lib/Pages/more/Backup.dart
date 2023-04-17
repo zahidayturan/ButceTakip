@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:butcekontrol/constans/MaterialColor.dart';
 import 'package:butcekontrol/utils/CvsConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import '../../classes/appBarForPage.dart';
 import '../../classes/navBar.dart';
 import '../../riverpod_management.dart';
@@ -31,8 +28,8 @@ class _backUpState extends ConsumerState<backUp> {
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
-          bottomNavigationBar: navBar(),
-          appBar: AppBarForPage(title: "YEDEKLE"),
+          bottomNavigationBar: const navBar(),
+          appBar: const AppBarForPage(title: "YEDEKLE"),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),
             child: Column(
@@ -55,14 +52,15 @@ class _backUpState extends ConsumerState<backUp> {
                                 fontFamily: "Nexa3",
                               ),
                             ),
-                            Spacer(),
-                            isopen ? Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                            const Spacer(),
+                            isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                             Switch(
                               value: isopen ,
                               onChanged: (bool value) {
                                 setState(() {
                                   readSetting.setBackup(value);
+                                  readSetting.setisuseinsert();
                                 });
                               },
                             ),
@@ -73,9 +71,7 @@ class _backUpState extends ConsumerState<backUp> {
                   ),
                 ), /// Giriş şifresi
                 /// Yedeklenme durumunu kontrol etmemiz gerekiyor.
-                !isopen
-                ?SizedBox()
-                :Column(
+                if (!isopen) const SizedBox() else Column(
                   children: [
                     /*
                     Padding(
@@ -170,11 +166,11 @@ class _backUpState extends ConsumerState<backUp> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0, right:  15.0, bottom: 8.0),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
                         child: Container(
                           color:  renkler.ArkaRenk,
                           child: ExpansionTile(
-                            title: Text("CVS formatında indir (.cvs)"),
+                            title: const Text("CVS formatında indir (.cvs)"),
                             onExpansionChanged: (bool expanding) => setState(() => isExpandCvs = expanding),
                             children: [
                               Padding(
@@ -188,6 +184,9 @@ class _backUpState extends ConsumerState<backUp> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
+                                            const SizedBox(
+                                              width: 1,)
+                                            ,
                                             const Text(
                                               "Yedeklenme Sıklığı",
                                               style:TextStyle(
@@ -196,9 +195,12 @@ class _backUpState extends ConsumerState<backUp> {
                                               ),
                                             ),
                                             ToolCustomButton(context),
+                                            const SizedBox(
+                                              width: 1,)
+                                            ,
                                           ],
                                         ),
-                                        SizedBox(height: 10 ),
+                                        const SizedBox(height: 10 ),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
@@ -226,7 +228,7 @@ class _backUpState extends ConsumerState<backUp> {
                                               child: FittedBox(
                                                 child: DecoratedBox(
                                                   decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(5),
+                                                    borderRadius: BorderRadius.circular(10),
                                                     color: renkler.koyuuRenk,
                                                   ),
                                                   child: const Center(
@@ -270,7 +272,7 @@ class _backUpState extends ConsumerState<backUp> {
                                               child: FittedBox(
                                                 child: DecoratedBox(
                                                   decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(5),
+                                                    borderRadius: BorderRadius.circular(10),
                                                     color: renkler.koyuuRenk,
                                                   ),
                                                   child: const Center(
@@ -310,9 +312,9 @@ class _backUpState extends ConsumerState<backUp> {
       ),
     );
   }
-  double heightTool_ = 34;
-  double heightTool2_ = 42;
-  double heightTool3_ = 34;
+  double heightTool_ = 26;
+  double heightTool2_ = 32;
+  double heightTool3_ = 26;
   Color _containerColorTool3 = const Color(0xff0D1C26);
   Color _containerColorTool2 = const Color(0xff0D1C26);
   Color _containerColorTool = const Color(0xffF2CB05);
@@ -323,9 +325,9 @@ class _backUpState extends ConsumerState<backUp> {
     var readSetting = ref.read(settingsRiverpod);
     if(readSetting.Backuptimes == "Günlük"){
       setState(() {
-        heightTool2_ = 40;
-        heightTool_ = 34;
-        heightTool3_ = 34;
+        heightTool2_ = 32;
+        heightTool_ = 26;
+        heightTool3_ = 26;
         _containerColorTool = const Color(0xffF2CB05);
         _containerColorTool2 = const Color(0xff0D1C26);
         _containerColorTool3 = const Color(0xff0D1C26);
@@ -335,9 +337,9 @@ class _backUpState extends ConsumerState<backUp> {
       });
     }else if(readSetting.Backuptimes == "Aylık"){
       setState(() {
-        heightTool_ = 40;
-        heightTool2_ = 34;
-        heightTool3_ = 34;
+        heightTool_ = 32;
+        heightTool2_ = 26;
+        heightTool3_ = 26;
         _containerColorTool2 = const Color(0xffF2CB05);
         _containerColorTool = const Color(0xff0D1C26);
         _containerColorTool3 = const Color(0xff0D1C26);
@@ -347,9 +349,9 @@ class _backUpState extends ConsumerState<backUp> {
       });
     }else{
       setState(() {
-        heightTool_ = 34;
-        heightTool2_ = 34;
-        heightTool3_ = 40;
+        heightTool_ = 26;
+        heightTool2_ = 26;
+        heightTool3_ = 32;
         _containerColorTool3 = const Color(0xffF2CB05);
         _containerColorTool = const Color(0xff0D1C26);
         _containerColorTool2 = const Color(0xff0D1C26);
@@ -359,7 +361,7 @@ class _backUpState extends ConsumerState<backUp> {
       });
     }
     return SizedBox(
-      height: 40,
+      height: 32,
       child: Stack(
         children: [
           Padding(
@@ -384,6 +386,7 @@ class _backUpState extends ConsumerState<backUp> {
                 ),
                 height: heightTool2_,
                 child: SizedBox(
+                  width: 60,
                   child: TextButton(
                       onPressed: () {
                         setState(() {
@@ -394,7 +397,7 @@ class _backUpState extends ConsumerState<backUp> {
                       child: Text("Günlük",
                           style: TextStyle(
                               color: _textColorTool,
-                              fontSize: 15,
+                              fontSize: 13,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w800))),
                 ),
@@ -408,6 +411,7 @@ class _backUpState extends ConsumerState<backUp> {
                 ),
                 height: heightTool_,
                 child: SizedBox(
+                  width: 66,
                   child: TextButton(
                       onPressed: () {
                         setState(() {
@@ -417,7 +421,7 @@ class _backUpState extends ConsumerState<backUp> {
                       child: Text("Aylık",
                           style: TextStyle(
                               color: _textColorTool2,
-                              fontSize: 15,
+                              fontSize: 13,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w800))),
                 ),
@@ -431,6 +435,7 @@ class _backUpState extends ConsumerState<backUp> {
                 ),
                 height: heightTool3_,
                 child: SizedBox(
+                  width: 44,
                   child: TextButton(
                       onPressed: () {
                         setState(() {
@@ -440,7 +445,7 @@ class _backUpState extends ConsumerState<backUp> {
                       child: Text("Yıllık",
                           style: TextStyle(
                               color: _textColorTool3,
-                              fontSize: 17,
+                              fontSize: 13,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w800))),
                 ),
