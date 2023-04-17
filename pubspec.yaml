@@ -81,6 +81,7 @@ flutter:
     - assets/image/
     - assets/image/icon_BKA/İKON.png
     - assets/image/icon_BKA/LOGOBKA-4.png
+    - assets/icons/
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

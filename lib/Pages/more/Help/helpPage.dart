@@ -2,6 +2,8 @@ import 'package:butcekontrol/Pages/more/Help/HelpCalculator.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpCalender.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpHomePage.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpStatistic.dart';
+import 'package:butcekontrol/Pages/more/Help/VersionsHelp.dart';
+import 'package:butcekontrol/Pages/more/Help/helpFooter.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/classes/navBar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
@@ -185,6 +187,20 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                               ),
                             ),
                             Divider(color: Colors.black, thickness: 1,),
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => versionshelp()));
+                              },
+                              child: const Text(
+                                "Yenilikler",
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 14,
+                                  fontFamily: "Nexa3",
+                                ),
+                              ),
+                            ),
+                            Divider(color: Colors.black, thickness: 1,),
                           ],
                         ),
                       ), //get started
@@ -317,6 +333,8 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                     ],
                   ),
                 ),
+                SizedBox(height: 10,),
+                HelpFooter(context),
               ],
             ),
           ),

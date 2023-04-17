@@ -1,3 +1,4 @@
+import 'package:butcekontrol/Pages/more/Help/helpFooter.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/classes/navBar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
@@ -82,6 +83,8 @@ class helpStatisic extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(height: 10,),
+                  HelpFooter(context),
                 ],
               ),
             ),

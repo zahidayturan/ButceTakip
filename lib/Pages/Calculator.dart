@@ -793,7 +793,7 @@ class _CalculatorState extends State<Calculator> {
             ), /// sıfırla ve hesapla butonları
             SizedBox(height: size.height / 60,),
             Container(
-              height: size.height / 5.4,
+              height: size.height / 4.8,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
