@@ -61,7 +61,22 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           iconSize: 20.0,
         ),
         IconButton(
-          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpCenter())),
+          onPressed: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                transitionDuration: Duration(milliseconds: 1),
+                pageBuilder: (context, animation, nextanim) => helpCenter(),
+                reverseTransitionDuration: Duration(milliseconds: 1),
+                transitionsBuilder: (context, animation, nexttanim, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+              ),
+            );
+          },
           icon: const Icon(
             Icons.question_mark,
             color: Color(0xFFFFFFFF),
@@ -70,6 +85,7 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           constraints: BoxConstraints(maxWidth: 40),
 
         ),
+        /*
         IconButton(
           onPressed:() => print("reset"),
           icon: const Icon(
@@ -80,9 +96,23 @@ class appbarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           constraints: BoxConstraints(maxWidth: 40),
         ),
 
+         */
         IconButton(
           onPressed:() {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => settings()));
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                transitionDuration: Duration(milliseconds: 1),
+                pageBuilder: (context, animation, nextanim) => settings(),
+                reverseTransitionDuration: Duration(milliseconds: 1),
+                transitionsBuilder: (context, animation, nexttanim, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+              ),
+            );
           },
           icon: const Icon(
             Icons.settings,

@@ -1,7 +1,9 @@
+import 'package:butcekontrol/Pages/more/Help/Communicate.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpCalculator.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpCalender.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpHomePage.dart';
 import 'package:butcekontrol/Pages/more/Help/HelpStatistic.dart';
+import 'package:butcekontrol/Pages/more/Help/VersionsHelp.dart';
 import 'package:butcekontrol/classes/appBarForPage.dart';
 import 'package:butcekontrol/classes/navBar.dart';
 import 'package:butcekontrol/constans/MaterialColor.dart';
@@ -92,7 +94,20 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                               ),
                               TextButton(
                                   onPressed: () {
-                                    readNavBar.setCurrentindex(10);
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration: Duration(milliseconds: 1),
+                                        pageBuilder: (context, animation, nextanim) => versionshelp(),
+                                        reverseTransitionDuration: Duration(milliseconds: 1),
+                                        transitionsBuilder: (context, animation, nexttanim, child) {
+                                          return FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          );
+                                        },
+                                      ),
+                                    );
                                   },
                                   child: const Text(
                                     "Android 1.0v Update(17.04.2023)"
@@ -130,7 +145,20 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                             SizedBox(height: 10,),
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpHomePage()));
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    transitionDuration: Duration(milliseconds: 1),
+                                    pageBuilder: (context, animation, nextanim) => helpHomePage(),
+                                    reverseTransitionDuration: Duration(milliseconds: 1),
+                                    transitionsBuilder: (context, animation, nexttanim, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
                               },
                               child: const Text(
                                 "Ana Sayfa",
@@ -144,7 +172,20 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                             Divider(color: Colors.black, thickness: 1,),
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpStatisic()));
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    transitionDuration: Duration(milliseconds: 1),
+                                    pageBuilder: (context, animation, nextanim) => helpStatisic(),
+                                    reverseTransitionDuration: Duration(milliseconds: 1),
+                                    transitionsBuilder: (context, animation, nexttanim, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
 
                               },
                               child: const Text(
@@ -159,7 +200,20 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                             Divider(color: Colors.black, thickness: 1,),
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpCalender()));
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    transitionDuration: Duration(milliseconds: 1),
+                                    pageBuilder: (context, animation, nextanim) => helpCalender(),
+                                    reverseTransitionDuration: Duration(milliseconds: 1),
+                                    transitionsBuilder: (context, animation, nexttanim, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
                               },
                               child: const Text(
                                 "Takvim Sayfası",
@@ -173,7 +227,20 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                             Divider(color: Colors.black, thickness: 1,),
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpCalculator()));
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    transitionDuration: Duration(milliseconds: 1),
+                                    pageBuilder: (context, animation, nextanim) => helpCalculator(),
+                                    reverseTransitionDuration: Duration(milliseconds: 1),
+                                    transitionsBuilder: (context, animation, nexttanim, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
                               },
                               child: const Text(
                                 "Hesap Makinesi",
@@ -303,9 +370,53 @@ class _helpCenterState extends ConsumerState<helpCenter> {
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                                     child: Container(
-                                        child: const Text(
-                                            "Uygulamamızda iletişim kısmındaki mail veya Linkedin adreslerimiz üzerinden bizlere ulaşabilirsiniz.\n",
-                                        )
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                                "Uygulamamızda iletişim kısmındaki mail veya Linkedin adreslerimiz üzerinden bizlere ulaşabilirsiniz.\n",
+                                            ),
+                                          InkWell(
+                                            onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    PageRouteBuilder(
+                                                      transitionDuration: Duration(milliseconds: 1),
+                                                      pageBuilder: (context, animation, nextanim) => communicate(),
+                                                      reverseTransitionDuration: Duration(milliseconds: 1),
+                                                      transitionsBuilder: (context, animation, nexttanim, child) {
+                                                        return FadeTransition(
+                                                          opacity: animation,
+                                                          child: child,
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                            child: SizedBox(
+                                              height: 30,
+                                              width: 100,
+                                              child: DecoratedBox(
+                                                decoration: BoxDecoration(
+                                                  color: renkler.koyuuRenk,
+                                                  borderRadius: BorderRadius.circular(20),
+                                                ),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "İLETİŞİM",
+                                                    style: TextStyle(
+                                                        fontFamily: "Nexa2",
+                                                        fontSize: 16,
+                                                      color: Colors.amber
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                            SizedBox(height: 10),
+                                        ],
+                                      )
                                     ),
                                   ),
                                 ],

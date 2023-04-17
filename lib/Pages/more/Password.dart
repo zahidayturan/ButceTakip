@@ -287,8 +287,6 @@ class _passwordPageState extends ConsumerState<passwordPage> {
               for (var i = 0; i < password2list.length ; i++) {
                 Password2 = Password2 + password2list[i];
               }
-              print("ps1 = $Password1");
-              print("ps2 = $Password2");
               if (Password1 == Password2) {
                 setState(() {
                   info = "şifreniz ayarlandı" ;
@@ -299,6 +297,23 @@ class _passwordPageState extends ConsumerState<passwordPage> {
                   ref.read(settingsRiverpod).setPassword(Password1);
                   Navigator.of(context).pop();
                 });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor:
+                    Color(0xff0D1C26),
+                    duration: Duration(seconds: 1),
+                    content: Text(
+                      'Şifreniz Oluşturuldu.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Nexa3',
+                        fontWeight: FontWeight.w600,
+                        height: 1.3,
+                      ),
+                    ),
+                  ),
+                );
                 temizle();
               } else {
                 temizle();
@@ -317,11 +332,9 @@ class _passwordPageState extends ConsumerState<passwordPage> {
               num4 = true ;
               info = "Tekrar gininiz." ;
             });
-              temizle();
+              Future.delayed(Duration(milliseconds: 150)).then((value) => temizle());
           }
         }
-        print("şifre 1 :$password1list");
-        print("şifer 2 :$password2list");
       },
       child: SizedBox(
           height: size.height / 9.5,

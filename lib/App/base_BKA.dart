@@ -1,5 +1,4 @@
 import 'package:butcekontrol/Pages/more/Help/PasswordSplash.dart';
-import 'package:butcekontrol/utils/CvsConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';
@@ -14,7 +13,7 @@ class base_BKA extends ConsumerStatefulWidget {
 
 class _base_BKAState extends ConsumerState<base_BKA> {
   void loadData()  async {
- // örnek gecikme
+    // örnek gecikme
     var readSetting =  ref.read(settingsRiverpod);
     readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
     await Future.delayed(Duration(milliseconds: 1000));
@@ -48,7 +47,18 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       }
     }
     if(readSetting.isPassword == 1 && readSetting.Password != "null") {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => passwordSplash()));
+      Navigator.push(context, PageRouteBuilder(
+          transitionDuration: Duration(milliseconds: 1),
+          pageBuilder: (context, animation, nextanim) => passwordSplash(),
+          reverseTransitionDuration: Duration(milliseconds: 1),
+          transitionsBuilder: (context, animation, nexttanim, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        ),
+      );
     }
   }
   @override

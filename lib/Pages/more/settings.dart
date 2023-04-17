@@ -89,7 +89,20 @@ class _settingsState extends ConsumerState<settings> {
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => passwordPage()));
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                transitionDuration: Duration(milliseconds: 1),
+                                pageBuilder: (context, animation, nextanim) => passwordPage(),
+                                reverseTransitionDuration: Duration(milliseconds: 1),
+                                transitionsBuilder: (context, animation, nexttanim, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
                           },
                           child: Row(
                             children: [
@@ -123,7 +136,22 @@ class _settingsState extends ConsumerState<settings> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: InkWell(
-                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => backUp())),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                transitionDuration: Duration(milliseconds: 1),
+                                pageBuilder: (context, animation, nextanim) => backUp(),
+                                reverseTransitionDuration: Duration(milliseconds: 1),
+                                transitionsBuilder: (context, animation, nexttanim, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
                           child: Row(
                             children:  [
                               const Text(

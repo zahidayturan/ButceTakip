@@ -16,10 +16,10 @@ class More extends ConsumerWidget {
   final renkler = CustomColors();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var readDB = ref.read(databaseRiverpod);
+    //var readDB = ref.read(databaseRiverpod);
     var size = MediaQuery.of(context).size;
-    var readNavBar = ref.read(botomNavBarRiverpod);
-    ref.watch(settingsRiverpod).setisuseinsert();
+    //var readNavBar = ref.read(botomNavBarRiverpod);
+    //ref.watch(settingsRiverpod).setisuseinsert();
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
@@ -39,7 +39,20 @@ class More extends ConsumerWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => settings()));
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: Duration(milliseconds: 1),
+                                  pageBuilder: (context, animation, nextanim) => settings(),
+                                  reverseTransitionDuration: Duration(milliseconds: 1),
+                                  transitionsBuilder: (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
                             },
                             child: Container(
                               height: size.height / 9,
@@ -59,7 +72,22 @@ class More extends ConsumerWidget {
                           ),
                           SizedBox(width: size.width / 15),
                           InkWell(
-                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpCenter())),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: Duration(milliseconds: 1),
+                                  pageBuilder: (context, animation, nextanim) => helpCenter(),
+                                  reverseTransitionDuration: Duration(milliseconds: 1),
+                                  transitionsBuilder: (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -99,7 +127,20 @@ class More extends ConsumerWidget {
                            */
                           InkWell(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => passwordPage()));
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: Duration(milliseconds: 1),
+                                  pageBuilder: (context, animation, nextanim) => passwordPage(),
+                                  reverseTransitionDuration: Duration(milliseconds: 1),
+                                  transitionsBuilder: (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
                             },
                             child: Container(
                               height: size.height / 9,
@@ -128,7 +169,20 @@ class More extends ConsumerWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => backUp()));
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: Duration(milliseconds: 1),
+                                  pageBuilder: (context, animation, nextanim) => backUp(),
+                                  reverseTransitionDuration: Duration(milliseconds: 1),
+                                  transitionsBuilder: (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
                             },
                             child: Container(
                               height: size.height / 9,
@@ -148,7 +202,23 @@ class More extends ConsumerWidget {
                           ),
                           SizedBox(width: size.width / 15),
                           InkWell(
-                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => communicate())),
+                            onTap: () {
+                              //Navigator.of(context).push(MaterialPageRoute(builder: (context) => communicate()));
+                              Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                              transitionDuration: Duration(milliseconds: 1),
+                              pageBuilder: (context, animation, nextanim) => communicate(),
+                              reverseTransitionDuration: Duration(milliseconds: 1),
+                              transitionsBuilder: (context, animation, nexttanim, child) {
+                              return FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -256,27 +326,5 @@ class More extends ConsumerWidget {
         ),
       ),
     );
-
   }
-
 }
-
-///cvs yi pubscyaml ye kaydetmek gerekecek
-///Verileri indir seçeneği için
-/*
-    import 'dart:io';
-    import 'package:path_provider/path_provider.dart';
-    import 'package:csv/csv.dart';
-
-    Future<File> saveDataToCsv(List<List<dynamic>> rows) async {
-      final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}/data.csv');
-
-      List<spendinfo> allItems =  await SQLHelper.getItems()
-      String csv = const ListToCsvConverter().convert(allItems);
-      await file.writeAsString(csv);
-
-      return file;
-    }
-
- */

@@ -501,9 +501,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
           } else {
             // handle loading case
             return SizedBox(
-              height: size.height * 0.030,
-              width: size.width * 0.055,
-              child: const CircularProgressIndicator(),
+
             );
           }
         },
