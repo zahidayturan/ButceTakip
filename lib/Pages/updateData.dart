@@ -144,7 +144,16 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             const SizedBox(
               height: 5,
             ),
-            CategoryCustomButton(context),
+            SizedBox(
+                width: size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(width: 15,),
+                    CategoryCustomButton(context),
+                    const SizedBox(width: 15,),
+                  ],
+                )),
             const SizedBox(
               height: 20,
             ),
