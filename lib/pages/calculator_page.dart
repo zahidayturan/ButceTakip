@@ -96,313 +96,316 @@ class _CalculatorState extends State<Calculator> {
   Widget build(BuildContext context) {
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color(0xffF2F2F2),
-        appBar: const AppBarForPage(title: 'HESAP MAKİNESİ'),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10.0,
-                  bottom: 7.0,
-                  right: 20.0,
-                  left: 20.0,
-                ),
-                child: SizedBox(
-                  height: size.height * 0.56,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(40),
-                      topLeft: Radius.circular(40),
-                      bottomLeft: Radius.circular(40),
-                    ),
-                    child: Container(
-                      color: renkler.koyuuRenk,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: PageView(
-                          controller: _pagecont,
-                          onPageChanged: (value) =>
-                              setState(() => _currentPageindex = value),
-                          children: [
-                            Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.only(top: 7.0),
-                                      child: Text(
-                                        result,
-                                        style: TextStyle(
-                                          color: renkler.sariRenk,
-                                          fontSize: 35,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const Divider(color: Colors.white, thickness: 2),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                                  child: Column(
+    return Container(
+      color: Color(0xFF03111A),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: const Color(0xffF2F2F2),
+          appBar: const AppBarForPage(title: 'HESAP MAKİNESİ'),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10.0,
+                    bottom: 7.0,
+                    right: 20.0,
+                    left: 20.0,
+                  ),
+                  child: SizedBox(
+                    height: size.height * 0.56,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(40),
+                        topLeft: Radius.circular(40),
+                        bottomLeft: Radius.circular(40),
+                      ),
+                      child: Container(
+                        color: renkler.koyuuRenk,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: PageView(
+                            controller: _pagecont,
+                            onPageChanged: (value) =>
+                                setState(() => _currentPageindex = value),
+                            children: [
+                              Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        children: [
-                                          buttonCreate(
-                                            "C",
-                                            size,
+                                      Padding(
+                                        padding:
+                                        const EdgeInsets.only(top: 7.0),
+                                        child: Text(
+                                          result,
+                                          style: TextStyle(
+                                            color: renkler.sariRenk,
+                                            fontSize: 35,
                                           ),
-                                          buttonCreate("<=", size),
-                                          buttonCreate("½", size),
-                                          buttonCreate("/", size)
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        children: [
-                                          buttonCreate("7", size),
-                                          buttonCreate("8", size),
-                                          buttonCreate("9", size),
-                                          buttonCreate("x", size)
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        children: [
-                                          buttonCreate("4", size),
-                                          buttonCreate("5", size),
-                                          buttonCreate("6", size),
-                                          buttonCreate("-", size)
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        children: [
-                                          buttonCreate("1", size),
-                                          buttonCreate("2", size),
-                                          buttonCreate("3", size),
-                                          buttonCreate("+", size)
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        children: [
-                                          buttonCreate("?", size),
-                                          buttonCreate("0", size),
-                                          buttonCreate(",", size),
-                                          equalsBtnCreat(size),
-                                        ],
+                                        ),
                                       ),
                                     ],
                                   ),
-                                ), //Tus takımı bulunacaktır.
-                              ],
-                            ),
-                            yuzdePage(), // Page 2
-                            krediPage(), //Page 3
-                            currencyConverter(), //Page 4
-                          ],
+                                  const Divider(color: Colors.white, thickness: 2),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 10.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                          children: [
+                                            buttonCreate(
+                                              "C",
+                                              size,
+                                            ),
+                                            buttonCreate("<=", size),
+                                            buttonCreate("½", size),
+                                            buttonCreate("/", size)
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                          children: [
+                                            buttonCreate("7", size),
+                                            buttonCreate("8", size),
+                                            buttonCreate("9", size),
+                                            buttonCreate("x", size)
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                          children: [
+                                            buttonCreate("4", size),
+                                            buttonCreate("5", size),
+                                            buttonCreate("6", size),
+                                            buttonCreate("-", size)
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                          children: [
+                                            buttonCreate("1", size),
+                                            buttonCreate("2", size),
+                                            buttonCreate("3", size),
+                                            buttonCreate("+", size)
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                          children: [
+                                            buttonCreate("?", size),
+                                            buttonCreate("0", size),
+                                            buttonCreate(",", size),
+                                            equalsBtnCreat(size),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ), //Tus takımı bulunacaktır.
+                                ],
+                              ),
+                              yuzdePage(), // Page 2
+                              krediPage(), //Page 3
+                              currencyConverter(), //Page 4
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: size.height*0.015,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      width: size.width / 3,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              width: 2.0,
-                              color: renkler.koyuuRenk,
+                SizedBox(
+                  height: size.height*0.015,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: size.width / 3,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2.0,
+                                color: renkler.koyuuRenk,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 50,
-                      height: 20,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: renkler.koyuuRenk,
-                          borderRadius: BorderRadius.circular(50),
+                      SizedBox(
+                        width: 50,
+                        height: 20,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: renkler.koyuuRenk,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width / 3,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2.0,
+                                color: renkler.koyuuRenk,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: size.height*0.015,
+                ),
+                ///orta cizgi gelicek
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        changePage(1);
+                      },
+                      child: SizedBox(
+                        height: size.width / 4,
+                        width: size.width / 4,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: renkler.koyuuRenk,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 1
+                                ? Border.all(
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
+                                : null,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                Icons.percent,
+                                size: 45,
+                                color: renkler.arkaRenk,
+                              ),
+                              const Center(
+                                child: Text(
+                                  " Yüzde\nHesapla",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: size.width / 3,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              width: 2.0,
-                              color: renkler.koyuuRenk,
-                            ),
+                    InkWell(
+                      onTap: () {
+                        changePage(2);
+                      },
+                      child: SizedBox(
+                        height: size.width / 4,
+                        width: size.width / 4,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: renkler.koyuuRenk,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 2
+                                ? Border.all(
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
+                                : null,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                Icons.credit_card,
+                                size: 45,
+                                color: renkler.arkaRenk,
+                              ),
+                              const Center(
+                                child: Text(
+                                  "Faiz-Kredi\n Hesapla",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        changePage(3);
+                      },
+                      child: SizedBox(
+                        height: size.width / 4,
+                        width: size.width / 4,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: renkler.koyuuRenk,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 3
+                                ? Border.all(
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
+                                : null,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                Icons.currency_exchange,
+                                size: 40,
+                                color: renkler.arkaRenk,
+                              ),
+                              const Center(
+                                child: Text(
+                                  " Döviz\nÇevirici",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: size.height*0.015,
-              ),
-              ///orta cizgi gelicek
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      changePage(1);
-                    },
-                    child: SizedBox(
-                      height: size.width / 4,
-                      width: size.width / 4,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: renkler.koyuuRenk,
-                          borderRadius: BorderRadius.circular(20),
-                          border: _currentPageindex == 1
-                              ? Border.all(
-                            color: renkler.sariRenk,
-                            width: 3,
-                          )
-                              : null,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.percent,
-                              size: 45,
-                              color: renkler.arkaRenk,
-                            ),
-                            const Center(
-                              child: Text(
-                                " Yüzde\nHesapla",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      changePage(2);
-                    },
-                    child: SizedBox(
-                      height: size.width / 4,
-                      width: size.width / 4,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: renkler.koyuuRenk,
-                          borderRadius: BorderRadius.circular(20),
-                          border: _currentPageindex == 2
-                              ? Border.all(
-                            color: renkler.sariRenk,
-                            width: 3,
-                          )
-                              : null,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.credit_card,
-                              size: 45,
-                              color: renkler.arkaRenk,
-                            ),
-                            const Center(
-                              child: Text(
-                                "Faiz-Kredi\n Hesapla",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      changePage(3);
-                    },
-                    child: SizedBox(
-                      height: size.width / 4,
-                      width: size.width / 4,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: renkler.koyuuRenk,
-                          borderRadius: BorderRadius.circular(20),
-                          border: _currentPageindex == 3
-                              ? Border.all(
-                            color: renkler.sariRenk,
-                            width: 3,
-                          )
-                              : null,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.currency_exchange,
-                              size: 40,
-                              color: renkler.arkaRenk,
-                            ),
-                            const Center(
-                              child: Text(
-                                " Döviz\nÇevirici",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
 
-              /// Sayfa butonları gelecek.
-            ],
+                /// Sayfa butonları gelecek.
+              ],
+            ),
           ),
         ),
       ),
@@ -976,7 +979,7 @@ class _CalculatorState extends State<Calculator> {
     }
     setState(() {
       amount = double.parse(nums.text) * kur;
-      sonuc.text = amount.toString();
+      sonuc.text = amount.toStringAsFixed(2);
     });
   }
   Widget currencyConverter() {
@@ -1079,6 +1082,8 @@ class _CalculatorState extends State<Calculator> {
                         color : Colors.white,
                       ),
                       decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        isDense: true,
                         hintText: 'Tutar',
                         hintStyle: TextStyle(
                           fontFamily: 'Nexa4',
@@ -1151,6 +1156,8 @@ class _CalculatorState extends State<Calculator> {
                             color : Colors.white,
                           ),
                           decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            isDense: true,
                             hintText: 'Sonuç',
                             hintStyle: TextStyle(
                               fontFamily: 'Nexa4',
@@ -1200,7 +1207,26 @@ class _CalculatorState extends State<Calculator> {
               ),
               child: TextButton(
                   onPressed: () {
-
+                    if(double.parse(sonuc.text) > 0){
+                      Clipboard.setData(ClipboardData(text: sonuc.text));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          backgroundColor:
+                          Color(0xff0D1C26),
+                          duration: Duration(seconds: 1),
+                          content: Text(
+                            'Metin panoya kopyalandı',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w600,
+                              height: 1.3,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
                   }, child: const Text(
                 ' Kopyala ',style: TextStyle(
                 fontFamily: 'NEXA4',

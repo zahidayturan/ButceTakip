@@ -9,6 +9,7 @@ class NavBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(botomNavBarRiverpod).currentindex;
     var read = ref.read(botomNavBarRiverpod);
     CustomColors renkler = CustomColors();
     final Size size = MediaQuery.of(context).size;
@@ -51,7 +52,7 @@ class NavBar extends ConsumerWidget {
                               ),
                               onPressed: () {
                                 read.setCurrentindex(1);
-                                Navigator.of(context).popUntil((route) => route.isFirst) ; //Butun Navigator stacki boşaltıyor
+                                Navigator.of(context).popUntil((route) => route.isFirst                                ) ; //Butun Navigator stacki boşaltıyor
 
                               },
                             ),
