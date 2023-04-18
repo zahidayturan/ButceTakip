@@ -17,6 +17,12 @@ class Generalinfo extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(databaseRiverpod, (previous, next) { ///bune mk bakılacak ? bunun sayesinde çlaışıyor bakıcam
+      ref.watch(databaseRiverpod).month;
+      ref.watch(databaseRiverpod).isuseinsert ;
+      return ref.watch(databaseRiverpod);
+    }
+    );
     var readhome = ref.read(homeRiverpod);
     var watchhome = ref.watch(homeRiverpod);
     var readdb = ref.read(databaseRiverpod);

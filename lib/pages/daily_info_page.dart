@@ -40,6 +40,9 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
   }
   int? registrationState;
   Widget list(BuildContext context) {
+    ref.listen(databaseRiverpod, (previous, next) {
+      return ref.watch(databaseRiverpod);
+    });
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<SpendInfo>> myList = readDailyInfo.myMethod2();
