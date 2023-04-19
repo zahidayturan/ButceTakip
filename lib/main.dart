@@ -1,4 +1,4 @@
-import 'package:butcekontrol/App/ButceKontrolApp.dart';
+import 'package:butcekontrol/App/butce_kontrol_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,5 +15,5 @@ void main() async{
     statusBarColor: Color(0xFF03111A), // status bar color
   ));
 
-  runApp( ProviderScope(child: ButceKontrolApp()));
+  runApp( const ProviderScope(child: ButceKontrolApp()));
 }
