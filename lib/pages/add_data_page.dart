@@ -1540,6 +1540,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   Widget operationCustomButton(BuildContext context) {
     var read = ref.read(databaseRiverpod);
     var read2 = ref.read(botomNavBarRiverpod);
+    var readHome = ref.read(homeRiverpod);
     var size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width * 0.9,
@@ -1600,6 +1601,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             _operationDate.text);
                         Navigator.of(context).pop();
                         read2.setCurrentindex(0);
+                        readHome.setStatus();
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             backgroundColor:

@@ -19,9 +19,9 @@ class Home extends ConsumerWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          const Generalinfo(),
-          const Aylikinfo(),
+        children: const [
+          Generalinfo(),
+          Aylikinfo(),
           GunlukInfo(),
         ],
       ),

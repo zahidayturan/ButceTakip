@@ -13,6 +13,7 @@ class HomeRiverpod extends ChangeNotifier {
   String ?income  ;
   String ?expense ;
   String ?totally ;
+  bool refrestst = false ; //veri eklemede general_infonun yenilenmesi için
 
   void setDailyStatus(String income, String expense, String totally){
      this.income = income;
@@ -23,6 +24,10 @@ class HomeRiverpod extends ChangeNotifier {
   void changeindex(indexmounthh, indexyearr){
     indexmounth = indexmounthh;
     indexyear = indexyearr ;
+    notifyListeners();
+  }
+  void setStatus(){
+    refrestst = !refrestst ;
     notifyListeners();
   }
 }
