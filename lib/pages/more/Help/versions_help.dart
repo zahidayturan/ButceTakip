@@ -14,7 +14,7 @@ class VersionsHelp extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
           bottomNavigationBar: const NavBar(),
-          appBar: const AppBarForPage(title: "YARDIM <"),
+          appBar: const AppBarForPage(title: "YARDIM<"),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -33,7 +33,6 @@ class VersionsHelp extends StatelessWidget {
                           height: 60,
                           width: 60,
                         ),
-
                         SizedBox(
                           width: size.width / 1.4,
                           child: Column(
@@ -48,7 +47,7 @@ class VersionsHelp extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "Update(17.04.2023)",
+                                "Update(21.04.2023)",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: "Nexa3",
@@ -70,8 +69,8 @@ class VersionsHelp extends StatelessWidget {
                         children: [
                           Image.asset(
                             "assets/icons/rocket.ico",
-                            height: 30,
-                            width: 30,
+                            height: 25,
+                            width: 25,
                           ),
                           SizedBox(width: size.width / 40,),
                           Text(
@@ -87,7 +86,7 @@ class VersionsHelp extends StatelessWidget {
                       SizedBox(height: size.height / 80,),
                       Column(
                         children: [
-                          const Text("Merhaba! Bütçe Kontrol uygulamamızı kullanmaya başladığınız için teşekkür ederiz. Uygulamamız Version v1.0 ile ilk gösterime ıktığını duyurmaktan büyük mutluluk duyuyoruz. Tüm yazılım ekibimize buradan Tebrikler diliyoruz.\n"),
+                          const Text("Merhaba! Bütçe Kontrol uygulamamızı kullanmaya başladığınız için teşekkür ederiz. Uygulamamız Version v1.0 ile ilk gösterime çıktığını duyurmaktan büyük mutluluk duyuyoruz. Tüm yazılım ekibimize buradan Tebrikler diliyoruz.\n"),
                           Image.asset(
                               "assets/image/icon_BKA/LOGOBKA-4.png",
                             height: size.height / 10,
@@ -101,7 +100,7 @@ class VersionsHelp extends StatelessWidget {
                           Row(
                             children: [
                               Image.asset(
-                                "assets/icons/emoji_recycling.png",
+                                "assets/icons/Vector.png",
                                 height: 25,
                                 width: 25,
                               ),
@@ -121,10 +120,10 @@ class VersionsHelp extends StatelessWidget {
 
                           Row(
                             children: [
-                              Image.asset(
-                                "assets/icons/Vector.png",
-                                height: 25,
-                                width: 25,
+                              const Icon(
+                                  Icons.ac_unit,
+                                size: 30,
+                                color: Colors.green,
                               ),
                               SizedBox(width: size.width / 40,),
                               Text(

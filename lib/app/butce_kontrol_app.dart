@@ -24,7 +24,7 @@ class ButceKontrolApp extends StatelessWidget {
         fontFamily: "Nexa",
         unselectedWidgetColor: Colors.orange // checkbox border rengi için kullandım.
       ),
-      home: const BaseBKA(),
+      home: const base_BKA(),
     );
   }
 }

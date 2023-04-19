@@ -22,7 +22,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
   List <String> password2list = [];
   String password1 = "" ;
   String password2 = "" ;
-  String info = "Giriş kodunuzu giriniz.";
+  String info = "Yeni şifre kodunu giriniz";
   bool security = false ;
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                     const TextMod("Uyarı", Colors.white, 18),
                   ],
                 ),
-                content:  const TextMod("Herhangi Bir Şifre koymadınız\nŞifre Koymaktan vaz mı geçiyorsunuz ?", Colors.white, 15),
+                content:  const TextMod("Herhangi bir şifre belirlemediniz.\nŞifre Koymaktan vaz mı geçiyorsunuz?", Colors.white, 15),
                 actions: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20) ,

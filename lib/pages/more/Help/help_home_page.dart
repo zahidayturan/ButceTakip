@@ -22,23 +22,31 @@ class HelpHomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
-                    child: Container(
-                      color: renkler.koyuuRenk,
-                      height: 65,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(width: size.width/10,),
-                          Image.asset(
-                            "assets/image/LogoBkaShort.png",
-                            height: 60,
-                              width: 60,
+                  padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
+                  child: Container(
+                    color: renkler.koyuuRenk,
+                    height: 65,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(width: size.width/10,),
+                        Image.asset(
+                          "assets/image/LogoBkaShort.png",
+                          height: 60,
+                          width: 60,
+                        ),
+                        const Text(
+                          "Help Center",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Nexa3",
+                              fontSize: 25
                           ),
+                        ),
                       ],
                     ),
                   ),
-              ),
+                ),
              Padding(
                  padding: const EdgeInsets.symmetric(
                    horizontal: 20.0,
@@ -58,7 +66,7 @@ class HelpHomePage extends StatelessWidget {
                    ),
                    const SizedBox(
                      child: Text(
-                       """Uygulamamızın Ana sayfasında kullanıcıya kolaylık  sağlanması amacıyla Faydalı alanı en kullanışlı şekilde dizaynettik. Burada hem Aylık harcama bilgilerini hem de o güne aitverileri ana sayfamız üzerinden gösterebiliyoruz. 
+                       """Uygulamamızın Ana sayfasında kullanıcıya kolaylık sağlanması amacıyla faydalı alanı en kullanışlı şekilde dizayn ettik. Burada hem Aylık harcama bilgilerini hem de o güne ait verileri ana sayfamız üzerinden gösterimini sağladık. 
                        """
                      ),
                    ),
@@ -66,25 +74,25 @@ class HelpHomePage extends StatelessWidget {
                      "assets/image/helphome1.png",
                    ),
                    const Text(
-                     """\nKullanıcı istediği kaydın üzerine tıklayarak O güne ait verilerin olduğu sayfa açılıyor harcamaların üzerinden istenilen kayda gidildiğinde harcamanın detay sayfası bizi karşılıyor"""
+                     "\nKullanıcı istediği kaydın üzerine tıklayarak o güne ait verilerin olduğu sayfaya yönlendiriliyor. Harcamaların üzerinden istenilen kayda gidildiğinde harcamanın detay sayfası bizi karşılıyor\n"
                    ),
                    Image.asset(
                      "assets/image/helphome2.png",
                    ),
                    const Text(
-                       """\nGünlük harcama bilgilerinin gösterildiği alanda  kullanıcının en çok görmek istediği verileri düşünerek Kategori, Ödeme türü, Miktar bilgisini ve harcama saati bilgisine yer verdik."""
+                       """\nGünlük harcama bilgilerinin gösterildiği alanda  kullanıcının en çok görmek istediği verileri düşünerek Kategori, Ödeme türü, Miktar bilgisi ve harcama saati bilgisine yer verdik."""
                    ),
                    Image.asset(
                      "assets/image/helphome3.png",
                    ),
                    const Text(
-                       """Ana Sayfamızın Appbar kısmında Bazı shortWay’ler  kullanılmıştır Bunlar aşağıda belirtilmiştir. """
+                       """\nAna Sayfamızın Appbar kısmında Bazı shortWay’ler  kullanılmıştır Bunlar aşağıda belirtilmiştir. \n"""
                    ),
                    Image.asset(
                      "assets/image/helphome4.png",
                    ),
                    const Text(
-                       """\nKaydedilen sekmesinde kullanıcının tekrar tekrar aynı verileri  girmesinden kaçınılmak için tek seferde veriyi kaydetmesini sağlamaktadır örneğin ; Maaş, Aidat/Kira, Burs , vb."""
+                       """\nKaydedilen sekmesinde kullanıcının tekrar tekrar aynı verileri  girmesinden kaçınılmak için tek seferde veriyi kaydetmesini sağlamaktadır örneğin ; Maaş, Aidat/Kira, Burs , vb.\n\n"""
                    ),
                    Image.asset(
                      "assets/image/helphome5.png",

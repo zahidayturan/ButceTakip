@@ -72,7 +72,7 @@ class HelpCalender extends StatelessWidget {
                           "assets/image/helpcalender1.png"
                       ),
                       const Text(
-                          "\n\nKayan butonlar ile uygulamamızın bir çok yerinde karşılaşabilirsiniz. Kullanımı son derece kolay olan bu butonları aktif etmek için yapmanızgereken sağ veya sola kaydırmak olacaktır. Hem ay hem de yıl değişimini sağlayan bu yapı takvim kategorimizin güncellenmesini sağlamaktadır.\n"
+                          "\n\nKayan butonlar ile uygulamamızın bir çok yerinde karşılaşabilirsiniz. Kullanımı son derece kolay olan bu butonları aktif etmek için yapmanız gereken sağ veya sola kaydırmak olacaktır. Hem ay hem de yıl değişimini sağlayan bu yapı takvim kategorimizin güncellenmesini sağlamaktadır.\n"
                       ),
                       Image.asset(
                           "assets/image/helpcalender2.png"

@@ -1,23 +1,22 @@
-import 'package:butcekontrol/pages/more/Help/password_splash.dart';
+import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import '../Pages/more/Help/password_splash.dart';
 import '../riverpod_management.dart';
-import '../classes/nav_bar.dart';
 
-class BaseBKA extends ConsumerStatefulWidget {
-  const BaseBKA({Key ? key}) :super(key :key);
+class base_BKA extends ConsumerStatefulWidget {
+  const base_BKA({Key ? key}) :super(key :key);
 
   @override
-  ConsumerState<BaseBKA> createState() => _BaseBKAState();
+  ConsumerState<base_BKA> createState() => _base_BKAState();
 }
 
-class _BaseBKAState extends ConsumerState<BaseBKA> {
+class _base_BKAState extends ConsumerState<base_BKA> {
   void loadData()  async {
     // örnek gecikme
     var readSetting =  ref.read(settingsRiverpod);
     readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(Duration(milliseconds: 1000));
     if(readSetting.isBackUp == 1){
       List<String> datesplit = readSetting.lastBackup!.split(".");
       if(readSetting.Backuptimes == "Günlük"){
@@ -49,16 +48,16 @@ class _BaseBKAState extends ConsumerState<BaseBKA> {
     }
     if(readSetting.isPassword == 1 && readSetting.Password != "null") {
       Navigator.push(context, PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 1),
-          pageBuilder: (context, animation, nextanim) =>  PasswordSplash(),
-          reverseTransitionDuration: const Duration(milliseconds: 1),
-          transitionsBuilder: (context, animation, nexttanim, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-        ),
+        transitionDuration: Duration(milliseconds: 1),
+        pageBuilder: (context, animation, nextanim) => PasswordSplash(),
+        reverseTransitionDuration: Duration(milliseconds: 1),
+        transitionsBuilder: (context, animation, nexttanim, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
       );
     }
   }
@@ -72,7 +71,7 @@ class _BaseBKAState extends ConsumerState<BaseBKA> {
     var watch = ref.watch(botomNavBarRiverpod);
     return Scaffold(
       body:watch.body(),
-      bottomNavigationBar: const NavBar(),
+      bottomNavigationBar: NavBar(),
     );
   }
 }

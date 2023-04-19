@@ -65,19 +65,19 @@ class HelpStatisic extends StatelessWidget {
                         ),
                       ),
                       const Text(
-                          "Değerli kullanıcılarımızın harcama bilgilerini belirli periyotlarda görmek istemekteler. Bunun için İstatistik sayfasını oluşturduk burada pasta dilimi kullanarak yüzdesel olarak harcama detaylarını görselleştiriyoruz.\n"
+                          "Değerli kullanıcılarımızın harcama bilgilerini belirli periyotlarda görmek istemektedirler. Bunun için İstatistik sayfasını oluşturduk burada pasta dilimi kullanarak yüzdesel olarak harcama detaylarını görselleştiriyoruz.\n"
                       ),
                       Image.asset(
                           "assets/image/helpstatistic1.png"
                       ),
                       const Text(
-                          "\nButonlar ham yer hemde görüntü olarak farklı bir tasarım tercih edildi aşağı yukarı hareketlerde bulunarak değişiklik yapabilirsiniz. İstatistik bölümümüzdeki pasta grafiğini en etkili şekilde yeniden biçimlendirmek için pratik işlem menüsü tasarlandı. Dolayısıyla veri havuzunu Yıllık, Aylık, Haftalık ve Günlük olacak şekilde filitreleyip sonuçların analizini yaptırabileceksiniz."
+                          "\nButonlar ham yer hemde görüntü olarak farklı bir tasarım tercih edildi aşağı yukarı hareketlerde bulunarak değişiklik yapabilirsiniz. İstatistik bölümümüzdeki pasta grafiğini en etkili şekilde yeniden biçimlendirmek için pratik işlem menüsü tasarlandı. Dolayısıyla veri havuzunu Yıllık, Aylık, Haftalık ve Günlük olacak şekilde filitreleyip sonuçların analizini yaptırabileceksiniz.\n"
                       ),
                       Image.asset(
                           "assets/image/helpstatistic2.png"
                       ),
                       const Text(
-                          "\nİstatistiksel olarak yapılan hesplama sonrası Liste şeklinde her bir kategoriye özel harcama bilgisigösterilmektedir.\n\n"
+                          "\nİstatistiksel olarak yapılan hesplama sonrası Liste şeklinde her bir kategoriye özel harcama bilgisi gösterilmektedir.\n\n"
                       )
                     ],
                   ),

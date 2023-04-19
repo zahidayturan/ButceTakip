@@ -1,15 +1,12 @@
-
-
-
 import 'package:butcekontrol/pages/more/Help/communicate.dart';
 import 'package:butcekontrol/pages/more/Help/help_calculator.dart';
 import 'package:butcekontrol/pages/more/Help/help_calender.dart';
+import 'package:butcekontrol/pages/more/Help/help_footer.dart';
 import 'package:butcekontrol/pages/more/Help/help_home_page.dart';
 import 'package:butcekontrol/pages/more/Help/help_statistic.dart';
 import 'package:butcekontrol/pages/more/Help/versions_help.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../classes/app_bar_for_page.dart';
 import '../../../classes/nav_bar.dart';
 import '../../../constans/material_color.dart';
@@ -40,14 +37,14 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
                 child: Container(
                   color: renkler.koyuuRenk,
                   height: 65,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(width: size.width/10),
+                      SizedBox(width: size.width/10,),
                       Image.asset(
                         "assets/image/LogoBkaShort.png",
                         height: 60,
@@ -110,7 +107,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 );
                               },
                               child: const Text(
-                                  "Android 1.0v Update(17.04.2023)"
+                                  "Android 1.0v Update(21.04.2023)"
                               ),
                             ),
                           ],
@@ -295,7 +292,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 15.0),
                                   child: Text(
-                                      "Bazı durumlarda beklenmeyen sonuçlarla\nkarşılaşabiliyoruz. Böyle bir"
+                                      "Bazı durumlarda beklenmeyen sonuçlarla\nkarşılaşabiliyoruz. Böyle bir "
                                           "durumda yapmanız gereken güncellemeleri kontrol etmektir. Eğer hala "
                                           "sorun devam ediyorsa lütfen geri bildirim bırakınız.\n"
                                   ),
@@ -332,7 +329,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                   child: Text(
                                     "Uygulama son güncelleme ile gelen bazı yenilikler dolayısıyla "
                                         "veritabanının güncellenmesi noktasında eski sürümün desteklenmemesi "
-                                        "bu soruna yol açmış olabilir teknik ekibimiz bu durumla karşılaşmamak"
+                                        "bu soruna yol açmış olabilir teknik ekibimiz bu durumla karşılaşmamak "
                                         "için version güncellenmesinde yedekleme işlemini gerçekleştirmektedirler "
                                         "yinede geri bildirim bırakabilirsiniz.\n",
                                   ),
@@ -422,6 +419,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                   ],
                 ),
               ),
+              SizedBox(height: 20,),
+              helpFooter(context),
             ],
           ),
         ),

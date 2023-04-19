@@ -65,20 +65,20 @@ class HelpCalculator extends StatelessWidget {
                         ),
                       ),
                       const Text(
-                          "Mevzu bahis Cüzdan ve Para yönetimi ise Hesapsız ve basit matematik işlemleri olmadan olmaz dedik dolayısıyla uygulamamızda pratik işlemleri yapabileceğiniz küçük bir hesap makinesi oluşturduk.\n"
+                          "Mevzu bahis cüzdan ve para yönetimi ise hesap ve basit matematik işlemleri olmadan olmaz dedik dolayısıyla uygulamamızda pratik işlemleri yapabileceğiniz küçük bir hesap makinesi oluşturduk.\n"
                       ),
                       Image.asset(
                         "assets/image/helpcalculator1.png",
                       ),
-                      const Text("\nYüzde  hesabını kullanmak için bazı özelliklerin bilinmesi gerkemektedir varsayılan olarak sayı girdisi ve Yüzdesel oran alınarak sonuç gösterilir lakin bazı durumlarda bir adet sayı yetmeyebilir böyle durumlarda 2. sayıya ihtiyaç duyulur.\n"),
+                      const Text("\nYüzde hesabını kullanmak için bazı özelliklerin bilinmesi gerekmektedir varsayılan olarak sayı girdisi ve yüzdesel oran alınarak sonuç gösterilir lakin bazı durumlarda bir adet sayı yetmeyebilir bu yüzden 2. bir sayıya ihtiyaç duyulur.\n"),
                       Image.asset(
                         "assets/image/helpcalculator2.png",
                       ),
                       const Text(
-                        "\nsayı 2 ‘yi ekle seçeneği işaretlendiğinde varsayılı olarak 1. seçenek yani Sayı 2 Sayı 1’in Yüzde kaçıdır tarzındaki problemler için yazılmış seçilmiş oluyor burada program yüzdesel oran çıktısını veriyor .\n\n",
+                        "\nSayı 2 ‘yi ekle seçeneği işaretlendiğinde varsayılı olarak 1. seçenek yani Sayı 2 Sayı 1’in Yüzde kaçıdır tarzındaki problemler için yazılmış mod seçilmiş oluyor burada program yüzdesel oran çıktısını veriyor .\n\n",
                       ),
                       const Text(
-                          "2. seçenek yani Sayı 1’den Sayı 2’ ye Değişim oranı kaçtır bu probleme genel olarak finans alanında çokça karşılaşılır. bu seçeneğimizde yine yüzdesel bir çıktı verir.\n"
+                          "2. seçenek yani Sayı 1’den Sayı 2’ ye Değişim oranı kaçtır bu probleme genel olarak finans alanında çokça karşılaşılır. Bu seçeneğimizde yine yüzdesel bir çıktı verilir.\n"
                       ),
                       Image.asset(
                         "assets/image/helpcalculator3.png",

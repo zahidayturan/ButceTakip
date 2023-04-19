@@ -1,6 +1,5 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:flutter/material.dart';
-
 import '../../../classes/nav_bar.dart';
 
 class Communicate extends StatelessWidget {
@@ -30,7 +29,7 @@ class Communicate extends StatelessWidget {
             Row(
               children: const [
                 Icon(Icons.mail),
-                Text("Email   : *****@gmail.com"),
+                Text("Email   : fezaitech@gmail.com"),
               ],
             ),
             Row(
@@ -84,10 +83,10 @@ class Communicate extends StatelessWidget {
                   ],
                 )
               ],
-            )
+            ),
           ],
         ) ,
-      ),
+        ),
     ),
     );
   }
