@@ -3,6 +3,7 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../constans/text_pref.dart';
 import '../models/spend_info.dart';
 
 
@@ -145,7 +146,36 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                             child: CircularProgressIndicator(),
                           );
                         }
-                        return SizedBox(
+                        return snapshot.data!.length == 0
+                        ? Center(
+                          child: SizedBox(
+                            height: size.height*0.24,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/image/origami_noinfo.png",
+                                  width: 60,
+                                  height: 60,
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                  width: 110,
+                                  child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+                                        border: Border.all(
+                                            color: Colors.black, width: 2),
+                                      ),
+                                      child: const Center(child: TextMod(
+                                          "Kayıt Yok", Colors.amber, 18))
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                        :SizedBox(
                           height: size.height*0.24,
                           child: Padding(
                             //borderin scroll ile birleşimi gözüksü diye soldan padding

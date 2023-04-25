@@ -50,8 +50,8 @@ class Aylikinfo extends ConsumerWidget {
                               children: [
                                 Image.asset(
                                   "assets/image/origami_noinfo.png",
-                                  width: 60,
-                                  height: 60,
+                                  width: 50,
+                                  height: 50,
                                 ),
 
                                 SizedBox(
