@@ -14,26 +14,10 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
     return AppBar(
       backgroundColor: const Color(0xFF0D1C26),
       title: Padding(
-        padding: const EdgeInsets.only(top: 4),
-        child: RichText(
-          text: const TextSpan(
-            text: "Bütçe",
-
-            style: TextStyle(
-              fontFamily: "Nexa3",
-              color: Color(0xFFFFFFFF),
-              fontSize: 21,
-            ),
-            children: [
-              TextSpan(
-                text: " Takip",
-                style: TextStyle(
-                  fontFamily: "NEXA3",
-                  color: Color(0xFFF2CB05),
-                ),
-              ),
-            ],
-          ),
+        padding: const EdgeInsets.only(top: 5),
+        child: Image.asset(
+          "assets/image/icon_BKA/yatayYazi.png",
+          width: 130,
         ),
       ),
       actions: [

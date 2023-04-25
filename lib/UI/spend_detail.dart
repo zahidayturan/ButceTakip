@@ -24,10 +24,10 @@ showModalBottomSheet(
 class SpendDetail extends ConsumerStatefulWidget {
   const SpendDetail({super.key});
   @override
-  _SpendDetailState createState() => _SpendDetailState();
+  SpendDetailState createState() => SpendDetailState();
 }
 
-class _SpendDetailState extends ConsumerState<SpendDetail> {
+class SpendDetailState extends ConsumerState<SpendDetail> {
   @override
   Widget build(BuildContext context) {
     var readDB = ref.read(databaseRiverpod);
@@ -326,7 +326,9 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
                         ),
                         onPressed: () {
                           readHome.setStatus();
-                          readDB.delete(item[index].id!);
+                          readDB.delete(
+                              item[index]
+                                  .id!);
                           readDB.myMethod2();
                           Navigator.of(context).pop();
                           ScaffoldMessenger.of(context).showSnackBar(

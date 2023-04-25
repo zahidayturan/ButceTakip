@@ -233,6 +233,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           changeColorType(0);
                           _operationType.text = "Gider";
                           selectedCategory = 0;
+                          _category.text = 'Yemek';
                         });
                       },
                       child: Text("GİDER",
