@@ -29,13 +29,16 @@ class Communicate extends StatelessWidget {
             Row(
               children: const [
                 Icon(Icons.mail),
+                SizedBox(width: 5),
                 Text("Email   : fezaitech@gmail.com"),
               ],
             ),
+            SizedBox(height: 5),
             Row(
               children: const [
                 Icon(Icons.account_circle_outlined),
-                Text("Github : github.com/ibrahimeth/ButceKontrolApp"),
+                SizedBox(width: 5),
+                Text("Github : github.com/ibrahimeth/\nButceKontrolApp"),
               ],
             ),
             const SizedBox(height: 30),

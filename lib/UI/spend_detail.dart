@@ -24,13 +24,14 @@ showModalBottomSheet(
 class SpendDetail extends ConsumerStatefulWidget {
   const SpendDetail({super.key});
   @override
-  _SpendDetailState createState() => _SpendDetailState();
+  SpendDetailState createState() => SpendDetailState();
 }
 
-class _SpendDetailState extends ConsumerState<SpendDetail> {
+class SpendDetailState extends ConsumerState<SpendDetail> {
   @override
   Widget build(BuildContext context) {
     var readDB = ref.read(databaseRiverpod);
+    var readHome = ref.read(homeRiverpod);
     var readUpdateData = ref.read(updateDataRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     List<SpendInfo> item = readDailyInfo.getSpendDetailItem();
@@ -313,28 +314,23 @@ class _SpendDetailState extends ConsumerState<SpendDetail> {
                     DecoratedBox(
                       decoration:
                       BoxDecoration(
-                        color: const Color(
-                            0xFFF2CB05),
+                        color: const Color(0xFFF2CB05),
                         borderRadius:
-                        BorderRadius
-                            .circular(
-                            50),
+                        BorderRadius.circular(50),
                       ),
                       child: IconButton(
                         icon: const Icon(
                           Icons.delete,
                           size: 30,
-                          color: Colors
-                              .white,
+                          color: Colors.white,
                         ),
                         onPressed: () {
+                          readHome.setStatus();
                           readDB.delete(
                               item[index]
                                   .id!);
                           readDB.myMethod2();
-                          Navigator.of(
-                              context)
-                              .pop();
+                          Navigator.of(context).pop();
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               backgroundColor:

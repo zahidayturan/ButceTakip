@@ -1663,6 +1663,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   Widget operationCustomButton(BuildContext context) {
     var readUpdateData = ref.read(updateDataRiverpod);
     var read = ref.read(databaseRiverpod);
+    var readHome = ref.read(homeRiverpod);
     final id = readUpdateData.getId();
     final operationType = readUpdateData.getType();
     final note = readUpdateData.getNote();
@@ -1703,6 +1704,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           read.update();
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();
+                      readHome.setStatus();
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           backgroundColor:
