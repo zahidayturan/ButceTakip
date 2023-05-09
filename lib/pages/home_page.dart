@@ -18,10 +18,11 @@ class Home extends ConsumerWidget {
       appBar: const AppBarCustom(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
           Generalinfo(),
           Aylikinfo(),
+          SizedBox(height: 4),
           GunlukInfo(),
         ],
       ),

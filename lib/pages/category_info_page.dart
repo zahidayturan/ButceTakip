@@ -51,6 +51,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<SpendInfo>> myList = readCategoryInfo.myMethod2();
+    CustomColors renkler = CustomColors();
     return FutureBuilder(
         future: myList,
         builder: (context, AsyncSnapshot<List<SpendInfo>> snapshot) {
@@ -60,174 +61,199 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
             );
           }
           var item = snapshot.data!; // !
-          return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  height: size.height*0.76,
-                  child: Stack(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 11.5),
-                            child: SizedBox(
-                              width: 4,
-                              height: size.height*0.72,
+          return Expanded(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 11.5),
+                              child: SizedBox(
+                                width: 4,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 11.5),
+                              child: Container(
+                                width: 4,
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(30)),
+                                    color: snapshot.data!.length <= 8
+                                        ? Colors.white
+                                        : const Color(0xFF0D1C26)),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Theme(
+                            data: Theme.of(context).copyWith(
+                                scrollbarTheme: ScrollbarThemeData(
+                                    thumbColor: MaterialStateProperty.all(
+                                        const Color(0xffF2CB05)))),
+                            child: Scrollbar(
+                              scrollbarOrientation: ScrollbarOrientation.right,
+                              interactive: true,
+                              thickness: 7,
+                              radius: const Radius.circular(15),
+                              child: ListView.builder(
+                                itemCount: item.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 15, top: 5, bottom: 5),
+                                    child: InkWell(
+                                      onTap: () {
+                                        {
+                                          readDailyInfo.setSpendDetail(item, index);
+                                          ref.watch(databaseRiverpod).delete;
+                                          showModalBottomSheet(
+                                            context: context,
+                                            shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.vertical(
+                                                    top: Radius.circular(25))),
+                                            backgroundColor:
+                                                const Color(0xff0D1C26),
+                                            builder: (context) {
+                                              // genel bilgi sekmesi açılıyor.
+                                              return const SpendDetail();
+                                            },
+                                          );
+                                        }
+                                      },
+                                      child: SizedBox(
+                                        height: 48,
+                                        child: DecoratedBox(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                            color: Colors.white,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.all(9.0),
+                                                child: Icon(
+                                                  Icons.remove_red_eye,
+                                                  color:
+                                                      item[index].operationType ==
+                                                              "Gider"
+                                                          ? const Color(0xFFD91A2A)
+                                                          : const Color(0xFF1A8E58),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 5),
+                                              Text(
+                                                "${item[index].operationDate}",
+                                                style: const TextStyle(
+                                                  fontFamily: 'NEXA3',
+                                                  fontSize: 18,
+                                                  color: Color(0xff0D1C26),
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 8.0),
+                                                child: item[index].operationType ==
+                                                        "Gelir"
+                                                    ? RichText(
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text:item[index].amount.toString(),style: TextStyle(
+                                                        fontFamily: 'NEXA3',
+                                                        fontSize: 18,
+                                                        color: renkler.yesilRenk,
+                                                      ),
+                                                      ),
+                                                      TextSpan(
+                                                        text: ' ₺',
+                                                        style: TextStyle(
+                                                          fontFamily: 'TL',
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: renkler.yesilRenk,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ) : RichText(
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text:item[index].amount.toString(),style: TextStyle(
+                                                        fontFamily: 'NEXA3',
+                                                        fontSize: 18,
+                                                        color: renkler.kirmiziRenk,
+                                                      ),
+                                                      ),
+                                                      TextSpan(
+                                                        text: ' ₺',
+                                                        style: TextStyle(
+                                                          fontFamily: 'TL',
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: renkler.kirmiziRenk,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 11.5),
-                            child: SizedBox(
-                              width: 4,
-                              height: size.height*0.76,
-                              child:  DecoratedBox(
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                                    color: snapshot.data!.length <= 8 ? Colors.white : const Color(0xFF0D1C26)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: SizedBox(
+                      width: size.width*0.98,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            height: 15,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: Text(
+                                "${item.length}",
+                                style: const TextStyle(color: Color(0xFFE9E9E9),fontSize: 18,fontFamily: 'NEXA3'),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                            child: Padding(
+                              padding: const EdgeInsets.only( right: 5),
+                              child: Text(
+                                "${item.length}",
+                                style: const TextStyle(color: Color(0xFFF2CB05),fontSize: 18,fontFamily: 'NEXA3'),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Theme(
-                          data: Theme.of(context).copyWith(
-                              scrollbarTheme: ScrollbarThemeData(
-                                  thumbColor: MaterialStateProperty.all(
-                                      const Color(0xffF2CB05)))),
-                          child: Scrollbar(
-                            scrollbarOrientation: ScrollbarOrientation.right,
-                            interactive: true,
-                            thickness: 7,
-                            radius: const Radius.circular(15),
-                            child: ListView.builder(
-                              itemCount: item.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 15, top: 5, bottom: 5),
-                                  child: InkWell(
-                                    onTap: () {
-                                      {
-                                        readDailyInfo.setSpendDetail(item, index);
-                                        ref.watch(databaseRiverpod).delete;
-                                        showModalBottomSheet(
-                                          context: context,
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.vertical(
-                                                  top: Radius.circular(25))),
-                                          backgroundColor:
-                                              const Color(0xff0D1C26),
-                                          builder: (context) {
-                                            // genel bilgi sekmesi açılıyor.
-                                            return const SpendDetail();
-                                          },
-                                        );
-                                      }
-                                    },
-                                    child: SizedBox(
-                                      height: 48,
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: Colors.white,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(9.0),
-                                              child: Icon(
-                                                Icons.remove_red_eye,
-                                                color:
-                                                    item[index].operationType ==
-                                                            "Gider"
-                                                        ? const Color(0xFFD91A2A)
-                                                        : const Color(0xFF1A8E58),
-                                              ),
-                                            ),
-                                            const SizedBox(width: 5),
-                                            Text(
-                                              "${item[index].operationDate}",
-                                              style: const TextStyle(
-                                                fontFamily: 'NEXA4',
-                                                fontSize: 18,
-                                                color: Color(0xff0D1C26),
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 8.0),
-                                              child: item[index].operationType ==
-                                                      "Gelir"
-                                                  ? Text(
-                                                      item[index]
-                                                          .amount
-                                                          .toString()
-                                                          .toUpperCase(),
-                                                      style: const TextStyle(
-                                                        fontFamily: 'NEXA4',
-                                                        fontSize: 18,
-                                                        color: Color(0xFF1A8E58),
-                                                      ),
-                                                    )
-                                                  : Text(
-                                                      item[index]
-                                                          .amount
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                        fontFamily: 'NEXA4',
-                                                        fontSize: 18,
-                                                        color: Color(0xFFD91A2A),
-                                                      ),
-                                                    ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: size.width*0.98,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 15,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 1, right: 4),
-                          child: Text(
-                            "${item.length}",
-                            style: const TextStyle(color: Color(0xFFE9E9E9),fontSize: 18,fontFamily: 'NEXA4'),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 1, right: 4),
-                          child: Text(
-                            "${item.length}",
-                            style: const TextStyle(color: Color(0xFFF2CB05),fontSize: 18,fontFamily: 'NEXA4'),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ]);
+                ]),
+          );
         });
   }
   Widget dayDetailsGuide(BuildContext context) {
@@ -247,7 +273,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                 const SizedBox(
                   width: 210,
                   child: Text("Toplam Tutar",style: TextStyle(
-                    fontFamily: 'NEXA4',
+                    fontFamily: 'NEXA3',
                     fontSize: 17,
                     color: Color(0xff0D1C26),
                   ),),
@@ -268,7 +294,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                             children: [
                               TextSpan(
                                 text: data.toStringAsFixed(2),style: const TextStyle(
-                                fontFamily: 'NEXA4',
+                                fontFamily: 'NEXA3',
                                 fontSize: 17,
                                 color: Color(0xff0D1C26),
                               ),
@@ -336,7 +362,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                       myCategory[0],
                       style: const TextStyle(
                         color: Colors.white,
-                        fontFamily: "NEXA4",
+                        fontFamily: "NEXA3",
                         fontSize: 25,
                       ),
                     ),
@@ -347,7 +373,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                       myDate[0],
                       style: const TextStyle(
                         color: Colors.white,
-                        fontFamily: "NEXA4",
+                        fontFamily: "NEXA3",
                         fontSize: 13,
                       ),
                     ),
