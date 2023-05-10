@@ -81,6 +81,7 @@ flutter:
     - assets/image/origami_noinfo.png
     - assets/image/
     - assets/image/icon_BKA/LOGOBKA-2.png
+    - assets/image/icon_BKA/yatayYazi.png
     - assets/image/
     - assets/image/icon_BKA/İKON.png
     - assets/image/icon_BKA/LOGOBKA-4.png
@@ -99,9 +100,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Nexa4
+    - family: Nexa1
       fonts:
-       - asset: assets/fonts/NEXABOLD.OTF
+       - asset: assets/fonts/NEXA_BOLD.OTF
     - family: Nexa2
       fonts:
         - asset: assets/fonts/NEXABLACK.OTF

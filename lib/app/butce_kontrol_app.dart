@@ -18,10 +18,10 @@ class ButceKontrolApp extends StatelessWidget {
       ],
       locale: const Locale('tr'),
       debugShowCheckedModeBanner: false,
-      title: "Bütçe Kontrol Uygulaması",
+      title: "Bütçe Takip",
       theme: ThemeData(
         primaryColor: Colors.white,
-        fontFamily: "Nexa",
+        fontFamily: "Nexa3",
         unselectedWidgetColor: Colors.orange // checkbox border rengi için kullandım.
       ),
       home: const base_BKA(),

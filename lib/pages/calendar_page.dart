@@ -243,6 +243,88 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     return FutureBuilder<List>(
       future: read.getMonthAmount(selectedMonthIndex, selectedYearIndex),
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Veri henüz gelmediğinde veya gecikme yaşandığında
+          return SizedBox(
+            width: size.width * 0.90,
+            height: size.height * 0.05,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 3,
+                  child: SizedBox(
+                    height: size.height * 0.04,
+                    width: size.width * 0.90,
+                    child: DecoratedBox(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xff1A8E58), Color(0xffD91A2A)],
+                          stops: [0.5, 0.5],
+                        ),
+                        borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(10)),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const Text(
+                            "+0.0",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w900,
+                              height: 1.4,
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.15,
+                          ),
+                          const Text(
+                            "-0.0",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w900,
+                              height: 1.4,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                //gelir bilgisi
+                Center(
+                  child: SizedBox(
+                    height: size.height * 0.05,
+                    width: size.width / 3.5,
+                    child: const DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: Color(0xffF2CB05),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "0.0",
+                          style: TextStyle(
+                            color: Color(0xff0D1C26),
+                            fontSize: 20,
+                            fontFamily: 'Nexa3',
+                            fontWeight: FontWeight.w900,
+                            height: 1.4,
+                          ),
+                        ),
+                      ), //Toplam değişim.
+                    ),
+                  ),
+                ),
+                //Gider bilgisi
+              ],
+            ),
+          );
+        }
         if (snapshot.hasData) {
           List data = snapshot.data!;
           return SizedBox(
