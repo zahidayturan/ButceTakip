@@ -13,7 +13,6 @@ class VersionsHelp extends StatelessWidget {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
         child: Scaffold(
-          bottomNavigationBar: const NavBar(),
           appBar: const AppBarForPage(title: "YARDIM<"),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,

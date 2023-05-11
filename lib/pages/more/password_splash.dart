@@ -3,7 +3,7 @@ import 'package:butcekontrol/pages/more/password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../riverpod_management.dart';
+import '../../riverpod_management.dart';
 
 class PasswordSplash extends ConsumerStatefulWidget {
   final String ?mode;
@@ -203,82 +203,88 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
   Widget buton(BuildContext context,String num ){
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
-    return InkWell(
-      onTap: () {
-        if (num1 == false) {
-          password1list.add(num);
-          setState(() {
-            num1 = true ;
-          });
-        }else if(num2 == false){
-          password1list.add(num);
-          setState(() {
-            num2 = true;
-          });
-        }else if(num3  == false){
-          password1list.add(num);
-          setState(() {
-            num3 = true;
-          });
-        }else if(num4 == false){
-            setState(() {
-              password1 = "" ;
-            });
-            password1list.add(num);
-            if(password1list.length == 4) {
-              for (var i = 0; i < password1list.length ; i++) {
-                password1 = password1 + password1list[i];
-              }
-              print("ps1 = $password1");
-              if (password1 == ref.read(settingsRiverpod).Password ) {
-                setState(() {
-                  info = "Giriş Başarılı" ;
-                  password1list.clear();
-                  ref.read(settingsRiverpod).setStatus(true);
-                  Navigator.of(context).pop();
-                });
-                widget.mode == "admin"
-                ?Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    transitionDuration: const Duration(milliseconds: 1),
-                    pageBuilder: (context, animation, nextanim) => const PasswordPage(),
-                    reverseTransitionDuration: const Duration(milliseconds: 1),
-                    transitionsBuilder: (context, animation, nexttanim, child) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      );
-                    },
+    return SizedBox(
+      height: size.height / 9.5,
+      width: size.height / 9.5,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(30)),
+        child: Container(
+          color: const Color(0xffE2E1E1),
+          child: Center(
+            child: SizedBox(
+              height: size.height / 12,
+              width:  size.height / 12,
+              child: InkWell(
+                onTap: () {
+                  if (num1 == false) {
+                    password1list.add(num);
+                    setState(() {
+                      num1 = true ;
+                    });
+                  }else if(num2 == false){
+                    password1list.add(num);
+                    setState(() {
+                      num2 = true;
+                    });
+                  }else if(num3  == false){
+                    password1list.add(num);
+                    setState(() {
+                      num3 = true;
+                    });
+                  }else if(num4 == false){
+                    setState(() {
+                      password1 = "" ;
+                    });
+                    password1list.add(num);
+                    if(password1list.length == 4) {
+                      for (var i = 0; i < password1list.length ; i++) {
+                        password1 = password1 + password1list[i];
+                      }
+                      print("ps1 = $password1");
+                      if (password1 == ref.read(settingsRiverpod).Password ) {
+                        setState(() {
+                          info = "Giriş Başarılı" ;
+                          password1list.clear();
+                          ref.read(settingsRiverpod).setStatus(true);
+                          Navigator.of(context).pop();
+                        });
+                        widget.mode == "admin"
+                            ?Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            transitionDuration: const Duration(milliseconds: 1),
+                            pageBuilder: (context, animation, nextanim) => const PasswordPage(),
+                            reverseTransitionDuration: const Duration(milliseconds: 1),
+                            transitionsBuilder: (context, animation, nexttanim, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
+                          ),
+                        )
+                            :null;
+                        temizle();
+                      } else {
+                        temizle();
+                        password1list.clear();
+                        setState(() {
+                          info = "Yanlış Şifre Girdiniz." ;
+                          ref.read(settingsRiverpod).setStatus(false);
+                        });
+                      }
+                    }
+                  }
+                },
+                child: Center(
+                  child: Text(
+                    num,
+                    style: TextStyle(
+                        color: renkler.koyuuRenk,
+                        fontSize: 25,
+                        fontFamily: "Nexa2"
+                    ),
                   ),
-                )
-                :null;
-                temizle();
-              } else {
-                temizle();
-                password1list.clear();
-                setState(() {
-                  info = "Yanlış Şifre Girdiniz." ;
-                  ref.read(settingsRiverpod).setStatus(false);
-                });
-              }
-            }
-          }
-        },
-      child: SizedBox(
-        height: size.height / 9.5,
-        width: size.height / 9.5,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
-          child: Container(
-            color: const Color(0xffE2E1E1),
-            child: Center(
-              child: Text(
-                num,
-                style: TextStyle(
-                    color: renkler.koyuuRenk,
-                    fontSize: 25,
-                    fontFamily: "Nexa2"
                 ),
               ),
             ),

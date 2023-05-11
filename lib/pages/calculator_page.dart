@@ -412,8 +412,6 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-
-
   double toplamAnaPara = 0;
   double faizTutari = 0;
   double toplamOdenecekTutar = 0;
@@ -935,7 +933,6 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-
   TextEditingController nums = TextEditingController();
   TextEditingController sonuc = TextEditingController();
   void dispose2() {
@@ -982,6 +979,7 @@ class _CalculatorState extends State<Calculator> {
       sonuc.text = amount.toStringAsFixed(2);
     });
   }
+
   Widget currencyConverter() {
     void switchPages() {
       int currentPage1 = pageCurrency.page!.toInt();
@@ -1339,27 +1337,14 @@ class _CalculatorState extends State<Calculator> {
                               child: TextField(
                                 onChanged: (value) {
                                   if (firstselect == true) {
-                                    if (sayi2Controller.text != "" &&
-                                        sayi1Controller.text != "") {
-                                      sonuc = ((double.parse(
-                                          sayi2Controller.text) /
-                                          double.parse(
-                                              sayi1Controller.text)) *
-                                          100);
-                                      yuzdeOranController.text =
-                                          sonuc.toString();
+                                    if (sayi2Controller.text != "" && sayi1Controller.text != "") {
+                                      sonuc = ((double.parse(sayi2Controller.text) / double.parse(sayi1Controller.text)) * 100);
+                                      yuzdeOranController.text = sonuc.toString();
                                     }
                                   } else if (secondselect == true) {
-                                    if (sayi1Controller.text != "" &&
-                                        sayi2Controller.text != "") {
-                                      sonuc = ((double.parse(
-                                          sayi2Controller.text) -
-                                          double.parse(
-                                              sayi1Controller.text)) *
-                                          100) /
-                                          double.parse(sayi1Controller.text);
-                                      yuzdeOranController.text =
-                                          sonuc.toString();
+                                    if (sayi1Controller.text != "" && sayi2Controller.text != "") {
+                                      sonuc = ((double.parse(sayi2Controller.text) - double.parse(sayi1Controller.text)) * 100) / double.parse(sayi1Controller.text);
+                                      yuzdeOranController.text = sonuc.toString();
                                     }
                                   } else if (yuzdeOranController.text != "") {
                                     sonuc = double.parse(
@@ -1529,37 +1514,35 @@ class _CalculatorState extends State<Calculator> {
             padding: const EdgeInsets.only(right: 50, left: 10),
             child: !sayi2ishere
                 ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "Sonuç",
-                  style: TextStyle(
-                      fontFamily: "Nexa2",
-                      fontSize: 18,
-                      color: renkler.arkaRenk),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: renkler.arkaRenk,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: SizedBox(
-                    height: 26,
-                    width: 200,
-                    child: TextField(
-
-                      enabled: false,
-                      controller: sonucController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(20)),
-                          )),
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                    Text(
+                      "Sonuç",
+                      style: TextStyle(
+                          fontFamily: "Nexa2",
+                          fontSize: 18,
+                          color: renkler.arkaRenk),
                     ),
-                  ),
-                ),
-              ],
-            )
+                    Container(
+                      decoration: BoxDecoration(
+                        color: renkler.arkaRenk,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: SizedBox(
+                        height: 26,
+                        width: 200,
+                        child: TextField(
+                          enabled: false,
+                          controller: sonucController,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                              )),
+                          ),
+                        ),
+                    ),
+                  ],
+                )
                 : const SizedBox(height: 26),
           ),
 
