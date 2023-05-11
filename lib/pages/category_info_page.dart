@@ -71,8 +71,8 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 11.5),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 11.5),
                               child: SizedBox(
                                 width: 4,
                               ),
@@ -99,6 +99,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                     thumbColor: MaterialStateProperty.all(
                                         const Color(0xffF2CB05)))),
                             child: Scrollbar(
+                              isAlwaysShown: true,
                               scrollbarOrientation: ScrollbarOrientation.right,
                               interactive: true,
                               thickness: 7,

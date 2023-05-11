@@ -85,7 +85,7 @@ class RegisteryList extends ConsumerWidget {
                                 "     İşlem\nKategorisi",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontFamily: "Nexa4",
+                                  fontFamily: "Nexa3",
                                 ),
                               ),
                             ),
@@ -93,7 +93,7 @@ class RegisteryList extends ConsumerWidget {
                               "  İşlem\nMiktarı",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontFamily: "Nexa4",
+                                fontFamily: "Nexa3",
                               ),
                             ),
                           ],
@@ -121,18 +121,12 @@ class RegisteryList extends ConsumerWidget {
                                     padding: const EdgeInsets.only(right: 1),
                                     child:  DecoratedBox(
                                       decoration: BoxDecoration(
-                                        border:item.length > 8 ? Border(
-                                            right: BorderSide(
-                                              width: 5,
-                                              color: renkler.arkaRenk,
-                                            )
-                                        )
-                                            : Border(
-                                            right: BorderSide(
-                                              color: renkler.koyuuRenk,
-                                              width: 1,
-                                            )
-                                        ) ,
+                                        border: Border(
+                                          right: BorderSide(
+                                            color: item.length > 8 ? renkler.arkaRenk : renkler.koyuuRenk,
+                                            width: item.length > 8 ? 5 : 1,
+                                          ),
+                                        ),
                                       ),
                                       child: ListView.builder(
                                         itemCount: item.length,
@@ -180,7 +174,7 @@ class RegisteryList extends ConsumerWidget {
                                                                   child: Text(
                                                                     "${item[index].category}",
                                                                     style: const TextStyle(
-                                                                      fontFamily: "Nexa4",
+                                                                      fontFamily: "Nexa3",
                                                                       fontSize: 15,
                                                                     ),
                                                                   ),
@@ -198,7 +192,7 @@ class RegisteryList extends ConsumerWidget {
                                                                       color: item[index].operationType == "Gelir"
                                                                           ? Colors.green
                                                                           : Colors.red ,
-                                                                      fontFamily: "Nexa4",
+                                                                      fontFamily: "Nexa3",
                                                                       fontSize: 15,
                                                                     ),
                                                                   ),

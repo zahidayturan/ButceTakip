@@ -59,7 +59,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                   "İşlem Detayı  ",
                   style: TextStyle(
                     color: Colors.white,
-                    fontFamily: 'Nexa4',
+                    fontFamily: 'Nexa3',
                     fontSize: 26,
                   ),
                 ),
@@ -100,7 +100,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 const Text("TARİH",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
                 SizedBox(
@@ -130,7 +130,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           style:
                           const TextStyle(
                             fontFamily:
-                            'NEXA4',
+                            'NEXA3',
                             fontSize: 18,
                           ),
                         ),
@@ -148,7 +148,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 const Text("SAAT",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
                 Text(
@@ -156,7 +156,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style:
                     const TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
               ],
@@ -169,7 +169,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 const Text("KATEGORİ",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
                 Text(
@@ -177,7 +177,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style:
                     const TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
               ],
@@ -190,7 +190,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 const Text("ÖDEME TÜRÜ",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
                 Text(
@@ -198,7 +198,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style:
                     const TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
               ],
@@ -211,7 +211,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 const Text("TUTAR",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
                 Text(
@@ -219,7 +219,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style:
                     const TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
               ],
@@ -232,7 +232,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 const Text("NOT",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
                 widget01(item, index),

@@ -1410,7 +1410,7 @@ class _CalculatorState extends State<Calculator> {
                                         (double.parse(
                                             yuzdeOranController.text) /
                                             100);
-                                    sonucController.text = sonuc.toString();
+                                    sonucController.text = sonuc.toStringAsFixed(2);
                                   }
                                 },
                                 controller: yuzdeOranController,
@@ -1547,6 +1547,7 @@ class _CalculatorState extends State<Calculator> {
                     height: 26,
                     width: 200,
                     child: TextField(
+
                       enabled: false,
                       controller: sonucController,
                       decoration: const InputDecoration(
