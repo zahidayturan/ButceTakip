@@ -6,7 +6,7 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'Help/password_splash.dart';
+import 'password_splash.dart';
 import 'backup.dart';
 
 class Settings extends ConsumerStatefulWidget {
