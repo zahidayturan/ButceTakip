@@ -319,120 +319,126 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
   Widget button(BuildContext context,String num ){
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
-    return InkWell(
-      onTap: () {
-        if (num1 == false) {
-          if(security){
-            password2list.add(num);
-          }else{
-             password1list.add(num);
-          }
-          setState(() {
-            num1 = true ;
-          });
-        }else if(num2 == false){
-          if(security){
-            password2list.add(num);
-          }else{
-            password1list.add(num);
-          }
-          setState(() {
-            num2 = true;
-          });
-        }else if(num3  == false){
-          if(security){
-            password2list.add(num);
-          }else{
-            password1list.add(num);
-          }
-          setState(() {
-            num3 = true;
-          });
-        }else if(num4 == false){
-          if(security){
-            setState(() {
-              security = false ;
-              password1 = "" ;
-              password2 = "" ;
-            });
-            password2list.add(num);
-            if(password2list.length == 4) {
-              for (var i = 0; i < password1list.length ; i++) {
-                password1 = password1 + password1list[i];
-              }
-              for (var i = 0; i < password2list.length ; i++) {
-                password2 = password2 + password2list[i];
-              }
-              if (password1 == password2) {
-                setState(() {
-                  info = "şifreniz ayarlandı" ;
-                  password1list.clear();
-                  password2list.clear();
-                  status = true ;
-                  ref.read(settingsRiverpod).setPasswordMode(true);
-                  ref.read(settingsRiverpod).setPassword(password1);
-                  //ref.read(settingsRiverpod).setisuseinsert();
-                  Navigator.of(context).pop();
-                });
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    backgroundColor:
-                    Color(0xff0D1C26),
-                    duration: Duration(seconds: 1),
-                    content: Text(
-                      'Şifreniz Oluşturuldu.',
+    return SizedBox(
+        height: size.height / 9.5,
+        width: size.height / 9.5,
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          child: Container(
+            color: const Color(0xffE2E1E1),
+            child: Center(
+              child: SizedBox(
+                height: size.height / 12,
+                width:  size.height / 12,
+                child: InkWell(
+                  onTap: () {
+                      if (num1 == false) {
+                      if(security){
+                        password2list.add(num);
+                      }else{
+                         password1list.add(num);
+                      }
+                      setState(() {
+                        num1 = true ;
+                      });
+                    }else if(num2 == false){
+                      if(security){
+                        password2list.add(num);
+                      }else{
+                        password1list.add(num);
+                      }
+                      setState(() {
+                        num2 = true;
+                      });
+                    }else if(num3  == false){
+                      if(security){
+                        password2list.add(num);
+                      }else{
+                        password1list.add(num);
+                      }
+                      setState(() {
+                        num3 = true;
+                      });
+                    }else if(num4 == false){
+                      if(security){
+                        setState(() {
+                          security = false ;
+                          password1 = "" ;
+                          password2 = "" ;
+                        });
+                        password2list.add(num);
+                        if(password2list.length == 4) {
+                          for (var i = 0; i < password1list.length ; i++) {
+                            password1 = password1 + password1list[i];
+                          }
+                          for (var i = 0; i < password2list.length ; i++) {
+                            password2 = password2 + password2list[i];
+                          }
+                          if (password1 == password2) {
+                            setState(() {
+                              info = "şifreniz ayarlandı" ;
+                              password1list.clear();
+                              password2list.clear();
+                              status = true ;
+                              ref.read(settingsRiverpod).setPasswordMode(true);
+                              ref.read(settingsRiverpod).setPassword(password1);
+                              //ref.read(settingsRiverpod).setisuseinsert();
+                              Navigator.of(context).pop();
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                backgroundColor:
+                                Color(0xff0D1C26),
+                                duration: Duration(seconds: 1),
+                                content: Text(
+                                  'Şifreniz Oluşturuldu.',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontFamily: 'Nexa3',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.3,
+                                  ),
+                                ),
+                              ),
+                            );
+                            temizle();
+                          } else {
+                            temizle();
+                            password1list.clear();
+                            password2list.clear();
+                            setState(() {
+                              info = "Şifreler Uyuşmuyor." ;
+                              status = false;
+                            });
+                          }
+                        }
+                      }else{
+                        password1list.add(num);
+                        setState(() {
+                          security = true;
+                          num4 = true ;
+                          info = "Tekrar gininiz." ;
+                        });
+                          Future.delayed(const Duration(milliseconds: 150)).then((value) => temizle());
+                      }
+                    }
+                  },
+                  child: Center(
+                    child: Text(
+                      num,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: 'Nexa3',
-                        fontWeight: FontWeight.w600,
-                        height: 1.3,
+                        color: renkler.koyuuRenk,
+                        fontSize: 25,
+                        fontFamily: "Nexa2"
                       ),
                     ),
-                  ),
-                );
-                temizle();
-              } else {
-                temizle();
-                password1list.clear();
-                password2list.clear();
-                setState(() {
-                  info = "Şifreler Uyuşmuyor." ;
-                  status = false;
-                });
-              }
-            }
-          }else{
-            password1list.add(num);
-            setState(() {
-              security = true;
-              num4 = true ;
-              info = "Tekrar gininiz." ;
-            });
-              Future.delayed(const Duration(milliseconds: 150)).then((value) => temizle());
-          }
-        }
-      },
-      child: SizedBox(
-          height: size.height / 9.5,
-          width: size.height / 9.5,
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
-            child: Container(
-              color: const Color(0xffE2E1E1),
-              child: Center(
-                child: Text(
-                  num,
-                  style: TextStyle(
-                    color: renkler.koyuuRenk,
-                    fontSize: 25,
-                    fontFamily: "Nexa2"
                   ),
                 ),
               ),
             ),
           ),
-      ),
+        ),
     );
   }
 }
