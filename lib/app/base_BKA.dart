@@ -18,8 +18,8 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     var readSetting =  ref.read(settingsRiverpod);
     var read  = readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
     await Future.delayed(Duration(milliseconds: 100));
-    read.then((value){
-      if(readSetting.isBackUp == 1){
+    read.then((value){  //Settings database yüklenmesi gerçekleşitkten sonrası için fonksiyorn yazıyoruz.
+      if(readSetting.isBackUp == 1){ // yedeklenme kontrolü
         List<String> datesplit = readSetting.lastBackup!.split(".");
         if(readSetting.Backuptimes == "Günlük"){
           print("günlük giriş var");
@@ -48,7 +48,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
           }
         }
       }
-      if(readSetting.isPassword == 1 && readSetting.Password != "null") {
+      if(readSetting.isPassword == 1 && readSetting.Password != "null") { // password controll
         Navigator.push(context, PageRouteBuilder(
           transitionDuration: Duration(milliseconds: 1),
           pageBuilder: (context, animation, nextanim) => PasswordSplash(),

@@ -16,6 +16,8 @@ class SettingsRiverpod extends ChangeNotifier{
   String ?Backuptimes ;
   String ?lastBackup;
   String ?Password ;
+  String ?securityQu ;
+  int ?securityClaim ;
   bool Status  = false ; // şifre girildi mi ?
 
   Future readDb() async{
@@ -29,6 +31,8 @@ class SettingsRiverpod extends ChangeNotifier{
     Backuptimes = setting[setting.length - 1].backupTimes;
     lastBackup = setting[setting.length - 1].lastBackup;
     Password = setting[setting.length - 1].password;
+    securityQu = setting[setting.length - 1].securityQu;
+    securityClaim = setting[setting.length - 1].securityClaim;
     print("""
       id : ${setting[setting.length - 1].id}
       dil :${setting[setting.length - 1].prefix}
@@ -38,7 +42,9 @@ class SettingsRiverpod extends ChangeNotifier{
       isBackup :${isBackUp = setting[setting.length - 1].isBackUp}
       Backuptims : ${setting[setting.length - 1].backupTimes}
       lastBackup : ${setting[setting.length - 1].lastBackup}
-      Password : ${setting[setting.length - 1].password}""");
+      Password : ${setting[setting.length - 1].password}
+      securityQu : ${setting[setting.length - 1].securityQu}
+      securityClaimK(Kalan Hak) : ${setting[setting.length - 1].securityClaim}""");
     notifyListeners();
   }
   Future controlSettings() async{ //settings Kayıt değerlendiriyoruz.
@@ -46,7 +52,7 @@ class SettingsRiverpod extends ChangeNotifier{
     if(settingsReglength.length > 0) {
       readDb();
     }else{
-      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null") ;
+      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3) ;
       await SQLHelper.addItemSetting(info);
       readDb();
     }
@@ -60,7 +66,14 @@ class SettingsRiverpod extends ChangeNotifier{
     writeToCvs();
     setLastBackup();
   }
-
+  void setSecurityQu(String securityQu){
+    this.securityQu = securityQu ;
+    Updating();
+  }
+  void useSecurityClaim(){
+    securityClaim = (securityClaim! - 1);
+    Updating();
+  }
   void setDarkMode(bool mode){
     DarkMode = mode ? 1 : 0 ;
     Updating();
@@ -81,6 +94,7 @@ class SettingsRiverpod extends ChangeNotifier{
   }
   void setPasswordMode(bool mode) {
     isPassword = mode ? 1 : 0 ;
+    securityClaim = 3 ;
     Updating();
   }
   void setPassword(String Password){
@@ -103,7 +117,9 @@ class SettingsRiverpod extends ChangeNotifier{
         isBackUp,
         Backuptimes,
         lastBackup,
-        Password
+        Password,
+        securityQu,
+        securityClaim,
     );
     await SQLHelper.updateSetting(info);
   }
