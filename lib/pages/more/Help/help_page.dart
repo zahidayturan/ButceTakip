@@ -1,4 +1,4 @@
-import 'package:butcekontrol/pages/more/Help/communicate.dart';
+import 'package:butcekontrol/pages/more/communicate.dart';
 import 'package:butcekontrol/pages/more/Help/help_calculator.dart';
 import 'package:butcekontrol/pages/more/Help/help_calender.dart';
 import 'package:butcekontrol/pages/more/Help/help_footer.dart';
@@ -29,7 +29,6 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffF2F2F2),
-        bottomNavigationBar: const NavBar(),
         appBar: const AppBarForPage(title: "YARDIM"),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,

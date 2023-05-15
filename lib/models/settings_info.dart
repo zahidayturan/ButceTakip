@@ -8,6 +8,8 @@ class SettingsInfo {
   String ?backupTimes ;
   String ?lastBackup ;
   String ?password ;
+  String ?securityQu;
+  int ?securityClaim ;
 
   SettingsInfo(
       this.prefix,
@@ -17,7 +19,9 @@ class SettingsInfo {
       this.isBackUp,
       this.backupTimes,
       this.lastBackup,
-      this.password
+      this.password,
+      this.securityQu,
+      this.securityClaim,
       );
   SettingsInfo.withId(
       this.id,
@@ -28,7 +32,9 @@ class SettingsInfo {
       this.isBackUp,
       this.backupTimes,
       this.lastBackup,
-      this.password
+      this.password,
+      this.securityQu,
+      this.securityClaim,
       );
   Map <String, dynamic> toMap(){
     var map = <String, dynamic>{};
@@ -40,6 +46,8 @@ class SettingsInfo {
     map["Backuptimes"] = backupTimes;
     map["lastBackup"] = lastBackup ;
     map["Password"] = password ;
+    map["securityQu"] = securityQu ;
+    map["securityClaim"] = securityClaim ;
     return map ;
   }
   SettingsInfo.fromObject(dynamic o){
@@ -52,5 +60,7 @@ class SettingsInfo {
     backupTimes = o["Backuptimes"];
     lastBackup = o["lastBackup"] ;
     password = o["Password"] ;
+    securityQu = o["securityQu"];
+    securityClaim = o["securityClaim"] as int;
   }
 }

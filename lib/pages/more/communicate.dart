@@ -1,6 +1,6 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:flutter/material.dart';
-import '../../../classes/nav_bar.dart';
+import '../../classes/nav_bar.dart';
 
 class Communicate extends StatelessWidget {
   const Communicate({Key? key}) : super(key: key);
