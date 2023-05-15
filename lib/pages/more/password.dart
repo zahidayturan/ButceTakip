@@ -1,6 +1,7 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constans/material_color.dart';
 import '../../riverpod_management.dart';
@@ -23,13 +24,15 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
   String password1 = "" ;
   String password2 = "" ;
   String info = "Yeni şifre kodunu giriniz";
+  String errormessage = "";
   bool security = false ;
   @override
   Widget build(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
-    bool isopen = readSetting.isPassword == 1 ? true : false ;
+    TextEditingController setanimalController = TextEditingController();
+    bool isopen = readSetting.isPassword == 1  ? true : false ;
     return WillPopScope(
       onWillPop: () async{
       if(readSetting.isPassword == 1 && readSetting.Password == "null") {
@@ -155,151 +158,223 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                       ),
                     ),
                   !isopen
-                    ? const SizedBox(width: 1)
-                    : Column(
-                      mainAxisAlignment:  MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(height: size.height/20) ,
-                        Text(
-                          info,
-                          style: TextStyle(
-                            color: renkler.koyuuRenk,
-                            fontFamily: "Nexa4"
-                          ),
-                        ),
-                        SizedBox(height: size.height/30) ,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                    ? SizedBox(height: 1)
+                    : readSetting.securityQu == "null"
+                      ?Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num1 ? Colors.black : const Color(0xffE2E1E1),
+                            const Text(
+                              "En sevdiğiniz hayvan adı nedir ?",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: "Nexa4"
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                height: 40,
+                                width: 150,
+                                color: renkler.koyuuRenk,
+                                child: Center(
+                                  child: TextField(
+                                    controller: setanimalController,
+                                    keyboardType: TextInputType.text,
+                                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]"))],
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                              )
+                              ),
                             ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
-                                    color: num2 ? Colors.black : const Color(0xffE2E1E1),
-                                  ),
-                                )
-                            ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
-                                    color: num3 ? Colors.black : const Color(0xffE2E1E1),
-                                  ),
-                                )
-                            ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
-                                    color: num4 ? Colors.black : const Color(0xffE2E1E1),
-                                  ),
-                                )
-                            ),
-                            const SizedBox(width: 10),
-                            IconButton(
-                                icon : const Icon(Icons.backspace),
-                              onPressed: () {
-                                if(security){
-                                  if(num1){
-                                    password2list.removeLast();
-                                  }
-                                  if(num3){
-                                    setState(() {
-                                      num3 = false;
-                                    });
-                                  }else if(num2){
-                                    setState(() {
-                                      num2 = false;
-                                    });
-                                  }else if(num1){
-                                    setState(() {
-                                      num1 = false ;
-                                    });
-                                  }
-                                }else{
-                                  if(num1){
-                                    password1list.removeLast();
-                                  }
-                                  if(num3){
-                                    setState(() {
-                                      num3 = false;
-                                    });
-                                  }else if(num2){
-                                    setState(() {
-                                      num2 = false;
-                                    });
-                                  }else if(num1){
-                                    setState(() {
-                                      num1 = false ;
-                                    });
-                                  }
+                            SizedBox(height: 20),
+                            InkWell(
+                              onTap: () {
+                                if (setanimalController.text != "" ) {
+                                  setState(() {
+                                    readSetting.setSecurityQu(setanimalController.text);
+                                  });
+                                }else if(setanimalController.text == ""){
+                                  setState(() {
+                                    errormessage = "Lütfen Bir değer giriniz." ;
+                                  });
                                 }
                               },
-                            )
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  color: renkler.sariRenk,
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.check_circle_outline,
+                                      color: Colors.black,
+                                      size: 30,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              errormessage,
+                              style: TextStyle(
+                                color: renkler.koyuuRenk,
+                                fontSize: 15,
+                              ),
+                            ),
                           ],
-                        ),
-                        SizedBox(height: size.height/30) ,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
-                          child: Column(
+                        )
+                      :Column(
+                        mainAxisAlignment:  MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(height: size.height/20) ,
+                          Text(
+                            info,
+                            style: TextStyle(
+                              color: renkler.koyuuRenk,
+                              fontFamily: "Nexa4"
+                            ),
+                          ),
+                          SizedBox(height: size.height/30) ,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  button(context, "1"),
-                                  button(context, "2"),
-                                  button(context, "3"),
-                                ],
+                              SizedBox(
+                                height: 25,
+                                width: 25,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                  child: Container(
+                                    color: num1 ? Colors.black : const Color(0xffE2E1E1),
+                                  ),
+                                )
                               ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  button(context, "4"),
-                                  button(context, "5"),
-                                  button(context, "6"),
-                                ],
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                    child: Container(
+                                      color: num2 ? Colors.black : const Color(0xffE2E1E1),
+                                    ),
+                                  )
                               ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  button(context, "7"),
-                                  button(context, "8"),
-                                  button(context, "9"),
-                                ],
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                    child: Container(
+                                      color: num3 ? Colors.black : const Color(0xffE2E1E1),
+                                    ),
+                                  )
                               ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  button(context, "0"),
-                                ],
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                    child: Container(
+                                      color: num4 ? Colors.black : const Color(0xffE2E1E1),
+                                    ),
+                                  )
+                              ),
+                              const SizedBox(width: 10),
+                              IconButton(
+                                  icon : const Icon(Icons.backspace),
+                                onPressed: () {
+                                  if(security){
+                                    if(num1){
+                                      password2list.removeLast();
+                                    }
+                                    if(num3){
+                                      setState(() {
+                                        num3 = false;
+                                      });
+                                    }else if(num2){
+                                      setState(() {
+                                        num2 = false;
+                                      });
+                                    }else if(num1){
+                                      setState(() {
+                                        num1 = false ;
+                                      });
+                                    }
+                                  }else{
+                                    if(num1){
+                                      password1list.removeLast();
+                                    }
+                                    if(num3){
+                                      setState(() {
+                                        num3 = false;
+                                      });
+                                    }else if(num2){
+                                      setState(() {
+                                        num2 = false;
+                                      });
+                                    }else if(num1){
+                                      setState(() {
+                                        num1 = false ;
+                                      });
+                                    }
+                                  }
+                                },
                               )
                             ],
                           ),
-                        )//
-                      ],
-                    ),
+                          SizedBox(height: size.height/30) ,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    button(context, "1"),
+                                    button(context, "2"),
+                                    button(context, "3"),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    button(context, "4"),
+                                    button(context, "5"),
+                                    button(context, "6"),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    button(context, "7"),
+                                    button(context, "8"),
+                                    button(context, "9"),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    button(context, "0"),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )//
+                        ],
+                      ),
                 ],
               ),
             ),

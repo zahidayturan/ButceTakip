@@ -48,7 +48,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
           }
         }
       }
-      if(readSetting.isPassword == 1 && readSetting.Password != "null") {
+      if(readSetting.isPassword == 1 && readSetting.Password != "null") { // password controll
         Navigator.push(context, PageRouteBuilder(
           transitionDuration: Duration(milliseconds: 1),
           pageBuilder: (context, animation, nextanim) => PasswordSplash(),

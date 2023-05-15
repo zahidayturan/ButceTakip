@@ -17,6 +17,8 @@ class SQLHelper {
       Backuptimes TEXT,
       lastBackup TEXT,
       Password TEXT,
+      securityQu TEXT,
+      securityClaim INTEGER,
       createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
       """);
@@ -43,7 +45,7 @@ class SQLHelper {
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
-      'bka_db2.db',
+      'bka_db3t.db',
       version: 1,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
@@ -168,6 +170,10 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
-
+ //çok tehlikeli bir fonksiyon tüm tabloyu siliyor geri döndürülemez.
+  static Future <void> deleteTable(String tableName) async {
+    final db = await SQLHelper.db();
+    await db.delete(tableName);
+  }
 }
 
