@@ -13,7 +13,7 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var readNavBar = ref.read(botomNavBarRiverpod);
     readNavBar.currentColor = const Color(0xffF2F2F2);
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Color(0xffF2F2F2),
       appBar: AppBarCustom(),
       body: Column(
