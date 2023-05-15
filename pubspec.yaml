@@ -33,7 +33,7 @@ dependencies:
   flutter_localization: ^0.1.10
   sqflite: ^2.2.6
   path: ^1.8.0
-  intl: ^0.17.0
+  intl: ^0.18.0
   flutter_riverpod: ^2.3.2
   d_chart: ^2.2.11
   csv: ^5.0.0-nullsafety.0

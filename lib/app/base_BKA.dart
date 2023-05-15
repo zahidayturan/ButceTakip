@@ -17,7 +17,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     // örnek gecikme
     var readSetting =  ref.read(settingsRiverpod);
     var read  = readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
-    await Future.delayed(Duration(milliseconds: 100));
+    await Future.delayed(Duration(milliseconds: 500));
     read.then((value){
       if(readSetting.isBackUp == 1){
         List<String> datesplit = readSetting.lastBackup!.split(".");

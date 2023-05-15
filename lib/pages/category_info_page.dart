@@ -393,8 +393,10 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                     borderRadius: BorderRadius.circular(40),
                   ),
                   child: IconButton(
-                    icon:  const Icon(
-                      Icons.clear,
+                    icon:  Image.asset(
+                      "assets/icons/remove.png",
+                      height: 16,
+                      width: 16,
                       color: Colors.white,
                     ),
                     onPressed: () {
