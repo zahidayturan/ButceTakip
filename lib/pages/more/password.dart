@@ -164,7 +164,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             const Text(
-                              "En sevdiğiniz hayvan adı nedir ?",
+                              "En sevdiğiniz hayvan nedir ?",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
@@ -178,17 +178,12 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 height: 40,
                                 width: 150,
                                 color: renkler.koyuuRenk,
-                                child: Center(
-                                  child: TextField(
-                                    controller: setanimalController,
-                                    keyboardType: TextInputType.text,
-                                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]"))],
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                child: TextField(
+                                  controller: setanimalController,
+                                  keyboardType: TextInputType.text,
+                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]"))],
+                                  style: const TextStyle(fontSize: 18, color: Colors.white),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ),

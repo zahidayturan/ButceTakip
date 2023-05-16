@@ -58,6 +58,10 @@ class SettingsRiverpod extends ChangeNotifier{
     }
     notifyListeners();
   }
+  void reset(){
+    this.securityQu = "null";
+    Updating();
+  }
   void setisuseinsert(){
     isuseinsert = !isuseinsert ;
     notifyListeners();
