@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:csv/csv.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:external_path/external_path.dart';
@@ -15,8 +16,9 @@ Future <void> writeToCvs() async{
     final List<List<dynamic>> rows = <List<dynamic>>[];
     //File f = File('/storage/emulated/0/Download' + "/alldata.csv");
     var path = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
-    print("dir $path");
-    String file = "$path";
+    Directory tempDir = await getTemporaryDirectory();//1
+    print("dir $tempDir"); //1
+    String file = "$tempDir"; //1
 
     for(final Map<String, dynamic> map in allData) {
       final List<dynamic> row = map.values.toList();
@@ -28,7 +30,7 @@ Future <void> writeToCvs() async{
     //final String filePath = '${directory?.path}/$fileName' ;
     //final File f = File(filePath);
 
-    final directory = "$path/$fileName";
+    final directory = "${tempDir.path}/$fileName";
     final File f = File(directory);
     final String cvs = const ListToCsvConverter().convert(rows);
     await f.writeAsString(cvs);
@@ -51,7 +53,8 @@ Future<void> restore() async{
     //final String filePath = '${directory?.path}/$fileName' ;
     //final File file = File(filePath);
     var path = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
-    final directory = "$path/$fileName";
+    Directory tempDir = await getTemporaryDirectory();//1
+    final directory = "${tempDir.path}/$fileName";
     final File f = File(directory);
     final List<List<dynamic>> csvData = const CsvToListConverter().convert(await f.readAsString());
     final List<SpendInfo> lastList = csvData.map((csvRow) => SpendInfo.fromCVSObjetct(csvRow)).toList();
