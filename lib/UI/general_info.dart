@@ -47,7 +47,6 @@ class Generalinfo extends ConsumerWidget {
     watchhome.refrestst;
     int indexyear = watchhome.indexyear;
     int indexmounth = watchhome.indexmounth;
-    final double devicedata = MediaQuery.of(context).size.width;
     CalenderBka calender = CalenderBka(); // aşağıdaki classı tanımladık.
     return StreamBuilder<Map<String, dynamic>>(
         stream: readdb.myMethod(),

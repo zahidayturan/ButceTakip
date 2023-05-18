@@ -14,8 +14,8 @@ class Home extends ConsumerWidget {
     var readNavBar = ref.read(botomNavBarRiverpod);
     readNavBar.currentColor = const Color(0xffF2F2F2);
     return Scaffold(
-      backgroundColor: const Color(0xffF2F2F2),
-      appBar: const AppBarCustom(),
+      backgroundColor: Color(0xffF2F2F2),
+      appBar: AppBarCustom(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         //mainAxisAlignment: MainAxisAlignment.spaceBetween,

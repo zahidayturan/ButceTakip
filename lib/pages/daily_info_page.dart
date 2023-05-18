@@ -102,6 +102,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                         thumbColor: MaterialStateProperty.all(
                                             const Color(0xffF2CB05)))),
                                 child: Scrollbar(
+                                  isAlwaysShown: true,
                                   scrollbarOrientation: ScrollbarOrientation.right,
                                   interactive: true,
                                   thickness: 7,
@@ -250,7 +251,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                     style: const TextStyle(
                                         color: Color(0xFFE9E9E9),
                                         fontSize: 18,
-                                        fontFamily: 'NEXA3'),
+                                        fontFamily: 'NEXA4'),
                                   ),
                                 ),
                               ),
@@ -263,7 +264,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                     style: const TextStyle(
                                         color: Color(0xFFF2CB05),
                                         fontSize: 18,
-                                        fontFamily: 'NEXA3'),
+                                        fontFamily: 'NEXA4'),
                                   ),
                                 ),
                               ),
@@ -555,8 +556,10 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                           borderRadius: BorderRadius.circular(40),
                         ),
                         child: IconButton(
-                          icon: const Icon(
-                            Icons.clear,
+                          icon: Image.asset(
+                            "assets/icons/remove.png",
+                            height: 16,
+                            width: 16,
                             color: Colors.white,
                           ),
                           onPressed: () {

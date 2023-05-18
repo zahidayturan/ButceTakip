@@ -17,9 +17,9 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     // örnek gecikme
     var readSetting =  ref.read(settingsRiverpod);
     var read  = readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
-    await Future.delayed(Duration(milliseconds: 100));
-    read.then((value){  //Settings database yüklenmesi gerçekleşitkten sonrası için fonksiyorn yazıyoruz.
-      if(readSetting.isBackUp == 1){ // yedeklenme kontrolü
+    await Future.delayed(Duration(milliseconds: 500));
+    read.then((value){
+      if(readSetting.isBackUp == 1){
         List<String> datesplit = readSetting.lastBackup!.split(".");
         if(readSetting.Backuptimes == "Günlük"){
           print("günlük giriş var");

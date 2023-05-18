@@ -1463,7 +1463,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           } else {
             return DChartPie(
               data: item,
-              // liste buraya gelecek, kategori ismi ve miktar
               fillColor: (pieData, index) {
                 return pieData['domain'].length > 12
                     ? colorsList[index!]
@@ -1472,12 +1471,12 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               pieLabel: (pieData, index) {
                 return "${pieData['domain']}:\n${pieData['measure']}%";
               },
-              labelPosition: PieLabelPosition.outside,
+              labelPosition: PieLabelPosition.auto,
               //donutWidth: 15,
               showLabelLine: true,
-              labelColor: const Color(0xff0D1C26),
+              labelColor: Colors.black,
               labelFontSize: 11,
-              labelLinelength: 11,
+              labelLinelength: 5,
             );
           }
         });

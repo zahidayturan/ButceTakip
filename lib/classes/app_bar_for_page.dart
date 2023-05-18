@@ -158,13 +158,13 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
           ),
           Positioned(
             right: 20,
-            top: 18,
+            top: 20,
             child: Text(
               title,
               style: const TextStyle(
                 color: Colors.white,
                 fontFamily: 'NEXA4',
-                fontSize: 23,
+                fontSize: 22,
                 fontWeight: FontWeight.w900,
               ),
             ),

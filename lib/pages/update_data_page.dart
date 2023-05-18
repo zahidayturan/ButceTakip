@@ -56,7 +56,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     'İŞLEM DÜZENLEME',
                     style: TextStyle(
                       fontFamily: 'Nexa4',
-                      fontSize: 26,
+                      fontSize: 22,
                       color: Colors.white,
                     ),
                   ),
@@ -81,8 +81,10 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 child: IconButton(
                   padding: const EdgeInsets.only(right: 1.0),
                   iconSize: 60,
-                  icon: const Icon(
-                    Icons.close_rounded,
+                  icon: Image.asset(
+                    "assets/icons/remove.png",
+                    height: 26,
+                    width: 26,
                     color: Colors.white,
                   ),
                   onPressed: () {

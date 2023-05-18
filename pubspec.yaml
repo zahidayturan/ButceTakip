@@ -39,6 +39,9 @@ dependencies:
   csv: ^5.0.0-nullsafety.0
   permission_handler: ^10.2.0
   external_path: ^1.0.3
+  googleapis: ^11.1.0
+  googleapis_auth: ^1.4.0
+  path_provider: ^2.0.15
   flutter_native_splash: ^2.2.19
   flutter_launcher_icons: ^0.13.0
   # The following adds the Cupertino Icons font to your application.
