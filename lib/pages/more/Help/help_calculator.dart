@@ -88,7 +88,7 @@ class HelpCalculator extends StatelessWidget {
                       ),
                       Image.asset(
                         "assets/image/helpcalculator4.png",
-                        width: 180,
+                        width: size.width,
                       ),
                       const Text(
                         "\n\ngirilen yüzde , Ana para ve Vade ile Kredi hesaplaması yapılmaktadır. Kullanıcılarımıza en basit şekli ile sade bir tasarım sunarak hesaplama sonucunda Aylık taksit miktarı, Toplam faiz ve Toplam ödeme gibi başlıklar gösterilmektedir. \n\n",
