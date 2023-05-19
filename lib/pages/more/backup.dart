@@ -1,8 +1,9 @@
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/pages/more/Help/help_calender.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
+import 'package:butcekontrol/utils/sin_in_google.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path_provider/path_provider.dart';
 import '../../classes/app_bar_for_page.dart';
 import '../../classes/nav_bar.dart';
 import '../../riverpod_management.dart';
@@ -84,7 +85,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                                 "Google Drive ile Yedekle",
                               style: TextStyle(
                                 fontSize: 16,
@@ -93,8 +94,9 @@ class _BackUpState extends ConsumerState<BackUp> {
                             Divider(thickness: 2.0,color: renkler.sariRenk),
                             InkWell(
                               onTap: () async {
-                                final directory = await getExternalStorageDirectory() ;
-                                print(directory?.path);
+                                signInWithGoogle();
+                                print("BAŞARDIK İÇERDEYİZ LLLAANNNNN MİLLİİ OLDUKK");
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => HelpCalender()));
                               },
                               child: FittedBox( ///Google Drive Oturumvarlığını sorgulayalım.
                                 child: DecoratedBox(
