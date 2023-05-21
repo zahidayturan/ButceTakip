@@ -1,12 +1,12 @@
 import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/pages/more/Help/help_calender.dart';
+import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
-import 'package:butcekontrol/utils/sin_in_google.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../classes/app_bar_for_page.dart';
 import '../../classes/nav_bar.dart';
 import '../../riverpod_management.dart';
+import '../../utils/authentication_ggl.dart';
 
 class BackUp extends ConsumerStatefulWidget {
   const BackUp({Key? key}) : super(key: key);
@@ -19,12 +19,13 @@ class _BackUpState extends ConsumerState<BackUp> {
   @override
   Widget build(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
-    CustomColors renkler = CustomColors();
-
+    var readGglAuth = ref.read(gglDriveRiverpod);
+    ref.watch(gglDriveRiverpod).RfPageSt;
+    readGglAuth.checkAuthState();
     //bool isExpandGDrive = false ;
     //bool isExpandExcel = false ;
-    bool isExpandCvs = false ;
     bool isopen = readSetting.isBackUp == 1 ? true : false ; // databaseden alınacak
+    CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     return Container(
       color: renkler.koyuuRenk,
@@ -74,399 +75,228 @@ class _BackUpState extends ConsumerState<BackUp> {
                 ),
               ), /// Giriş şifresi
               /// Yedeklenme durumunu kontrol etmemiz gerekiyor.
-              if (!isopen) const SizedBox() else Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      color: renkler.arkaRenk,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                                "Google Drive ile Yedekle",
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                            Divider(thickness: 2.0,color: renkler.sariRenk),
-                            InkWell(
-                              onTap: () async {
-                                signInWithGoogle();
-                                print("BAŞARDIK İÇERDEYİZ LLLAANNNNN MİLLİİ OLDUKK");
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => HelpCalender()));
-                              },
-                              child: FittedBox( ///Google Drive Oturumvarlığını sorgulayalım.
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Color(0xff2A2895),
-                                  ),
-                                  child: const Center(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8),
-                                      child: Text(
-                                        "Oturum Aç",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            fontFamily: "Nexa3"
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const SizedBox(
-                                  width: 1,)
-                                ,
-                                const Text(
-                                  "Yedeklenme Sıklığı",
-                                  style:TextStyle(
-                                    fontFamily: "Nexa4",
-                                    fontSize: 15  ,
-                                  ),
-                                ),
-                                toolCustomButton(context),
-                                const SizedBox(width: 1)
-                              ],
-                            ),
-                            SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    restore();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        backgroundColor:
-                                        Color(0xff0D1C26),
-                                        duration: Duration(seconds: 1),
-                                        content: Text(
-                                          'Verileriniz Çekildi',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontFamily: 'Nexa3',
-                                            fontWeight: FontWeight.w600,
-                                            height: 1.3,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: FittedBox(
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: renkler.koyuuRenk,
-                                      ),
-                                      child: const Center(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            "Geri Yükle",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15,
-                                                fontFamily: "Nexa3"
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    restore();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        backgroundColor:
-                                        Color(0xff0D1C26),
-                                        duration: Duration(seconds: 1),
-                                        content: Text(
-                                          'Verileriniz Çekildi',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontFamily: 'Nexa3',
-                                            fontWeight: FontWeight.w600,
-                                            height: 1.3,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: FittedBox(
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: renkler.koyuuRenk,
-                                      ),
-                                      child: const Center(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            "Yedekle",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15,
-                                                fontFamily: "Nexa3"
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
+              if (!isopen) const SizedBox() else ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  color: renkler.arkaRenk,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Google Drive ile Yedekle",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: "Nexa3"
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-
-                  /*
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right:  15.0, bottom: 8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      child: Container(
-                        color : Color(0xffD9D9D9),
-                        child: ExpansionTile(
-                            onExpansionChanged: (bool expanding) => setState(() => isExpandGDrive = expanding),
-                            title: Text("Google Drive ile Yedekle"),
-                          children: [
-                            Divider(thickness: 2.0,color: renkler.sariRenk),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                              child: Container(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      "Google Drive ile ilişkilendir"
+                        Divider(thickness: 2.0,color: renkler.sariRenk),
+                        readGglAuth.accountStatus == true
+                          ?Column(
+                            children: [
+                              SizedBox(height: size.height * 0.015),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TextMod("Email:", Colors.black, 15),
+                                  TextMod("${readGglAuth.getUserEmail()}", Colors.black, 15),
+                                ],
+                              ),
+                              SizedBox(height: size.height * 0.03),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TextMod("Ad ve Soyad:", Colors.black, 15),
+                                  TextMod("${readGglAuth.getUserDisplayName()}", Colors.black, 15),
+                                ],
+                              ),
+                              SizedBox(height: size.height * 0.03),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TextMod("En Son\nYedekleme tarihi:", Colors.black, 13),
+                                  TextMod("${readSetting.lastBackup}", Colors.black, 14),
+                                ],
+                              ),
+                              SizedBox(height: size.height * 0.015),
+                              Divider(thickness: 2.0,color: renkler.sariRenk),
+                              SizedBox(height: size.height * 0.03),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const SizedBox(width: 1),
+                                  const Text(
+                                    "Yedeklenme Sıklığı",
+                                    style:TextStyle(
+                                      fontFamily: "Nexa4",
+                                      fontSize: 15  ,
                                     ),
-                                    InkWell(
-                                      onTap: () async {
-                                        final directory = await getExternalStorageDirectory() ;
-                                        print(directory?.path);
-                                      },
-                                      child: FittedBox( ///Google Drive Oturumvarlığını sorgulayalım.
-                                        child: DecoratedBox(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(5),
-                                            color: Color(0xff2A2895),
+                                  ),
+                                  toolCustomButton(context),
+                                  const SizedBox(width: 1)
+                                ],
+                              ),
+                              SizedBox(height: size.height * 0.03),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      restore();
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          backgroundColor:
+                                          Color(0xff0D1C26),
+                                          duration: Duration(seconds: 1),
+                                          content: Text(
+                                            'Verileriniz Çekildi',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontFamily: 'Nexa3',
+                                              fontWeight: FontWeight.w600,
+                                              height: 1.3,
+                                            ),
                                           ),
-                                          child: const Center(
-                                            child: Padding(
-                                              padding: EdgeInsets.all(8),
-                                              child: Text(
-                                                  "Oturum Aç",
-                                                style: TextStyle(
+                                        ),
+                                      );
+                                    },
+                                    child: FittedBox(
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: renkler.koyuuRenk,
+                                        ),
+                                        child: const Center(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              "Geri Yükle",
+                                              style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 15,
                                                   fontFamily: "Nexa3"
-                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ],
-                                )
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right:  15.0, bottom: 8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      child: Container(
-                        color:  Color(0xffD9D9D9),
-                        child: ExpansionTile(
-                          title: Text("Excel Dosyası olarak indir(.xlsx)"),
-                          onExpansionChanged: (bool expanding) => setState(() => isExpandExcel = expanding),
-                          children: [
-                            Divider(thickness: 2.0,color: renkler.sariRenk),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: const [
-                                      Text(
-                                        "Yedeklenme Sıklığı"
-                                      )
-                                    ],
                                   ),
-                                  Row(),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right:  15.0, bottom: 8.0),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      child: Container(
-                        color:  renkler.arkaRenk,
-                        child: ExpansionTile(
-                          title: const Text("CVS formatında indir (.cvs)"),
-                          onExpansionChanged: (bool expanding) => setState(() => isExpandCvs = expanding),
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10.0),
-                              child: Column(
-                                children: [
-                                  Divider(thickness: 2.0,color: renkler.sariRenk),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const SizedBox(
-                                            width: 1,)
-                                          ,
-                                          const Text(
-                                            "Yedeklenme Sıklığı",
-                                            style:TextStyle(
-                                              fontFamily: "Nexa4",
-                                              fontSize: 15  ,
+                                  InkWell(
+                                    onTap: () {
+                                      restore();
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          backgroundColor:
+                                          Color(0xff0D1C26),
+                                          duration: Duration(seconds: 1),
+                                          content: Text(
+                                            'Verileriniz Çekildi',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontFamily: 'Nexa3',
+                                              fontWeight: FontWeight.w600,
+                                              height: 1.3,
                                             ),
                                           ),
-                                          toolCustomButton(context),
-                                          const SizedBox(
-                                            width: 1,)
-                                          ,
-                                        ],
+                                        ),
+                                      );
+                                    },
+                                    child: FittedBox(
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: renkler.koyuuRenk,
+                                        ),
+                                        child: const Center(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              "Yedekle",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontFamily: "Nexa3"
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      const SizedBox(height: 10 ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              restore();
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                  const SnackBar(
-                                                    backgroundColor:
-                                                    Color(0xff0D1C26),
-                                                    duration: Duration(seconds: 1),
-                                                    content: Text(
-                                                      'Verileriniz Çekildi',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 16,
-                                                        fontFamily: 'Nexa3',
-                                                        fontWeight: FontWeight.w600,
-                                                        height: 1.3,
-                                                      ),
-                                                    ),
-                                                  ),
-                                              );
-                                            },
-                                            child: FittedBox(
-                                              child: DecoratedBox(
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  color: renkler.koyuuRenk,
-                                                ),
-                                                child: const Center(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.all(8),
-                                                    child: Text(
-                                                      "Geri Yükle",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15,
-                                                          fontFamily: "Nexa3"
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              readSetting.Backup(); //CVS KAYDINI YAPIORUZ ve son kayıt date günceli oluyor
-                                              setState(() {
-                                                ScaffoldMessenger.of(context).showSnackBar(
-                                                    const SnackBar(
-                                                      backgroundColor: Color(0xFF0D1C26),
-                                                      duration: Duration(seconds: 1),
-                                                      content: Text(
-                                                        'Downlodand/Klasörünün altına indirildi!',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16,
-                                                          fontFamily: 'Nexa3',
-                                                          fontWeight: FontWeight.w600,
-                                                          height: 1.3,
-                                                        ),
-                                                      ),
-                                                    )
-                                                );
-                                              });
-                                            },
-                                            child: FittedBox(
-                                              child: DecoratedBox(
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  color: renkler.koyuuRenk,
-                                                ),
-                                                child: const Center(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.all(8),
-                                                    child: Text(
-                                                      "Yedekle",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15,
-                                                          fontFamily: "Nexa3"
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                    ),
                                   ),
+
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                      ),
+                              SizedBox(height: size.height * 0.03),
+                              InkWell(
+                                onTap: () async {
+                                  await Authentication.signOutWithGoogle();
+                                  readGglAuth.setAccountStatus(false);
+                                },
+                                child: SizedBox(
+                                  width: size.width * 0.40,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Color(0xffB72E2E),
+                                    ),
+                                    child: const Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8),
+                                        child: Text(
+                                          "Çıkış Yap",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontFamily: "Nexa3"
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                          :Column(
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  await Authentication.signInWithGoogle();
+                                  readGglAuth.setAccountStatus(true);
+                                },
+                                child: FittedBox( ///Google Drive Oturumvarlığını sorgulayalım.
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Color(0xff2A2895),
+                                    ),
+                                    child: const Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8),
+                                        child: Text(
+                                          "Oturum Aç",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontFamily: "Nexa3"
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 25),
+                            ],
+                          ),
+                      ],
                     ),
                   ),
-                   */
-                ],
+                ),
               ),
             ],
           ),
