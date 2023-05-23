@@ -1,4 +1,7 @@
 import 'package:butcekontrol/classes/nav_bar.dart';
+import 'package:butcekontrol/utils/notification_service.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../pages/more/password_splash.dart';
@@ -63,11 +66,14 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       }
     });
   }
+
   @override
   void initState() {
     super.initState();
     loadData();
+    FirebaseNotificationService().connectNotification(context);
   }
+
   @override
   Widget build(BuildContext context) {
     var watch = ref.watch(botomNavBarRiverpod);
