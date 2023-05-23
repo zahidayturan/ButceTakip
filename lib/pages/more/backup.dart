@@ -1,12 +1,12 @@
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../classes/app_bar_for_page.dart';
 import '../../classes/nav_bar.dart';
 import '../../riverpod_management.dart';
-import '../../utils/authentication_ggl.dart';
 
 class BackUp extends ConsumerStatefulWidget {
   const BackUp({Key? key}) : super(key: key);
@@ -16,6 +16,12 @@ class BackUp extends ConsumerStatefulWidget {
 }
 
 class _BackUpState extends ConsumerState<BackUp> {
+  Future <ListResult> ?futureFiles ;
+  @override
+  void initState(){
+    super.initState();
+    futureFiles = FirebaseStorage.instance.ref("/files").listAll();
+  }
   @override
   Widget build(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
@@ -143,7 +149,9 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      restore();
+                                      readGglAuth.downloadFileToDevice();
+                                      //GoogleDrive().uploadFileToGoogleDrive();
+                                      //restore();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           backgroundColor:
@@ -185,15 +193,16 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
-                                      restore();
+                                    onTap: () async {
+                                      await writeToCvs().then((value) => readGglAuth.uploadFileToStorage());
+                                      //readGglAuth.uploadFile();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           backgroundColor:
                                           Color(0xff0D1C26),
                                           duration: Duration(seconds: 1),
                                           content: Text(
-                                            'Verileriniz Çekildi',
+                                            'Cloud sistemine yüklendi',
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -233,7 +242,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                               SizedBox(height: size.height * 0.03),
                               InkWell(
                                 onTap: () async {
-                                  await Authentication.signOutWithGoogle();
+                                  await readGglAuth.signOutWithGoogle();
                                   readGglAuth.setAccountStatus(false);
                                 },
                                 child: SizedBox(
@@ -263,12 +272,14 @@ class _BackUpState extends ConsumerState<BackUp> {
                           )
                           :Column(
                             children: [
+                              SizedBox(height: size.height * 0.03),
                               InkWell(
                                 onTap: () async {
-                                  await Authentication.signInWithGoogle();
+                                  await readGglAuth.signInWithGoogle();
                                   readGglAuth.setAccountStatus(true);
                                 },
-                                child: FittedBox( ///Google Drive Oturumvarlığını sorgulayalım.
+                                child: SizedBox(
+                                  width: size.width * 0.40,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
