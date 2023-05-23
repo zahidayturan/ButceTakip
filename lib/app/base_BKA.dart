@@ -21,6 +21,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     var readGglAuth = ref.read(gglDriveRiverpod);
     readGglAuth.checkAuthState();
     var read  = readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
+    await Future.delayed(Duration(milliseconds: 100));
     read.then((value){
       if(readSetting.isBackUp == 1){
         print("1..açık");
