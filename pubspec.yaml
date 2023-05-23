@@ -33,7 +33,6 @@ dependencies:
   flutter_localization: ^0.1.10
   sqflite: ^2.2.6
   path: ^1.8.0
-  intl: ^0.17.0
   flutter_riverpod: ^2.3.2
   d_chart: ^2.2.11
   csv: ^5.0.0-nullsafety.0
@@ -44,8 +43,7 @@ dependencies:
   path_provider: ^2.0.15
   flutter_native_splash: ^2.2.19
   flutter_launcher_icons: ^0.13.0
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  google_mobile_ads: ^3.0.0
   cupertino_icons: ^1.0.2
   firebase_core: ^2.8.0
   firebase_messaging: ^14.6.1
@@ -60,6 +58,7 @@ dependencies:
   url_launcher: ^6.1.11
   package_info_plus: ^4.0.1
   device_info_plus: ^9.0.1
+
 flutter_native_splash:
   image: assets/image/icon_BKA/splash.png
   android: true

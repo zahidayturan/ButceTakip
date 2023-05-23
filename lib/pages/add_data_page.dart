@@ -1,3 +1,4 @@
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -108,6 +109,16 @@ class ButtonMenu extends ConsumerStatefulWidget {
 }
 
 class _ButtonMenu extends ConsumerState<ButtonMenu> {
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+  @override
+  void initState() {
+    _interstitialAdManager.loadInterstitialAd();
+    super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    //_interstitialAdManager.loadInterstitialAd();
+    _interstitialAdManager.showInterstitialAd(context);
+  }
   final TextEditingController _note = TextEditingController(text: "");
   final TextEditingController _amount = TextEditingController(text: "0.0");
   final TextEditingController _operationType =
@@ -1608,6 +1619,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             amount,
                             _note.text,
                             _operationDate.text);
+                        _showInterstitialAd(context);
                         Navigator.of(context).pop();
                         read2.setCurrentindex(0);
                         readHome.setStatus();
@@ -1665,14 +1677,3 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     );
   }
 }
-/*
-  // Update an existing journal
-  Future<void> _updateItem(int id) async {
-    await SQLHelper.updateItem(
-        cli, _harcamatipiController.text, _odemeyontemiController.text, _kategoriController.text, _tutarController.text);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Successfully updated'),
-    ));
-    _refreshSpendinfoList();
-  }
-*/

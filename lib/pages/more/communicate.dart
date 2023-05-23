@@ -1,5 +1,7 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../classes/nav_bar.dart';
 
 class Communicate extends StatelessWidget {
@@ -26,16 +28,16 @@ class Communicate extends StatelessWidget {
                 ),
               ),
             const SizedBox(height: 40),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 Icon(Icons.mail),
                 SizedBox(width: 5),
                 Text("Email   : fezaitech@gmail.com"),
               ],
             ),
-            SizedBox(height: 5),
-            Row(
-              children: const [
+            const SizedBox(height: 5),
+            const Row(
+              children: [
                 Icon(Icons.account_circle_outlined),
                 SizedBox(width: 5),
                 Text("Github : github.com/ibrahimeth/\nButceKontrolApp"),
@@ -60,9 +62,9 @@ class Communicate extends StatelessWidget {
                       width: 60,
                     ),
                     const SizedBox(width: 15),
-                    Column(
+                    const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           "İbrahim Ethem AKBIYIK",
                           style: TextStyle(
@@ -84,7 +86,9 @@ class Communicate extends StatelessWidget {
                       ],
                     )
                   ],
-                )
+                ),
+                const SizedBox(height: 50,),
+                const BannerAds(adSize: AdSize.banner,),
               ],
             ),
           ],

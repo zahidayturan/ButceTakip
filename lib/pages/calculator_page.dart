@@ -660,14 +660,16 @@ class _CalculatorState extends State<Calculator> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(
-                      width: 40,
+                      width: 60,
                       height: 30,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 4),
                         child: TextFormField(
-                          maxLength: 2,
+                          maxLength: 5,
                           inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d{0,2}(\.\d{0,2})?'),
+                            ),
                           ],
                           controller: faizYuzde,
                           keyboardType: TextInputType.number,
