@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:butcekontrol/utils/cvs_converter.dart';
 import 'package:external_path/external_path.dart';
-import 'package:file_picker/file_picker.dart';
+//import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
@@ -127,7 +127,7 @@ class GglDriveRiverpod extends ChangeNotifier{
     return currentUser;
   }
 
-
+/*
   Future <void> up() async { //Drive üzerinden dosya seçtiriyor.
       FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -138,6 +138,8 @@ class GglDriveRiverpod extends ChangeNotifier{
         print(file);
         final client = await _googleSignIn.signInSilently();
         final auth = await client!.authentication;
+
+ */
         /*
         final credentials = AccessCredentials(
             AccessToken(auth.accessToken!, auth.expiry),
@@ -170,9 +172,9 @@ E/StorageUtil(27442): error getting token java.util.centials(
         } catch (e) {
           print('Dosya yüklenirken hata oluştu: $e');
         }
-         */
       }
   }
+         */
 
   Future<void> uploadFile() async {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
