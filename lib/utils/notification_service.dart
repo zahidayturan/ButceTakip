@@ -42,10 +42,10 @@ class FirebaseNotificationService {
 
   @pragma('vm:entry-point')
   static Future<void> backgroundMessage(RemoteMessage message) async{
-    localNotificationService.showNotification(
-        title: message.notification?.title?? "boş",
-        body: message.notification?.body?? "boş"
-    );
+    //localNotificationService.showNotification(
+    //    title: message.notification?.title?? "boş",
+    //    body: message.notification?.body?? "boş"
+    //);
     ///Bunu kapatma nedeni fcm nin kendi sunduğu vaysayılan bildirim var ve o deaktif edilemiyor.
   }///Bildirimin arka planda çalışması için
 
