@@ -1,8 +1,11 @@
 import 'package:butcekontrol/App/butce_kontrol_app.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:butcekontrol/utils/notification_service.dart';
+import 'package:path/path.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized(); //Widgetlerin önceden yüklendiğine emin olmak için kullandık
@@ -17,5 +20,8 @@ void main() async{
   ));
 
   await Firebase.initializeApp();
+  LocalNotificationService().initNotification();
+  FirebaseMessaging.onBackgroundMessage(FirebaseNotificationService.backgroundMessage);
   runApp( const ProviderScope(child: ButceKontrolApp()));
+  print("Device Token:   ${await FirebaseMessaging.instance.getToken()}");
 }
