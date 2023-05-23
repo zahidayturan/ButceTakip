@@ -22,7 +22,6 @@ Future <void> writeToCvs() async {
     final List<Map<String, dynamic>> allData = await db.query(
         "spendinfo", orderBy: "id");
     final List<List<dynamic>> rows = <List<dynamic>>[];
-    //File f = File('/storage/emulated/0/Download' + "/alldata.csv");
     var path = await ExternalPath.getExternalStoragePublicDirectory(
         ExternalPath.DIRECTORY_DOWNLOADS);
     print("dir $path");
@@ -34,18 +33,14 @@ Future <void> writeToCvs() async {
       rows.add(row);
     }
     final String fileName = "Bka_data.cvs";
-    //final directory = await getExternalStorageDirectory() ; // deneniyor
-    //final String filePath = '${directory?.path}/$fileName' ;
-    //final File f = File(filePath);
 
     final directory = "$path/$fileName";
     final File f = File(directory);
     final String cvs = ListToCsvConverter().convert(rows);
     await f.writeAsString(cvs);
-    //print(filePath);
     print("Yüklendi");
   } else {
-    print("Erişim reddediliyor else düşüyor aq bu soktumunu ya");
+    print("Erişim reddediliyor.");
     // İzin reddedildi, bir hata mesajı gösterin veya başka bir işlem yapın
   }
 }
@@ -63,11 +58,6 @@ Future<void> restore() async{
     final Database db = await SQLHelper.db();
     await db.delete("spendinfo");
     final String fileName = "Bka_data.cvs";
-    //final File file = File('/storage/emulated/0/Download' + "/alldata.csv");
-    //final directory = await getExternalStorageDirectory() ; // deneniyor
-    //final String filePath = '${directory?.path}/$fileName' ;
-    //final File file = File(filePath);
-    //var path = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
     //Directory tempDir = await getTemporaryDirectory();//1
     var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
     //Directory tempDir = await getApplicationDocumentsDirectory() ;
@@ -86,7 +76,7 @@ Future<void> restore() async{
       print('Dosya bulunamadı.');
     }// Dosyayı silmek için await kullan
   }else{
-        print("Erişim reddediliyor else düşüyor aq bu soktumunu ya");
+        print("Erişim reddediliyor.");
     }
 }
 

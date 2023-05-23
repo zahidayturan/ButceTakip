@@ -91,14 +91,14 @@ class _BackUpState extends ConsumerState<BackUp> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          "Google Drive ile Yedekle",
+                          "Google Cloud ile Yedekle",
                           style: TextStyle(
                             fontSize: 16,
                             fontFamily: "Nexa3"
                           ),
                         ),
                         Divider(thickness: 2.0,color: renkler.sariRenk),
-                        readGglAuth.accountStatus == true
+                        readGglAuth.accountStatus == true || readGglAuth.isSignedIn
                           ?Column(
                             children: [
                               SizedBox(height: size.height * 0.015),
@@ -151,14 +151,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     onTap: () {
                                       readGglAuth.downloadFileToDevice();
                                       //GoogleDrive().uploadFileToGoogleDrive();
-                                      //restore();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           backgroundColor:
                                           Color(0xff0D1C26),
                                           duration: Duration(seconds: 1),
                                           content: Text(
-                                            'Verileriniz Çekildi',
+                                            'Cloud üzerinden Verileriniz Çekildi',
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -247,6 +246,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 },
                                 child: SizedBox(
                                   width: size.width * 0.40,
+                                  height: size.width* 0.09,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
@@ -272,7 +272,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                           )
                           :Column(
                             children: [
-                              SizedBox(height: size.height * 0.03),
+                              SizedBox(height: size.height * 0.005),
                               InkWell(
                                 onTap: () async {
                                   await readGglAuth.signInWithGoogle();
@@ -280,6 +280,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 },
                                 child: SizedBox(
                                   width: size.width * 0.40,
+                                  height: size.width* 0.09,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
@@ -301,7 +302,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 25),
+                              SizedBox(height: 5),
                             ],
                           ),
                       ],

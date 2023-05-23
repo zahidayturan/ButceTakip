@@ -68,7 +68,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                   :const SizedBox(),
                   SizedBox(height: size.height/60),
                   Column(
-                    mainAxisAlignment:  MainAxisAlignment.spaceAround,
+                    mainAxisAlignment:  MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(height: size.height/15) ,
                       Text(
@@ -210,7 +210,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                                       child: SizedBox(
-                                        height: size.height / 3.5,
+                                        height: 240,
                                         child: Column(
                                           children: [
                                             Row(
