@@ -18,36 +18,47 @@ class _base_BKAState extends ConsumerState<base_BKA> {
   void loadData()  async {
     // örnek gecikme
     var readSetting =  ref.read(settingsRiverpod);
+    var readGglAuth = ref.read(gglDriveRiverpod);
+    readGglAuth.checkAuthState();
     var read  = readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
-    await Future.delayed(Duration(milliseconds: 500));
     read.then((value){
       if(readSetting.isBackUp == 1){
-        List<String> datesplit = readSetting.lastBackup!.split(".");
-        if(readSetting.Backuptimes == "Günlük"){
-          print("günlük giriş var");
-          if(int.parse(datesplit[0]) != DateTime.now().day){
-            print("gunluk guncellendi.");
-            readSetting.Backup();
-          }else{
-            print("mevcut gün => ${DateTime.now().day}");
-            print("son kayıt => ${datesplit[0]}");
-            print("bugün zaten yuklenmiş");
-          }
-        }else if(readSetting.Backuptimes == "Aylık"){
-          print("Aylık giriş var");
-          if(int.parse(datesplit[2]) == DateTime.now().year){
-            if(DateTime.now().month - int.parse(datesplit[1]) >= 1 ){
-              print("ay bazında kayıt yapıyoruz.");
-              readSetting.Backup();
+        print("1..açık");
+        if(readGglAuth.accountStatus == true) {
+          List<String> datesplit = readSetting.lastBackup!.split(".");
+          if(readSetting.Backuptimes == "Günlük"){
+            print("günlük giriş var");
+            if(int.parse(datesplit[0]) != DateTime.now().day){
+              print("gunluk guncellendi.");
+              //readSetting.Backup();
+              readGglAuth.uploadFileToStorage();
+            }else{
+              print("mevcut gün => ${DateTime.now().day}");
+              print("son kayıt => ${datesplit[0]}");
+              print("bugün zaten yuklenmiş");
             }
-          }else{
-            readSetting.Backup();
+          }else if(readSetting.Backuptimes == "Aylık"){
+            print("Aylık giriş var");
+            if(int.parse(datesplit[2]) == DateTime.now().year){
+              if(DateTime.now().month - int.parse(datesplit[1]) >= 1 ){
+                print("ay bazında kayıt yapıyoruz.");
+                //readSetting.Backup();
+                readGglAuth.uploadFileToStorage();
+              }
+            }else{
+              readGglAuth.uploadFileToStorage();
+              //readSetting.Backup();
+            }
+          }else if(readSetting.Backuptimes == "Yıllık"){
+            print("Yıllık giriş var");
+            if(int.parse(datesplit[2]) != DateTime.now().year){
+              //readSetting.Backup();
+              readGglAuth.uploadFileToStorage();
+            }
           }
-        }else if(readSetting.Backuptimes == "Yıllık"){
-          print("Yıllık giriş var");
-          if(int.parse(datesplit[2]) != DateTime.now().year){
-            readSetting.Backup();
-          }
+        }else{
+          readGglAuth.setBackupAlert(true);
+          print("yedeklenmesi gerekiyor ama hesabın açık değil GAHPE");
         }
       }
       if(readSetting.isPassword == 1 && readSetting.Password != "null") { // password controll

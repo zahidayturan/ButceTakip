@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:butcekontrol/utils/cvs_converter.dart';
 import 'package:external_path/external_path.dart';
-import 'package:file_picker/file_picker.dart';
+//import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
@@ -11,8 +11,10 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 class GglDriveRiverpod extends ChangeNotifier{
+  bool? backUpAlert;
   bool? RfPageSt ;
   bool? accountStatus;
+  bool isSignedIn = false;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
@@ -24,14 +26,14 @@ class GglDriveRiverpod extends ChangeNotifier{
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    setAccountStatus(true);
+    if(googleUser != null){
+      setAccountStatus(true);
+    }
     refreshPage();
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   Future<String?> uploadFileToStorage() async { //bu çalışıyor A planı
-    //await writeToCvs();
-        //Directory tempDir = await getApplicationDocumentsDirectory() ;
     var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
     final filePath = "${tempDir}/Bka_data.cvs";
     final File f = File(filePath) ;
@@ -125,7 +127,7 @@ class GglDriveRiverpod extends ChangeNotifier{
     return currentUser;
   }
 
-
+/*
   Future <void> up() async { //Drive üzerinden dosya seçtiriyor.
       FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -136,6 +138,8 @@ class GglDriveRiverpod extends ChangeNotifier{
         print(file);
         final client = await _googleSignIn.signInSilently();
         final auth = await client!.authentication;
+
+ */
         /*
         final credentials = AccessCredentials(
             AccessToken(auth.accessToken!, auth.expiry),
@@ -168,9 +172,9 @@ E/StorageUtil(27442): error getting token java.util.centials(
         } catch (e) {
           print('Dosya yüklenirken hata oluştu: $e');
         }
-         */
       }
   }
+         */
 
   Future<void> uploadFile() async {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -222,15 +226,13 @@ E/StorageUtil(27442): error getting token java.util.centials(
     return user != null;
   }
 
-  bool checkAuthState() {
-    print("kontrol geldi build oldu !");
-    if (isUserLoggedIn()) {
-      return true;
-    } else {
-      return false;
+  void checkAuthState() {
+    if(_auth.currentUser != null){
+      accountStatus = true;
+    }else{
+      accountStatus = false;
     }
   }
-
 
   String? getUserEmail(){
     User? user = FirebaseAuth.instance.currentUser;
@@ -249,6 +251,11 @@ E/StorageUtil(27442): error getting token java.util.centials(
     }
   }
 
+  void setBackupAlert(bool status) {
+    backUpAlert = status ;
+    notifyListeners();
+  }
+
   String? getUserName(){
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -257,7 +264,7 @@ E/StorageUtil(27442): error getting token java.util.centials(
       print("hesap açılmamış!!");
     }
   }
-  void refreshPage(){
+  void refreshPage(){ //sayfayı yenilitiyoruz.
     RfPageSt != RfPageSt;
     notifyListeners();
   }

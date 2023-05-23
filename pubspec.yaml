@@ -52,11 +52,6 @@ dependencies:
   firebase_auth: ^4.2.8
   firebase_storage: ^11.2.1
   cloud_firestore: ^4.7.1
-  file_picker: ^5.3.0
-  http: ^0.13.6
-  flutter_secure_storage: ^8.0.0
-  url_launcher: ^6.1.11
-  package_info_plus: ^4.0.1
   device_info_plus: ^9.0.1
 
 flutter_native_splash:

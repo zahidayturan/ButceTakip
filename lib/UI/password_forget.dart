@@ -37,7 +37,7 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
       child: SizedBox(
-        height: size.height / 3.5,
+        height: 230,
         child: Column(
           children: [
             Row(
@@ -91,7 +91,7 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
                       child: TextField(
                         controller: animalController,
                         keyboardType: TextInputType.text,
-                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]"))],
+                        inputFormatters:  [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZğĞıİöÖüÜşŞçÇ]"))],
                         style: const TextStyle(fontSize: 18),
                         textAlign: TextAlign.center,
                       ),
