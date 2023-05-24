@@ -79,7 +79,7 @@ class RegisteryList extends ConsumerWidget {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
+                      children: const [
                         Padding(
                           padding: EdgeInsets.only(left: 20),
                           child: Text(

@@ -3,7 +3,7 @@ import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/utils/android_ino.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:csv/csv.dart';
-import 'package:external_path/external_path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -22,10 +22,9 @@ Future <void> writeToCvs() async {
     final List<Map<String, dynamic>> allData = await db.query(
         "spendinfo", orderBy: "id");
     final List<List<dynamic>> rows = <List<dynamic>>[];
-    var path = await ExternalPath.getExternalStoragePublicDirectory(
-        ExternalPath.DIRECTORY_DOWNLOADS);
-    print("dir $path");
-    String file = "$path";
+    //var path = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    Directory tempDir = await getTemporaryDirectory(); //uygulamanın kendi deplaması
+    print("dir $tempDir");
 
     for (final Map<String, dynamic> map in allData) {
       final List<dynamic> row = map.values.toList();
@@ -34,7 +33,7 @@ Future <void> writeToCvs() async {
     }
     final String fileName = "Bka_data.cvs";
 
-    final directory = "$path/$fileName";
+    final directory = "${tempDir.path}/$fileName";
     final File f = File(directory);
     final String cvs = ListToCsvConverter().convert(rows);
     await f.writeAsString(cvs);
@@ -58,10 +57,10 @@ Future<void> restore() async{
     final Database db = await SQLHelper.db();
     await db.delete("spendinfo");
     final String fileName = "Bka_data.cvs";
-    //Directory tempDir = await getTemporaryDirectory();//1
-    var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    //var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    Directory tempDir = await getTemporaryDirectory();
     //Directory tempDir = await getApplicationDocumentsDirectory() ;
-    final directory = "${tempDir}/$fileName";
+    final directory = "${tempDir.path}/$fileName";
     final File f = File(directory);
     final List<List<dynamic>> csvData = const CsvToListConverter().convert(await f.readAsString());
     final List<SpendInfo> lastList = csvData.map((csvRow) => SpendInfo.fromCVSObjetct(csvRow)).toList();

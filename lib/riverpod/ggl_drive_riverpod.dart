@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:butcekontrol/utils/cvs_converter.dart';
-import 'package:external_path/external_path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
@@ -33,8 +32,9 @@ class GglDriveRiverpod extends ChangeNotifier{
   }
 
   Future<String?> uploadFileToStorage() async { //bu çalışıyor A planı
-    var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
-    final filePath = "${tempDir}/Bka_data.cvs";
+    //var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    Directory tempDir = await getTemporaryDirectory();
+    final filePath = "${tempDir.path}/Bka_data.cvs";
     final File f = File(filePath) ;
     if (f.existsSync()) {
       Reference storageRef = _storage.ref().child("ButceTakipArchive/${_auth.currentUser?.email}/Bka_CSV.cvs");
@@ -78,10 +78,10 @@ class GglDriveRiverpod extends ChangeNotifier{
   }
 
   Future<void> downloadFileToDevice() async {
-    //Directory tempDir = await getApplicationDocumentsDirectory() ;
-    var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
-    final String fileName = "Bka_data.cvs";
-    final filePath = "$tempDir/$fileName";
+    //var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    Directory tempDir = await getTemporaryDirectory();
+    const String fileName = "Bka_data.cvs";
+    final filePath = "${tempDir.path}/$fileName";
     final f = File(filePath);
     Reference storageRef = _storage.ref().child("ButceTakipArchive/${_auth.currentUser?.email}/Bka_CSV.cvs");
 

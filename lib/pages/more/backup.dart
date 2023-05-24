@@ -196,7 +196,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     },
                                     child: Container(
                                       height: 32,
-                                      width: size.width * 0.23,
+                                      width: size.width * 0.26,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
@@ -218,7 +218,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width:size.width * 0.04,),
+                                  SizedBox(width:size.width * 0.04),
                                   InkWell(
                                     onTap: () async {
                                       await writeToCvs().then((value) {
@@ -246,7 +246,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     },
                                     child: Container(
                                       height: 32,
-                                      width: size.width * 0.23,
+                                      width: size.width * 0.26,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
@@ -278,7 +278,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   readGglAuth.setAccountStatus(false);
                                 },
                                 child: SizedBox(
-                                  width: size.width * 0.5,
+                                  width: size.width * 0.56,
                                   height: 32,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
@@ -312,7 +312,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   readGglAuth.setAccountStatus(true);
                                 },
                                 child: SizedBox(
-                                  width: size.width * 0.5,
+                                  width: size.width * 0.56,
                                   height: 32,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
