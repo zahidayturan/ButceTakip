@@ -70,7 +70,7 @@ class HelpBacup extends StatelessWidget {
                       ),
                       Image.asset(
                         "assets/image/helpbackup1.png",
-                        height: 150,
+                        height: 80,
                       ),
                       SizedBox(height: 10),
                       const Text(
