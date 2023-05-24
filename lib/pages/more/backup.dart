@@ -119,7 +119,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(bottom: 2),
+                                        padding: const EdgeInsets.only(bottom: 4),
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(20),
                                           child: SizedBox(
@@ -222,7 +222,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   InkWell(
                                     onTap: () async {
                                       await writeToCvs().then((value) {
-                                        readGglAuth.uploadFileToStorage();
+                                        readGglAuth.uploadFileToStorage().then((value) => readGglAuth.refreshPage());
                                         readSetting.setLastBackup();
                                       });
                                       //readGglAuth.uploadFile();

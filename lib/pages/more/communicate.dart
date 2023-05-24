@@ -29,10 +29,10 @@ class Communicate extends StatelessWidget {
                   ),
                 ),
               const SizedBox(height: 20),
-               const Padding(
+              Padding(
                  padding: EdgeInsets.only(left: 20),
                  child: Row(
-                  children: [
+                  children: const [
                     Padding(
                       padding: EdgeInsets.only(bottom: 4),
                       child: Icon(Icons.mail),
@@ -43,10 +43,10 @@ class Communicate extends StatelessWidget {
               ),
                ),
               const SizedBox(height: 10),
-               const Padding(
+                Padding(
                  padding: EdgeInsets.only(left: 20),
                  child: Row(
-                  children: [
+                  children: const [
                     Padding(
                       padding: EdgeInsets.only(bottom: 4),
                       child: Icon(Icons.account_circle_outlined),
@@ -82,11 +82,11 @@ class Communicate extends StatelessWidget {
                           height: 70,
                           width: 70,
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.only(left: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text(
                                 "İbrahim Ethem Akbıyık",
                                 style: TextStyle(

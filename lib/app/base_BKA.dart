@@ -20,8 +20,8 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     var readSetting =  ref.read(settingsRiverpod); //read okuma işlemleri gerçekleşti
     var readGglAuth = ref.read(gglDriveRiverpod);
     readGglAuth.checkAuthState(); //Google Uer açık mı sorgusu yapılıyor
-    await Future.delayed(Duration(milliseconds: 100));
     var read  = readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
+    await Future.delayed(Duration(milliseconds: 100));
     read.then((value){
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
         print("YEdeklenme açık");
