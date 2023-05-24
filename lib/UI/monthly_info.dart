@@ -113,7 +113,7 @@ class Aylikinfo extends ConsumerWidget {
                                               dayTotals['totalAmount2']!;
                                           final formattedTotal =
                                               (totalAmount - totalAmount2)
-                                                  .toStringAsFixed(2);
+                                                  .toStringAsFixed(1);
                                           var dateTime = DateTime(
                                               int.parse(year),
                                               int.parse(month),
@@ -216,7 +216,7 @@ class Aylikinfo extends ConsumerWidget {
                                                                   ceyrekwsize,
                                                               child: Center(
                                                                 child: Text(
-                                                                  "$totalAmount",
+                                                                  totalAmount.toStringAsFixed(1),
                                                                   style:
                                                                       TextStyle(
                                                                     fontFamily:
@@ -234,7 +234,7 @@ class Aylikinfo extends ConsumerWidget {
                                                                   ceyrekwsize,
                                                               child: Center(
                                                                 child: Text(
-                                                                  '$totalAmount2',
+                                                                  totalAmount2.toStringAsFixed(1),
                                                                   style:
                                                                       TextStyle(
                                                                     fontFamily:

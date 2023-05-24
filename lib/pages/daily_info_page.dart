@@ -48,14 +48,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
     var size = MediaQuery.of(context).size;
     Future<List<SpendInfo>> myList = readDailyInfo.myMethod2();
     CustomColors renkler = CustomColors();
-    var abuzer = 1;
-    return abuzer == 0
-        ? Expanded(
-      child: Container(
-        color: Colors.blue,
-      ),
-    )
-        : FutureBuilder(
+    return FutureBuilder(
             future: myList,
             builder: (context, AsyncSnapshot<List<SpendInfo>> snapshot) {
               if (!snapshot.hasData) {
@@ -305,13 +298,13 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                             BorderRadius.vertical(bottom: Radius.circular(10)),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "+${data[0]}",
+                            " +${data[0]}",
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -321,10 +314,10 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                             width: size.width * 0.15,
                           ),
                           Text(
-                            "-${data[1]}",
+                            "-${data[1]} ",
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -350,7 +343,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                           "${data[2]}",
                           style: const TextStyle(
                             color: Color(0xff0D1C26),
-                            fontSize: 20,
+                            fontSize: 18,
                             fontFamily: 'Nexa3',
                             fontWeight: FontWeight.w900,
                             height: 1.4,

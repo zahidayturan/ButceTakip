@@ -22,7 +22,7 @@ void main() async{
   ));
 
   await Firebase.initializeApp();
-  LocalNotificationService().initNotification();
+  //LocalNotificationService().initNotification();
   FirebaseMessaging.onBackgroundMessage(FirebaseNotificationService.backgroundMessage);
   runApp( const ProviderScope(child: ButceKontrolApp()));
   print("Device Token:   ${await FirebaseMessaging.instance.getToken()}");

@@ -478,7 +478,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     width: 110,
                     child: TextFormField(
                         onTap: () {
-                          amount.clear();
+                          //amount.clear();
                         },
                         style: const TextStyle(
                             color: Color(0xff0D1C26),
@@ -492,7 +492,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             decimal: true),
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
-                              RegExp(r'^\d+(\.\d{0,2})?')),
+                            RegExp(r'^\d{0,5}(\.\d{0,2})?'),),
                         ],
                         textAlign: TextAlign.center,
                         onEditingComplete: () {

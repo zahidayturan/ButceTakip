@@ -44,10 +44,8 @@ dependencies:
   flutter_native_splash: ^2.2.19
   flutter_launcher_icons: ^0.13.0
   google_mobile_ads: ^3.0.0
-  cupertino_icons: ^1.0.2
   firebase_core: ^2.8.0
   firebase_messaging: ^14.6.1
-  flutter_local_notifications: ^14.1.0
   google_sign_in: ^6.1.0
   firebase_auth: ^4.2.8
   firebase_storage: ^11.2.1
