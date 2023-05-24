@@ -142,7 +142,7 @@ class _CalculatorState extends State<Calculator> {
                   ),
                 ),
                 SizedBox(
-                  height: size.height * 0.015,
+                  height: size.height * 0.005,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5.0),
@@ -189,10 +189,7 @@ class _CalculatorState extends State<Calculator> {
                   ),
                 ),
                 SizedBox(
-                  height: size.height * 0.015,
-                ),
-
-                ///orta cizgi gelicek
+                  height: size.height * 0.005),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

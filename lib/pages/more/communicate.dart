@@ -28,16 +28,16 @@ class Communicate extends StatelessWidget {
                 ),
               ),
             const SizedBox(height: 40),
-            const Row(
-              children: [
+             Row(
+              children: const [
                 Icon(Icons.mail),
                 SizedBox(width: 5),
                 Text("Email   : fezaitech@gmail.com"),
               ],
             ),
             const SizedBox(height: 5),
-            const Row(
-              children: [
+             Row(
+              children: const [
                 Icon(Icons.account_circle_outlined),
                 SizedBox(width: 5),
                 Text("Github : github.com/ibrahimeth/\nButceKontrolApp"),
@@ -62,11 +62,11 @@ class Communicate extends StatelessWidget {
                       width: 60,
                     ),
                     const SizedBox(width: 15),
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Text(
-                          "İbrahim Ethem AKBIYIK",
+                          "Ibrahim Ethem AKBIYIK",
                           style: TextStyle(
                             fontSize: 18,
                           ),

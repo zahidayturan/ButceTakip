@@ -17,14 +17,14 @@ class base_BKA extends ConsumerStatefulWidget {
 class _base_BKAState extends ConsumerState<base_BKA> {
   void loadData()  async {
     // örnek gecikme
-    var readSetting =  ref.read(settingsRiverpod);
+    var readSetting =  ref.read(settingsRiverpod); //read okuma işlemleri gerçekleşti
     var readGglAuth = ref.read(gglDriveRiverpod);
-    readGglAuth.checkAuthState();
-    var read  = readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
+    readGglAuth.checkAuthState(); //Google Uer açık mı sorgusu yapılıyor
     await Future.delayed(Duration(milliseconds: 100));
+    var read  = readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
     read.then((value){
-      if(readSetting.isBackUp == 1){
-        print("1..açık");
+      if(readSetting.isBackUp == 1){ //yedekleme açık mı?
+        print("YEdeklenme açık");
         if(readGglAuth.accountStatus == true) {
           List<String> datesplit = readSetting.lastBackup!.split(".");
           if(readSetting.Backuptimes == "Günlük"){
@@ -33,6 +33,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
               print("gunluk guncellendi.");
               //readSetting.Backup();
               readGglAuth.uploadFileToStorage();
+              readSetting.setLastBackup();
             }else{
               print("mevcut gün => ${DateTime.now().day}");
               print("son kayıt => ${datesplit[0]}");
@@ -45,9 +46,11 @@ class _base_BKAState extends ConsumerState<base_BKA> {
                 print("ay bazında kayıt yapıyoruz.");
                 //readSetting.Backup();
                 readGglAuth.uploadFileToStorage();
+                readSetting.setLastBackup();
               }
             }else{
               readGglAuth.uploadFileToStorage();
+              readSetting.setLastBackup();
               //readSetting.Backup();
             }
           }else if(readSetting.Backuptimes == "Yıllık"){
@@ -55,6 +58,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
             if(int.parse(datesplit[2]) != DateTime.now().year){
               //readSetting.Backup();
               readGglAuth.uploadFileToStorage();
+              readSetting.setLastBackup();
             }
           }
         }else{

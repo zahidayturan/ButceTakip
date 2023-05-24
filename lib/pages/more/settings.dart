@@ -45,6 +45,7 @@ class _SettingsState extends ConsumerState<Settings> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: ClipRRect(
@@ -64,15 +65,21 @@ class _SettingsState extends ConsumerState<Settings> {
                               ),
                             ),
                             const Spacer(),
-                            darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                            !darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                 :const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                             Switch(
+
+                              activeColor: renkler.sariRenk,
                               value: darkthememode,
-                              onChanged: (bool value) {
+                              onChanged: null
+                                 /*
+                                  (bool value) {
                                 setState(() {
                                   readSetting.setDarkMode(value) ;
                                 });
+
                               },
+                                    */
                             ),
                           ],
                         ),

@@ -66,6 +66,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                           isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
                               : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                           Switch(
+                            activeColor: renkler.sariRenk,
                             value: isopen ,
                             onChanged: (bool value) {
                               setState(() {
@@ -114,7 +115,23 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextMod("Ad ve Soyad:", Colors.black, 15),
-                                  TextMod("${readGglAuth.getUserDisplayName()}", Colors.black, 15),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: SizedBox(
+                                          height : 20,
+                                          width: 20,
+                                          child: Container(
+                                              child: Image.network("${readGglAuth.getUserPhotoUrl()}")
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: size.width * 0.01),
+                                      TextMod("${readGglAuth.getUserDisplayName()}", Colors.black, 15),
+                                    ],
+                                  ),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
@@ -127,9 +144,9 @@ class _BackUpState extends ConsumerState<BackUp> {
                               ),
                               SizedBox(height: size.height * 0.015),
                               Divider(thickness: 2.0,color: renkler.sariRenk),
-                              SizedBox(height: size.height * 0.03),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              SizedBox(height: size.height * 0.01),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const SizedBox(width: 1),
                                   const Text(
@@ -139,8 +156,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       fontSize: 15  ,
                                     ),
                                   ),
-                                  toolCustomButton(context),
-                                  const SizedBox(width: 1)
+                                  SizedBox(height: size.height * 0.005),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      toolCustomButton(context),
+                                    ],
+                                  ),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
@@ -193,7 +215,10 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   ),
                                   InkWell(
                                     onTap: () async {
-                                      await writeToCvs().then((value) => readGglAuth.uploadFileToStorage());
+                                      await writeToCvs().then((value) {
+                                        readGglAuth.uploadFileToStorage();
+                                        readSetting.setLastBackup();
+                                      });
                                       //readGglAuth.uploadFile();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(

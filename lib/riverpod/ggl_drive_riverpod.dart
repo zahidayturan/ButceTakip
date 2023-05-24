@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:butcekontrol/utils/cvs_converter.dart';
 import 'package:external_path/external_path.dart';
-//import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
@@ -233,7 +232,14 @@ E/StorageUtil(27442): error getting token java.util.centials(
       accountStatus = false;
     }
   }
-
+  String? getUserPhotoUrl(){
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return user.photoURL;
+    } else {
+      print("hesap açılmamış!!");
+    }
+  }
   String? getUserEmail(){
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
