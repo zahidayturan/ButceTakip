@@ -11,6 +11,8 @@ class SpendInfo {
   String ?operationMonth ;
   String ?operationYear ;
   String ?operationTime ;
+  String ?moneyType ;
+  String ?processOnce ;
 
   SpendInfo(
       this.operationType,
@@ -23,7 +25,9 @@ class SpendInfo {
       this.operationMonth,
       this.operationYear,
       this.operationTime,
-      this.operationDate
+      this.operationDate,
+      this.moneyType,
+      this.processOnce
       );
   SpendInfo.withId(
       this.id,
@@ -37,7 +41,9 @@ class SpendInfo {
       this.operationMonth,
       this.operationYear,
       this.operationTime,
-      this.operationDate
+      this.operationDate,
+      this.moneyType,
+      this.processOnce
       );
 
   Map<String,dynamic> toMap(){
@@ -53,6 +59,8 @@ class SpendInfo {
     map["operationYear"] = operationYear ;
     map["operationTime"] = operationTime ;
     map["operationDate"] = operationDate ;
+    map["moneyType"] = moneyType ;
+    map["processOnce"] = processOnce ;
     return map ;
   }
   SpendInfo.fromObject(dynamic o){
@@ -68,6 +76,8 @@ class SpendInfo {
     operationYear   = o["operationYear"];
     operationTime = o["operationTime"];
     operationDate  = o["operationDate"] ;
+    moneyType = o["moneyType"];
+    processOnce  = o["processOnce"] ;
   }
   dynamic fromCsvValue(String value) {
     if (value.isEmpty) {
@@ -96,6 +106,8 @@ class SpendInfo {
       o[9].toString(),
       o[10].toString(),
       o[11].toString(),
+      o[12].toString(),
+      o[13].toString(),
     );
   }
 }

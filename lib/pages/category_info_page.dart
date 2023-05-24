@@ -95,6 +95,9 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Theme(
                             data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.fromSwatch(
+                                  accentColor: Color(0xFFF2CB05),
+                                ),
                                 scrollbarTheme: ScrollbarThemeData(
                                     thumbColor: MaterialStateProperty.all(
                                         const Color(0xffF2CB05)))),
@@ -393,8 +396,10 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                     borderRadius: BorderRadius.circular(40),
                   ),
                   child: IconButton(
-                    icon:  const Icon(
-                      Icons.clear,
+                    icon:  Image.asset(
+                      "assets/icons/remove.png",
+                      height: 16,
+                      width: 16,
                       color: Colors.white,
                     ),
                     onPressed: () {

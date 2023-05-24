@@ -265,13 +265,13 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         BorderRadius.vertical(bottom: Radius.circular(10)),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            "+0.0",
+                            "  +0.0",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -281,10 +281,10 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             width: size.width * 0.15,
                           ),
                           const Text(
-                            "-0.0",
+                            "-0.0  ",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -310,7 +310,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           "0.0",
                           style: TextStyle(
                             color: Color(0xff0D1C26),
-                            fontSize: 20,
+                            fontSize: 18,
                             fontFamily: 'Nexa3',
                             fontWeight: FontWeight.w900,
                             height: 1.4,
@@ -347,13 +347,13 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             BorderRadius.vertical(bottom: Radius.circular(10)),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "+${data[0]}",
+                            "  +${data[0]}",
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -363,15 +363,15 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             width: size.width * 0.15,
                           ),
                           Text(
-                            "-${data[1]}",
+                            "-${data[1]}  ",
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -392,7 +392,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           "${data[2]}",
                           style: const TextStyle(
                             color: Color(0xff0D1C26),
-                            fontSize: 20,
+                            fontSize: 18,
                             fontFamily: 'Nexa3',
                             fontWeight: FontWeight.w900,
                             height: 1.4,
@@ -459,6 +459,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
 
   Widget containerAdd(BuildContext context, int days, int months, int years) {
     var read = ref.read(calendarRiverpod);
+    var total = read.getDateColor(days,months,years);
     return SizedBox(
       height: 45,
       child: AspectRatio(
@@ -471,8 +472,8 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             color: Colors.white,
           ),
           child: Stack(children:[
-          containerColorChange(context,read.getDateColor(days,months,years),months),
-          dateText(context, days,months, years)]),
+          containerColorChange(context,total,months),
+          dateText(context, days,months, years,total)]),
         ),
       ),
     );
@@ -505,16 +506,38 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     );
   }
 
-  Widget dateText(BuildContext context, int date, int month, int year) {
+  Widget dateText(BuildContext context, int date, int month, int year, Future<double> total) {
     var size = MediaQuery.of(context).size;
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     return SizedBox(
       height: size.height * 0.065,
       width: size.height * 0.065,
       child: TextButton(
-          onPressed: () {
-            readDailyInfo.setDate(date, month, year);
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const DailyInfo(),));
+          onPressed: () async {
+            double totalAmount = await total;
+            if (totalAmount == 0) {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      height: 40,
+                      color: const Color(0xFF0D1C26),
+                      child: const Center(
+                        child: Text(
+                          'Güne ait veri bulunamadı !',
+                          style: TextStyle(
+                            fontFamily: 'Nexa3',
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    );
+                  });
+            } else {
+              readDailyInfo.setDate(date, month, year);
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
+            }
           },
           child: Text(
             date > 0 ? date.toString() : "",

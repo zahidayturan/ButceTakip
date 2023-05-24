@@ -2,6 +2,7 @@ import 'package:butcekontrol/Pages/more/communicate.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
+import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/constans/material_color.dart';
@@ -334,10 +335,10 @@ class More extends ConsumerWidget {
                         "assets/image/icon_BKA/LOGOBKA-4.png",
                         height: 70,
                       ),
+                      const SizedBox(height: 8),
+                      TextMod("Version ${"1.1.0"}", renkler.koyuuRenk, 14),
                       const SizedBox(height: 2),
-                      TextMod("version ${"1.1"}", renkler.koyuuRenk, 13),
-                      const SizedBox(height: 2),
-                      TextMod("FezaiTech", renkler.koyuuRenk, 10),
+                      TextMod("FezaiTech", renkler.koyuuRenk, 14),
                     ],
                   )
                 ],
