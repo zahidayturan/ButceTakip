@@ -91,6 +91,9 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                               padding: const EdgeInsets.symmetric(horizontal: 10),
                               child: Theme(
                                 data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.fromSwatch(
+                                      accentColor: Color(0xFFF2CB05),
+                                    ),
                                     scrollbarTheme: ScrollbarThemeData(
                                         thumbColor: MaterialStateProperty.all(
                                             const Color(0xffF2CB05)))),

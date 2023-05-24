@@ -335,10 +335,10 @@ class More extends ConsumerWidget {
                         "assets/image/icon_BKA/LOGOBKA-4.png",
                         height: 70,
                       ),
+                      const SizedBox(height: 8),
+                      TextMod("Version ${"1.1.0"}", renkler.koyuuRenk, 14),
                       const SizedBox(height: 2),
-                      TextMod("version ${"1.1"}", renkler.koyuuRenk, 13),
-                      const SizedBox(height: 2),
-                      TextMod("FezaiTech", renkler.koyuuRenk, 10),
+                      TextMod("FezaiTech", renkler.koyuuRenk, 14),
                     ],
                   )
                 ],

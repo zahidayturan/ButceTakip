@@ -64,13 +64,16 @@ class Aylikinfo extends ConsumerWidget {
                                         ),
                                         child: const Center(
                                             child: TextMod("Kayıt Yok",
-                                                Colors.amber, 18))),
+                                                Color(0xFFF2CB05), 18))),
                                   ),
                                 ],
                               ),
                             )
                           : Theme(
                               data: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.fromSwatch(
+                                    accentColor: Color(0xFFF2CB05),
+                                  ),
                                   scrollbarTheme: ScrollbarThemeData(
                                 thumbColor:
                                     MaterialStateProperty.all(renkler.sariRenk),

@@ -265,10 +265,10 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         BorderRadius.vertical(bottom: Radius.circular(10)),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            "+0.0",
+                            "  +0.0",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -281,7 +281,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             width: size.width * 0.15,
                           ),
                           const Text(
-                            "-0.0",
+                            "-0.0  ",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,

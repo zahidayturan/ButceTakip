@@ -65,7 +65,7 @@ class _SettingsState extends ConsumerState<Settings> {
                               ),
                             ),
                             const Spacer(),
-                            !darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                            darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
                                  :const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                             Switch(
 

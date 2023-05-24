@@ -111,8 +111,17 @@ class ButtonMenu extends ConsumerStatefulWidget {
 class _ButtonMenu extends ConsumerState<ButtonMenu> {
   final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
   @override
+
   void initState() {
-    _interstitialAdManager.loadInterstitialAd();
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
+    if(adCounter! < 1  ){
+      _interstitialAdManager.loadInterstitialAd(); ///reklamyükle
+      print('+');
+    }
+    else{
+      print('-');
+    }
     super.initState();
   }
   void _showInterstitialAd(BuildContext context) {
@@ -1647,11 +1656,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             _operationDate.text,
                         '0');
                         if(adCounter == 0  ){
-                          _showInterstitialAd(context);
-                          readSettings.resetAdCounter();
+                          _showInterstitialAd(context); ///reklam
+                          readSettings.resetAdCounter();  ///2 leme
                         }
                         else {
-                          readSettings.useAdCounter();
+                          readSettings.useAdCounter(); ///eksi 1
                         }
                         Navigator.of(context).pop();
                         read2.setCurrentindex(0);

@@ -198,7 +198,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                               color: Colors.black, width: 2),
                                         ),
                                         child: const Center(child: TextMod(
-                                            "Kayıt Yok", Colors.amber, 18))
+                                            "Kayıt Yok", Color(0xFFF2CB05), 18))
                                     ),
                                   ),
                                 ],
@@ -212,10 +212,14 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                   left: 5.0, top: 5),
                               child: Theme(
                                 data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.fromSwatch(
+                                      accentColor: Color(0xFFF2CB05),
+                                    ),
                                     scrollbarTheme: ScrollbarThemeData(
                                       thumbColor:
                                       MaterialStateProperty.all(renkler.sariRenk),
                                     )),
+
                                 child: Stack(
                                   children: [
                                     Padding(

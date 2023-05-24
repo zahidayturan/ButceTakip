@@ -15,84 +15,109 @@ class Communicate extends StatelessWidget {
         backgroundColor: const Color(0xffF2F2F2),
         bottomNavigationBar: const NavBar(),
         appBar: const AppBarForPage(title: "İLETİŞİM"),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-            Align(
-                alignment: Alignment.center,
-                child: Image.asset(
-                  "assets/image/icon_BKA/LOGOBKA-2.png",
-                  width: size.width/1.7,
-                ),
-              ),
-            const SizedBox(height: 40),
-             Row(
-              children: const [
-                Icon(Icons.mail),
-                SizedBox(width: 5),
-                Text("Email   : fezaitech@gmail.com"),
-              ],
-            ),
-            const SizedBox(height: 5),
-             Row(
-              children: const [
-                Icon(Icons.account_circle_outlined),
-                SizedBox(width: 5),
-                Text("Github : github.com/ibrahimeth/\nButceKontrolApp"),
-              ],
-            ),
-            const SizedBox(height: 30),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
             Column(
               children: [
-                const Text(
-                    "Yapımcılar",
-                    style: TextStyle(
-                      fontFamily: "Nexa2",
-                      fontSize: 28
-                    ),
+              const SizedBox(height: 10),
+              Align(
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    "assets/image/icon_BKA/LOGOBKA-2.png",
+                    width: size.width/2,
+                  ),
                 ),
-                const SizedBox(height: 10),
-                Row(
+              const SizedBox(height: 20),
+               const Padding(
+                 padding: EdgeInsets.only(left: 20),
+                 child: Row(
                   children: [
-                    Image.asset(
-                      "assets/image/icon_BKA/İKON.png",
-                      height: 60,
-                      width: 60,
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 4),
+                      child: Icon(Icons.mail),
                     ),
-                    const SizedBox(width: 15),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Ibrahim Ethem AKBIYIK",
+                    SizedBox(width: 5),
+                    Text("Email : fezaitech@gmail.com",style: TextStyle(fontSize: 16)),
+                  ],
+              ),
+               ),
+              const SizedBox(height: 10),
+               const Padding(
+                 padding: EdgeInsets.only(left: 20),
+                 child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 4),
+                      child: Icon(Icons.account_circle_outlined),
+                    ),
+                    SizedBox(width: 5),
+                    Text("Github : github.com/ibrahimeth/\nButceTakipApp",style: TextStyle(fontSize: 16)),
+                  ],
+              ),
+               ),
+              const SizedBox(height: 30),
+              Column(
+                children: [
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 4),
+                      child: Text(
+                          "YAPIMCILAR",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontFamily: "Nexa4",
+                            fontSize: 22,
+                            color: Color(0xFF0D1C26)
                           ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "assets/image/icon_BKA/İKON.png",
+                          height: 70,
+                          width: 70,
                         ),
-                        Text(
-                          "Hamza BAYAR",
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                        Text(
-                          "Zahid AYTURAN",
-                          style: TextStyle(
-                            fontSize: 18,
+                        const Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "İbrahim Ethem Akbıyık",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                "Hamza Bayar",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                "Zahid Ayturan",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
-                    )
-                  ],
-                ),
-                const SizedBox(height: 50,),
-                const BannerAds(adSize: AdSize.banner,),
-              ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ],
             ),
+            const BannerAds(adSize: AdSize.largeBanner,),
           ],
-        ) ,
         ),
     ),
     );
