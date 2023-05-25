@@ -113,6 +113,7 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
                             readSetting.setPassword("null");
                             readSetting.setPasswordMode(false);
                             readSetting.setisuseinsert();
+                            ref.read(botomNavBarRiverpod).setCurrentindex(4);
                             Navigator.popUntil(context, (route) => route.isFirst);
                           }else {
                             Navigator.of(context).pop();

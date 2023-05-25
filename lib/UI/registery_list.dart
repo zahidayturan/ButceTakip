@@ -79,7 +79,7 @@ class RegisteryList extends ConsumerWidget {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
+                      children: const [
                         Padding(
                           padding: EdgeInsets.only(left: 20),
                           child: Text(
@@ -144,6 +144,9 @@ class RegisteryList extends ConsumerWidget {
                             padding: const EdgeInsets.only(left: 1),
                             child: Theme(
                               data: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.fromSwatch(
+                                    accentColor: Color(0xFFF2CB05),
+                                  ),
                                   scrollbarTheme: ScrollbarThemeData(
                                       thumbColor: MaterialStateProperty.all(
                                           renkler.sariRenk))),

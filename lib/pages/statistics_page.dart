@@ -114,7 +114,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               children: [
                 SizedBox(
                   width: size.width * 0.9,
-                  height: size.height * 0.35,
+                  height: size.height * 0.32,
                   child: Center(
                     child: Container(
                       height: 45,

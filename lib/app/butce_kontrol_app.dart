@@ -8,6 +8,12 @@ class ButceKontrolApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) {
+        return MediaQuery(
+          child: child!,
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+        );
+      },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -22,11 +28,12 @@ class ButceKontrolApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
         fontFamily: "Nexa3",
-        unselectedWidgetColor: Colors.orange // checkbox border rengi için kullandım.
+        unselectedWidgetColor: Colors.orange, // checkbox border rengi için kullandım.
       ),
       home: const base_BKA(),
     );
   }
 }
+
 
 

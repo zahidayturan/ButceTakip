@@ -84,7 +84,7 @@ class CalendarRiverpod extends ChangeNotifier {
 
     double result = totalAmount - totalAmount2;
     String formattedResult = result.toStringAsFixed(1);
-    List amountList = [totalAmount,totalAmount2,formattedResult];
+    List amountList = [totalAmount.toStringAsFixed(1),totalAmount2.toStringAsFixed(1),formattedResult];
     return Future.value(amountList);
   }
 

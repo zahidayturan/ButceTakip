@@ -66,6 +66,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                           isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
                               : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                           Switch(
+                            activeColor: renkler.sariRenk,
                             value: isopen ,
                             onChanged: (bool value) {
                               setState(() {
@@ -94,7 +95,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                           "Google Cloud ile Yedekle",
                           style: TextStyle(
                             fontSize: 16,
-                            fontFamily: "Nexa3"
+                            fontFamily: "Nexa4"
                           ),
                         ),
                         Divider(thickness: 2.0,color: renkler.sariRenk),
@@ -105,7 +106,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Email:", Colors.black, 15),
+                                  TextMod("Email:", Colors.black,  15),
                                   TextMod("${readGglAuth.getUserEmail()}", Colors.black, 15),
                                 ],
                               ),
@@ -114,38 +115,62 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextMod("Ad ve Soyad:", Colors.black, 15),
-                                  TextMod("${readGglAuth.getUserDisplayName()}", Colors.black, 15),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 4),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(20),
+                                          child: SizedBox(
+                                            height : 20,
+                                            width: 20,
+                                            child: Container(
+                                                child: Image.network("${readGglAuth.getUserPhotoUrl()}")
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: size.width * 0.01),
+                                      TextMod("${readGglAuth.getUserDisplayName()}", Colors.black, 15),
+                                    ],
+                                  ),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("En Son\nYedekleme tarihi:", Colors.black, 13),
-                                  TextMod("${readSetting.lastBackup}", Colors.black, 14),
+                                  TextMod("Son Yedekleme Tarihi:", Colors.black, 15),
+                                  TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : "Yedeklenmedi", Colors.black, 15),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.015),
                               Divider(thickness: 2.0,color: renkler.sariRenk),
-                              SizedBox(height: size.height * 0.03),
+                              SizedBox(height: size.height * 0.01),
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const SizedBox(width: 1),
                                   const Text(
                                     "Yedeklenme Sıklığı",
                                     style:TextStyle(
-                                      fontFamily: "Nexa4",
+                                      fontFamily: "Nexa3",
                                       fontSize: 15  ,
                                     ),
                                   ),
-                                  toolCustomButton(context),
-                                  const SizedBox(width: 1)
+                                  SizedBox(height: size.height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      toolCustomButton(context),
+                                    ],
+                                  ),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   InkWell(
                                     onTap: () {
@@ -169,7 +194,9 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         ),
                                       );
                                     },
-                                    child: FittedBox(
+                                    child: Container(
+                                      height: 32,
+                                      width: size.width * 0.26,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
@@ -191,9 +218,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(width:size.width * 0.04),
                                   InkWell(
                                     onTap: () async {
-                                      await writeToCvs().then((value) => readGglAuth.uploadFileToStorage());
+                                      await writeToCvs().then((value) {
+                                        readGglAuth.uploadFileToStorage().then((value) => readGglAuth.refreshPage());
+                                        readSetting.setLastBackup();
+                                      });
                                       //readGglAuth.uploadFile();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
@@ -213,7 +244,9 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         ),
                                       );
                                     },
-                                    child: FittedBox(
+                                    child: Container(
+                                      height: 32,
+                                      width: size.width * 0.26,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
@@ -245,11 +278,11 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   readGglAuth.setAccountStatus(false);
                                 },
                                 child: SizedBox(
-                                  width: size.width * 0.40,
-                                  height: size.width* 0.09,
+                                  width: size.width * 0.56,
+                                  height: 32,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(10),
                                       color: Color(0xffB72E2E),
                                     ),
                                     child: const Center(
@@ -279,8 +312,8 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   readGglAuth.setAccountStatus(true);
                                 },
                                 child: SizedBox(
-                                  width: size.width * 0.40,
-                                  height: size.width* 0.09,
+                                  width: size.width * 0.56,
+                                  height: 32,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
@@ -317,9 +350,9 @@ class _BackUpState extends ConsumerState<BackUp> {
       )
     );
   }
-  double heightTool_ = 26;
-  double heightTool2_ = 32;
-  double heightTool3_ = 26;
+  double heightTool_ = 32;
+  double heightTool2_ = 38;
+  double heightTool3_ = 32;
   Color _containerColorTool3 = const Color(0xff0D1C26);
   Color _containerColorTool2 = const Color(0xff0D1C26);
   Color _containerColorTool = const Color(0xffF2CB05);
@@ -370,14 +403,14 @@ class _BackUpState extends ConsumerState<BackUp> {
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 3),
+            padding: const EdgeInsets.only(top: 2,bottom: 2),
             child: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(40)),
                 color: Color(0xff0D1C26),
               ),
-              height: 34,
-              width: 180,
+              height: 28,
+              width: 156,
             ),
           ),
           Row(
@@ -395,7 +428,6 @@ class _BackUpState extends ConsumerState<BackUp> {
                   child: TextButton(
                       onPressed: () {
                         setState(() {
-                          //_operationTool.text = "Nakit";
                           readSetting.setBackuptimes("Günlük");
                         });
                       },
@@ -416,7 +448,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                 ),
                 height: heightTool_,
                 child: SizedBox(
-                  width: 66,
+                  width: 48,
                   child: TextButton(
                       onPressed: () {
                         setState(() {
@@ -440,7 +472,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                 ),
                 height: heightTool3_,
                 child: SizedBox(
-                  width: 44,
+                  width: 48,
                   child: TextButton(
                       onPressed: () {
                         setState(() {

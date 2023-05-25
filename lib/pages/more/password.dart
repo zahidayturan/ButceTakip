@@ -140,6 +140,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
                                     : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                                 Switch(
+                                  activeColor: renkler.sariRenk,
                                   value: isopen ,
                                   onChanged: (bool value) {
                                     setState(() {
