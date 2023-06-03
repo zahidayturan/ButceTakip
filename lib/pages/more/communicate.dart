@@ -273,6 +273,7 @@ class Communicate extends StatelessWidget {
                             children: [
                               Container(
                                 height: 60,
+                                width: 60,
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(25)),
@@ -285,11 +286,17 @@ class Communicate extends StatelessWidget {
                                             3, 3), // x,y offset değerleri
                                       )
                                     ]),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.network(
-                                      "https://avatars.githubusercontent.com/u/99787343?v=4"),
-                                ),
+                                child: Stack(children: [
+                                  Container(
+                                    height: 60,
+                                    width: 60,
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                        "https://avatars.githubusercontent.com/u/99787343?v=4"),
+                                  ),
+                                ]),
                               ),
                               Column(
                                 mainAxisAlignment:
@@ -380,6 +387,7 @@ class Communicate extends StatelessWidget {
                             children: [
                               Container(
                                 height: 60,
+                                width: 60,
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(25)),
@@ -392,11 +400,17 @@ class Communicate extends StatelessWidget {
                                             3, 3), // x,y offset değerleri
                                       )
                                     ]),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.network(
-                                      "https://avatars.githubusercontent.com/u/91957947?v=4"),
-                                ),
+                                child: Stack(children: [
+                                  Container(
+                                    height: 60,
+                                    width: 60,
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                        "https://avatars.githubusercontent.com/u/91957947?v=4"),
+                                  ),
+                                ]),
                               ),
                               Column(
                                 mainAxisAlignment:
