@@ -109,7 +109,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 );
                               },
                               child: const Text(
-                                  "Android 1.0v Update(21.04.2023)"
+                                  "Android 1.1.1v Update(3.06.2023)"
                               ),
                             ),
                           ],

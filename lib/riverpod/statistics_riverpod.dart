@@ -581,7 +581,7 @@ class StatisticsRiverpod extends ChangeNotifier {
     List<Map<String, dynamic>> listMap = [];
     for (int i = 0; i < categoryBaseAmounts.length; i++) {
       if(type != 'Hepsi') {
-        if (percentages[i] >= 4) {
+        if (percentages[i] >= 5) {
           Map<String, dynamic> map = {
             'domain': categoryBaseType[i],
             'measure': percentages[i]
