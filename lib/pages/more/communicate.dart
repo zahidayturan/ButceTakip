@@ -1,4 +1,5 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +22,7 @@ class Communicate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CustomColors renkler = new CustomColors();
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -121,78 +123,300 @@ class Communicate extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
+                Divider(height:10, color: renkler.sariRenk, thickness: 2 ),
+                const SizedBox(height: 10),
                 Column(
                   children: [
-                    const Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 4),
-                        child: Text(
-                          "GELİŞTİRİCİLER",
-                          style: TextStyle(
-                              fontFamily: "Nexa4",
-                              fontSize: 22,
-                              color: Color(0xFF0D1C26)),
+                    FittedBox( // Title
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: renkler.koyuuRenk,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+                            child: Text(
+                              "GELİŞTİRİCİLER",
+                              style: TextStyle(
+                                  fontFamily: "Nexa4",
+                                  fontSize: 18,
+                                  color:Colors.white
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 5),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Row(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical:  8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Image.asset(
-                            "assets/image/icon_BKA/İKON.png",
-                            height: 70,
-                            width: 70,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    launchURL('https://github.com/ibrahimeth');
-                                  },
-                                  child: const Text(
-                                    "İbrahim Ethem Akbıyık",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.shade500 ,
+                                      spreadRadius: 3,
+                                      blurRadius: 7,
+                                      offset: Offset(3, 3), // x,y offset değerleri
+                                    )
+                                  ]
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(25),
+                                  child: Image.network(
+                                    "https://avatars.githubusercontent.com/u/92324388?v=4"
                                   ),
                                 ),
-                                const SizedBox(height: 5,),
-                                InkWell(
-                                  onTap: () {
-                                    launchURL('https://github.com/Hamza-Bayar-2');
-                                  },
-                                  child: const Text(
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  const Text(
+                                      "İbrahim Ethem Akbıyık",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                  ),//nam// e
+                                  SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      InkWell(
+                                        onTap:() {
+                                          launchURL('https://github.com/ibrahimeth');
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Container(
+                                            width: 90,
+                                            color: Colors.grey.shade300,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  child: Image.asset(
+                                                    "assets/icons/github.png",
+                                                    height: 18,
+                                                  ),
+                                                ),
+                                                Text("Github"),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 15),
+                                      InkWell(
+                                        onTap:() {
+                                          launchURL("https://www.linkedin.com/in/ibrahim-ethem-akb%C4%B1y%C4%B1k-53a099224/");
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Container(
+                                            width: 95,
+                                            color: Colors.grey.shade300,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  child: Image.asset(
+                                                    "assets/icons/linkedin.png",
+                                                    height: 18,
+                                                  ),
+                                                ),
+                                                Text("Linkedin"),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),//social icon
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.shade500 ,
+                                        spreadRadius: 3,
+                                        blurRadius: 7,
+                                        offset: Offset(3, 3), // x,y offset değerleri
+                                      )
+                                    ]
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(25),
+                                  child: Image.network(
+                                      "https://avatars.githubusercontent.com/u/99787343?v=4"
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  const Text(
                                     "Hamza Bayar",
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
+                                  ),//nam// e
+                                  SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      InkWell(
+                                        onTap:() {
+                                          launchURL('https://github.com/Hamza-Bayar-2');
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Container(
+                                            width: 95,
+                                            color: Colors.grey.shade300,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  child: Image.asset(
+                                                    "assets/icons/github.png",
+                                                    height: 18,
+                                                  ),
+                                                ),
+                                                Text("Github"),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 15),
+                                      InkWell(
+                                        onTap:() {
+                                          launchURL("https://www.linkedin.com/in/hamza-bayar-251b7b234/");
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Container(
+                                            width: 95,
+                                            color: Colors.grey.shade300,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  child: Image.asset(
+                                                    "assets/icons/linkedin.png",
+                                                    height: 18,
+                                                  ),
+                                                ),
+                                                Text("Linkedin"),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),//social icon
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.shade500 ,
+                                        spreadRadius: 3,
+                                        blurRadius: 7,
+                                        offset: Offset(3, 3), // x,y offset değerleri
+                                      )
+                                    ]
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(25),
+                                  child: Image.network(
+                                      "https://avatars.githubusercontent.com/u/91957947?v=4"
                                   ),
                                 ),
-                                const SizedBox(height: 5,),
-                                InkWell(
-                                  onTap: () {
-                                    launchURL('https://github.com/zahidayturan');
-                                  },
-                                  child: const Text(
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  const Text(
                                     "Zahid Ayturan",
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                                  ),//nam// e
+                                  SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      InkWell(
+                                        onTap:() {
+                                          launchURL('https://github.com/zahidayturan');
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Container(
+                                            width: 95,
+                                            color: Colors.grey.shade300,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  child: Image.asset(
+                                                    "assets/icons/github.png",
+                                                    height: 18,
+                                                  ),
+                                                ),
+                                                Text("Github"),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 110 )
+                                    ],
+                                  ),//social icon
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20),
                   ],
                 ),
               ],
