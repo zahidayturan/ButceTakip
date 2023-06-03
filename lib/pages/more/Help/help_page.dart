@@ -353,7 +353,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                   },
                                   child: SizedBox(
                                     height: 45,
-                                    width: (size.width - 100) / 3,
+                                    width: (size.width - 80) / 3,
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
                                           color: renkler.koyuuRenk,
@@ -415,7 +415,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                   },
                                   child: SizedBox(
                                     height: 45,
-                                    width: (size.width - 82) / 3,
+                                    width: (size.width - 70) / 3,
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
                                         color: renkler.koyuuRenk,
