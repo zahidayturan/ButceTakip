@@ -59,7 +59,7 @@ class _SettingsState extends ConsumerState<Settings> {
                         child: Row(
                           children: [
                             const Text(
-                              "Koyu Tema",
+                              "Koyu Tema   (Yakında)",
                               style: TextStyle(
                                 fontFamily: "Nexa3",
                               ),
@@ -68,7 +68,6 @@ class _SettingsState extends ConsumerState<Settings> {
                             darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
                                  :const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                             Switch(
-
                               activeColor: renkler.sariRenk,
                               value: darkthememode,
                               onChanged: null
