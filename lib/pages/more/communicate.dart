@@ -55,30 +55,29 @@ class Communicate extends StatelessWidget {
                       InkWell(
                         child: RichText(
                             text: const TextSpan(children: [
-                              TextSpan(
-                                text: 'Email : ',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Nexa3',
-                                  color: Color(0xff0D1C26),
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'fezaitech@gmail.com',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 16,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ])),
+                          TextSpan(
+                            text: 'Email : ',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Nexa3',
+                              color: Color(0xff0D1C26),
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'fezaitech@gmail.com',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 16,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ])),
                         onTap: () {
                           Clipboard.setData(
                               const ClipboardData(text: 'fezaitech@gmail.com'));
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  backgroundColor:
-                                  Color(0xff0D1C26),
+                                  backgroundColor: Color(0xff0D1C26),
                                   duration: Duration(seconds: 1),
                                   content: Text('Email kopyalandı')));
                         },
@@ -100,35 +99,34 @@ class Communicate extends StatelessWidget {
                         onTap: () {
                           launchURL('https://github.com/ibrahimeth');
                         },
-                        child:  RichText(
+                        child: RichText(
                             text: const TextSpan(children: [
-                              TextSpan(
-                                text: 'Github : ',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Nexa3',
-                                  color: Color(0xff0D1C26),
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'github.com/ibrahimeth/\nButceTakip',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 16,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ])),
+                          TextSpan(
+                            text: 'Github : ',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Nexa3',
+                              color: Color(0xff0D1C26),
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'github.com/ibrahimeth/\nButceTakip',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 16,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ])),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
-                Divider(height:10, color: renkler.sariRenk, thickness: 2 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 25),
                 Column(
                   children: [
-                    FittedBox( // Title
+                    FittedBox(
+                      // Title
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                           color: renkler.koyuuRenk,
@@ -136,14 +134,14 @@ class Communicate extends StatelessWidget {
                         ),
                         child: const Center(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 9),
                             child: Text(
                               "GELİŞTİRİCİLER",
                               style: TextStyle(
                                   fontFamily: "Nexa4",
                                   fontSize: 18,
-                                  color:Colors.white
-                              ),
+                                  color: Colors.white),
                             ),
                           ),
                         ),
@@ -151,7 +149,8 @@ class Communicate extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical:  8.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -160,52 +159,66 @@ class Communicate extends StatelessWidget {
                             children: [
                               Container(
                                 height: 60,
+                                width: 60,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.shade500 ,
-                                      spreadRadius: 3,
-                                      blurRadius: 7,
-                                      offset: Offset(3, 3), // x,y offset değerleri
-                                    )
-                                  ]
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.network(
-                                    "https://avatars.githubusercontent.com/u/92324388?v=4"
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(25)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.shade500,
+                                        spreadRadius: 3,
+                                        blurRadius: 7,
+                                        offset: Offset(
+                                            3, 3), // x,y offset değerleri
+                                      )
+                                    ]),
+                                child: Stack(children: [
+                                  Container(
+                                    height: 60,
+                                    width: 60,
                                   ),
-                                ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                        "https://avatars.githubusercontent.com/u/92324388?v=4"),
+                                  ),
+                                ]),
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   const Text(
-                                      "İbrahim Ethem Akbıyık",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                  ),//nam// e
+                                    "İbrahim Ethem Akbıyık",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ), //nam// e
                                   SizedBox(height: 5),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       InkWell(
-                                        onTap:() {
-                                          launchURL('https://github.com/ibrahimeth');
+                                        onTap: () {
+                                          launchURL(
+                                              'https://github.com/ibrahimeth');
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Container(
                                             width: 90,
                                             color: Colors.grey.shade300,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 5.0),
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
@@ -219,19 +232,24 @@ class Communicate extends StatelessWidget {
                                       ),
                                       SizedBox(width: 15),
                                       InkWell(
-                                        onTap:() {
-                                          launchURL("https://www.linkedin.com/in/ibrahim-ethem-akb%C4%B1y%C4%B1k-53a099224/");
+                                        onTap: () {
+                                          launchURL(
+                                              "https://www.linkedin.com/in/ibrahim-ethem-akb%C4%B1y%C4%B1k-53a099224/");
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
                                             color: Colors.grey.shade300,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 5.0),
                                                   child: Image.asset(
                                                     "assets/icons/linkedin.png",
                                                     height: 18,
@@ -244,7 +262,7 @@ class Communicate extends StatelessWidget {
                                         ),
                                       ),
                                     ],
-                                  ),//social icon
+                                  ), //social icon
                                 ],
                               ),
                             ],
@@ -256,25 +274,26 @@ class Communicate extends StatelessWidget {
                               Container(
                                 height: 60,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.shade500 ,
+                                        color: Colors.grey.shade500,
                                         spreadRadius: 3,
                                         blurRadius: 7,
-                                        offset: Offset(3, 3), // x,y offset değerleri
+                                        offset: Offset(
+                                            3, 3), // x,y offset değerleri
                                       )
-                                    ]
-                                ),
+                                    ]),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(25),
                                   child: Image.network(
-                                      "https://avatars.githubusercontent.com/u/99787343?v=4"
-                                  ),
+                                      "https://avatars.githubusercontent.com/u/99787343?v=4"),
                                 ),
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   const Text(
@@ -282,25 +301,31 @@ class Communicate extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 14,
                                     ),
-                                  ),//nam// e
+                                  ), //nam// e
                                   SizedBox(height: 5),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       InkWell(
-                                        onTap:() {
-                                          launchURL('https://github.com/Hamza-Bayar-2');
+                                        onTap: () {
+                                          launchURL(
+                                              'https://github.com/Hamza-Bayar-2');
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
                                             color: Colors.grey.shade300,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 5.0),
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
@@ -314,19 +339,24 @@ class Communicate extends StatelessWidget {
                                       ),
                                       SizedBox(width: 15),
                                       InkWell(
-                                        onTap:() {
-                                          launchURL("https://www.linkedin.com/in/hamza-bayar-251b7b234/");
+                                        onTap: () {
+                                          launchURL(
+                                              "https://www.linkedin.com/in/hamza-bayar-251b7b234/");
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
                                             color: Colors.grey.shade300,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 5.0),
                                                   child: Image.asset(
                                                     "assets/icons/linkedin.png",
                                                     height: 18,
@@ -339,7 +369,7 @@ class Communicate extends StatelessWidget {
                                         ),
                                       ),
                                     ],
-                                  ),//social icon
+                                  ), //social icon
                                 ],
                               ),
                             ],
@@ -351,25 +381,26 @@ class Communicate extends StatelessWidget {
                               Container(
                                 height: 60,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.shade500 ,
+                                        color: Colors.grey.shade500,
                                         spreadRadius: 3,
                                         blurRadius: 7,
-                                        offset: Offset(3, 3), // x,y offset değerleri
+                                        offset: Offset(
+                                            3, 3), // x,y offset değerleri
                                       )
-                                    ]
-                                ),
+                                    ]),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(25),
                                   child: Image.network(
-                                      "https://avatars.githubusercontent.com/u/91957947?v=4"
-                                  ),
+                                      "https://avatars.githubusercontent.com/u/91957947?v=4"),
                                 ),
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   const Text(
@@ -377,25 +408,31 @@ class Communicate extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 14,
                                     ),
-                                  ),//nam// e
+                                  ), //nam// e
                                   SizedBox(height: 5),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       InkWell(
-                                        onTap:() {
-                                          launchURL('https://github.com/zahidayturan');
+                                        onTap: () {
+                                          launchURL(
+                                              'https://github.com/zahidayturan');
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
                                             color: Colors.grey.shade300,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 5.0),
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
@@ -407,9 +444,9 @@ class Communicate extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 110 )
+                                      SizedBox(width: 110)
                                     ],
-                                  ),//social icon
+                                  ), //social icon
                                 ],
                               ),
                             ],
