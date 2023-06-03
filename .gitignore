@@ -44,3 +44,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /android/app/google-services.json
+/lib/utils/ads_helper.dart

@@ -185,20 +185,19 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                 children: [
                                   Image.asset(
                                     "assets/image/origami_noinfo.png",
-                                    width: 50,
-                                    height: 50,
+                                    width: 45,
+                                    height: 45,
                                   ),
                                   SizedBox(
-                                    height: 30,
-                                    width: 110,
+                                    height: 22,
+                                    width: 85,
                                     child: DecoratedBox(
                                         decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
-                                          border: Border.all(
-                                              color: Colors.black, width: 2),
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: renkler.koyuuRenk
                                         ),
                                         child: const Center(child: TextMod(
-                                            "Kayıt Yok", Colors.amber, 18))
+                                            "Kayıt Yok", Colors.white, 14))
                                     ),
                                   ),
                                 ],
@@ -212,10 +211,14 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                   left: 5.0, top: 5),
                               child: Theme(
                                 data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.fromSwatch(
+                                      accentColor: Color(0xFFF2CB05),
+                                    ),
                                     scrollbarTheme: ScrollbarThemeData(
                                       thumbColor:
                                       MaterialStateProperty.all(renkler.sariRenk),
                                     )),
+
                                 child: Stack(
                                   children: [
                                     Padding(

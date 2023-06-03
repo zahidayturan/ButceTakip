@@ -265,13 +265,13 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         BorderRadius.vertical(bottom: Radius.circular(10)),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            "+0.0",
+                            "  +0.0",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -281,10 +281,10 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             width: size.width * 0.15,
                           ),
                           const Text(
-                            "-0.0",
+                            "-0.0  ",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -310,7 +310,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           "0.0",
                           style: TextStyle(
                             color: Color(0xff0D1C26),
-                            fontSize: 20,
+                            fontSize: 18,
                             fontFamily: 'Nexa3',
                             fontWeight: FontWeight.w900,
                             height: 1.4,
@@ -347,13 +347,13 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             BorderRadius.vertical(bottom: Radius.circular(10)),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "+${data[0]}",
+                            "  +${data[0]}",
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -363,15 +363,15 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             width: size.width * 0.15,
                           ),
                           Text(
-                            "-${data[1]}",
+                            "-${data[1]}  ",
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -392,7 +392,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           "${data[2]}",
                           style: const TextStyle(
                             color: Color(0xff0D1C26),
-                            fontSize: 20,
+                            fontSize: 18,
                             fontFamily: 'Nexa3',
                             fontWeight: FontWeight.w900,
                             height: 1.4,

@@ -2,7 +2,6 @@ import 'package:butcekontrol/models/settings_info.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../utils/cvs_converter.dart';
 
 class SettingsRiverpod extends ChangeNotifier{
@@ -18,6 +17,7 @@ class SettingsRiverpod extends ChangeNotifier{
   String ?Password ;
   String ?securityQu ;
   int ?securityClaim ;
+  int ?adCounter;
   bool Status  = false ; // şifre girildi mi ?
 
   Future readDb() async{
@@ -33,6 +33,7 @@ class SettingsRiverpod extends ChangeNotifier{
     Password = setting[setting.length - 1].password;
     securityQu = setting[setting.length - 1].securityQu;
     securityClaim = setting[setting.length - 1].securityClaim;
+    adCounter = setting[setting.length - 1].adCounter;
     print("""
       id : ${setting[setting.length - 1].id}
       dil :${setting[setting.length - 1].prefix}
@@ -44,7 +45,8 @@ class SettingsRiverpod extends ChangeNotifier{
       lastBackup : ${setting[setting.length - 1].lastBackup}
       Password : ${setting[setting.length - 1].password}
       securityQu : ${setting[setting.length - 1].securityQu}
-      securityClaimK(Kalan Hak) : ${setting[setting.length - 1].securityClaim}""");
+      securityClaimK(Kalan Hak) : ${setting[setting.length - 1].securityClaim}
+      adCounter(Kalan Hak) : ${setting[setting.length - 1].adCounter}""");
     notifyListeners();
   }
   Future controlSettings() async{ //settings Kayıt değerlendiriyoruz.
@@ -52,7 +54,7 @@ class SettingsRiverpod extends ChangeNotifier{
     if(settingsReglength.length > 0) {
       readDb();
     }else{
-      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3) ;
+      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2) ;
       await SQLHelper.addItemSetting(info);
       readDb();
     }
@@ -76,6 +78,14 @@ class SettingsRiverpod extends ChangeNotifier{
   }
   void useSecurityClaim(){
     securityClaim = (securityClaim! - 1);
+    Updating();
+  }
+  void useAdCounter(){
+    adCounter = (adCounter! - 1);
+    Updating();
+  }
+  void resetAdCounter(){
+    this.adCounter = 2 ;
     Updating();
   }
   void setDarkMode(bool mode){
@@ -124,6 +134,7 @@ class SettingsRiverpod extends ChangeNotifier{
         Password,
         securityQu,
         securityClaim,
+        adCounter,
     );
     await SQLHelper.updateSetting(info);
   }

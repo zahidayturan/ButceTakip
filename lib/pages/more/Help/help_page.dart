@@ -1,3 +1,4 @@
+import 'package:butcekontrol/pages/more/Help/help_backup.dart';
 import 'package:butcekontrol/pages/more/communicate.dart';
 import 'package:butcekontrol/pages/more/Help/help_calculator.dart';
 import 'package:butcekontrol/pages/more/Help/help_calender.dart';
@@ -8,7 +9,6 @@ import 'package:butcekontrol/pages/more/Help/versions_help.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../classes/app_bar_for_page.dart';
-import '../../../classes/nav_bar.dart';
 import '../../../constans/material_color.dart';
 
 class HelpCenter extends ConsumerStatefulWidget {
@@ -19,7 +19,10 @@ class HelpCenter extends ConsumerStatefulWidget {
 }
 
 class _HelpCenterState extends ConsumerState<HelpCenter> {
-  bool customicom = false ;
+  bool customicom1 = false ;
+  bool customicom2 = false ;
+  bool customicom3 = false ;
+
   CustomColors renkler = CustomColors();
   double heigthsssfirst = 30;
   double h2 = 30 ;
@@ -248,6 +251,33 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                           const Divider(color: Colors.black, thickness: 1,),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: const Duration(milliseconds: 1),
+                                  pageBuilder: (context, animation, nextanim) => const HelpBacup(),
+                                  reverseTransitionDuration: const Duration(milliseconds: 1),
+                                  transitionsBuilder: (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              "Yedeklenme Sistemi",
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 14,
+                                fontFamily: "Nexa3",
+                              ),
+                            ),
+                          ),
+                          const Divider(color: Colors.black, thickness: 1,),
                         ],
                       ),
                     ), //get started
@@ -275,7 +305,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             child: ExpansionTile(
 
                               title: const Text("Uygulamam aniden kapanıyor."),
-                              trailing: customicom ? const Icon(
+                              trailing: customicom1 ? const Icon(
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
@@ -284,7 +314,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 size: 30,
                               ),
                               onExpansionChanged: (bool expanded) {
-                                setState(() => customicom = expanded);
+                                setState(() => customicom1 = expanded);
                               },
                               tilePadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                               children: const [
@@ -310,7 +340,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             child: ExpansionTile(
 
                               title: const Text("Kayıtlarım aniden gitti ne yapmam gerekiyor?"),
-                              trailing: customicom ? const Icon(
+                              trailing: customicom2 ? const Icon(
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
@@ -319,7 +349,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 size: 30,
                               ),
                               onExpansionChanged: (bool expanded) {
-                                setState(() => customicom = expanded);
+                                setState(() => customicom2 = expanded);
                               },
                               tilePadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                               children: const [
@@ -346,7 +376,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                             child: ExpansionTile(
                               title: const Text("Size Ulaşmak istiyorum?"),
-                              trailing: customicom ? const Icon(
+                              trailing: customicom3 ? const Icon(
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
@@ -355,7 +385,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 size: 30,
                               ),
                               onExpansionChanged: (bool expanded) {
-                                setState(() => customicom = expanded);
+                                setState(() => customicom3 = expanded);
                               },
                               tilePadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                               children: [

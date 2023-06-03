@@ -1,3 +1,4 @@
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -108,8 +109,27 @@ class ButtonMenu extends ConsumerStatefulWidget {
 }
 
 class _ButtonMenu extends ConsumerState<ButtonMenu> {
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+  @override
+
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
+    if(adCounter! < 1  ){
+      _interstitialAdManager.loadInterstitialAd(); ///reklamyükle
+      print('+');
+    }
+    else{
+      print('-');
+    }
+    super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    //_interstitialAdManager.loadInterstitialAd();
+    _interstitialAdManager.showInterstitialAd(context);
+  }
   final TextEditingController _note = TextEditingController(text: "");
-  final TextEditingController _amount = TextEditingController(text: "0.0");
+  final TextEditingController _amount = TextEditingController();
   final TextEditingController _operationType =
       TextEditingController(text: "Gider");
   final TextEditingController _category = TextEditingController(text: "Yemek");
@@ -418,14 +438,17 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   borderRadius: BorderRadius.all(Radius.circular(20))),
             ),
           ),
-          Center(
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Color(0xff0D1C26),
+          Padding(
+            padding: const EdgeInsets.only(right: 39),
+            child: Center(
+              child: Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  color: Color(0xff0D1C26),
+                ),
+                height: 34,
+                width: 185,
               ),
-              height: 34,
-              width: 185,
             ),
           ),
           Padding(
@@ -454,7 +477,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     width: 110,
                     child: TextFormField(
                         onTap: () {
-                          _amount.clear();
+                          //_amount.clear();
                         },
                         style: const TextStyle(
                             color: Color(0xff0D1C26),
@@ -468,7 +491,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             decimal: true),
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
-                              RegExp(r'^\d+(\.\d{0,2})?')),
+
+                          RegExp(r'^\d{0,5}(\.\d{0,2})?'),)
                         ],
                         textAlign: TextAlign.center,
                         onEditingComplete: () {
@@ -481,6 +505,26 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             contentPadding: EdgeInsets.only(top: 12))),
                   ),
                 ),
+                const SizedBox(width: 5,),
+                Container(
+                  height: 34,
+                  width: 34,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Color(0xffF2CB05),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      '₺',
+                      style: TextStyle(
+                        fontFamily: 'TL',
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff0D1C26),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -1551,6 +1595,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     var read2 = ref.read(botomNavBarRiverpod);
     var readHome = ref.read(homeRiverpod);
     var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
     return SizedBox(
       width: size.width * 0.9,
       height: 80,
@@ -1571,7 +1617,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   child: TextButton(
                     onPressed: () {
                       _note.text = "";
-                      _amount.text = "0.0";
+                      _amount.text = "";
                       operationCustomButton(context);
                     },
                     child: const Text("SIFIRLA",
@@ -1607,7 +1653,15 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             int.parse(_registration.text),
                             amount,
                             _note.text,
-                            _operationDate.text);
+                            _operationDate.text,
+                        '0');
+                        if(adCounter == 0  ){
+                          _showInterstitialAd(context); ///reklam
+                          readSettings.resetAdCounter();  ///2 leme
+                        }
+                        else {
+                          readSettings.useAdCounter(); ///eksi 1
+                        }
                         Navigator.of(context).pop();
                         read2.setCurrentindex(0);
                         readHome.setStatus();
@@ -1649,7 +1703,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             });
                       }
                     },
-                    child: const Text("EKLE",
+                    child: const Text('EKLE',
                         style: TextStyle(
                             color: Color(0xff0D1C26),
                             fontSize: 17,
@@ -1665,14 +1719,3 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     );
   }
 }
-/*
-  // Update an existing journal
-  Future<void> _updateItem(int id) async {
-    await SQLHelper.updateItem(
-        cli, _harcamatipiController.text, _odemeyontemiController.text, _kategoriController.text, _tutarController.text);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Successfully updated'),
-    ));
-    _refreshSpendinfoList();
-  }
-*/

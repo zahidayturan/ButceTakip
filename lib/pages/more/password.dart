@@ -140,6 +140,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
                                     : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                                 Switch(
+                                  activeColor: renkler.sariRenk,
                                   value: isopen ,
                                   onChanged: (bool value) {
                                     setState(() {
@@ -181,7 +182,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 child: TextField(
                                   controller: setanimalController,
                                   keyboardType: TextInputType.text,
-                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]"))],
+                                  inputFormatters:  [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZğĞıİöÖüÜşŞçÇ]"))],
                                   style: const TextStyle(fontSize: 18, color: Colors.white),
                                   textAlign: TextAlign.center,
                                 ),
@@ -367,6 +368,14 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 )
                               ],
                             ),
+                          ),
+                          Row(
+                            mainAxisAlignment:MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Güvenlik sorusu: ${readSetting.securityQu}",
+                              ),
+                            ],
                           )//
                         ],
                       ),
