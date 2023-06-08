@@ -9,12 +9,10 @@
 - Currently available only for Android.
 - Currently available on [Google Play Store.](https://play.google.com/store/apps/details?id=com.fezaitech.butcetakip)
 - An open-source project
-
 <p align="center">
 
  <img src="/readmeAssets/phone.png" width=100% height=100% />
 </p>
-
 
 <div align="center">
 
