@@ -1,15 +1,16 @@
-import 'package:butcekontrol/Pages/more/Help/communicate.dart';
+import 'package:butcekontrol/Pages/more/communicate.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
+import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
-
+import 'package:butcekontrol/app/information_app.dart';
 import '../../riverpod_management.dart';
 import 'Help/help_page.dart';
-import 'Help/password_splash.dart';
+import 'password_splash.dart';
 import 'backup.dart';
 
 class More extends ConsumerWidget {
@@ -17,7 +18,6 @@ class More extends ConsumerWidget {
   final renkler = CustomColors();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //var readDB = ref.read(databaseRiverpod);
     var readSetting = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     //var readNavBar = ref.read(botomNavBarRiverpod);
@@ -335,10 +335,10 @@ class More extends ConsumerWidget {
                         "assets/image/icon_BKA/LOGOBKA-4.png",
                         height: 70,
                       ),
-                      const SizedBox(height: 2,),
-                      TextMod("version 1.0", renkler.koyuuRenk, 13),
-                      const SizedBox(height: 2,),
-                      TextMod("Osmanlı Torunları", renkler.koyuuRenk, 10),
+                      const SizedBox(height: 8),
+                      TextMod("Version ${"1.1.1"}", renkler.koyuuRenk, 14),
+                      const SizedBox(height: 2),
+                      TextMod("FezaiTech", renkler.koyuuRenk, 14),
                     ],
                   )
                 ],

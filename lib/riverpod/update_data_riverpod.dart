@@ -60,6 +60,8 @@ class UpdateDataRiverpod extends ChangeNotifier {
     int parseDay = int.parse(parts[0]);
     int parseMonth = int.parse(parts[1]);
     int parseYear = int.parse(parts[2]);
+    String moneyType = '0';
+    String processOnce = '0';
     final updateinfo = SpendInfo.withId(
         id,
         operationType,
@@ -72,7 +74,9 @@ class UpdateDataRiverpod extends ChangeNotifier {
         parseMonth.toString(),
         parseYear.toString(),
         DateTimeManager.getCurrentTime(),
-        operationDate
+        operationDate,
+        moneyType,
+        processOnce
     );
     await SQLHelper.updateItem(updateinfo);
     isuseinsert = !isuseinsert ;

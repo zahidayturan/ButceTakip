@@ -6,7 +6,7 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'Help/password_splash.dart';
+import 'password_splash.dart';
 import 'backup.dart';
 
 class Settings extends ConsumerStatefulWidget {
@@ -45,6 +45,7 @@ class _SettingsState extends ConsumerState<Settings> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: ClipRRect(
@@ -58,21 +59,26 @@ class _SettingsState extends ConsumerState<Settings> {
                         child: Row(
                           children: [
                             const Text(
-                              "Koyu Tema",
+                              "Koyu Tema   (Yakında)",
                               style: TextStyle(
                                 fontFamily: "Nexa3",
                               ),
                             ),
                             const Spacer(),
                             darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                                 :const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                             Switch(
+                              activeColor: renkler.sariRenk,
                               value: darkthememode,
-                              onChanged: (bool value) {
+                              onChanged: null
+                                 /*
+                                  (bool value) {
                                 setState(() {
                                   readSetting.setDarkMode(value) ;
                                 });
+
                               },
+                                    */
                             ),
                           ],
                         ),

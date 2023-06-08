@@ -1,6 +1,7 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constans/material_color.dart';
 import '../../riverpod_management.dart';
@@ -23,13 +24,15 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
   String password1 = "" ;
   String password2 = "" ;
   String info = "Yeni şifre kodunu giriniz";
+  String errormessage = "";
   bool security = false ;
   @override
   Widget build(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
-    bool isopen = readSetting.isPassword == 1 ? true : false ;
+    TextEditingController setanimalController = TextEditingController();
+    bool isopen = readSetting.isPassword == 1  ? true : false ;
     return WillPopScope(
       onWillPop: () async{
       if(readSetting.isPassword == 1 && readSetting.Password == "null") {
@@ -137,6 +140,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
                                     : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
                                 Switch(
+                                  activeColor: renkler.sariRenk,
                                   value: isopen ,
                                   onChanged: (bool value) {
                                     setState(() {
@@ -155,151 +159,226 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                       ),
                     ),
                   !isopen
-                    ? const SizedBox(width: 1)
-                    : Column(
-                      mainAxisAlignment:  MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(height: size.height/20) ,
-                        Text(
-                          info,
-                          style: TextStyle(
-                            color: renkler.koyuuRenk,
-                            fontFamily: "Nexa4"
-                          ),
-                        ),
-                        SizedBox(height: size.height/30) ,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                    ? SizedBox(height: 1)
+                    : readSetting.securityQu == "null"
+                      ?Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: num1 ? Colors.black : const Color(0xffE2E1E1),
+                            const Text(
+                              "En sevdiğiniz hayvan nedir ?",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: "Nexa4"
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                height: 40,
+                                width: 150,
+                                color: renkler.koyuuRenk,
+                                child: TextField(
+                                  controller: setanimalController,
+                                  keyboardType: TextInputType.text,
+                                  inputFormatters:  [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZğĞıİöÖüÜşŞçÇ]"))],
+                                  style: const TextStyle(fontSize: 18, color: Colors.white),
+                                  textAlign: TextAlign.center,
                                 ),
-                              )
+                              ),
                             ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
-                                    color: num2 ? Colors.black : const Color(0xffE2E1E1),
-                                  ),
-                                )
-                            ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
-                                    color: num3 ? Colors.black : const Color(0xffE2E1E1),
-                                  ),
-                                )
-                            ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
-                                    color: num4 ? Colors.black : const Color(0xffE2E1E1),
-                                  ),
-                                )
-                            ),
-                            const SizedBox(width: 10),
-                            IconButton(
-                                icon : const Icon(Icons.backspace),
-                              onPressed: () {
-                                if(security){
-                                  if(num1){
-                                    password2list.removeLast();
-                                  }
-                                  if(num3){
-                                    setState(() {
-                                      num3 = false;
-                                    });
-                                  }else if(num2){
-                                    setState(() {
-                                      num2 = false;
-                                    });
-                                  }else if(num1){
-                                    setState(() {
-                                      num1 = false ;
-                                    });
-                                  }
-                                }else{
-                                  if(num1){
-                                    password1list.removeLast();
-                                  }
-                                  if(num3){
-                                    setState(() {
-                                      num3 = false;
-                                    });
-                                  }else if(num2){
-                                    setState(() {
-                                      num2 = false;
-                                    });
-                                  }else if(num1){
-                                    setState(() {
-                                      num1 = false ;
-                                    });
-                                  }
+                            SizedBox(height: 20),
+                            InkWell(
+                              onTap: () {
+                                if (setanimalController.text != "" ) {
+                                  setState(() {
+                                    readSetting.setSecurityQu(setanimalController.text);
+                                  });
+                                }else if(setanimalController.text == ""){
+                                  setState(() {
+                                    errormessage = "Lütfen Bir değer giriniz." ;
+                                  });
                                 }
                               },
-                            )
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  color: renkler.sariRenk,
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.check_circle_outline,
+                                      color: Colors.black,
+                                      size: 30,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              errormessage,
+                              style: TextStyle(
+                                color: renkler.koyuuRenk,
+                                fontSize: 15,
+                              ),
+                            ),
                           ],
-                        ),
-                        SizedBox(height: size.height/30) ,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
-                          child: Column(
+                        )
+                      :Column(
+                        mainAxisAlignment:  MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(height: size.height/20) ,
+                          Text(
+                            info,
+                            style: TextStyle(
+                              color: renkler.koyuuRenk,
+                              fontFamily: "Nexa4"
+                            ),
+                          ),
+                          SizedBox(height: size.height/30) ,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  button(context, "1"),
-                                  button(context, "2"),
-                                  button(context, "3"),
-                                ],
+                              SizedBox(
+                                height: 25,
+                                width: 25,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                  child: Container(
+                                    color: num1 ? Colors.black : const Color(0xffE2E1E1),
+                                  ),
+                                )
                               ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  button(context, "4"),
-                                  button(context, "5"),
-                                  button(context, "6"),
-                                ],
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                    child: Container(
+                                      color: num2 ? Colors.black : const Color(0xffE2E1E1),
+                                    ),
+                                  )
                               ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  button(context, "7"),
-                                  button(context, "8"),
-                                  button(context, "9"),
-                                ],
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                    child: Container(
+                                      color: num3 ? Colors.black : const Color(0xffE2E1E1),
+                                    ),
+                                  )
                               ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  button(context, "0"),
-                                ],
+                              const SizedBox(width: 10),
+                              SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                    child: Container(
+                                      color: num4 ? Colors.black : const Color(0xffE2E1E1),
+                                    ),
+                                  )
+                              ),
+                              const SizedBox(width: 10),
+                              IconButton(
+                                  icon : const Icon(Icons.backspace),
+                                onPressed: () {
+                                  if(security){
+                                    if(num1){
+                                      password2list.removeLast();
+                                    }
+                                    if(num3){
+                                      setState(() {
+                                        num3 = false;
+                                      });
+                                    }else if(num2){
+                                      setState(() {
+                                        num2 = false;
+                                      });
+                                    }else if(num1){
+                                      setState(() {
+                                        num1 = false ;
+                                      });
+                                    }
+                                  }else{
+                                    if(num1){
+                                      password1list.removeLast();
+                                    }
+                                    if(num3){
+                                      setState(() {
+                                        num3 = false;
+                                      });
+                                    }else if(num2){
+                                      setState(() {
+                                        num2 = false;
+                                      });
+                                    }else if(num1){
+                                      setState(() {
+                                        num1 = false ;
+                                      });
+                                    }
+                                  }
+                                },
                               )
                             ],
                           ),
-                        )//
-                      ],
-                    ),
+                          SizedBox(height: size.height/30) ,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    button(context, "1"),
+                                    button(context, "2"),
+                                    button(context, "3"),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    button(context, "4"),
+                                    button(context, "5"),
+                                    button(context, "6"),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    button(context, "7"),
+                                    button(context, "8"),
+                                    button(context, "9"),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    button(context, "0"),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment:MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Güvenlik sorusu: ${readSetting.securityQu}",
+                              ),
+                            ],
+                          )//
+                        ],
+                      ),
                 ],
               ),
             ),
@@ -319,120 +398,126 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
   Widget button(BuildContext context,String num ){
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
-    return InkWell(
-      onTap: () {
-        if (num1 == false) {
-          if(security){
-            password2list.add(num);
-          }else{
-             password1list.add(num);
-          }
-          setState(() {
-            num1 = true ;
-          });
-        }else if(num2 == false){
-          if(security){
-            password2list.add(num);
-          }else{
-            password1list.add(num);
-          }
-          setState(() {
-            num2 = true;
-          });
-        }else if(num3  == false){
-          if(security){
-            password2list.add(num);
-          }else{
-            password1list.add(num);
-          }
-          setState(() {
-            num3 = true;
-          });
-        }else if(num4 == false){
-          if(security){
-            setState(() {
-              security = false ;
-              password1 = "" ;
-              password2 = "" ;
-            });
-            password2list.add(num);
-            if(password2list.length == 4) {
-              for (var i = 0; i < password1list.length ; i++) {
-                password1 = password1 + password1list[i];
-              }
-              for (var i = 0; i < password2list.length ; i++) {
-                password2 = password2 + password2list[i];
-              }
-              if (password1 == password2) {
-                setState(() {
-                  info = "şifreniz ayarlandı" ;
-                  password1list.clear();
-                  password2list.clear();
-                  status = true ;
-                  ref.read(settingsRiverpod).setPasswordMode(true);
-                  ref.read(settingsRiverpod).setPassword(password1);
-                  //ref.read(settingsRiverpod).setisuseinsert();
-                  Navigator.of(context).pop();
-                });
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    backgroundColor:
-                    Color(0xff0D1C26),
-                    duration: Duration(seconds: 1),
-                    content: Text(
-                      'Şifreniz Oluşturuldu.',
+    return SizedBox(
+        height: size.height / 9.5,
+        width: size.height / 9.5,
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          child: Container(
+            color: const Color(0xffE2E1E1),
+            child: Center(
+              child: SizedBox(
+                height: size.height / 12,
+                width:  size.height / 12,
+                child: InkWell(
+                  onTap: () {
+                      if (num1 == false) {
+                      if(security){
+                        password2list.add(num);
+                      }else{
+                         password1list.add(num);
+                      }
+                      setState(() {
+                        num1 = true ;
+                      });
+                    }else if(num2 == false){
+                      if(security){
+                        password2list.add(num);
+                      }else{
+                        password1list.add(num);
+                      }
+                      setState(() {
+                        num2 = true;
+                      });
+                    }else if(num3  == false){
+                      if(security){
+                        password2list.add(num);
+                      }else{
+                        password1list.add(num);
+                      }
+                      setState(() {
+                        num3 = true;
+                      });
+                    }else if(num4 == false){
+                      if(security){
+                        setState(() {
+                          security = false ;
+                          password1 = "" ;
+                          password2 = "" ;
+                        });
+                        password2list.add(num);
+                        if(password2list.length == 4) {
+                          for (var i = 0; i < password1list.length ; i++) {
+                            password1 = password1 + password1list[i];
+                          }
+                          for (var i = 0; i < password2list.length ; i++) {
+                            password2 = password2 + password2list[i];
+                          }
+                          if (password1 == password2) {
+                            setState(() {
+                              info = "şifreniz ayarlandı" ;
+                              password1list.clear();
+                              password2list.clear();
+                              status = true ;
+                              ref.read(settingsRiverpod).setPasswordMode(true);
+                              ref.read(settingsRiverpod).setPassword(password1);
+                              //ref.read(settingsRiverpod).setisuseinsert();
+                              Navigator.of(context).pop();
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                backgroundColor:
+                                Color(0xff0D1C26),
+                                duration: Duration(seconds: 1),
+                                content: Text(
+                                  'Şifreniz Oluşturuldu.',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontFamily: 'Nexa3',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.3,
+                                  ),
+                                ),
+                              ),
+                            );
+                            temizle();
+                          } else {
+                            temizle();
+                            password1list.clear();
+                            password2list.clear();
+                            setState(() {
+                              info = "Şifreler Uyuşmuyor." ;
+                              status = false;
+                            });
+                          }
+                        }
+                      }else{
+                        password1list.add(num);
+                        setState(() {
+                          security = true;
+                          num4 = true ;
+                          info = "Tekrar gininiz." ;
+                        });
+                          Future.delayed(const Duration(milliseconds: 150)).then((value) => temizle());
+                      }
+                    }
+                  },
+                  child: Center(
+                    child: Text(
+                      num,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: 'Nexa3',
-                        fontWeight: FontWeight.w600,
-                        height: 1.3,
+                        color: renkler.koyuuRenk,
+                        fontSize: 25,
+                        fontFamily: "Nexa2"
                       ),
                     ),
-                  ),
-                );
-                temizle();
-              } else {
-                temizle();
-                password1list.clear();
-                password2list.clear();
-                setState(() {
-                  info = "Şifreler Uyuşmuyor." ;
-                  status = false;
-                });
-              }
-            }
-          }else{
-            password1list.add(num);
-            setState(() {
-              security = true;
-              num4 = true ;
-              info = "Tekrar gininiz." ;
-            });
-              Future.delayed(const Duration(milliseconds: 150)).then((value) => temizle());
-          }
-        }
-      },
-      child: SizedBox(
-          height: size.height / 9.5,
-          width: size.height / 9.5,
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
-            child: Container(
-              color: const Color(0xffE2E1E1),
-              child: Center(
-                child: Text(
-                  num,
-                  style: TextStyle(
-                    color: renkler.koyuuRenk,
-                    fontSize: 25,
-                    fontFamily: "Nexa2"
                   ),
                 ),
               ),
             ),
           ),
-      ),
+        ),
     );
   }
 }

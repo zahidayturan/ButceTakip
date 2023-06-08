@@ -51,12 +51,14 @@ class DbProvider extends ChangeNotifier {
       double? amount,
       String? note,
       String operationDate,
+      String moneyType,
       )async {
     String time = operationDate ;
     List <String> parts = time.split(".");
     int parseDay = int.parse(parts[0]);
     int parseMonth = int.parse(parts[1]);
     int parseYear = int.parse(parts[2]);
+    String processOnce = '0';
     final newinfo = SpendInfo(
         operationType,
         category,
@@ -68,7 +70,9 @@ class DbProvider extends ChangeNotifier {
         parseMonth.toString(),
         parseYear.toString(),
         DateTimeManager.getCurrentTime(),
-        operationDate
+        operationDate,
+        moneyType,
+        processOnce
     );
     await SQLHelper.createItem(newinfo);
     isuseinsert = !isuseinsert ;
@@ -154,9 +158,11 @@ class DbProvider extends ChangeNotifier {
   }
 
 
-  static String today = DateTimeManager.getCurrentDay();
+  static String todayNow = DateTimeManager.getCurrentDay();
+  static String monthNow = DateTimeManager.getCurrentMonth();
+  static String yearNow = DateTimeManager.getCurrentYear();
   Future<List<SpendInfo>> myDailyMethod() async {
-    List<SpendInfo> items = await SQLHelper.getItemsByOperationDay(today);
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(todayNow,monthNow,yearNow);
     return items;
   }
 }

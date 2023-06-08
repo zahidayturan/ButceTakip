@@ -1,6 +1,5 @@
 import 'package:butcekontrol/Pages/more/Help/help_footer.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
-import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,6 @@ class HelpCalculator extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
           backgroundColor: const Color(0xffF2F2F2),
-          bottomNavigationBar: const NavBar(),
           appBar: const AppBarForPage(title: "YARDIM<"),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -89,7 +87,7 @@ class HelpCalculator extends StatelessWidget {
                       ),
                       Image.asset(
                         "assets/image/helpcalculator4.png",
-                        width: 180,
+                        width: size.width,
                       ),
                       const Text(
                         "\n\ngirilen yüzde , Ana para ve Vade ile Kredi hesaplaması yapılmaktadır. Kullanıcılarımıza en basit şekli ile sade bir tasarım sunarak hesaplama sonucunda Aylık taksit miktarı, Toplam faiz ve Toplam ödeme gibi başlıklar gösterilmektedir. \n\n",

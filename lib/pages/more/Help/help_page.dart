@@ -1,4 +1,5 @@
-import 'package:butcekontrol/pages/more/Help/communicate.dart';
+import 'package:butcekontrol/pages/more/Help/help_backup.dart';
+import 'package:butcekontrol/pages/more/communicate.dart';
 import 'package:butcekontrol/pages/more/Help/help_calculator.dart';
 import 'package:butcekontrol/pages/more/Help/help_calender.dart';
 import 'package:butcekontrol/pages/more/Help/help_footer.dart';
@@ -8,8 +9,7 @@ import 'package:butcekontrol/pages/more/Help/versions_help.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../classes/app_bar_for_page.dart';
-import '../../../classes/nav_bar.dart';
-import '../../../constans/material_color.dart';
+  import '../../../constans/material_color.dart';
 
 class HelpCenter extends ConsumerStatefulWidget {
   const HelpCenter({Key? key}) : super(key: key);
@@ -19,7 +19,10 @@ class HelpCenter extends ConsumerStatefulWidget {
 }
 
 class _HelpCenterState extends ConsumerState<HelpCenter> {
-  bool customicom = false ;
+  bool customicom1 = false ;
+  bool customicom2 = false ;
+  bool customicom3 = false ;
+
   CustomColors renkler = CustomColors();
   double heigthsssfirst = 30;
   double h2 = 30 ;
@@ -29,7 +32,6 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffF2F2F2),
-        bottomNavigationBar: const NavBar(),
         appBar: const AppBarForPage(title: "YARDIM"),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -63,7 +65,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal:20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -107,7 +109,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 );
                               },
                               child: const Text(
-                                  "Android 1.0v Update(21.04.2023)"
+                                  "Android 1.1.1v Update(3.06.2023)"
                               ),
                             ),
                           ],
@@ -133,125 +135,337 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 1.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          const SizedBox(height: 10,),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration: const Duration(milliseconds: 1),
-                                  pageBuilder: (context, animation, nextanim) => const HelpHomePage(),
-                                  reverseTransitionDuration: const Duration(milliseconds: 1),
-                                  transitionsBuilder: (context, animation, nexttanim, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
+                      padding: EdgeInsets.symmetric(horizontal:20.0, vertical:  10.0),
+                      child: SizedBox(
+                        height: 110,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration: const Duration(milliseconds: 1),
+                                        pageBuilder: (context, animation, nextanim) => const HelpHomePage(),
+                                        reverseTransitionDuration: const Duration(milliseconds: 1),
+                                        transitionsBuilder: (context, animation, nexttanim, child) {
+                                          return FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          );
+                                        },
+                                      ),
                                     );
                                   },
+                                  child: SizedBox(
+                                    height: 45,
+                                    width: (size.width - 100) / 3,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: renkler.koyuuRenk,
+                                          borderRadius: BorderRadius.circular(15),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.grey,
+                                                spreadRadius: 3,
+                                                blurRadius: 7,
+                                                offset: Offset(3, 3)
+                                            ),
+                                          ]
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: const [
+                                            Padding(
+                                              padding: EdgeInsets.only(bottom: 8.0),
+                                              child: Icon(
+                                                Icons.home,
+                                                color: Color(0xffF2F2F2),
+                                                size: 22,
+                                              ),
+                                            ),
+                                            SizedBox(width: 1),
+                                            FittedBox(
+                                              child: Text(
+                                                "Ana Sayfa",
+                                                style: TextStyle(
+                                                    color: Color(0xffF2F2F2),
+                                                    fontSize: 11
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              );
-                            },
-                            child: const Text(
-                              "Ana Sayfa",
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 14,
-                                fontFamily: "Nexa3",
-                              ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration: const Duration(milliseconds: 1),
+                                        pageBuilder: (context, animation, nextanim) => const HelpStatisic(),
+                                        reverseTransitionDuration: const Duration(milliseconds: 1),
+                                        transitionsBuilder: (context, animation, nexttanim, child) {
+                                          return FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: 45,
+                                    width: (size.width - 100) / 3,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: renkler.koyuuRenk,
+                                          borderRadius: BorderRadius.circular(15),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.grey,
+                                                spreadRadius: 3,
+                                                blurRadius: 7,
+                                                offset: Offset(3, 3)
+                                            ),
+                                          ]
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: const [
+                                            Padding(
+                                              padding: EdgeInsets.only(bottom: 8.0),
+                                              child: Icon(
+                                                Icons.pie_chart_rounded,
+                                                color: Color(0xffF2F2F2),
+                                                size: 22,
+                                              ),
+                                            ),
+                                            SizedBox(width: 1),
+                                            FittedBox(
+                                              child: Text(
+                                                "İstatistik\nSayfası",
+                                                style: TextStyle(
+                                                    color: Color(0xffF2F2F2),
+                                                    fontSize: 11
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration: const Duration(milliseconds: 1),
+                                        pageBuilder: (context, animation, nextanim) => const HelpCalender(),
+                                        reverseTransitionDuration: const Duration(milliseconds: 1),
+                                        transitionsBuilder: (context, animation, nexttanim, child) {
+                                          return FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: 45,
+                                    width: (size.width - 100) / 3,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: renkler.koyuuRenk,
+                                          borderRadius: BorderRadius.circular(15),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.grey,
+                                                spreadRadius: 3,
+                                                blurRadius: 7,
+                                                offset: Offset(3, 3)
+                                            ),
+                                          ]
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: const [
+                                            Padding(
+                                              padding: EdgeInsets.only(bottom: 8.0),
+                                              child: Icon(
+                                                Icons.calendar_today,
+                                                color: Color(0xffF2F2F2),
+                                                size: 22,
+                                              ),
+                                            ),
+                                            FittedBox(
+                                              child: Text(
+                                                "Tavim\nSayfası",
+                                                style: TextStyle(
+                                                    color: Color(0xffF2F2F2),
+                                                    fontSize: 11
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          const Divider(color: Colors.black, thickness: 1,),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration: const Duration(milliseconds: 1),
-                                  pageBuilder: (context, animation, nextanim) => const HelpStatisic(),
-                                  reverseTransitionDuration: const Duration(milliseconds: 1),
-                                  transitionsBuilder: (context, animation, nexttanim, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration: const Duration(milliseconds: 1),
+                                        pageBuilder: (context, animation, nextanim) => const HelpCalculator(),
+                                        reverseTransitionDuration: const Duration(milliseconds: 1),
+                                        transitionsBuilder: (context, animation, nexttanim, child) {
+                                          return FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          );
+                                        },
+                                      ),
                                     );
                                   },
+                                  child: SizedBox(
+                                    height: 45,
+                                    width: (size.width - 80) / 3,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: renkler.koyuuRenk,
+                                          borderRadius: BorderRadius.circular(15),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.grey,
+                                                spreadRadius: 3,
+                                                blurRadius: 7,
+                                                offset: Offset(3, 3)
+                                            ),
+                                          ]
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: const [
+                                            Padding(
+                                              padding: EdgeInsets.only(bottom: 8.0),
+                                              child: Icon(
+                                                Icons.calculate,
+                                                color: Color(0xffF2F2F2),
+                                                size: 22,
+                                              ),
+                                            ),
+                                            SizedBox(width: 7),
+                                            FittedBox(
+                                              child: Text(
+                                                "Hesap\nMakinesi",
+                                                style: TextStyle(
+                                                    color: Color(0xffF2F2F2),
+                                                    fontSize: 11
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              );
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration: const Duration(milliseconds: 1),
+                                        pageBuilder: (context, animation, nextanim) => const HelpBacup(),
+                                        reverseTransitionDuration: const Duration(milliseconds: 1),
+                                        transitionsBuilder: (context, animation, nexttanim, child) {
+                                          return FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: 45,
+                                    width: (size.width - 70) / 3,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        color: renkler.koyuuRenk,
+                                        borderRadius: BorderRadius.circular(15),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            spreadRadius: 3,
+                                            blurRadius: 7,
+                                            offset: Offset(3, 3)
+                                          ),
+                                        ]
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: const [
+                                            Padding(
+                                              padding: EdgeInsets.only(bottom: 8.0),
+                                              child: Icon(
+                                                Icons.backup,
+                                                color: Color(0xffF2F2F2),
+                                                size: 22,
+                                              ),
+                                            ),
+                                            SizedBox(width: 7),
+                                            FittedBox(
+                                              child: Text(
+                                                "Yedekleme\nSistemi",
+                                                style: TextStyle(
+                                                    color: Color(0xffF2F2F2),
+                                                    fontSize: 11
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
 
-                            },
-                            child: const Text(
-                              "İstatistik Sayfası",
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 14,
-                                fontFamily: "Nexa3",
-                              ),
+                              ],
                             ),
-                          ),
-                          const Divider(color: Colors.black, thickness: 1,),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration: const Duration(milliseconds: 1),
-                                  pageBuilder: (context, animation, nextanim) => const HelpCalender(),
-                                  reverseTransitionDuration: const Duration(milliseconds: 1),
-                                  transitionsBuilder: (context, animation, nexttanim, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              "Takvim Sayfası",
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 14,
-                                fontFamily: "Nexa3",
-                              ),
-                            ),
-                          ),
-                          const Divider(color: Colors.black, thickness: 1,),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration: const Duration(milliseconds: 1),
-                                  pageBuilder: (context, animation, nextanim) => const HelpCalculator(),
-                                  reverseTransitionDuration: const Duration(milliseconds: 1),
-                                  transitionsBuilder: (context, animation, nexttanim, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              "Hesap Makinesi",
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 14,
-                                fontFamily: "Nexa3",
-                              ),
-                            ),
-                          ),
-                          const Divider(color: Colors.black, thickness: 1,),
-                        ],
+                          ],
+                        ),
                       ),
-                    ), //get started
+                    ),
+                    SizedBox(height: 10),
                     const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -276,7 +490,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             child: ExpansionTile(
 
                               title: const Text("Uygulamam aniden kapanıyor."),
-                              trailing: customicom ? const Icon(
+                              trailing: customicom1 ? const Icon(
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
@@ -285,7 +499,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 size: 30,
                               ),
                               onExpansionChanged: (bool expanded) {
-                                setState(() => customicom = expanded);
+                                setState(() => customicom1 = expanded);
                               },
                               tilePadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                               children: const [
@@ -311,7 +525,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             child: ExpansionTile(
 
                               title: const Text("Kayıtlarım aniden gitti ne yapmam gerekiyor?"),
-                              trailing: customicom ? const Icon(
+                              trailing: customicom2 ? const Icon(
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
@@ -320,7 +534,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 size: 30,
                               ),
                               onExpansionChanged: (bool expanded) {
-                                setState(() => customicom = expanded);
+                                setState(() => customicom2 = expanded);
                               },
                               tilePadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                               children: const [
@@ -347,7 +561,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                             child: ExpansionTile(
                               title: const Text("Size Ulaşmak istiyorum?"),
-                              trailing: customicom ? const Icon(
+                              trailing: customicom3 ? const Icon(
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
@@ -356,7 +570,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 size: 30,
                               ),
                               onExpansionChanged: (bool expanded) {
-                                setState(() => customicom = expanded);
+                                setState(() => customicom3 = expanded);
                               },
                               tilePadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                               children: [
@@ -415,7 +629,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                           ),
                         ),
                       ],
-                    )// SSS
+                    ), //SSS
                   ],
                 ),
               ),

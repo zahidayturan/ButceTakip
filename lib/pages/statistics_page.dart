@@ -26,20 +26,19 @@ class StaticticsBody extends ConsumerStatefulWidget {
 }
 
 class _StaticticsBody extends ConsumerState<StaticticsBody> {
-
   @override
   Widget build(BuildContext context) {
     ref.listen(databaseRiverpod, (previous, next) {
-      ref.watch(databaseRiverpod).isuseinsert ;
+      ref.watch(databaseRiverpod).isuseinsert;
       ref.watch(databaseRiverpod).updatest;
       categoryList(context);
       return ref.watch(databaseRiverpod);
-    }
-    );
+    });
     var size = MediaQuery.of(context).size;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+        const SizedBox(height: 15),
         SizedBox(
           width: size.width,
           child: Row(
@@ -51,7 +50,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               ),
               Expanded(
                 child: SizedBox(
-                  height: size.height*0.26,
+                  height: size.height * 0.26,
                   child: pasta(context),
                 ),
               ),
@@ -63,12 +62,13 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           ),
         ),
         const SizedBox(
-          height: 5,
+          height: 15,
         ),
-        SizedBox(
-            width: size.width * 0.9,
-            height: size.height * 0.40,
-            child: categoryList(context)),
+        Expanded(
+          child: SizedBox(
+              width: size.width * 0.9,
+              child: categoryList(context)),
+        ),
         /*SizedBox(
           child: Text(
               "data ${validDateMenu} tür ${giderGelirHepsi} yıl ${selectedYearIndex} ay ${selectedMonthIndex} hafta ${selectedWeekIndex} gün ${selectedDayIndex}"),
@@ -81,6 +81,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     var read = ref.read(statisticsRiverpod);
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var size = MediaQuery.of(context).size;
+    final ScrollController scrolbarcontroller1 = ScrollController();
     Future<List<Map<String, dynamic>>> myList = read.getCategoryByMonth(
         validDateMenu,
         giderGelirHepsi,
@@ -101,7 +102,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           for (var item in item) {
             totalAmount += item['amount'];
           }
-          int colorChangeCount = 0;  ///Yüzde 5\'ten büyük olan eleman sayısı:
+          int colorChangeCount = 0;
+          ///Yüzde 5\'ten büyük olan eleman sayısı:
           for (int i = 0; i < item.length; i++) {
             if (item[i]['percentages'] != null && item[i]['percentages'] > 5) {
               colorChangeCount++;
@@ -112,17 +114,19 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               children: [
                 SizedBox(
                   width: size.width * 0.9,
-                  height: size.height * 0.35,
+                  height: size.height * 0.32,
                   child: Center(
                     child: Container(
                       height: 45,
                       width: 160,
                       decoration: BoxDecoration(
                           color: const Color(0xFF0D1C26),
-                          borderRadius: BorderRadius.circular(20)
-                      ),
-
-                      child: const Center(child: Text("Veri bulunamadı.",style: TextStyle(color: Colors.white, fontSize: 16),)),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Center(
+                          child: Text(
+                        "Veri bulunamadı.",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      )),
                     ),
                   ),
                 ),
@@ -137,32 +141,31 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           } else {
             return Column(
               children: [
-                SizedBox(
-                  width: size.width * 0.9,
-                  height: size.height * 0.35,
+                Expanded(
                   child: Stack(
                     alignment: Alignment.bottomLeft,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 1.5),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 1.5),
                             child: SizedBox(
                               width: 4,
-                              height: size.height * 0.35,
+                              //height: size.height * 0.35,
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 1.5),
-                            child: SizedBox(
+                            child: Container(
                               width: 4,
-                              height: size.height * 0.35,
-                              child:  DecoratedBox(
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                                    color: snapshot.data!.length <= 4 ? const Color(0xFFE9E9E9) : const Color(0xFF0D1C26)),
-                              ),
+                              //height: size.height * 0.35,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(30)),
+                                  color: snapshot.data!.length <= 4
+                                      ? const Color(0xFFE9E9E9)
+                                      : const Color(0xFF0D1C26)),
                             ),
                           ),
                         ],
@@ -170,31 +173,44 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       Theme(
                         data: Theme.of(context).copyWith(
                             scrollbarTheme: ScrollbarThemeData(
-                              thumbColor:
-                              MaterialStateProperty.all(const Color(0xFFF2CB05)),
-                            )),
+                          thumbColor: MaterialStateProperty.all(
+                              const Color(0xFFF2CB05)),
+                        )),
                         child: Scrollbar(
                           thumbVisibility: true,
-                          scrollbarOrientation:
-                          ScrollbarOrientation.right,
+                          controller: scrolbarcontroller1,
+                          scrollbarOrientation: ScrollbarOrientation.right,
                           interactive: true,
                           thickness: 7,
                           radius: const Radius.circular(15.0),
                           child: ListView.builder(
+                            controller: scrolbarcontroller1,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
-                                padding: const EdgeInsets.only(bottom: 8,right: 16),
+                                padding: const EdgeInsets.only(
+                                    bottom: 8, right: 16),
                                 child: InkWell(
                                   onTap: () {
-                                    readCategoryInfo.setDateAndCategory(selectedDayIndex, selectedMonthIndex, selectedYearIndex, selectedWeekIndex, item[index]['category'],validDateMenu);
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const CategoryInfo(),));
+                                    readCategoryInfo.setDateAndCategory(
+                                        selectedDayIndex,
+                                        selectedMonthIndex,
+                                        selectedYearIndex,
+                                        selectedWeekIndex,
+                                        item[index]['category'],
+                                        validDateMenu);
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CategoryInfo(),
+                                    ));
                                   },
                                   child: SizedBox(
                                     height: 42,
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius:
+                                            BorderRadius.circular(10),
                                         color: Colors.white,
                                       ),
                                       child: Row(
@@ -204,17 +220,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             width: 65,
                                             height: 25,
                                             decoration: BoxDecoration(
-                                              color: colorChangeCount > 12 ? colorsList[index]:colorsList2[index],
-                                              borderRadius: BorderRadius.circular(10),
+                                              color: colorsList[index],
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                             ),
                                             child: Center(
                                                 child: Text(
-                                                  "% ${item[index]['percentages'].toString()}",
-                                                  style: const TextStyle(
-                                                    fontFamily: 'NEXA3',
-                                                    color: Colors.white,
-                                                  ),
-                                                )),
+                                              "% ${item[index]['percentages'].toString()}",
+                                              style: const TextStyle(
+                                                fontFamily: 'NEXA3',
+                                                color: Colors.white,
+                                              ),
+                                            )),
                                           ),
                                           const SizedBox(width: 10),
                                           Text(
@@ -230,18 +247,21 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             text: TextSpan(
                                               children: [
                                                 TextSpan(
-                                                  text:item[index]['amount'].toString(),style: const TextStyle(
-                                                  fontFamily: 'NEXA4',
-                                                  fontSize: 16,
-                                                  color: Color(0xFFF2CB05),
-                                                ),
+                                                  text: item[index]['amount']
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'NEXA3',
+                                                    fontSize: 16,
+                                                    color: Color(0xFFF2CB05),
+                                                  ),
                                                 ),
                                                 const TextSpan(
                                                   text: ' ₺',
                                                   style: TextStyle(
                                                     fontFamily: 'TL',
                                                     fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontWeight:
+                                                        FontWeight.w600,
                                                     color: Color(0xFFF2CB05),
                                                   ),
                                                 ),
@@ -273,11 +293,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                     children: [
                       SizedBox(
                         width: 210,
-                        child: Text("$giderGelirHepsi İçin Toplam Tutar",style: const TextStyle(
-                          fontFamily: 'NEXA4',
-                          fontSize: 17,
-                          color: Color(0xff0D1C26),
-                        ),),
+                        child: Text(
+                          "$giderGelirHepsi İçin Toplam Tutar",
+                          style: const TextStyle(
+                            fontFamily: 'NEXA3',
+                            fontSize: 17,
+                            color: Color(0xff0D1C26),
+                          ),
+                        ),
                       ),
                       Container(
                         decoration: const BoxDecoration(
@@ -289,16 +312,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           child: FittedBox(
                             fit: BoxFit.contain,
                             child: Padding(
-                              padding: const EdgeInsets.only(right: 10,left: 10),
+                              padding:
+                                  const EdgeInsets.only(right: 10, left: 10),
                               child: RichText(
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: totalAmount.toStringAsFixed(1),style: const TextStyle(
-                                      fontFamily: 'NEXA4',
-                                      fontSize: 17,
-                                      color: Color(0xff0D1C26),
-                                    ),
+                                      text: totalAmount.toStringAsFixed(1),
+                                      style: const TextStyle(
+                                        fontFamily: 'Nexa3',
+                                        fontSize: 17,
+                                        color: Color(0xff0D1C26),
+                                      ),
                                     ),
                                     const TextSpan(
                                       text: ' ₺',
@@ -320,7 +345,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   ),
                 )
               ],
-            );}
+            );
+          }
         });
   }
 
@@ -345,12 +371,12 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   int selectedWeekIndex = 1;
   int selectedDayIndex = DateTime.now().day;
   final PageController pageDayController =
-  PageController(initialPage: DateTime.now().day - 1);
+      PageController(initialPage: DateTime.now().day - 1);
   final PageController pageWeekController = PageController(initialPage: 0);
   final PageController pageMonthController =
-  PageController(initialPage: DateTime.now().month - 1);
+      PageController(initialPage: DateTime.now().month - 1);
   final PageController pageYearController =
-  PageController(initialPage: DateTime.now().year - 2020);
+      PageController(initialPage: DateTime.now().year - 2020);
 
   Widget dateSelectMenu(BuildContext context) {
     return SizedBox(
@@ -478,7 +504,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 selectedMonthIndex = DateTime.now().month;
                                 selectedWeekIndex = 1;
                                 selectDateMenu = 3;
-                                validDateMenu =3;
+                                validDateMenu = 3;
                               });
                             },
                             child: const Text(
@@ -559,6 +585,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
+
   Widget monthSelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List monthName = read.getMonths();
@@ -632,18 +659,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: monthName
                             .map(
                               (year) => Center(
-                            child: Text(
-                              year,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Nexa3',
-                                fontWeight: FontWeight.w600,
-                                height: 1.5,
+                                child: Text(
+                                  year,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa3',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
+                            )
                             .toList(),
                       ),
                     ),
@@ -677,18 +704,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: yearName
                             .map(
                               (year) => Center(
-                            child: Text(
-                              year,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Nexa4',
-                                fontWeight: FontWeight.w600,
-                                height: 1.5,
+                                child: Text(
+                                  year,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa4',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
+                            )
                             .toList(),
                       ),
                     ),
@@ -714,6 +741,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
+
   Widget yearSelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List yearName = read.getYears();
@@ -788,18 +816,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: yearName
                             .map(
                               (year) => Center(
-                            child: Text(
-                              year,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Nexa4',
-                                fontWeight: FontWeight.w600,
-                                height: 1.5,
+                                child: Text(
+                                  year,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa4',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
+                            )
                             .toList(),
                       ),
                     ),
@@ -825,6 +853,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
+
   Widget weekSelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List yearName = read.getYears();
@@ -901,18 +930,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: weekName
                             .map(
                               (week) => Center(
-                            child: Text(
-                              "$week.",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Nexa3',
-                                fontWeight: FontWeight.w600,
-                                height: 1.5,
+                                child: Text(
+                                  "$week.",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa3',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
+                            )
                             .toList(),
                       ),
                     ),
@@ -942,23 +971,22 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           setState(() {
                             selectedMonthIndex = index + 1;
                           });
-
                         },
                         children: monthName
                             .map(
                               (year) => Center(
-                            child: Text(
-                              year,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Nexa3',
-                                fontWeight: FontWeight.w600,
-                                height: 1.5,
+                                child: Text(
+                                  year,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa3',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
+                            )
                             .toList(),
                       ),
                     ),
@@ -992,18 +1020,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: yearName
                             .map(
                               (year) => Center(
-                            child: Text(
-                              year,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Nexa4',
-                                fontWeight: FontWeight.w600,
-                                height: 1.5,
+                                child: Text(
+                                  year,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa4',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
+                            )
                             .toList(),
                       ),
                     ),
@@ -1029,6 +1057,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ),
     );
   }
+
   Widget daySelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     List yearName = read.getYears();
@@ -1105,18 +1134,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: dayName
                             .map(
                               (year) => Center(
-                            child: Text(
-                              year,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Nexa3',
-                                fontWeight: FontWeight.w600,
-                                height: 1.5,
+                                child: Text(
+                                  year,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa3',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
+                            )
                             .toList(),
                       ),
                     ),
@@ -1150,18 +1179,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: monthName
                             .map(
                               (year) => Center(
-                            child: Text(
-                              year,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Nexa3',
-                                fontWeight: FontWeight.w600,
-                                height: 1.5,
+                                child: Text(
+                                  year,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa3',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
+                            )
                             .toList(),
                       ),
                     ),
@@ -1195,18 +1224,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         children: yearName
                             .map(
                               (year) => Center(
-                            child: Text(
-                              year,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Nexa4',
-                                fontWeight: FontWeight.w600,
-                                height: 1.5,
+                                child: Text(
+                                  year,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa4',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
+                            )
                             .toList(),
                       ),
                     ),
@@ -1424,54 +1453,54 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(200)
-                  ),
+                      borderRadius: BorderRadius.circular(200)),
                 ),
               ),
             );
-          }
-          else {
+          } else {
             return DChartPie(
               data: item,
-              // liste buraya gelecek, kategori ismi ve miktar
               fillColor: (pieData, index) {
-                return pieData['domain'].length >12 ? colorsList[index!] : colorsList2[index!];
+                return  colorsList[index!];
               },
               pieLabel: (pieData, index) {
                 return "${pieData['domain']}:\n${pieData['measure']}%";
               },
-              labelPosition: PieLabelPosition.outside,
+              labelPosition: PieLabelPosition.auto,
               //donutWidth: 15,
               showLabelLine: true,
-              labelColor: const Color(0xff0D1C26),
+              labelColor: Colors.black,
               labelFontSize: 11,
-              labelLinelength: 11,
+              labelLinelength: 5,
             );
           }
         });
   }
 
   var colorsList = [
+    Colors.red.shade900,
     Colors.red,
-    Colors.deepOrange,
-    Colors.orange,
-    Colors.amber,
-    Colors.yellow,
-    Colors.lime,
-    Colors.lightGreen,
-    Colors.green,
-    Colors.teal,
+    Colors.orange.shade800,
+    Colors.orange.shade500,
+    Colors.amber.shade500,
+    Colors.yellow.shade500,
+    Colors.lime.shade700,
+    Colors.lime.shade500,
+    Colors.green.shade700,
+    Colors.green.shade500,
+    Colors.lightGreen.shade600,
+    Colors.lightGreen.shade300,
+    Colors.green.shade200,
+    Colors.teal.shade700,
+    Colors.teal.shade500,
+    Colors.teal.shade200,
     Colors.cyanAccent,
-    Colors.blue,
-    Colors.indigo,
-    Colors.pinkAccent,
-    Colors.deepPurple,
-    Colors.purple,
-    Colors.redAccent,
-    Colors.redAccent,
-    Colors.redAccent,
-    Colors.redAccent,
-    Colors.redAccent,
+    Colors.blue.shade600,
+    Colors.blue.shade400,
+    Colors.indigo.shade500,
+    Colors.deepPurple.shade800,
+    Colors.deepPurple.shade500,
+    Colors.deepPurple.shade200,
   ];
   var colorsList2 = [
     Colors.red,
@@ -1488,5 +1517,3 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     Colors.deepPurple,
   ];
 }
-
-

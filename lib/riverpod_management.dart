@@ -1,6 +1,7 @@
 import 'package:butcekontrol/Riverpod/update_data_riverpod.dart';
 import 'package:butcekontrol/Riverpod/appbar_type_2_riverpod.dart';
 import 'package:butcekontrol/Riverpod/settings_riverpod.dart';
+import 'package:butcekontrol/riverpod/ggl_drive_riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'Riverpod/bottom_nav_bar_riverpod.dart';
 import 'Riverpod/database_provider.dart';
@@ -20,3 +21,4 @@ final statisticsRiverpod = ChangeNotifierProvider((ref) => StatisticsRiverpod())
 final categoryInfoRiverpod = ChangeNotifierProvider((ref) => CategoryInfoRiverpod());
 final settingsRiverpod = ChangeNotifierProvider((ref) => SettingsRiverpod());
 final updateDataRiverpod = ChangeNotifierProvider((ref) => UpdateDataRiverpod());
+final gglDriveRiverpod = ChangeNotifierProvider((ref) => GglDriveRiverpod());

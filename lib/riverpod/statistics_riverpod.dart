@@ -57,6 +57,58 @@ class StatisticsRiverpod extends ChangeNotifier {
     "Yatırım Getirisi",
     "Diğer+",
   ];
+  List<String> giderKategorileri2 = [
+    "Yemek",
+    "Giyim",
+    "Eğlence",
+    "Eğitim",
+    "Aidat/\nKira",
+    "Alışveriş",
+    "Özel-",
+    "Ulaşım",
+    "Sağlık",
+    "Günlük \nYaşam",
+    "Hobi",
+    "Diğer-"
+  ];
+  List<String> gelirKategorileri2 = [
+    "Harçlık",
+    "Burs",
+    "Maaş",
+    "Kredi",
+    "Özel+",
+    "Kira/\nÖdenek",
+    "Fazla \nMesai",
+    "İş Getirisi",
+    "Döviz \nGetirisi",
+    "Yatırım \nGetirisi",
+    "Diğer+"
+  ];
+  List<String> hepsiKategorileri2 = [
+    "Yemek",
+    "Giyim",
+    "Eğlence",
+    "Eğitim",
+    "Aidat/\nKira",
+    "Alışveriş",
+    "Özel-",
+    "Ulaşım",
+    "Sağlık",
+    "Günlük\nYaşam",
+    "Hobi",
+    "Diğer-",
+    "Harçlık",
+    "Burs",
+    "Maaş",
+    "Kredi",
+    "Özel+",
+    "Kira/\nÖdenek",
+    "Fazla \nMesai",
+    "İş Getirisi",
+    "Döviz \nGetirisi",
+    "Yatırım \nGetirisi",
+    "Diğer+",
+  ];
   List<double> giderKategoriTutarlari = [
     0,
     0,
@@ -516,20 +568,20 @@ class StatisticsRiverpod extends ChangeNotifier {
     }
 
     if(type == 'Gider'){
-      categoryBaseType = giderKategorileri;
+      categoryBaseType = giderKategorileri2;
     }
     else if(type == 'Hepsi'){
-      categoryBaseType = hepsiKategorileri;
+      categoryBaseType = hepsiKategorileri2;
     }
     else{
-      categoryBaseType = gelirKategorileri;
+      categoryBaseType = gelirKategorileri2;
     }
     double total = categoryBaseAmounts.fold(0, (a, b) => a + b);
     List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(1))).toList();
     List<Map<String, dynamic>> listMap = [];
     for (int i = 0; i < categoryBaseAmounts.length; i++) {
       if(type != 'Hepsi') {
-        if (percentages[i] >= 4) {
+        if (percentages[i] >= 5) {
           Map<String, dynamic> map = {
             'domain': categoryBaseType[i],
             'measure': percentages[i]
