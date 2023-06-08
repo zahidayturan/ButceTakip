@@ -1,43 +1,28 @@
+import 'package:butcekontrol/App/butce_kontrol_app.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:butcekontrol/utils/notification_service.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized(); //Widgetlerin önceden yüklendiğine emin olmak için kullandık
+  MobileAds.instance.initialize();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,  // Sadece Dikeyde çalışması için .
+  ]);
+  await Future.delayed(const Duration(milliseconds: 750));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    systemNavigationBarColor: Color(0xFF03111A), // navigation bar color
+    statusBarColor: Color(0xFF03111A), // status bar color
+  ));
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text(
-        "Bismillahirrahmanirrahhim",
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
+  await Firebase.initializeApp();
+  //LocalNotificationService().initNotification();
+  FirebaseMessaging.onBackgroundMessage(FirebaseNotificationService.backgroundMessage);
+  runApp( const ProviderScope(child: ButceKontrolApp()));
+  print("Device Token:   ${await FirebaseMessaging.instance.getToken()}");
 }
