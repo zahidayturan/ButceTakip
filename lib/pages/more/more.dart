@@ -336,7 +336,7 @@ class More extends ConsumerWidget {
                         height: 70,
                       ),
                       const SizedBox(height: 8),
-                      TextMod("Version ${"1.1.0"}", renkler.koyuuRenk, 14),
+                      TextMod("Version ${"1.1.1"}", renkler.koyuuRenk, 14),
                       const SizedBox(height: 2),
                       TextMod("FezaiTech", renkler.koyuuRenk, 14),
                     ],
