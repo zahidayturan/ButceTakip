@@ -158,9 +158,11 @@ class DbProvider extends ChangeNotifier {
   }
 
 
-  static String today = DateTimeManager.getCurrentDay();
+  static String todayNow = DateTimeManager.getCurrentDay();
+  static String monthNow = DateTimeManager.getCurrentMonth();
+  static String yearNow = DateTimeManager.getCurrentYear();
   Future<List<SpendInfo>> myDailyMethod() async {
-    List<SpendInfo> items = await SQLHelper.getItemsByOperationDay(today);
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(todayNow,monthNow,yearNow);
     return items;
   }
 }

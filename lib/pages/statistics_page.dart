@@ -220,10 +220,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             width: 65,
                                             height: 25,
                                             decoration: BoxDecoration(
-                                              color:
-                                                  snapshot.data!.length > 12
-                                                      ? colorsList[index]
-                                                      : colorsList2[index],
+                                              color: colorsList[index],
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
@@ -1464,9 +1461,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             return DChartPie(
               data: item,
               fillColor: (pieData, index) {
-                return pieData['domain'].length > 12
-                    ? colorsList[index!]
-                    : colorsList2[index!];
+                return  colorsList[index!];
               },
               pieLabel: (pieData, index) {
                 return "${pieData['domain']}:\n${pieData['measure']}%";
@@ -1483,26 +1478,29 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   }
 
   var colorsList = [
+    Colors.red.shade900,
     Colors.red,
-    Colors.deepOrange,
-    Colors.orange,
-    Colors.amber,
-    Colors.yellow,
-    Colors.lime,
-    Colors.lightGreen,
-    Colors.green,
-    Colors.teal,
+    Colors.orange.shade800,
+    Colors.orange.shade500,
+    Colors.amber.shade500,
+    Colors.yellow.shade500,
+    Colors.lime.shade700,
+    Colors.lime.shade500,
+    Colors.green.shade700,
+    Colors.green.shade500,
+    Colors.lightGreen.shade600,
+    Colors.lightGreen.shade300,
+    Colors.green.shade200,
+    Colors.teal.shade700,
+    Colors.teal.shade500,
+    Colors.teal.shade200,
     Colors.cyanAccent,
-    Colors.blue,
-    Colors.indigo,
-    Colors.pinkAccent,
-    Colors.deepPurple,
-    Colors.purple,
-    Colors.redAccent,
-    Colors.redAccent,
-    Colors.redAccent,
-    Colors.redAccent,
-    Colors.redAccent,
+    Colors.blue.shade600,
+    Colors.blue.shade400,
+    Colors.indigo.shade500,
+    Colors.deepPurple.shade800,
+    Colors.deepPurple.shade500,
+    Colors.deepPurple.shade200,
   ];
   var colorsList2 = [
     Colors.red,

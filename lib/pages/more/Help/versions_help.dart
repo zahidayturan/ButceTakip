@@ -38,7 +38,7 @@ class VersionsHelp extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Text(
-                                "Android 1.0 v",
+                                "Android 1.1.1 v",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: "Nexa3",
@@ -46,7 +46,7 @@ class VersionsHelp extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "Update(21.04.2023)",
+                                "Update(3.06.2023)",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: "Nexa3",
