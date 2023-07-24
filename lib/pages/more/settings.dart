@@ -27,6 +27,7 @@ class _SettingsState extends ConsumerState<Settings> {
     var readSetting = ref.read(settingsRiverpod);
     //String? Language = readSetting.Language;
     bool darkthememode = readSetting.DarkMode == 1 ? true : false ;
+    bool isNotification  = true ;
     bool isPassword = readSetting.isPassword == 1 ? true : false ;
     bool isBackup = readSetting.isBackUp == 1 ? true : false ;
     //String? Prefix = readSetting.Prefix ;
@@ -86,6 +87,42 @@ class _SettingsState extends ConsumerState<Settings> {
                     ),
                   ),
                 ), ///Koyu tema
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(11),
+                    child: Container(
+                      height: 40,
+                      width: size.width,
+                      color: renkler.arkaRenk,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Bildirimler",
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
+                              ),
+                            ),
+                            const Spacer(),
+                            isNotification ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                :const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                            Switch(
+                                activeColor: renkler.sariRenk,
+                                value: isNotification,
+                                onChanged: (bool value) {
+                                setState(() {
+                                  isNotification = value ;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ), ///Bildirimler
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: ClipRRect(

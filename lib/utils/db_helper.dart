@@ -86,7 +86,7 @@ class SQLHelper {
   }
   //if()
 
-  static Future<List<SpendInfo>> getItems() async {
+  static Future<List<SpendInfo>> getItems() async { //Bütün kayıtları çekiyor spendinfo
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', orderBy: "id");
     return  List.generate(result.length, (index){
@@ -147,7 +147,13 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
-
+  static Future<List<SpendInfo>> getItemsByOperationType(String operationType) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationType = ?", whereArgs: [operationType], orderBy: "id");
+    return List.generate(result.length, (index){
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
   static Future<List<SpendInfo>> getItemsByOperationDayMonthAndYear(String operationDay, String operationMonth,String operationYear) async{
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "operationDay = ? AND operationMonth = ? AND operationYear = ?",

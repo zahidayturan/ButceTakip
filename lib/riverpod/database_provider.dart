@@ -1,6 +1,7 @@
 import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:googleapis/accesscontextmanager/v1.dart';
 import '../models/spend_info.dart';
 import 'package:collection/collection.dart';
 
@@ -15,6 +16,7 @@ class DbProvider extends ChangeNotifier {
   String ?status ;
   String ?day ;
   String ?date ;
+  String ?operationType;
 
   void setDate(String date) {
     this.date = date ;
@@ -125,14 +127,50 @@ class DbProvider extends ChangeNotifier {
     return items;
   }
 
+
   Future <List<SpendInfo>> registeryList() async {
     List<SpendInfo> items = await SQLHelper.getRegisteryQuery();
     registeryListTile = items ;
     notifyListeners();
     return items ;
   }
+  String getTotalAmountByKart(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
+    double totalAmount = items
+        .where((element) => element.operationTool == 'Kart')
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.amount!);
+    double totalAmount2 = items
+        .where((element) => element.operationTool == 'Kart')
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.amount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(1);
+  }
 
-  String getTotalAmount(List<SpendInfo> items) {
+  String getTotalAmountByNakit(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
+    double totalAmount = items
+        .where((element) => element.operationTool == 'Nakit')
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.amount!);
+    double totalAmount2 = items
+        .where((element) => element.operationTool == 'Nakit')
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.amount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(1);
+  }
+
+  String getTotalAmountByDiger(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
+    double totalAmount = items
+        .where((element) => element.operationTool == 'Diger')
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.amount!);
+    double totalAmount2 = items
+        .where((element) => element.operationTool == 'Diger')
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.amount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(1);
+  }
+
+  String getTotalAmount(List<SpendInfo> items) {  //Bütün net Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
         .fold(0, (previousValue, element) => previousValue + element.amount!);
@@ -142,7 +180,7 @@ class DbProvider extends ChangeNotifier {
     return (totalAmount - totalAmount2).toStringAsFixed(1);
   }
 
-  String getTotalAmountPositive(List<SpendInfo> items) {
+  String getTotalAmountPositive(List<SpendInfo> items) { //Gelir olan Kayıtları listeliyor.
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
         .fold(0, (previousValue, element) => previousValue + element.amount!);
@@ -150,7 +188,7 @@ class DbProvider extends ChangeNotifier {
     return totalAmount.toStringAsFixed(1);
   }
 
-  String getTotalAmountNegative(List<SpendInfo> items) {
+  String getTotalAmountNegative(List<SpendInfo> items) { //Gider olan Kayıtları listeliyor.
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
         .fold(0, (previousValue, element) => previousValue + element.amount!);

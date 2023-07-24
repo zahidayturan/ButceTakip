@@ -64,6 +64,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                   || title == "İLETİŞİM"
                   || title == "YEDEKLE"
                   || title == "GİRİŞ ŞİFRESİ"
+                  || title == "VARLIK"
               ?const Icon(
                 Icons.arrow_back,
                 color: Colors.white,
@@ -74,7 +75,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                 size: 40,
               ),
               onPressed: () async {
-                if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE" || title == "YARDIM<"){
+                if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE" || title == "YARDIM<" || title == "VARLIK"){
                   Navigator.of(context).pop();
                 }else if(title == "GİRİŞ ŞİFRESİ") {
                   if(readsetting.isPassword == 1 && readsetting.Password == "null") {
