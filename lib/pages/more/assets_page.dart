@@ -35,7 +35,7 @@ class assetsPage extends ConsumerWidget {
 
       return listem;
     }
-    var dbRiv = ref.read(databaseRiverpod);
+    var dbRiv = ref.watch(databaseRiverpod);
     var size = MediaQuery.of(context).size;
     var renkler = CustomColors();
     var time = DateTime.now().hour;
@@ -44,212 +44,227 @@ class assetsPage extends ConsumerWidget {
     return SafeArea(
         child: Scaffold(
           appBar: const AppBarForPage(title: "VARLIK"),
-          body: FutureBuilder(
-            future: Total,
-            builder:
-            (context, snapshot) {
-              if(snapshot.hasData){
-                var myData = snapshot.data;
-                List<double> measureList = getMeasure(double.tryParse(dbRiv.getTotalAmountByKart(myData!))!, double.tryParse(dbRiv.getTotalAmountByNakit(myData!))!, double.tryParse(dbRiv.getTotalAmountByDiger(myData!))!);
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * .05,vertical: size.height * .02),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: size.height * .05,
-                        width: double.infinity,
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: renkler.arkaRenk,
-                          borderRadius: BorderRadius.circular(11),
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              time > 5 && time < 12
-                              ? "Günaydın! Umarız iyisinizdir."
-                              : time >= 12 && time < 18
-                                ? "iyi günler! Umarız iyisinizdir."
-                                : time >= 18 && time <= 23
-                                  ? "iyi akşamlar! Umarız iyisinizdir."
-                                  : "iyi geceler! Umarız iyisinizdir.",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold
-                              ),
+          body: SingleChildScrollView(
+            child: FutureBuilder(
+              future: Total,
+              builder:
+              (context, snapshot) {
+                if(snapshot.hasData){
+                  var myData = snapshot.data;
+                  List<double> measureList = getMeasure(double.tryParse(dbRiv.getTotalAmountByKart(myData!))!, double.tryParse(dbRiv.getTotalAmountByNakit(myData!))!, double.tryParse(dbRiv.getTotalAmountByDiger(myData!))!);
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .05,vertical: size.height * .02),
+                    child: SizedBox(
+                      height: size.height * .8,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: size.height * .05,
+                            width: double.infinity,
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: renkler.arkaRenk,
+                              borderRadius: BorderRadius.circular(11),
                             ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.width * .65,
-                        width: size.width * .65,
-                        child: measureList[3] <= 0
-                          ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: renkler.arkaRenk.withOpacity(0.7),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(child: Text("Net Varlık Bulunamadı!")),
+                            child: Row(
+                              children: [
+                                Text(
+                                  time > 5 && time < 12
+                                  ? "Günaydın! Umarız iyisinizdir."
+                                  : time >= 12 && time < 18
+                                    ? "iyi günler! Umarız iyisinizdir."
+                                    : time >= 18 && time <= 23
+                                      ? "iyi akşamlar! Umarız iyisinizdir."
+                                      : "iyi geceler! Umarız iyisinizdir.",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                              ],
                             ),
-                          )
-                          :Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
+                          ),
+                          SizedBox(
+                            height: size.width * .65,
+                            width: size.width * .65,
+                            child: measureList[3] <= 0
+                              ? Padding(
+                              padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: renkler.arkaRenk.withOpacity(0.7),
                                     shape: BoxShape.circle,
                                   ),
+                                  child: Center(child: Text("Net Varlık Bulunamadı!")),
                                 ),
+                              )
+                              :Stack(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: renkler.arkaRenk.withOpacity(0.7),
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                  ),
+                                  DChartPie(
+                                    strokeWidth: 1,
+                                    showLabelLine: false,
+                                    labelPosition: PieLabelPosition.outside,
+                                    data: [
+                                      {'domain': 'Banka', 'measure': measureList[0]},
+                                      {'domain': 'Nakit', 'measure': measureList[1]},
+                                      {'domain': 'Diğer', 'measure': measureList[2]},
+                                    ],
+                                    fillColor: (pieData, index) {
+                                      return colorsList[index!];
+                                    },
+                                    donutWidth: 22,
+                                  ),
+                                  Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        TextMod("TOPLAM",Colors.black, 17),
+                                        SizedBox(height: size.width * .06),
+                                        TextMod("${measureList[3]} TL",Colors.black, 22),
+                                      ],
+                                    ),
+                                  ),
+                                ]
                               ),
-                              DChartPie(
-                                strokeWidth: 1,
-                                showLabelLine: false,
-                                labelPosition: PieLabelPosition.outside,
-                                data: [
-                                  {'domain': 'Banka', 'measure': measureList[0]},
-                                  {'domain': 'Nakit', 'measure': measureList[1]},
-                                  {'domain': 'Diğer', 'measure': measureList[2]},
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: size.width * .01),
+                                    height: size.width * .02,
+                                    width: size.width * .02,
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xFFF5ECB9),
+                                      shape: BoxShape.circle
+                                    ),
+                                  ),
+                                  SizedBox(width: size.width * .02),
+                                  Text("Banka")
                                 ],
-                                fillColor: (pieData, index) {
-                                  return colorsList[index!];
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: size.width * .01),
+                                    height: size.width * .02,
+                                    width: size.width * .02,
+                                    decoration: const BoxDecoration(
+                                        color: Color(0xFFF9D1AC),
+                                        shape: BoxShape.circle
+                                    ),
+                                  ),
+                                  SizedBox(width: size.width * .02),
+                                  Text("Nakit")
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: size.width * .01),
+                                    height: size.width * .02,
+                                    width: size.width * .02,
+                                    decoration: const BoxDecoration(
+                                        color: Color(0xFFF9ACAC),
+                                        shape: BoxShape.circle
+                                    ),
+                                  ),
+                                  SizedBox(width: size.width * .02),
+                                  Text("Diğer")
+                                ],
+                              ),
+                            ],
+                          ),
+                          Divider(
+                            height: 1,
+                            color: renkler.sariRenk,
+                            thickness: 2,
+                          ),
+                          Text("VARLIKLAR"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              assetBox(context, "Banka" , dbRiv.getTotalAmountByKart(myData!)),
+                              assetBox(context, "Nakit" , dbRiv.getTotalAmountByNakit(myData!)),
+                              assetBox(context, "Diğer" , dbRiv.getTotalAmountByDiger(myData!)),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        opaque: false, //sayfa saydam olması için
+                                        transitionDuration: const Duration(milliseconds: 1),
+                                        pageBuilder: (context, animation, nextanim) => const addAssets(),
+                                        reverseTransitionDuration: const Duration(milliseconds: 1),
+                                        transitionsBuilder: (context, animation, nexttanim, child) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: child,
+                                        );
+                                      },
+                                    ),
+                                  );
                                 },
-                                donutWidth: 22,
-                              ),
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    TextMod("TOPLAM",Colors.black, 17),
-                                    SizedBox(height: size.width * .06),
-                                    TextMod("${measureList[3]} TL",Colors.black, 22),
-                                  ],
+                                child: FittedBox(
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(vertical: size.height * .01, horizontal: size.width *.03),
+                                    decoration: BoxDecoration(
+                                      color: renkler.koyuuRenk,
+                                      borderRadius: BorderRadius.circular(12),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 3,
+                                          spreadRadius: 1
+                                        )
+                                      ]
+                                    ),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                            "Varlık Ekle",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18
+                                          ),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Icon(
+                                            Icons.add,
+                                          color: Colors.white,
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ]
-                          ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(bottom: size.width * .01),
-                                height: size.width * .02,
-                                width: size.width * .02,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFF5ECB9),
-                                  shape: BoxShape.circle
-                                ),
-                              ),
-                              SizedBox(width: size.width * .02),
-                              Text("Banka")
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(bottom: size.width * .01),
-                                height: size.width * .02,
-                                width: size.width * .02,
-                                decoration: const BoxDecoration(
-                                    color: Color(0xFFF9D1AC),
-                                    shape: BoxShape.circle
-                                ),
-                              ),
-                              SizedBox(width: size.width * .02),
-                              Text("Nakit")
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(bottom: size.width * .01),
-                                height: size.width * .02,
-                                width: size.width * .02,
-                                decoration: const BoxDecoration(
-                                    color: Color(0xFFF9ACAC),
-                                    shape: BoxShape.circle
-                                ),
-                              ),
-                              SizedBox(width: size.width * .02),
-                              Text("Diğer")
                             ],
                           ),
                         ],
                       ),
-                      Divider(
-                        height: 1,
-                        color: renkler.sariRenk,
-                        thickness: 2,
-                      ),
-                      Text("VARLIKLAR"),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          assetBox(context, "Banka" , dbRiv.getTotalAmountByKart(myData!)),
-                          assetBox(context, "Nakit" , dbRiv.getTotalAmountByNakit(myData!)),
-                          assetBox(context, "Diğer" , dbRiv.getTotalAmountByDiger(myData!)),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    opaque: false, //sayfa saydam olması için
-                                    transitionDuration: const Duration(milliseconds: 1),
-                                    pageBuilder: (context, animation, nextanim) => const addAssets(),
-                                    reverseTransitionDuration: const Duration(milliseconds: 1),
-                                    transitionsBuilder: (context, animation, nexttanim, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                            child: FittedBox(
-                              child: Container(
-                                padding: EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: renkler.sariRenk,
-                                  borderRadius: BorderRadius.circular(16),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.black12,
-                                      blurRadius: 3,
-                                      spreadRadius: 1
-                                    )
-                                  ]
-                                ),
-                                child: Row(
-                                  children: const [
-                                    Text("Varlık Ekle"),
-                                    Icon(Icons.add),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              }else{
-                return const CircularProgressIndicator();
-              }
-            },
+                    ),
+                  );
+                }else{
+                  return const CircularProgressIndicator();
+                }
+              },
+            ),
           ),
         )
     );

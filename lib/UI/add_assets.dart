@@ -1,15 +1,18 @@
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import '../models/spend_info.dart';
+import '../utils/db_helper.dart';
 
-class addAssets extends StatefulWidget {
+class addAssets extends ConsumerStatefulWidget {
   const addAssets({Key? key}) : super(key: key);
 
   @override
-  State<addAssets> createState() => _addAssetsState();
+  ConsumerState<addAssets> createState() => _addAssetsState();
 }
 
-class _addAssetsState extends State<addAssets> {
+class _addAssetsState extends ConsumerState<addAssets> {
   TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -33,8 +36,8 @@ class _addAssetsState extends State<addAssets> {
                 onTap:() {
 
                 },
-                child: Container( //pop up boyutu
-                  height: size.width * .65,
+                child: Container(
+                  height: size.width * .56,
                   width: size.width * .6,
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
@@ -84,16 +87,69 @@ class _addAssetsState extends State<addAssets> {
                       Center(child: toolCustomButton(context)),
                       SizedBox(height: size.height * .03),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           toolCustomButtonForIncomeType(context),
-                          TextField(
-                            controller: _controller,
-                            decoration: InputDecoration(
-                              hintText: "Tutar Giriniz.",
-                              contentPadding: EdgeInsets.symmetric(horizontal: size.width * .01,vertical: 13),
-                              border: InputBorder.none
+                          Container(
+                            width: size.width * .2010,
+                            height: size.height * .032,
+                            decoration: BoxDecoration(
+                              color: Color(0xff0B1318),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: TextField(
+                              controller: _controller,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                              ),
+                              decoration: InputDecoration(
+                                hintText: "Tutar.",
+                                hintStyle: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                                contentPadding: EdgeInsets.symmetric(horizontal: size.width * .016,vertical: size.width * .021),
+                                border: InputBorder.none
+                              ),
+                            ),
                           ),
                         ],
+                      ),
+                      SizedBox(height: size.height * .034),
+                      GestureDetector(
+                        onTap: () async {
+                          final newinfo = SpendInfo(
+                              operationType,
+                              "null",
+                              operationTool,
+                              0,
+                              double.tryParse(_controller.text),
+                              "",
+                              "null",
+                              "null",
+                              "null",
+                              "null",
+                              "null",
+                              "null",
+                              "null"
+                          );
+                          await SQLHelper.createItem(newinfo);
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: renkler.sariRenk,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Text(
+                              "Ekle",
+                            style: TextStyle(
+                              fontFamily: "Nexa2"
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -107,6 +163,8 @@ class _addAssetsState extends State<addAssets> {
   }
 
   int initialLabelIndexTool = 0;
+  String operationTool = "Nakit";
+  String operationType = "Gelir";
 
   Widget toolCustomButton(BuildContext context) {
     return SizedBox(
@@ -129,11 +187,11 @@ class _addAssetsState extends State<addAssets> {
           ],
           onToggle: (index) {
             if (index == 0) {
-              //
+              operationTool = "Nakit" ;
             } else if (index == 1) {
-              //
+              operationTool = "Kart" ;
             } else {
-              //
+              operationTool = "Diger" ;
             }
             initialLabelIndexTool = index!;
           },
@@ -161,11 +219,11 @@ class _addAssetsState extends State<addAssets> {
           ],
           onToggle: (index) {
             if (index == 0) {
-              //
+              operationType = "Gelir";
             } else if (index == 1) {
-              //
+              operationType = "Gider";
             } else {
-              //
+              operationType = "Gelir";
             }
             initialLabelIndexTool = index!;
           },

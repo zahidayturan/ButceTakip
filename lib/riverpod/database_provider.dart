@@ -46,6 +46,11 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changeisuseinsert(){
+    isuseinsert != isuseinsert;
+    notifyListeners();
+  }
+
   Future insertDataBase(
       String? operationType ,
       String? category,
