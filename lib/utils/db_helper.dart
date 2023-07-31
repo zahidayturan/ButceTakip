@@ -48,7 +48,7 @@ class SQLHelper {
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
-      'bt.db',
+      'bt1.db',
       version: 1,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
@@ -116,6 +116,14 @@ class SQLHelper {
     } catch (err) {
       debugPrint("Something went wrong when deleting an item: $err");
     }
+  }
+  static Future<List<SpendInfo>> searchItem(String searchText) async {
+    final db = await SQLHelper.db();
+
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE note LIKE '%${searchText}%' AND note != ''");// Aranan metin ile eşleşen notları al);
+    return List.generate(result.length, (index){
+      return SpendInfo.fromObject(result[index]);
+    });
   }
 
   static Future<List<SpendInfo>> getItemsByOperationMonthAndYear(String operationMonth, String operationYear) async {

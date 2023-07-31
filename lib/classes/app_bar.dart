@@ -1,6 +1,7 @@
 import 'package:butcekontrol/UI/registery_list.dart';
 import 'package:butcekontrol/pages/more/Help/help_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
+import 'package:butcekontrol/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,6 +22,32 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
         ),
       ),
       actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                opaque: false, //sayfa saydam olması için
+                transitionDuration: const Duration(milliseconds: 1),
+                pageBuilder: (context, animation, nextanim) => const searchPage(),
+                reverseTransitionDuration: const Duration(milliseconds: 1),
+                transitionsBuilder: (context, animation, nexttanim, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+              ),
+            );
+          },
+          icon: const Icon(
+            Icons.search,
+            color: Color(0xFFFFFFFF),
+            size: 30,
+          ),
+          constraints: const BoxConstraints(maxWidth: 40),
+          iconSize: 20.0,
+        ),
         IconButton(
           onPressed: () {
             showDialog(

@@ -1,7 +1,7 @@
+import 'package:butcekontrol/pages/search_page.dart';
 import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:googleapis/accesscontextmanager/v1.dart';
 import '../models/spend_info.dart';
 import 'package:collection/collection.dart';
 
@@ -13,6 +13,7 @@ class DbProvider extends ChangeNotifier {
   String year = DateTime.now().year.toString() ;
   Future<List<SpendInfo>> ?daylist ;
   List<SpendInfo> ?registeryListTile ;
+  List<SpendInfo> ?searchListTile ;
   String ?status ;
   String ?day ;
   String ?date ;
@@ -201,4 +202,10 @@ class DbProvider extends ChangeNotifier {
     List<SpendInfo> items = await SQLHelper.getItemsByOperationDay(today);
     return items;
   }
+
+  void searchItem(searchText) async {
+    searchListTile = await SQLHelper.searchItem(searchText);
+    notifyListeners();
+  }
+
 }

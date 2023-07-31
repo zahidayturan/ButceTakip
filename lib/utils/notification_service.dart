@@ -49,7 +49,11 @@ class FirebaseNotificationService {
     ///Bunu kapatma nedeni fcm nin kendi sunduğu vaysayılan bildirim var ve o deaktif edilemiyor.
   }///Bildirimin arka planda çalışması için
 
-
+  Future<bool> contolNotification() async {
+    firebaseMessaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await firebaseMessaging.requestPermission(announcement: true);
+    return (settings.authorizationStatus == AuthorizationStatus.authorized);
+  }
 }
 /*
 class LocalNotificationService{

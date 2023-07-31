@@ -6,6 +6,7 @@ import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../UI/add_assets.dart';
 import '../../constans/material_color.dart';
 
 class assetsPage extends ConsumerWidget {
@@ -13,7 +14,7 @@ class assetsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     List<double> getMeasure(double kart, double  nakit, double  diger){
-      var totalorigin =  kart + nakit + diger;
+      var totalorigin =  kart + nakit + diger ;
       if(kart <= 0){
         kart = 0;
       }
@@ -24,8 +25,8 @@ class assetsPage extends ConsumerWidget {
         diger = 0 ;
       }
       var total = kart + nakit + diger ;
-      if(total <= 0){
-        total = 1;
+      if(total == 0){
+        total = 1.0;
       }
       var kardMeasure = 100 * kart / total ;
       var nakitMeasure = 100 * nakit / total ;
@@ -66,10 +67,10 @@ class assetsPage extends ConsumerWidget {
                         child: Row(
                           children: [
                             Text(
-                              time < 12 && time > 5
+                              time > 5 && time < 12
                               ? "Günaydın! Umarız iyisinizdir."
                               : time >= 12 && time < 18
-                                ? "Tünaydın! Umarız iyisinizdir."
+                                ? "iyi günler! Umarız iyisinizdir."
                                 : time >= 18 && time <= 23
                                   ? "iyi akşamlar! Umarız iyisinizdir."
                                   : "iyi geceler! Umarız iyisinizdir.",
@@ -83,43 +84,54 @@ class assetsPage extends ConsumerWidget {
                       SizedBox(
                         height: size.width * .65,
                         width: size.width * .65,
-                        child: Stack(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: renkler.arkaRenk.withOpacity(0.7),
-                                  shape: BoxShape.circle,
+                        child: measureList[3] <= 0
+                          ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: renkler.arkaRenk.withOpacity(0.7),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(child: Text("Net Varlık Bulunamadı!")),
+                            ),
+                          )
+                          :Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: renkler.arkaRenk.withOpacity(0.7),
+                                    shape: BoxShape.circle,
+                                  ),
                                 ),
                               ),
-                            ),
-                            DChartPie(
-                              strokeWidth: 1,
-                              showLabelLine: false,
-                              labelPosition: PieLabelPosition.outside,
-                              data: [
-                                {'domain': 'Banka', 'measure': measureList[0]},
-                                {'domain': 'Nakit', 'measure': measureList[1]},
-                                {'domain': 'Diğer', 'measure': measureList[2]},
-                              ],
-                              fillColor: (pieData, index) {
-                                return colorsList[index!];
-                              },
-                              donutWidth: 22,
-                            ),
-                            Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  TextMod("TOPLAM",Colors.black, 17),
-                                  SizedBox(height: size.width * .06),
-                                  TextMod("${measureList[3]} TL",Colors.black, 22),
+                              DChartPie(
+                                strokeWidth: 1,
+                                showLabelLine: false,
+                                labelPosition: PieLabelPosition.outside,
+                                data: [
+                                  {'domain': 'Banka', 'measure': measureList[0]},
+                                  {'domain': 'Nakit', 'measure': measureList[1]},
+                                  {'domain': 'Diğer', 'measure': measureList[2]},
                                 ],
+                                fillColor: (pieData, index) {
+                                  return colorsList[index!];
+                                },
+                                donutWidth: 22,
                               ),
-                            ),
-                          ]
-                        ),
+                              Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextMod("TOPLAM",Colors.black, 17),
+                                    SizedBox(height: size.width * .06),
+                                    TextMod("${measureList[3]} TL",Colors.black, 22),
+                                  ],
+                                ),
+                              ),
+                            ]
+                          ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -185,7 +197,52 @@ class assetsPage extends ConsumerWidget {
                           assetBox(context, "Diğer" , dbRiv.getTotalAmountByDiger(myData!)),
                         ],
                       ),
-                      SizedBox(height: size.height * .15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    opaque: false, //sayfa saydam olması için
+                                    transitionDuration: const Duration(milliseconds: 1),
+                                    pageBuilder: (context, animation, nextanim) => const addAssets(),
+                                    reverseTransitionDuration: const Duration(milliseconds: 1),
+                                    transitionsBuilder: (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            child: FittedBox(
+                              child: Container(
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: renkler.sariRenk,
+                                  borderRadius: BorderRadius.circular(16),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 3,
+                                      spreadRadius: 1
+                                    )
+                                  ]
+                                ),
+                                child: Row(
+                                  children: const [
+                                    Text("Varlık Ekle"),
+                                    Icon(Icons.add),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 );
@@ -244,3 +301,6 @@ class assetsPage extends ConsumerWidget {
     );
   }
 }
+/*
+
+ */

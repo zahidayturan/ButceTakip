@@ -51,6 +51,8 @@ dependencies:
   cloud_firestore: ^4.7.1
   device_info_plus: ^9.0.1
   url_launcher: ^6.0.0
+  app_settings: ^5.0.0
+  toggle_switch: ^2.1.0
 
 flutter_native_splash:
   image: assets/image/icon_BKA/splash.png
