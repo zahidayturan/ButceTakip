@@ -53,6 +53,7 @@ dependencies:
   url_launcher: ^6.0.0
   app_settings: ^5.0.0
   toggle_switch: ^2.1.0
+  http: any
 
 flutter_native_splash:
   image: assets/image/icon_BKA/splash.png

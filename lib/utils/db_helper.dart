@@ -119,8 +119,7 @@ class SQLHelper {
   }
   static Future<List<SpendInfo>> searchItem(String searchText) async {
     final db = await SQLHelper.db();
-
-    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE note LIKE '%${searchText}%' AND note != ''");// Aranan metin ile eşleşen notları al);
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (note LIKE '%${searchText}%' OR category LIKE '%${searchText}%') AND note != '' AND category != ''");
     return List.generate(result.length, (index){
       return SpendInfo.fromObject(result[index]);
     });

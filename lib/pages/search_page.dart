@@ -60,23 +60,7 @@ class _searchPageState extends ConsumerState<searchPage> {
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            print("Filitreleme yapıyoruz");
-                          },
-                          child: Container(
-                            width: size.width * .085,
-                            height: size.width * .085,
-                            decoration: BoxDecoration(
-                              color: renkler.sariRenk,
-                              shape: BoxShape.circle
-                            ),
-                            child: const Icon(
-                                Icons.filter_alt,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
+
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).pop();

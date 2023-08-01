@@ -37,7 +37,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
 
                 },
                 child: Container(
-                  height: size.width * .56,
+                  height: size.width * .52,
                   width: size.width * .6,
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
@@ -83,9 +83,9 @@ class _addAssetsState extends ConsumerState<addAssets> {
                           ),
                         ],
                       ),
-                      SizedBox(height: size.height * .03),
+                      SizedBox(height: size.height * .02),
                       Center(child: toolCustomButton(context)),
-                      SizedBox(height: size.height * .03),
+                      SizedBox(height: size.height * .02),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -116,7 +116,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                           ),
                         ],
                       ),
-                      SizedBox(height: size.height * .034),
+                      SizedBox(height: size.height * .02),
                       GestureDetector(
                         onTap: () async {
                           final newinfo = SpendInfo(
@@ -132,7 +132,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                               "null",
                               "null",
                               "null",
-                              "null"
+                              ""
                           );
                           await SQLHelper.createItem(newinfo);
                           Navigator.of(context).pop();
