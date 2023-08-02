@@ -23,7 +23,7 @@ class SettingsInfo {
       this.password,
       this.securityQu,
       this.securityClaim,
-      this.adCounter
+      this.adCounter,
       );
   SettingsInfo.withId(
       this.id,
@@ -37,8 +37,8 @@ class SettingsInfo {
       this.password,
       this.securityQu,
       this.securityClaim,
-      this.adCounter
-      );
+      this.adCounter,
+  );
   Map <String, dynamic> toMap(){
     var map = <String, dynamic>{};
     map["Prefix"] = prefix ;

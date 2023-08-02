@@ -36,7 +36,7 @@ class SettingsRiverpod extends ChangeNotifier{
     adCounter = setting[setting.length - 1].adCounter;
     print("""
       id : ${setting[setting.length - 1].id}
-      dil :${setting[setting.length - 1].prefix}
+      prefix :${setting[setting.length - 1].prefix}
       Darkmode :${setting[setting.length - 1].darkMode}
       isPassword : ${setting[setting.length - 1].isPassword}
       Language : ${setting[setting.length - 1].language}

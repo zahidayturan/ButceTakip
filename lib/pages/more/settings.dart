@@ -2,13 +2,12 @@ import 'package:app_settings/app_settings.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/pages/Test.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../utils/notification_service.dart';
 import 'password_splash.dart';
 import 'backup.dart';
 
@@ -20,7 +19,7 @@ class Settings extends ConsumerStatefulWidget {
 }
 ///Koyu tema , Yedeklenme durumunun  database ile implementi sağlanrı
 class _SettingsState extends ConsumerState<Settings> {
-  List<String> moneyPrefix = <String>['TRY'];
+  List<String> moneyPrefix = <String>['TRY', "USD", "EUR", "GBP", "KWD"];
   List<String> dilDestegi = <String>["Türkçe"];
   CustomColors renkler = CustomColors();
 
@@ -240,6 +239,71 @@ class _SettingsState extends ConsumerState<Settings> {
                     ),
                   ),
                 ), ///Bildirimler
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => testPage()));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(11)),
+                      child: Container(
+                        height: 40,
+                        width: size.width,
+                        color: renkler.arkaRenk,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                "Para Birimi (Varsayılan)",
+                                style: TextStyle(
+                                  fontFamily: "Nexa3",
+                                ),
+                              ),
+                              const Spacer(),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  height: 30,
+                                  width: 80,
+                                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                  color: renkler.koyuuRenk,
+                                  child: DropdownButton(
+                                    dropdownColor: renkler.koyuuRenk,
+                                    borderRadius: BorderRadius.circular(20),
+                                    value: dropdownshowitem,
+                                    elevation: 16,
+                                    style: TextStyle(color: renkler.sariRenk),
+                                    underline: Container(
+                                      height: 2,
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        dropdownshowitem = newValue!;
+                                      });
+                                    },
+                                    items: moneyPrefix
+                                        .map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                        onTap: () {
+
+                                        },
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),///Para Birimi
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: ClipRRect(

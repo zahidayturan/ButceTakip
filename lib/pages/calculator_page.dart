@@ -20,7 +20,7 @@ class _CalculatorState extends State<Calculator> {
     setState(() {
       _currentPageindex = pageindex;
     });
-    _pagecont.jumpToPage(pageindex);
+    _pagecont.animateToPage(pageindex, duration: Duration(milliseconds: 250), curve: Curves.linear) ;
   }
 
   String result = "0";
@@ -133,7 +133,7 @@ class _CalculatorState extends State<Calculator> {
                               //calculator(),
                               yuzdePage(), // Page 2
                               krediPage(), //Page 3
-                              //currencyConverter(), //Page 4
+                              currencyConverter(), //Page 4
                             ],
                           ),
                         ),
@@ -273,6 +273,8 @@ class _CalculatorState extends State<Calculator> {
                     ),
                     InkWell(
                       onTap: () {
+                        changePage(2);
+                        /*
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             backgroundColor: Color(0xff0D1C26),
@@ -289,15 +291,16 @@ class _CalculatorState extends State<Calculator> {
                             ),
                           ),
                         );
+                         */
                       },
                       child: SizedBox(
                         height: size.width / 4,
                         width: size.width / 4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            color: Colors.black54,
+                            color: renkler.koyuuRenk,
                             borderRadius: BorderRadius.circular(20),
-                            border: _currentPageindex == 3
+                            border: _currentPageindex == 2
                                 ? Border.all(
                                     color: renkler.sariRenk,
                                     width: 3,

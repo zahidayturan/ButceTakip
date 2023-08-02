@@ -18,8 +18,10 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     // örnek gecikme
     var readSetting =  ref.read(settingsRiverpod); //read okuma işlemleri gerçekleşti
     var readGglAuth = ref.read(gglDriveRiverpod);
-    readGglAuth.checkAuthState(); //Google User açık mı sorgusu yapılıyor
+    var readCurrency = ref.read(currencyRiverpod);
+    await readCurrency.controlCurrency(readSetting.Prefix);
     var read  = readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
+    readGglAuth.checkAuthState(); //Google User açık mı sorgusu yapılıyor
     await Future.delayed(Duration(milliseconds: 100));
     read.then((value) async {
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
@@ -76,7 +78,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       }
       if(readSetting.isPassword == 1 && readSetting.Password != "null") { // password controll
         Navigator.push(context, PageRouteBuilder(
-          transitionDuration: Duration(milliseconds: 1),
+          transitionDuration: const Duration(milliseconds: 1),
           pageBuilder: (context, animation, nextanim) => PasswordSplash(),
           reverseTransitionDuration: Duration(milliseconds: 1),
           transitionsBuilder: (context, animation, nexttanim, child) {

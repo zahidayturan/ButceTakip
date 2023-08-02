@@ -1,3 +1,4 @@
+import 'package:butcekontrol/models/currency_info.dart';
 import 'package:butcekontrol/models/settings_info.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart' as sql;
@@ -5,6 +6,21 @@ import 'package:sqflite/sqflite.dart' as sql;
 import '../models/spend_info.dart';
 
 class SQLHelper {
+  static Future <void> createCurrencyTable(sql.Database database) async {
+    database.execute("""CREATE TABLE currency(
+              id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+              BASE TEXT,
+              TRY TEXT,
+              USD TEXT,
+              EUR TEXT,
+              GBP TEXT,
+              KWD TEXT,
+              lastApiUpdateDate TEXT
+              createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+            )
+            """);
+  }
+
 
   static Future <void> createSettingTable(sql.Database database) async{
     await database.execute("""CREATE TABLE setting(
@@ -44,17 +60,54 @@ class SQLHelper {
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
       """);
-
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
-      'bt1.db',
+      'bt18.db',
       version: 1,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
         await createSettingTable(database);
+        await createCurrencyTable(database);
       },
+      onUpgrade: (sql.Database database, int oldVersion, int  newVersion) {
+        if (newVersion > oldVersion) {
+          database.execute("""CREATE TABLE currency(
+            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+            BASE TEXT,
+            TRY TEXT,
+            USD TEXT,
+            EUR TEXT,
+            GBP TEXT,
+            KWD TEXT,
+            lastApiUpdateDate TEXT
+            createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+          )
+          """);
+        }
+      },
+
     );
+  }
+  static Future<List<currencyInfo>> currencyControl() async{ //currency ablosundaki kayıt saysı liste şeklinde dönüyor
+    final db = await SQLHelper.db();
+    var result = await db.query('currency', orderBy: "id");
+    return  List.generate(result.length, (index){
+      return currencyInfo.fromObject(result[index]);
+    });
+  }
+  static Future <int> addItemCurrency(currencyInfo info) async{
+    final db = await SQLHelper.db();
+    final data = info.toMap();
+    final id = await db.insert("currency", data, conflictAlgorithm:  sql.ConflictAlgorithm.replace);
+    return id;
+  }
+
+  static updateCurrency(currencyInfo info) async{
+    final db = await SQLHelper.db();
+    final result =
+    await db.update("currency", info.toMap(),where: "id= ?", whereArgs: [info.id]);
+    return result;
   }
 
   static Future<List<SettingsInfo>> settingsControl() async{ //settings ablosundaki kayıt saysı liste şeklinde dönüyor
@@ -64,6 +117,7 @@ class SQLHelper {
       return SettingsInfo.fromObject(result[index]);
     });
   }
+
   static Future <int> addItemSetting(SettingsInfo info) async{
     final db = await SQLHelper.db();
     final data = info.toMap();
