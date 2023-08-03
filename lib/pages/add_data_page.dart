@@ -1654,7 +1654,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             amount,
                             _note.text,
                             _operationDate.text,
-                            '0' //moneyType TRY olmalı?
+                            '0', //moneyType TRY olmalı?,
+                            0.0,
                         );
                         if(adCounter == 0  ){
                           _showInterstitialAd(context); ///reklam

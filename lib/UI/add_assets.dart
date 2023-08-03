@@ -132,7 +132,10 @@ class _addAssetsState extends ConsumerState<addAssets> {
                               "null",
                               "null",
                               "null",
-                              ""
+                              "",
+                              0,
+                              "null",
+                              "null",
                           );
                           await SQLHelper.createItem(newinfo);
                           Navigator.of(context).pop();

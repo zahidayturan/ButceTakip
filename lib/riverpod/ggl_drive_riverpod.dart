@@ -84,7 +84,6 @@ class GglDriveRiverpod extends ChangeNotifier{
     final filePath = "${tempDir.path}/$fileName";
     final f = File(filePath);
     Reference storageRef = _storage.ref().child("ButceTakipArchive/${_auth.currentUser?.email}/Bka_CSV.cvs");
-
     final downloadTask = storageRef.writeToFile(f);
     downloadTask.snapshotEvents.listen((taskSnapshot) async {
       switch (taskSnapshot.state) {

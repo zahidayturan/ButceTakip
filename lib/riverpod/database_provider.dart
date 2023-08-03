@@ -1,4 +1,3 @@
-import 'package:butcekontrol/pages/search_page.dart';
 import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +59,7 @@ class DbProvider extends ChangeNotifier {
       String? note,
       String operationDate,
       String moneyType,
+      double ?realAmount,
       )async {
     String time = operationDate ;
     List <String> parts = time.split(".");
@@ -67,6 +67,9 @@ class DbProvider extends ChangeNotifier {
     int parseMonth = int.parse(parts[1]);
     int parseYear = int.parse(parts[2]);
     String processOnce = '0';
+    String userCategory = '';
+    String systemMessage = '';
+
     final newinfo = SpendInfo(
         operationType,
         category,
@@ -80,7 +83,10 @@ class DbProvider extends ChangeNotifier {
         DateTimeManager.getCurrentTime(),
         operationDate,
         moneyType,
-        processOnce
+        processOnce,
+        realAmount,
+        userCategory,
+        systemMessage,
     );
     await SQLHelper.createItem(newinfo);
     isuseinsert = !isuseinsert ;

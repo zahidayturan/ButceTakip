@@ -13,6 +13,9 @@ class SpendInfo {
   String ?operationTime ;
   String ?moneyType ;
   String ?processOnce ;
+  double ?realAmount ;
+  String ?userCategory ;
+  String ?systemMessage ;
 
   SpendInfo(
       this.operationType,
@@ -27,7 +30,10 @@ class SpendInfo {
       this.operationTime,
       this.operationDate,
       this.moneyType,
-      this.processOnce
+      this.processOnce,
+      this.realAmount,
+      this.userCategory,
+      this.systemMessage,
       );
   SpendInfo.withId(
       this.id,
@@ -43,7 +49,10 @@ class SpendInfo {
       this.operationTime,
       this.operationDate,
       this.moneyType,
-      this.processOnce
+      this.processOnce,
+      this.realAmount,
+      this.userCategory,
+      this.systemMessage,
       );
 
   Map<String,dynamic> toMap(){
@@ -61,6 +70,10 @@ class SpendInfo {
     map["operationDate"] = operationDate ;
     map["moneyType"] = moneyType ;
     map["processOnce"] = processOnce ;
+    map["realAmount"] = realAmount ;
+    map["userCategory"] = userCategory ;
+    map["systemMessage"] = systemMessage ;
+
     return map ;
   }
   SpendInfo.fromObject(dynamic o){
@@ -78,6 +91,9 @@ class SpendInfo {
     operationDate  = o["operationDate"] ;
     moneyType = o["moneyType"];
     processOnce  = o["processOnce"] ;
+    realAmount  = o["realAmount"] ;
+    userCategory  = o["userCategory"] ;
+    systemMessage  = o["systemMessage"] ;
   }
   dynamic fromCsvValue(String value) {
     if (value.isEmpty) {
@@ -93,21 +109,50 @@ class SpendInfo {
   }
 
   factory SpendInfo.fromCVSObjetct(List<dynamic> o ){
-    return SpendInfo.withId(
-      int.parse(o[0].toString()),
-      o[1].toString(),
-      o[2].toString(),
-      o[3].toString(),
-      int.parse(o[4].toString()),
-      double.parse(o[5].toString()),
-      o[6].toString(),
-      o[7].toString(),
-      o[8].toString(),
-      o[9].toString(),
-      o[10].toString(),
-      o[11].toString(),
-      o[12].toString(),
-      o[13].toString(),
-    );
+    if(o.length > 15){
+      print("AYYYYYYYY");
+      return SpendInfo.withId(
+        int.parse(o[0].toString()),//id
+        o[1].toString(),//operationType
+        o[2].toString(),//category
+        o[3].toString(),//operationTool
+        int.parse(o[4].toString()),//registration
+        double.parse(o[5].toString()),//amount
+        o[6].toString(),//note
+        o[7].toString(),//operationDay
+        o[8].toString(),//operationMonth
+        o[9].toString(),//operationYear
+        o[10].toString(),//operationTime
+        o[11].toString(),//operationDate
+        o[12].toString(),//moneyType
+        o[13].toString(),//processOnce
+        double.parse(o[14].toString()),//realAmount
+        o[15].toString(),//userCategory
+        o[16].toString(),//systemMessage
+      );
+    }else{
+      print("BAKAKKKKKKK");
+      return SpendInfo.withId(
+        int.parse(o[0].toString()),
+        o[1].toString(),
+        o[2].toString(),
+        o[3].toString(),
+        int.parse(o[4].toString()),
+        double.parse(o[5].toString()),
+        o[6].toString(),
+        o[7].toString(),
+        o[8].toString(),
+        o[9].toString(),
+        o[10].toString(),
+        o[11].toString(),
+        o[12].toString(),
+        o[13].toString(),
+        0.0,
+        "",
+        "",
+      );
+    }
+
   }
+
 }

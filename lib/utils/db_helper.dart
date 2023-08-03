@@ -6,22 +6,20 @@ import 'package:sqflite/sqflite.dart' as sql;
 import '../models/spend_info.dart';
 
 class SQLHelper {
-  static Future <void> createCurrencyTable(sql.Database database) async {
+  static Future <void> createCurrnecyTable(sql.Database database) async {
     database.execute("""CREATE TABLE currency(
-              id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-              BASE TEXT,
-              TRY TEXT,
-              USD TEXT,
-              EUR TEXT,
-              GBP TEXT,
-              KWD TEXT,
-              lastApiUpdateDate TEXT
-              createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-            )
-            """);
+      id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      BASE TEXT,
+      TRY TEXT,
+      USD TEXT,
+      EUR TEXT,
+      GBP TEXT,
+      KWD TEXT,
+      lastApiUpdateDate TEXT
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+    """);
   }
-
-
   static Future <void> createSettingTable(sql.Database database) async{
     await database.execute("""CREATE TABLE setting(
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -63,30 +61,21 @@ class SQLHelper {
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
-      'bt18.db',
-      version: 1,
+      'bt27.db',
+      version: 3,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
         await createSettingTable(database);
-        await createCurrencyTable(database);
+       // await createCurrnecyTable(database);
       },
       onUpgrade: (sql.Database database, int oldVersion, int  newVersion) {
         if (newVersion > oldVersion) {
-          database.execute("""CREATE TABLE currency(
-            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-            BASE TEXT,
-            TRY TEXT,
-            USD TEXT,
-            EUR TEXT,
-            GBP TEXT,
-            KWD TEXT,
-            lastApiUpdateDate TEXT
-            createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-          )
-          """);
+          createCurrnecyTable(database);
+          database.execute("ALTER TABLE spendinfo ADD COLUMN realAmount REAL DEFAULT 0");
+          database.execute("ALTER TABLE spendinfo ADD COLUMN userCategory TEXT DEFAULT '' ");
+          database.execute("ALTER TABLE spendinfo ADD COLUMN systemMessage TEXT DEFAULT '' ");
         }
       },
-
     );
   }
   static Future<List<currencyInfo>> currencyControl() async{ //currency ablosundaki kayıt saysı liste şeklinde dönüyor

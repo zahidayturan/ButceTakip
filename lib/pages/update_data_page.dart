@@ -1702,7 +1702,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           int.parse(registration.text),
                           amount,
                           note.text,
-                          operationDate.text);
+                          operationDate.text,
+                          0
+                          );
                           read.update();
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();
