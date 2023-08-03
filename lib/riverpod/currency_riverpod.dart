@@ -66,19 +66,88 @@ class CurrencyRiverpod extends ChangeNotifier {
       //başarısız
     }
     print("veri databaseye kaydoldu");
+
     if (responseMap != null) {
       return currencyInfo(
-          "TRY",
-          responseMap["rates"]["TRY"].toString(),
-          responseMap["rates"]["USD"].toString(),
-          responseMap["rates"]["EUR"].toString(),
-          responseMap["rates"]["GBP"].toString(),
-          responseMap["rates"]["KWD"].toString(),
-          globalNow.add(Duration(hours: 6)).toString(),
+        "TRY",
+        responseMap["rates"]["TRY"].toString(),
+        responseMap["rates"]["USD"].toString(),
+        responseMap["rates"]["EUR"].toString(),
+        responseMap["rates"]["GBP"].toString(),
+        responseMap["rates"]["KWD"].toString(),
+        globalNow.add(Duration(hours: 6)).toString(),
       );
     }else{
       return currencyInfo("TRY", "TRY", "USD", "EUR", "GBP", "KWD", DateTime.now().toString());
     }
+
+    /*
+    if (responseMap != null) {
+      List<String> baseList = ["TRY", "USD", "EUR", "GBP", "KWD"]; // dil eklendiğinde değiştirilecek
+      List<currencyInfo> ratesList = [] ;
+      currencyInfo ?BaseDif;
+      for(int index = 0 ; index < baseList.length ; index ++){
+        if(baseList[index] == "TRY") {
+          BaseDif = currencyInfo(
+            "TRY",
+            responseMap["rates"]["TRY"].toString(),
+            responseMap["rates"]["USD"].toString(),
+            responseMap["rates"]["EUR"].toString(),
+            responseMap["rates"]["GBP"].toString(),
+            responseMap["rates"]["KWD"].toString(),
+            globalNow.add(Duration(hours: 6)).toString(),
+          );
+        }else if(baseList[index] == "USD"){
+          BaseDif = currencyInfo(
+              "USD",
+              (responseMap["rates"]["TRY"] / responseMap["rates"]["USD"]).toString(),
+              (responseMap["rates"]["USD"] / responseMap["rates"]["USD"]).toString(),
+              (responseMap["rates"]["EUR"] / responseMap["rates"]["USD"]).toString(),
+              (responseMap["rates"]["GBP"] / responseMap["rates"]["USD"]).toString(),
+              (responseMap["rates"]["KWD"] / responseMap["rates"]["USD"]).toString(),
+            globalNow.add(Duration(hours: 6)).toString(),
+          );
+        }else if(baseList[index] == "EUR"){
+          BaseDif = currencyInfo(
+            "EUR",
+            (responseMap["rates"]["TRY"] / responseMap["rates"]["EUR"]).toString(),
+            (responseMap["rates"]["USD"] / responseMap["rates"]["EUR"]).toString(),
+            (responseMap["rates"]["EUR"] / responseMap["rates"]["EUR"]).toString(),
+            (responseMap["rates"]["GBP"] / responseMap["rates"]["EUR"]).toString(),
+            (responseMap["rates"]["KWD"] / responseMap["rates"]["EUR"]).toString(),
+            globalNow.add(Duration(hours: 6)).toString(),
+          );
+        }else if(baseList[index] == "GBP"){
+          BaseDif = currencyInfo(
+            "GBP",
+            (responseMap["rates"]["TRY"] / responseMap["rates"]["GBP"]).toString(),
+            (responseMap["rates"]["USD"] / responseMap["rates"]["GBP"]).toString(),
+            (responseMap["rates"]["EUR"] / responseMap["rates"]["GBP"]).toString(),
+            (responseMap["rates"]["GBP"] / responseMap["rates"]["GBP"]).toString(),
+            (responseMap["rates"]["KWD"] / responseMap["rates"]["GBP"]).toString(),
+            globalNow.add(Duration(hours: 6)).toString(),
+          );
+        }else{//KWD
+          BaseDif = currencyInfo(
+            "KWD",
+            (responseMap["rates"]["TRY"] / responseMap["rates"]["KWD"]).toString(),
+            (responseMap["rates"]["USD"] / responseMap["rates"]["KWD"]).toString(),
+            (responseMap["rates"]["EUR"] / responseMap["rates"]["KWD"]).toString(),
+            (responseMap["rates"]["GBP"] / responseMap["rates"]["KWD"]).toString(),
+            (responseMap["rates"]["KWD"] / responseMap["rates"]["KWD"]).toString(),
+            globalNow.add(Duration(hours: 6)).toString(),
+          );
+        }
+        ratesList.add(BaseDif!);
+      }
+      print("RATES LİSTT ==> $ratesList");
+      return ratesList;
+    }else{
+        print("API DE HATA ÇIKTI LİSTE GELMEDİ");
+       List<currencyInfo> a = [currencyInfo("TRY", "TRY", "USD", "EUR", "GBP", "KWD", DateTime.now().toString())];
+       return a;
+    }
+    */
   }
 
   Future controlCurrency(String? prefix) async{ //currency Kayıt değerlendiriyoruz.
@@ -132,14 +201,15 @@ class CurrencyRiverpod extends ChangeNotifier {
       }else{
         await fetchExchangeRates(prefix).then((info) {
           firestoreHelper.createCurrencyFirestore(info);
-          SQLHelper.addItemCurrency(info);
+          //SQLHelper.addItemCurrency(info);
           readDb();
         });
       }
     }catch(e){
+      Exception("INTERNET YOKKKKKKKKK");
       print("INTERNET BULUNAMADI(DİD FOUND INTERNET TAKED DEFAULT INFORMATION [$e]");
+      //varsayılan değerleri aldırsana abi tekrar kntrol gerekiyor.
     }
-
   }
 
   Future Updating() async {

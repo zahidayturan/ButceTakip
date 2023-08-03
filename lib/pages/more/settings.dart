@@ -2,7 +2,6 @@ import 'package:app_settings/app_settings.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/pages/Test.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +32,8 @@ class _SettingsState extends ConsumerState<Settings> {
     bool darkthememode = readSetting.DarkMode == 1 ? true : false ;
     bool isPassword = readSetting.isPassword == 1 ? true : false ;
     bool isBackup = readSetting.isBackUp == 1 ? true : false ;
-    //String? Prefix = readSetting.Prefix ;
+    String ?Prefix = readSetting.Prefix ;
     String languageFirst = "Türkçe" ;
-    String dropdownshowitem = 'TRY';
     ref.watch(settingsRiverpod).isuseinsert;
     return Container(
       color: renkler.koyuuRenk,
@@ -239,66 +237,59 @@ class _SettingsState extends ConsumerState<Settings> {
                     ),
                   ),
                 ), ///Bildirimler
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => testPage()));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(11)),
-                      child: Container(
-                        height: 40,
-                        width: size.width,
-                        color: renkler.arkaRenk,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Row(
-                            children: [
-                              const Text(
-                                "Para Birimi (Varsayılan)",
-                                style: TextStyle(
-                                  fontFamily: "Nexa3",
-                                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(11)),
+                    child: Container(
+                      height: 40,
+                      width: size.width,
+                      color: renkler.arkaRenk,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Para Birimi (Varsayılan)",
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
                               ),
-                              const Spacer(),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Container(
-                                  height: 30,
-                                  width: 80,
-                                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                                  color: renkler.koyuuRenk,
-                                  child: DropdownButton(
-                                    dropdownColor: renkler.koyuuRenk,
-                                    borderRadius: BorderRadius.circular(20),
-                                    value: dropdownshowitem,
-                                    elevation: 16,
-                                    style: TextStyle(color: renkler.sariRenk),
-                                    underline: Container(
-                                      height: 2,
-                                      color: renkler.koyuuRenk,
-                                    ),
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        dropdownshowitem = newValue!;
-                                      });
-                                    },
-                                    items: moneyPrefix
-                                        .map<DropdownMenuItem<String>>((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                        onTap: () {
-
-                                        },
-                                      );
-                                    }).toList(),
+                            ),
+                            const Spacer(),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Container(
+                                height: 30,
+                                width: 80,
+                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                color: renkler.koyuuRenk,
+                                child: DropdownButton(
+                                  dropdownColor: renkler.koyuuRenk,
+                                  borderRadius: BorderRadius.circular(20),
+                                  value: Prefix,
+                                  elevation: 16,
+                                  style: TextStyle(color: renkler.sariRenk),
+                                  underline: Container(
+                                    height: 2,
+                                    color: renkler.koyuuRenk,
                                   ),
+                                  onChanged: (newValue) {
+                                    readSetting.setPrefix(newValue!);
+                                    readSetting.setisuseinsert();
+                                  },
+                                  items: moneyPrefix.map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                      onTap: () {
+
+                                      },
+                                    );
+                                  }).toList(),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
