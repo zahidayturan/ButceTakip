@@ -88,7 +88,15 @@ class _base_BKAState extends ConsumerState<base_BKA> {
         ),
         );
       }
+
+      var readUpdateData =  ref.read(updateDataRiverpod);
+      readUpdateData.customizeRepeatedOperation();
+      readUpdateData.customizeInstallmentOperation();
+
+
     });
+
+
   }
 
   @override
@@ -96,6 +104,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     super.initState();
     loadData();
     FirebaseNotificationService().connectNotification(context);
+    super.initState();
   }
 
   @override
@@ -103,6 +112,8 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     var watch = ref.watch(botomNavBarRiverpod);
     return Scaffold(
       body:watch.body(),
+      //extendBody: true,
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: NavBar(),
     );
   }

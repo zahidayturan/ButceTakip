@@ -1,10 +1,8 @@
  import 'package:butcekontrol/UI/password_forget.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/more/password.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sqflite/sqflite.dart';
 
 import '../../riverpod_management.dart';
 
@@ -23,20 +21,19 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
   bool num4 = false;
   List <String> password1list = [];
   String password1 = "" ;
-  String info = "Giriş kodunuzu giriniz.";
+  String info = "Giriş Kodunuzu Giriniz.";
   String errorText = "" ;
   int ?Claim  ;
   bool security = false ;
   CustomColors renkler =  CustomColors();
   @override
   Widget build(BuildContext context) {
-    var readSetting = ref.read(settingsRiverpod) ;
     var size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async  => widget.mode == "admin" ? true : false,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
+          //backgroundColor: const Color(0xffF2F2F2),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
             child: SingleChildScrollView(
@@ -74,7 +71,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                       Text(
                         info,
                         style: TextStyle(
-                            color: renkler.koyuuRenk,
+                            color: Theme.of(context).canvasColor,
                             fontFamily: "Nexa4"
                         ),
                       ),
@@ -88,7 +85,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                             child: ClipRRect(
                               borderRadius: const BorderRadius.all(Radius.circular(20)),
                               child: Container(
-                                color: num1 ? Colors.black : const Color(0xffE2E1E1),
+                                color: num1 ? renkler.sariRenk : const Color(0xffE2E1E1),
                               ),
                             )
                         ),
@@ -99,7 +96,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                             child: ClipRRect(
                               borderRadius: const BorderRadius.all(Radius.circular(20)),
                               child: Container(
-                                color: num2 ? Colors.black : const Color(0xffE2E1E1),
+                                color: num2 ? renkler.sariRenk : const Color(0xffE2E1E1),
                               ),
                             )
                         ),
@@ -110,7 +107,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                             child: ClipRRect(
                               borderRadius: const BorderRadius.all(Radius.circular(20)),
                               child: Container(
-                                color: num3 ? Colors.black : const Color(0xffE2E1E1),
+                                color: num3 ? renkler.sariRenk : const Color(0xffE2E1E1),
                               ),
                             )
                         ),
@@ -121,7 +118,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                             child: ClipRRect(
                               borderRadius: const BorderRadius.all(Radius.circular(20)),
                               child: Container(
-                                color: num4 ? Colors.black : const Color(0xffE2E1E1),
+                                color: num4 ? renkler.sariRenk : const Color(0xffE2E1E1),
                               ),
                             )
                         ),
@@ -236,9 +233,10 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                                     onPressed: () {
                                                       Navigator.of(context).pop();
                                                     },
-                                                    icon: const Icon(
+                                                    icon: Icon(
                                                       Icons.clear_rounded,
                                                       size: 30,
+                                                      color: renkler.koyuuRenk,
                                                     ),
                                                   ),
                                                 ),
@@ -249,7 +247,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                    "Merhabalar Sizin için Şifremi unuttum seçeneği oluşturduk ilk şifrenizi oluştururken size sorduğumuz güvenlik sorusu sayesinde işlemlerimizi gerçekleştireceğiz. Unutmayınız doğru seçenek için yalnızca 3 hakkınız var bilemediğiniz takdirde verileriniz silinecektir . Eğer hazırsanız .",
+                                                    "Merhabalar, sizin için Şifremi Unuttum seçeneği oluşturduk ilk şifrenizi oluştururken size sorduğumuz güvenlik sorusu sayesinde işlemlerimizi gerçekleştireceğiz. Unutmayınız doğru seçenek için yalnızca 3 hakkınız var bilemediğiniz takdirde verileriniz silinecektir . Eğer hazırsanız ;",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: renkler.arkaRenk,
@@ -280,12 +278,13 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                                       height: 25,
                                                       width: 80,
                                                       color: renkler.arkaRenk,
-                                                      child: const Center(
+                                                      child: Center(
                                                         child: Text(
                                                             "Devam Et",
                                                           style: TextStyle(
                                                             fontSize: 15,
-                                                            fontWeight: FontWeight.bold
+                                                            fontWeight: FontWeight.bold,
+                                                            color: renkler.koyuuRenk
                                                           ),
                                                         ),
                                                       ),

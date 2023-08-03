@@ -14,7 +14,7 @@ class NavBar extends ConsumerWidget {
     CustomColors renkler = CustomColors();
     final Size size = MediaQuery.of(context).size;
     return Container(
-      color: read.currentColor,
+      //color: Theme.of(context).primaryColor,
       width: size.width,
       height: 64,
       child: Stack(
@@ -27,9 +27,21 @@ class NavBar extends ConsumerWidget {
               height: 52,
               child: Stack(
                 children: [
-                  CustomPaint(
-                    size: Size(size.width, 80),
-                    painter: BNBCustomPainter(),
+                  Container(
+                    child: CustomPaint(
+                      size: Size(size.width, 80),
+                      painter: BNBCustomPainter(),
+                    ),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(0, 0)
+                        )
+                      ]
+                    ),
                   ),
                   SizedBox(
                     width: size.width,

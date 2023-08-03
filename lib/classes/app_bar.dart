@@ -1,3 +1,5 @@
+import 'package:butcekontrol/UI/customize_installment_operation_list.dart';
+import 'package:butcekontrol/UI/customize_operation_list.dart';
 import 'package:butcekontrol/UI/registery_list.dart';
 import 'package:butcekontrol/pages/more/Help/help_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
@@ -21,6 +23,40 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
         ),
       ),
       actions: [
+        IconButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return const CustomizeInstallmentList();
+              },
+            );
+          },
+          icon: const Icon(
+            Icons.monetization_on_outlined,
+            color: Color(0xFFFFFFFF),
+            size: 30,
+          ),
+          constraints: const BoxConstraints(maxWidth: 40),
+          iconSize: 20.0,
+        ),
+        IconButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return const CustomizeList();
+              },
+            );
+          },
+          icon: const Icon(
+            Icons.recycling,
+            color: Color(0xFFFFFFFF),
+            size: 30,
+          ),
+          constraints: const BoxConstraints(maxWidth: 40),
+          iconSize: 20.0,
+        ),
         IconButton(
           onPressed: () {
             showDialog(

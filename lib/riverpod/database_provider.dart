@@ -52,13 +52,13 @@ class DbProvider extends ChangeNotifier {
       String? note,
       String operationDate,
       String moneyType,
+      String processOnce,
       )async {
     String time = operationDate ;
     List <String> parts = time.split(".");
     int parseDay = int.parse(parts[0]);
     int parseMonth = int.parse(parts[1]);
     int parseYear = int.parse(parts[2]);
-    String processOnce = '0';
     final newinfo = SpendInfo(
         operationType,
         category,
@@ -112,8 +112,7 @@ class DbProvider extends ChangeNotifier {
         'totalAmount2': totalAmount2
       };
     });
-    dailyTotals = Map.fromEntries(dailyTotals.entries.toList()
-      ..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
+    dailyTotals = Map.fromEntries(dailyTotals.entries.toList()..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
     notifyListeners();
     yield {"items" : items, "dailyTotals" : dailyTotals};
   }

@@ -50,6 +50,7 @@ class Aylikinfo extends ConsumerWidget {
                                     "assets/image/origami_noinfo.png",
                                     width: 45,
                                     height: 45,
+                                    color: Theme.of(context).canvasColor,
                                   ),
                                   SizedBox(
                                     height: 22,
@@ -57,10 +58,10 @@ class Aylikinfo extends ConsumerWidget {
                                     child: DecoratedBox(
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(20),
-                                            color: renkler.koyuuRenk
+                                          color: Theme.of(context).canvasColor,
                                         ),
-                                        child: const Center(child: TextMod(
-                                            "Kayıt Yok", Colors.white, 14))
+                                        child: Center(child: TextMod(
+                                            "Kayıt Yok", Theme.of(context).primaryColor, 14))
                                     ),
                                   ),
                                 ],
@@ -73,7 +74,7 @@ class Aylikinfo extends ConsumerWidget {
                                   ),
                                   scrollbarTheme: ScrollbarThemeData(
                                 thumbColor:
-                                    MaterialStateProperty.all(renkler.sariRenk),
+                                    MaterialStateProperty.all(Theme.of(context).dialogBackgroundColor,),
                               )),
                               child: Stack(
                                 children: [
@@ -84,9 +85,9 @@ class Aylikinfo extends ConsumerWidget {
                                       decoration: BoxDecoration(
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(30)),
-                                          color: dailyTotals.length <= 8
-                                              ? renkler.arkaRenk
-                                              : const Color(0xFF0D1C26)),
+                                          color: dailyTotals.length <= 9
+                                              ? Theme.of(context).indicatorColor
+                                              : Theme.of(context).canvasColor),
                                     ),
                                   ),
                                   Scrollbar(
@@ -160,7 +161,13 @@ class Aylikinfo extends ConsumerWidget {
                                                     },
                                                     child: Container(
                                                       height: 28,
-                                                      color: renkler.arkaRenk,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: const BorderRadius.all(
+                                                            Radius.circular(10)
+                                                        ),
+
+                                                        color: Theme.of(context).indicatorColor,
+                                                      ),
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -174,81 +181,89 @@ class Aylikinfo extends ConsumerWidget {
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            SizedBox(
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(top: 4),
+                                                              child: SizedBox(
+                                                                  width:
+                                                                      ceyrekwsize,
+                                                                  child: RichText(
+                                                                    text:
+                                                                        TextSpan(
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontFamily:
+                                                                            'Nexa3',
+                                                                        fontSize:
+                                                                            14,
+                                                                            color: Theme.of(context).canvasColor,
+                                                                      ),
+                                                                      children: [
+                                                                        TextSpan(
+                                                                          text:
+                                                                              '$day ',
+                                                                          style: const TextStyle(
+                                                                              fontFamily:
+                                                                                  'Nexa3',
+                                                                              fontWeight:
+                                                                                  FontWeight.w900,
+                                                                          ),
+                                                                        ),
+                                                                        TextSpan(
+                                                                          text:
+                                                                              dayOfWeekName,
+                                                                          style: const TextStyle(
+                                                                              fontFamily:
+                                                                                  'Nexa3',
+                                                                              fontSize:
+                                                                                  14),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  )),
+                                                            ),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(top: 4),
+                                                              child: SizedBox(
                                                                 width:
                                                                     ceyrekwsize,
-                                                                child: RichText(
-                                                                  text:
-                                                                      TextSpan(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    totalAmount.toStringAsFixed(1),
                                                                     style:
-                                                                        const TextStyle(
+                                                                        TextStyle(
                                                                       fontFamily:
                                                                           'Nexa3',
                                                                       fontSize:
                                                                           14,
-                                                                      color: Colors
-                                                                          .black,
+                                                                      color: renkler.yesilRenk
                                                                     ),
-                                                                    children: [
-                                                                      TextSpan(
-                                                                        text:
-                                                                            '$day ',
-                                                                        style: const TextStyle(
-                                                                            fontFamily:
-                                                                                'Nexa3',
-                                                                            fontWeight:
-                                                                                FontWeight.w900),
-                                                                      ),
-                                                                      TextSpan(
-                                                                        text:
-                                                                            dayOfWeekName,
-                                                                        style: const TextStyle(
-                                                                            fontFamily:
-                                                                                'Nexa3',
-                                                                            fontSize:
-                                                                                14),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                )),
-                                                            SizedBox(
-                                                              width:
-                                                                  ceyrekwsize,
-                                                              child: Center(
-                                                                child: Text(
-                                                                  totalAmount.toStringAsFixed(1),
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Nexa3',
-                                                                    fontSize:
-                                                                        14,
-                                                                    color: renkler
-                                                                        .yesilRenk,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width:
-                                                                  ceyrekwsize,
-                                                              child: Center(
-                                                                child: Text(
-                                                                  totalAmount2.toStringAsFixed(1),
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Nexa3',
-                                                                    fontSize:
-                                                                        14,
-                                                                    color: renkler
-                                                                        .kirmiziRenk,
                                                                   ),
                                                                 ),
                                                               ),
                                                             ),
                                                             Padding(
-                                                              padding: const EdgeInsets.only(right: 5),
+                                                              padding: const EdgeInsets.only(top: 4),
+                                                              child: SizedBox(
+                                                                width:
+                                                                    ceyrekwsize,
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    totalAmount2.toStringAsFixed(1),
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontFamily:
+                                                                          'Nexa3',
+                                                                      fontSize:
+                                                                          14,
+                                                                      color: renkler
+                                                                          .kirmiziRenk,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(right: 5,top: 4),
                                                               child: SizedBox(
                                                                 width:
                                                                     ceyrekwsize,
@@ -256,19 +271,18 @@ class Aylikinfo extends ConsumerWidget {
                                                                   '$formattedTotal',
                                                                   textAlign: TextAlign.right,
                                                                   style:
-                                                                      const TextStyle(
+                                                                      TextStyle(
                                                                     fontFamily:
                                                                         'Nexa3',
                                                                     fontSize:
                                                                         14,
-                                                                    color: Colors
-                                                                        .black,
+                                                                        color: Theme.of(context).canvasColor,
                                                                   ),
                                                                 ),
                                                               ),
                                                             ),
                                                             eyeColorChoice(
-                                                                formattedTotal),
+                                                                formattedTotal,context),
                                                           ],
                                                         ),
                                                       ),
@@ -291,7 +305,7 @@ class Aylikinfo extends ConsumerWidget {
           );
   }
 
-  Widget eyeColorChoice(String toplam) {
+  Widget eyeColorChoice(String toplam, BuildContext context) {
     CustomColors renkler = CustomColors();
     if (toplam.contains('-')) {
       return Icon(
@@ -299,7 +313,7 @@ class Aylikinfo extends ConsumerWidget {
         color: renkler.kirmiziRenk,
       );
     } else {
-      return const Icon(Icons.remove_red_eye, color: Colors.black);
+      return Icon(Icons.remove_red_eye, color: Theme.of(context).canvasColor);
     }
   }
 

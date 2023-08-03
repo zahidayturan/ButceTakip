@@ -51,6 +51,8 @@ dependencies:
   cloud_firestore: ^4.7.1
   device_info_plus: ^9.0.1
   url_launcher: ^6.0.0
+  toggle_switch: ^2.1.0
+  dropdown_button2: ^2.3.6
 
 flutter_native_splash:
   image: assets/image/icon_BKA/splash.png
@@ -93,7 +95,6 @@ flutter:
     - assets/image/icon_BKA/İKON.png
     - assets/image/icon_BKA/LOGOBKA-4.png
     - assets/icons/
-    - assets/Avatars/
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

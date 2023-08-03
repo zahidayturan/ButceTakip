@@ -1,6 +1,7 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/constans/theme.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class _SettingsState extends ConsumerState<Settings> {
   CustomColors renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
+    var readNavBar = ref.read(botomNavBarRiverpod);
+    readNavBar.currentColor = Theme.of(context).primaryColor;
     ref.watch(settingsRiverpod).isuseinsert;
     var size = MediaQuery.of(context).size;
     var readSetting = ref.read(settingsRiverpod);
@@ -36,8 +39,9 @@ class _SettingsState extends ConsumerState<Settings> {
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
+        bottom: false,
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
+          //backgroundColor: ThemeData().scaffoldBackgroundColor,
           bottomNavigationBar: const NavBar(),
           appBar: const AppBarForPage(title: "AYARLAR"),
           body: Padding(
@@ -45,133 +49,73 @@ class _SettingsState extends ConsumerState<Settings> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(11),
-                    child: Container(
-                      height: 40,
-                      width: size.width,
-                      color: renkler.arkaRenk,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          children: [
-                            const Text(
-                              "Koyu Tema   (Yakında)",
-                              style: TextStyle(
-                                fontFamily: "Nexa3",
-                              ),
+                  child: Container(
+                    height: 40,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10)
+                      ),
+                      border: Border.all(
+                          color: renkler.arkaRenk, // Set border color
+                          width: 1.0),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Row(
+                        children: [
+                          const Text(
+                            "Koyu Tema   (Yakında)",
+                            style: TextStyle(
+                              fontFamily: "Nexa3",
                             ),
-                            const Spacer(),
-                            darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                 :const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
-                            Switch(
-                              activeColor: renkler.sariRenk,
-                              value: darkthememode,
-                              onChanged: null
-                                 /*
-                                  (bool value) {
-                                setState(() {
-                                  readSetting.setDarkMode(value) ;
-                                });
+                          ),
+                          const Spacer(),
+                          darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                               :const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                          Switch(
+                            activeColor: renkler.sariRenk,
+                            value: darkthememode,
+                            onChanged:
+                                (bool value) {
+                              setState(() {
+                                readSetting.setDarkMode(value) ;
+                              });
 
-                              },
-                                    */
-                            ),
-                          ],
-                        ),
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ), ///Koyu tema
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(11),
-                    child: Container(
-                      height: 40,
-                      width: size.width,
-                      color: renkler.arkaRenk,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: InkWell(
-                          onTap: () {
-                            if(isPassword && readSetting.Password != "null"){
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration: const Duration(milliseconds: 1),
-                                  pageBuilder: (context, animation, nextanim) => const PasswordSplash(mode: "admin"),
-                                  reverseTransitionDuration: const Duration(milliseconds: 1),
-                                  transitionsBuilder: (context, animation, nexttanim, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
-                            }else {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration: const Duration(milliseconds: 1),
-                                  pageBuilder: (context, animation, nextanim) =>
-                                      const PasswordPage(),
-                                  reverseTransitionDuration:
-                                  const Duration(milliseconds: 1),
-                                  transitionsBuilder:
-                                      (context, animation, nexttanim, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
-                            }
-                          },
-                          child: Row(
-                            children: [
-                              const Text(
-                                "Giriş Şifresi",
-                                style: TextStyle(
-                                  fontFamily: "Nexa3",
-                                ),
-                              ),
-                              const Spacer(),
-                              isPassword
-                                  ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                  : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
-                              const Icon(
-                                Icons.arrow_forward_ios,
-                              ),
-                            ],
-                          ),
-                        ),
+                  child: Container(
+                    height: 40,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(10)
                       ),
+                      border: Border.all(
+                          color: renkler.arkaRenk, // Set border color
+                          width: 1.0),
+                      color: Theme.of(context).primaryColor,
                     ),
-                  ),
-                ), /// Giriş şifresi
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(11),
-                    child: Container(
-                      height: 40,
-                      width: size.width,
-                      color: renkler.arkaRenk,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: InkWell(
-                          onTap: () {
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: InkWell(
+                        onTap: () {
+                          if(isPassword && readSetting.Password != "null"){
                             Navigator.push(
                               context,
                               PageRouteBuilder(
                                 transitionDuration: const Duration(milliseconds: 1),
-                                pageBuilder: (context, animation, nextanim) => const BackUp(),
+                                pageBuilder: (context, animation, nextanim) => const PasswordSplash(mode: "admin"),
                                 reverseTransitionDuration: const Duration(milliseconds: 1),
                                 transitionsBuilder: (context, animation, nexttanim, child) {
                                   return FadeTransition(
@@ -181,23 +125,95 @@ class _SettingsState extends ConsumerState<Settings> {
                                 },
                               ),
                             );
-                          },
-                          child: Row(
-                            children:  [
-                              const Text(
-                                "Yedeklenme Durumu",
-                                style: TextStyle(
-                                  fontFamily: "Nexa3",
-                                ),
+                          }else {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                transitionDuration: const Duration(milliseconds: 1),
+                                pageBuilder: (context, animation, nextanim) =>
+                                    const PasswordPage(),
+                                reverseTransitionDuration:
+                                const Duration(milliseconds: 1),
+                                transitionsBuilder:
+                                    (context, animation, nexttanim, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
                               ),
-                              const Spacer(),
-                              isBackup  ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                  : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
-                              const Icon(
-                                Icons.arrow_forward_ios,
-                              )
-                            ],
-                          ),
+                            );
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Giriş Şifresi",
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
+                              ),
+                            ),
+                            const Spacer(),
+                            isPassword
+                                ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ), /// Giriş şifresi
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Container(
+                    height: 40,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(10)
+                      ),
+                      border: Border.all(
+                          color: renkler.arkaRenk, // Set border color
+                          width: 1.0),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              transitionDuration: const Duration(milliseconds: 1),
+                              pageBuilder: (context, animation, nextanim) => const BackUp(),
+                              reverseTransitionDuration: const Duration(milliseconds: 1),
+                              transitionsBuilder: (context, animation, nexttanim, child) {
+                                return FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                        child: Row(
+                          children:  [
+                            const Text(
+                              "Yedeklenme Durumu",
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
+                              ),
+                            ),
+                            const Spacer(),
+                            isBackup  ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
+                                : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                            )
+                          ],
                         ),
                       ),
                     ),
@@ -205,117 +221,127 @@ class _SettingsState extends ConsumerState<Settings> {
                 ),/// Yedekleme durumu
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(11)),
-                    child: Container(
-                      height: 40,
-                      width: size.width,
-                      color: renkler.arkaRenk,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          children: [
-                            const Text(
-                              "Para Birimi",
-                              style: TextStyle(
-                                fontFamily: "Nexa3",
-                              ),
+                  child: Container(
+                    height: 40,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(10)
+                      ),
+                      border: Border.all(
+                          color: renkler.arkaRenk, // Set border color
+                          width: 1.0),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Row(
+                        children: [
+                          const Text(
+                            "Para Birimi",
+                            style: TextStyle(
+                              fontFamily: "Nexa3",
                             ),
-                            const Spacer(),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Container(
-                                height: 30,
-                                width: 61,
-                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                                color: renkler.koyuuRenk,
-                                child: DropdownButton(
-                                  dropdownColor: renkler.koyuuRenk,
-                                  borderRadius: BorderRadius.circular(20),
-                                  value: dropdownshowitem,
-                                  elevation: 16,
-                                  style: TextStyle(color: renkler.sariRenk),
-                                  underline: Container(
-                                    height: 2,
-                                    color: renkler.koyuuRenk,
-                                  ),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      dropdownshowitem = newValue!;
-                                    });
-                                  },
-                                  items: moneyPrefix
-                                      .map<DropdownMenuItem<String>>((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
+                          ),
+                          const Spacer(),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Container(
+                              height: 30,
+                              width: 61,
+                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                              color: renkler.koyuuRenk,
+                              child: DropdownButton(
+                                dropdownColor: renkler.koyuuRenk,
+                                borderRadius: BorderRadius.circular(20),
+                                value: dropdownshowitem,
+                                elevation: 16,
+                                style: TextStyle(color: renkler.sariRenk),
+                                underline: Container(
+                                  height: 2,
+                                  color: renkler.koyuuRenk,
                                 ),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    dropdownshowitem = newValue!;
+                                  });
+                                },
+                                items: moneyPrefix
+                                    .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),/// Para Birimi
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(11)),
-                    child: Container(
-                      height: 40,
-                      width: size.width,
-                      color: renkler.arkaRenk,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          children: [
-                            const Text(
-                              "Dil Desteği",
-                              style: TextStyle(
-                                fontFamily: "Nexa3",
-                              ),
+                  child: Container(
+                    height: 40,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(10)
+                      ),
+                      border: Border.all(
+                          color: renkler.arkaRenk, // Set border color
+                          width: 1.0),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Row(
+                        children: [
+                          const Text(
+                            "Dil Desteği",
+                            style: TextStyle(
+                              fontFamily: "Nexa3",
                             ),
-                            const Spacer(),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Container(
-                                height: 30,
-                                width: 80,
-                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                                color: renkler.koyuuRenk,
-                                child: DropdownButton(
-                                  dropdownColor: renkler.koyuuRenk,
-                                  borderRadius: BorderRadius.circular(20),
-                                  value: languageFirst,
-                                  elevation: 16,
-                                  style: TextStyle(color: renkler.sariRenk),
-                                  underline: Container(
-                                    height: 2,
-                                    color: renkler.koyuuRenk,
-                                  ),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      languageFirst = newValue!;
-                                    });
-                                  },
-                                  items: dilDestegi
-                                      .map<DropdownMenuItem<String>>((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                      onTap: () {
-
-                                      },
-                                    );
-                                  }).toList(),
+                          ),
+                          const Spacer(),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Container(
+                              height: 30,
+                              width: 80,
+                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                              color: renkler.koyuuRenk,
+                              child: DropdownButton(
+                                dropdownColor: renkler.koyuuRenk,
+                                borderRadius: BorderRadius.circular(20),
+                                value: languageFirst,
+                                elevation: 16,
+                                style: TextStyle(color: renkler.sariRenk),
+                                underline: Container(
+                                  height: 2,
+                                  color: renkler.koyuuRenk,
                                 ),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    languageFirst = newValue!;
+                                  });
+                                },
+                                items: dilDestegi
+                                    .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                    onTap: () {
+
+                                    },
+                                  );
+                                }).toList(),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

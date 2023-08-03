@@ -100,7 +100,7 @@ class _CalculatorState extends State<Calculator> {
       color: const Color(0xFF03111A),
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
+          //backgroundColor: const Color(0xffF2F2F2),
           appBar: const AppBarForPage(title: 'HESAP MAKİNESİ'),
           body: SingleChildScrollView(
             child: Column(
@@ -122,7 +122,7 @@ class _CalculatorState extends State<Calculator> {
                         bottomLeft: Radius.circular(40),
                       ),
                       child: Container(
-                        color: renkler.koyuuRenk,
+                        color: Theme.of(context).highlightColor,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: PageView(
@@ -156,7 +156,7 @@ class _CalculatorState extends State<Calculator> {
                             border: Border(
                               bottom: BorderSide(
                                 width: 2.0,
-                                color: renkler.koyuuRenk,
+                                color: Theme.of(context).canvasColor,
                               ),
                             ),
                           ),
@@ -167,7 +167,7 @@ class _CalculatorState extends State<Calculator> {
                         height: 20,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            color: renkler.koyuuRenk,
+                            color: Theme.of(context).canvasColor,
                             borderRadius: BorderRadius.circular(50),
                           ),
                         ),
@@ -179,7 +179,7 @@ class _CalculatorState extends State<Calculator> {
                             border: Border(
                               bottom: BorderSide(
                                 width: 2.0,
-                                color: renkler.koyuuRenk,
+                                color: Theme.of(context).canvasColor,
                               ),
                             ),
                           ),
@@ -202,7 +202,7 @@ class _CalculatorState extends State<Calculator> {
                         width: size.width / 4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            color: renkler.koyuuRenk,
+                            color: Theme.of(context).highlightColor,
                             borderRadius: BorderRadius.circular(20),
                             border: _currentPageindex == 0
                                 ? Border.all(
@@ -241,7 +241,7 @@ class _CalculatorState extends State<Calculator> {
                         width: size.width / 4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            color: renkler.koyuuRenk,
+                            color: Theme.of(context).highlightColor,
                             borderRadius: BorderRadius.circular(20),
                             border: _currentPageindex == 1
                                 ? Border.all(
@@ -295,7 +295,7 @@ class _CalculatorState extends State<Calculator> {
                         width: size.width / 4,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            color: Colors.black54,
+                            color: Theme.of(context).highlightColor,
                             borderRadius: BorderRadius.circular(20),
                             border: _currentPageindex == 3
                                 ? Border.all(
@@ -1153,11 +1153,12 @@ class _CalculatorState extends State<Calculator> {
                             },
                             keyboardType: TextInputType.number,
                             controller: sayi1Controller,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               hintText: 'Sayıyı Giriniz',
                                 hintStyle: TextStyle(
                                   fontSize: 14,
-                                  fontFamily: 'Nexa3'
+                                  fontFamily: 'Nexa3',
+                                  color: renkler.koyuAraRenk
                                 ),
                                 counterText: '',
                               isDense: true,
@@ -1338,9 +1339,11 @@ class _CalculatorState extends State<Calculator> {
                                 isDense: true,
                                 counterText: '',
                                 hintText: sayi2ishere ? null : 'Yüzdeyi Giriniz',
-                                hintStyle: const TextStyle(
+                                hintStyle: TextStyle(
                                   fontSize: 14,
-                                    fontFamily: 'Nexa3'
+                                    fontFamily: 'Nexa3',
+                                    color: renkler.koyuAraRenk
+
                                 ),
                                 enabledBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(

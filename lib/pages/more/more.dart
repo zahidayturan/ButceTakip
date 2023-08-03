@@ -25,8 +25,9 @@ class More extends ConsumerWidget {
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
+        bottom: false,
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
+          //backgroundColor: const Color(0xffF2F2F2),
           appBar: const AppBarForPage(title: "DİĞER İŞLEMLER"),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -61,13 +62,17 @@ class More extends ConsumerWidget {
                               width: size.height / 9,
                               decoration: BoxDecoration(
                                   color: renkler.koyuuRenk,
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).canvasColor
+                                  ),
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Icon(Icons.settings, color: renkler.yaziRenk, size: 35),
-                                  TextMod("Ayarlar", renkler.yaziRenk, 10),
+                                  Icon(Icons.settings, color: renkler.arkaRenk, size: 35),
+                                  TextMod("Ayarlar", renkler.arkaRenk, 10),
                                 ],
                               ),
                             ),
@@ -94,14 +99,18 @@ class More extends ConsumerWidget {
                               height: size.height / 9,
                               width: size.height / 9,
                               decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 2,
+                                    color: Theme.of(context).canvasColor
+                                  ),
                                   color: renkler.koyuuRenk,
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Icon(Icons.question_mark, color: renkler.yaziRenk, size: 35),
-                                  TextMod("Yardım", renkler.yaziRenk, 10),
+                                  Icon(Icons.question_mark, color: renkler.arkaRenk, size: 35),
+                                  TextMod("Yardım", renkler.arkaRenk, 10),
                                 ],
                               ),
                             ),
@@ -168,6 +177,10 @@ class More extends ConsumerWidget {
                               height: size.height / 9,
                               width: size.height / 9,
                               decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).canvasColor
+                                  ),
                                   color: renkler.koyuuRenk,
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
@@ -175,9 +188,9 @@ class More extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   ref.read(settingsRiverpod).isPassword == 1
-                                      ? Icon(Icons.lock, color: renkler.yaziRenk, size: 35)
-                                      : Icon(Icons.lock_open, color: renkler.yaziRenk, size: 35),
-                                  TextMod("Giriş Şifresi", renkler.yaziRenk, 10),
+                                      ? Icon(Icons.lock, color: renkler.arkaRenk, size: 35)
+                                      : Icon(Icons.lock_open, color: renkler.arkaRenk, size: 35),
+                                  TextMod("Giriş Şifresi", renkler.arkaRenk, 10),
                                 ],
                               ),
                             ),
@@ -210,14 +223,18 @@ class More extends ConsumerWidget {
                               height: size.height / 9,
                               width: size.height / 9,
                               decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).canvasColor
+                                  ),
                                   color: renkler.koyuuRenk,
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Icon(Icons.download, color: renkler.yaziRenk, size: 35),
-                                  TextMod("Verileri İndir", renkler.yaziRenk, 10),
+                                  Icon(Icons.download, color: renkler.arkaRenk, size: 35),
+                                  TextMod("Verileri İndir", renkler.arkaRenk, 10),
                                 ],
                               ),
                             ),
@@ -246,13 +263,17 @@ class More extends ConsumerWidget {
                               width: size.height / 9,
                               decoration: BoxDecoration(
                                   color: renkler.koyuuRenk,
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).canvasColor
+                                  ),
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Icon(Icons.message, color: renkler.yaziRenk, size: 35),
-                                  TextMod("İletişim", renkler.yaziRenk, 10),
+                                  Icon(Icons.message, color: renkler.arkaRenk, size: 35),
+                                  TextMod("İletişim", renkler.arkaRenk, 10),
                                 ],
                               ),
                             ),
@@ -338,11 +359,14 @@ class More extends ConsumerWidget {
                       const SizedBox(height: 8),
                       TextMod("Version ${"1.1.1"}", renkler.koyuuRenk, 14),
                       const SizedBox(height: 2),
-                      TextMod("FezaiTech", renkler.koyuuRenk, 14),
+                      TextMod("FezaiTech", Theme.of(context).canvasColor, 14),
                     ],
                   )
                 ],
               ),
+              SizedBox(
+                height: 52,
+              )
             ],
           ),
         ),

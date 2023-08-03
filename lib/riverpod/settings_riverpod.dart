@@ -137,6 +137,7 @@ class SettingsRiverpod extends ChangeNotifier{
         adCounter,
     );
     await SQLHelper.updateSetting(info);
+    notifyListeners();
   }
   void setStatus(bool value){
     Status = value ;

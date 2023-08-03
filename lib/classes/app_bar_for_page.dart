@@ -28,7 +28,14 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
               height: 60,
               child: Container(
                 width: size.width,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                      ),
+                    ],
                     color: Color(0xff0D1C26),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(100),
@@ -83,6 +90,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                       builder: (context) =>
                           AlertDialog(
                             backgroundColor: renkler.koyuuRenk,
+                            shadowColor: Theme.of(context).highlightColor,
                             title: Row(
                               children: [
                                 Icon(
@@ -94,7 +102,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                 const TextMod("Uyarı", Colors.white, 18),
                               ],
                             ),
-                            content:  const TextMod("Herhangi Bir Şifre koymadınız\nŞifre Koymaktan vaz mı geçiyorsunuz ?", Colors.white, 15),
+                            content:  const TextMod("Herhangi bir şifre koymadınız\nŞifre koymaktan vaz mı geçiyorsunuz?", Colors.white, 15),
                             actions: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(20) ,

@@ -94,7 +94,7 @@ class Generalinfo extends ConsumerWidget {
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Nexa3',
-                                    color: renkler.koyuuRenk),
+                                    color: Theme.of(context).canvasColor),
                               ),
                                 textAlign: TextAlign.left,
                               ),
@@ -147,7 +147,7 @@ class Generalinfo extends ConsumerWidget {
                                         child: Container(
                                           height: 32,
                                           width: 160,
-                                          color: renkler.koyuuRenk,
+                                          color: Theme.of(context).highlightColor,
                                           child: Padding(
                                             padding: const EdgeInsets.only(top: 5),
                                             child: Row(
@@ -155,8 +155,8 @@ class Generalinfo extends ConsumerWidget {
                                               children: [
                                                 Text(
                                                   calender.mounths[readhome.indexmounth],
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
+                                                  style: TextStyle(
+                                                    color: renkler.arkaRenk,
                                                     fontSize: 18,
                                                     fontFamily: 'Nexa3',
                                                   ),
@@ -165,8 +165,8 @@ class Generalinfo extends ConsumerWidget {
                                                 const SizedBox(width: 6),
                                                 Text(
                                                   calender.years[readhome.indexyear],
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
+                                                  style: TextStyle(
+                                                    color: renkler.arkaRenk,
                                                     fontSize: 18,
                                                     fontFamily: 'Nexa4',
                                                   ),
@@ -212,7 +212,7 @@ class Generalinfo extends ConsumerWidget {
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Nexa3',
-                                    color: renkler.koyuuRenk),
+                                    color: Theme.of(context).canvasColor),
                               ),
                               textAlign: TextAlign.right,
                               ),
@@ -250,7 +250,7 @@ class Generalinfo extends ConsumerWidget {
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontFamily: 'Nexa3',
-                                        color: renkler.koyuuRenk,
+                                        color: Theme.of(context).canvasColor,
                                       ),
                                     ),
                                     TextSpan(
@@ -259,7 +259,7 @@ class Generalinfo extends ConsumerWidget {
                                         fontFamily: 'TL',
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
-                                        color: renkler.koyuuRenk,
+                                        color: Theme.of(context).canvasColor,
                                       ),
                                     ),
                                   ])),

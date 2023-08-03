@@ -127,7 +127,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       child: Text(
                         "${item[index].operationDate}",
                         style:
-                        const TextStyle(
+                        TextStyle(
+                          color: renkler.koyuuRenk,
                           fontFamily:
                           'NEXA3',
                           fontSize: 18,
@@ -256,15 +257,69 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
             MainAxisAlignment
                 .spaceBetween,
             children: [
-              const Text("NOT",
+              const Text("TEKRAR DURUMU",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Nexa4',
                     fontSize: 18,
                   )),
-              widget01(item, index),
+              item[index].processOnce == ""?  const Text(
+                  "Tekrar yok",
+                  style:
+                  TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Nexa3',
+                    fontSize: 18,
+                  )): Text(
+                  "${item[index].processOnce}",
+                  style:
+                  TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Nexa3',
+                    fontSize: 18,
+                  )),
             ],
           ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  Text("NOT",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Nexa4',
+                        fontSize: 18,
+                      )),
+                  SizedBox()
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5,left: 5),
+                child: SizedBox(
+                  child: item[index].note == '' ?  const Text(
+                      "Not eklenmemiş",
+                      textAlign: TextAlign.justify,
+                      style:
+                      TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Nexa3',
+                        fontSize: 18,
+                      )): Text(
+                     "${item[index].note}",
+                      textAlign: TextAlign.justify,
+                      maxLines: 6,
+                      style:
+                      const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Nexa3',
+                        fontSize: 18,
+                      )),
+                ),
+              ),
+            ],
+          ),
+
           ///KAYDETME BUTONU ŞU AN KAPALI
           Row(
             mainAxisAlignment:

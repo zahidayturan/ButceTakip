@@ -13,7 +13,7 @@ class HelpBacup extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return SafeArea(
         child:Scaffold(
-            backgroundColor: const Color(0xffF2F2F2),
+            //backgroundColor: const Color(0xffF2F2F2),
             appBar: AppBarForPage(title: "YARDIM<"),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -23,7 +23,7 @@ class HelpBacup extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
                   child: Container(
-                    color: renkler.koyuuRenk,
+                    color: Theme.of(context).highlightColor,
                     height: 65,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -35,7 +35,7 @@ class HelpBacup extends StatelessWidget {
                           width: 60,
                         ),
                         const Text(
-                          "Help Center",
+                          "Yardım Merkezi",
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: "Nexa3",
@@ -50,45 +50,51 @@ class HelpBacup extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(
                     children: [
-                      const Align(
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Yedekleme Sistemi",
                           style: TextStyle(
                             fontFamily: "Nexa3",
                             fontSize: 30,
-                            color: Colors.black,
+                            color: Theme.of(context).canvasColor,
                           ),
                         ),
                       ),
                       SizedBox(height: 10),
-                      const Text(
+                      Text(
                         "Kullanıcıların en çok ihtiyacı olduğu en önemli özelliklerden biri olan yedeklenme sistemine uygulamamız üzerinde yer verdik. Verilerimizin kaybolmasını hiç istemeyiz, değil mi? 😁\n"
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       ),
-                      const Text(
-                          "Şu anda Google Cloud üzerinden yedeklenmeleri gerçekleştiriyoruz. Bu yüzden 1 defaya mahsus olarak Google hesabı üzerinden giriş gerçekleştirmeniz gerekmektedir.\n"
+                      Text(
+                          "Şu an da Google Cloud üzerinden yedeklenmeleri gerçekleştiriyoruz. Bu yüzden 1 defaya mahsus olarak Google hesabı üzerinden giriş gerçekleştirmeniz gerekmektedir.\n"
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       ),
                       Image.asset(
                         "assets/image/helpbackup1.png",
                         height: 80,
                       ),
                       SizedBox(height: 10),
-                      const Text(
+                      Text(
                         "Sonraki adımlarda ise hesabınız otomatik olarak giriş yapacaktır\n"
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       ),
-                      const Text(
+                      Text(
                         "Ön tanımlı olarak Yedeklenme sıklığı Günlük olarak ayarlanmıştır tabii isteğinize göre ayarlayabilirsiniz. Son yedeklenme tarihi üzerinden uygulamaya her giriş sağladığınızda tercihinize gere otomatik yedeklenme gerçekleşecektir. Lakin  önemli olan daha öncesinde uygulamaya Google hesabınızın giriş yapılı olması gerekiyor aksi halde otomatik yedekleme gerçekleştirilemez.\n"
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       ),
                       Image.asset(
                         "assets/image/helpbackup2.jpg",
                         height: 300,
                       ),
                       SizedBox(height: 10),
-                      const Text(
+                      Text(
                         "hesap girişi sonrası ekranlarınız da Emailiniz , Ad ve Soyadınız son olarak da Son yedeklenme tarihiniz gösterilmektedir.\n"
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       ),
-                      const Text(
+                      Text(
                         "Yedekle butonu sayesinde kayıtlarınızı .cvs dosyası şeklinde Cloud sistemine yedekleyebiliyorsunuz. Aynı şekilde Geri Yükle butonu sayesinde de Cloud üzerinden verilerinizi çekebiliyorsunuz. Endişelenmeyin her kayıt sonrası kayıtlarınız cihazınızdan silinerek yeni gelecek kayıtları temiz bir sayfa ile karşılıyoruz  \n\n Herhangi bir sorununuz da bize ulaşmayı ihmal etmeyiniz."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       ),
                       SizedBox(height: 20),
                     ],

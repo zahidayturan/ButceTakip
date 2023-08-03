@@ -11,7 +11,7 @@ class Statistics extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return const SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffF2F2F2),
+        //backgroundColor: Color(0xffF2F2F2),
         appBar: AppBarForPage(title: 'İSTATİSTİKLER'),
         body: StaticticsBody(),
       ),
@@ -164,8 +164,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(30)),
                                   color: snapshot.data!.length <= 4
-                                      ? const Color(0xFFE9E9E9)
-                                      : const Color(0xFF0D1C26)),
+                                      ? Theme.of(context).indicatorColor
+                                      : Theme.of(context).canvasColor),
                             ),
                           ),
                         ],
@@ -174,7 +174,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         data: Theme.of(context).copyWith(
                             scrollbarTheme: ScrollbarThemeData(
                           thumbColor: MaterialStateProperty.all(
-                              const Color(0xFFF2CB05)),
+                            Theme.of(context).dialogBackgroundColor,)
                         )),
                         child: Scrollbar(
                           thumbVisibility: true,
@@ -211,7 +211,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(10),
-                                        color: Colors.white,
+                                        color: Theme.of(context).focusColor,
                                       ),
                                       child: Row(
                                         children: [
@@ -236,10 +236,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                           const SizedBox(width: 10),
                                           Text(
                                             item[index]['category'],
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontFamily: 'NEXA3',
                                               fontSize: 18,
-                                              color: Color(0xff0D1C26),
+                                              color: Theme.of(context).canvasColor,
                                             ),
                                           ),
                                           const Spacer(),
@@ -248,21 +248,21 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                               children: [
                                                 TextSpan(
                                                   text: item[index]['amount']
-                                                      .toString(),
-                                                  style: const TextStyle(
+                                                      .toStringAsFixed(2),
+                                                  style: TextStyle(
                                                     fontFamily: 'NEXA3',
                                                     fontSize: 16,
-                                                    color: Color(0xFFF2CB05),
+                                                    color: Theme.of(context).dialogBackgroundColor,
                                                   ),
                                                 ),
-                                                const TextSpan(
+                                                TextSpan(
                                                   text: ' ₺',
                                                   style: TextStyle(
                                                     fontFamily: 'TL',
                                                     fontSize: 18,
                                                     fontWeight:
                                                         FontWeight.w600,
-                                                    color: Color(0xFFF2CB05),
+                                                    color: Theme.of(context).dialogBackgroundColor,
                                                   ),
                                                 ),
                                               ],
@@ -295,17 +295,17 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         width: 210,
                         child: Text(
                           "$giderGelirHepsi İçin Toplam Tutar",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'NEXA3',
                             fontSize: 17,
-                            color: Color(0xff0D1C26),
+                            color: Theme.of(context).canvasColor,
                           ),
                         ),
                       ),
                       Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
+                          color: Theme.of(context).focusColor,
                         ),
                         height: 26,
                         child: Center(
@@ -319,19 +319,19 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   children: [
                                     TextSpan(
                                       text: totalAmount.toStringAsFixed(1),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Nexa3',
                                         fontSize: 17,
-                                        color: Color(0xff0D1C26),
+                                        color: Theme.of(context).canvasColor,
                                       ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text: ' ₺',
                                       style: TextStyle(
                                         fontFamily: 'TL',
                                         fontWeight: FontWeight.w600,
                                         fontSize: 17,
-                                        color: Color(0xffF2CB05),
+                                        color: Theme.of(context).canvasColor,
                                       ),
                                     ),
                                   ],
@@ -1316,7 +1316,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         });
       }
     }
-
     return SizedBox(
       height: 40,
       child: Stack(
@@ -1424,6 +1423,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         ],
       ),
     );
+
   }
 
   Widget pasta(BuildContext context) {
@@ -1452,7 +1452,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 width: 140,
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(200)),
                 ),
               ),
@@ -1460,6 +1460,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           } else {
             return DChartPie(
               data: item,
+              strokeWidth: 1,
               fillColor: (pieData, index) {
                 return  colorsList[index!];
               },
@@ -1469,9 +1470,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               labelPosition: PieLabelPosition.auto,
               //donutWidth: 15,
               showLabelLine: true,
-              labelColor: Colors.black,
+              labelColor: Theme.of(context).canvasColor,
               labelFontSize: 11,
               labelLinelength: 5,
+              labelLineColor: Theme.of(context).canvasColor,
             );
           }
         });

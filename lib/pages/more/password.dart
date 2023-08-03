@@ -23,7 +23,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
   List <String> password2list = [];
   String password1 = "" ;
   String password2 = "" ;
-  String info = "Yeni şifre kodunu giriniz";
+  String info = "Yeni Şifre Kodunu Giriniz";
   String errormessage = "";
   bool security = false ;
   @override
@@ -41,6 +41,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
           builder: (context) =>
               AlertDialog(
                 backgroundColor: renkler.koyuuRenk,
+                shadowColor: Theme.of(context).highlightColor,
                 title: Row(
                   children: [
                     Icon(
@@ -52,7 +53,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                     const TextMod("Uyarı", Colors.white, 18),
                   ],
                 ),
-                content:  const TextMod("Herhangi bir şifre belirlemediniz.\nŞifre Koymaktan vaz mı geçiyorsunuz?", Colors.white, 15),
+                content:  const TextMod("Herhangi bir şifre belirlemediniz.\nŞifre koymaktan vaz mı geçiyorsunuz?", Colors.white, 15),
                 actions: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20) ,
@@ -125,20 +126,21 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                         child: Container(
                           height: 40,
                           width: size.width,
-                          color: renkler.arkaRenk,
+                          color: Theme.of(context).indicatorColor,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15.0),
                             child: Row(
                               children: [
-                                const Text(
+                                Text(
                                   "Giriş Şifresi Durumu",
                                   style: TextStyle(
                                     fontFamily: "Nexa3",
+                                    color: Theme.of(context).canvasColor
                                   ),
                                 ),
                                 const Spacer(),
-                                isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                    : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                                isopen ? Text("Açık", style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor),)
+                                    : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor),),
                                 Switch(
                                   activeColor: renkler.sariRenk,
                                   value: isopen ,
@@ -159,26 +161,27 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                       ),
                     ),
                   !isopen
-                    ? SizedBox(height: 1)
+                    ? const SizedBox(height: 1)
                     : readSetting.securityQu == "null"
                       ?Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text(
+                            const SizedBox(height: 5,),
+                            Text(
                               "En sevdiğiniz hayvan nedir ?",
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Theme.of(context).canvasColor,
                                   fontSize: 18,
                                   fontFamily: "Nexa4"
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Container(
                                 height: 40,
                                 width: 150,
-                                color: renkler.koyuuRenk,
+                                color: Theme.of(context).highlightColor,
                                 child: TextField(
                                   controller: setanimalController,
                                   keyboardType: TextInputType.text,
@@ -188,7 +191,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             InkWell(
                               onTap: () {
                                 if (setanimalController.text != "" ) {
@@ -217,7 +220,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Text(
                               errormessage,
                               style: TextStyle(
@@ -234,7 +237,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                           Text(
                             info,
                             style: TextStyle(
-                              color: renkler.koyuuRenk,
+                              color: Theme.of(context).canvasColor,
                               fontFamily: "Nexa4"
                             ),
                           ),
@@ -248,7 +251,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                                   child: Container(
-                                    color: num1 ? Colors.black : const Color(0xffE2E1E1),
+                                    color: num1 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                   ),
                                 )
                               ),
@@ -259,7 +262,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                   child: ClipRRect(
                                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                                     child: Container(
-                                      color: num2 ? Colors.black : const Color(0xffE2E1E1),
+                                      color: num2 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                     ),
                                   )
                               ),
@@ -270,7 +273,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                   child: ClipRRect(
                                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                                     child: Container(
-                                      color: num3 ? Colors.black : const Color(0xffE2E1E1),
+                                      color: num3 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                     ),
                                   )
                               ),
@@ -281,7 +284,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                   child: ClipRRect(
                                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                                     child: Container(
-                                      color: num4 ? Colors.black : const Color(0xffE2E1E1),
+                                      color: num4 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                     ),
                                   )
                               ),
@@ -373,7 +376,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                             mainAxisAlignment:MainAxisAlignment.end,
                             children: [
                               Text(
-                                "Güvenlik sorusu: ${readSetting.securityQu}",
+                                "Güvenlik Sorusu: ${readSetting.securityQu}",style: TextStyle(color: Theme.of(context).canvasColor),
                               ),
                             ],
                           )//
@@ -465,11 +468,11 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                               Navigator.of(context).pop();
                             });
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
+                              SnackBar(
                                 backgroundColor:
-                                Color(0xff0D1C26),
-                                duration: Duration(seconds: 1),
-                                content: Text(
+                                Theme.of(context).highlightColor,
+                                duration: const Duration(seconds: 1),
+                                content: const Text(
                                   'Şifreniz Oluşturuldu.',
                                   style: TextStyle(
                                     color: Colors.white,
@@ -497,7 +500,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                         setState(() {
                           security = true;
                           num4 = true ;
-                          info = "Tekrar gininiz." ;
+                          info = "Tekrar Giriniz." ;
                         });
                           Future.delayed(const Duration(milliseconds: 150)).then((value) => temizle());
                       }

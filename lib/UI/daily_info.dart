@@ -15,6 +15,7 @@ class GunlukInfo extends ConsumerStatefulWidget {
 class _GunlukInfoState extends ConsumerState<GunlukInfo> {
   final ScrollController scroolBarController2 = ScrollController();
   var renkler = CustomColors();
+  bool isContainerClicked = true;
 
   Widget gelirGiderInfo(SpendInfo item) {
     if (item.operationType == 'Gelir') {
@@ -24,7 +25,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
         style: TextStyle(
           fontSize: 14,
           fontFamily:'Nexa3',
-          color: renkler.yesilRenk,
+            color: renkler.yesilRenk
         ),
       );
     } else {
@@ -67,15 +68,15 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                             borderRadius: const BorderRadius.only(
                                 bottomRight: Radius.circular(10),
                                 topRight: Radius.circular(10)),
-                            color: renkler.koyuuRenk,
+                            color: Theme.of(context).highlightColor,
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.only(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
                                 left: 15.0, right: 20, top: 6, bottom: 3),
                             child: Text(
                               "Bugünün İşlem Bilgileri",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: renkler.arkaRenk,
                                 fontFamily: 'Nexa3',
                                 fontSize: 18,
                               ),
@@ -90,10 +91,12 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                         top: 4,
                       ),
                       child: Text(formattedDate,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 18,
                               fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w900)),
+                              fontWeight: FontWeight.w900,
+                          color: Theme.of(context).canvasColor
+                          )),
                     )
                   ],
                 ),
@@ -114,7 +117,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                 'Kategori',
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: renkler.koyuuRenk,
+                                  color: Theme.of(context).canvasColor,
                                   fontFamily: 'Nexa3',
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -129,7 +132,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'Nexa3',
-                                  color: renkler.koyuuRenk,
+                                  color: Theme.of(context).canvasColor,
                                   fontWeight: FontWeight.w800,
                                 ),
                               ),
@@ -143,7 +146,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'Nexa3',
-                                  color: renkler.koyuuRenk,
+                                  color: Theme.of(context).canvasColor,
                                   fontWeight: FontWeight.w800,
                                 ),
                               ),
@@ -157,7 +160,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'Nexa3',
-                                  color: renkler.koyuuRenk,
+                                  color: Theme.of(context).canvasColor,
                                   fontWeight: FontWeight.w800,
                                 ),
                               ),
@@ -187,6 +190,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                     "assets/image/origami_noinfo.png",
                                     width: 45,
                                     height: 45,
+                                    color: Theme.of(context).canvasColor,
                                   ),
                                   SizedBox(
                                     height: 22,
@@ -194,10 +198,10 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                     child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20),
-                                          color: renkler.koyuuRenk
+                                          color: Theme.of(context).canvasColor,
                                         ),
-                                        child: const Center(child: TextMod(
-                                            "Kayıt Yok", Colors.white, 14))
+                                        child: Center(child: TextMod(
+                                            "Kayıt Yok", Theme.of(context).primaryColor, 14))
                                     ),
                                   ),
                                 ],
@@ -212,11 +216,11 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                               child: Theme(
                                 data: Theme.of(context).copyWith(
                                     colorScheme: ColorScheme.fromSwatch(
-                                      accentColor: Color(0xFFF2CB05),
+                                      accentColor: const Color(0xFFF2CB05),
                                     ),
                                     scrollbarTheme: ScrollbarThemeData(
                                       thumbColor:
-                                      MaterialStateProperty.all(renkler.sariRenk),
+                                      MaterialStateProperty.all(Theme.of(context).dialogBackgroundColor),
                                     )),
 
                                 child: Stack(
@@ -229,7 +233,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                         child:  DecoratedBox(
                                           decoration: BoxDecoration(
                                               borderRadius: const BorderRadius.all(Radius.circular(30)),
-                                              color: snapshot.data!.length <= 4 ? renkler.arkaRenk : const Color(0xFF0D1C26)),
+                                              color: snapshot.data!.length <= 4 ? Theme.of(context).indicatorColor : Theme.of(context).canvasColor),
                                         ),
                                       ),
                                     ),
@@ -246,8 +250,8 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                           itemCount: snapshot.data!.length,
                                           itemBuilder:
                                               (BuildContext context, index) {
-                                            SpendInfo item =
-                                            snapshot.data![index];
+
+                                            SpendInfo item = snapshot.data![index];
                                             return Column(
                                               children: [
                                                 Padding(
@@ -258,38 +262,101 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                                     borderRadius:
                                                     BorderRadius.circular(
                                                         10.0),
-                                                    child: Container(
-                                                      height: 28,
-                                                      color: renkler.arkaRenk,
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                        mainAxisSize: MainAxisSize.max,
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 100,
-                                                            child: Text(
-                                                                '${item.category}',textAlign: TextAlign.center),
+                                                    child: InkWell(
+                                                      child: Container(
+                                                        height: 28,
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: const BorderRadius.all(
+                                                              Radius.circular(10)
                                                           ),
-                                                          SizedBox(
-                                                            width: 50,
-                                                            child: Text(
-                                                                '${item.operationTool}',textAlign: TextAlign.center),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 100,
-                                                            child: gelirGiderInfo(item),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 60,
-                                                            child: Padding(
-                                                              padding: const EdgeInsets.only(right: 10),
-                                                              child: Text(item
-                                                                  .operationTime
-                                                                  .toString(),textAlign: TextAlign.center),
+                                                          /*
+                                                          border: Border.all(
+                                                              color: renkler.arkaRenk, // Set border color
+                                                              width: 1.0),*/
+                                                          color: Theme.of(context).indicatorColor,
+                                                        ),
+                                                        child: isContainerClicked
+                                                            ? Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                          mainAxisSize: MainAxisSize.max,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 100,
+                                                              child: Text(
+                                                                '${item.category}',
+                                                                textAlign: TextAlign.center,
+                                                                style: TextStyle(
+                                                                  color: Theme.of(context).canvasColor,
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                            SizedBox(
+                                                              width: 50,
+                                                              child: Text(
+                                                                '${item.operationTool}',
+                                                                textAlign: TextAlign.center,
+                                                                style: TextStyle(
+                                                                  color: Theme.of(context).canvasColor,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 100,
+                                                              child: gelirGiderInfo(item),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 60,
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.only(right: 10),
+                                                                child: Text(
+                                                                  item.operationTime.toString(),
+                                                                  textAlign: TextAlign.center,
+                                                                  style: TextStyle(
+                                                                    color: Theme.of(context).canvasColor,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                            : Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                          mainAxisSize: MainAxisSize.max,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 40,
+                                                              child: Text(
+                                                                'NOT: ',
+                                                                textAlign: TextAlign.center,
+                                                                style: TextStyle(
+                                                                  color: Theme.of(context).canvasColor,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: SizedBox(
+                                                                  child: SingleChildScrollView(
+                                                                    scrollDirection: Axis.horizontal,
+                                                                    child: Text(
+                                                                      item.note == '' ? 'Not Eklenmemiş' : '${item.note}',
+                                                                      textAlign: TextAlign.center,
+                                                                      style: TextStyle(
+                                                                        color: Theme.of(context).canvasColor,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
+                                                      onTap: () {
+                                                        setState(() {
+                                                          isContainerClicked = !isContainerClicked;
+                                                        });
+                                                      },
                                                     ),
                                                   ),
                                                 ),
@@ -316,3 +383,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
     );
   }
 }
+
+/*
+
+ */

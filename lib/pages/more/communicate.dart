@@ -26,7 +26,7 @@ class Communicate extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffF2F2F2),
+        //backgroundColor: const Color(0xffF2F2F2),
         bottomNavigationBar: const NavBar(),
         appBar: const AppBarForPage(title: "İLETİŞİM"),
         body: Column(
@@ -40,6 +40,7 @@ class Communicate extends StatelessWidget {
                   child: Image.asset(
                     "assets/image/icon_BKA/LOGOBKA-2.png",
                     width: size.width / 2,
+                    color: Theme.of(context).canvasColor,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -47,23 +48,23 @@ class Communicate extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20),
                   child: Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 4),
-                        child: Icon(Icons.mail),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Icon(Icons.mail,color: Theme.of(context).canvasColor),
                       ),
                       const SizedBox(width: 5),
                       InkWell(
                         child: RichText(
-                            text: const TextSpan(children: [
+                            text: TextSpan(children: [
                           TextSpan(
                             text: 'Email : ',
                             style: TextStyle(
                               fontSize: 16,
                               fontFamily: 'Nexa3',
-                              color: Color(0xff0D1C26),
+                              color: Theme.of(context).canvasColor,
                             ),
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: 'fezaitech@gmail.com',
                             style: TextStyle(
                               color: Colors.blue,
@@ -76,10 +77,10 @@ class Communicate extends StatelessWidget {
                           Clipboard.setData(
                               const ClipboardData(text: 'fezaitech@gmail.com'));
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  backgroundColor: Color(0xff0D1C26),
-                                  duration: Duration(seconds: 1),
-                                  content: Text('Email kopyalandı')));
+                              SnackBar(
+                                  backgroundColor: const Color(0xff0D1C26),
+                                  duration: const Duration(seconds: 1),
+                                  content: Text('Email Panoya Kopyalandı',style: TextStyle(color : Theme.of(context).canvasColor,fontFamily: 'Nexa3',fontSize: 15),)));
                         },
                       )
                     ],
@@ -90,9 +91,9 @@ class Communicate extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20),
                   child: Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 4),
-                        child: Icon(Icons.account_circle_outlined),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Icon(Icons.account_circle_outlined,color: Theme.of(context).canvasColor),
                       ),
                       const SizedBox(width: 5),
                       InkWell(
@@ -100,16 +101,16 @@ class Communicate extends StatelessWidget {
                           launchURL('https://github.com/ibrahimeth');
                         },
                         child: RichText(
-                            text: const TextSpan(children: [
+                            text: TextSpan(children: [
                           TextSpan(
                             text: 'Github : ',
                             style: TextStyle(
                               fontSize: 16,
                               fontFamily: 'Nexa3',
-                              color: Color(0xff0D1C26),
+                              color: Theme.of(context).canvasColor,
                             ),
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: 'github.com/ibrahimeth/\nButceTakip',
                             style: TextStyle(
                               color: Colors.blue,
@@ -129,19 +130,19 @@ class Communicate extends StatelessWidget {
                       // Title
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          color: renkler.koyuuRenk,
+                          color: Theme.of(context).highlightColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 9),
                             child: Text(
                               "GELİŞTİRİCİLER",
                               style: TextStyle(
                                   fontFamily: "Nexa4",
                                   fontSize: 18,
-                                  color: Colors.white),
+                                  color: renkler.arkaRenk),
                             ),
                           ),
                         ),
@@ -162,13 +163,13 @@ class Communicate extends StatelessWidget {
                                 width: 60,
                                 decoration: BoxDecoration(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(25)),
+                                        const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.shade500,
+                                        color: Theme.of(context).indicatorColor,
                                         spreadRadius: 3,
                                         blurRadius: 7,
-                                        offset: Offset(
+                                        offset: const Offset(
                                             3, 3), // x,y offset değerleri
                                       )
                                     ]),
@@ -195,7 +196,7 @@ class Communicate extends StatelessWidget {
                                       fontSize: 14,
                                     ),
                                   ), //nam// e
-                                  SizedBox(height: 5),
+                                  const SizedBox(height: 5),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -210,7 +211,7 @@ class Communicate extends StatelessWidget {
                                               BorderRadius.circular(10),
                                           child: Container(
                                             width: 90,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -222,15 +223,16 @@ class Communicate extends StatelessWidget {
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
+                                                    color: Theme.of(context).canvasColor,
                                                   ),
                                                 ),
-                                                Text("Github"),
+                                                const Text("GitHub"),
                                               ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 15),
+                                      const SizedBox(width: 15),
                                       InkWell(
                                         onTap: () {
                                           launchURL(
@@ -241,7 +243,7 @@ class Communicate extends StatelessWidget {
                                               BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -255,7 +257,7 @@ class Communicate extends StatelessWidget {
                                                     height: 18,
                                                   ),
                                                 ),
-                                                Text("Linkedin"),
+                                                const Text("LinkedIn"),
                                               ],
                                             ),
                                           ),
@@ -267,7 +269,7 @@ class Communicate extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -276,13 +278,13 @@ class Communicate extends StatelessWidget {
                                 width: 60,
                                 decoration: BoxDecoration(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(25)),
+                                        const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.shade500,
+                                        color: Theme.of(context).indicatorColor,
                                         spreadRadius: 3,
                                         blurRadius: 7,
-                                        offset: Offset(
+                                        offset: const Offset(
                                             3, 3), // x,y offset değerleri
                                       )
                                     ]),
@@ -309,7 +311,7 @@ class Communicate extends StatelessWidget {
                                       fontSize: 14,
                                     ),
                                   ), //nam// e
-                                  SizedBox(height: 5),
+                                  const SizedBox(height: 5),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -324,7 +326,7 @@ class Communicate extends StatelessWidget {
                                               BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -336,15 +338,16 @@ class Communicate extends StatelessWidget {
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
+                                                    color: Theme.of(context).canvasColor,
                                                   ),
                                                 ),
-                                                Text("Github"),
+                                                const Text("GitHub"),
                                               ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 15),
+                                      const SizedBox(width: 15),
                                       InkWell(
                                         onTap: () {
                                           launchURL(
@@ -355,7 +358,7 @@ class Communicate extends StatelessWidget {
                                               BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -369,7 +372,7 @@ class Communicate extends StatelessWidget {
                                                     height: 18,
                                                   ),
                                                 ),
-                                                Text("Linkedin"),
+                                                const Text("LinkedIn"),
                                               ],
                                             ),
                                           ),
@@ -381,7 +384,7 @@ class Communicate extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -390,13 +393,13 @@ class Communicate extends StatelessWidget {
                                 width: 60,
                                 decoration: BoxDecoration(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(25)),
+                                        const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.shade500,
+                                        color: Theme.of(context).indicatorColor,
                                         spreadRadius: 3,
                                         blurRadius: 7,
-                                        offset: Offset(
+                                        offset: const Offset(
                                             3, 3), // x,y offset değerleri
                                       )
                                     ]),
@@ -423,7 +426,7 @@ class Communicate extends StatelessWidget {
                                       fontSize: 14,
                                     ),
                                   ), //nam// e
-                                  SizedBox(height: 5),
+                                  const SizedBox(height: 5),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -438,7 +441,7 @@ class Communicate extends StatelessWidget {
                                               BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -450,15 +453,16 @@ class Communicate extends StatelessWidget {
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
+                                                    color: Theme.of(context).canvasColor,
                                                   ),
                                                 ),
-                                                Text("Github"),
+                                                const Text("GitHub"),
                                               ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 110)
+                                      const SizedBox(width: 110)
                                     ],
                                   ), //social icon
                                 ],

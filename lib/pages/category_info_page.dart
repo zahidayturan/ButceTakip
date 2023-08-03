@@ -14,12 +14,12 @@ class CategoryInfo extends ConsumerWidget {
     CustomColors renkler = CustomColors();
     return Container(
       color: renkler.koyuuRenk,
-      child: SafeArea(
+      child: const SafeArea(
         child: Scaffold(
           bottomNavigationBar: null,
-          backgroundColor: renkler.arkaRenk,
-          appBar: const AppbarCategoryInfo(),
-          body: const CategoryInfoBody(),
+          //backgroundColor: renkler.arkaRenk,
+          appBar: AppbarCategoryInfo(),
+          body: CategoryInfoBody(),
         ),
       ),
     );
@@ -84,9 +84,9 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                 decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(30)),
-                                    color: snapshot.data!.length <= 8
-                                        ? Colors.white
-                                        : const Color(0xFF0D1C26)),
+                                    color: snapshot.data!.length <= 10
+                                        ? Theme.of(context).indicatorColor
+                                        : Theme.of(context).canvasColor),
                               ),
                             ),
                           ],
@@ -96,11 +96,11 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                           child: Theme(
                             data: Theme.of(context).copyWith(
                                 colorScheme: ColorScheme.fromSwatch(
-                                  accentColor: Color(0xFFF2CB05),
+                                  accentColor: const Color(0xFFF2CB05),
                                 ),
                                 scrollbarTheme: ScrollbarThemeData(
                                     thumbColor: MaterialStateProperty.all(
-                                        const Color(0xffF2CB05)))),
+                                        Theme.of(context).dialogBackgroundColor))),
                             child: Scrollbar(
                               isAlwaysShown: true,
                               scrollbarOrientation: ScrollbarOrientation.right,
@@ -137,7 +137,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                         child: DecoratedBox(
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10),
-                                            color: Colors.white,
+                                            color: Theme.of(context).indicatorColor,
                                           ),
                                           child: Row(
                                             children: [
@@ -149,16 +149,16 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                       item[index].operationType ==
                                                               "Gider"
                                                           ? const Color(0xFFD91A2A)
-                                                          : const Color(0xFF1A8E58),
+                                                          : Theme.of(context).canvasColor,
                                                 ),
                                               ),
                                               const SizedBox(width: 5),
                                               Text(
                                                 "${item[index].operationDate}",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontFamily: 'NEXA3',
                                                   fontSize: 18,
-                                                  color: Color(0xff0D1C26),
+                                                  color: Theme.of(context).canvasColor,
                                                 ),
                                               ),
                                               const Spacer(),
@@ -174,7 +174,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                         text:item[index].amount.toString(),style: TextStyle(
                                                         fontFamily: 'NEXA3',
                                                         fontSize: 18,
-                                                        color: renkler.yesilRenk,
+                                                          color: Theme.of(context).canvasColor
                                                       ),
                                                       ),
                                                       TextSpan(
@@ -183,7 +183,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                           fontFamily: 'TL',
                                                           fontSize: 18,
                                                           fontWeight: FontWeight.w600,
-                                                          color: renkler.yesilRenk,
+                                                            color: Theme.of(context).canvasColor
                                                         ),
                                                       ),
                                                     ],
@@ -238,7 +238,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                               padding: const EdgeInsets.only(right: 5),
                               child: Text(
                                 "${item.length}",
-                                style: const TextStyle(color: Color(0xFFE9E9E9),fontSize: 18,fontFamily: 'NEXA3'),
+                                style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 18,fontFamily: 'NEXA3'),
                               ),
                             ),
                           ),
@@ -248,7 +248,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                               padding: const EdgeInsets.only( right: 5),
                               child: Text(
                                 "${item.length}",
-                                style: const TextStyle(color: Color(0xFFF2CB05),fontSize: 18,fontFamily: 'NEXA3'),
+                                style: TextStyle(color: Theme.of(context).dialogBackgroundColor,fontSize: 18,fontFamily: 'NEXA3'),
                               ),
                             ),
                           ),
@@ -274,12 +274,12 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 210,
                   child: Text("Toplam Tutar",style: TextStyle(
                     fontFamily: 'NEXA3',
                     fontSize: 17,
-                    color: Color(0xff0D1C26),
+                    color: Theme.of(context).canvasColor,
                   ),),
                 ),
                 Container(
@@ -353,11 +353,11 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
               height: 66,
               width: size.width - 80,
               child: DecoratedBox(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.horizontal(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.horizontal(
                     right: Radius.circular(15),
                   ),
-                  color: Color(0xff0D1C26),
+                  color: Theme.of(context).highlightColor,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

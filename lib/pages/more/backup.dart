@@ -4,6 +4,7 @@ import 'package:butcekontrol/utils/cvs_converter.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import '../../classes/app_bar_for_page.dart';
 import '../../classes/nav_bar.dart';
 import '../../riverpod_management.dart';
@@ -37,7 +38,7 @@ class _BackUpState extends ConsumerState<BackUp> {
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
+          //backgroundColor: const Color(0xffF2F2F2),
           bottomNavigationBar: const NavBar(),
           appBar: const AppBarForPage(title: "YEDEKLE"),
           body: Padding(
@@ -51,20 +52,21 @@ class _BackUpState extends ConsumerState<BackUp> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: renkler.arkaRenk,
+                      color: Theme.of(context).indicatorColor,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
                           children: [
-                            const Text(
+                            Text(
                               "Yedeklenme Durumu",
                               style: TextStyle(
                                 fontFamily: "Nexa3",
+                                color: Theme.of(context).canvasColor,
                               ),
                             ),
                           const Spacer(),
-                          isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                              : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                          isopen ? Text("Açık", style: TextStyle(fontFamily: "Nexa3",color:  Theme.of(context).canvasColor,),)
+                              : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor,),),
                           Switch(
                             activeColor: renkler.sariRenk,
                             value: isopen ,
@@ -85,36 +87,37 @@ class _BackUpState extends ConsumerState<BackUp> {
               if (!isopen) const SizedBox() else ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
-                  color: renkler.arkaRenk,
+                  color: Theme.of(context).indicatorColor,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Google Cloud ile Yedekle",
+                        Text(
+                          "Google Cloud İle Yedekle",
                           style: TextStyle(
                             fontSize: 16,
-                            fontFamily: "Nexa4"
+                            fontFamily: "Nexa4",
+                            color: Theme.of(context).canvasColor,
                           ),
                         ),
                         Divider(thickness: 2.0,color: renkler.sariRenk),
-                        readGglAuth.accountStatus == true || readGglAuth.isSignedIn
+                        true == true || readGglAuth.isSignedIn
                           ?Column(
                             children: [
                               SizedBox(height: size.height * 0.015),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Email:", Colors.black,  15),
-                                  TextMod("${readGglAuth.getUserEmail()}", Colors.black, 15),
+                                  TextMod("Email:",  Theme.of(context).canvasColor,  15),
+                                  TextMod("${readGglAuth.getUserEmail()}", Theme.of(context).canvasColor, 15),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Ad ve Soyad:", Colors.black, 15),
+                                  TextMod("Kullanıcı Adı:", Theme.of(context).canvasColor, 15),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
@@ -132,7 +135,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         ),
                                       ),
                                       SizedBox(width: size.width * 0.01),
-                                      TextMod("${readGglAuth.getUserDisplayName()}", Colors.black, 15),
+                                      TextMod("${readGglAuth.getUserDisplayName()}", Theme.of(context).canvasColor, 15),
                                     ],
                                   ),
                                 ],
@@ -141,8 +144,8 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Son Yedekleme Tarihi:", Colors.black, 15),
-                                  TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : "Yedeklenmedi", Colors.black, 15),
+                                  TextMod("Son Yedekleme Tarihi:", Theme.of(context).canvasColor, 15),
+                                  TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : "Yedeklenmedi", Theme.of(context).canvasColor, 15),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.015),
@@ -152,18 +155,19 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
+                                   Text(
                                     "Yedeklenme Sıklığı",
                                     style:TextStyle(
                                       fontFamily: "Nexa3",
                                       fontSize: 15  ,
+                                      color: Theme.of(context).canvasColor
                                     ),
                                   ),
                                   SizedBox(height: size.height * 0.01),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      toolCustomButton(context),
+                                      backupCustomButton(context),
                                     ],
                                   ),
                                 ],
@@ -202,13 +206,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           borderRadius: BorderRadius.circular(10),
                                           color: renkler.koyuuRenk,
                                         ),
-                                        child: const Center(
+                                        child: Center(
                                           child: Padding(
                                             padding: EdgeInsets.all(8),
                                             child: Text(
                                               "Geri Yükle",
                                               style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: renkler.arkaRenk,
                                                   fontSize: 15,
                                                   fontFamily: "Nexa3"
                                               ),
@@ -252,13 +256,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           borderRadius: BorderRadius.circular(10),
                                           color: renkler.koyuuRenk,
                                         ),
-                                        child: const Center(
+                                        child: Center(
                                           child: Padding(
                                             padding: EdgeInsets.all(8),
                                             child: Text(
                                               "Yedekle",
                                               style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: renkler.arkaRenk,
                                                   fontSize: 15,
                                                   fontFamily: "Nexa3"
                                               ),
@@ -283,15 +287,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: Color(0xffB72E2E),
+                                      color: const Color(0xffB72E2E),
                                     ),
-                                    child: const Center(
+                                    child: Center(
                                       child: Padding(
                                         padding: EdgeInsets.all(8),
                                         child: Text(
                                           "Çıkış Yap",
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: renkler.arkaRenk,
                                               fontSize: 15,
                                               fontFamily: "Nexa3"
                                           ),
@@ -317,15 +321,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: Color(0xff2A2895),
+                                      color: const Color(0xff2A2895),
                                     ),
-                                    child: const Center(
+                                    child: Center(
                                       child: Padding(
                                         padding: EdgeInsets.all(8),
                                         child: Text(
                                           "Oturum Aç",
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: renkler.arkaRenk,
                                               fontSize: 15,
                                               fontFamily: "Nexa3"
                                           ),
@@ -335,7 +339,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                             ],
                           ),
                       ],
@@ -350,148 +354,50 @@ class _BackUpState extends ConsumerState<BackUp> {
       )
     );
   }
-  double heightTool_ = 32;
-  double heightTool2_ = 38;
-  double heightTool3_ = 32;
-  Color _containerColorTool3 = const Color(0xff0D1C26);
-  Color _containerColorTool2 = const Color(0xff0D1C26);
-  Color _containerColorTool = const Color(0xffF2CB05);
-  Color _textColorTool = const Color(0xff0D1C26);
-  Color _textColorTool2 = Colors.white;
-  Color _textColorTool3 = Colors.white;
-  Widget toolCustomButton(BuildContext context) {
+
+  int initialLabelIndex = 0;
+  Widget backupCustomButton(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
-    if(readSetting.Backuptimes == "Günlük"){
-      setState(() {
-        heightTool2_ = 32;
-        heightTool_ = 26;
-        heightTool3_ = 26;
-        _containerColorTool = const Color(0xffF2CB05);
-        _containerColorTool2 = const Color(0xff0D1C26);
-        _containerColorTool3 = const Color(0xff0D1C26);
-        _textColorTool = const Color(0xff0D1C26);
-        _textColorTool2 = Colors.white;
-        _textColorTool3 = Colors.white;
-      });
-    }else if(readSetting.Backuptimes == "Aylık"){
-      setState(() {
-        heightTool_ = 32;
-        heightTool2_ = 26;
-        heightTool3_ = 26;
-        _containerColorTool2 = const Color(0xffF2CB05);
-        _containerColorTool = const Color(0xff0D1C26);
-        _containerColorTool3 = const Color(0xff0D1C26);
-        _textColorTool = Colors.white;
-        _textColorTool2 = const Color(0xff0D1C26);
-        _textColorTool3 = Colors.white;
-      });
-    }else{
-      setState(() {
-        heightTool_ = 26;
-        heightTool2_ = 26;
-        heightTool3_ = 32;
-        _containerColorTool3 = const Color(0xffF2CB05);
-        _containerColorTool = const Color(0xff0D1C26);
-        _containerColorTool2 = const Color(0xff0D1C26);
-        _textColorTool = Colors.white;
-        _textColorTool2 = Colors.white;
-        _textColorTool3 = const Color(0xff0D1C26);
-      });
-    }
     return SizedBox(
-      height: 32,
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 2,bottom: 2),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 28,
-              width: 156,
-            ),
-          ),
-          Row(
-            children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool,
-                ),
-                height: heightTool2_,
-                child: SizedBox(
-                  width: 60,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          readSetting.setBackuptimes("Günlük");
-                        });
-                      },
-                      child: Text("Günlük",
-                          style: TextStyle(
-                              color: _textColorTool,
-                              fontSize: 13,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool2,
-                ),
-                height: heightTool_,
-                child: SizedBox(
-                  width: 48,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          readSetting.setBackuptimes("Aylık");
-                        });
-                      },
-                      child: Text("Aylık",
-                          style: TextStyle(
-                              color: _textColorTool2,
-                              fontSize: 13,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool3,
-                ),
-                height: heightTool3_,
-                child: SizedBox(
-                  width: 48,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          readSetting.setBackuptimes("Yıllık");
-                        });
-                      },
-                      child: Text("Yıllık",
-                          style: TextStyle(
-                              color: _textColorTool3,
-                              fontSize: 13,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+        height: 32,
+        child: ToggleSwitch(
+          initialLabelIndex: initialLabelIndex,
+          totalSwitches: 3,
+          labels: const ['Günlük', 'Aylık', 'Yıllık'],
+          activeBgColor: const [Color(0xffF2CB05)],
+          activeFgColor: const Color(0xff0D1C26),
+          inactiveBgColor: const Color(0xff0D1C26),
+          inactiveFgColor: const Color(0xFFE9E9E9),
+          minWidth: 60,
+          cornerRadius: 20,
+          radiusStyle: true,
+          animate: true,
+          curve: Curves.linearToEaseOut,
+          customTextStyles: const [
+            TextStyle(
+                fontSize: 12, fontFamily: 'Nexa3', fontWeight: FontWeight.w800)
+          ],
+          onToggle: (index) {
+            if (index == 0) {
+              setState(() {
+                readSetting.setBackuptimes("Günlük");
+              });
+            } else if (index == 1) {
+              setState(() {
+                readSetting.setBackuptimes("Aylık");
+              });
+            }
+            else if (index == 2){
+              setState(() {
+                readSetting.setBackuptimes("Yıllık");
+              });
+            }
+            else{
+
+            }
+            initialLabelIndex = index!;
+          },
+        ));
   }
 }
 

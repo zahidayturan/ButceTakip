@@ -32,6 +32,7 @@ class RegisteryList extends ConsumerWidget {
         }
         var item = snapshot.data!;
         return AlertDialog(
+          contentPadding: const EdgeInsets.all(10),
           content: ConstrainedBox(
             constraints: const BoxConstraints(
               maxHeight: 390,
@@ -39,63 +40,64 @@ class RegisteryList extends ConsumerWidget {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Kaydedilen İşlemler",
-                      style: TextStyle(
-                          color: renkler.sariRenk,
-                          fontFamily: "Nexa3",
-                          fontSize: 21),
-                    ),
-                    SizedBox(
-                    height: 36,
-                    width: 36,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Kaydedilen İşlemler",
+                    style: TextStyle(
+                        color: Theme.of(context).canvasColor,
+                        fontFamily: "Nexa4",
+                        fontSize: 21),
+                  ),
+                  SizedBox(
+                    height: 32,
+                    width: 32,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: renkler.arkaRenk,
+                        color: Theme.of(context).canvasColor,
                         borderRadius:
                         const BorderRadius.all(Radius.circular(20)),
                       ),
                       child:   IconButton(
                         icon: Image.asset(
                           "assets/icons/remove.png",
-                          height: 18,
-                          width: 18,
+                          height: 16,
+                          width: 16,
+                          color: Theme.of(context).primaryColor,
                         ),
-                        iconSize: 26,
+                        iconSize: 24,
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                     ),
-                      ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
                 const SizedBox(
-                  height: 12.0,
+                  height: 8,
                 ),
                 Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const [
+                      children: [
                         Padding(
                           padding: EdgeInsets.only(left: 20),
                           child: Text(
                             "     İşlem\nKategorisi",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Theme.of(context).canvasColor,
                               fontFamily: "Nexa3",
                             ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(right: 5),
+                          padding: EdgeInsets.only(right: 35),
                           child: Text(
-                            "  İşlem\nMiktarı",
+                            " İşlem\nTutarı",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Theme.of(context).canvasColor,
                               fontFamily: "Nexa3",
                             ),
                           ),
@@ -113,52 +115,40 @@ class RegisteryList extends ConsumerWidget {
                             Padding(
                               padding: const EdgeInsets.only(right: 1),
                               child: Container(
-                                width: 5,
+                                width: 4,
                                 height: 290,
                                 decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(30)),
                                   color: item.length > 8
-                                      ? renkler.arkaRenk
-                                      : renkler.koyuuRenk,),
+                                      ? Theme.of(context).canvasColor
+                                      : Theme.of(context).indicatorColor,),
                               ),
                             ),
-                            /*
-                            DecoratedBox(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  right: BorderSide(
-                                    color: item.length > 8
-                                        ? renkler.arkaRenk
-                                        : renkler.koyuuRenk,
-                                    width: item.length > 8 ? 5 : 1,
-                                  ),
-                                ),
-                              ),
-                            ),*/
                           ],
                         ),
                         SizedBox(
-                          height: 280,
+                          height: 290,
+                          width: 300,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 1),
                             child: Theme(
                               data: Theme.of(context).copyWith(
                                   colorScheme: ColorScheme.fromSwatch(
-                                    accentColor: Color(0xFFF2CB05),
+                                    accentColor: const Color(0xFFF2CB05),
                                   ),
                                   scrollbarTheme: ScrollbarThemeData(
                                       thumbColor: MaterialStateProperty.all(
-                                          renkler.sariRenk))),
+                                        Theme.of(context).dialogBackgroundColor))),
                               child: SizedBox(
-                                height: 300,
+                                height: 290,
                                 width: 300,
                                 child: Scrollbar(
                                   scrollbarOrientation:
                                       ScrollbarOrientation.right,
                                   thumbVisibility: true,
                                   interactive: true,
-                                  thickness: 7,
+                                  thickness: 6,
                                   radius: const Radius.circular(20),
                                   child: Padding(
                                     padding:
@@ -204,8 +194,7 @@ class RegisteryList extends ConsumerWidget {
                                                         BorderRadius
                                                             .circular(20),
                                                     child: Container(
-                                                      color:
-                                                          renkler.arkaRenk,
+                                                      color: Theme.of(context).indicatorColor,
                                                       height: 1,
                                                       child: Padding(
                                                         padding:
@@ -279,8 +268,7 @@ class RegisteryList extends ConsumerWidget {
                                                     height: 30,
                                                     child: DecoratedBox(
                                                       decoration: BoxDecoration(
-                                                          color: renkler
-                                                              .arkaRenk,
+                                                          color: Theme.of(context).indicatorColor,
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
@@ -288,8 +276,7 @@ class RegisteryList extends ConsumerWidget {
                                                       child: Icon(
                                                         Icons
                                                             .remove_red_eye,
-                                                        color: renkler
-                                                            .sariRenk,
+                                                        color: Theme.of(context).dialogBackgroundColor,
                                                       ),
                                                     ),
                                                   ),
@@ -312,11 +299,11 @@ class RegisteryList extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 3),
+                          padding: const EdgeInsets.only(top: 12),
                           child: Text(
                             "Kaydedilen İşlem Sayısı : ${item.length}",
                             style: TextStyle(
-                                color: renkler.arkaRenk, fontSize: 13),
+                                color: Theme.of(context).canvasColor, fontSize: 13),
                           ),
                         ),
                       ],
@@ -326,10 +313,11 @@ class RegisteryList extends ConsumerWidget {
               ],
             ),
           ),
-          backgroundColor: renkler.koyuuRenk,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
+          shadowColor: Theme.of(context).highlightColor,
         );
       },
     );

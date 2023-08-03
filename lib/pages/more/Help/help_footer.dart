@@ -23,7 +23,7 @@ Widget helpFooter(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "FezaiTech Help Center",
+                "FezaiTech Yardım Merkezi",
                 style: TextStyle(
                   color: renkler.yaziRenk,
                   fontFamily: 'Nexa3',
