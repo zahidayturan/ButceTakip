@@ -66,7 +66,7 @@ class SQLHelper {
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
         await createSettingTable(database);
-       // await createCurrnecyTable(database);
+        // await createCurrnecyTable(database);
       },
       onUpgrade: (sql.Database database, int oldVersion, int  newVersion) {
         if (newVersion > oldVersion) {

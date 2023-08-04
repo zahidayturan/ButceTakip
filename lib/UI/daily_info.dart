@@ -19,7 +19,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
   Widget gelirGiderInfo(SpendInfo item) {
     if (item.operationType == 'Gelir') {
       return Text(
-        '${item.amount}',
+        '${item.realAmount}',
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 14,
@@ -29,7 +29,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
       );
     } else {
       return Text(
-        '${item.amount}',
+        '${item.realAmount}',
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 14,

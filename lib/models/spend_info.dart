@@ -1,3 +1,6 @@
+import 'package:butcekontrol/Riverpod/settings_riverpod.dart';
+import 'package:butcekontrol/riverpod/currency_riverpod.dart';
+
 class SpendInfo {
   int ?id ;
   String ?operationType;
@@ -130,7 +133,7 @@ class SpendInfo {
         o[15].toString(),//userCategory
         o[16].toString(),//systemMessage
       );
-    }else{
+    }else {
       print("BAKAKKKKKKK");
       return SpendInfo.withId(
         int.parse(o[0].toString()),
@@ -147,6 +150,7 @@ class SpendInfo {
         o[11].toString(),
         o[12].toString(),
         o[13].toString(),
+         //CurrencyRiverpod().calculateRealAmount(double.parse(o[5].toString()), o[12].toString(), "TRY"),
         0.0,
         "",
         "",

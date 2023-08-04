@@ -214,7 +214,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     fontSize: 18,
                   )),
               Text(
-                  "${item[index].amount}",
+                  "${item[index].amount} ${item[index].moneyType}",
                   style:
                   const TextStyle(
                     color: Colors.white,

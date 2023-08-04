@@ -28,6 +28,7 @@ class _SettingsState extends ConsumerState<Settings> {
     ref.watch(settingsRiverpod).isuseinsert;
     var size = MediaQuery.of(context).size;
     var readSetting = ref.read(settingsRiverpod);
+    var currencyRiv = ref.read(currencyRiverpod);
     //String? Language = readSetting.Language;
     bool darkthememode = readSetting.DarkMode == 1 ? true : false ;
     bool isPassword = readSetting.isPassword == 1 ? true : false ;
@@ -274,8 +275,12 @@ class _SettingsState extends ConsumerState<Settings> {
                                     color: renkler.koyuuRenk,
                                   ),
                                   onChanged: (newValue) {
-                                    readSetting.setPrefix(newValue!);
-                                    readSetting.setisuseinsert();
+                                    if(readSetting.Prefix != newValue){
+                                      readSetting.setPrefix(newValue!);
+                                      currencyRiv.calculateAllSQLRealTime(newValue!);//Bütün kayıtları hocam değiştiriyor.
+                                      readSetting.setisuseinsert();
+                                    }
+                                    print("");
                                   },
                                   items: moneyPrefix.map<DropdownMenuItem<String>>((String value) {
                                     return DropdownMenuItem<String>(

@@ -88,6 +88,7 @@ class DbProvider extends ChangeNotifier {
         userCategory,
         systemMessage,
     );
+    print(newinfo.toMap());
     await SQLHelper.createItem(newinfo);
     isuseinsert = !isuseinsert ;
     notifyListeners();
@@ -115,12 +116,12 @@ class DbProvider extends ChangeNotifier {
       double totalAmount = dayItems
           .where((element) => element.operationType == 'Gelir')
           .fold(
-          0, (previousValue, element) => previousValue + element.amount!);
+          0, (previousValue, element) => previousValue + element.realAmount!);
 
       double totalAmount2 = dayItems
           .where((element) => element.operationType == 'Gider')
           .fold(
-          0, (previousValue, element) => previousValue + element.amount!);
+          0, (previousValue, element) => previousValue + element.realAmount!);
       dailyTotals[day!] = {
         'totalAmount': totalAmount,
         'totalAmount2': totalAmount2
@@ -150,61 +151,61 @@ class DbProvider extends ChangeNotifier {
     double totalAmount = items
         .where((element) => element.operationTool == 'Kart')
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
     double totalAmount2 = items
         .where((element) => element.operationTool == 'Kart')
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(1);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
   }
 
   String getTotalAmountByNakit(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationTool == 'Nakit')
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
     double totalAmount2 = items
         .where((element) => element.operationTool == 'Nakit')
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(1);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
   }
 
   String getTotalAmountByDiger(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationTool == 'Diger')
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
     double totalAmount2 = items
         .where((element) => element.operationTool == 'Diger')
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(1);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
   }
 
   String getTotalAmount(List<SpendInfo> items) {  //Bütün net Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(1);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
   }
 
   String getTotalAmountPositive(List<SpendInfo> items) { //Gelir olan Kayıtları listeliyor.
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
 
-    return totalAmount.toStringAsFixed(1);
+    return totalAmount.toStringAsFixed(2);
   }
 
   String getTotalAmountNegative(List<SpendInfo> items) { //Gider olan Kayıtları listeliyor.
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    return totalAmount2.toStringAsFixed(1);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return totalAmount2.toStringAsFixed(2);
   }
 
 

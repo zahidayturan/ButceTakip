@@ -36,6 +36,7 @@ class assetsPage extends ConsumerWidget {
       return listem;
     }
     var dbRiv = ref.watch(databaseRiverpod);
+    var readSettingsRiv = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     var renkler = CustomColors();
     var time = DateTime.now().hour;
@@ -129,7 +130,7 @@ class assetsPage extends ConsumerWidget {
                                       children: [
                                         TextMod("TOPLAM",Colors.black, 17),
                                         SizedBox(height: size.width * .06),
-                                        TextMod("${measureList[3]} TL",Colors.black, 22),
+                                        TextMod("${measureList[3]} ${readSettingsRiv.Prefix}",Colors.black, 22),
                                       ],
                                     ),
                                   ),
@@ -195,9 +196,9 @@ class assetsPage extends ConsumerWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              assetBox(context, "Banka" , dbRiv.getTotalAmountByKart(myData!)),
-                              assetBox(context, "Nakit" , dbRiv.getTotalAmountByNakit(myData!)),
-                              assetBox(context, "Diğer" , dbRiv.getTotalAmountByDiger(myData!)),
+                              assetBox(context, ref, "Banka" , dbRiv.getTotalAmountByKart(myData!)),
+                              assetBox(context, ref, "Nakit" , dbRiv.getTotalAmountByNakit(myData!)),
+                              assetBox(context, ref, "Diğer" , dbRiv.getTotalAmountByDiger(myData!)),
                             ],
                           ),
                           Row(
@@ -276,8 +277,9 @@ class assetsPage extends ConsumerWidget {
   ];
 
 
-  Widget assetBox(BuildContext context, String title, String amaount ) {
+  Widget assetBox(BuildContext context,WidgetRef ref, String title, String amaount ) {
     var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
     var renkkler = CustomColors();
     IconData ?myIcon ;
     if(title == "Banka") {
@@ -310,7 +312,7 @@ class assetsPage extends ConsumerWidget {
             size: 26,
           ),
           Text(title),
-          Text("${amaount} TL"),
+          Text("${amaount} ${readSettings.Prefix}"),
         ],
       ),
     );

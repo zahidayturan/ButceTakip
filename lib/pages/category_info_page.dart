@@ -171,7 +171,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                   text: TextSpan(
                                                     children: [
                                                       TextSpan(
-                                                        text:item[index].amount.toString(),style: TextStyle(
+                                                        text:item[index].realAmount.toString(),style: TextStyle(
                                                         fontFamily: 'NEXA3',
                                                         fontSize: 18,
                                                         color: renkler.yesilRenk,
@@ -192,7 +192,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                   text: TextSpan(
                                                     children: [
                                                       TextSpan(
-                                                        text:item[index].amount.toString(),style: TextStyle(
+                                                        text:item[index].realAmount.toString(),style: TextStyle(
                                                         fontFamily: 'NEXA3',
                                                         fontSize: 18,
                                                         color: renkler.kirmiziRenk,
