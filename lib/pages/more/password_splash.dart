@@ -1,4 +1,5 @@
  import 'package:butcekontrol/UI/password_forget.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,16 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
   bool num4 = false;
   List <String> password1list = [];
   String password1 = "" ;
-  String info = "Giriş Kodunuzu Giriniz.";
+  int abuzer = 0;
+  String abuzerHesapla(BuildContext context){
+    if(abuzer == 0){
+      return translation(context).enterThePasscode;/// giris kodunu giriniz
+    }else if(abuzer == 1){
+      return  translation(context).wrongPassword;///yanlis sifre girdiniz
+    }else{
+      return translation(context).warning;
+    }
+  }
   String errorText = "" ;
   int ?Claim  ;
   bool security = false ;
@@ -53,7 +63,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                       ),
                       const SizedBox(width: 20),
                       Text(
-                        "Vazgeç",
+                        translation(context).comeBack,
                         style: TextStyle(
                           color: renkler.koyuuRenk,
                           fontSize: 20,
@@ -69,7 +79,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                     children: [
                       SizedBox(height: size.height/15) ,
                       Text(
-                        info,
+                        abuzerHesapla(context),
                         style: TextStyle(
                             color: Theme.of(context).canvasColor,
                             fontFamily: "Nexa4"
@@ -151,40 +161,116 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                       padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                       child: Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              buton(context, "1"),
-                              buton(context, "2"),
-                              buton(context, "3"),
-                            ],
+                          SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                child: Container(
+                                  color: num1 ? Colors.black : const Color(0xffE2E1E1),
+                                ),
+                              )
                           ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              buton(context, "4"),
-                              buton(context, "5"),
-                              buton(context, "6"),
-                            ],
+                          const SizedBox(width: 10),
+                          SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                child: Container(
+                                  color: num2 ? Colors.black : const Color(0xffE2E1E1),
+                                ),
+                              )
                           ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              buton(context, "7"),
-                              buton(context, "8"),
-                              buton(context, "9"),
-                            ],
+                          const SizedBox(width: 10),
+                          SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                child: Container(
+                                  color: num3 ? Colors.black : const Color(0xffE2E1E1),
+                                ),
+                              )
                           ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              buton(context, "0"),
-                            ],
+                          const SizedBox(width: 10),
+                          SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                child: Container(
+                                  color: num4 ? Colors.black : const Color(0xffE2E1E1),
+                                ),
+                              )
+                          ),
+                          const SizedBox(width: 10),
+                          IconButton(
+                            icon : const Icon(Icons.backspace),
+                            onPressed: () {
+                                if(num1){
+                                  password1list.removeLast();
+                                }
+                                if(num3){
+                                  setState(() {
+                                    num3 = false;
+                                  });
+                                }else if(num2){
+                                  setState(() {
+                                    num2 = false;
+                                  });
+                                }else if(num1){
+                                  setState(() {
+                                    num1 = false ;
+                                  });
+                                }
+                            },
                           )
                         ],
+                      ),
+                    ),
+                    SizedBox(height: size.height/30) ,
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buton(context, "1"),
+                                buton(context, "2"),
+                                buton(context, "3"),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buton(context, "4"),
+                                buton(context, "5"),
+                                buton(context, "6"),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buton(context, "7"),
+                                buton(context, "8"),
+                                buton(context, "9"),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                buton(context, "0"),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                       Row(
@@ -370,7 +456,6 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                       print("ps1 = $password1");
                       if (password1 == ref.read(settingsRiverpod).Password ) {
                         setState(() {
-                          info = "Giriş Başarılı" ;
                           password1list.clear();
                           ref.read(settingsRiverpod).setStatus(true);
                           Navigator.of(context).pop();
@@ -396,7 +481,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                         temizle();
                         password1list.clear();
                         setState(() {
-                          info = "Yanlış Şifre Girdiniz." ;
+                          abuzer = 1;
                           ref.read(settingsRiverpod).setStatus(false);
                         });
                       }

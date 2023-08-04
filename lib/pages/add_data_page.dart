@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -37,6 +38,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var read = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
+                      translation(context).addIncomeExpensesTitle,
     return Directionality(
       textDirection: TextDirection.ltr,
       child: SizedBox(
@@ -1363,7 +1365,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
   Widget dateCustomButton(BuildContext context) {
     Future<void> selectDate(BuildContext context) async {
       final DateTime? picked = await showDatePicker(
-        locale: const Locale("tr"),
         context: context,
         initialDate: _selectedDate ?? DateTime.now(),
         firstDate: DateTime(2020),
@@ -2440,8 +2441,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Yemek';
                         });
                       },
-                      child: Text("Yemek",
+                      child: Text(translation(context).food,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextYemek,
                               fontSize: 18,
                               fontFamily: 'Nexa3',
@@ -2462,8 +2464,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Giyim';
                         });
                       },
-                      child: Text("Giyim",
+                      child: Text(translation(context).clothing,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextGiyim,
                               fontSize: 18,
                               fontFamily: 'Nexa3',
@@ -2484,8 +2487,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Eğlence';
                         });
                       },
-                      child: Text("Eğlence",
+                      child: Text(translation(context).entertainment,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextEglence,
                               fontSize: 18,
                               fontFamily: 'Nexa3',
@@ -2506,8 +2510,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Eğitim';
                         });
                       },
-                      child: Text("Eğitim",
+                      child: Text(translation(context).education,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextEgitim,
                               fontSize: 18,
                               fontFamily: 'Nexa3',
@@ -2534,8 +2539,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Aidat/Kira';
                         });
                       },
-                      child: Text("Aidat/Kira",
+                      child: Text(translation(context).duesRent,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextAidat,
                               fontSize: 18,
                               fontFamily: 'Nexa3',
@@ -2556,8 +2562,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Alışveriş';
                         });
                       },
-                      child: Text("Alışveriş",
+                      child: Text(translation(context).shopping,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextAlisveris,
                               fontSize: 18,
                               fontFamily: 'Nexa3',
@@ -2578,8 +2585,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Özel-';
                         });
                       },
-                      child: Text("Özel",
+                      child: Text(translation(context).personel,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextOzel,
                               fontSize: 18,
                               fontFamily: 'Nexa3',
@@ -2600,7 +2608,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Ulaşım';
                         });
                       },
-                      child: Text("Ulaşım",
+                      child: Text(translation(context).transport,
                           style: TextStyle(
                               color: colorTextUlasim,
                               fontSize: 18,
@@ -2628,8 +2636,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Sağlık';
                         });
                       },
-                      child: Text("Sağlık",
+                      child: Text(translation(context).health,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextSaglik,
                               fontSize: 18,
                               fontFamily: 'Nexa3',
@@ -2650,8 +2659,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Günlük Yaşam';
                         });
                       },
-                      child: Text("Günlük Yaşam",
+                      child: Text(translation(context).dailyExpenses,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextGunluk,
                               fontSize: 18,
                               fontFamily: 'Nexa3',
@@ -2672,8 +2682,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Hobi';
                         });
                       },
-                      child: Text("Hobi",
+                      child: Text(translation(context).hobby,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextHobi,
                               fontSize: 18,
                               fontFamily: 'Nexa3',
@@ -2694,8 +2705,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           _category.text = 'Diğer-';
                         });
                       },
-                      child: Text("Diğer",
+                      child: Text(translation(context).other,
                           style: TextStyle(
+                            height: 1,
                               color: colorTextDiger,
                               fontSize: 18,
                               fontFamily: 'Nexa3',

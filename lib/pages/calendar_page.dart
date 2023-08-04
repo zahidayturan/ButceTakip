@@ -3,6 +3,7 @@ import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';
+import 'package:butcekontrol/classes/language.dart';
 
 class Calendar extends ConsumerWidget {
   const Calendar({Key? key}) : super(key: key);
@@ -14,9 +15,9 @@ class Calendar extends ConsumerWidget {
     return const SafeArea(
       bottom: false,
       child: Scaffold(
-        //backgroundColor: Color(0xffF2F2F2),
-        appBar: AppBarForPage(title: 'İŞLEM TAKVİMİ'),
         body: CalendarBody(),
+        appBar: AppBarForPage(title: translation(context).activityCalendarTitle),
+        //backgroundColor: Color(0xffF2F2F2),
       ),
     );
   }
@@ -83,13 +84,13 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                containerDayAdd(context, "Pt"),
-                containerDayAdd(context, "Sa"),
-                containerDayAdd(context, "Ça"),
-                containerDayAdd(context, "Pe"),
-                containerDayAdd(context, "Cu"),
-                containerDayAdd(context, "Ct"),
-                containerDayAdd(context, "Pz"),
+                containerDayAdd(context, translation(context).calendarMonday),
+                containerDayAdd(context, translation(context).calendarTuesday),
+                containerDayAdd(context, translation(context).calendarWednesday),
+                containerDayAdd(context, translation(context).calendarThursday),
+                containerDayAdd(context, translation(context).calendarFriday),
+                containerDayAdd(context, translation(context).calendarSaturday),
+                containerDayAdd(context, translation(context).calendarSunday),
               ],
             ),
           ),
@@ -132,7 +133,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
   Widget dateSelector(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var read = ref.read(calendarRiverpod);
-    List monthName = read.getMonths();
+    List monthName = read.getMonths(context);
     List yearName = read.getYears();
     return Stack(
       children: [
@@ -415,7 +416,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "${data[0]} Gelir Bilgisi",
+                  "${data[0]} ${translation(context).incomeInfo}",
                   style: TextStyle(
                     color: Theme.of(context).canvasColor,
                     fontSize: 17,
@@ -425,7 +426,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                   ),
                 ),
                 Text(
-                  "${data[1]} Gider Bilgisi",
+                  "${data[1]} ${translation(context).expenseInfo}",
                   style: TextStyle(
                     color: Theme.of(context).canvasColor,
                     fontSize: 17,
@@ -511,10 +512,10 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     return Container(
                       height: 40,
                       color: const Color(0xFF0D1C26),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          'Güne ait veri bulunamadı !',
-                          style: TextStyle(
+                          translation(context).dataForTheDayNotFound,
+                          style: const TextStyle(
                             fontFamily: 'Nexa3',
                             fontSize: 18,
                             color: Color(0xFFE9E9E9),

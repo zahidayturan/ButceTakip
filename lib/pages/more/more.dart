@@ -1,5 +1,6 @@
 import 'package:butcekontrol/Pages/more/communicate.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
@@ -28,7 +29,7 @@ class More extends ConsumerWidget {
         bottom: false,
         child: Scaffold(
           //backgroundColor: const Color(0xffF2F2F2),
-          appBar: const AppBarForPage(title: "DİĞER İŞLEMLER"),
+          appBar: AppBarForPage(title: translation(context).otherActivitiesTitle),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -72,7 +73,7 @@ class More extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Icon(Icons.settings, color: renkler.arkaRenk, size: 35),
-                                  TextMod("Ayarlar", renkler.arkaRenk, 10),
+                                  TextMod(translation(context).settings, renkler.yaziRenk, 10),
                                 ],
                               ),
                             ),
@@ -109,8 +110,8 @@ class More extends ConsumerWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
+                                  TextMod(translation(context).help, renkler.yaziRenk, 10),
                                   Icon(Icons.question_mark, color: renkler.arkaRenk, size: 35),
-                                  TextMod("Yardım", renkler.arkaRenk, 10),
                                 ],
                               ),
                             ),
@@ -190,7 +191,7 @@ class More extends ConsumerWidget {
                                   ref.read(settingsRiverpod).isPassword == 1
                                       ? Icon(Icons.lock, color: renkler.arkaRenk, size: 35)
                                       : Icon(Icons.lock_open, color: renkler.arkaRenk, size: 35),
-                                  TextMod("Giriş Şifresi", renkler.arkaRenk, 10),
+                                  TextMod(translation(context).loginPassword, renkler.yaziRenk, 10),
                                 ],
                               ),
                             ),
@@ -234,7 +235,7 @@ class More extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Icon(Icons.download, color: renkler.arkaRenk, size: 35),
-                                  TextMod("Verileri İndir", renkler.arkaRenk, 10),
+                                  TextMod(translation(context).downloadData, renkler.yaziRenk, 10),
                                 ],
                               ),
                             ),
@@ -273,7 +274,7 @@ class More extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Icon(Icons.message, color: renkler.arkaRenk, size: 35),
-                                  TextMod("İletişim", renkler.arkaRenk, 10),
+                                  TextMod(translation(context).contactUs, renkler.yaziRenk, 10),
                                 ],
                               ),
                             ),
@@ -357,7 +358,7 @@ class More extends ConsumerWidget {
                         height: 70,
                       ),
                       const SizedBox(height: 8),
-                      TextMod("Version ${"1.1.1"}", renkler.koyuuRenk, 14),
+                      TextMod("${translation(context).version}  ${"1.1.1"}", renkler.koyuuRenk, 14),
                       const SizedBox(height: 2),
                       TextMod("FezaiTech", Theme.of(context).canvasColor, 14),
                     ],

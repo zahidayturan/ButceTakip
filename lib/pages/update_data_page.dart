@@ -3,9 +3,11 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:intl/intl.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../riverpod_management.dart';
+import 'package:butcekontrol/classes/language.dart';
 
 class UpdateData extends StatefulWidget {
   const UpdateData({Key? key}) : super(key: key);
@@ -36,6 +38,8 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var read = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
+                      translation(context).editTitle,
+                        height: 1,
     return SizedBox(
       width: size.width,
       height: 60,
@@ -73,39 +77,39 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-          ),
-          Positioned(
-            right: 0,
-            top: 0,
-            child: SizedBox(
-              height: 60,
-              child: Container(
-                width: 60,
-                decoration: const BoxDecoration(
-                    color: Color(0xffF2CB05),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(100),
-                      bottomLeft: Radius.circular(100),
-                      topLeft: Radius.circular(100),
-                    )),
-                child: IconButton(
-                  padding: const EdgeInsets.only(right: 1.0),
-                  iconSize: 60,
-                  icon: Image.asset(
-                    "assets/icons/remove.png",
-                    height: 26,
-                    width: 26,
-                    color: Colors.white,
+            Positioned(
+              right: 0,
+              top: 0,
+              child: SizedBox(
+                height: 60,
+                child: Container(
+                  width: 60,
+                  decoration: const BoxDecoration(
+                      color: Color(0xffF2CB05),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(100),
+                        bottomLeft: Radius.circular(100),
+                        topLeft: Radius.circular(100),
+                      )),
+                  child: IconButton(
+                    padding: const EdgeInsets.only(right: 1.0),
+                    iconSize: 60,
+                    icon: Image.asset(
+                      "assets/icons/remove.png",
+                      height: 26,
+                      width: 26,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      read.setCurrentindex(0);
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    read.setCurrentindex(0);
-                  },
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -647,6 +651,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     ),
                   ),
                 ),
+                      child: Text(translation(context).expenses,
+                            height: 1,
                 Container(
                   width: 130,
                   height: 40,
@@ -714,7 +720,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       if (picked != null) {
         setState(() {
           _selectedDate = picked;
-          operationDate.text = DateFormat('dd.MM.yyyy').format(_selectedDate!);
+          operationDate.text = intl.DateFormat('dd.MM.yyyy').format(_selectedDate!);
         });
       }
     }
@@ -738,11 +744,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             padding: const EdgeInsets.only(left: 5),
             child: Row(
               children: [
-                const SizedBox(
+                SizedBox(
                   child: Padding(
-                    padding: EdgeInsets.only(left: 8, right: 8),
-                    child: Text("TARİH",
-                        style: TextStyle(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: Text(translation(context).date,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 17,
                             fontFamily: 'Nexa4',
@@ -828,11 +834,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
+                SizedBox(
                   child: Padding(
-                    padding: EdgeInsets.only(left: 8, right: 8, top: 4),
-                    child: Text("TUTAR",
-                        style: TextStyle(
+                    padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
+                    child: Text(translation(context).amountDetails,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 17,
                             fontFamily: 'Nexa4',
@@ -983,14 +989,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 5),
+            padding: const EdgeInsets.only(left: 5, right: 5),
             child: Row(
               children: [
-                const SizedBox(
+                SizedBox(
                   child: Padding(
-                    padding: EdgeInsets.only(left: 8, right: 8),
-                    child: Text("KAYDET",
-                        style: TextStyle(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: Text(translation(context).save,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 17,
                             fontFamily: 'Nexa4',
@@ -1055,6 +1061,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     var readUpdateData = ref.read(updateDataRiverpod);
     final note = readUpdateData.getNote();
     var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
     return SizedBox(
       width: size.width * 0.9,
       height: 125,
@@ -1080,7 +1087,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             child: Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 18, top: 34),
+                  padding: const EdgeInsets.only(left: 18, right: 18, top: 34),
                   child: TextFormField(
                     decoration: InputDecoration(
                         hintText: "Not eklemek için tıklayınız",
@@ -1122,7 +1129,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           Positioned(
             left: 20,
             child: SizedBox(
-              width: 114,
+              width: 130,
               height: 40,
               child: DecoratedBox(
                 decoration: BoxDecoration(
@@ -1748,13 +1755,13 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       Navigator.of(context).pop();
                       readHome.setStatus();
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
+                        SnackBar(
                           backgroundColor:
-                          Color(0xff0D1C26),
-                          duration: Duration(seconds: 1),
+                          const Color(0xff0D1C26),
+                          duration: const Duration(seconds: 1),
                           content: Text(
-                            'İşlem bilgisi güncellendi',
-                            style: TextStyle(
+                            translation(context).activityUpdated,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                               fontFamily: 'Nexa3',
@@ -1801,8 +1808,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           });
                     }
                   },
-                  child: const Text("GÜNCELLE",
-                      style: TextStyle(
+                  child: Text(translation(context).updateDone,
+                      style: const TextStyle(
                           color: Color(0xff0D1C26),
                           fontSize: 17,
                           fontFamily: 'Nexa4',

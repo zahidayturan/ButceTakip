@@ -30,7 +30,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localization: ^0.1.10
+  flutter_localizations:
+    sdk: flutter
+  intl: any
   sqflite: ^2.2.6
   path: ^1.8.0
   flutter_riverpod: ^2.3.2
@@ -53,6 +55,7 @@ dependencies:
   url_launcher: ^6.0.0
   toggle_switch: ^2.1.0
   dropdown_button2: ^2.3.6
+
 
 flutter_native_splash:
   image: assets/image/icon_BKA/splash.png
@@ -79,7 +82,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

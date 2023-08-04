@@ -1,4 +1,5 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class Communicate extends StatelessWidget {
       child: Scaffold(
         //backgroundColor: const Color(0xffF2F2F2),
         bottomNavigationBar: const NavBar(),
-        appBar: const AppBarForPage(title: "İLETİŞİM"),
+        appBar: AppBarForPage(title: translation(context).contactUsTitle),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -57,8 +58,9 @@ class Communicate extends StatelessWidget {
                         child: RichText(
                             text: TextSpan(children: [
                           TextSpan(
-                            text: 'Email : ',
-                            style: TextStyle(
+                            text: translation(context).email,
+                            style: const TextStyle(
+                              height: 1,
                               fontSize: 16,
                               fontFamily: 'Nexa3',
                               color: Theme.of(context).canvasColor,
@@ -103,8 +105,9 @@ class Communicate extends StatelessWidget {
                         child: RichText(
                             text: TextSpan(children: [
                           TextSpan(
-                            text: 'Github : ',
-                            style: TextStyle(
+                            text: translation(context).github,
+                            style: const TextStyle(
+                              height: 1,
                               fontSize: 16,
                               fontFamily: 'Nexa3',
                               color: Theme.of(context).canvasColor,
@@ -138,8 +141,8 @@ class Communicate extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 9),
                             child: Text(
-                              "GELİŞTİRİCİLER",
-                              style: TextStyle(
+                              translation(context).developers,
+                              style: const TextStyle(
                                   fontFamily: "Nexa4",
                                   fontSize: 18,
                                   color: renkler.arkaRenk),
