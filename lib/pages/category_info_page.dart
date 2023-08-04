@@ -1,4 +1,5 @@
 import 'package:butcekontrol/UI/spend_detail.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/riverpod_management.dart';
@@ -49,6 +50,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
   Widget list(BuildContext context) {
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<SpendInfo>> myList = readCategoryInfo.myMethod2();
     CustomColors renkler = CustomColors();
@@ -72,13 +74,13 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Padding(
-                              padding: EdgeInsets.only(left: 11.5),
+                              padding: EdgeInsets.only(left: 11.5, right: 11.5),
                               child: SizedBox(
                                 width: 4,
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(right: 11.5),
+                              padding: const EdgeInsets.only(right: 11.5, left: 11.5),
                               child: Container(
                                 width: 4,
                                 decoration: BoxDecoration(
@@ -96,14 +98,15 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                           child: Theme(
                             data: Theme.of(context).copyWith(
                                 colorScheme: ColorScheme.fromSwatch(
-                                  accentColor: Color(0xFFF2CB05),
+                                  accentColor: const Color(0xFFF2CB05),
                                 ),
                                 scrollbarTheme: ScrollbarThemeData(
                                     thumbColor: MaterialStateProperty.all(
                                         const Color(0xffF2CB05)))),
                             child: Scrollbar(
                               isAlwaysShown: true,
-                              scrollbarOrientation: ScrollbarOrientation.right,
+                              scrollbarOrientation: readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.left :
+                              ScrollbarOrientation.right,
                               interactive: true,
                               thickness: 7,
                               radius: const Radius.circular(15),
@@ -112,7 +115,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10, right: 15, top: 5, bottom: 5),
+                                        left: 15, right: 15, top: 5, bottom: 5),
                                     child: InkWell(
                                       onTap: () {
                                         {
@@ -274,9 +277,10 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 210,
-                  child: Text("Toplam Tutar",style: TextStyle(
+                  child: Text(translation(context).totalAmountStatistics,style: const TextStyle(
+                    height: 1,
                     fontFamily: 'NEXA3',
                     fontSize: 17,
                     color: Color(0xff0D1C26),
@@ -339,6 +343,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(80);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(categoryInfoRiverpod);
     var size = MediaQuery.of(context).size;
     List myCategory = read.getCategory();
@@ -353,11 +358,15 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
               height: 66,
               width: size.width - 80,
               child: DecoratedBox(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.horizontal(
+                decoration: BoxDecoration(
+                  borderRadius: readSettings.localChanger() == const Locale("ar") ?
+                  const BorderRadius.horizontal(
+                    left: Radius.circular(15),
+                  ) :
+                  const BorderRadius.horizontal(
                     right: Radius.circular(15),
                   ),
-                  color: Color(0xff0D1C26),
+                  color: const Color(0xff0D1C26),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -382,11 +391,11 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                       ),
                     ),
                   ],
-                ),
+                ), /// başlıktaki yazılar
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 15.0),
+              padding: const EdgeInsets.only(right: 15.0, left: 15,),
               child: SizedBox(
                 width: 40,
                 height: 40,
@@ -408,7 +417,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                   ),
                 ),
               ),
-            ),
+            ), /// çarpı işareti
           ],
         ),
       ),

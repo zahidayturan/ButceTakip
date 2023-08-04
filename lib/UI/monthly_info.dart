@@ -3,14 +3,17 @@ import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../constans/text_pref.dart';
+import 'package:butcekontrol/classes/language.dart';
+
+
 
 class Aylikinfo extends ConsumerWidget {
   const Aylikinfo({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ScrollController scrolbarcontroller1 = ScrollController();
+    var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(databaseRiverpod);
     var readHome = ref.read(homeRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
@@ -59,8 +62,8 @@ class Aylikinfo extends ConsumerWidget {
                                             borderRadius: BorderRadius.circular(20),
                                             color: renkler.koyuuRenk
                                         ),
-                                        child: const Center(child: TextMod(
-                                            "Kayıt Yok", Colors.white, 14))
+                                        child: Center(child: TextMod(
+                                            translation(context).noActivity, Colors.white, 14))
                                     ),
                                   ),
                                 ],
@@ -78,7 +81,7 @@ class Aylikinfo extends ConsumerWidget {
                               child: Stack(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 1.6),
+                                    padding: const EdgeInsets.only(left: 1.6, right: 1.6),
                                     child: Container(
                                       width: 4,
                                       decoration: BoxDecoration(
@@ -93,7 +96,8 @@ class Aylikinfo extends ConsumerWidget {
                                     controller: scrolbarcontroller1,
                                     thumbVisibility: true,
                                     scrollbarOrientation:
-                                        ScrollbarOrientation.left,
+                                    readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.right :
+                                    ScrollbarOrientation.left,
                                     interactive: true,
                                     thickness: 7,
                                     radius: const Radius.circular(15.0),
@@ -119,12 +123,12 @@ class Aylikinfo extends ConsumerWidget {
                                               int.parse(month),
                                               int.parse(day));
                                           var dayOfWeekName = _getDayOfWeekName(
-                                              dateTime.weekday);
+                                              dateTime.weekday, context);
                                           return Column(
                                             children: [
                                               Padding(
                                                 padding: const EdgeInsets.only(
-                                                    left: 15, right: 10),
+                                                    left: 15, right: 15),
                                                 child: ClipRRect(
                                                   //Borderradius vermek için kullanıyoruz
                                                   borderRadius:
@@ -254,7 +258,7 @@ class Aylikinfo extends ConsumerWidget {
                                                                     ceyrekwsize,
                                                                 child: Text(
                                                                   '$formattedTotal',
-                                                                  textAlign: TextAlign.right,
+                                                                  textAlign: readSettings.localChanger() == Locale("ar") ? TextAlign.left : TextAlign.right,
                                                                   style:
                                                                       const TextStyle(
                                                                     fontFamily:
@@ -303,22 +307,22 @@ class Aylikinfo extends ConsumerWidget {
     }
   }
 
-  String _getDayOfWeekName(int dayOfWeek) {
+  String _getDayOfWeekName(int dayOfWeek, BuildContext context) {
     switch (dayOfWeek) {
       case 1:
-        return 'Pzt';
+        return translation(context).monday;
       case 2:
-        return 'Sal';
+        return translation(context).tuesday;
       case 3:
-        return 'Çar';
+        return translation(context).wednesday;
       case 4:
-        return 'Per';
+        return translation(context).thursday;
       case 5:
-        return 'Cum';
+        return translation(context).friday;
       case 6:
-        return 'Cts';
+        return translation(context).saturday;
       case 7:
-        return 'Paz';
+        return translation(context).sunday;
       default:
         return '';
     }

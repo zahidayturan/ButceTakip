@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ Widget helpFooter(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "FezaiTech Help Center",
+                "FezaiTech ${translation(context).helpCenter}",
                 style: TextStyle(
                   color: renkler.yaziRenk,
                   fontFamily: 'Nexa3',

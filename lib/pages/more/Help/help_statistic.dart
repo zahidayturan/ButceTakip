@@ -1,5 +1,6 @@
 import 'package:butcekontrol/Pages/more/Help/help_footer.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class HelpStatisic extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
           backgroundColor: const Color(0xffF2F2F2),
-          appBar: const AppBarForPage(title: "YARDIM<"),
+          appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(

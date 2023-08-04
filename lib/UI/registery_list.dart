@@ -19,6 +19,7 @@ class RegisteryList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readDB = ref.read(databaseRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
@@ -111,10 +112,10 @@ class RegisteryList extends ConsumerWidget {
                               width: 5,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(right: 1),
+                              padding: const EdgeInsets.only(right: 1.9, left: 1.5),
                               child: Container(
                                 width: 5,
-                                height: 290,
+                                height: 280,
                                 decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(30)),
@@ -141,7 +142,7 @@ class RegisteryList extends ConsumerWidget {
                         SizedBox(
                           height: 280,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 1),
+                            padding: const EdgeInsets.only(left: 1, right: 1),
                             child: Theme(
                               data: Theme.of(context).copyWith(
                                   colorScheme: ColorScheme.fromSwatch(
@@ -155,14 +156,16 @@ class RegisteryList extends ConsumerWidget {
                                 width: 300,
                                 child: Scrollbar(
                                   scrollbarOrientation:
-                                      ScrollbarOrientation.right,
+                                  readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.left :
+                                  ScrollbarOrientation.right,
                                   thumbVisibility: true,
                                   interactive: true,
                                   thickness: 7,
                                   radius: const Radius.circular(20),
+
                                   child: Padding(
                                     padding:
-                                        const EdgeInsets.only(right: 1),
+                                        const EdgeInsets.only(right: 1,left: 13),
                                     child: ListView.builder(
                                       itemCount: item.length,
                                       itemBuilder: (context, index) {

@@ -6,6 +6,7 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../classes/language.dart';
 import 'password_splash.dart';
 import 'backup.dart';
 
@@ -18,28 +19,26 @@ class Settings extends ConsumerStatefulWidget {
 ///Koyu tema , Yedeklenme durumunun  database ile implementi sağlanrı
 class _SettingsState extends ConsumerState<Settings> {
   List<String> moneyPrefix = <String>['TRY'];
-  List<String> dilDestegi = <String>["Türkçe"];
+  List<String> dilDestegi = <String>["Türkçe", "English", "العربية"];
   CustomColors renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
     ref.watch(settingsRiverpod).isuseinsert;
     var size = MediaQuery.of(context).size;
     var readSetting = ref.read(settingsRiverpod);
-    //String? Language = readSetting.Language;
     bool darkthememode = readSetting.DarkMode == 1 ? true : false ;
     bool isPassword = readSetting.isPassword == 1 ? true : false ;
     bool isBackup = readSetting.isBackUp == 1 ? true : false ;
     //String? Prefix = readSetting.Prefix ;
-    String languageFirst = "Türkçe" ;
+    String language = readSetting.Language! == "Turkce" ? "Türkçe" : readSetting.Language!; /// dilDestegi ile database çakışmasından dolayı böyle bir koşullu atama ekledik
     String dropdownshowitem = 'TRY';
-    ref.watch(settingsRiverpod).isuseinsert;
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
           backgroundColor: const Color(0xffF2F2F2),
           bottomNavigationBar: const NavBar(),
-          appBar: const AppBarForPage(title: "AYARLAR"),
+          appBar: AppBarForPage(title: translation(context).settingsTitle),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8),
             child: Column(
@@ -58,15 +57,15 @@ class _SettingsState extends ConsumerState<Settings> {
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
                           children: [
-                            const Text(
-                              "Koyu Tema   (Yakında)",
-                              style: TextStyle(
+                            Text(
+                              translation(context).darkMode,
+                              style: const TextStyle(
                                 fontFamily: "Nexa3",
                               ),
                             ),
                             const Spacer(),
-                            darkthememode ?  const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                 :const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                            darkthememode ? Text(translation(context).on, style: const TextStyle(fontFamily: "Nexa3"),)
+                                 :Text(translation(context).off, style: const TextStyle(fontFamily: "Nexa3"),),
                             Switch(
                               activeColor: renkler.sariRenk,
                               value: darkthememode,
@@ -135,16 +134,16 @@ class _SettingsState extends ConsumerState<Settings> {
                           },
                           child: Row(
                             children: [
-                              const Text(
-                                "Giriş Şifresi",
-                                style: TextStyle(
+                              Text(
+                                translation(context).loginPassword,
+                                style: const TextStyle(
                                   fontFamily: "Nexa3",
                                 ),
                               ),
                               const Spacer(),
                               isPassword
-                                  ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                  : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                                  ? Text(translation(context).on, style: const TextStyle(fontFamily: "Nexa3"),)
+                                  : Text(translation(context).off, style: const TextStyle(fontFamily: "Nexa3"),),
                               const Icon(
                                 Icons.arrow_forward_ios,
                               ),
@@ -184,15 +183,15 @@ class _SettingsState extends ConsumerState<Settings> {
                           },
                           child: Row(
                             children:  [
-                              const Text(
-                                "Yedeklenme Durumu",
-                                style: TextStyle(
+                              Text(
+                                translation(context).backupStatus,
+                                style: const TextStyle(
                                   fontFamily: "Nexa3",
                                 ),
                               ),
                               const Spacer(),
-                              isBackup  ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                                  : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                              isBackup  ? Text(translation(context).on, style: const TextStyle(fontFamily: "Nexa3"),)
+                                  : Text(translation(context).off, style: const TextStyle(fontFamily: "Nexa3"),),
                               const Icon(
                                 Icons.arrow_forward_ios,
                               )
@@ -215,9 +214,9 @@ class _SettingsState extends ConsumerState<Settings> {
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
                           children: [
-                            const Text(
-                              "Para Birimi",
-                              style: TextStyle(
+                            Text(
+                              translation(context).currency,
+                              style: const TextStyle(
                                 fontFamily: "Nexa3",
                               ),
                             ),
@@ -272,9 +271,9 @@ class _SettingsState extends ConsumerState<Settings> {
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
                           children: [
-                            const Text(
-                              "Dil Desteği",
-                              style: TextStyle(
+                            Text(
+                              translation(context).language,
+                              style: const TextStyle(
                                 fontFamily: "Nexa3",
                               ),
                             ),
@@ -289,7 +288,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                 child: DropdownButton(
                                   dropdownColor: renkler.koyuuRenk,
                                   borderRadius: BorderRadius.circular(20),
-                                  value: languageFirst,
+                                  value: language,
                                   elevation: 16,
                                   style: TextStyle(color: renkler.sariRenk),
                                   underline: Container(
@@ -297,9 +296,12 @@ class _SettingsState extends ConsumerState<Settings> {
                                     color: renkler.koyuuRenk,
                                   ),
                                   onChanged: (newValue) {
-                                    setState(() {
-                                      languageFirst = newValue!;
-                                    });
+                                    if(newValue == "Türkçe"){ /// database te Turkce yazılı olduğu için if koşulu kullandık.
+                                      readSetting.setLanguage("Turkce");
+                                    }else{
+                                      readSetting.setLanguage(newValue!);
+                                    }
+                                    readSetting.setisuseinsert();
                                   },
                                   items: dilDestegi
                                       .map<DropdownMenuItem<String>>((String value) {

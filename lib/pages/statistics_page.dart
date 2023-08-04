@@ -4,16 +4,17 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:d_chart/d_chart.dart';
+import 'package:butcekontrol/classes/language.dart';
 
 class Statistics extends ConsumerWidget {
   const Statistics({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffF2F2F2),
-        appBar: AppBarForPage(title: 'İSTATİSTİKLER'),
-        body: StaticticsBody(),
+        backgroundColor: const Color(0xffF2F2F2),
+        appBar: AppBarForPage(title: translation(context).statisticsTitle),
+        body: const StaticticsBody(),
       ),
     );
   }
@@ -41,24 +42,27 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         const SizedBox(height: 15),
         SizedBox(
           width: size.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              RotatedBox(
-                quarterTurns: 3,
-                child: gelirGiderButon(context),
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: size.height * 0.26,
-                  child: pasta(context),
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                RotatedBox(
+                  quarterTurns: 3,
+                  child: gelirGiderButon(context),
                 ),
-              ),
-              RotatedBox(
-                quarterTurns: 3,
-                child: tarihButon(context),
-              ),
-            ],
+                Expanded(
+                  child: SizedBox(
+                    height: size.height * 0.26,
+                    child: pasta(context),
+                  ),
+                ),
+                RotatedBox(
+                  quarterTurns: 3,
+                  child: tarihButon(context),
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(
@@ -80,6 +84,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   Widget categoryList(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     final ScrollController scrolbarcontroller1 = ScrollController();
     Future<List<Map<String, dynamic>>> myList = read.getCategoryByMonth(
@@ -122,10 +127,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       decoration: BoxDecoration(
                           color: const Color(0xFF0D1C26),
                           borderRadius: BorderRadius.circular(20)),
-                      child: const Center(
+                      child: Center(
                           child: Text(
-                        "Veri bulunamadı.",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        translation(context).dataNotFound,
+                        style: const TextStyle(height: 1,color: Colors.white, fontSize: 16),
                       )),
                     ),
                   ),
@@ -156,7 +161,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 1.5),
+                            padding: const EdgeInsets.only(right: 1.5, left: 1.5),
                             child: Container(
                               width: 4,
                               //height: size.height * 0.35,
@@ -179,7 +184,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         child: Scrollbar(
                           thumbVisibility: true,
                           controller: scrolbarcontroller1,
-                          scrollbarOrientation: ScrollbarOrientation.right,
+                          scrollbarOrientation: readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.left :
+                          ScrollbarOrientation.right,
                           interactive: true,
                           thickness: 7,
                           radius: const Radius.circular(15.0),
@@ -189,7 +195,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: const EdgeInsets.only(
-                                    bottom: 8, right: 16),
+                                    bottom: 8, right: 16, left: 16),
                                 child: InkWell(
                                   onTap: () {
                                     readCategoryInfo.setDateAndCategory(
@@ -228,6 +234,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 child: Text(
                                               "% ${item[index]['percentages'].toString()}",
                                               style: const TextStyle(
+                                                height: 1,
                                                 fontFamily: 'NEXA3',
                                                 color: Colors.white,
                                               ),
@@ -237,6 +244,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                           Text(
                                             item[index]['category'],
                                             style: const TextStyle(
+                                              height: 1,
                                               fontFamily: 'NEXA3',
                                               fontSize: 18,
                                               color: Color(0xff0D1C26),
@@ -250,6 +258,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                   text: item[index]['amount']
                                                       .toString(),
                                                   style: const TextStyle(
+                                                    height: 1,
                                                     fontFamily: 'NEXA3',
                                                     fontSize: 16,
                                                     color: Color(0xFFF2CB05),
@@ -258,6 +267,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 const TextSpan(
                                                   text: ' ₺',
                                                   style: TextStyle(
+                                                    height: 1,
                                                     fontFamily: 'TL',
                                                     fontSize: 18,
                                                     fontWeight:
@@ -294,8 +304,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       SizedBox(
                         width: 210,
                         child: Text(
-                          "$giderGelirHepsi İçin Toplam Tutar",
+                          translation(context).totalAmountStatistics,
                           style: const TextStyle(
+                            height: 1,
                             fontFamily: 'NEXA3',
                             fontSize: 17,
                             color: Color(0xff0D1C26),
@@ -320,6 +331,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     TextSpan(
                                       text: totalAmount.toStringAsFixed(1),
                                       style: const TextStyle(
+                                        height: 1,
                                         fontFamily: 'Nexa3',
                                         fontSize: 17,
                                         color: Color(0xff0D1C26),
@@ -328,6 +340,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     const TextSpan(
                                       text: ' ₺',
                                       style: TextStyle(
+                                        height: 1,
                                         fontFamily: 'TL',
                                         fontWeight: FontWeight.w600,
                                         fontSize: 17,
@@ -418,9 +431,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 selectedYearIndex = DateTime.now().year;
                               });
                             },
-                            child: const Text(
-                              "YIL",
-                              style: TextStyle(
+                            child: Text(
+                              translation(context).yearly,
+                              style: const TextStyle(
+                                height: 1,
                                 fontFamily: 'NEXA4',
                                 fontSize: 14,
                                 color: Colors.white,
@@ -462,9 +476,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 selectedMonthIndex = DateTime.now().month;
                               });
                             },
-                            child: const Text(
-                              "AY",
-                              style: TextStyle(
+                            child: Text(
+                              translation(context).monthly,
+                              style: const TextStyle(
+                                height: 1,
                                 fontFamily: 'NEXA4',
                                 fontSize: 14,
                                 color: Colors.white,
@@ -507,9 +522,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 validDateMenu = 3;
                               });
                             },
-                            child: const Text(
-                              "HAFTA",
-                              style: TextStyle(
+                            child: Text(
+                              translation(context).weekly,
+                              style: const TextStyle(
+                                height: 1,
                                 fontFamily: 'NEXA4',
                                 fontSize: 14,
                                 color: Colors.white,
@@ -552,9 +568,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 validDateMenu = 4;
                               });
                             },
-                            child: const Text(
-                              "GÜN",
-                              style: TextStyle(
+                            child: Text(
+                              translation(context).daily,
+                              style: const TextStyle(
+                                height: 1,
                                 fontFamily: 'NEXA4',
                                 fontSize: 14,
                                 color: Colors.white,
@@ -632,9 +649,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             selectDateMenu = 0;
                           });
                         },
-                        child: const Text(
-                          "AYLIK",
-                          style: TextStyle(
+                        child: Text(
+                          translation(context).monthly,
+                          style: const TextStyle(
+                            height: 1,
                             fontFamily: 'NEXA4',
                             fontSize: 18,
                             color: Colors.white,
@@ -788,9 +806,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                               selectDateMenu = 0;
                             });
                           },
-                          child: const Text(
-                            "YILLIK",
-                            style: TextStyle(
+                          child: Text(
+                            translation(context).yearly,
+                            style: const TextStyle(
+                              height: 1,
                               fontFamily: 'NEXA4',
                               fontSize: 20,
                               color: Colors.white,
@@ -902,9 +921,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                               selectDateMenu = 0;
                             });
                           },
-                          child: const Text(
-                            "HAFTA",
-                            style: TextStyle(
+                          child: Text(
+                            translation(context).weekly,
+                            style: const TextStyle(
+                              height: 1,
                               fontFamily: 'NEXA4',
                               fontSize: 14,
                               color: Colors.white,
@@ -1106,9 +1126,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                               selectDateMenu = 0;
                             });
                           },
-                          child: const Text(
-                            "GÜN",
-                            style: TextStyle(
+                          child: Text(
+                            translation(context).daily,
+                            style: const TextStyle(
+                              height: 1,
                               fontFamily: 'NEXA4',
                               fontSize: 14,
                               color: Colors.white,
@@ -1356,8 +1377,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             giderGelirHepsi = "Gider";
                           });
                         },
-                        child: Text("GİDER",
+                        child: Text(translation(context).expenses,
                             style: TextStyle(
+                              height: 1,
                                 color: textColor,
                                 fontSize: 16,
                                 fontFamily: 'Nexa4',
@@ -1383,8 +1405,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             giderGelirHepsi = 'Gelir';
                           });
                         },
-                        child: Text("GELİR",
+                        child: Text(translation(context).income,
                             style: TextStyle(
+                              height: 1,
                                 color: textColor2,
                                 fontSize: 16,
                                 fontFamily: 'Nexa4',
@@ -1410,8 +1433,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             giderGelirHepsi = 'Hepsi';
                           });
                         },
-                        child: Text("HEPSİ",
+                        child: Text(translation(context).both,
                             style: TextStyle(
+                              height: 1,
                                 color: textColor3,
                                 fontSize: 16,
                                 fontFamily: 'Nexa4',

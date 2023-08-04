@@ -5,6 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../constans/text_pref.dart';
 import '../models/spend_info.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butcekontrol/classes/language.dart';
+import 'package:butcekontrol/app/butce_kontrol_app.dart';
+
 
 class GunlukInfo extends ConsumerStatefulWidget {
   const GunlukInfo({super.key});
@@ -45,6 +49,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
     ref.listen(databaseRiverpod, (previous, next) {
       return ref.watch(databaseRiverpod);
     });
+    var readSettings = ref.read(settingsRiverpod);
     var readDB = ref.read(databaseRiverpod);
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd.MM.yyyy').format(now);
@@ -64,19 +69,25 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                       children: [
                         DecoratedBox(
                           decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                topRight: Radius.circular(10)),
+                            borderRadius: readSettings.localChanger() == Locale("ar") ?
+                            BorderRadius.horizontal(
+                                left: Radius.circular(10)
+                            ) :
+                            BorderRadius.horizontal(
+                                right: Radius.circular(10)
+                            ),
                             color: renkler.koyuuRenk,
                           ),
-                          child: const Padding(
+                          child: Padding(
                             padding: EdgeInsets.only(
                                 left: 15.0, right: 20, top: 6, bottom: 3),
                             child: Text(
-                              "Bugünün İşlem Bilgileri",
+                              translation(context).todaysActivities, /// dil destekli yazi
+                              //"Bugünün İşlem Bilgileri",
                               style: TextStyle(
+                                height: 1,
                                 color: Colors.white,
-                                fontFamily: 'Nexa3',
+                                fontFamily: 'Nexa4',
                                 fontSize: 18,
                               ),
                             ),
@@ -87,6 +98,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                     Padding(
                       padding: const EdgeInsets.only(
                         right: 25,
+                        left: 25,
                         top: 4,
                       ),
                       child: Text(formattedDate,
@@ -111,8 +123,9 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                             width: 100,
                             child: Center(
                               child: Text(
-                                'Kategori',
+                                translation(context).category,
                                 style: TextStyle(
+                                  height: 1,
                                   fontSize: 16,
                                   color: renkler.koyuuRenk,
                                   fontFamily: 'Nexa3',
@@ -122,11 +135,12 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                             ),
                           ),
                           SizedBox(
-                            width: 60,
+                            width: 70,
                             child: Center(
                               child: Text(
-                                'Ödeme',
+                                translation(context).payment,
                                 style: TextStyle(
+                                  height: 1,
                                   fontSize: 16,
                                   fontFamily: 'Nexa3',
                                   color: renkler.koyuuRenk,
@@ -139,8 +153,9 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                             width: 100,
                             child: Center(
                               child: Text(
-                                'Miktar',
+                                translation(context).amount,
                                 style: TextStyle(
+                                  height: 1,
                                   fontSize: 16,
                                   fontFamily: 'Nexa3',
                                   color: renkler.koyuuRenk,
@@ -153,8 +168,9 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                             width: 60,
                             child: Center(
                               child: Text(
-                                'Saat',
+                                translation(context).time,
                                 style: TextStyle(
+                                  height: 1,
                                   fontSize: 16,
                                   fontFamily: 'Nexa3',
                                   color: renkler.koyuuRenk,
@@ -164,7 +180,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                             ),
                           ),
                           const SizedBox(
-                            width: 12,
+                            width: 15,
                           ),
                         ],
                       ),
@@ -196,8 +212,8 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                           borderRadius: BorderRadius.circular(20),
                                           color: renkler.koyuuRenk
                                         ),
-                                        child: const Center(child: TextMod(
-                                            "Kayıt Yok", Colors.white, 14))
+                                        child: Center(child: TextMod(
+                                            translation(context).noActivity, Colors.white, 14))
                                     ),
                                   ),
                                 ],
@@ -222,7 +238,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                 child: Stack(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 1.75),
+                                      padding: const EdgeInsets.only(left: 1.75, right: 1.75),
                                       child: SizedBox(
                                         width: 4,
                                         height: 170,
@@ -237,6 +253,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                       controller: scroolBarController2,
                                       thumbVisibility: true,
                                       scrollbarOrientation:
+                                      readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.right :
                                       ScrollbarOrientation.left,
                                       interactive: true,
                                       thickness: 7,
@@ -252,7 +269,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                               children: [
                                                 Padding(
                                                   padding: const EdgeInsets.only(
-                                                      left: 15, right: 10),
+                                                      left: 15, right: 15,),
                                                   child: ClipRRect(
                                                     //Borderradius vermek için kullanıyoruz
                                                     borderRadius:

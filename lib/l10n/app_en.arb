@@ -1,0 +1,237 @@
+{
+    "statisticsTitle": "STATISTICS",
+    "activityCalendarTitle": "ACTIVITY CALENDAR",
+    "calculatorTitle": "CALCULATOR",
+    "otherActivitiesTitle": "OTHER ACTIVITIES",
+    "addIncomeExpensesTitle": "ADD INCOME / EXPENSES",
+    "editTitle": "EDIT",
+    "settingsTitle": "SETTINGS",
+    "helpTitle": "HELP",
+    "helpTitle2": "HELP<",
+    "loginPasswordTitle": "LOGIN PASSWORD",
+    "backupTitle": "BACKUP",
+    "contactUsTitle": "CONTACT US",
+
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December",
+
+    "monday": "Mon",
+    "tuesday": "Tue",
+    "wednesday": "Wed",
+    "thursday": "Thu",
+    "friday": "Fri",
+    "saturday": "Sat",
+    "sunday": "Sun",
+
+    "todaysActivities": "Today’s Activities",
+
+    "category": "Category",
+    "payment": "Payment",
+    "amount": "Amount",
+    "time": "Time",
+    "monthlyIncome": "Monthly\nIncome",
+    "monthlyExpenses": "Monthly\nExpenses",
+
+    "noActivity": "No Activity",
+
+    "both": "BOTH",
+    "income": "INCOME",
+    "expenses": "EXPENSES",
+
+    "yearly": "YEARLY",
+    "monthly": "MONTHLY",
+    "weekly": "WEEKLY",
+    "daily": "DAILY",
+
+    "dataNotFound": "Data not found",
+    "totalAmountStatistics": "Total Amount",
+
+
+
+
+
+
+
+
+    "incomeInfo": "Income Info",
+    "expenseInfo": "Expense Info",
+
+    "calendarMonday": "Mo",
+    "calendarTuesday": "Tu",
+    "calendarWednesday": "We",
+    "calendarThursday": "Th",
+    "calendarFriday": "Fr",
+    "calendarSaturday": "Sa",
+    "calendarSunday": "Su",
+
+    "dataForTheDayNotFound": "Data for the day not found!",
+
+    "date": "DATE",
+    "missingEntry": "Missing entry",
+    "pleaseEnterAnAmount": "Please enter an amount!",
+    "ok": "Ok",
+
+    "food": "Food",
+    "clothing": "Clothing",
+    "entertainment": "Entertainment",
+    "education": "Education",
+    "duesRent": "Dues/Rent",
+    "shopping": "Shopping",
+    "personel": "Personel",
+    "transport": "Transport",
+    "health": "Health",
+    "dailyExpenses": "Daily expenses",
+    "hobby": "Hobby",
+    "other": "Other",
+
+    "cash": "CASH",
+    "card": "CARD",
+    "otherPaye": "OTHER",
+    "save": "SAVE",
+
+    "addNote": "ADD NOTE",
+    "delete": "Delete",
+    "deleteAll": "DELETE ALL",
+    "done": "DONE",
+    "activityAdded": "Activity added",
+
+    "percentageCalculation": "Percentage Calculation",
+    "calculator": "Calculator",
+    "number": "Number",
+    "percentageRate": "Percentage Rate",
+    "enteraNumber": "Enter a number",
+    "enteraPercentage": "Enter a Percentage",
+    "result": "Result",
+    "processTheSecondNumber": "Process The Second Number",
+
+    "firstNumber": "First Number",
+    "secondNumber": "Second Number",
+    "result2": "Result",
+    "secondNumberPercentageOfFirstNumber": "What percentage is the second\nnumber of the first number?",
+    "rateOfChange": "What is the rate of change from the\nfirst number to the second number?",
+
+    "creditCalculation": "Credit Calculation",
+    "amount2": "Amount",
+    "interestPercent": "Interest (Percent)",
+    "maturity": "Maturity (Month)",
+    "calculate": "Calculate",
+    "deleteAll2": "Delete All",
+    "pleaseFillInTheRequiredFields": "Please fill in the required fields!",
+
+    "monthlyEqualInstalments": "Monthly Equal Instalments:  ",
+    "totalAmount": "Total Amount:  ",
+    "totalInterest": "Total Interest:  ",
+    "totalPayment": "Total Payment:  ",
+
+    "currencyConverter": " Currency\nConverter",
+    "calculatePercentage": " Calculate\nPercentage",
+    "calculateInterestCredit": "     Calculate\nInterest-Credit",
+
+    "currencyConverterWarning": "Currency converter is not active yet.",
+
+    "settings": "Settings",
+    "help": "Help",
+    "loginPassword": "Login Password",
+    "downloadData": "Download Data",
+    "contactUs": "Contact us",
+    "version": "Version",
+
+    "darkMode": "Dark Mode",
+    "off": "Off",
+    "on": "On",
+    "backupStatus": "Backup Status",
+    "currency": "Currency",
+    "language": "Language",
+
+    "helpCenter": "Help Center",
+    "whatsNew": "What's New",
+    "guideline": "Guideline",
+    "homePage": "Home Page",
+    "statisticsPage": "Statistics\nPage",
+    "calendarPage": "Calendar\nPage",
+    "calculatorHelp": "Calculator",
+    "backupSystem": "Backup\nSystem",
+
+    "faq": "Frequently Asked Questions",
+    "appShutdown": "Application Keeps Shutting Down",
+    "recordsGone": "My Records Are Gone What Should I Do?",
+    "iWantToContactYou": "I Want To Contact You",
+
+    "answerOne": "In some cases, we may encounter unexpected results. In such a case, what you need to do is checking the updates. If the problem is not solved, please leave a feedback.",
+    "answerTwo": "The fact that the database does not support the old version with the last update to the application may have caused this problem. In order not to encounter this situation, our technical team performs the backup process during the version update, you can still leave a feedback.",
+    "answerThree": "You can contact us via our e-mail or Linkedin addresses in the contact section of our application.",
+
+    "passwordStatus": "Password Status",
+
+    "newPasscode": "Enter the new passcode",
+    "confirmPassword": "Confirm password",
+    "passwordsDoNotMatch": "Passwords Do Not Match",
+    "passwordCreated": "Your Password Has Been Created",
+    "securityQuestion": "Security question:",
+
+    "enterThePasscode": "Enter the passcode",
+    "wrongPassword": "Wrong password",
+
+    "warning": "Warning",
+    "youHaveNotCreatedAnyPasswordWarning": "You have not created any password. Do you still want to create a password?",
+    "yes": "Yes",
+    "no": "No",
+
+    "whatIsYourFavoriteAnimal": "What is your favorite animal?",
+    "pleaseEnteraName": "Please enter a name",
+
+
+
+
+    "comeBack": "Come Back",
+    "remainingTries": "Remaining Tries",
+
+    "backupViaGoogleCloud": "Backup via Google Cloud",
+    "signIn": "Sign In",
+
+    "email": "E-mail:  ",
+    "nameAndSurname": "Name and Surname:",
+    "lastBackupDate": "Last Backup Date:",
+
+    "backupFrequency": "Backup Frequency",
+    "dailyBackup": "Daily",
+    "monthlyBackup": "Monthly",
+    "yearlyBackup": "Yearly",
+    "restoreData": "Restore Data",
+    "backup": "Backup",
+    "logOut": "Log out",
+
+    "github": "Github:  ",
+    "developers": "DEVELOPERS",
+
+    "activityDetails": "ACTIVITY DETAILS",
+
+    "details": "DETAILS",
+    "dateDetails": "DATE",
+    "timeDetails": "TIME",
+    "categoryDetails": "CATEGORY",
+    "paymentTypeDetails": "PAYMENT TYPE",
+    "amountDetails": "AMOUNT",
+    "savingStatusDetails": "SAVING STATUS",
+    "saved": "Saved",
+    "notSaved": "Not saved",
+    "noteDetails": "NOTE",
+    "deleteDetails": "Delete",
+    "activityDeleted": "Activity deleted",
+    "edit": "Edit",
+
+    "updateDone": "DONE",
+    "activityUpdated": "Activity updated",
+    "clickToAddNote": "Click to add note"
+
+}

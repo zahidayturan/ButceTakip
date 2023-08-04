@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../riverpod_management.dart';
 import 'base_BKA.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ButceKontrolApp extends StatelessWidget {
-  const ButceKontrolApp({Key? key}) : super(key: key);
+class ButceKontrolApp extends ConsumerWidget {
+  const ButceKontrolApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(settingsRiverpod).isuseinsert;
+    var readSettings = ref.read(settingsRiverpod);
     return MaterialApp(
       builder: (context, child) {
         return MediaQuery(
-          child: child!,
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+          child: child!,
         );
       },
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('tr'),
-      ],
-      locale: const Locale('tr'),
+
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: readSettings.localChanger(),
+
       debugShowCheckedModeBanner: false,
       title: "Bütçe Takip",
       theme: ThemeData(

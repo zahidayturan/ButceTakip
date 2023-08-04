@@ -4,6 +4,7 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../UI/spend_detail.dart';
+import 'package:butcekontrol/classes/language.dart';
 
 class DailyInfo extends ConsumerWidget {
   const DailyInfo({Key? key}) : super(key: key);
@@ -45,6 +46,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
       return ref.watch(databaseRiverpod);
     });
     var readDailyInfo = ref.read(dailyInfoRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<SpendInfo>> myList = readDailyInfo.myMethod2();
     CustomColors renkler = CustomColors();
@@ -74,7 +76,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 11.5),
+                                  padding: const EdgeInsets.only(right: 11.5, left: 11.5),
                                   child: Container(
                                     width: 4,
                                     decoration: BoxDecoration(
@@ -99,7 +101,8 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                             const Color(0xffF2CB05)))),
                                 child: Scrollbar(
                                   isAlwaysShown: true,
-                                  scrollbarOrientation: ScrollbarOrientation.right,
+                                  scrollbarOrientation: readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.left :
+                                  ScrollbarOrientation.right,
                                   interactive: true,
                                   thickness: 7,
                                   radius: const Radius.circular(15),
@@ -108,7 +111,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                     itemBuilder: (context, index) {
                                       return Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 10, right: 15, top: 5),
+                                            left: 15, right: 15, top: 5),
                                         child: InkWell(
                                           onTap: () {
                                             {
@@ -380,14 +383,14 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "${data[0]} Gelir Bilgisi",
+                  "${data[0]} ${translation(context).incomeInfo}",
                   style: const TextStyle(
                     color: Color(0xff0D1C26),
                     fontFamily: 'Nexa3',
                     fontSize: 18,
                   ),
                 ),
-                Text("${data[1]} Gider Bilgisi",
+                Text("${data[1]} ${translation(context).expenseInfo}",
                     style: const TextStyle(
                       color: Color(0xff0D1C26),
                       fontFamily: 'Nexa3',
@@ -424,8 +427,9 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
     ref.listen(databaseRiverpod, (previous, next) {
       return ref.watch(databaseRiverpod);
     });
-    List myDate = ref.read(dailyInfoRiverpod).getDate();
+    List myDate = ref.read(dailyInfoRiverpod).getDate(context);
     var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
     return FutureBuilder<double>(
       future: ref.read(dailyInfoRiverpod).getResult(),
       builder: (context, snapshot) {
@@ -442,7 +446,11 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                     width: size.width - 80,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.horizontal(
+                        borderRadius: readSettings.localChanger() == Locale("ar") ?
+                        const BorderRadius.horizontal(
+                          left: Radius.circular(15),
+                        ) :
+                        const BorderRadius.horizontal(
                           right: Radius.circular(15),
                         ),
                         color: renkler.arkaRenk,
@@ -458,9 +466,9 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                               fontSize: 28,
                             ),
                           ),
-                          const Text(
-                            "İŞLEM DETAYLARI",
-                            style: TextStyle(
+                           Text(
+                            translation(context).activityDetails,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontFamily: "Nexa3",
                               fontWeight: FontWeight.w400,
@@ -511,7 +519,11 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                     width: size.width - 80,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.horizontal(
+                        borderRadius: readSettings.localChanger() == Locale("ar") ?
+                        const BorderRadius.horizontal(
+                          left: Radius.circular(15),
+                        ) :
+                        const BorderRadius.horizontal(
                           right: Radius.circular(15),
                         ),
                         color: result >= 0
@@ -524,14 +536,16 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                           Text(
                             "${myDate[0]} ${myDate[1]} ${myDate[2]}",
                             style: const TextStyle(
+                              height: 1,
                               color: Colors.white,
                               fontFamily: "NEXA3",
                               fontSize: 28,
                             ),
                           ),
-                          const Text(
-                            "İŞLEM DETAYLARI",
-                            style: TextStyle(
+                           Text(
+                            translation(context).activityDetails,
+                            style: const TextStyle(
+                              height: 1,
                               color: Colors.white,
                               fontFamily: "NEXA3",
                               fontSize: 13,
@@ -542,7 +556,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
+                    padding: const EdgeInsets.only(right: 15.0, left: 15),
                     child: SizedBox(
                       width: 40,
                       height: 40,
@@ -564,7 +578,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                         ),
                       ),
                     ),
-                  ),
+                  ), /// çarpı işareti
                 ],
               ),
             ),

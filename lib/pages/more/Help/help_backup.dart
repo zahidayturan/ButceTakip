@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:flutter/material.dart';
 
 import '../../../classes/app_bar_for_page.dart';
@@ -14,7 +15,7 @@ class HelpBacup extends StatelessWidget {
     return SafeArea(
         child:Scaffold(
             backgroundColor: const Color(0xffF2F2F2),
-            appBar: AppBarForPage(title: "YARDIM<"),
+            appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(

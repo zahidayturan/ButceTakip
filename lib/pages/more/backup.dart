@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
@@ -39,7 +40,7 @@ class _BackUpState extends ConsumerState<BackUp> {
         child: Scaffold(
           backgroundColor: const Color(0xffF2F2F2),
           bottomNavigationBar: const NavBar(),
-          appBar: const AppBarForPage(title: "YEDEKLE"),
+          appBar: AppBarForPage(title: translation(context).backupTitle),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),
             child: Column(
@@ -56,15 +57,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
                           children: [
-                            const Text(
-                              "Yedeklenme Durumu",
-                              style: TextStyle(
+                            Text(
+                              translation(context).backupStatus,
+                              style: const TextStyle(
                                 fontFamily: "Nexa3",
                               ),
                             ),
                           const Spacer(),
-                          isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                              : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                          isopen ? Text(translation(context).on, style: const TextStyle(fontFamily: "Nexa3"),)
+                              : Text(translation(context).off, style: const TextStyle(fontFamily: "Nexa3"),),
                           Switch(
                             activeColor: renkler.sariRenk,
                             value: isopen ,
@@ -91,9 +92,10 @@ class _BackUpState extends ConsumerState<BackUp> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Google Cloud ile Yedekle",
-                          style: TextStyle(
+                        Text(
+                          translation(context).backupViaGoogleCloud,
+                          style: const TextStyle(
+                            height: 1,
                             fontSize: 16,
                             fontFamily: "Nexa4"
                           ),
@@ -106,7 +108,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Email:", Colors.black,  15),
+                                  TextMod(translation(context).email, Colors.black,  15),
                                   TextMod("${readGglAuth.getUserEmail()}", Colors.black, 15),
                                 ],
                               ),
@@ -114,7 +116,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Ad ve Soyad:", Colors.black, 15),
+                                  TextMod(translation(context).nameAndSurname, Colors.black, 15),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
@@ -141,7 +143,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Son Yedekleme Tarihi:", Colors.black, 15),
+                                  TextMod(translation(context).lastBackupDate, Colors.black, 15),
                                   TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : "Yedeklenmedi", Colors.black, 15),
                                 ],
                               ),
@@ -152,8 +154,8 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
-                                    "Yedeklenme Sıklığı",
+                                  Text(
+                                    translation(context).backupFrequency,
                                     style:TextStyle(
                                       fontFamily: "Nexa3",
                                       fontSize: 15  ,
@@ -202,12 +204,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           borderRadius: BorderRadius.circular(10),
                                           color: renkler.koyuuRenk,
                                         ),
-                                        child: const Center(
+                                        child: Center(
                                           child: Padding(
                                             padding: EdgeInsets.all(8),
                                             child: Text(
-                                              "Geri Yükle",
+                                              translation(context).restoreData,
                                               style: TextStyle(
+                                                height: 1,
                                                   color: Colors.white,
                                                   fontSize: 15,
                                                   fontFamily: "Nexa3"
@@ -252,12 +255,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           borderRadius: BorderRadius.circular(10),
                                           color: renkler.koyuuRenk,
                                         ),
-                                        child: const Center(
+                                        child: Center(
                                           child: Padding(
                                             padding: EdgeInsets.all(8),
                                             child: Text(
-                                              "Yedekle",
+                                              translation(context).backup,
                                               style: TextStyle(
+                                                height: 1,
                                                   color: Colors.white,
                                                   fontSize: 15,
                                                   fontFamily: "Nexa3"
@@ -283,14 +287,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: Color(0xffB72E2E),
+                                      color: const Color(0xffB72E2E),
                                     ),
-                                    child: const Center(
+                                    child: Center(
                                       child: Padding(
                                         padding: EdgeInsets.all(8),
                                         child: Text(
-                                          "Çıkış Yap",
+                                          translation(context).logOut,
                                           style: TextStyle(
+                                            height: 1,
                                               color: Colors.white,
                                               fontSize: 15,
                                               fontFamily: "Nexa3"
@@ -317,14 +322,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: Color(0xff2A2895),
+                                      color: const Color(0xff2A2895),
                                     ),
-                                    child: const Center(
+                                    child: Center(
                                       child: Padding(
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         child: Text(
-                                          "Oturum Aç",
-                                          style: TextStyle(
+                                          translation(context).signIn,
+                                          style: const TextStyle(
+                                            height: 1,
                                               color: Colors.white,
                                               fontSize: 15,
                                               fontFamily: "Nexa3"
@@ -335,7 +341,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                             ],
                           ),
                       ],
@@ -410,7 +416,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                 color: Color(0xff0D1C26),
               ),
               height: 28,
-              width: 156,
+              width: 190,
             ),
           ),
           Row(
@@ -431,8 +437,9 @@ class _BackUpState extends ConsumerState<BackUp> {
                           readSetting.setBackuptimes("Günlük");
                         });
                       },
-                      child: Text("Günlük",
+                      child: Text(translation(context).dailyBackup,
                           style: TextStyle(
+                            height: .4,
                               color: _textColorTool,
                               fontSize: 13,
                               fontFamily: 'Nexa3',
@@ -448,15 +455,16 @@ class _BackUpState extends ConsumerState<BackUp> {
                 ),
                 height: heightTool_,
                 child: SizedBox(
-                  width: 48,
+                  width: 70,
                   child: TextButton(
                       onPressed: () {
                         setState(() {
                           readSetting.setBackuptimes("Aylık");
                         });
                       },
-                      child: Text("Aylık",
+                      child: Text(translation(context).monthlyBackup,
                           style: TextStyle(
+                            height: .4,
                               color: _textColorTool2,
                               fontSize: 13,
                               fontFamily: 'Nexa3',
@@ -472,15 +480,16 @@ class _BackUpState extends ConsumerState<BackUp> {
                 ),
                 height: heightTool3_,
                 child: SizedBox(
-                  width: 48,
+                  width: 60,
                   child: TextButton(
                       onPressed: () {
                         setState(() {
                           readSetting.setBackuptimes("Yıllık");
                         });
                       },
-                      child: Text("Yıllık",
+                      child: Text(translation(context).yearlyBackup,
                           style: TextStyle(
+                            height: .4,
                               color: _textColorTool3,
                               fontSize: 13,
                               fontFamily: 'Nexa3',

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:core';
 
@@ -5,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../models/spend_info.dart';
 import '../utils/db_helper.dart';
+import 'package:butcekontrol/classes/language.dart';
 
 class CalendarRiverpod extends ChangeNotifier {
   static const List<int> _daysInMonth = [
@@ -126,20 +128,20 @@ class CalendarRiverpod extends ChangeNotifier {
     return months[monthIndex];
   }
 
-  List getMonths() {
+  List getMonths(BuildContext context) {
     List<String> monthList = [
-      'OCAK',
-      'ŞUBAT',
-      'MART',
-      'NİSAN',
-      'MAYIS',
-      'HAZİRAN',
-      'TEMMUZ',
-      'AĞUSTOS',
-      'EYLÜL',
-      'EKİM',
-      'KASIM',
-      'ARALIK'
+      translation(context).january,
+      translation(context).february,
+      translation(context).march,
+      translation(context).april,
+      translation(context).may,
+      translation(context).june,
+      translation(context).july,
+      translation(context).august,
+      translation(context).september,
+      translation(context).october,
+      translation(context).november,
+      translation(context).december,
     ];
     return monthList;
   }
