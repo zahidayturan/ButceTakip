@@ -89,14 +89,11 @@ class _base_BKAState extends ConsumerState<base_BKA> {
         );
       }
 
-      var readUpdateData =  ref.read(updateDataRiverpod);
-      readUpdateData.customizeRepeatedOperation();
-      readUpdateData.customizeInstallmentOperation();
-
-
     });
 
-
+    var readUpdateData =  ref.read(updateDataRiverpod);
+    readUpdateData.customizeRepeatedOperation();
+    readUpdateData.customizeInstallmentOperation();
   }
 
   @override
@@ -104,7 +101,6 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     super.initState();
     loadData();
     FirebaseNotificationService().connectNotification(context);
-    super.initState();
   }
 
   @override

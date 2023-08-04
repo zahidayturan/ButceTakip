@@ -184,39 +184,36 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           .toList(),
                     ),
                   ),
-                  Positioned(
-                    right: 0,
-                    child: Container(
-                      height: size.height * 0.074,
-                      width: size.width * 0.2,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(30)),
-                        color: Theme.of(context).highlightColor,
-                      ),
-                      child: PageView(
-                        controller: pageYearController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedYearIndex = index + 2020;
-                          });
-                        },
-                        children: yearName
-                            .map(
-                              (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: TextStyle(
-                                    color: Theme.of(context).dialogBackgroundColor,
-                                    fontSize: 20,
-                                    fontFamily: 'Nexa4',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
-                                  ),
+                  Container(
+                    height: size.height * 0.074,
+                    width: size.width * 0.2,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
+                      color: Theme.of(context).highlightColor,
+                    ),
+                    child: PageView(
+                      controller: pageYearController,
+                      onPageChanged: (index) {
+                        setState(() {
+                          selectedYearIndex = index + 2020;
+                        });
+                      },
+                      children: yearName
+                          .map(
+                            (year) => Center(
+                              child: Text(
+                                year,
+                                style: TextStyle(
+                                  color: Theme.of(context).dialogBackgroundColor,
+                                  fontSize: 20,
+                                  fontFamily: 'Nexa4',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
                                 ),
                               ),
-                            )
-                            .toList(),
-                      ),
+                            ),
+                          )
+                          .toList(),
                     ),
                   ),
                 ],

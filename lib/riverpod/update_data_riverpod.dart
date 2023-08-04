@@ -163,11 +163,6 @@ class UpdateDataRiverpod extends ChangeNotifier {
         await SQLHelper.getCustomizeOperationList();
     customizeItems.forEach((item) {
       if (item.processOnce == 'Günlük') {
-        int ifDay = DateTime.now().day;
-        int ifMonth = DateTime.now().month;
-        int ifYear = DateTime.now().year;
-        String ifDate = "$ifDay.$ifMonth.$ifYear";
-
         DateTime currentDate = DateTime.now();
         DateTime operationDate = DateTime(int.parse(item.operationYear!),
             int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
@@ -210,9 +205,96 @@ class UpdateDataRiverpod extends ChangeNotifier {
         } else {
           null;
         }
-      } else {
-        // Devam edecek
+      } else if(item.processOnce == 'Haftalık') {
+        DateTime currentDate = DateTime.now();
+        DateTime operationDate = DateTime(int.parse(item.operationYear!),
+            int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
+        int calculateDaysBetween(DateTime date1, DateTime date2) {
+          Duration difference = date2.difference(date1);
+          print("Fark Hesaplandı ${difference.inDays}");
+          return difference.inDays~/7;
+        }
+        DateTime date1 = DateTime(int.parse(item.operationYear!),
+            int.parse(item.operationMonth!), int.parse(item.operationDay!));
+        DateTime date2 = DateTime(
+            DateTime.now().year, DateTime.now().month, DateTime.now().day);
+        int daysBetween = calculateDaysBetween(date1, date2);
+        if (operationDate.isBefore(currentDate) && daysBetween != 0) {
+
+          date1 = date1.add(Duration(days: 7));
+          for (int i = 0; i < daysBetween; i++) {
+            final newinfo = SpendInfo(
+              item.operationType,
+              item.category,
+              item.operationTool,
+              item.registration,
+              item.amount,
+              item.note,
+              date1.day.toString(),
+              date1.month.toString(),
+              date1.year.toString(),
+              DateTimeManager.getCurrentTime(),
+              "${date1.day.toString()}.${date1.month.toString()}.${date1.year.toString()}", // item.operationDate güncellendi
+              "0",
+              i == daysBetween - 1 ? item.processOnce : "",
+            );
+            SQLHelper.createItem(newinfo);
+            print("Veri Eklendi ${item.operationDate} - ${item.processOnce}");
+            // Bir sonraki günün tarihini al
+            date1 = date1.add(Duration(days: 7));
+          }
+          SQLHelper.updateCustomize(item.id, "");
+      }else{
+
       }
+    }
+      else if(item.processOnce == 'İki Haftada Bir') {
+        DateTime currentDate = DateTime.now();
+        DateTime operationDate = DateTime(int.parse(item.operationYear!),
+            int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
+        int calculateDaysBetween(DateTime date1, DateTime date2) {
+          Duration difference = date2.difference(date1);
+          print("Fark Hesaplandı ${difference.inDays}");
+          return difference.inDays~/14;
+        }
+        DateTime date1 = DateTime(int.parse(item.operationYear!),
+            int.parse(item.operationMonth!), int.parse(item.operationDay!));
+        DateTime date2 = DateTime(
+            DateTime.now().year, DateTime.now().month, DateTime.now().day);
+        int daysBetween = calculateDaysBetween(date1, date2);
+        if (operationDate.isBefore(currentDate) && daysBetween != 0) {
+
+          date1 = date1.add(Duration(days: 14));
+          for (int i = 0; i < daysBetween; i++) {
+            final newinfo = SpendInfo(
+              item.operationType,
+              item.category,
+              item.operationTool,
+              item.registration,
+              item.amount,
+              item.note,
+              date1.day.toString(),
+              date1.month.toString(),
+              date1.year.toString(),
+              DateTimeManager.getCurrentTime(),
+              "${date1.day.toString()}.${date1.month.toString()}.${date1.year.toString()}", // item.operationDate güncellendi
+              "0",
+              i == daysBetween - 1 ? item.processOnce : "",
+            );
+            SQLHelper.createItem(newinfo);
+            print("Veri Eklendi ${item.operationDate} - ${item.processOnce}");
+            // Bir sonraki günün tarihini al
+            date1 = date1.add(Duration(days: 14));
+          }
+          SQLHelper.updateCustomize(item.id, "");
+        }else{
+
+        }
+      }else{
+        ///Diğerleri
+      }
+
+
     });
   }
 

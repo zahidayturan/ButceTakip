@@ -102,7 +102,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                           ),
                         ),
                         Divider(thickness: 2.0,color: renkler.sariRenk),
-                        true == true || readGglAuth.isSignedIn
+                        readGglAuth.accountStatus == true || readGglAuth.isSignedIn
                           ?Column(
                             children: [
                               SizedBox(height: size.height * 0.015),
