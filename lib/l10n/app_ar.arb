@@ -1,0 +1,237 @@
+{
+  "statisticsTitle": "الإحصائيات",
+  "activityCalendarTitle": "تقويم المعاملات",
+  "calculatorTitle": "الآلة الحاسبة",
+  "otherActivitiesTitle": "معاملات أخرى",
+  "addIncomeExpensesTitle": "أضف الدخل / المصاريف",
+  "editTitle": "تنظيم المعاملة",
+  "settingsTitle": "إعدادات",
+  "helpTitle": "المساعدة",
+  "helpTitle2": "المساعدة<",
+  "loginPasswordTitle": "كلمة المرور",
+  "backupTitle": "النسخ الاحتياطي",
+  "contactUsTitle": "تواصل معنا",
+
+  "january": "كانون الثّاني",
+  "february": "شباط",
+  "march": "آذار",
+  "april": "نيسان",
+  "may": "أيّار",
+  "june": "حزيران",
+  "july": "تمّوز",
+  "august": "آب",
+  "september": "أيلول",
+  "october": "تشرين الأوّل",
+  "november": "تشرين الثّاني",
+  "december": "كانون الأوّل",
+
+  "monday": "الاثنين",
+  "tuesday": "الثلاثاء",
+  "wednesday": "الأربعاء",
+  "thursday": "الخميس",
+  "friday": "الجمعة",
+  "saturday": "السبت",
+  "sunday": "الأحد",
+
+  "todaysActivities": "معاملات اليوم",
+
+  "category": "الفئة",
+  "payment": "كيفية الدفع",
+  "amount": "المبلغ",
+  "time": "الوقت",
+  "monthlyIncome": "الدخل\nالشهري",
+  "monthlyExpenses": "المصاريف\nالشهرية",
+
+  "noActivity": "لا يوجد قيد",
+
+  "both": "كلاهما",
+  "income": "الدخل",
+  "expenses": "المصاريف",
+
+  "yearly": "السنوي",
+  "monthly": "الشهري",
+  "weekly": "الاسبوعي",
+  "daily": "اليومي",
+
+  "dataNotFound": "لم يتم العثور على بيانات",
+  "totalAmountStatistics": "المبلغ الاجمالي",
+
+
+
+
+
+
+
+
+  "incomeInfo": "معلومات الدخل",
+  "expenseInfo": "معلومات المصاريف",
+
+  "calendarMonday": "ن",
+  "calendarTuesday": "ث",
+  "calendarWednesday": "ر",
+  "calendarThursday": "خ",
+  "calendarFriday": "ج",
+  "calendarSaturday": "س",
+  "calendarSunday": "ح",
+
+  "dataForTheDayNotFound": "لم يتم العثور على بيانات اليوم!",
+
+  "date": "التاريخ",
+  "missingEntry": "معاملة ناقصة",
+  "pleaseEnterAnAmount": "الرجاء إدخال المبلغ!",
+  "ok": "حسنا",
+
+  "food": "الطعام",
+  "clothing": "الملابس",
+  "entertainment": "الترفيه",
+  "education": "التعليم",
+  "duesRent": "الرسوم/الإيجار",
+  "shopping": "التسوق",
+  "personel": "خاص",
+  "transport": "المواصلات",
+  "health": "الصحة",
+  "dailyExpenses": "الاحتياجات اليومية",
+  "hobby": "الهوايات",
+  "other": "أخرى",
+
+
+  "cash": "نقدا",
+  "card": "بطاقة",
+  "otherPaye": "أخرى",
+  "save": "حفظ",
+
+  "addNote": "أضف ملاحظة",
+  "delete": "حذف",
+  "deleteAll": "حذف الجميع",
+  "done": "تم",
+  "activityAdded": "تم إضافة  العملية",
+
+  "percentageCalculation": "الحساب بنسبة المئوية",
+  "calculator": "الآلة الحاسبة",
+  "number": "الرقم",
+  "percentageRate": "النسبة المئوي",
+  "enteraNumber": "أدخل الرقم",
+  "enteraPercentage": "أدخل النسبة المئوية",
+  "result": "النتيجة",
+  "processTheSecondNumber": "استخدم الرقم الثاني للعملية",
+
+  "firstNumber": "الرقم الأول",
+  "secondNumber": "الرقم الثاني",
+  "result2": "نتيحة العملية",
+  "secondNumberPercentageOfFirstNumber": "النسبة المئوية للرقم الثاني من الرقم الأول؟",
+  "rateOfChange": "ما هو معدل التغير من الرقم الأول إلى الرقم الثاني؟",
+
+  "creditCalculation": "حساب القرض",
+  "amount2": "المبلغ",
+  "interestPercent": "الفائدة (بالنسبة المئوية)",
+  "maturity": "الاستحقاق (الشهر)",
+  "calculate": "احسب",
+  "deleteAll2": "حذف الجميع",
+  "pleaseFillInTheRequiredFields": "يرجى تعبئة المناطق المطلوبة!",
+
+  "monthlyEqualInstalments": "أقساط شهرية متساوية:  ",
+  "totalAmount": "المبلغ الإجمالي:  ",
+  "totalInterest": "مجموع الفوائد:  ",
+  "totalPayment": "مبلغ الدفع الإجمالي:  ",
+
+  "currencyConverter": " تحويل\nالعملات",
+  "calculatePercentage": "احسب بالنسبة\n     المئوية",
+  "calculateInterestCredit": "      احسب\nالفائدة - القرض",
+
+  "currencyConverterWarning": "لم يتم تفعيل محول العملات بعد.",
+
+  "settings": "الإعدادات",
+  "help": "مساعدة",
+  "loginPassword": "كلمة المرور",
+  "downloadData": "تحميل البيانات",
+  "contactUs": "تواصل معنا",
+  "version": "الإصدار",
+
+  "darkMode": "الوضع الداكن",
+  "off": "غير مفعل",
+  "on": "مفعل",
+  "backupStatus": "وضع النسخ الاحتياطي",
+  "currency": "العملة",
+  "language": "اللغة",
+
+  "helpCenter": "مركز المساعدة",
+  "whatsNew": "الجديد",
+  "guideline": "الإرشادات",
+  "homePage": "الصفحة\nالرئيسية",
+  "statisticsPage": "صفحة\nالاحصائيات",
+  "calendarPage": "صفحة التقويم",
+  "calculatorHelp": "الآلة الحاسبة",
+  "backupSystem": "نظام النسخ\nالاحتياطي",
+
+  "faq": "أسئلة يتكرر طرحها",
+  "appShutdown": "إغلاق التطبيق تلقائيا",
+  "recordsGone": "سجلاتي اختفت فجأة ماذا علي أن أفعل؟",
+  "iWantToContactYou": "أريد التواصل معكم",
+
+  "answerOne": "قد نواجه في بعض الحالات نتائجا غير متوقعة. ما عليك في مثل هذه الحالة إلا أن تتحقق من وجود التحديثات اللازمة. إذا استمرت هذه المشكلة، تواصل معنا.",
+  "answerTwo": "قد يكون السبب في حدوث هذه المشكلة هو عدم دعم قاعدة البيانات للإصدار القديم مع التحديث الأخير الذي طرأ على التطبيق. يقوم فريقنا الفني لتجنب مواجهة هذا الموقف بإجراء عملية النسخ الاحتياطي أثناء تحديث الإصدار، بإمكانك التواصل معنا.",
+  "answerThree": "يمكنك التواصل معنا عبر البريد الإلكتروني أو عبر عنوان لنكدن في قسم التواصل في تطبيقنا.",
+
+  "passwordStatus": "وضع كلمة المرور",
+
+  "newPasscode": "أدخل كلمة المرور الجديدة",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "passwordsDoNotMatch": "كلمات المرور غير متطابقة",
+  "passwordCreated": "تم إنشاء كلمة المرور",
+  "securityQuestion": "سؤال الأمان:",
+
+  "enterThePasscode": "أدخل كلمة المرور",
+  "wrongPassword": "كلمة مرور خاطئة",
+
+  "warning": "تحذير",
+  "youHaveNotCreatedAnyPasswordWarning": "لم تحدد أي كلمة مرور. هل ترغب بالتراجع عن وضع كلمة المرور؟",
+  "yes": "استمرار",
+  "no": "تراجع",
+
+  "whatIsYourFavoriteAnimal": "ما هو حيوانك المفضل؟",
+  "pleaseEnteraName": "الرجاء إدخال اسم",
+
+
+
+
+  "comeBack": "تراجع",
+  "remainingTries": "المحاولات المتبقية",
+
+  "backupViaGoogleCloud": "النسخ الاحتياطي بواسطة جوجل كلاود",
+  "signIn": "تسجيل الدخول",
+
+  "email": "البريد الكتروني:  ",
+  "nameAndSurname": "الاسم واللقب:",
+  "lastBackupDate": "تاريخ آخر نسخ احتياطي:",
+
+  "backupFrequency": "تكرر النسخ الاحتياطي",
+  "dailyBackup": "يومي",
+  "monthlyBackup": "شهري",
+  "yearlyBackup": "سنوي",
+  "restoreData": "استعادة البيانات",
+  "backup": "نسخ البيانات",
+  "logOut": "تسجيل الخروج",
+
+  "github": "جيت هاب:  ",
+  "developers": "المطورون",
+
+  "activityDetails": "تفاصيل المعاملات",
+
+  "details": "تفاصيل المعاملة",
+  "dateDetails": "التاريخ",
+  "timeDetails": "الوقت",
+  "categoryDetails": "الفئة",
+  "paymentTypeDetails": "طريقة الدفع",
+  "amountDetails": "المبلغ",
+  "savingStatusDetails": "وضع الحفظ",
+  "saved": "محفوظ",
+  "notSaved": "غير محفوظ",
+  "noteDetails": "ملاحظة",
+  "deleteDetails": "حذف",
+  "activityDeleted": "تم حذف  العملية",
+  "edit": "تعديل",
+
+  "updateDone": "حفظ",
+  "activityUpdated": "تم تحديث معلومات المعاملة",
+  "clickToAddNote": "لإضافة ملاحظة انقر هنا"
+}

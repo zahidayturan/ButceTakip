@@ -4,6 +4,7 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../UI/spend_detail.dart';
+import 'package:butcekontrol/classes/language.dart';
 
 class DailyInfo extends ConsumerWidget {
   const DailyInfo({Key? key}) : super(key: key);
@@ -11,11 +12,11 @@ class DailyInfo extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     CustomColors renkler = CustomColors();
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
-        backgroundColor: renkler.arkaRenk,
-        appBar: const AppbarDailyInfo(),
-        body: const DailyInfoBody(),
+        //backgroundColor: renkler.arkaRenk,
+        appBar: AppbarDailyInfo(),
+        body: DailyInfoBody(),
       ),
     );
   }
@@ -38,6 +39,14 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
       ],
     );
   }
+  void checkAndPop(int itemLength) {
+    print("kalmadı");
+    if (itemLength == 1) {
+      print("kalmadı");
+      Navigator.pop(context);
+    }
+    else null;
+  }
 
   int? registrationState;
   Widget list(BuildContext context) {
@@ -46,6 +55,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
     });
     var readSetting = ref.read(settingsRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<SpendInfo>> myList = readDailyInfo.myMethod2();
     CustomColors renkler = CustomColors();
@@ -75,15 +85,15 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 11.5),
+                                  padding: const EdgeInsets.only(right: 11.5, left: 11.5),
                                   child: Container(
                                     width: 4,
                                     decoration: BoxDecoration(
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(30)),
-                                        color: snapshot.data!.length <= 8
-                                            ? Colors.white
-                                            : const Color(0xFF0D1C26)),
+                                        color: snapshot.data!.length <= 10
+                                            ? Theme.of(context).indicatorColor
+                                            : Theme.of(context).canvasColor),
                                   ),
                                 ),
                               ],
@@ -93,14 +103,15 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                               child: Theme(
                                 data: Theme.of(context).copyWith(
                                     colorScheme: ColorScheme.fromSwatch(
-                                      accentColor: Color(0xFFF2CB05),
+                                      accentColor: const Color(0xFFF2CB05),
                                     ),
                                     scrollbarTheme: ScrollbarThemeData(
                                         thumbColor: MaterialStateProperty.all(
-                                            const Color(0xffF2CB05)))),
+                                          Theme.of(context).dialogBackgroundColor,))),
                                 child: Scrollbar(
                                   isAlwaysShown: true,
-                                  scrollbarOrientation: ScrollbarOrientation.right,
+                                  scrollbarOrientation: readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.left :
+                                  ScrollbarOrientation.right,
                                   interactive: true,
                                   thickness: 7,
                                   radius: const Radius.circular(15),
@@ -109,7 +120,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                     itemBuilder: (context, index) {
                                       return Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 10, right: 15, top: 5),
+                                            left: 15, right: 15, top: 5),
                                         child: InkWell(
                                           onTap: () {
                                             {
@@ -132,7 +143,9 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                   // genel bilgi sekmesi açılıyor.
                                                   return const SpendDetail();
                                                 },
-                                              );
+                                              ).then((value) {
+                                                  item.length == 1 ? Navigator.pop(context) : null;
+                                              });
                                             }
                                           },
                                           child: SizedBox(
@@ -141,7 +154,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                 BorderRadius.circular(10),
-                                                color: Colors.white,
+                                                color: Theme.of(context).indicatorColor,
                                               ),
                                               child: Row(
                                                 children: [
@@ -154,16 +167,16 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                           .operationType ==
                                                           "Gider"
                                                           ? const Color(0xFFD91A2A)
-                                                          : const Color(0xFF1A8E58),
+                                                          : Theme.of(context).canvasColor,
                                                     ),
                                                   ),
                                                   const SizedBox(width: 5),
                                                   Text(
                                                     "${item[index].category}",
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily: 'NEXA3',
                                                       fontSize: 18,
-                                                      color: Color(0xff0D1C26),
+                                                      color: Theme.of(context).canvasColor,
                                                     ),
                                                   ),
                                                   const Spacer(),
@@ -180,7 +193,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                             text:item[index].realAmount.toString(),style: TextStyle(
                                                             fontFamily: 'NEXA3',
                                                             fontSize: 18,
-                                                            color: renkler.yesilRenk,
+                                                            color: Theme.of(context).canvasColor
                                                           ),
                                                           ),
                                                            TextSpan(
@@ -189,7 +202,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                               fontFamily: 'TL',
                                                               fontSize: 18,
                                                               fontWeight: FontWeight.w600,
-                                                              color: renkler.yesilRenk,
+                                                                color: Theme.of(context).canvasColor
                                                             ),
                                                           ),
                                                         ],
@@ -245,8 +258,8 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                   padding: const EdgeInsets.only(right: 5),
                                   child: Text(
                                     "${item.length}",
-                                    style: const TextStyle(
-                                        color: Color(0xFFE9E9E9),
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
                                         fontSize: 18,
                                         fontFamily: 'NEXA4'),
                                   ),
@@ -258,8 +271,8 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                   padding: const EdgeInsets.only(right: 5),
                                   child: Text(
                                     "${item.length}",
-                                    style: const TextStyle(
-                                        color: Color(0xFFF2CB05),
+                                    style: TextStyle(
+                                        color: Theme.of(context).dialogBackgroundColor,
                                         fontSize: 18,
                                         fontFamily: 'NEXA4'),
                                   ),
@@ -293,13 +306,13 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                     height: size.height * 0.04,
                     width: size.width * 0.90,
                     child: DecoratedBox(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Color(0xff1A8E58), Color(0xffD91A2A)],
+                          colors: [Theme.of(context).hintColor, Theme.of(context).hoverColor],
                           stops: [0.5, 0.5],
                         ),
                         borderRadius:
-                            BorderRadius.vertical(bottom: Radius.circular(10)),
+                            const BorderRadius.vertical(bottom: Radius.circular(10)),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -381,16 +394,16 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "${data[0]} Gelir Bilgisi",
-                  style: const TextStyle(
-                    color: Color(0xff0D1C26),
+                  "${data[0]} ${translation(context).incomeInfo}",
+                  style: TextStyle(
+                    color: Theme.of(context).canvasColor,
                     fontFamily: 'Nexa3',
                     fontSize: 18,
                   ),
                 ),
-                Text("${data[1]} Gider Bilgisi",
-                    style: const TextStyle(
-                      color: Color(0xff0D1C26),
+                Text("${data[1]} ${translation(context).expenseInfo}",
+                    style: TextStyle(
+                      color: Theme.of(context).canvasColor,
                       fontFamily: 'Nexa3',
                       fontSize: 18,
                     )),
@@ -425,8 +438,9 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
     ref.listen(databaseRiverpod, (previous, next) {
       return ref.watch(databaseRiverpod);
     });
-    List myDate = ref.read(dailyInfoRiverpod).getDate();
+    List myDate = ref.read(dailyInfoRiverpod).getDate(context);
     var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
     return FutureBuilder<double>(
       future: ref.read(dailyInfoRiverpod).getResult(),
       builder: (context, snapshot) {
@@ -443,7 +457,11 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                     width: size.width - 80,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.horizontal(
+                        borderRadius: readSettings.localChanger() == Locale("ar") ?
+                        const BorderRadius.horizontal(
+                          left: Radius.circular(15),
+                        ) :
+                        const BorderRadius.horizontal(
                           right: Radius.circular(15),
                         ),
                         color: renkler.arkaRenk,
@@ -459,9 +477,9 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                               fontSize: 28,
                             ),
                           ),
-                          const Text(
-                            "İŞLEM DETAYLARI",
-                            style: TextStyle(
+                           Text(
+                            translation(context).activityDetails,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontFamily: "Nexa3",
                               fontWeight: FontWeight.w400,
@@ -512,7 +530,11 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                     width: size.width - 80,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.horizontal(
+                        borderRadius: readSettings.localChanger() == Locale("ar") ?
+                        const BorderRadius.horizontal(
+                          left: Radius.circular(15),
+                        ) :
+                        const BorderRadius.horizontal(
                           right: Radius.circular(15),
                         ),
                         color: result >= 0
@@ -525,14 +547,16 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                           Text(
                             "${myDate[0]} ${myDate[1]} ${myDate[2]}",
                             style: const TextStyle(
+                              height: 1,
                               color: Colors.white,
                               fontFamily: "NEXA3",
                               fontSize: 28,
                             ),
                           ),
-                          const Text(
-                            "İŞLEM DETAYLARI",
-                            style: TextStyle(
+                           Text(
+                            translation(context).activityDetails,
+                            style: const TextStyle(
+                              height: 1,
                               color: Colors.white,
                               fontFamily: "NEXA3",
                               fontSize: 13,
@@ -543,7 +567,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
+                    padding: const EdgeInsets.only(right: 15.0, left: 15),
                     child: SizedBox(
                       width: 40,
                       height: 40,
@@ -565,7 +589,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                         ),
                       ),
                     ),
-                  ),
+                  ), /// çarpı işareti
                 ],
               ),
             ),

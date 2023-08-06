@@ -1,5 +1,6 @@
 import 'package:butcekontrol/Pages/more/Help/help_footer.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,8 @@ class HelpStatisic extends StatelessWidget {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
-          appBar: const AppBarForPage(title: "YARDIM<"),
+          //backgroundColor: const Color(0xffF2F2F2),
+          appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -23,7 +24,7 @@ class HelpStatisic extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
                   child: Container(
-                    color: renkler.koyuuRenk,
+                    color: Theme.of(context).highlightColor,
                     height: 65,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -35,7 +36,7 @@ class HelpStatisic extends StatelessWidget {
                           width: 60,
                         ),
                         const Text(
-                          "Help Center",
+                          "Yardım Merkezi",
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: "Nexa3",
@@ -52,31 +53,36 @@ class HelpStatisic extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      const Align(
+                      SizedBox(height: 5,),
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "İstatistik Sayfası",
                           style: TextStyle(
                             fontFamily: "Nexa3",
                             fontSize: 30,
-                            color: Colors.black,
+                            color: Theme.of(context).canvasColor,
                           ),
                         ),
                       ),
-                      const Text(
+                      SizedBox(height: 10,),
+                      Text(
                           "Değerli kullanıcılarımızın harcama bilgilerini belirli periyotlarda görmek istemektedirler. Bunun için İstatistik sayfasını oluşturduk burada pasta dilimi kullanarak yüzdesel olarak harcama detaylarını görselleştiriyoruz.\n"
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       ),
                       Image.asset(
                           "assets/image/helpstatistic1.png"
                       ),
-                      const Text(
+                      Text(
                           "\nButonlar ham yer hemde görüntü olarak farklı bir tasarım tercih edildi aşağı yukarı hareketlerde bulunarak değişiklik yapabilirsiniz. İstatistik bölümümüzdeki pasta grafiğini en etkili şekilde yeniden biçimlendirmek için pratik işlem menüsü tasarlandı. Dolayısıyla veri havuzunu Yıllık, Aylık, Haftalık ve Günlük olacak şekilde filitreleyip sonuçların analizini yaptırabileceksiniz.\n"
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       ),
                       Image.asset(
                           "assets/image/helpstatistic2.png"
                       ),
-                      const Text(
+                      Text(
                           "\nİstatistiksel olarak yapılan hesplama sonrası Liste şeklinde her bir kategoriye özel harcama bilgisi gösterilmektedir.\n\n"
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       )
                     ],
                   ),

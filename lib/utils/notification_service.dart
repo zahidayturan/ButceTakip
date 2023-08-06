@@ -42,6 +42,7 @@ class FirebaseNotificationService {
 
   @pragma('vm:entry-point')
   static Future<void> backgroundMessage(RemoteMessage message) async{
+
     //localNotificationService.showNotification(
     //    title: message.notification?.title?? "boş",
     //    body: message.notification?.body?? "boş"

@@ -1,0 +1,239 @@
+{
+  "statisticsTitle": "İSTATİSTİKLER",
+  "activityCalendarTitle": "İŞLEM TAKVİMİ",
+  "calculatorTitle": "HESAP MAKİNESİ",
+  "otherActivitiesTitle": "DİĞER İŞLEMLER",
+  "addIncomeExpensesTitle": "GELİR / GİDER EKLE",
+  "editTitle": "İŞLEM DÜZENLEME",
+  "settingsTitle": "AYARLAR",
+  "helpTitle": "YARDIM",
+  "helpTitle2": "YARDIM<",
+  "loginPasswordTitle": "GİRİŞ ŞİFRESİ",
+  "backupTitle": "YEDEKLEME",
+  "contactUsTitle": "İLETİŞİM",
+
+  "january": "Ocak",
+  "february": "Şubat",
+  "march": "Mart",
+  "april": "Nisan",
+  "may": "Mayıs",
+  "june": "Haziran",
+  "july": "Temmuz",
+  "august": "Ağustos",
+  "september": "Eylül",
+  "october": "Ekim",
+  "november": "Kasım",
+  "december": "Aralık",
+
+  "monday": "Pazartesi",
+  "tuesday": "Salı",
+  "wednesday": "Çarşamba",
+  "thursday": "Perşembe",
+  "friday": "Cuma",
+  "saturday": "Cumartesi",
+  "sunday": "Pazar",
+
+  "todaysActivities": "Bugünün Bilgileri",
+
+  "category": "Kategori",
+  "payment": "Ödeme",
+  "amount": "Tutar",
+  "time": "Saat",
+  "monthlyIncome": "Aylık\nGelir",
+  "monthlyExpenses": "Aylık\nGider",
+
+  "noActivity": "Kayıt Yok",
+
+  "both": "HEPSİ",
+  "income": "GELİR",
+  "expenses": "GİDER",
+
+  "yearly": "YILLIK",
+  "monthly": "AYLIK",
+  "weekly": "HAFTA",
+  "daily": "GÜN",
+
+  "dataNotFound": "Veri bulunamadı",
+  "totalAmountStatistics": "Toplam Tutar",
+
+
+
+
+
+
+
+
+
+
+  "incomeInfo": "Gelir Bilgisi",
+  "expenseInfo": "Gider Bilgisi",
+
+  "calendarMonday": "Pz",
+  "calendarTuesday": "Sa",
+  "calendarWednesday": "Ça",
+  "calendarThursday": "Pe",
+  "calendarFriday": "Cu",
+  "calendarSaturday": "Ct",
+  "calendarSunday": "Pz",
+
+  "dataForTheDayNotFound": "Güne ait veri bulunamadı!",
+
+  "date": "TARİH",
+  "missingEntry": "Eksik İşlem",
+  "pleaseEnterAnAmount": "Lütfen bir tutar girin!",
+  "ok": "Tamam",
+
+  "food": "Yemek",
+  "clothing": "Giyim",
+  "entertainment": "Eğlence",
+  "education": "Eğitim",
+  "duesRent": "Aidat/Kira",
+  "shopping": "Alışveriş",
+  "personel": "Özel",
+  "transport": "Ulaşım",
+  "health": "Sağlık",
+  "dailyExpenses": "Günlük Yaşam",
+  "hobby": "Hobi",
+  "other": "Diğer",
+
+  "cash": "NAKİT",
+  "card": "KART",
+  "otherPaye": "DİĞER",
+  "save": "KAYDET",
+
+  "addNote": "NOT EKLE",
+  "delete": "Temizle",
+  "deleteAll": "SIFIRLA",
+  "done": "EKLE",
+  "activityAdded": "İşlem verisi eklendi",
+
+  "percentageCalculation": "Yüzde Hesaplama",
+  "calculator": "Hesap Makinesi",
+  "number": "Sayı",
+  "percentageRate": "Yüzde Oranı",
+  "enteraNumber": "Sayıyı Giriniz",
+  "enteraPercentage": "Yüzdeyi Giriniz",
+  "result": "Sonuç",
+  "processTheSecondNumber": "2.Sayıyı İşleme Al",
+
+  "firstNumber": "1.Sayı",
+  "secondNumber": "2.Sayı",
+  "result2": "İşlem sonucu",
+  "secondNumberPercentageOfFirstNumber": "2.Sayı 1.Sayının Yüzde Kaçıdır?",
+  "rateOfChange": "1.sayıdan 2.sayıya değişim\noranı kaçtır?",
+
+  "creditCalculation": "Kredi Hesaplama",
+  "amount2": "Ana Para",
+  "interestPercent": "Faiz (Yüzde)",
+  "maturity": "Vade (Ay)",
+  "calculate": "Hesapla",
+  "deleteAll2": "Sıfırla",
+  "pleaseFillInTheRequiredFields": "Lütfen gerekli alanları doldurun!",
+
+  "monthlyEqualInstalments": "Aylık Eşit Taksit:  ",
+  "totalAmount": "Toplam Ana Para:  ",
+  "totalInterest": "Toplam Faiz:  ",
+  "totalPayment": "Toplam Ödeme:  ",
+
+  "currencyConverter": " Döviz\nÇevirici",
+  "calculatePercentage": "  Yüzde\nHesapla",
+  "calculateInterestCredit": "Faiz-Kredi\n  Hesapla",
+
+  "currencyConverterWarning": "Döviz çevirici henüz aktif değildir.",
+
+  "settings": "Ayarlar",
+  "help": "Yardım",
+  "loginPassword": "Giriş Şifresi",
+  "downloadData": "Verileri İndir",
+  "contactUs": "İletişim",
+  "version": "Versiyon",
+
+  "darkMode": "Koyu Tema",
+  "off": "Kapalı",
+  "on": "Açık",
+  "backupStatus": "Yedeklenme Durumu",
+  "currency": "Para Birimi",
+  "language": "Dil Desteği",
+
+  "helpCenter": "Yardım Merkezi",
+  "whatsNew": "Yenilikler",
+  "guideline": "Başlarken",
+  "homePage": "Ana Sayfa",
+  "statisticsPage": "İstatistik\nSayfası",
+  "calendarPage": "Takvim\nSayfası",
+  "calculatorHelp": "Hesap\nMakinesi",
+  "backupSystem": "Yedekleme\nSistemi",
+
+  "faq": "Sıkça Sorulan Sorular",
+  "appShutdown": "Uygulamam Aniden Kapanıyor",
+  "recordsGone": "Kayıtlarım Aniden Gitti Ne Yapmam Gerekiyor?",
+  "iWantToContactYou": "Size Ulaşmak İstiyorum",
+
+  "answerOne": "Bazı durumlarda beklenmeyen sonuçlarla karşılaşabiliyoruz. Böyle bir durumda yapmanız gereken güncellemeleri kontrol etmektir. Eğer hala sorun devam ediyorsa lütfen geri bildirim bırakınız.",
+  "answerTwo": "Uygulamaya gelen son güncelleme ile veri tabanı eski sürümü desteklememesi bu soruna yol açmış olabilir. Teknik ekibimiz bu durumla karşılaşmamak için versiyon güncellenmesinde yedekleme işlemini gerçekleştirmektedirler, yine de geri bildirim bırakabilirsiniz.",
+  "answerThree": "Uygulamamızda iletişim kısmındaki mail veya Linkedin adreslerimiz üzerinden bizlere ulaşabilirsiniz.",
+
+  "passwordStatus": "Giriş Şifresi Durumu",
+
+  "newPasscode": "Yeni şifre kodunu giriniz",
+  "confirmPassword": "Tekrar giriniz",
+  "passwordsDoNotMatch": "Şifreler Eşleşmiyor",
+  "passwordCreated": "Şifreniz Oluşturuldu",
+  "securityQuestion": "Güvenlik sorusu:",
+
+  "enterThePasscode": "Şifre kodunu giriniz",
+  "wrongPassword": "Yanlış şifre",
+
+  "warning": "Uyarı",
+  "youHaveNotCreatedAnyPasswordWarning": "Herhangi bir şifre belirlemediniz. Şifre koymaktan vaz mı geçiyorsunuz?",
+  "yes": "Geri Dön",
+  "no": "Vazgeç",
+
+  "whatIsYourFavoriteAnimal": "En sevdiğin hayvan nedir?",
+  "pleaseEnteraName": "Lütfen bir değer giriniz",
+
+
+
+  "comeBack": "Vazgeç",
+  "remainingTries": "Kalan Hak",
+
+  "backupViaGoogleCloud": "Google Cloud ile Yedekle",
+  "signIn": "Oturum Aç",
+
+  "email": "E-posta:",
+  "nameAndSurname": "Ad ve Soyad:",
+  "lastBackupDate": "Son Yedekleme Tarihi:",
+
+  "backupFrequency": "Yedeklenme Sıklığı",
+  "dailyBackup": "Günlük",
+  "monthlyBackup": "Aylık",
+  "yearlyBackup": "Yıllık",
+  "restoreData": "Geri Yükle",
+  "backup": "Yedekle",
+  "logOut": "Çıkış Yap",
+
+  "github": "Github:  ",
+  "developers": "GELİŞTİRİCİLER",
+
+  "activityDetails": "İŞLEM DETAYLARI",
+
+  "details": "İŞLEM DETAYI",
+  "dateDetails": "TARİH",
+  "timeDetails": "SAAT",
+  "categoryDetails": "KATEGORİ",
+  "paymentTypeDetails": "ÖDEME TÜRÜ",
+  "amountDetails": "TUTAR",
+  "savingStatusDetails": "KAYIT DURUMU",
+  "saved": "Kayıtlı",
+  "notSaved": "Kayıtlı değil",
+  "noteDetails": "NOT",
+  "deleteDetails": "Sil",
+  "activityDeleted": "İşlem bilgisi silindi",
+  "edit": "Düzenle",
+
+  "updateDone": "GÜNCELLE",
+  "activityUpdated": "İşlem bilgisi güncellendi",
+  "clickToAddNote": "Not eklemek için tıklayınız"
+
+}
+

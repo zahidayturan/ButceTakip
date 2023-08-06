@@ -24,5 +24,5 @@ void main() async{
   //LocalNotificationService().initNotification();
   FirebaseMessaging.onBackgroundMessage(FirebaseNotificationService.backgroundMessage);
   runApp( const ProviderScope(child: ButceKontrolApp()));
-  print("Device Token:   ${await FirebaseMessaging.instance.getToken()}");
+  print("Device Token: ${await FirebaseMessaging.instance.getToken()}  son");
 }

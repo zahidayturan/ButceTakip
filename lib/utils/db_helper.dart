@@ -159,6 +159,12 @@ class SQLHelper {
     return result;
   }
 
+  static Future<int> updateCustomize(int? id, String customize) async {
+    final db = await SQLHelper.db();
+    final result = await db.update("spendinfo", {"processOnce": customize}, where: "id = ?", whereArgs: [id]);
+    return result;
+  }
+
   // Delete
   static Future<void> deleteItem(int id) async {
     final db = await SQLHelper.db();
@@ -237,7 +243,22 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
- //çok tehlikeli bir fonksiyon tüm tabloyu siliyor geri döndürülemez.
+  static Future<List<SpendInfo>> getCategoryListByType(String operationType) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationType = ?", whereArgs: [operationType], orderBy: "id");
+    return List.generate(result.length, (index){
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
+  static Future<List<SpendInfo>> getCustomizeOperationList() async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "processOnce != '' AND processOnce IS NOT NULL AND processOnce != '0'", orderBy: "id");
+    return List.generate(result.length, (index) {
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
+
+  //çok tehlikeli bir fonksiyon tüm tabloyu siliyor geri döndürülemez.
   static Future <void> deleteTable(String tableName) async {
     final db = await SQLHelper.db();
     await db.delete(tableName);

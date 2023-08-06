@@ -1,5 +1,6 @@
 import 'package:butcekontrol/Pages/more/Help/help_footer.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +15,8 @@ class HelpCalender extends StatelessWidget {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
-          appBar: const AppBarForPage(title: "YARDIM<"),
+          //backgroundColor: const Color(0xffF2F2F2),
+          appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -24,7 +25,7 @@ class HelpCalender extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
                   child: Container(
-                    color: renkler.koyuuRenk,
+                    color: Theme.of(context).highlightColor,
                     height: 65,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -36,7 +37,7 @@ class HelpCalender extends StatelessWidget {
                           width: 60,
                         ),
                         const Text(
-                          "Help Center",
+                          "Yardım Merkezi",
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: "Nexa3",
@@ -53,30 +54,34 @@ class HelpCalender extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      const Align(
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Takvim Sayfası",
                           style: TextStyle(
                             fontFamily: "Nexa3",
                             fontSize: 30,
-                            color: Colors.black,
+                            color: Theme.of(context).canvasColor,
                           ),
                         ),
                       ),
-                      const Text(
+                      SizedBox(height: 10,),
+                      Text(
                           "Kullanıcıların girdilerini esas alarak takvimsel olarak gereklilik olduğunu fark ettik bunun üzerine Kendi tasarımımız olan takvimi uygulattık. \n"
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       ),
                       Image.asset(
                           "assets/image/helpcalender1.png"
                       ),
-                      const Text(
+                      Text(
                           "\n\nKayan butonlar ile uygulamamızın bir çok yerinde karşılaşabilirsiniz. Kullanımı son derece kolay olan bu butonları aktif etmek için yapmanız gereken sağ veya sola kaydırmak olacaktır. Hem ay hem de yıl değişimini sağlayan bu yapı takvim kategorimizin güncellenmesini sağlamaktadır.\n"
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                       ),
                       Image.asset(
                           "assets/image/helpcalender2.png"
                       ),
-                      const Text("Günlük bazda verileri sıralıyor."),
+                      SizedBox(height: 10,),
+                      Text("Günlük bazda verileri sıralıyor.",style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
                     ],
                   ),
                 ),

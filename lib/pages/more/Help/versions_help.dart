@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class VersionsHelp extends StatelessWidget {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
         child: Scaffold(
-          appBar: const AppBarForPage(title: "YARDIM<"),
+          appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -21,7 +22,7 @@ class VersionsHelp extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
                   child: Container(
-                    color: renkler.koyuuRenk,
+                    color: Theme.of(context).highlightColor,
                     height: 65,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -34,11 +35,11 @@ class VersionsHelp extends StatelessWidget {
                         ),
                         SizedBox(
                           width: size.width / 1.4,
-                          child: Column(
+                          child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
-                                "Android 1.0 v",
+                                "Android 1.1.1 v",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: "Nexa3",
@@ -46,7 +47,7 @@ class VersionsHelp extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "Update(21.04.2023)",
+                                "Update(3.06.2023)",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: "Nexa3",
@@ -75,7 +76,7 @@ class VersionsHelp extends StatelessWidget {
                           Text(
                             "İlk Gösterim",
                             style: TextStyle(
-                              color: renkler.koyuuRenk,
+                              color: Theme.of(context).canvasColor,
                               fontSize: 28,
                               fontFamily: 'Nexa3'
                             ),
@@ -85,23 +86,29 @@ class VersionsHelp extends StatelessWidget {
                       SizedBox(height: size.height / 80,),
                       Column(
                         children: [
-                          const Text("Merhaba! Bütçe Kontrol uygulamamızı kullanmaya başladığınız için teşekkür ederiz. Uygulamamız Version v1.0 ile ilk gösterime çıktığını duyurmaktan büyük mutluluk duyuyoruz. Tüm yazılım ekibimize buradan Tebrikler diliyoruz.\n"),
+                          Text("Merhaba! Bütçe Kontrol uygulamamızı kullanmaya başladığınız için teşekkür ederiz. Uygulamamız Version v1.0 ile ilk gösterime çıktığını duyurmaktan büyük mutluluk duyuyoruz. Tüm yazılım ekibimize buradan Tebrikler diliyoruz.\n"
+                            ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
                           Image.asset(
                               "assets/image/icon_BKA/LOGOBKA-4.png",
                             height: size.height / 10,
                             width: size.width / 1.7,
                           ), // butce kontrol logosu
-                          const Text('\nBu uygulama, gelir ve giderlerinizi takip etmenize, tasarruf etmenize ve bütçenizi kontrol altında tutmanıza yardımcı olmak için tasarlanmıştır.\n'),
-                          const Text("Uygulamamız oldukça titiz bir çalışma sonucunda ortaya çıkarılmışır yazılım ekibimiz tarafından proje geliştirme adımları teker teker uygulanmıştır.\n"),
-                          const Text('Uygulamamızda, aylık gelir ve giderlerinizi takip edebileceğiniz kolay bir arayüz bulunmaktadır. Ayrıca, bütçenizi aşan harcamalarınızı da takip edebilirsiniz. Böylece, bütçenizi aşmadan tasarruf etmek için gerekli adımları atabilirsiniz.\n'),
-                          const Text("Harcamalarınızı günlük, aylık, haftalık veya yıllık olarak istatistik bölümünden kolaylıkla takip edebilirsiniz. Pasta grafiği sayesinde en çok hangi alanlara ne kadar harcama yaptığınızı kolayca takip edebilir ve bu harcamaları yönetmek veya azaltmak için adımlar atabilirsiniz.\n\n"),
+                          Text('\nBu uygulama, gelir ve giderlerinizi takip etmenize, tasarruf etmenize ve bütçenizi kontrol altında tutmanıza yardımcı olmak için tasarlanmıştır.\n'
+                            ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
+                          Text("Uygulamamız oldukça titiz bir çalışma sonucunda ortaya çıkarılmışır yazılım ekibimiz tarafından proje geliştirme adımları teker teker uygulanmıştır.\n"
+                            ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
+                          Text('Uygulamamızda, aylık gelir ve giderlerinizi takip edebileceğiniz kolay bir arayüz bulunmaktadır. Ayrıca, bütçenizi aşan harcamalarınızı da takip edebilirsiniz. Böylece, bütçenizi aşmadan tasarruf etmek için gerekli adımları atabilirsiniz.\n'
+                            ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
+                          Text("Harcamalarınızı günlük, aylık, haftalık veya yıllık olarak istatistik bölümünden kolaylıkla takip edebilirsiniz. Pasta grafiği sayesinde en çok hangi alanlara ne kadar harcama yaptığınızı kolayca takip edebilir ve bu harcamaları yönetmek veya azaltmak için adımlar atabilirsiniz.\n\n"
+                            ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
 
                           Row(
                             children: [
                               Image.asset(
-                                "assets/icons/Vector.png",
+                                "assets/icons/swap.png",
                                 height: 25,
                                 width: 25,
+                                color: Colors.blue,
                               ),
                               SizedBox(width: size.width / 40,),
                               Text(
@@ -109,13 +116,14 @@ class VersionsHelp extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 28,
                                   fontFamily: 'Nexa3',
-                                  color: renkler.koyuuRenk,
+                                  color: Theme.of(context).canvasColor,
                                 ),
                               )
                             ],
                           ), // sık güncelleme
                           SizedBox(height: size.height / 80,),
-                          const Text("Sürekli geliştirmelere ve önerilere açık bir altyapıyla her gün yeni özellikler üzerine çalışmalar yürütülmektedir. Ayrıca uygulamamız OpenSource(Açık kaynaklı kod) olarak yayınlamaktayız dolayısıyla her geliştirici arkadaş uygulamamıza katkıda bulunabilir. Google Play ve AppStrore gibi plartformlar üzüerinden kolay güncellenebilir durumdadır.\n\n"),
+                          Text("Sürekli geliştirmelere ve önerilere açık bir altyapıyla her gün yeni özellikler üzerine çalışmalar yürütülmektedir. Ayrıca uygulamamız OpenSource(Açık kaynaklı kod) olarak yayınlamaktayız dolayısıyla her geliştirici arkadaş uygulamamıza katkıda bulunabilir. Google Play ve AppStrore gibi platformlar üzüerinden kolay güncellenebilir durumdadır.\n\n"
+                            ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
 
                           Row(
                             children: [
@@ -130,13 +138,14 @@ class VersionsHelp extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 28,
                                   fontFamily: 'Nexa3',
-                                  color: renkler.koyuuRenk,
+                                  color: Theme.of(context).canvasColor,
                                 ),
                               )
                             ],
                           ), // gelecekteki yenilikler başlığı
                           SizedBox(height: size.height / 80,),
-                          const Text("Uygulamamızın gelecekteki güncellemelerinde farklı para birimleriyle harcama takibi yapma, İngilizce ve Arapça gibi dillerin eklenmesi, harcama kategorilerinin özelleştirilmesi gibi yeni özellikler yer alacaktır. Takipte kalın ve bütçenizi kontrol altında tutmak için Bütçe Kontrol uygulamamızı kullanmaya devam edin.\n\n"),
+                          Text("Uygulamamızın gelecekteki güncellemelerinde farklı para birimleriyle harcama takibi yapma, İngilizce ve Arapça gibi dillerin eklenmesi, harcama kategorilerinin özelleştirilmesi gibi yeni özellikler yer alacaktır. Takipte kalın ve bütçenizi kontrol altında tutmak için Bütçe Kontrol uygulamamızı kullanmaya devam edin.\n"
+                            ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
 
 
                         ],

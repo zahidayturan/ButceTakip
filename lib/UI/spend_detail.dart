@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../Pages/update_data_page.dart';
 import '../constans/material_color.dart';
 import '../models/spend_info.dart';
+import 'package:butcekontrol/classes/language.dart';
 
 ///örnek kullanım
 /*
@@ -53,7 +54,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: Text(
-                  "İŞLEM DETAYI  ",
+                  "${translation(context).details}  ",
                   style: TextStyle(
                     color: renkler.arkaRenk,
                     fontFamily: 'Nexa4',
@@ -96,8 +97,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
             MainAxisAlignment
                 .spaceBetween,
             children: [
-              const Text("TARİH",
-                  style: TextStyle(
+               Text(translation(context).dateDetails,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Nexa4',
                     fontSize: 18,
@@ -127,7 +128,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       child: Text(
                         "${item[index].operationDate}",
                         style:
-                        const TextStyle(
+                        TextStyle(
+                          color: renkler.koyuuRenk,
                           fontFamily:
                           'NEXA3',
                           fontSize: 18,
@@ -144,8 +146,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
             MainAxisAlignment
                 .spaceBetween,
             children: [
-              const Text("SAAT",
-                  style: TextStyle(
+               Text(translation(context).timeDetails,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Nexa4',
                     fontSize: 18,
@@ -165,8 +167,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
             MainAxisAlignment
                 .spaceBetween,
             children: [
-              const Text("KATEGORİ",
-                  style: TextStyle(
+              Text(translation(context).categoryDetails,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Nexa4',
                     fontSize: 18,
@@ -186,8 +188,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
             MainAxisAlignment
                 .spaceBetween,
             children: [
-              const Text("ÖDEME TÜRÜ",
-                  style: TextStyle(
+              Text(translation(context).paymentTypeDetails,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Nexa4',
                     fontSize: 18,
@@ -207,8 +209,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
             MainAxisAlignment
                 .spaceBetween,
             children: [
-              const Text("TUTAR",
-                  style: TextStyle(
+              Text(translation(context).amountDetails,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Nexa4',
                     fontSize: 18,
@@ -228,23 +230,23 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
             MainAxisAlignment
                 .spaceBetween,
             children: [
-              const Text("KAYIT DURUMU",
-                  style: TextStyle(
+              Text(translation(context).savingStatusDetails,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Nexa4',
                     fontSize: 18,
                   )),
-              item[index].registration == 0?  const Text(
-                  "Kayıtlı değil",
+              item[index].registration == 0?  Text(
+                  translation(context).notSaved,
                   style:
-                  TextStyle(
+                  const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Nexa3',
                     fontSize: 18,
-                  )): const Text(
-                  "Kayıtlı",
+                  )): Text(
+                  translation(context).saved,
                   style:
-                  TextStyle(
+                  const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Nexa3',
                     fontSize: 18,
@@ -256,15 +258,69 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
             MainAxisAlignment
                 .spaceBetween,
             children: [
-              const Text("NOT",
+              Text(translation(context).noteDetails,
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Nexa4',
                     fontSize: 18,
                   )),
-              widget01(item, index),
+              item[index].processOnce == ""?  const Text(
+                  "Tekrar yok",
+                  style:
+                  TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Nexa3',
+                    fontSize: 18,
+                  )): Text(
+                  "${item[index].processOnce}",
+                  style:
+                  TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Nexa3',
+                    fontSize: 18,
+                  )),
             ],
           ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  Text("NOT",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Nexa4',
+                        fontSize: 18,
+                      )),
+                  SizedBox()
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5,left: 5),
+                child: SizedBox(
+                  child: item[index].note == '' ?  const Text(
+                      "Not eklenmemiş",
+                      textAlign: TextAlign.justify,
+                      style:
+                      TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Nexa3',
+                        fontSize: 18,
+                      )): Text(
+                     "${item[index].note}",
+                      textAlign: TextAlign.justify,
+                      maxLines: 6,
+                      style:
+                      const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Nexa3',
+                        fontSize: 18,
+                      )),
+                ),
+              ),
+            ],
+          ),
+
           ///KAYDETME BUTONU ŞU AN KAPALI
           Row(
             mainAxisAlignment:
@@ -360,13 +416,13 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         readDB.myMethod2();
                         Navigator.of(context).pop();
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             backgroundColor:
-                            Color(0xff0D1C26),
-                            duration: Duration(seconds: 1),
+                            const Color(0xff0D1C26),
+                            duration: const Duration(seconds: 1),
                             content: Text(
-                              'İşlem bilgisi silindi',
-                              style: TextStyle(
+                              translation(context).activityDeleted,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
                                 fontFamily: 'Nexa3',
@@ -379,13 +435,13 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       },
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding:
-                    EdgeInsets.only(
+                    const EdgeInsets.only(
                         top: 4.0),
                     child: Text(
-                      "Sil",
-                      style: TextStyle(
+                      translation(context).deleteDetails,
+                      style: const TextStyle(
                         color: Color(
                             0xFFF2CB05),
                         fontFamily:
@@ -425,13 +481,13 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       },
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding:
-                    EdgeInsets.only(
+                    const EdgeInsets.only(
                         top: 4.0),
                     child: Text(
-                      "Düzenle",
-                      style: TextStyle(
+                      translation(context).edit,
+                      style: const TextStyle(
                         color: Color(
                             0xFFF2CB05),
                         fontFamily:

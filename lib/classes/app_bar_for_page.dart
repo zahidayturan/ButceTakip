@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +29,14 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
               height: 60,
               child: Container(
                 width: size.width,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                      ),
+                    ],
                     color: Color(0xff0D1C26),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(100),
@@ -58,32 +66,33 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
             child: IconButton(
               padding: const EdgeInsets.only(right: 0),
               iconSize: 48,
-              icon: title == "YARDIM"
-                  || title == "YARDIM<"
-                  || title == "AYARLAR"
-                  || title == "İLETİŞİM"
-                  || title == "YEDEKLE"
-                  || title == "GİRİŞ ŞİFRESİ"
+              icon: title == translation(context).helpTitle
+                  || title == translation(context).helpTitle2
+                  || title == translation(context).settingsTitle
+                  || title == translation(context).contactUsTitle
+                  || title == translation(context).backupTitle
+                  || title == translation(context).loginPasswordTitle
                   || title == "VARLIK"
               ?const Icon(
                 Icons.arrow_back,
                 color: Colors.white,
               )
-              :const Icon(
+                  :const Icon(
                 Icons.home_outlined,
                 color : Colors.white,
                 size: 40,
               ),
               onPressed: () async {
-                if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE" || title == "YARDIM<" || title == "VARLIK"){
+                if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2 || title == "VARLIK"){
                   Navigator.of(context).pop();
-                }else if(title == "GİRİŞ ŞİFRESİ") {
+                }else if(title == translation(context).loginPasswordTitle) {
                   if(readsetting.isPassword == 1 && readsetting.Password == "null") {
                     bool confirm = await showDialog(
                       context: context,
                       builder: (context) =>
                           AlertDialog(
                             backgroundColor: renkler.koyuuRenk,
+                            shadowColor: Theme.of(context).highlightColor,
                             title: Row(
                               children: [
                                 Icon(
@@ -95,7 +104,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                 const TextMod("Uyarı", Colors.white, 18),
                               ],
                             ),
-                            content:  const TextMod("Herhangi Bir Şifre koymadınız\nŞifre Koymaktan vaz mı geçiyorsunuz ?", Colors.white, 15),
+                            content:  const TextMod("Herhangi bir şifre koymadınız\nŞifre koymaktan vaz mı geçiyorsunuz?", Colors.white, 15),
                             actions: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(20) ,
@@ -148,11 +157,11 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                     }
                   }else{
                     Navigator.pop(context, true);
-                    }
                   }
-                  else{
-                    read2.setCurrentindex(0);
-                  }
+                }
+                else{
+                  read2.setCurrentindex(0);
+                }
                 //Navigator.of(context).pop();
               },
             ),
@@ -175,3 +184,34 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
     );
   }
 }
+/*
+Positioned(
+              right: 20,
+              top: 20,
+              child: Text(
+                title,
+                style: const TextStyle(
+                  height: 1,
+                  color: Colors.white,
+                  fontFamily: 'NEXA4',
+                  fontSize: 22,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
+ */
+
+/*
+icon: title == translation(context).helpTitle
+                    || title == translation(context).helpTitle2
+                    || title == translation(context).settingsTitle
+                    || title == translation(context).contactUsTitle
+                    || title == translation(context).backupTitle
+                    || title == translation(context).loginPasswordTitle
+                  if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2){
+                  }else if(title == translation(context).loginPasswordTitle) {
+                    if(readsetting.isPassword == 1 && readsetting.Password == "null") {
+                              content:  TextMod(translation(context).youHaveNotCreatedAnyPasswordWarning, Colors.white, 15),
+                                                child: TextMod(translation(context).yes, renkler.koyuuRenk, 16)
+                                ),
+ */

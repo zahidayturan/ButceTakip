@@ -9,7 +9,8 @@ import 'package:butcekontrol/pages/more/Help/versions_help.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../classes/app_bar_for_page.dart';
-  import '../../../constans/material_color.dart';
+  import '../../../classes/language.dart';
+import '../../../constans/material_color.dart';
 
 class HelpCenter extends ConsumerStatefulWidget {
   const HelpCenter({Key? key}) : super(key: key);
@@ -31,8 +32,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffF2F2F2),
-        appBar: const AppBarForPage(title: "YARDIM"),
+        //backgroundColor: const Color(0xffF2F2F2),
+        appBar: AppBarForPage(title: translation(context).helpTitle),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
@@ -41,7 +42,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
                 child: Container(
-                  color: renkler.koyuuRenk,
+                  color: Theme.of(context).highlightColor,
                   height: 65,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -52,9 +53,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                         height: 60,
                         width: 60,
                       ),
-                      const Text(
-                        "Help Center",
-                        style: TextStyle(
+                      Text(
+                        translation(context).helpCenter,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontFamily: "Nexa3",
                             fontSize: 25
@@ -73,13 +74,14 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start  ,
-                          children: const [
+                          children: [
                             Text(
-                              "Yenilikler",
+                              translation(context).whatsNew,
                               style: TextStyle(
+                                height: 1,
                                 fontFamily: "Nexa3",
-                                fontSize: 26,
-                                color: Colors.black,
+                                fontSize: 22,
+                                color: Theme.of(context).canvasColor,
                               ),
                             ),
                           ],
@@ -97,7 +99,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                   context,
                                   PageRouteBuilder(
                                     transitionDuration: const Duration(milliseconds: 1),
-                                    pageBuilder: (context, animation, nextanim) =>  VersionsHelp(),
+                                    pageBuilder: (context, animation, nextanim) =>  const VersionsHelp(),
                                     reverseTransitionDuration: const Duration(milliseconds: 1),
                                     transitionsBuilder: (context, animation, nexttanim, child) {
                                       return FadeTransition(
@@ -109,33 +111,36 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 );
                               },
                               child: const Text(
-                                  "Android 1.0v Update(21.04.2023)"
+                                  "Android 1.1.1v Update(3.06.2023)"
                               ),
                             ),
                           ],
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Divider(
-                            color: Colors.black,
+                            color: Theme.of(context).canvasColor,
                             thickness: 2,
                           ),
                         ),
+                        const SizedBox(height: 5,)
                       ],
                     ),//news
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Başlarken",
-                        style:TextStyle(
-                          fontSize: 25,
-                          fontFamily: "Nexa3",
-                          color: Colors.black,
+                    Row(
+                      children: [
+                        Text(
+                          translation(context).guideline,
+                          style:TextStyle(
+                            height: 1,
+                            fontSize: 25,
+                            fontFamily: "Nexa3",
+                          color: Theme.of(context).canvasColor,
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal:20.0, vertical:  10.0),
+                      padding: const EdgeInsets.symmetric(horizontal:20.0, vertical:  10.0),
                       child: SizedBox(
                         height: 110,
                         child: Column(
@@ -168,12 +173,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       decoration: BoxDecoration(
                                           color: renkler.koyuuRenk,
                                           borderRadius: BorderRadius.circular(15),
-                                          boxShadow: const [
+                                          boxShadow:  [
                                             BoxShadow(
-                                                color: Colors.grey,
+                                                color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
@@ -181,8 +186,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: const [
-                                            Padding(
+                                          children: [
+                                            const Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Icon(
                                                 Icons.home,
@@ -190,11 +195,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                 size: 22,
                                               ),
                                             ),
-                                            SizedBox(width: 1),
+                                            const SizedBox(width: 1),
                                             FittedBox(
                                               child: Text(
-                                                "Ana Sayfa",
-                                                style: TextStyle(
+                                                translation(context).homePage,
+                                                style: const TextStyle(
+                                                  height: 1,
                                                     color: Color(0xffF2F2F2),
                                                     fontSize: 11
                                                 ),
@@ -230,12 +236,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       decoration: BoxDecoration(
                                           color: renkler.koyuuRenk,
                                           borderRadius: BorderRadius.circular(15),
-                                          boxShadow: const [
+                                          boxShadow: [
                                             BoxShadow(
-                                                color: Colors.grey,
+                                                color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
@@ -243,8 +249,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: const [
-                                            Padding(
+                                          children: [
+                                            const Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Icon(
                                                 Icons.pie_chart_rounded,
@@ -252,11 +258,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                 size: 22,
                                               ),
                                             ),
-                                            SizedBox(width: 1),
+                                            const SizedBox(width: 1),
                                             FittedBox(
                                               child: Text(
-                                                "İstatistik\nSayfası",
-                                                style: TextStyle(
+                                                translation(context).statisticsPage,
+                                                style: const TextStyle(
+                                                  height: 1,
                                                     color: Color(0xffF2F2F2),
                                                     fontSize: 11
                                                 ),
@@ -292,12 +299,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       decoration: BoxDecoration(
                                           color: renkler.koyuuRenk,
                                           borderRadius: BorderRadius.circular(15),
-                                          boxShadow: const [
+                                          boxShadow: [
                                             BoxShadow(
-                                                color: Colors.grey,
+                                                color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
@@ -305,8 +312,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: const [
-                                            Padding(
+                                          children: [
+                                            const Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Icon(
                                                 Icons.calendar_today,
@@ -316,8 +323,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                             ),
                                             FittedBox(
                                               child: Text(
-                                                "Tavim\nSayfası",
-                                                style: TextStyle(
+                                                translation(context).calendarPage,
+                                                style: const TextStyle(
+                                                  height: 1,
                                                     color: Color(0xffF2F2F2),
                                                     fontSize: 11
                                                 ),
@@ -358,12 +366,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       decoration: BoxDecoration(
                                           color: renkler.koyuuRenk,
                                           borderRadius: BorderRadius.circular(15),
-                                          boxShadow: const [
+                                          boxShadow: [
                                             BoxShadow(
-                                                color: Colors.grey,
+                                                color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
@@ -371,8 +379,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: const [
-                                            Padding(
+                                          children: [
+                                            const Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Icon(
                                                 Icons.calculate,
@@ -380,11 +388,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                 size: 22,
                                               ),
                                             ),
-                                            SizedBox(width: 7),
+                                            const SizedBox(width: 7),
                                             FittedBox(
                                               child: Text(
-                                                "Hesap\nMakinesi",
-                                                style: TextStyle(
+                                                translation(context).calculatorHelp,
+                                                style: const TextStyle(
+                                                  height: 1,
                                                     color: Color(0xffF2F2F2),
                                                     fontSize: 11
                                                 ),
@@ -420,12 +429,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       decoration: BoxDecoration(
                                         color: renkler.koyuuRenk,
                                         borderRadius: BorderRadius.circular(15),
-                                        boxShadow: const [
+                                        boxShadow: [
                                           BoxShadow(
-                                            color: Colors.grey,
+                                            color: Theme.of(context).indicatorColor,
                                             spreadRadius: 3,
                                             blurRadius: 7,
-                                            offset: Offset(3, 3)
+                                            offset: const Offset(3, 3)
                                           ),
                                         ]
                                       ),
@@ -433,8 +442,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: const [
-                                            Padding(
+                                          children: [
+                                            const Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Icon(
                                                 Icons.backup,
@@ -442,11 +451,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                 size: 22,
                                               ),
                                             ),
-                                            SizedBox(width: 7),
+                                            const SizedBox(width: 7),
                                             FittedBox(
                                               child: Text(
-                                                "Yedekleme\nSistemi",
-                                                style: TextStyle(
+                                                translation(context).backupSystem,
+                                                style: const TextStyle(
+                                                  height: 1,
                                                     color: Color(0xffF2F2F2),
                                                     fontSize: 11
                                                 ),
@@ -465,17 +475,18 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Sıkça Sorulan Sorular",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: "Nexa3",
-                            fontSize: 25
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Text(
+                          translation(context).faq,
+                          style: TextStyle(
+                              fontFamily: "Nexa3",
+                              fontSize: 25,
+                            color: Theme.of(context).canvasColor,
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -484,31 +495,30 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                           padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                                color: const Color(0xffDDDCDC),
+                                color: Theme.of(context).indicatorColor,
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: ExpansionTile(
 
-                              title: const Text("Uygulamam aniden kapanıyor."),
+                              title: Text(translation(context).appShutdown),
                               trailing: customicom1 ? const Icon(
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
-                                  : const Icon(
+                                  : Icon(
                                 Icons.keyboard_arrow_down,
                                 size: 30,
+                                color: Theme.of(context).canvasColor,
                               ),
                               onExpansionChanged: (bool expanded) {
                                 setState(() => customicom1 = expanded);
                               },
                               tilePadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                              children: const [
+                              children: [
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
                                   child: Text(
-                                      "Bazı durumlarda beklenmeyen sonuçlarla\nkarşılaşabiliyoruz. Böyle bir "
-                                          "durumda yapmanız gereken güncellemeleri kontrol etmektir. Eğer hala "
-                                          "sorun devam ediyorsa lütfen geri bildirim bırakınız.\n"
+                                      translation(context).answerOne
                                   ),
                                 ),
                               ],
@@ -519,33 +529,30 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                           padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 3),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                                color: const Color(0xffDDDCDC),
+                                color: Theme.of(context).indicatorColor,
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: ExpansionTile(
 
-                              title: const Text("Kayıtlarım aniden gitti ne yapmam gerekiyor?"),
+                              title: Text(translation(context).recordsGone),
                               trailing: customicom2 ? const Icon(
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
-                                  : const Icon(
+                                  : Icon(
                                 Icons.keyboard_arrow_down,
                                 size: 30,
+                                color: Theme.of(context).canvasColor,
                               ),
                               onExpansionChanged: (bool expanded) {
                                 setState(() => customicom2 = expanded);
                               },
                               tilePadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                              children: const [
+                              children: [
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
                                   child: Text(
-                                    "Uygulama son güncelleme ile gelen bazı yenilikler dolayısıyla "
-                                        "veritabanının güncellenmesi noktasında eski sürümün desteklenmemesi "
-                                        "bu soruna yol açmış olabilir teknik ekibimiz bu durumla karşılaşmamak "
-                                        "için version güncellenmesinde yedekleme işlemini gerçekleştirmektedirler "
-                                        "yinede geri bildirim bırakabilirsiniz.\n",
+                                    translation(context).answerTwo
                                   ),
                                 ),
                               ],
@@ -556,18 +563,19 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                           padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                                color: const Color(0xffDDDCDC),
+                                color: Theme.of(context).indicatorColor,
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: ExpansionTile(
-                              title: const Text("Size Ulaşmak istiyorum?"),
+                              title: Text(translation(context).iWantToContactYou),
                               trailing: customicom3 ? const Icon(
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
-                                  : const Icon(
+                                  : Icon(
                                 Icons.keyboard_arrow_down,
                                 size: 30,
+                                color: Theme.of(context).canvasColor,
                               ),
                               onExpansionChanged: (bool expanded) {
                                 setState(() => customicom3 = expanded);
@@ -579,8 +587,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      const Text(
-                                        "Uygulamamızda iletişim kısmındaki mail veya Linkedin adreslerimiz üzerinden bizlere ulaşabilirsiniz.\n",
+                                      Text(
+                                          translation(context).answerThree,
                                       ),
                                       InkWell(
                                         onTap: () {
@@ -601,16 +609,16 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                         },
                                         child: SizedBox(
                                           height: 30,
-                                          width: 100,
+                                          width: 120,
                                           child: DecoratedBox(
                                             decoration: BoxDecoration(
                                               color: renkler.koyuuRenk,
                                               borderRadius: BorderRadius.circular(20),
                                             ),
-                                            child: const Center(
+                                            child: Center(
                                               child: Text(
-                                                "İLETİŞİM",
-                                                style: TextStyle(
+                                                translation(context).contactUsTitle,
+                                                style: const TextStyle(
                                                     fontFamily: "Nexa2",
                                                     fontSize: 16,
                                                     color: Colors.amber
@@ -633,7 +641,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                   ],
                 ),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               helpFooter(context),
             ],
           ),

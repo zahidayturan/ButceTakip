@@ -160,6 +160,21 @@ class SettingsRiverpod extends ChangeNotifier{
     lastBackup = formattedDate ;
     Updating();
   }
+  void setLanguage(String language){
+    Language = language;
+    Updating();
+  }
+  Locale localChanger(){
+    if(Language == "Turkce"){
+      return Locale("tr");
+    }else if(Language == "English"){
+      return Locale("en");
+    }else if(Language == "العربية"){
+      return Locale("ar");
+    }else{
+      return Locale("tr");
+    }
+  }
   Future Updating() async {
     final info = SettingsInfo.withId(
         id,
@@ -177,6 +192,7 @@ class SettingsRiverpod extends ChangeNotifier{
         prefixSymbol,
     );
     await SQLHelper.updateSetting(info);
+    notifyListeners();
   }
   void setStatus(bool value){
     Status = value ;

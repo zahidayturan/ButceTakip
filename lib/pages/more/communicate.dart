@@ -1,4 +1,5 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +27,9 @@ class Communicate extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffF2F2F2),
+        //backgroundColor: const Color(0xffF2F2F2),
         bottomNavigationBar: const NavBar(),
-        appBar: const AppBarForPage(title: "İLETİŞİM"),
+        appBar: AppBarForPage(title: translation(context).contactUsTitle),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -40,6 +41,7 @@ class Communicate extends StatelessWidget {
                   child: Image.asset(
                     "assets/image/icon_BKA/LOGOBKA-2.png",
                     width: size.width / 2,
+                    color: Theme.of(context).canvasColor,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -47,40 +49,40 @@ class Communicate extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20),
                   child: Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 4),
-                        child: Icon(Icons.mail),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Icon(Icons.mail,color: Theme.of(context).canvasColor),
                       ),
                       const SizedBox(width: 5),
                       InkWell(
                         child: RichText(
-                            text: const TextSpan(children: [
-                              TextSpan(
-                                text: 'Email : ',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Nexa3',
-                                  color: Color(0xff0D1C26),
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'fezaitech@gmail.com',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 16,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ])),
+                            text: TextSpan(children: [
+                          TextSpan(
+                            text: translation(context).email,
+                            style: TextStyle(
+                              height: 1,
+                              fontSize: 16,
+                              fontFamily: 'Nexa3',
+                              color: Theme.of(context).canvasColor,
+                            ),
+                          ),
+                          const TextSpan(
+                            text: 'fezaitech@gmail.com',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 16,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ])),
                         onTap: () {
                           Clipboard.setData(
                               const ClipboardData(text: 'fezaitech@gmail.com'));
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  backgroundColor:
-                                  Color(0xff0D1C26),
-                                  duration: Duration(seconds: 1),
-                                  content: Text('Email kopyalandı')));
+                              SnackBar(
+                                  backgroundColor: const Color(0xff0D1C26),
+                                  duration: const Duration(seconds: 1),
+                                  content: Text('Email Panoya Kopyalandı',style: TextStyle(color : Theme.of(context).canvasColor,fontFamily: 'Nexa3',fontSize: 15),)));
                         },
                       )
                     ],
@@ -91,59 +93,59 @@ class Communicate extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20),
                   child: Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 4),
-                        child: Icon(Icons.account_circle_outlined),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Icon(Icons.account_circle_outlined,color: Theme.of(context).canvasColor),
                       ),
                       const SizedBox(width: 5),
                       InkWell(
                         onTap: () {
                           launchURL('https://github.com/ibrahimeth');
                         },
-                        child:  RichText(
-                            text: const TextSpan(children: [
-                              TextSpan(
-                                text: 'Github : ',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Nexa3',
-                                  color: Color(0xff0D1C26),
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'github.com/ibrahimeth/\nButceTakip',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 16,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ])),
+                        child: RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                            text: translation(context).github,
+                            style: TextStyle(
+                              height: 1,
+                              fontSize: 16,
+                              fontFamily: 'Nexa3',
+                              color: Theme.of(context).canvasColor,
+                            ),
+                          ),
+                          const TextSpan(
+                            text: 'github.com/ibrahimeth/\nButceTakip',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 16,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ])),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
-                Divider(height:10, color: renkler.sariRenk, thickness: 2 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 25),
                 Column(
                   children: [
-                    FittedBox( // Title
+                    FittedBox(
+                      // Title
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          color: renkler.koyuuRenk,
+                          color: Theme.of(context).highlightColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 9),
                             child: Text(
-                              "GELİŞTİRİCİLER",
+                              translation(context).developers,
                               style: TextStyle(
                                   fontFamily: "Nexa4",
                                   fontSize: 18,
-                                  color:Colors.white
-                              ),
+                                  color: renkler.arkaRenk),
                             ),
                           ),
                         ),
@@ -151,7 +153,8 @@ class Communicate extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical:  8.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -160,121 +163,149 @@ class Communicate extends StatelessWidget {
                             children: [
                               Container(
                                 height: 60,
+                                width: 60,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.shade500 ,
-                                      spreadRadius: 3,
-                                      blurRadius: 7,
-                                      offset: Offset(3, 3), // x,y offset değerleri
-                                    )
-                                  ]
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.network(
-                                    "https://avatars.githubusercontent.com/u/92324388?v=4"
+                                    borderRadius:
+                                        const BorderRadius.all(Radius.circular(25)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Theme.of(context).indicatorColor,
+                                        spreadRadius: 3,
+                                        blurRadius: 7,
+                                        offset: const Offset(
+                                            3, 3), // x,y offset değerleri
+                                      )
+                                    ]),
+                                child: Stack(children: [
+                                  Container(
+                                    height: 60,
+                                    width: 60,
                                   ),
-                                ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                        "https://avatars.githubusercontent.com/u/92324388?v=4"),
+                                  ),
+                                ]),
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   const Text(
-                                      "İbrahim Ethem Akbıyık",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                  ),//nam// e
-                                  SizedBox(height: 5),
+                                    "İbrahim Ethem Akbıyık",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ), //nam// e
+                                  const SizedBox(height: 5),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       InkWell(
-                                        onTap:() {
-                                          launchURL('https://github.com/ibrahimeth');
+                                        onTap: () {
+                                          launchURL(
+                                              'https://github.com/ibrahimeth');
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Container(
                                             width: 90,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 5.0),
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
+                                                    color: Theme.of(context).canvasColor,
                                                   ),
                                                 ),
-                                                Text("Github"),
+                                                const Text("GitHub"),
                                               ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 15),
+                                      const SizedBox(width: 15),
                                       InkWell(
-                                        onTap:() {
-                                          launchURL("https://www.linkedin.com/in/ibrahim-ethem-akb%C4%B1y%C4%B1k-53a099224/");
+                                        onTap: () {
+                                          launchURL(
+                                              "https://www.linkedin.com/in/ibrahim-ethem-akb%C4%B1y%C4%B1k-53a099224/");
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 5.0),
                                                   child: Image.asset(
                                                     "assets/icons/linkedin.png",
                                                     height: 18,
                                                   ),
                                                 ),
-                                                Text("Linkedin"),
+                                                const Text("LinkedIn"),
                                               ],
                                             ),
                                           ),
                                         ),
                                       ),
                                     ],
-                                  ),//social icon
+                                  ), //social icon
                                 ],
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
                                 height: 60,
+                                width: 60,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    borderRadius:
+                                        const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.shade500 ,
+                                        color: Theme.of(context).indicatorColor,
                                         spreadRadius: 3,
                                         blurRadius: 7,
-                                        offset: Offset(3, 3), // x,y offset değerleri
+                                        offset: const Offset(
+                                            3, 3), // x,y offset değerleri
                                       )
-                                    ]
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.network(
-                                      "https://avatars.githubusercontent.com/u/99787343?v=4"
+                                    ]),
+                                child: Stack(children: [
+                                  Container(
+                                    height: 60,
+                                    width: 60,
                                   ),
-                                ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                        "https://avatars.githubusercontent.com/u/99787343?v=4"),
+                                  ),
+                                ]),
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   const Text(
@@ -282,94 +313,114 @@ class Communicate extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 14,
                                     ),
-                                  ),//nam// e
-                                  SizedBox(height: 5),
+                                  ), //nam// e
+                                  const SizedBox(height: 5),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       InkWell(
-                                        onTap:() {
-                                          launchURL('https://github.com/Hamza-Bayar-2');
+                                        onTap: () {
+                                          launchURL(
+                                              'https://github.com/Hamza-Bayar-2');
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 5.0),
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
+                                                    color: Theme.of(context).canvasColor,
                                                   ),
                                                 ),
-                                                Text("Github"),
+                                                const Text("GitHub"),
                                               ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 15),
+                                      const SizedBox(width: 15),
                                       InkWell(
-                                        onTap:() {
-                                          launchURL("https://www.linkedin.com/in/hamza-bayar-251b7b234/");
+                                        onTap: () {
+                                          launchURL(
+                                              "https://www.linkedin.com/in/hamza-bayar-251b7b234/");
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 5.0),
                                                   child: Image.asset(
                                                     "assets/icons/linkedin.png",
                                                     height: 18,
                                                   ),
                                                 ),
-                                                Text("Linkedin"),
+                                                const Text("LinkedIn"),
                                               ],
                                             ),
                                           ),
                                         ),
                                       ),
                                     ],
-                                  ),//social icon
+                                  ), //social icon
                                 ],
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
                                 height: 60,
+                                width: 60,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    borderRadius:
+                                        const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.shade500 ,
+                                        color: Theme.of(context).indicatorColor,
                                         spreadRadius: 3,
                                         blurRadius: 7,
-                                        offset: Offset(3, 3), // x,y offset değerleri
+                                        offset: const Offset(
+                                            3, 3), // x,y offset değerleri
                                       )
-                                    ]
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.network(
-                                      "https://avatars.githubusercontent.com/u/91957947?v=4"
+                                    ]),
+                                child: Stack(children: [
+                                  Container(
+                                    height: 60,
+                                    width: 60,
                                   ),
-                                ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                        "https://avatars.githubusercontent.com/u/91957947?v=4"),
+                                  ),
+                                ]),
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   const Text(
@@ -377,39 +428,46 @@ class Communicate extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 14,
                                     ),
-                                  ),//nam// e
-                                  SizedBox(height: 5),
+                                  ), //nam// e
+                                  const SizedBox(height: 5),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       InkWell(
-                                        onTap:() {
-                                          launchURL('https://github.com/zahidayturan');
+                                        onTap: () {
+                                          launchURL(
+                                              'https://github.com/zahidayturan');
                                         },
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 5.0),
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
+                                                    color: Theme.of(context).canvasColor,
                                                   ),
                                                 ),
-                                                Text("Github"),
+                                                const Text("GitHub"),
                                               ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 110 )
+                                      const SizedBox(width: 110)
                                     ],
-                                  ),//social icon
+                                  ), //social icon
                                 ],
                               ),
                             ],

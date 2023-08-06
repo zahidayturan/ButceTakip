@@ -60,16 +60,15 @@ class DbProvider extends ChangeNotifier {
       String operationDate,
       String moneyType,
       double ?realAmount,
+      String processOnce,
       )async {
     String time = operationDate ;
     List <String> parts = time.split(".");
     int parseDay = int.parse(parts[0]);
     int parseMonth = int.parse(parts[1]);
     int parseYear = int.parse(parts[2]);
-    String processOnce = '0';
     String userCategory = '';
     String systemMessage = '';
-
     final newinfo = SpendInfo(
         operationType,
         category,
@@ -113,6 +112,7 @@ class DbProvider extends ChangeNotifier {
     var groupedItems = groupBy(items, (item) => item.operationDay);
     var dailyTotals = <String, Map<String, double>>{};
     groupedItems.forEach((day, dayItems) {
+      int itemLength = dayItems.length;
       double totalAmount = dayItems
           .where((element) => element.operationType == 'Gelir')
           .fold(
@@ -124,11 +124,11 @@ class DbProvider extends ChangeNotifier {
           0, (previousValue, element) => previousValue + element.realAmount!);
       dailyTotals[day!] = {
         'totalAmount': totalAmount,
-        'totalAmount2': totalAmount2
+        'totalAmount2': totalAmount2,
+        'itemsLength' : itemLength.toDouble()
       };
     });
-    dailyTotals = Map.fromEntries(dailyTotals.entries.toList()
-      ..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
+    dailyTotals = Map.fromEntries(dailyTotals.entries.toList()..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
     notifyListeners();
     yield {"items" : items, "dailyTotals" : dailyTotals};
   }
@@ -209,9 +209,11 @@ class DbProvider extends ChangeNotifier {
   }
 
 
-  static String today = DateTimeManager.getCurrentDay();
+  static String todayNow = DateTimeManager.getCurrentDay();
+  static String monthNow = DateTimeManager.getCurrentMonth();
+  static String yearNow = DateTimeManager.getCurrentYear();
   Future<List<SpendInfo>> myDailyMethod() async {
-    List<SpendInfo> items = await SQLHelper.getItemsByOperationDay(today);
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(todayNow,monthNow,yearNow);
     return items;
   }
 

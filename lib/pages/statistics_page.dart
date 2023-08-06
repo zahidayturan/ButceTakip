@@ -1,19 +1,20 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/category_info_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:d_chart/d_chart.dart';
+import 'package:butcekontrol/classes/language.dart';
 
 class Statistics extends ConsumerWidget {
   const Statistics({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffF2F2F2),
-        appBar: AppBarForPage(title: 'İSTATİSTİKLER'),
-        body: StaticticsBody(),
+        appBar: AppBarForPage(title: translation(context).statisticsTitle),
+        body: const StaticticsBody(),
       ),
     );
   }
@@ -40,29 +41,16 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       children: [
         const SizedBox(height: 15),
         SizedBox(
+          height: size.height * 0.26,
           width: size.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              RotatedBox(
-                quarterTurns: 3,
-                child: gelirGiderButon(context),
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: size.height * 0.26,
-                  child: pasta(context),
-                ),
-              ),
-              RotatedBox(
-                quarterTurns: 3,
-                child: tarihButon(context),
-              ),
-            ],
-          ),
+          child: pasta(context),
         ),
         const SizedBox(
           height: 15,
+        ),
+        filterAdd(context),
+        const SizedBox(
+          height: 8,
         ),
         Expanded(
           child: SizedBox(
@@ -74,6 +62,287 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               "data ${validDateMenu} tür ${giderGelirHepsi} yıl ${selectedYearIndex} ay ${selectedMonthIndex} hafta ${selectedWeekIndex} gün ${selectedDayIndex}"),
         ),*/
       ],
+    );
+  }
+
+  Widget filterAdd(BuildContext context){
+    var size = MediaQuery.of(context).size;
+    CustomColors renkler = CustomColors();
+    return InkWell(
+      child: Container(
+        width: size.width*0.9,
+        height: 30,
+        decoration: BoxDecoration(
+          color: Theme.of(context).highlightColor,
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+      ),
+        child: Center(child: Text("Filtrelemek için dokunun",style: TextStyle(color: renkler.arkaRenk,fontFamily: 'Nexa3',fontSize: 15),)),
+
+      ),
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return StatefulBuilder(
+              builder: (context, setState) {
+                return AlertDialog(
+                  contentPadding: const EdgeInsets.only(top: 10,bottom: 10),
+                  backgroundColor: Theme.of(context).primaryColor,
+                  shadowColor: Colors.black54,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(10))),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8,right: 8),
+                            child: SizedBox(
+                              width: size.width*0.95,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                   "İstatistik Filtreleme",
+                                    style: TextStyle(
+                                        color: Theme.of(context).canvasColor,
+                                        fontFamily: "Nexa4",
+                                        fontSize: 21),
+                                  ),
+                                  SizedBox(
+                                    height: 32,
+                                    width: 32,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).canvasColor,
+                                        borderRadius:
+                                        const BorderRadius.all(Radius.circular(20)),
+                                      ),
+                                      child: IconButton(
+                                        icon: Image.asset(
+                                          "assets/icons/remove.png",
+                                          height: 16,
+                                          width: 16,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        iconSize: 24,
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 14.0,
+                          ),
+                          Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Container(
+                                  height: 30,
+                                  width: size.width*0.95,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                child: SizedBox(
+                                  height: 32,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text("İşlem Türü",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Container(
+                                        height: 36,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: renkler.sariRenk,
+                                          borderRadius: const BorderRadius.all(Radius.circular(10))
+                                          
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Container(
+                                  height: 30,
+                                  width: size.width*0.95,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                child: SizedBox(
+                                  height: 32,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Tarih",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Container(
+                                        height: 36,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                            color: renkler.sariRenk,
+                                            borderRadius: const BorderRadius.all(Radius.circular(10))
+
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Container(
+                                  height: 30,
+                                  width: size.width*0.95,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                child: SizedBox(
+                                  height: 32,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Sadece Kayıtlı İşlemler",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Container(
+                                        height: 36,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                            color: renkler.sariRenk,
+                                            borderRadius: const BorderRadius.all(Radius.circular(10))
+
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Container(
+                                  height: 30,
+                                  width: size.width*0.95,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                child: SizedBox(
+                                  height: 32,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text("İşlem Aracı",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Container(
+                                        height: 36,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                            color: renkler.sariRenk,
+                                            borderRadius: const BorderRadius.all(Radius.circular(10))
+
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 4,right: 4),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                onTap: () {
+
+                                },
+                                  child: Container(
+                                    height: 26,
+                                    width: 150,
+                                    decoration: BoxDecoration(color: Theme.of(context).shadowColor,
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    ),
+                                    child: Center(child: Text("Eski Haline Getir",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 15,fontFamily: 'Nexa3'),)),
+                                  ),
+                              ),
+                                InkWell(
+                                  onTap: () {
+
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 100,
+                                    decoration: BoxDecoration(color: Theme.of(context).highlightColor,
+                                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                    child: Center(child: Text("TAMAM",style: TextStyle(color: renkler.arkaRenk,fontSize: 15,fontFamily: 'Nexa3'),)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                      const Text(
+                        "Debug:",
+                        style: TextStyle(color: Colors.red),
+                      )
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ).then((_) => setState(() {}));
+      },
     );
   }
 
@@ -123,10 +392,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       decoration: BoxDecoration(
                           color: const Color(0xFF0D1C26),
                           borderRadius: BorderRadius.circular(20)),
-                      child: const Center(
+                      child: Center(
                           child: Text(
-                        "Veri bulunamadı.",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        translation(context).dataNotFound,
+                        style: const TextStyle(height: 1,color: Colors.white, fontSize: 16),
                       )),
                     ),
                   ),
@@ -157,7 +426,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 1.5),
+                            padding: const EdgeInsets.only(right: 1.5, left: 1.5),
                             child: Container(
                               width: 4,
                               //height: size.height * 0.35,
@@ -165,8 +434,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(30)),
                                   color: snapshot.data!.length <= 4
-                                      ? const Color(0xFFE9E9E9)
-                                      : const Color(0xFF0D1C26)),
+                                      ? Theme.of(context).indicatorColor
+                                      : Theme.of(context).canvasColor),
                             ),
                           ),
                         ],
@@ -175,12 +444,13 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         data: Theme.of(context).copyWith(
                             scrollbarTheme: ScrollbarThemeData(
                           thumbColor: MaterialStateProperty.all(
-                              const Color(0xFFF2CB05)),
+                            Theme.of(context).dialogBackgroundColor,)
                         )),
                         child: Scrollbar(
                           thumbVisibility: true,
                           controller: scrolbarcontroller1,
-                          scrollbarOrientation: ScrollbarOrientation.right,
+                          scrollbarOrientation: readSettings.localChanger() == const Locale("ar") ? ScrollbarOrientation.left :
+                          ScrollbarOrientation.right,
                           interactive: true,
                           thickness: 7,
                           radius: const Radius.circular(15.0),
@@ -190,7 +460,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: const EdgeInsets.only(
-                                    bottom: 8, right: 16),
+                                    bottom: 8, right: 16, left: 16),
                                 child: InkWell(
                                   onTap: () {
                                     readCategoryInfo.setDateAndCategory(
@@ -212,7 +482,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(10),
-                                        color: Colors.white,
+                                        color: Theme.of(context).focusColor,
                                       ),
                                       child: Row(
                                         children: [
@@ -221,10 +491,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             width: 65,
                                             height: 25,
                                             decoration: BoxDecoration(
-                                              color:
-                                                  snapshot.data!.length > 12
-                                                      ? colorsList[index]
-                                                      : colorsList2[index],
+                                              color: colorsList[index],
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
@@ -232,6 +499,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 child: Text(
                                               "% ${item[index]['percentages'].toString()}",
                                               style: const TextStyle(
+                                                height: 1,
                                                 fontFamily: 'NEXA3',
                                                 color: Colors.white,
                                               ),
@@ -240,10 +508,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                           const SizedBox(width: 10),
                                           Text(
                                             item[index]['category'],
-                                            style: const TextStyle(
+                                            style: TextStyle(
+                                              height: 1,
                                               fontFamily: 'NEXA3',
                                               fontSize: 18,
-                                              color: Color(0xff0D1C26),
+                                              color: Theme.of(context).canvasColor,
                                             ),
                                           ),
                                           const Spacer(),
@@ -252,21 +521,23 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                               children: [
                                                 TextSpan(
                                                   text: item[index]['amount']
-                                                      .toString(),
-                                                  style: const TextStyle(
+                                                      .toStringAsFixed(2),
+                                                  style: TextStyle(
+                                                    height: 1,
                                                     fontFamily: 'NEXA3',
                                                     fontSize: 16,
-                                                    color: Color(0xFFF2CB05),
+                                                    color: Theme.of(context).dialogBackgroundColor,
                                                   ),
                                                 ),
                                                 TextSpan(
                                                   text: readSettings.prefixSymbol,
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
+                                                    height: 1,
                                                     fontFamily: 'TL',
                                                     fontSize: 18,
                                                     fontWeight:
                                                         FontWeight.w600,
-                                                    color: Color(0xFFF2CB05),
+                                                    color: Theme.of(context).dialogBackgroundColor,
                                                   ),
                                                 ),
                                               ],
@@ -298,18 +569,19 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       SizedBox(
                         width: 210,
                         child: Text(
-                          "$giderGelirHepsi İçin Toplam Tutar",
-                          style: const TextStyle(
+                          translation(context).totalAmountStatistics,
+                          style: TextStyle(
+                            height: 1,
                             fontFamily: 'NEXA3',
                             fontSize: 17,
-                            color: Color(0xff0D1C26),
+                            color: Theme.of(context).canvasColor,
                           ),
                         ),
                       ),
                       Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          color: Theme.of(context).focusColor,
                         ),
                         height: 26,
                         child: Center(
@@ -323,19 +595,21 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   children: [
                                     TextSpan(
                                       text: totalAmount.toStringAsFixed(1),
-                                      style: const TextStyle(
+                                      style: TextStyle(
+                                        height: 1,
                                         fontFamily: 'Nexa3',
                                         fontSize: 17,
-                                        color: Color(0xff0D1C26),
+                                        color: Theme.of(context).canvasColor,
                                       ),
                                     ),
                                      TextSpan(
                                       text: readSettings.prefixSymbol,
-                                      style: const TextStyle(
+                                      style: TextStyle(
+                                        height: 1,
                                         fontFamily: 'TL',
                                         fontWeight: FontWeight.w600,
                                         fontSize: 17,
-                                        color: Color(0xffF2CB05),
+                                        color: Theme.of(context).canvasColor,
                                       ),
                                     ),
                                   ],
@@ -422,9 +696,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 selectedYearIndex = DateTime.now().year;
                               });
                             },
-                            child: const Text(
-                              "YIL",
-                              style: TextStyle(
+                            child: Text(
+                              translation(context).yearly,
+                              style: const TextStyle(
+                                height: 1,
                                 fontFamily: 'NEXA4',
                                 fontSize: 14,
                                 color: Colors.white,
@@ -466,9 +741,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 selectedMonthIndex = DateTime.now().month;
                               });
                             },
-                            child: const Text(
-                              "AY",
-                              style: TextStyle(
+                            child: Text(
+                              translation(context).monthly,
+                              style: const TextStyle(
+                                height: 1,
                                 fontFamily: 'NEXA4',
                                 fontSize: 14,
                                 color: Colors.white,
@@ -511,9 +787,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 validDateMenu = 3;
                               });
                             },
-                            child: const Text(
-                              "HAFTA",
-                              style: TextStyle(
+                            child: Text(
+                              translation(context).weekly,
+                              style: const TextStyle(
+                                height: 1,
                                 fontFamily: 'NEXA4',
                                 fontSize: 14,
                                 color: Colors.white,
@@ -556,9 +833,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 validDateMenu = 4;
                               });
                             },
-                            child: const Text(
-                              "GÜN",
-                              style: TextStyle(
+                            child: Text(
+                              translation(context).daily,
+                              style: const TextStyle(
+                                height: 1,
                                 fontFamily: 'NEXA4',
                                 fontSize: 14,
                                 color: Colors.white,
@@ -636,9 +914,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             selectDateMenu = 0;
                           });
                         },
-                        child: const Text(
-                          "AYLIK",
-                          style: TextStyle(
+                        child: Text(
+                          translation(context).monthly,
+                          style: const TextStyle(
+                            height: 1,
                             fontFamily: 'NEXA4',
                             fontSize: 18,
                             color: Colors.white,
@@ -792,9 +1071,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                               selectDateMenu = 0;
                             });
                           },
-                          child: const Text(
-                            "YILLIK",
-                            style: TextStyle(
+                          child: Text(
+                            translation(context).yearly,
+                            style: const TextStyle(
+                              height: 1,
                               fontFamily: 'NEXA4',
                               fontSize: 20,
                               color: Colors.white,
@@ -906,9 +1186,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                               selectDateMenu = 0;
                             });
                           },
-                          child: const Text(
-                            "HAFTA",
-                            style: TextStyle(
+                          child: Text(
+                            translation(context).weekly,
+                            style: const TextStyle(
+                              height: 1,
                               fontFamily: 'NEXA4',
                               fontSize: 14,
                               color: Colors.white,
@@ -1110,9 +1391,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                               selectDateMenu = 0;
                             });
                           },
-                          child: const Text(
-                            "GÜN",
-                            style: TextStyle(
+                          child: Text(
+                            translation(context).daily,
+                            style: const TextStyle(
+                              height: 1,
                               fontFamily: 'NEXA4',
                               fontSize: 14,
                               color: Colors.white,
@@ -1320,7 +1602,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         });
       }
     }
-
     return SizedBox(
       height: 40,
       child: Stack(
@@ -1360,8 +1641,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             giderGelirHepsi = "Gider";
                           });
                         },
-                        child: Text("GİDER",
+                        child: Text(translation(context).expenses,
                             style: TextStyle(
+                              height: 1,
                                 color: textColor,
                                 fontSize: 16,
                                 fontFamily: 'Nexa4',
@@ -1387,8 +1669,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             giderGelirHepsi = 'Gelir';
                           });
                         },
-                        child: Text("GELİR",
+                        child: Text(translation(context).income,
                             style: TextStyle(
+                              height: 1,
                                 color: textColor2,
                                 fontSize: 16,
                                 fontFamily: 'Nexa4',
@@ -1414,8 +1697,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             giderGelirHepsi = 'Hepsi';
                           });
                         },
-                        child: Text("HEPSİ",
+                        child: Text(translation(context).both,
                             style: TextStyle(
+                              height: 1,
                                 color: textColor3,
                                 fontSize: 16,
                                 fontFamily: 'Nexa4',
@@ -1428,6 +1712,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         ],
       ),
     );
+
   }
 
   Widget pasta(BuildContext context) {
@@ -1456,7 +1741,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 width: 140,
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(200)),
                 ),
               ),
@@ -1464,10 +1749,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           } else {
             return DChartPie(
               data: item,
+              strokeWidth: 1,
               fillColor: (pieData, index) {
-                return pieData['domain'].length > 12
-                    ? colorsList[index!]
-                    : colorsList2[index!];
+                return  colorsList[index!];
               },
               pieLabel: (pieData, index) {
                 return "${pieData['domain']}:\n${pieData['measure']}%";
@@ -1475,35 +1759,39 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               labelPosition: PieLabelPosition.auto,
               //donutWidth: 15,
               showLabelLine: true,
-              labelColor: Colors.black,
+              labelColor: Theme.of(context).canvasColor,
               labelFontSize: 11,
               labelLinelength: 5,
+              labelLineColor: Theme.of(context).canvasColor,
             );
           }
         });
   }
 
   var colorsList = [
+    Colors.red.shade900,
     Colors.red,
-    Colors.deepOrange,
-    Colors.orange,
-    Colors.amber,
-    Colors.yellow,
-    Colors.lime,
-    Colors.lightGreen,
-    Colors.green,
-    Colors.teal,
+    Colors.orange.shade800,
+    Colors.orange.shade500,
+    Colors.amber.shade500,
+    Colors.yellow.shade500,
+    Colors.lime.shade700,
+    Colors.lime.shade500,
+    Colors.green.shade700,
+    Colors.green.shade500,
+    Colors.lightGreen.shade600,
+    Colors.lightGreen.shade300,
+    Colors.green.shade200,
+    Colors.teal.shade700,
+    Colors.teal.shade500,
+    Colors.teal.shade200,
     Colors.cyanAccent,
-    Colors.blue,
-    Colors.indigo,
-    Colors.pinkAccent,
-    Colors.deepPurple,
-    Colors.purple,
-    Colors.redAccent,
-    Colors.redAccent,
-    Colors.redAccent,
-    Colors.redAccent,
-    Colors.redAccent,
+    Colors.blue.shade600,
+    Colors.blue.shade400,
+    Colors.indigo.shade500,
+    Colors.deepPurple.shade800,
+    Colors.deepPurple.shade500,
+    Colors.deepPurple.shade200,
   ];
   var colorsList2 = [
     Colors.red,
