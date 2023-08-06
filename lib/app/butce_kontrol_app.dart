@@ -11,9 +11,6 @@ class ButceKontrolApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(settingsRiverpod).isuseinsert;
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(settingsRiverpod).isuseinsert;
-    var themMode = ref.read(settingsRiverpod);
     var readSettings = ref.read(settingsRiverpod);
     return MaterialApp(
       builder: (context, child) {
@@ -67,7 +64,7 @@ class ButceKontrolApp extends ConsumerWidget {
         hoverColor: Color(0xFF1C2B35),
         fontFamily: "Nexa3",
       ),
-      themeMode: themMode.DarkMode == 0 ? ThemeMode.light : ThemeMode.dark,
+      themeMode: readSettings.DarkMode == 0 ? ThemeMode.light : ThemeMode.dark,
       home: const base_BKA(),
     );
   }

@@ -12,7 +12,7 @@ class Calendar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var readNavBar = ref.read(botomNavBarRiverpod);
     readNavBar.currentColor = const Color(0xffF2F2F2);
-    return const SafeArea(
+    return  SafeArea(
       bottom: false,
       child: Scaffold(
         body: CalendarBody(),

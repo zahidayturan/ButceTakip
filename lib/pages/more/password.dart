@@ -149,16 +149,14 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                               children: [
                                 Text(
                                   translation(context).passwordStatus,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: "Nexa3",
                                     color: Theme.of(context).canvasColor
                                   ),
                                 ),
                                 const Spacer(),
-                                isopen ? Text("Açık", style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor),)
-                                    : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor),),
-                                isopen ? Text(translation(context).on, style: const TextStyle(fontFamily: "Nexa3"),)
-                                    : Text(translation(context).off, style: const TextStyle(fontFamily: "Nexa3"),),
+                                isopen ? Text(translation(context).on, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor),)
+                                    : Text(translation(context).off, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor),),
                                 Switch(
                                   activeColor: renkler.sariRenk,
                                   value: isopen ,
@@ -261,107 +259,20 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                             ),
                           ),
                           SizedBox(height: size.height/30) ,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
-                                    color: num1 ? renkler.sariRenk : const Color(0xffE2E1E1),
-                                  ),
-                                )
-                              ),
-                              const SizedBox(width: 10),
-                              SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                    child: Container(
-                                      color: num2 ? renkler.sariRenk : const Color(0xffE2E1E1),
-                                    ),
-                                  )
-                              ),
-                              const SizedBox(width: 10),
-                              SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                    child: Container(
-                                      color: num3 ? renkler.sariRenk : const Color(0xffE2E1E1),
-                                    ),
-                                  )
-                              ),
-                              const SizedBox(width: 10),
-                              SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                    child: Container(
-                                      color: num4 ? renkler.sariRenk : const Color(0xffE2E1E1),
-                                    ),
-                                  )
-                              ),
-                              const SizedBox(width: 10),
-                              IconButton(
-                                  icon : const Icon(Icons.backspace),
-                                onPressed: () {
-                                  if(security){
-                                    if(num1){
-                                      password2list.removeLast();
-                                    }
-                                    if(num3){
-                                      setState(() {
-                                        num3 = false;
-                                      });
-                                    }else if(num2){
-                                      setState(() {
-                                        num2 = false;
-                                      });
-                                    }else if(num1){
-                                      setState(() {
-                                        num1 = false ;
-                                      });
-                                    }
-                                  }else{
-                                    if(num1){
-                                      password1list.removeLast();
-                                    }
-                                    if(num3){
-                                      setState(() {
-                                        num3 = false;
-                                      });
-                                    }else if(num2){
-                                      setState(() {
-                                        num2 = false;
-                                      });
-                                    }else if(num1){
-                                      setState(() {
-                                        num1 = false ;
-                                      });
-                                    }
-                                  }
-                                },
-                              )
-                            ],
-                          ),
-                          SizedBox(height: size.height/30) ,
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
-                            child: Column(
+                          Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    button(context, "1"),
-                                    button(context, "2"),
-                                    button(context, "3"),
-                                  ],
+                                SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                    child: Container(
+                                      color: num1 ? renkler.sariRenk : const Color(0xffE2E1E1),
+                                    ),
+                                  )
                                 ),
                                 const SizedBox(width: 10),
                                 SizedBox(
@@ -370,7 +281,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                     child: ClipRRect(
                                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                                       child: Container(
-                                        color: num2 ? Colors.black : const Color(0xffE2E1E1),
+                                        color: num2 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                       ),
                                     )
                                 ),
@@ -381,7 +292,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                     child: ClipRRect(
                                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                                       child: Container(
-                                        color: num3 ? Colors.black : const Color(0xffE2E1E1),
+                                        color: num3 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                       ),
                                     )
                                 ),
@@ -392,7 +303,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                     child: ClipRRect(
                                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                                       child: Container(
-                                        color: num4 ? Colors.black : const Color(0xffE2E1E1),
+                                        color: num4 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                       ),
                                     )
                                 ),
@@ -487,8 +398,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                           Row(
                             children: [
                               Text(
-                                "Güvenlik Sorusu: ${readSetting.securityQu}",style: TextStyle(color: Theme.of(context).canvasColor),
-                                "${translation(context).securityQuestion} ${readSetting.securityQu}",
+                              "${translation(context).securityQuestion} ${readSetting.securityQu}",style: TextStyle(color: Theme.of(context).canvasColor),
                               ),
                             ],
                           )//

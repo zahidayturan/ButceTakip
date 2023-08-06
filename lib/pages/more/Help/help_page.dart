@@ -55,7 +55,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                       ),
                       Text(
                         translation(context).helpCenter,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white,
                             fontFamily: "Nexa3",
                             fontSize: 25
@@ -77,7 +77,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                           children: [
                             Text(
                               translation(context).whatsNew,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 height: 1,
                                 fontFamily: "Nexa3",
                                 fontSize: 22,
@@ -130,7 +130,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                       children: [
                         Text(
                           translation(context).guideline,
-                          style:const TextStyle(
+                          style:TextStyle(
                             height: 1,
                             fontSize: 25,
                             fontFamily: "Nexa3",
@@ -178,16 +178,16 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                 color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Padding(
+                                            const Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Icon(
                                                 Icons.home,
@@ -241,16 +241,16 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                 color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Padding(
+                                            const Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Icon(
                                                 Icons.pie_chart_rounded,
@@ -304,16 +304,16 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                 color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Padding(
+                                            const Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Icon(
                                                 Icons.calendar_today,
@@ -371,16 +371,16 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                 color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Padding(
+                                            const Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Icon(
                                                 Icons.calculate,
@@ -434,16 +434,16 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                             color: Theme.of(context).indicatorColor,
                                             spreadRadius: 3,
                                             blurRadius: 7,
-                                            offset: Offset(3, 3)
+                                            offset: const Offset(3, 3)
                                           ),
                                         ]
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Padding(
+                                            const Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Icon(
                                                 Icons.backup,
@@ -480,10 +480,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                       children: [
                         Text(
                           translation(context).faq,
-                          style: const TextStyle(
-                              color: Colors.black,
+                          style: TextStyle(
                               fontFamily: "Nexa3",
-                              fontSize: 25
+                              fontSize: 25,
                             color: Theme.of(context).canvasColor,
                           ),
                         ),

@@ -59,7 +59,7 @@ class Communicate extends StatelessWidget {
                             text: TextSpan(children: [
                           TextSpan(
                             text: translation(context).email,
-                            style: const TextStyle(
+                            style: TextStyle(
                               height: 1,
                               fontSize: 16,
                               fontFamily: 'Nexa3',
@@ -106,7 +106,7 @@ class Communicate extends StatelessWidget {
                             text: TextSpan(children: [
                           TextSpan(
                             text: translation(context).github,
-                            style: const TextStyle(
+                            style: TextStyle(
                               height: 1,
                               fontSize: 16,
                               fontFamily: 'Nexa3',
@@ -142,7 +142,7 @@ class Communicate extends StatelessWidget {
                                 horizontal: 10, vertical: 9),
                             child: Text(
                               translation(context).developers,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontFamily: "Nexa4",
                                   fontSize: 18,
                                   color: renkler.arkaRenk),

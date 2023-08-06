@@ -110,8 +110,8 @@ class More extends ConsumerWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  TextMod(translation(context).help, renkler.yaziRenk, 10),
                                   Icon(Icons.question_mark, color: renkler.arkaRenk, size: 35),
+                                  TextMod(translation(context).help, renkler.yaziRenk, 10),
                                 ],
                               ),
                             ),

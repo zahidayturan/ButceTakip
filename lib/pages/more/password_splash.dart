@@ -86,80 +86,10 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                         ),
                       ),
                     SizedBox(height: size.height/20) ,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(20)),
-                              child: Container(
-                                color: num1 ? renkler.sariRenk : const Color(0xffE2E1E1),
-                              ),
-                            )
-                        ),
-                        const SizedBox(width: 10),
-                        SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(20)),
-                              child: Container(
-                                color: num2 ? renkler.sariRenk : const Color(0xffE2E1E1),
-                              ),
-                            )
-                        ),
-                        const SizedBox(width: 10),
-                        SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(20)),
-                              child: Container(
-                                color: num3 ? renkler.sariRenk : const Color(0xffE2E1E1),
-                              ),
-                            )
-                        ),
-                        const SizedBox(width: 10),
-                        SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(20)),
-                              child: Container(
-                                color: num4 ? renkler.sariRenk : const Color(0xffE2E1E1),
-                              ),
-                            )
-                        ),
-                        const SizedBox(width: 10),
-                        IconButton(
-                          icon : const Icon(Icons.backspace),
-                          onPressed: () {
-                              if(num1){
-                                password1list.removeLast();
-                              }
-                              if(num3){
-                                setState(() {
-                                  num3 = false;
-                                });
-                              }else if(num2){
-                                setState(() {
-                                  num2 = false;
-                                });
-                              }else if(num1){
-                                setState(() {
-                                  num1 = false ;
-                                });
-                              }
-                          },
-                        )
-                      ],
-                    ),
-                    SizedBox(height: size.height/30) ,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
-                      child: Column(
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
                               height: 25,
@@ -167,7 +97,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                                 child: Container(
-                                  color: num1 ? Colors.black : const Color(0xffE2E1E1),
+                                  color: num1 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                 ),
                               )
                           ),
@@ -178,7 +108,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                                 child: Container(
-                                  color: num2 ? Colors.black : const Color(0xffE2E1E1),
+                                  color: num2 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                 ),
                               )
                           ),
@@ -189,7 +119,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                                 child: Container(
-                                  color: num3 ? Colors.black : const Color(0xffE2E1E1),
+                                  color: num3 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                 ),
                               )
                           ),
@@ -200,7 +130,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                                 child: Container(
-                                  color: num4 ? Colors.black : const Color(0xffE2E1E1),
+                                  color: num4 ? renkler.sariRenk : const Color(0xffE2E1E1),
                                 ),
                               )
                           ),
