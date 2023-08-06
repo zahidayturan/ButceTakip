@@ -1,6 +1,7 @@
 import 'package:butcekontrol/Pages/more/communicate.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/language.dart';
+import 'package:butcekontrol/pages/more/assets_page.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
@@ -204,6 +205,40 @@ class More extends ConsumerWidget {
 
                       Row(
                         children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: const Duration(milliseconds: 1),
+                                  pageBuilder: (context, animation, nextanim) => assetsPage(),
+                                  reverseTransitionDuration: const Duration(milliseconds: 1),
+                                  transitionsBuilder: (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: size.height / 9,
+                              width: size.height / 9,
+                              decoration: BoxDecoration(
+                                  color: renkler.koyuuRenk,
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(Icons.wallet, color: renkler.yaziRenk, size: 35),
+                                  TextMod("Varlıklar", renkler.yaziRenk, 10),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: size.width / 15),
                           InkWell(
                             onTap: () {
                               Navigator.push(

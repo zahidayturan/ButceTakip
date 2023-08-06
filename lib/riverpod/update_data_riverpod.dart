@@ -65,22 +65,25 @@ class UpdateDataRiverpod extends ChangeNotifier {
   bool isuseinsert = false;
 
   Future updateDataBase(
-    int id,
-    String? operationType,
-    String? category,
-    String? operationTool,
-    int registration,
-    double? amount,
-    String? note,
-    String operationDate,
-    String? processOnce,
-  ) async {
-    String time = operationDate;
-    List<String> parts = time.split(".");
+      int id,
+      String? operationType ,
+      String? category,
+      String? operationTool,
+      int registration,
+      double? amount,
+      String? note,
+      String operationDate,
+      double? realamount,
+      )async {
+    String time = operationDate ;
+    List <String> parts = time.split(".");
     int parseDay = int.parse(parts[0]);
     int parseMonth = int.parse(parts[1]);
     int parseYear = int.parse(parts[2]);
     String moneyType = '0';
+    String processOnce = '0';
+    String userCategory = '';
+    String systemMessage = '';
     final updateinfo = SpendInfo.withId(
         id,
         operationType,
@@ -95,7 +98,11 @@ class UpdateDataRiverpod extends ChangeNotifier {
         DateTimeManager.getCurrentTime(),
         operationDate,
         moneyType,
-        processOnce);
+        processOnce,
+        realamount,
+        userCategory,
+        systemMessage
+    );
     await SQLHelper.updateItem(updateinfo);
     isuseinsert = !isuseinsert;
     notifyListeners();

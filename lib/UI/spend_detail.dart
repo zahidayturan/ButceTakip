@@ -216,7 +216,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     fontSize: 18,
                   )),
               Text(
-                  "${item[index].amount}",
+                  "${item[index].amount} ${item[index].moneyType}",
                   style:
                   const TextStyle(
                     color: Colors.white,
@@ -476,7 +476,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                             .white,
                       ),
                       onPressed: () {
-                        readUpdateData.setItems(SpendInfo.withId(item[index].id!, item[index].operationType, item[index].category, item[index].operationTool, item[index].registration, item[index].amount, item[index].note, item[index].operationDay, item[index].operationMonth, item[index].operationYear, item[index].operationTime, item[index].operationDate, item[index].moneyType, item[index].processOnce));
+                        readUpdateData.setItems(SpendInfo.withId(item[index].id!, item[index].operationType, item[index].category, item[index].operationTool, item[index].registration, item[index].amount, item[index].note, item[index].operationDay, item[index].operationMonth, item[index].operationYear, item[index].operationTime, item[index].operationDate, item[index].moneyType, item[index].processOnce, item[index].realAmount, item[index].userCategory, item[index].systemMessage));
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UpdateData(),));
                       },
                     ),

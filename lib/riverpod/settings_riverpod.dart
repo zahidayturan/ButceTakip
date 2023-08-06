@@ -18,7 +18,8 @@ class SettingsRiverpod extends ChangeNotifier{
   String ?securityQu ;
   int ?securityClaim ;
   int ?adCounter;
-  bool Status  = false ; // şifre girildi mi ?
+  bool ?Status; // şifre girildi mi ?
+  String ?prefixSymbol = "₺";
 
   Future readDb() async{
     List<SettingsInfo> setting = await SQLHelper.settingsControl() ;
@@ -34,9 +35,12 @@ class SettingsRiverpod extends ChangeNotifier{
     securityQu = setting[setting.length - 1].securityQu;
     securityClaim = setting[setting.length - 1].securityClaim;
     adCounter = setting[setting.length - 1].adCounter;
+    prefixSymbol = setting[setting.length - 1].prefixSymbol;
+
     print("""
       id : ${setting[setting.length - 1].id}
-      dil :${setting[setting.length - 1].prefix}
+      prefix :${setting[setting.length - 1].prefix}
+      prefixSymbol :${setting[setting.length - 1].prefixSymbol}
       Darkmode :${setting[setting.length - 1].darkMode}
       isPassword : ${setting[setting.length - 1].isPassword}
       Language : ${setting[setting.length - 1].language}
@@ -52,14 +56,16 @@ class SettingsRiverpod extends ChangeNotifier{
   Future controlSettings() async{ //settings Kayıt değerlendiriyoruz.
     List<SettingsInfo> ?settingsReglength = await SQLHelper.settingsControl();
     if(settingsReglength.length > 0) {
+      prefixSymbol = settingsReglength[0].prefixSymbol;
       readDb();
     }else{
-      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2) ;
+      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2, "₺") ;
       await SQLHelper.addItemSetting(info);
       readDb();
     }
     notifyListeners();
   }
+
   void reset(){
     this.securityQu = "null";
     Updating();
@@ -90,6 +96,39 @@ class SettingsRiverpod extends ChangeNotifier{
   }
   void setDarkMode(bool mode){
     DarkMode = mode ? 1 : 0 ;
+    Updating();
+  }
+  void setPrefix(String prefix){
+    this.Prefix = prefix;
+
+    switch(prefix){
+      case "TRY":
+        this.prefixSymbol = " ₺";
+        break;
+      case "EUR":
+        this.prefixSymbol = " €";
+        break;
+      case "USD":
+        this.prefixSymbol =  " \$";
+        break;
+      case "GBP":
+        this.prefixSymbol =  " £";
+        break;
+      case "KWD":
+        this.prefixSymbol = " د.ك";
+        break;
+      case "JOD":
+        this.prefixSymbol = " د.أ";
+        break;
+      case "IQD":
+        this.prefixSymbol = " د.ع";
+        break;
+      case "SAR":
+        this.prefixSymbol =  " ر.س";
+        break;
+      default:
+        this.prefixSymbol =  " ?";
+    }
     Updating();
   }
   void setBackup(bool mode) {
@@ -150,6 +189,7 @@ class SettingsRiverpod extends ChangeNotifier{
         securityQu,
         securityClaim,
         adCounter,
+        prefixSymbol,
     );
     await SQLHelper.updateSetting(info);
     notifyListeners();

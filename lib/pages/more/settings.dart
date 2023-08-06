@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
@@ -6,8 +7,8 @@ import 'package:butcekontrol/constans/theme.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'password_splash.dart';
 import 'backup.dart';
 
@@ -19,9 +20,11 @@ class Settings extends ConsumerStatefulWidget {
 }
 ///Koyu tema , Yedeklenme durumunun  database ile implementi sağlanrı
 class _SettingsState extends ConsumerState<Settings> {
-  List<String> moneyPrefix = <String>['TRY'];
+  List<String> moneyPrefix = <String>['TRY', "USD", "EUR", "GBP", "KWD", "JOD", "IQD", "SAR"];
   List<String> dilDestegi = <String>["Türkçe", "English", "العربية"];
   CustomColors renkler = CustomColors();
+
+
   @override
   Widget build(BuildContext context) {
     var readNavBar = ref.read(botomNavBarRiverpod);
@@ -29,12 +32,14 @@ class _SettingsState extends ConsumerState<Settings> {
     ref.watch(settingsRiverpod).isuseinsert;
     var size = MediaQuery.of(context).size;
     var readSetting = ref.read(settingsRiverpod);
+    var currencyRiv = ref.read(currencyRiverpod);
+    //String? Language = readSetting.Language;
     bool darkthememode = readSetting.DarkMode == 1 ? true : false ;
     bool isPassword = readSetting.isPassword == 1 ? true : false ;
     bool isBackup = readSetting.isBackUp == 1 ? true : false ;
-    //String? Prefix = readSetting.Prefix ;
     String language = readSetting.Language! == "Turkce" ? "Türkçe" : readSetting.Language!; /// dilDestegi ile database çakışmasından dolayı böyle bir koşullu atama ekledik
     String dropdownshowitem = 'TRY';
+    String ?Prefix = readSetting.Prefix ;
     ref.watch(settingsRiverpod).isuseinsert;
     return Container(
       color: renkler.koyuuRenk,
@@ -168,6 +173,47 @@ class _SettingsState extends ConsumerState<Settings> {
                 ), /// Giriş şifresi
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(11),
+                    child: Container(
+                      height: 40,
+                      width: size.width,
+                      color: renkler.arkaRenk,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: InkWell(
+                          onTap: () {
+                            AppSettings.openAppSettings(type: AppSettingsType.notification);
+                          },
+                          child: Row(
+                            children: const [
+                              Text(
+                                "Bildirimler",
+                                style: TextStyle(
+                                  fontFamily: "Nexa3",
+                                ),
+                              ),
+                              Spacer(),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ), ///Bildirimler
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(11)),
+                    child: Container(
+                      height: 40,
+                      width: size.width,
+                      color: renkler.arkaRenk,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: Container(
                     height: 40,
                     width: size.width,
@@ -208,6 +254,39 @@ class _SettingsState extends ConsumerState<Settings> {
                               ),
                             ),
                             const Spacer(),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Container(
+                                height: 30,
+                                width: 80,
+                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                color: renkler.koyuuRenk,
+                                child: DropdownButton(
+                                  dropdownColor: renkler.koyuuRenk,
+                                  borderRadius: BorderRadius.circular(20),
+                                  value: Prefix,
+                                  elevation: 16,
+                                  style: TextStyle(color: renkler.sariRenk),
+                                  underline: Container(
+                                    height: 2,
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  onChanged: (newValue) {
+                                    if(readSetting.Prefix != newValue){
+                                      readSetting.setPrefix(newValue!);
+                                      currencyRiv.calculateAllSQLRealTime();//Bütün kayıtları hocam değiştiriyor.
+                                      readSetting.setisuseinsert();
+                                    }
+                                    print("");
+                                  },
+                                  items: moneyPrefix.map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                      onTap: () {
+                                      },
+                                    );
+                                  }).toList(),
                             isBackup  ? Text(translation(context).on, style: const TextStyle(fontFamily: "Nexa3"),)
                                 : Text(translation(context).off, style: const TextStyle(fontFamily: "Nexa3"),),
                             const Icon(
@@ -280,7 +359,7 @@ class _SettingsState extends ConsumerState<Settings> {
                       ),
                     ),
                   ),
-                ),/// Para Birimi
+                ),///Para Birimi
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: Container(

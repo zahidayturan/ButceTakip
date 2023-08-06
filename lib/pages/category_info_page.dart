@@ -176,14 +176,14 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                   text: TextSpan(
                                                     children: [
                                                       TextSpan(
-                                                        text:item[index].amount.toString(),style: TextStyle(
+                                                        text:item[index].realAmount.toString(),style: TextStyle(
                                                         fontFamily: 'NEXA3',
                                                         fontSize: 18,
                                                           color: Theme.of(context).canvasColor
                                                       ),
                                                       ),
                                                       TextSpan(
-                                                        text: ' ₺',
+                                                        text: readSettings.prefixSymbol,
                                                         style: TextStyle(
                                                           fontFamily: 'TL',
                                                           fontSize: 18,
@@ -197,14 +197,14 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                   text: TextSpan(
                                                     children: [
                                                       TextSpan(
-                                                        text:item[index].amount.toString(),style: TextStyle(
+                                                        text:item[index].realAmount.toString(),style: TextStyle(
                                                         fontFamily: 'NEXA3',
                                                         fontSize: 18,
                                                         color: renkler.kirmiziRenk,
                                                       ),
                                                       ),
                                                       TextSpan(
-                                                        text: ' ₺',
+                                                        text: readSettings.prefixSymbol,
                                                         style: TextStyle(
                                                           fontFamily: 'TL',
                                                           fontSize: 18,
@@ -267,6 +267,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
   }
   Widget dayDetailsGuide(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(categoryInfoRiverpod);
     return FutureBuilder<double>(
       future: read.getTotalAmount(),
@@ -309,9 +310,9 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                 color: Color(0xff0D1C26),
                               ),
                               ),
-                              const TextSpan(
-                                text: ' ₺',
-                                style: TextStyle(
+                              TextSpan(
+                                text: readSettings.prefixSymbol,
+                                style: const TextStyle(
                                   fontFamily: 'TL',
                                   fontWeight: FontWeight.w600,
                                   fontSize: 17,

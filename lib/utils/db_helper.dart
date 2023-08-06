@@ -1,3 +1,4 @@
+import 'package:butcekontrol/models/currency_info.dart';
 import 'package:butcekontrol/models/settings_info.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart' as sql;
@@ -5,7 +6,23 @@ import 'package:sqflite/sqflite.dart' as sql;
 import '../models/spend_info.dart';
 
 class SQLHelper {
-
+  static Future <void> createCurrnecyTable(sql.Database database) async {
+    database.execute("""CREATE TABLE currency(
+      id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      BASE TEXT,
+      TRY TEXT,
+      USD TEXT,
+      EUR TEXT,
+      GBP TEXT,
+      KWD TEXT,
+      JOD TEXT,
+      IQD TEXT,
+      SAR TEXT,
+      lastApiUpdateDate TEXT
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+    """);
+  }
   static Future <void> createSettingTable(sql.Database database) async{
     await database.execute("""CREATE TABLE setting(
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -20,7 +37,8 @@ class SQLHelper {
       securityQu TEXT,
       securityClaim INTEGER,
       adCounter INTEGER,
-      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      prefixSymbol TEXT
       )
       """);
   }
@@ -41,20 +59,52 @@ class SQLHelper {
         operationDate TEXT,
         moneyType TEXT,
         processOnce TEXT,
-        createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        realAmount REAL,
+        userCategory TEXT,
+        systemMessage TEXT
       )
       """);
-
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
       'bt.db',
-      version: 1,
+      version: 2,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
         await createSettingTable(database);
+        await createCurrnecyTable(database);
+      },
+      onUpgrade: (sql.Database database, int oldVersion, int  newVersion) {
+        if (newVersion > oldVersion) {
+          createCurrnecyTable(database);
+          database.execute("ALTER TABLE spendinfo ADD COLUMN realAmount REAL DEFAULT 0");
+          database.execute("ALTER TABLE spendinfo ADD COLUMN userCategory TEXT DEFAULT '' ");
+          database.execute("ALTER TABLE spendinfo ADD COLUMN systemMessage TEXT DEFAULT '' ");
+          database.execute("ALTER TABLE setting ADD COLUMN prefixSymbol TEXT DEFAULT '₺' ");
+        }
       },
     );
+  }
+  static Future<List<currencyInfo>> currencyControl() async{ //currency ablosundaki kayıt saysı liste şeklinde dönüyor
+    final db = await SQLHelper.db();
+    var result = await db.query('currency', orderBy: "id");
+    return  List.generate(result.length, (index){
+      return currencyInfo.fromObject(result[index]);
+    });
+  }
+  static Future <int> addItemCurrency(currencyInfo info) async{
+    final db = await SQLHelper.db();
+    final data = info.toMap();
+    final id = await db.insert("currency", data, conflictAlgorithm:  sql.ConflictAlgorithm.replace);
+    return id;
+  }
+
+  static updateCurrency(currencyInfo info) async{
+    final db = await SQLHelper.db();
+    final result =
+    await db.update("currency", info.toMap(),where: "id= ?", whereArgs: [info.id]);
+    return result;
   }
 
   static Future<List<SettingsInfo>> settingsControl() async{ //settings ablosundaki kayıt saysı liste şeklinde dönüyor
@@ -64,6 +114,7 @@ class SQLHelper {
       return SettingsInfo.fromObject(result[index]);
     });
   }
+
   static Future <int> addItemSetting(SettingsInfo info) async{
     final db = await SQLHelper.db();
     final data = info.toMap();
@@ -86,7 +137,7 @@ class SQLHelper {
   }
   //if()
 
-  static Future<List<SpendInfo>> getItems() async {
+  static Future<List<SpendInfo>> getItems() async { //Bütün kayıtları çekiyor spendinfo
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', orderBy: "id");
     return  List.generate(result.length, (index){
@@ -123,6 +174,13 @@ class SQLHelper {
       debugPrint("Something went wrong when deleting an item: $err");
     }
   }
+  static Future<List<SpendInfo>> searchItem(String searchText) async {
+    final db = await SQLHelper.db();
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (note LIKE '%${searchText}%' OR category LIKE '%${searchText}%') AND note != '' AND category != ''");
+    return List.generate(result.length, (index){
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
 
   static Future<List<SpendInfo>> getItemsByOperationMonthAndYear(String operationMonth, String operationYear) async {
     final db = await SQLHelper.db();
@@ -153,7 +211,13 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
-
+  static Future<List<SpendInfo>> getItemsByOperationType(String operationType) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationType = ?", whereArgs: [operationType], orderBy: "id");
+    return List.generate(result.length, (index){
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
   static Future<List<SpendInfo>> getItemsByOperationDayMonthAndYear(String operationDay, String operationMonth,String operationYear) async{
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "operationDay = ? AND operationMonth = ? AND operationYear = ?",

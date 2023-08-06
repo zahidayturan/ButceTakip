@@ -1,17 +1,19 @@
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../classes/app_bar_for_page.dart';
 
-class Calculator extends StatefulWidget {
+class Calculator extends ConsumerStatefulWidget {
   const Calculator({Key? key}) : super(key: key);
 
   @override
-  State<Calculator> createState() => _CalculatorState();
+  ConsumerState<Calculator> createState() => _CalculatorState();
 }
 
-class _CalculatorState extends State<Calculator> {
+class _CalculatorState extends ConsumerState<Calculator> {
   bool sayi2ishere = false;
   bool firstselect = false;
   bool secondselect = false;
@@ -21,7 +23,7 @@ class _CalculatorState extends State<Calculator> {
     setState(() {
       _currentPageindex = pageindex;
     });
-    _pagecont.jumpToPage(pageindex);
+    _pagecont.animateToPage(pageindex, duration: Duration(milliseconds: 250), curve: Curves.linear) ;
   }
 
   String result = "0";
@@ -134,7 +136,7 @@ class _CalculatorState extends State<Calculator> {
                               //calculator(),
                               yuzdePage(), // Page 2
                               krediPage(), //Page 3
-                              //currencyConverter(), //Page 4
+                              currencyConverter(context), //Page 4
                             ],
                           ),
                         ),
@@ -276,6 +278,8 @@ class _CalculatorState extends State<Calculator> {
                     ),
                     InkWell(
                       onTap: () {
+                        changePage(2);
+                        /*
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: const Color(0xff0D1C26),
@@ -292,6 +296,7 @@ class _CalculatorState extends State<Calculator> {
                             ),
                           ),
                         );
+                         */
                       },
                       child: SizedBox(
                         height: size.width / 4,
@@ -300,7 +305,7 @@ class _CalculatorState extends State<Calculator> {
                           decoration: BoxDecoration(
                             color: Theme.of(context).highlightColor,
                             borderRadius: BorderRadius.circular(20),
-                            border: _currentPageindex == 3
+                            border: _currentPageindex == 2
                                 ? Border.all(
                               color: renkler.sariRenk,
                               width: 3,
@@ -1000,11 +1005,11 @@ class _CalculatorState extends State<Calculator> {
   PageController pageCurrency2 = PageController(initialPage: 1);
   int selectedCurrency = 0;
   int selectedCurrency2 = 1;
-  double kur = 16.5;
-  double amount = 0.0;
-  double kurdolar = 19.36;
-  double kureuro = 21.49;
-  void switchCurrency() {
+  void switchCurrency(BuildContext context) {
+    double kur = 16.5;
+    double amount = 0.0;
+    double kurdolar = (double.tryParse(ref.read(currencyRiverpod).TRY!)! / double.tryParse(ref.read(currencyRiverpod).USD!)!);
+    double kureuro = 21.49;
     if (selectedCurrency == selectedCurrency2) {
       kur = 1;
     } else if (selectedCurrency == 0 && selectedCurrency2 == 1) {
@@ -1580,13 +1585,14 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-  Widget currencyConverter() {
+  Widget currencyConverter(BuildContext context) {
     void switchPages() {
       int currentPage1 = pageCurrency.page!.toInt();
       pageCurrency.jumpToPage(pageCurrency2.page!.toInt());
       pageCurrency2.jumpToPage(currentPage1);
     }
-
+    var rea = ref.read(currencyRiverpod);
+    double? kurdolar = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.USD!)!).toStringAsFixed(2)!));
     List<String> listCurrency = ['TL', 'USD', 'EURO'];
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1648,7 +1654,7 @@ class _CalculatorState extends State<Calculator> {
                       onPageChanged: (value) {
                         selectedCurrency = value;
                         setState(() {
-                          switchCurrency();
+                          switchCurrency(context);
                         });
                       },
                       controller: pageCurrency,
@@ -1691,7 +1697,7 @@ class _CalculatorState extends State<Calculator> {
                         ),
                       ),
                       onChanged: (value) {
-                        switchCurrency();
+                        switchCurrency(context);
                       },
                       keyboardType: TextInputType.number,
                       controller: nums,
@@ -1721,7 +1727,7 @@ class _CalculatorState extends State<Calculator> {
                     child: PageView(
                       onPageChanged: (value) {
                         selectedCurrency2 = value;
-                        switchCurrency();
+                        switchCurrency(context);
                       },
                       controller: pageCurrency2,
                       children: listCurrency
@@ -1857,7 +1863,7 @@ class _CalculatorState extends State<Calculator> {
           ),
         ),
         Text(
-          "Euro Kuru : $kureuro",
+          "Euro Kuru : ",
           style: const TextStyle(
             fontFamily: 'NEXA4',
             fontSize: 20,

@@ -12,9 +12,11 @@ class DbProvider extends ChangeNotifier {
   String year = DateTime.now().year.toString() ;
   Future<List<SpendInfo>> ?daylist ;
   List<SpendInfo> ?registeryListTile ;
+  List<SpendInfo> ?searchListTile ;
   String ?status ;
   String ?day ;
   String ?date ;
+  String ?operationType;
 
   void setDate(String date) {
     this.date = date ;
@@ -43,6 +45,11 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changeisuseinsert(){
+    isuseinsert != isuseinsert;
+    notifyListeners();
+  }
+
   Future insertDataBase(
       String? operationType ,
       String? category,
@@ -52,6 +59,7 @@ class DbProvider extends ChangeNotifier {
       String? note,
       String operationDate,
       String moneyType,
+      double ?realAmount,
       String processOnce,
       )async {
     String time = operationDate ;
@@ -59,6 +67,8 @@ class DbProvider extends ChangeNotifier {
     int parseDay = int.parse(parts[0]);
     int parseMonth = int.parse(parts[1]);
     int parseYear = int.parse(parts[2]);
+    String userCategory = '';
+    String systemMessage = '';
     final newinfo = SpendInfo(
         operationType,
         category,
@@ -72,8 +82,12 @@ class DbProvider extends ChangeNotifier {
         DateTimeManager.getCurrentTime(),
         operationDate,
         moneyType,
-        processOnce
+        processOnce,
+        realAmount,
+        userCategory,
+        systemMessage,
     );
+    print(newinfo.toMap());
     await SQLHelper.createItem(newinfo);
     isuseinsert = !isuseinsert ;
     notifyListeners();
@@ -101,12 +115,12 @@ class DbProvider extends ChangeNotifier {
       double totalAmount = dayItems
           .where((element) => element.operationType == 'Gelir')
           .fold(
-          0, (previousValue, element) => previousValue + element.amount!);
+          0, (previousValue, element) => previousValue + element.realAmount!);
 
       double totalAmount2 = dayItems
           .where((element) => element.operationType == 'Gider')
           .fold(
-          0, (previousValue, element) => previousValue + element.amount!);
+          0, (previousValue, element) => previousValue + element.realAmount!);
       dailyTotals[day!] = {
         'totalAmount': totalAmount,
         'totalAmount2': totalAmount2
@@ -124,36 +138,72 @@ class DbProvider extends ChangeNotifier {
     return items;
   }
 
+
   Future <List<SpendInfo>> registeryList() async {
     List<SpendInfo> items = await SQLHelper.getRegisteryQuery();
     registeryListTile = items ;
     notifyListeners();
     return items ;
   }
-
-  String getTotalAmount(List<SpendInfo> items) {
+  String getTotalAmountByKart(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
     double totalAmount = items
+        .where((element) => element.operationTool == 'Kart')
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
     double totalAmount2 = items
+        .where((element) => element.operationTool == 'Kart')
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(1);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
   }
 
-  String getTotalAmountPositive(List<SpendInfo> items) {
+  String getTotalAmountByNakit(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
     double totalAmount = items
+        .where((element) => element.operationTool == 'Nakit')
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-
-    return totalAmount.toStringAsFixed(1);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    double totalAmount2 = items
+        .where((element) => element.operationTool == 'Nakit')
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
   }
 
-  String getTotalAmountNegative(List<SpendInfo> items) {
+  String getTotalAmountByDiger(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
+    double totalAmount = items
+        .where((element) => element.operationTool == 'Diger')
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    double totalAmount2 = items
+        .where((element) => element.operationTool == 'Diger')
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
+  }
+
+  String getTotalAmount(List<SpendInfo> items) {  //Bütün net Bütçe Gösteriliyor.
+    double totalAmount = items
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
-    return totalAmount2.toStringAsFixed(1);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
+  }
+
+  String getTotalAmountPositive(List<SpendInfo> items) { //Gelir olan Kayıtları listeliyor.
+    double totalAmount = items
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+
+    return totalAmount.toStringAsFixed(2);
+  }
+
+  String getTotalAmountNegative(List<SpendInfo> items) { //Gider olan Kayıtları listeliyor.
+    double totalAmount2 = items
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return totalAmount2.toStringAsFixed(2);
   }
 
 
@@ -164,4 +214,10 @@ class DbProvider extends ChangeNotifier {
     List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(todayNow,monthNow,yearNow);
     return items;
   }
+
+  void searchItem(searchText) async {
+    searchListTile = await SQLHelper.searchItem(searchText);
+    notifyListeners();
+  }
+
 }

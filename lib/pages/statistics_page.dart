@@ -348,6 +348,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
 
   Widget categoryList(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
@@ -530,8 +531,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                   ),
                                                 ),
                                                 TextSpan(
-                                                  text: ' ₺',
-                                                  style: TextStyle(
+                                                  text: readSettings.prefixSymbol,
+                                                  style: const TextStyle(
                                                     height: 1,
                                                     fontFamily: 'TL',
                                                     fontSize: 18,
@@ -602,9 +603,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         color: Theme.of(context).canvasColor,
                                       ),
                                     ),
-                                    TextSpan(
-                                      text: ' ₺',
-                                      style: TextStyle(
+                                     TextSpan(
+                                      text: readSettings.prefixSymbol,
+                                      style: const TextStyle(
                                         height: 1,
                                         fontFamily: 'TL',
                                         fontWeight: FontWeight.w600,

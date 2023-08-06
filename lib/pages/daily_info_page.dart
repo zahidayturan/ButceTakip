@@ -53,6 +53,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
     ref.listen(databaseRiverpod, (previous, next) {
       return ref.watch(databaseRiverpod);
     });
+    var readSetting = ref.read(settingsRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
@@ -189,14 +190,14 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                       text: TextSpan(
                                                         children: [
                                                           TextSpan(
-                                                            text:item[index].amount.toString(),style: TextStyle(
+                                                            text:item[index].realAmount.toString(),style: TextStyle(
                                                             fontFamily: 'NEXA3',
                                                             fontSize: 18,
                                                             color: Theme.of(context).canvasColor
                                                           ),
                                                           ),
                                                            TextSpan(
-                                                            text: ' ₺',
+                                                            text: readSetting.prefixSymbol,
                                                             style: TextStyle(
                                                               fontFamily: 'TL',
                                                               fontSize: 18,
@@ -210,14 +211,14 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                       text: TextSpan(
                                                         children: [
                                                           TextSpan(
-                                                            text:item[index].amount.toString(),style: TextStyle(
+                                                            text:item[index].realAmount.toString(),style: TextStyle(
                                                             fontFamily: 'NEXA3',
                                                             fontSize: 18,
                                                             color: renkler.kirmiziRenk,
                                                           ),
                                                           ),
                                                           TextSpan(
-                                                            text: ' ₺',
+                                                            text: readSetting.prefixSymbol,
                                                             style: TextStyle(
                                                               fontFamily: 'TL',
                                                               fontSize: 18,

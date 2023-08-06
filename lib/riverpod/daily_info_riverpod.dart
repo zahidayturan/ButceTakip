@@ -1,3 +1,4 @@
+import 'package:butcekontrol/models/settings_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
@@ -61,15 +62,15 @@ class DailyInfoRiverpod extends ChangeNotifier {
 
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
 
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
 
     double result = totalAmount - totalAmount2;
     String formattedResult = result.toStringAsFixed(1);
-    List amountList = [totalAmount,totalAmount2,formattedResult,result];
+    List amountList = [totalAmount,totalAmount2.toStringAsFixed(2),formattedResult,result];
     return Future.value(amountList);
   }
 

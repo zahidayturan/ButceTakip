@@ -1,12 +1,19 @@
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';
 import 'base_BKA.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ButceKontrolApp extends ConsumerWidget {
-  const ButceKontrolApp({super.key});
+class ButceKontrolApp extends ConsumerStatefulWidget {
+  const ButceKontrolApp({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<ButceKontrolApp> createState() => _ButceKontrolAppState();
+}
+
+class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

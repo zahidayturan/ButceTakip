@@ -388,7 +388,15 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                         setState(() {
                           password1list.clear();
                           ref.read(settingsRiverpod).setStatus(true);
+                          ref.read(passwordRiverpod).setisuseinsert();
                           Navigator.of(context).pop();
+                          /*
+                          if(widget.mode == "admin"){
+                            Navigator.of(context).pop();
+                            print("POP oldu");
+                          }
+
+                           */
                         });
                         widget.mode == "admin"
                             ?Navigator.push(
