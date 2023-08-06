@@ -101,131 +101,134 @@ class Generalinfo extends ConsumerWidget {
                                       fontFamily: 'Nexa3',
                                       color: Theme.of(context).canvasColor),
                                 ),
-                                Stack(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 3),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                            color: renkler.sariRenk
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 4),
+                                  child: Stack(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 3),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                              color: renkler.sariRenk
+                                          ),
+                                          width: 208,
+                                          height: 26,
                                         ),
-                                        width: 208,
-                                        height: 26,
                                       ),
-                                    ),
-                                    Row(
-                                      //Tarih bilgisini değiştirebilme
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 2),
-                                          child: RotatedBox(
-                                            quarterTurns: 0,
-                                            child: InkWell(
-                                              //alignment: Alignment.topCenter,
-                                              //padding: EdgeInsets.zero,
-                                              onTap: () {
-                                                if (indexmounth > 0) {
-                                                  indexmounth -= 1;
-                                                } else {
-                                                  if (indexyear != 0) {
-                                                    indexyear -= 1;
-                                                    indexmounth = 11;
+                                      Row(
+                                        //Tarih bilgisini değiştirebilme
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 2),
+                                            child: RotatedBox(
+                                              quarterTurns: 0,
+                                              child: InkWell(
+                                                //alignment: Alignment.topCenter,
+                                                //padding: EdgeInsets.zero,
+                                                onTap: () {
+                                                  if (indexmounth > 0) {
+                                                    indexmounth -= 1;
+                                                  } else {
+                                                    if (indexyear != 0) {
+                                                      indexyear -= 1;
+                                                      indexmounth = 11;
+                                                    }
                                                   }
-                                                }
-                                                readhome.changeindex(indexmounth, indexyear);
-                                                readdb.setMonthandYear(
-                                                    (indexmounth + 1).toString(),
-                                                    years[indexyear]);
-                                              },
-                                              child: SizedBox(
-                                                height: 20,
-                                                width: 20,
-                                                child: Image.asset(
-                                                  "assets/icons/arrow.png",
-                                                  height: 18,
-                                                  color: renkler.koyuuRenk,
-                                                ),
-                                              )
+                                                  readhome.changeindex(indexmounth, indexyear);
+                                                  readdb.setMonthandYear(
+                                                      (indexmounth + 1).toString(),
+                                                      years[indexyear]);
+                                                },
+                                                child: SizedBox(
+                                                  height: 20,
+                                                  width: 20,
+                                                  child: Image.asset(
+                                                    "assets/icons/arrow.png",
+                                                    height: 18,
+                                                    color: renkler.koyuuRenk,
+                                                  ),
+                                                )
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Directionality(
-                                          textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
-                                          child: ClipRRect(
-                                            // yuvarlıyorum ay değişimi barını
-                                            borderRadius:
-                                            const BorderRadius.all(Radius.circular(50)),
-                                            child: Container(
-                                              height: 32,
-                                              width: 164,
-                                              color: Theme.of(context).highlightColor,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(top: 5),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      months[readhome.indexmounth],
-                                                      style: TextStyle(
-                                                        color: renkler.arkaRenk,
-                                                        fontSize: 17,
-                                                        fontFamily: 'Nexa3',
+                                          Directionality(
+                                            textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
+                                            child: ClipRRect(
+                                              // yuvarlıyorum ay değişimi barını
+                                              borderRadius:
+                                              const BorderRadius.all(Radius.circular(50)),
+                                              child: Container(
+                                                height: 32,
+                                                width: 164,
+                                                color: Theme.of(context).highlightColor,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 5),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                        months[readhome.indexmounth],
+                                                        style: TextStyle(
+                                                          color: renkler.arkaRenk,
+                                                          fontSize: 17,
+                                                          fontFamily: 'Nexa3',
+                                                        ),
                                                       ),
-                                                    ),
-                                                    // Ay gösterge
-                                                    const SizedBox(width: 4),
-                                                    Text(
-                                                      years[readhome.indexyear],
-                                                      style: TextStyle(
-                                                        color: renkler.arkaRenk,
-                                                        fontSize: 17,
-                                                        fontFamily: 'Nexa4',
+                                                      // Ay gösterge
+                                                      const SizedBox(width: 4),
+                                                      Text(
+                                                        years[readhome.indexyear],
+                                                        style: TextStyle(
+                                                          color: renkler.arkaRenk,
+                                                          fontSize: 17,
+                                                          fontFamily: 'Nexa4',
+                                                        ),
                                                       ),
-                                                    ),
-                                                    // Yıl gösterge
-                                                  ],
+                                                      // Yıl gösterge
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: 2),
-                                          child: RotatedBox(
-                                            quarterTurns: 2,
-                                            child: InkWell(
-                                              //padding: EdgeInsets.zero,
-                                              //alignment: Alignment.topCenter,
-                                              onTap: () {
-                                                if (indexmounth < months.length - 1) {
-                                                  indexmounth += 1;
-                                                } else if (indexyear <
-                                                    years.length - 1) {
-                                                  indexmounth = 0;
-                                                  indexyear += 1;
-                                                }
-                                                readhome.changeindex(indexmounth, indexyear);
-                                                readdb.setMonthandYear(
-                                                    (indexmounth + 1).toString(),
-                                                    years[indexyear]);
-                                              },
-                                              child: SizedBox(
-                                                height: 20,
-                                                width: 20,
-                                                child: Image.asset(
-                                                  "assets/icons/arrow.png",
-                                                  height: 18,
-                                                  color: renkler.koyuuRenk,
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: 2),
+                                            child: RotatedBox(
+                                              quarterTurns: 2,
+                                              child: InkWell(
+                                                //padding: EdgeInsets.zero,
+                                                //alignment: Alignment.topCenter,
+                                                onTap: () {
+                                                  if (indexmounth < months.length - 1) {
+                                                    indexmounth += 1;
+                                                  } else if (indexyear <
+                                                      years.length - 1) {
+                                                    indexmounth = 0;
+                                                    indexyear += 1;
+                                                  }
+                                                  readhome.changeindex(indexmounth, indexyear);
+                                                  readdb.setMonthandYear(
+                                                      (indexmounth + 1).toString(),
+                                                      years[indexyear]);
+                                                },
+                                                child: SizedBox(
+                                                  height: 20,
+                                                  width: 20,
+                                                  child: Image.asset(
+                                                    "assets/icons/arrow.png",
+                                                    height: 18,
+                                                    color: renkler.koyuuRenk,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
+                                        ],
+                                      ),
 
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 Text(
                                   translation(context).monthlyExpenses,
@@ -259,7 +262,7 @@ class Generalinfo extends ConsumerWidget {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: ' ₺',
+                                        text: readSettings.prefixSymbol,
                                         style: TextStyle(
                                           fontFamily: 'TL',
                                           fontSize: 16,
@@ -285,8 +288,9 @@ class Generalinfo extends ConsumerWidget {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: ' ₺',
+                                        text: readSettings.prefixSymbol,
                                         style: TextStyle(
+                                          height: 1,
                                           fontFamily: 'TL',
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
@@ -312,7 +316,7 @@ class Generalinfo extends ConsumerWidget {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: ' ₺',
+                                        text: readSettings.prefixSymbol,
                                         style: TextStyle(
                                           fontFamily: 'TL',
                                           fontSize: 16,

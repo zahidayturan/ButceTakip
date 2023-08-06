@@ -83,8 +83,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                 size: 40,
               ),
               onPressed: () async {
-                if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2){
-                if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE" || title == "YARDIM<" || title == "VARLIK"){
+                if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2 || title == "VARLIK"){
                   Navigator.of(context).pop();
                 }else if(title == translation(context).loginPasswordTitle) {
                   if(readsetting.isPassword == 1 && readsetting.Password == "null") {

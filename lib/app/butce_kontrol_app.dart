@@ -16,7 +16,7 @@ class ButceKontrolApp extends ConsumerStatefulWidget {
 class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     ref.watch(settingsRiverpod).isuseinsert;
     var readSettings = ref.read(settingsRiverpod);
     return MaterialApp(

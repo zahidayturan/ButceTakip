@@ -112,6 +112,7 @@ class DbProvider extends ChangeNotifier {
     var groupedItems = groupBy(items, (item) => item.operationDay);
     var dailyTotals = <String, Map<String, double>>{};
     groupedItems.forEach((day, dayItems) {
+      int itemLength = dayItems.length;
       double totalAmount = dayItems
           .where((element) => element.operationType == 'Gelir')
           .fold(
@@ -123,7 +124,8 @@ class DbProvider extends ChangeNotifier {
           0, (previousValue, element) => previousValue + element.realAmount!);
       dailyTotals[day!] = {
         'totalAmount': totalAmount,
-        'totalAmount2': totalAmount2
+        'totalAmount2': totalAmount2,
+        'itemsLength' : itemLength.toDouble()
       };
     });
     dailyTotals = Map.fromEntries(dailyTotals.entries.toList()..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));

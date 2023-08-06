@@ -155,7 +155,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
   final TextEditingController _registration = TextEditingController(text: "0");
   final TextEditingController _operationDate =
       TextEditingController(text: DateTimeManager.getCurrentDayMonthYear());
-  final TextEditingController _moneyType =  TextEditingController(text: "₺");
+  //final TextEditingController _moneyType =  TextEditingController(text: ref.read(settingsRiverpod).Prefix);
   void dispose() {
     _category.dispose();
     _customize.dispose();
@@ -165,7 +165,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
     _operationTool.dispose();
     _registration.dispose();
     _operationDate.dispose();
-    _moneyType.dispose();
+    //_moneyType.dispose();
     super.dispose();
   }
 
@@ -1532,7 +1532,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
   }
 
   double moneyTypeWidth = 38.0;
+  double moneyTypeHeight = 38.0;
+  final TextEditingController moneyTypeSymbol =  TextEditingController(text: "₺");
   bool openMoneyTypeMenu = false;
+  //ref.read(settingsRiverpod).prefixSymbolfinal
+  final TextEditingController _moneyType =  TextEditingController(text: "TRY");
   Widget amountCustomButton() {
     var size = MediaQuery.of(context).size;
     return SizedBox(
@@ -1540,7 +1544,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
       child: Stack(
         children: [
           Positioned(
-            top: 18,
+            top: 40,
             child: Container(
               width: size.width * 0.92,
               height: 4,
@@ -1552,6 +1556,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
           Center(
             child: SizedBox(
               width: 250,
+              height:80,
               child: Row(
                 children: [
                   openMoneyTypeMenu == false ? SizedBox(
@@ -1635,10 +1640,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                       setState(() {
                         openMoneyTypeMenu == false ? openMoneyTypeMenu = true : openMoneyTypeMenu = false;
                         openMoneyTypeMenu == true ? moneyTypeWidth = 250 : moneyTypeWidth = 38;
+                        openMoneyTypeMenu == true ? moneyTypeHeight = 80 : moneyTypeHeight = 38;
                       });
                     },
                     child:  Container(
-                        height: 38,
+                        height: moneyTypeHeight,
                         width: moneyTypeWidth,
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -1646,7 +1652,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                         ),
                         child: openMoneyTypeMenu == false ? Center(
                           child:  Text(
-                            _moneyType.text,
+                            moneyTypeSymbol.text,
                             style: const TextStyle(
                               fontFamily: 'TL',
                               fontSize: 22,
@@ -1654,118 +1660,212 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                               color: Color(0xff0D1C26),
                             ),
                           ),
-                        ) : Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        ) : Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _moneyType.text = '₺';
-                                  openMoneyTypeMenu = false;
-                                  moneyTypeWidth = 38.0;
-                                });
-                              },
-                              child: Container(
-                                width: 38,
-                                height: 32,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                  color: renkler.koyuuRenk,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "TRY", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'TRY';
+                                      moneyTypeSymbol.text = "₺";
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "TRY", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'USD';
+                                      moneyTypeSymbol.text = "\$";
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child:Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "USD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'EUR';
+                                      moneyTypeSymbol.text = "€";
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "EUR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'GBP';
+                                      moneyTypeSymbol.text = "£";
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "GBP", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _moneyType.text = '\$';
-                                  openMoneyTypeMenu = false;
-                                  moneyTypeWidth = 38.0;
-                                });
-                              },
-                              child:Container(
-                                width: 38,
-                                height: 32,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                  color: renkler.koyuuRenk,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "USD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                            SizedBox(height: 4,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'KWD';
+                                      moneyTypeSymbol.text = "د.ك";
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "KWD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _moneyType.text = '€';
-                                  openMoneyTypeMenu = false;
-                                  moneyTypeWidth = 38.0;
-                                });
-                              },
-                              child: Container(
-                                width: 38,
-                                height: 32,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                  color: renkler.koyuuRenk,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "EUR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'JOD';
+                                      moneyTypeSymbol.text = "د.أ";
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "JQD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _moneyType.text = '£';
-                                  openMoneyTypeMenu = false;
-                                  moneyTypeWidth = 38.0;
-                                });
-                              },
-                              child: Container(
-                                width: 38,
-                                height: 32,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                  color: renkler.koyuuRenk,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "GBP", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'IQD';
+                                      moneyTypeSymbol.text = "د.ع";
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child:Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "IQD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _moneyType.text = 'د.ك';
-                                  openMoneyTypeMenu = false;
-                                  moneyTypeWidth = 38.0;
-                                });
-                              },
-                              child: Container(
-                                width: 38,
-                                height: 32,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                  color: renkler.koyuuRenk,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "KWD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'SAR';
+                                      moneyTypeSymbol.text = "ر.س";
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "SAR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ],
                         ),
@@ -2144,8 +2244,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                               amount,
                               _note.text,
                               _operationDate.text,
-                              '0',
-                              _customize.text);
+                              _moneyType.text,
+                              ref.read(currencyRiverpod).calculateRealAmount(amount, "KWD", ref.read(settingsRiverpod).Prefix!),
+                              _customize.text,)
+                              ;
 
                           if (adCounter == 0) {
                             _showInterstitialAd(context);

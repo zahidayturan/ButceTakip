@@ -532,10 +532,7 @@ packages:
       sha256: "3c74dbf8763d36539f114c799d8a2d87343b5067e9d796ca22b5eb8437090ee3"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
     version: "1.9.1"
-=======
-    version: "1.8.0"
   ntp:
     dependency: "direct main"
     description:
@@ -544,7 +541,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
->>>>>>> ibrahim
   path:
     dependency: "direct main"
     description:
@@ -789,17 +785,6 @@ packages:
       sha256: "9e6af1f0c5a97d9de41109dc7b9e1b3bbe73417f89b10e0e44dc834fb493d4cb"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-=======
-    version: "0.4.16"
-  toggle_switch:
-    dependency: "direct main"
-    description:
-      name: toggle_switch
-      sha256: "9e6af1f0c5a97d9de41109dc7b9e1b3bbe73417f89b10e0e44dc834fb493d4cb"
-      url: "https://pub.dev"
-    source: hosted
->>>>>>> ibrahim
     version: "2.1.0"
   typed_data:
     dependency: transitive
@@ -970,10 +955,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-<<<<<<< HEAD
   dart: ">=3.0.0-0 <4.0.0"
-  flutter: ">=3.3.0"
-=======
-  dart: ">=2.19.2 <3.0.0"
   flutter: ">=3.7.0"
->>>>>>> ibrahim

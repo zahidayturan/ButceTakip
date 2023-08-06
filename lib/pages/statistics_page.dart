@@ -350,7 +350,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     var read = ref.read(statisticsRiverpod);
     var readSettings = ref.read(settingsRiverpod);
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
-    var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     final ScrollController scrolbarcontroller1 = ScrollController();
     Future<List<Map<String, dynamic>>> myList = read.getCategoryByMonth(
@@ -532,7 +531,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 ),
                                                 TextSpan(
                                                   text: readSettings.prefixSymbol,
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     height: 1,
                                                     fontFamily: 'TL',
                                                     fontSize: 18,
@@ -605,7 +604,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     ),
                                      TextSpan(
                                       text: readSettings.prefixSymbol,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         height: 1,
                                         fontFamily: 'TL',
                                         fontWeight: FontWeight.w600,

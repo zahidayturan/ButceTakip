@@ -112,13 +112,14 @@ class Aylikinfo extends ConsumerWidget {
                                       var month = read.month;
                                       var year = read.year;
                                       var dayTotals = dailyTotals[day]!;
+                                      var dayItemLength =  dayTotals['itemsLength']!;
                                       var totalAmount =
                                           dayTotals['totalAmount']!;
                                       var totalAmount2 =
                                           dayTotals['totalAmount2']!;
                                       final formattedTotal =
                                           (totalAmount - totalAmount2)
-                                              .toStringAsFixed(1);
+                                              .toStringAsFixed(2);
                                       var dateTime = DateTime(int.parse(year),
                                           int.parse(month), int.parse(day));
                                       var dayOfWeekName = _getDayOfWeekName(
@@ -264,7 +265,45 @@ class Aylikinfo extends ConsumerWidget {
                                                                   const EdgeInsets
                                                                           .only(
                                                                       top: 5),
-                                                              child: Text(
+                                                              child: RichText(
+                                                                  text: TextSpan(children: [
+                                                                    TextSpan(
+                                                                      text:  formattedTotal,
+                                                                      style: TextStyle(
+                                                                        height: 1,
+                                                                        color: double.parse(
+                                                                            formattedTotal) <
+                                                                            0
+                                                                            ? renkler
+                                                                            .kirmiziRenk
+                                                                            : Theme.of(
+                                                                            context)
+                                                                            .canvasColor,
+                                                                        fontFamily:
+                                                                        "Nexa4",
+                                                                        fontSize: 17,
+                                                                      ),
+                                                                    ),
+                                                                    TextSpan(
+                                                                      text: readSettings.prefixSymbol,
+                                                                      style: TextStyle(
+                                                                        height: 1,
+                                                                        color: double.parse(
+                                                                            formattedTotal) <
+                                                                            0
+                                                                            ? renkler
+                                                                            .kirmiziRenk
+                                                                            : Theme.of(
+                                                                            context)
+                                                                            .canvasColor,
+                                                                        fontFamily:
+                                                                        "TL",
+                                                                        fontSize: 17,
+                                                                      ),
+                                                                    ),
+                                                                  ])),
+
+                                                              /*Text(
                                                                 " ${formattedTotal} \$",
                                                                 style:
                                                                     TextStyle(
@@ -281,10 +320,10 @@ class Aylikinfo extends ConsumerWidget {
                                                                       "Nexa4",
                                                                   fontSize: 17,
                                                                 ),
-                                                              ),
+                                                              ),*/
                                                             ),
                                                             Text(
-                                                              "Kayıt Sayısı Gelecek",
+                                                              "${dayItemLength.toStringAsFixed(0)} Kayıt",
                                                               style: TextStyle(
                                                                 height: 1,
                                                                 color: Theme.of(
@@ -313,30 +352,57 @@ class Aylikinfo extends ConsumerWidget {
                                                                   const EdgeInsets
                                                                           .only(
                                                                       top: 5),
-                                                              child: Text(
-                                                                " ${totalAmount.toStringAsFixed(1)} \$",
-                                                                style:
-                                                                    TextStyle(
-                                                                  height: 1,
-                                                                  color: renkler
-                                                                      .yesilRenk,
-                                                                  fontFamily:
+                                                              child:  RichText(
+                                                                  text: TextSpan(children: [
+                                                                    TextSpan(
+                                                                      text:  totalAmount.toStringAsFixed(2),
+                                                                      style: TextStyle(
+                                                                        height: 1,
+                                                                        color: renkler
+                                                                            .yesilRenk,
+                                                                        fontFamily:
+                                                                        "Nexa3",
+                                                                        fontSize: 14,
+                                                                      ),
+                                                                    ),
+                                                                    TextSpan(
+                                                                      text: readSettings.prefixSymbol,
+                                                                      style: TextStyle(
+                                                                        height: 1,
+                                                                        color: renkler
+                                                                            .yesilRenk,
+                                                                        fontFamily:
+                                                                        "TL",
+                                                                        fontSize: 14,
+                                                                      ),
+                                                                    ),
+                                                                  ])),
+                                                            ),
+                                                            RichText(
+                                                                text: TextSpan(children: [
+                                                                  TextSpan(
+                                                                    text:  totalAmount2.toStringAsFixed(2),
+                                                                    style: TextStyle(
+                                                                      height: 1,
+                                                                      color: renkler
+                                                                          .kirmiziRenk,
+                                                                      fontFamily:
                                                                       "Nexa3",
-                                                                  fontSize: 14,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              " ${totalAmount2.toStringAsFixed(1)} \$",
-                                                              style: TextStyle(
-                                                                height: 1,
-                                                                color: renkler
-                                                                    .kirmiziRenk,
-                                                                fontFamily:
-                                                                    "Nexa3",
-                                                                fontSize: 14,
-                                                              ),
-                                                            ),
+                                                                      fontSize: 14,
+                                                                    ),
+                                                                  ),
+                                                                  TextSpan(
+                                                                    text: readSettings.prefixSymbol,
+                                                                    style: TextStyle(
+                                                                      height: 1,
+                                                                      color: renkler
+                                                                          .kirmiziRenk,
+                                                                      fontFamily:
+                                                                      "TL",
+                                                                      fontSize: 14,
+                                                                    ),
+                                                                  ),
+                                                                ])),
                                                           ],
                                                         ),
                                                       ),

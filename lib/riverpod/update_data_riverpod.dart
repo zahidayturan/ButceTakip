@@ -202,6 +202,9 @@ class UpdateDataRiverpod extends ChangeNotifier {
               "${date1.day.toString()}.${date1.month.toString()}.${date1.year.toString()}", // item.operationDate güncellendi
               "0",
               i == daysBetween - 1 ? item.processOnce : "",
+              0.0,
+              "",
+              ""
             );
             SQLHelper.createItem(newinfo);
             print("Veri Eklendi ${item.operationDate} - ${item.processOnce}");
@@ -244,6 +247,9 @@ class UpdateDataRiverpod extends ChangeNotifier {
               "${date1.day.toString()}.${date1.month.toString()}.${date1.year.toString()}", // item.operationDate güncellendi
               "0",
               i == daysBetween - 1 ? item.processOnce : "",
+                0.0,
+                "",
+                ""
             );
             SQLHelper.createItem(newinfo);
             print("Veri Eklendi ${item.operationDate} - ${item.processOnce}");
@@ -287,6 +293,9 @@ class UpdateDataRiverpod extends ChangeNotifier {
               "${date1.day.toString()}.${date1.month.toString()}.${date1.year.toString()}", // item.operationDate güncellendi
               "0",
               i == daysBetween - 1 ? item.processOnce : "",
+                0.0,
+                "",
+                ""
             );
             SQLHelper.createItem(newinfo);
             print("Veri Eklendi ${item.operationDate} - ${item.processOnce}");
@@ -358,6 +367,9 @@ class UpdateDataRiverpod extends ChangeNotifier {
             "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
             "0",
             "",
+              0.0,
+              "",
+              ""
           );
           SQLHelper.createItem(newinfo);
           SQLHelper.updateCustomize(item.id, "");
@@ -378,6 +390,9 @@ class UpdateDataRiverpod extends ChangeNotifier {
             "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
             "0",
             "${finished + 1}/$total",
+              0.0,
+              "",
+              ""
           );
           SQLHelper.createItem(newinfo);
           SQLHelper.updateCustomize(item.id, "");
@@ -431,6 +446,9 @@ class UpdateDataRiverpod extends ChangeNotifier {
         operationDate,
         "0",
         "",
+          0.0,
+          "",
+          ""
       );
       SQLHelper.createItem(newinfo);
 
