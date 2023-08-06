@@ -1,4 +1,5 @@
 import 'package:butcekontrol/models/currency_info.dart';
+import 'package:butcekontrol/models/settings_info.dart';
 import 'package:butcekontrol/utils/firestore_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ntp/ntp.dart';
@@ -17,11 +18,14 @@ class CurrencyRiverpod extends ChangeNotifier {
   String ?EUR;
   String ?GBP;
   String ?KWD;
+  String ?JOD;
+  String ?IQD;
+  String ?SAR;
   String ?lastApiUpdateDate;
   List<currencyInfo> currrenciesFirestoreList = [];
   List<currencyInfo>  currencySqlList = [];
 
-  double calculateRealAmount(double Amount, String moneyType, String prefix){// amount moneytype kaç Prefix ?
+  double calculateRealAmount(double Amount, String moneyType, String prefix){ // amount moneytype kaç Prefix ?
     double realAmount;
     if(double.tryParse(currencySqlList![currencySqlList.length -1].toMap()[moneyType])! > 0.0){
       realAmount = double.parse((Amount * (double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType])!)).toStringAsFixed(2))!;
@@ -30,22 +34,27 @@ class CurrencyRiverpod extends ChangeNotifier {
     }
     return realAmount ?? 0.0;
   }
-  void calculateAllSQLRealTime(String Prefix) async { //Bütün kayıtları dolaşıp realAmount güncellenmesi yapıyor.
+
+  void calculateAllSQLRealTime() async { //Bütün kayıtları dolaşıp realAmount güncellenmesi yapıyor.
     List<SpendInfo> AllData = await SQLHelper.getItems();
+    List<SettingsInfo> settingsList = await SQLHelper.settingsControl();
     AllData.forEach((info) async {
       if(info.moneyType == "0"){
         info.moneyType = "TRY";
       }
-      info.realAmount = calculateRealAmount(info.amount!, info.moneyType! , Prefix); // amount moneytype kaç Prefix ?
-      await SQLHelper.updateItem(info).then((value) => print("GÜNCELLENMİŞ KAYIT ===>>>${info.category} eski miktar ${info.amount} ${info.moneyType} realAmount miktar ====>> ${info.realAmount} $Prefix İD => ${info.id}"));
-      /*
-      if(info.moneyType != Prefix){  //yanlış iflitreleme
+      settingsList.forEach((element) {
+        if(element.prefixSymbol == "?"){
 
+        }
+      });
+      if(info.moneyType == settingsList[0].prefix! ){  //yanlış iflitreleme
+        info.realAmount = info.amount;
+        await SQLHelper.updateItem(info).then((value) => print("SABİT KAYIT ===>>>${info.category} eski miktar ${info.amount} ${info.moneyType} realAmount miktar ====>> ${info.realAmount} ${settingsList[0].prefix!} İD => ${info.id}"));
       }else{
-
+        info.realAmount = calculateRealAmount(info.amount!, info.moneyType! , settingsList[0].prefix!); // amount moneytype kaç Prefix ?
+        await SQLHelper.updateItem(info).then((value) => print("GÜNCELLENMİŞ KAYIT ===>>>${info.category} eski miktar ${info.amount} ${info.moneyType} realAmount miktar ====>> ${info.realAmount} ${settingsList[0].prefix!} İD => ${info.id}"));
       }
 
-       */
     });
   }
 
@@ -60,25 +69,24 @@ class CurrencyRiverpod extends ChangeNotifier {
     KWD = currency[currency.length - 1].KWD;
     lastApiUpdateDate = currency[currency.length -1].lastApiUpdateDate;
     print("""
-      id : ${currency[currency.length - 1].id}
-      BASE :${currency[currency.length - 1].BASE}
-      TRY :${currency[currency.length - 1].TRY}
-      USD : ${currency[currency.length - 1].USD}
-      EUR : ${currency[currency.length - 1].EUR}
-      GBP : ${currency[currency.length - 1].GBP}
-      KWD :${currency[currency.length - 1].KWD}
+      id  : ${currency[currency.length - 1].id}
+      BASE: ${currency[currency.length - 1].BASE}
+      TRY : ${currency[currency.length - 1].TRY}               USD : ${currency[currency.length - 1].USD}
+      EUR : ${currency[currency.length - 1].EUR}        GBP : ${currency[currency.length - 1].GBP}
+      KWD : ${currency[currency.length - 1].KWD}        JOD : ${currency[currency.length - 1].JOD}
+      IQD : ${currency[currency.length - 1].IQD}        SAR : ${currency[currency.length - 1].SAR}
       lastApiUpdateDate :${currency[currency.length - 1].lastApiUpdateDate}
       """);
     notifyListeners();
   }
-  Future<currencyInfo> fetchExchangeRates(String? prefix)  async {
+
+  Future<currencyInfo> fetchExchangeRates()  async {
     DateTime globalNow = await NTP.now();
     const String apiBaseUrl = 'https://api.apilayer.com/exchangerates_data';
     const String endpoint = '/latest';
     String apiKey = securityFile().api_key ?? "request API for currency rates";
-    setBASE(prefix);
     Map<String, dynamic> ?responseMap;
-    final response = await http.get(Uri.parse("https://api.apilayer.com/exchangerates_data/latest?base=TRY&symbols=TRY,USD,EUR,GBP,KWD"),
+    final response = await http.get(Uri.parse("https://api.apilayer.com/exchangerates_data/latest?base=TRY&symbols=TRY,USD,EUR,GBP,KWD,JOD,IQD,SAR"),
         headers: {
           "apikey" : apiKey
         });
@@ -87,7 +95,6 @@ class CurrencyRiverpod extends ChangeNotifier {
       //başarılı
       responseMap = jsonDecode(response.body);
       print("***********************");
-      print(responseMap);
     }else if (response.statusCode == 104){
       //Aylık istenilen max isteğe ulaşıldı
       print("c");
@@ -106,14 +113,17 @@ class CurrencyRiverpod extends ChangeNotifier {
         responseMap["rates"]["EUR"].toString(),
         responseMap["rates"]["GBP"].toString(),
         responseMap["rates"]["KWD"].toString(),
+        responseMap["rates"]["JOD"].toString(),
+        responseMap["rates"]["IQD"].toString(),
+        responseMap["rates"]["SAR"].toString(),
         globalNow.add(Duration(hours: 6)).toString(),
       );
     }else{
-      return currencyInfo("TRY", "1", "1", "1", "1", "1", DateTime.now().toString());
+      return currencyInfo("TRY", "1", "1", "1", "1", "1", "1", "1", "1", DateTime.now().toString());
     }
   }
 
-  Future controlCurrency(String? prefix) async{ //currency Kayıt değerlendiriyoruz.
+  Future controlCurrency() async{ //currency Kayıt değerlendiriyoruz.
     DateTime ?globalNow;
     try{
       currrenciesFirestoreList = await firestoreHelper.readCurrenciesFirestore();
@@ -123,16 +133,16 @@ class CurrencyRiverpod extends ChangeNotifier {
       if(currrenciesFirestoreList!.isNotEmpty){
         DateTime? date = DateTime.tryParse(currrenciesFirestoreList![currrenciesFirestoreList!.length -1].lastApiUpdateDate!);
         if(date!.isBefore(globalNow!)){ // son kullanma tarihi geçmiş diye kontrol ediyorum.
-          print("dün veya daha önce güncellenmiş");
-          await fetchExchangeRates(prefix).then((info) {
+          print("6 saat veya daha önce güncellenmiş");
+          await fetchExchangeRates().then((info) {
             firestoreHelper.createCurrencyFirestore(info);
             if(currencySqlList!.isNotEmpty){
               var dateSQL = DateTime.tryParse(currencySqlList![currencySqlList!.length - 1].lastApiUpdateDate!);
               if(dateSQL!.isBefore(globalNow!)){
-                print("yerel database ile firestore daki veriler arasında 1 den fazla gün gecikmiş");
+                print("yerel database ile firestore daki veriler arasında 6 saatten den fazla zaman gecikmiş");
                 firestoreHelper.readCurrenciesFirestore().then((currrenciesFirestoreList) {
                   SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
-                    calculateAllSQLRealTime(prefix!);
+                    calculateAllSQLRealTime();
                     readDb();
                   });
                 },);
@@ -143,7 +153,8 @@ class CurrencyRiverpod extends ChangeNotifier {
             }else {
               print("bulutta veri var sql de yoktu ekledik");
               SQLHelper.addItemCurrency(currrenciesFirestoreList![currrenciesFirestoreList!.length - 1]).then((value) {
-                calculateAllSQLRealTime(prefix!);
+                SQLHelper.currencyControl().then((value) => currencySqlList = value);
+                calculateAllSQLRealTime();
                 readDb();
               });
             }
@@ -153,10 +164,10 @@ class CurrencyRiverpod extends ChangeNotifier {
           if(currencySqlList!.isNotEmpty){
             var dateSQL = DateTime.tryParse(currencySqlList![currencySqlList!.length - 1].lastApiUpdateDate!);
             if(dateSQL!.isBefore(globalNow)){
-              print("yerel database ile firestore daki veriler arasında 1 den fazla gün gecikmiş");
+              print("yerel database ile firestore daki veriler arasında 6 saatten den fazla zaman gecikmiş");
               firestoreHelper.readCurrenciesFirestore().then((currrenciesFirestoreList) {
                 SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
-                  calculateAllSQLRealTime(prefix!);
+                  calculateAllSQLRealTime();
                   readDb();
                 });
               },);
@@ -167,13 +178,14 @@ class CurrencyRiverpod extends ChangeNotifier {
           }else {
             print("bulutta veri var sql de yoktu ekledik");
             SQLHelper.addItemCurrency(currrenciesFirestoreList![currrenciesFirestoreList!.length - 1]).then((value) {
-              calculateAllSQLRealTime(prefix!);
+              SQLHelper.currencyControl().then((value) => currencySqlList = value);
+              calculateAllSQLRealTime();
               readDb();
             });
           }
         }
       }else{ //buraya düşmesiz imkansız gbi bir şey?
-        await fetchExchangeRates(prefix).then((info) {
+        await fetchExchangeRates().then((info) {
           firestoreHelper.createCurrencyFirestore(info);
           //SQLHelper.addItemCurrency(info);
           readDb();
@@ -183,7 +195,7 @@ class CurrencyRiverpod extends ChangeNotifier {
       Exception("INTERNET YOKKKKKKKKK");
       print("INTERNET BULUNAMADI(DİD FOUND INTERNET TAKED DEFAULT INFORMATION [$e]");
       //varsayılan değerleri aldırsana abi tekrar kontrol gerekiyor.
-      fetchExchangeRates(prefix).then((value) => readDb());
+      fetchExchangeRates().then((value) => readDb());
     }
   }
 
@@ -196,6 +208,9 @@ class CurrencyRiverpod extends ChangeNotifier {
       EUR,
       GBP,
       KWD,
+      JOD,
+      IQD,
+      SAR,
       lastApiUpdateDate,
     );
     await SQLHelper.updateCurrency(info);

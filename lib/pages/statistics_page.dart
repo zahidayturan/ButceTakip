@@ -79,6 +79,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
 
   Widget categoryList(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var size = MediaQuery.of(context).size;
     final ScrollController scrolbarcontroller1 = ScrollController();
@@ -258,9 +259,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                     color: Color(0xFFF2CB05),
                                                   ),
                                                 ),
-                                                const TextSpan(
-                                                  text: ' ₺',
-                                                  style: TextStyle(
+                                                TextSpan(
+                                                  text: readSettings.prefixSymbol,
+                                                  style: const TextStyle(
                                                     fontFamily: 'TL',
                                                     fontSize: 18,
                                                     fontWeight:
@@ -328,9 +329,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         color: Color(0xff0D1C26),
                                       ),
                                     ),
-                                    const TextSpan(
-                                      text: ' ₺',
-                                      style: TextStyle(
+                                     TextSpan(
+                                      text: readSettings.prefixSymbol,
+                                      style: const TextStyle(
                                         fontFamily: 'TL',
                                         fontWeight: FontWeight.w600,
                                         fontSize: 17,

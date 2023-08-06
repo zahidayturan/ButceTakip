@@ -44,6 +44,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
     ref.listen(databaseRiverpod, (previous, next) {
       return ref.watch(databaseRiverpod);
     });
+    var readSetting = ref.read(settingsRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<SpendInfo>> myList = readDailyInfo.myMethod2();
@@ -183,7 +184,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                           ),
                                                           ),
                                                            TextSpan(
-                                                            text: ' ₺',
+                                                            text: readSetting.prefixSymbol,
                                                             style: TextStyle(
                                                               fontFamily: 'TL',
                                                               fontSize: 18,
@@ -204,7 +205,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                           ),
                                                           ),
                                                           TextSpan(
-                                                            text: ' ₺',
+                                                            text: readSetting.prefixSymbol,
                                                             style: TextStyle(
                                                               fontFamily: 'TL',
                                                               fontSize: 18,

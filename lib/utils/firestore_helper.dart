@@ -9,6 +9,12 @@ class firestoreHelper {
     await docCurrency.set(json);
   }
 
+  static void updateCurrencyFirestore(currencyInfo info) async {
+    final docCurrency = await FirebaseFirestore.instance.collection("rates").doc("currencies");
+    final json = info.toMap();
+    await docCurrency.update(json);
+  }
+
   static Future<List<currencyInfo>> readCurrenciesFirestore() async {
     currencyInfo ? currency;
     List<currencyInfo> currencies = [];

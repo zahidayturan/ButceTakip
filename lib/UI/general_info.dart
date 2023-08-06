@@ -42,7 +42,7 @@ class Generalinfo extends ConsumerWidget {
     var readhome = ref.read(homeRiverpod);
     var watchhome = ref.watch(homeRiverpod);
     var readdb = ref.read(databaseRiverpod);
-    var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
     CustomColors renkler = CustomColors();
     watchhome.refrestst;
     int indexyear = watchhome.indexyear;
@@ -234,7 +234,7 @@ class Generalinfo extends ConsumerWidget {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: ' ₺',
+                                      text: readSettings.prefixSymbol,
                                       style: TextStyle(
                                         fontFamily: 'TL',
                                         fontSize: 16,
@@ -254,7 +254,7 @@ class Generalinfo extends ConsumerWidget {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: ' ₺',
+                                      text: readSettings.prefixSymbol,
                                       style: TextStyle(
                                         fontFamily: 'TL',
                                         fontSize: 18,
@@ -274,7 +274,7 @@ class Generalinfo extends ConsumerWidget {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: ' ₺',
+                                      text: readSettings.prefixSymbol,
                                       style: TextStyle(
                                         fontFamily: 'TL',
                                         fontSize: 16,
@@ -486,7 +486,7 @@ Padding(
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' ₺',
+                                  text: readSettings.realPrefix,
                                   style: TextStyle(
                                     fontFamily: 'TL',
                                     fontSize: 16,
@@ -506,7 +506,7 @@ Padding(
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' ₺ ',
+                                  text: readSettings.realPrefix,
                                   style: TextStyle(
                                     fontFamily: 'TL',
                                     fontSize: 18,
@@ -526,7 +526,7 @@ Padding(
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' ₺ ',
+                                  text: readSettings.getPrefixSign(),
                                   style: TextStyle(
                                     fontFamily: 'TL',
                                     fontSize: 16,

@@ -49,6 +49,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
   Widget list(BuildContext context) {
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<SpendInfo>> myList = readCategoryInfo.myMethod2();
     CustomColors renkler = CustomColors();
@@ -178,7 +179,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                       ),
                                                       ),
                                                       TextSpan(
-                                                        text: ' ₺',
+                                                        text: readSettings.prefixSymbol,
                                                         style: TextStyle(
                                                           fontFamily: 'TL',
                                                           fontSize: 18,
@@ -199,7 +200,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                       ),
                                                       ),
                                                       TextSpan(
-                                                        text: ' ₺',
+                                                        text: readSettings.prefixSymbol,
                                                         style: TextStyle(
                                                           fontFamily: 'TL',
                                                           fontSize: 18,
@@ -262,6 +263,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
   }
   Widget dayDetailsGuide(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(categoryInfoRiverpod);
     return FutureBuilder<double>(
       future: read.getTotalAmount(),
@@ -303,9 +305,9 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                 color: Color(0xff0D1C26),
                               ),
                               ),
-                              const TextSpan(
-                                text: ' ₺',
-                                style: TextStyle(
+                              TextSpan(
+                                text: readSettings.prefixSymbol,
+                                style: const TextStyle(
                                   fontFamily: 'TL',
                                   fontWeight: FontWeight.w600,
                                   fontSize: 17,

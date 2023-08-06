@@ -1,3 +1,4 @@
+import 'package:butcekontrol/models/settings_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import '../models/spend_info.dart';

@@ -37,6 +37,7 @@ class assetsPage extends ConsumerWidget {
     }
     var dbRiv = ref.watch(databaseRiverpod);
     var readSettingsRiv = ref.read(settingsRiverpod);
+    ref.watch(settingsRiverpod).isuseinsert;
     var size = MediaQuery.of(context).size;
     var renkler = CustomColors();
     var time = DateTime.now().hour;

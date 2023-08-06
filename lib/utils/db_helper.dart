@@ -15,6 +15,9 @@ class SQLHelper {
       EUR TEXT,
       GBP TEXT,
       KWD TEXT,
+      JOD TEXT,
+      IQD TEXT,
+      SAR TEXT,
       lastApiUpdateDate TEXT
       createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )
@@ -34,7 +37,8 @@ class SQLHelper {
       securityQu TEXT,
       securityClaim INTEGER,
       adCounter INTEGER,
-      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      prefixSymbol TEXT
       )
       """);
   }
@@ -55,18 +59,21 @@ class SQLHelper {
         operationDate TEXT,
         moneyType TEXT,
         processOnce TEXT,
-        createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        realAmount REAL,
+        userCategory TEXT,
+        systemMessage TEXT
       )
       """);
   }
   static Future<sql.Database> db() async {
     return sql.openDatabase(
-      'bt27.db',
-      version: 3,
+      'bt43.db',
+      version: 2,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
         await createSettingTable(database);
-        // await createCurrnecyTable(database);
+        await createCurrnecyTable(database);
       },
       onUpgrade: (sql.Database database, int oldVersion, int  newVersion) {
         if (newVersion > oldVersion) {
@@ -74,6 +81,7 @@ class SQLHelper {
           database.execute("ALTER TABLE spendinfo ADD COLUMN realAmount REAL DEFAULT 0");
           database.execute("ALTER TABLE spendinfo ADD COLUMN userCategory TEXT DEFAULT '' ");
           database.execute("ALTER TABLE spendinfo ADD COLUMN systemMessage TEXT DEFAULT '' ");
+          database.execute("ALTER TABLE setting ADD COLUMN prefixSymbol TEXT DEFAULT '₺' ");
         }
       },
     );

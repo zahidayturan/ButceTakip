@@ -1,11 +1,15 @@
 class currencyInfo {
   int ?id;
   String ?BASE;
-  String ?TRY;
-  String ?USD;
-  String ?EUR;
-  String ?GBP;
-  String ?KWD;
+  String ?TRY; //Türk Lirası
+  String ?USD; //AMerikan Doları
+  String ?EUR; //EURO
+  String ?GBP; //İngiliz Sterlini
+  String ?KWD; //Kuveyt Dinarı
+  String ?JOD; //Ürdün Dinarı
+  String ?IQD; //Irak Dinarı
+  String ?SAR; //Suudi Arabistan Riyali
+
   String ?lastApiUpdateDate;
 
   currencyInfo(
@@ -15,6 +19,9 @@ class currencyInfo {
       this.EUR,
       this.GBP,
       this.KWD,
+      this.JOD,
+      this.IQD,
+      this.SAR,
       this.lastApiUpdateDate
       );
   currencyInfo.withId(
@@ -25,6 +32,9 @@ class currencyInfo {
       this.EUR,
       this.GBP,
       this.KWD,
+      this.JOD,
+      this.IQD,
+      this.SAR,
       this.lastApiUpdateDate
       );
   Map <String, dynamic> toMap(){
@@ -35,6 +45,9 @@ class currencyInfo {
     map["EUR"] = EUR;
     map["GBP"] = GBP;
     map["KWD"] = KWD;
+    map["JOD"] = JOD;
+    map["IQD"] = IQD;
+    map["SAR"] = SAR;
     map["lastApiUpdateDate"] = lastApiUpdateDate;
     return map;
   }
@@ -46,6 +59,9 @@ class currencyInfo {
     EUR = o["EUR"];
     GBP = o["GBP"];
     KWD = o["KWD"];
+    JOD = o["JOD"];
+    IQD = o["IQD"];
+    SAR = o["SAR"];
     lastApiUpdateDate = o["lastApiUpdateDate"];
   }
 }

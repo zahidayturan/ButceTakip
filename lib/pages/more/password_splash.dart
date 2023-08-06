@@ -374,7 +374,11 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                           info = "Giriş Başarılı" ;
                           password1list.clear();
                           ref.read(settingsRiverpod).setStatus(true);
-                          Navigator.of(context).pop();
+                          ref.read(passwordRiverpod).setisuseinsert();
+                          if(widget.mode == "admin"){
+                            Navigator.of(context).pop();
+                            print("POP oldu");
+                          }
                         });
                         widget.mode == "admin"
                             ?Navigator.push(
