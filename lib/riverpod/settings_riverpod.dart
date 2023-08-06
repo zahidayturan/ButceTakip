@@ -66,29 +66,6 @@ class SettingsRiverpod extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<String> getPrefixSign(String prefix) async {
-    switch(prefix!){
-      case "TRY":
-        return " ₺";
-      case "EUR":
-        return " €";
-      case "USD":
-        return " \$";
-      case "GBP":
-        return " £";
-      case "KWD":
-        return " د.ك";
-      case "JOD":
-        return " دينار أردني";
-      case "IQD":
-        return " د.ع";
-      case "SAR":
-        return " ر.س";
-      default:
-        return " ?";
-    }
-  }
-
   void reset(){
     this.securityQu = "null";
     Updating();
@@ -139,6 +116,15 @@ class SettingsRiverpod extends ChangeNotifier{
         break;
       case "KWD":
         this.prefixSymbol = " د.ك";
+        break;
+      case "JOD":
+        this.prefixSymbol = " د.أ";
+        break;
+      case "IQD":
+        this.prefixSymbol = " د.ع";
+        break;
+      case "SAR":
+        this.prefixSymbol =  " ر.س";
         break;
       default:
         this.prefixSymbol =  " ?";

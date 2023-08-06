@@ -18,7 +18,7 @@ class Settings extends ConsumerStatefulWidget {
 }
 ///Koyu tema , Yedeklenme durumunun  database ile implementi sağlanrı
 class _SettingsState extends ConsumerState<Settings> {
-  List<String> moneyPrefix = <String>['TRY', "USD", "EUR", "GBP", "KWD"];
+  List<String> moneyPrefix = <String>['TRY', "USD", "EUR", "GBP", "KWD", "JOD", "IQD", "SAR"];
   List<String> dilDestegi = <String>["Türkçe"];
   CustomColors renkler = CustomColors();
 
@@ -287,7 +287,6 @@ class _SettingsState extends ConsumerState<Settings> {
                                       value: value,
                                       child: Text(value),
                                       onTap: () {
-
                                       },
                                     );
                                   }).toList(),

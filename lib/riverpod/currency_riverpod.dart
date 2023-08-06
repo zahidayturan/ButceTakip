@@ -74,7 +74,7 @@ class CurrencyRiverpod extends ChangeNotifier {
       TRY : ${currency[currency.length - 1].TRY}               USD : ${currency[currency.length - 1].USD}
       EUR : ${currency[currency.length - 1].EUR}        GBP : ${currency[currency.length - 1].GBP}
       KWD : ${currency[currency.length - 1].KWD}        JOD : ${currency[currency.length - 1].JOD}
-      IQD : ${currency[currency.length - 1].IQD}        SAR : ${currency[currency.length - 1].SAR}
+      IQD : ${currency[currency.length - 1].IQD}       SAR : ${currency[currency.length - 1].SAR}
       lastApiUpdateDate :${currency[currency.length - 1].lastApiUpdateDate}
       """);
     notifyListeners();
@@ -184,7 +184,7 @@ class CurrencyRiverpod extends ChangeNotifier {
             });
           }
         }
-      }else{ //buraya düşmesiz imkansız gbi bir şey?
+      }else{ //buraya düşmesiz imkansız gbi bir şey? //okuyamzasa düşer
         await fetchExchangeRates().then((info) {
           firestoreHelper.createCurrencyFirestore(info);
           //SQLHelper.addItemCurrency(info);
