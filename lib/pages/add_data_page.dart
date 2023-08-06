@@ -38,7 +38,6 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var read = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
-                      translation(context).addIncomeExpensesTitle,
     return Directionality(
       textDirection: TextDirection.ltr,
       child: SizedBox(
@@ -65,14 +64,15 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                       borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(100),
                       )),
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 20, top: 20),
+                  child:  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 22),
                     child: Text(
-                      'GELİR / GİDER EKLE',
-                      style: TextStyle(
+                      translation(context).addIncomeExpensesTitle,
+                      style: const TextStyle(
+                        height: 1,
                         fontFamily: 'Nexa4',
-                        fontSize: 22,
-                        color: Colors.white,
+                        fontSize: 20,
+                        color: Color(0xFFE9E9E9),
                       ),
                     ),
                   ),
@@ -155,7 +155,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
   final TextEditingController _registration = TextEditingController(text: "0");
   final TextEditingController _operationDate =
       TextEditingController(text: DateTimeManager.getCurrentDayMonthYear());
-  final TextEditingController _moneyType =  TextEditingController(text: "");
+  final TextEditingController _moneyType =  TextEditingController(text: "₺");
   void dispose() {
     _category.dispose();
     _customize.dispose();
@@ -187,7 +187,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                 height: 20,
               ),
               SizedBox(
-                width: size.width*0.92,
+                width: size.width*0.95,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -204,7 +204,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                 height: 20,
               ),
               SizedBox(
-                width: size.width*0.92,
+                width: size.width*0.95,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -229,7 +229,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                 height: 5,
               ),
               SizedBox(
-                  width: size.width * 0.92,
+                  width: size.width * 0.95,
                   child: Text(
                       'DEBUG: ${_operationType.text} - ${_category.text} - ${_operationTool.text} - ${int.parse(_registration.text)} - ${_amount.text} - ${_note.text} - ${_operationDate.text} -${_customize.text} - ${selectedCustomizeMenu} - ${_moneyType.text}',
                       style: const TextStyle(color: Colors.red,fontFamily: 'TL'))),
@@ -237,6 +237,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                 height: 5,
               ),
               operationCustomButton(context),
+              const SizedBox(
+                height: 15,
+              ),
             ],
           ),
         ),
@@ -251,19 +254,19 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
         child: ToggleSwitch(
           initialLabelIndex: initialLabelIndex,
           totalSwitches: 2,
-          labels: const ['GİDER', 'GELİR'],
+          labels: [translation(context).expenses, translation(context).income],
           activeBgColor: const [Color(0xffF2CB05)],
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),
-          minWidth: 70,
+          minWidth: 92,
           cornerRadius: 15,
           radiusStyle: true,
           animate: true,
           curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 15, fontFamily: 'Nexa4', fontWeight: FontWeight.w800)
+                fontSize: 13, fontFamily: 'Nexa4',height: 1, fontWeight: FontWeight.w800)
           ],
           onToggle: (index) {
             setState(() {
@@ -369,12 +372,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                         color: Theme.of(context).highlightColor,
                         borderRadius: const BorderRadius.all(Radius.circular(20)),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          "KATEGORİ",
+                          translation(context).categoryDetails,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16,
+                            fontSize: 15,
                             fontFamily: 'Nexa4',
                             fontWeight: FontWeight.w800,
                           ),
@@ -815,11 +818,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                                               .pop();
                                                         },
                                                         child: Text(
-                                                          "Tamam",
+                                                          translation(context).ok,
                                                           style: TextStyle(
                                                             color: renkler
                                                                 .koyuuRenk,
                                                             fontSize: 16,
+                                                            height: 1,
                                                             fontFamily:
                                                             'Nexa3',
                                                           ),
@@ -905,7 +909,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                     "ÖZELLEŞTİR",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 15,
                       fontFamily: 'Nexa4',
                       fontWeight: FontWeight.w800,
                     ),
@@ -1324,7 +1328,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                                         .pop();
                                                   },
                                                   child: Text(
-                                                    "Tamam",
+                                                    translation(context).ok,
                                                     style: TextStyle(
                                                       color:
                                                       renkler.koyuuRenk,
@@ -1457,7 +1461,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
 
     return SizedBox(
       height: 38,
-      width: 195,
+      width: 175,
       child: Stack(
         children: [
           Padding(
@@ -1468,17 +1472,18 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                 color: Theme.of(context).highlightColor,
               ),
               height: 34,
-              width: 193,
+              width: 173,
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(
-                width: 70,
+              SizedBox(
+                width: 65,
                 child: Center(
-                  child: Text("TARİH",
+                  child: Text(translation(context).date,
                       style: TextStyle(
+                        height: 1,
                           color: Colors.white,
                           fontSize: 15,
                           fontFamily: 'Nexa4',
@@ -1492,7 +1497,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                 ),
                 child: SizedBox(
                   height: 38,
-                  width: 125,
+                  width: 110,
                   child: TextFormField(
                     focusNode: dateFocusNode,
                     onTap: () {
@@ -1504,7 +1509,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                     },
                     style: const TextStyle(
                         color: Color(0xff0D1C26),
-                        fontSize: 15,
+                        fontSize: 14,
                         fontFamily: 'Nexa4',
                         fontWeight: FontWeight.w800),
                     controller: _operationDate,
@@ -1546,12 +1551,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
           ),
           Center(
             child: SizedBox(
-              width: 230,
+              width: 250,
               child: Row(
                 children: [
                   openMoneyTypeMenu == false ? SizedBox(
                     height: 38,
-                    width: 187,
+                    width: 207,
                     child: Stack(
                       children: [
                         Center(
@@ -1561,18 +1566,19 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                               color: Theme.of(context).highlightColor,
                             ),
                             height: 34,
-                            width: 185,
+                            width: 205,
                           ),
                         ),
                         Row(
                           children: [
-                            const SizedBox(
-                              width: 75,
+                            SizedBox(
+                              width: 95,
                               child: Center(
-                                child: Text(" TUTAR",
+                                child: Text(translation(context).amountDetails,
                                     style: TextStyle(
+                                      height: 1,
                                         color: Colors.white,
-                                        fontSize: 16,
+                                        fontSize: 15,
                                         fontFamily: 'Nexa4',
                                         fontWeight: FontWeight.w800)),
                               ),
@@ -1628,7 +1634,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                     onTap: () {
                       setState(() {
                         openMoneyTypeMenu == false ? openMoneyTypeMenu = true : openMoneyTypeMenu = false;
-                        openMoneyTypeMenu == true ? moneyTypeWidth = 230 : moneyTypeWidth = 38;
+                        openMoneyTypeMenu == true ? moneyTypeWidth = 250 : moneyTypeWidth = 38;
                       });
                     },
                     child:  Container(
@@ -1663,7 +1669,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                 width: 38,
                                 height: 32,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                                   color: renkler.koyuuRenk,
                                 ),
                                 child: Center(
@@ -1685,7 +1691,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                 width: 38,
                                 height: 32,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                                   color: renkler.koyuuRenk,
                                 ),
                                 child: Center(
@@ -1707,7 +1713,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                 width: 38,
                                 height: 32,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                                   color: renkler.koyuuRenk,
                                 ),
                                 child: Center(
@@ -1729,7 +1735,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                 width: 38,
                                 height: 32,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                                   color: renkler.koyuuRenk,
                                 ),
                                 child: Center(
@@ -1751,7 +1757,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                 width: 38,
                                 height: 32,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                                   color: renkler.koyuuRenk,
                                 ),
                                 child: Center(
@@ -1783,7 +1789,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
           initialLabelIndex: initialLabelIndexTool,
           totalSwitches: 3,
           dividerColor: Theme.of(context).highlightColor,
-          labels: const ['NAKİT', 'KART', 'DİĞER'],
+          labels:  [translation(context).cash, translation(context).card, translation(context).otherPaye],
           activeBgColor: const [Color(0xffF2CB05)],
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
@@ -1795,7 +1801,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
           curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 15, fontFamily: 'Nexa4', fontWeight: FontWeight.w800)
+                fontSize: 13, fontFamily: 'Nexa4', fontWeight: FontWeight.w800)
           ],
           onToggle: (index) {
             if (index == 0) {
@@ -1831,10 +1837,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 86,
                 child: Center(
-                  child: Text("KAYDET",
+                  child: Text(translation(context).save,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,
@@ -1922,7 +1928,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                   padding: const EdgeInsets.only(left: 18, top: 34,right: 18),
                   child: TextFormField(
                     decoration: InputDecoration(
-                        hintText: "Not eklemek için tıklayınız",
+                        hintText: translation(context).clickToAddNote,
                         hintStyle: TextStyle(
                           color: Theme.of(context).canvasColor,
                         ),
@@ -1973,10 +1979,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                     ),
                     child: Center(
                       child: Text(
-                        "NOT EKLE",
+                        translation(context).addNote,
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
-                          fontSize: 17,
+                          fontSize: 15,
                           fontFamily: 'Nexa4',
                           fontWeight: FontWeight.w800,
                         ),
@@ -2004,8 +2010,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                         });
                       },
                       child: Text(
-                        "Temizle",
+                        translation(context).delete,
                         style: TextStyle(
+                          height: 1,
                           color: Theme.of(context).canvasColor,
                           fontSize: 12,
                           fontFamily: 'Nexa4',
@@ -2035,12 +2042,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
     String alertContent = '';
     int alertOperator = 0;
     double amount = double.tryParse(_amount.text) ?? 0.0;
-    void setAlertContent() {
+    void setAlertContent(BuildContext context) {
       if (amount == 0 && _category.text.isEmpty) {
         alertContent = "Lütfen bir tutar ve bir kategori giriniz!";
         alertOperator = 1;
       } else if (_category.text.isNotEmpty) {
-        alertContent = "Lütfen bir tutar giriniz!";
+        alertContent = translation(context).pleaseEnterAnAmount;
         alertOperator = 2;
       } else {
         alertContent = "Lütfen bir kategori giriniz!";
@@ -2051,22 +2058,22 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
     return Directionality(
       textDirection: TextDirection.ltr,
       child: SizedBox(
-        width: size.width * 0.9,
-        height: 80,
+        width: size.width * 0.95,
+        height: 40,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: 100,
+              width: 130,
               child: Stack(
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color(0xffF2CB05),
+                      color: Theme.of(context).shadowColor,
                     ),
-                    height: 34,
-                    width: 100,
+                    height: 28,
+                    width: 130,
                     child: TextButton(
                       onPressed: () {
                         _note.text = "";
@@ -2079,10 +2086,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                         });
                         //operationCustomButton(context);
                       },
-                      child: const Text("SIFIRLA",
+                      child: Text(translation(context).deleteAll,
                           style: TextStyle(
-                              color: Color(0xff0D1C26),
-                              fontSize: 17,
+                            height: 1,
+                              color: Theme.of(context).canvasColor,
+                              fontSize: 15,
                               fontFamily: 'Nexa4',
                               fontWeight: FontWeight.w900)),
                     ),
@@ -2091,19 +2099,19 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
               ),
             ),
             SizedBox(
-              width: 100,
+              width: 150,
               child: Stack(
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color(0xffF2CB05),
+                      color: renkler.sariRenk,
                     ),
                     height: 34,
-                    width: 100,
+                    width: 150,
                     child: TextButton(
                       onPressed: () {
-                        setAlertContent();
+                        setAlertContent(context);
                         double amount = double.tryParse(_amount.text) ?? 0.0;
                         if (amount != 0.0 && _category.text.isNotEmpty) {
                           if (selectedCustomizeMenu == 1 &&
@@ -2158,9 +2166,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                             SnackBar(
                               backgroundColor: Theme.of(context).highlightColor,
                               duration: const Duration(seconds: 1),
-                              content: const Text(
-                                'İşlem verisi eklendi',
-                                style: TextStyle(
+                              content: Text(
+                                translation(context).activityAdded,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontFamily: 'Nexa3',
@@ -2208,11 +2216,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                         //FocusScope.of(context).requestFocus(amountFocusNode);
                                       },
                                       child: Text(
-                                        "Tamam",
+                                        translation(context).ok,
                                         style: TextStyle(
                                             color: Theme.of(context)
                                                 .secondaryHeaderColor,
                                             fontSize: 18,
+                                            height: 1,
                                             fontFamily: 'Nexa3'),
                                       ),
                                     )
@@ -2221,10 +2230,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                               });
                         }
                       },
-                      child: const Text('EKLE',
+                      child: Text(translation(context).done,
                           style: TextStyle(
-                              color: Color(0xff0D1C26),
-                              fontSize: 17,
+                            height: 1,
+                              color: renkler.koyuuRenk,
+                              fontSize: 16,
                               fontFamily: 'Nexa4',
                               fontWeight: FontWeight.w900)),
                     ),

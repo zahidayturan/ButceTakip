@@ -2,12 +2,10 @@ import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as intl;
 import '../constans/text_pref.dart';
 import '../models/spend_info.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/app/butce_kontrol_app.dart';
 
 
 class GunlukInfo extends ConsumerStatefulWidget {
@@ -53,7 +51,8 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
     var readSettings = ref.read(settingsRiverpod);
     var readDB = ref.read(databaseRiverpod);
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd.MM.yyyy').format(now);
+    //String formattedDate = intl.DateFormat('dd.MM.yyyy').format(now);
+    String formattedDate = readSettings.localChanger() == const Locale("ar") ? intl.DateFormat('yyyy.MM.dd').format(now) : intl.DateFormat('dd.MM.yyyy').format(now);
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
     return Center(
@@ -63,54 +62,47 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
             //margin: const EdgeInsets.only(top: 10),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: readSettings.localChanger() == Locale("ar") ?
-                            BorderRadius.horizontal(
-                                left: Radius.circular(10)
-                            ) :
-                            BorderRadius.horizontal(
-                                right: Radius.circular(10)
-                            ),
-                            color: Theme.of(context).highlightColor,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                left: 15.0, right: 20, top: 6, bottom: 3),
-                            child: Text(
-                              translation(context).todaysActivities, /// dil destekli yazi
-                              //"Bugünün İşlem Bilgileri",
-                              style: TextStyle(
-                                color: renkler.arkaRenk,
-                                height: 1,
-                                fontFamily: 'Nexa3',
-                                fontSize: 18,
-                              ),
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          color: Theme.of(context).highlightColor,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              left: 20, right: 20, top: 6, bottom: 3),
+                          child: Text(
+                            translation(context).todaysActivities, /// dil destekli yazi
+                            //"Bugünün İşlem Bilgileri",
+                            style: TextStyle(
+                              color: renkler.arkaRenk,
+                              height: 1,
+                              fontFamily: 'Nexa3',
+                              fontSize: 17,
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right: 25,
-                        left: 25,
-                        top: 4,
+                        ),
                       ),
-                      child: Text(formattedDate,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w900,
-                          color: Theme.of(context).canvasColor
-                          )),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: 25,
+                          left: 25,
+                          top: 4,
+                        ),
+                        child: Text(formattedDate,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Nexa4',
+                                fontWeight: FontWeight.w900,
+                            color: Theme.of(context).canvasColor
+                            )),
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Center(
@@ -217,8 +209,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                           color: Theme.of(context).canvasColor,
                                         ),
                                         child: Center(child: TextMod(
-                                            translation(context).noActivity, Colors.white, 14))
-                                            "Kayıt Yok", Theme.of(context).primaryColor, 14))
+                                            translation(context).noActivity, Theme.of(context).primaryColor, 14))
                                     ),
                                   ),
                                 ],

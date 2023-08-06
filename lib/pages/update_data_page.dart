@@ -38,8 +38,6 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var read = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
-                      translation(context).editTitle,
-                        height: 1,
     return SizedBox(
       width: size.width,
       height: 60,
@@ -64,11 +62,12 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(100),
                     )),
-                child: const Padding(
+                child:  Padding(
                   padding: EdgeInsets.only(left: 20, top: 20),
                   child: Text(
-                    'İŞLEM DÜZENLEME',
-                    style: TextStyle(
+                    translation(context).editTitle,
+                    style: const TextStyle(
+                      height: 1,
                       fontFamily: 'Nexa4',
                       fontSize: 22,
                       color: Colors.white,
@@ -77,39 +76,39 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-            Positioned(
-              right: 0,
-              top: 0,
-              child: SizedBox(
-                height: 60,
-                child: Container(
-                  width: 60,
-                  decoration: const BoxDecoration(
-                      color: Color(0xffF2CB05),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(100),
-                        bottomLeft: Radius.circular(100),
-                        topLeft: Radius.circular(100),
-                      )),
-                  child: IconButton(
-                    padding: const EdgeInsets.only(right: 1.0),
-                    iconSize: 60,
-                    icon: Image.asset(
-                      "assets/icons/remove.png",
-                      height: 26,
-                      width: 26,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      read.setCurrentindex(0);
-                    },
+        ),
+          Positioned(
+            right: 0,
+            top: 0,
+            child: SizedBox(
+              height: 60,
+              child: Container(
+                width: 60,
+                decoration: const BoxDecoration(
+                    color: Color(0xffF2CB05),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(100),
+                      bottomLeft: Radius.circular(100),
+                      topLeft: Radius.circular(100),
+                    )),
+                child: IconButton(
+                  padding: const EdgeInsets.only(right: 1.0),
+                  iconSize: 60,
+                  icon: Image.asset(
+                    "assets/icons/remove.png",
+                    height: 26,
+                    width: 26,
+                    color: Colors.white,
                   ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    read.setCurrentindex(0);
+                  },
                 ),
               ),
             ),
+          ),
           ],
-        ),
       ),
     );
   }
@@ -220,7 +219,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
         child: ToggleSwitch(
           initialLabelIndex: initialLabelIndex,
           totalSwitches: 2,
-          labels: const ['GİDER', 'GELİR'],
+          labels: [translation(context).expenses, translation(context).income],
           activeBgColor: const [Color(0xffF2CB05)],
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
@@ -651,8 +650,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     ),
                   ),
                 ),
-                      child: Text(translation(context).expenses,
-                            height: 1,
                 Container(
                   width: 130,
                   height: 40,

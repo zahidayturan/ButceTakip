@@ -66,10 +66,8 @@ class _BackUpState extends ConsumerState<BackUp> {
                               ),
                             ),
                           const Spacer(),
-                          isopen ? Text("Açık", style: TextStyle(fontFamily: "Nexa3",color:  Theme.of(context).canvasColor,),)
-                              : Text("Kapalı", style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor,),),
-                          isopen ? Text(translation(context).on, style: const TextStyle(fontFamily: "Nexa3"),)
-                              : Text(translation(context).off, style: const TextStyle(fontFamily: "Nexa3"),),
+                          isopen ? Text(translation(context).on, style: TextStyle(fontFamily: "Nexa3",color:  Theme.of(context).canvasColor,),)
+                              : Text(translation(context).off, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor,),),
                           Switch(
                             activeColor: renkler.sariRenk,
                             value: isopen ,
@@ -113,18 +111,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Email:",  Theme.of(context).canvasColor,  15),
-                                  TextMod(translation(context).email, Colors.black,  15),
+                                  TextMod(translation(context).email,  Theme.of(context).canvasColor,  15),
                                   TextMod("${readGglAuth.getUserEmail()}", Theme.of(context).canvasColor, 15),
-                                  TextMod("${readGglAuth.getUserEmail()}", Colors.black, 15),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Kullanıcı Adı:", Theme.of(context).canvasColor, 15),
-                                  TextMod(translation(context).nameAndSurname, Colors.black, 15),
+                                  TextMod(translation(context).nameAndSurname, Theme.of(context).canvasColor, 15),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
@@ -151,8 +146,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Son Yedekleme Tarihi:", Theme.of(context).canvasColor, 15),
-                                  TextMod(translation(context).lastBackupDate, Colors.black, 15),
+                                  TextMod(translation(context).lastBackupDate, Theme.of(context).canvasColor, 15),
                                   TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : "Yedeklenmedi", Theme.of(context).canvasColor, 15),
                                 ],
                               ),
@@ -375,7 +369,7 @@ class _BackUpState extends ConsumerState<BackUp> {
         child: ToggleSwitch(
           initialLabelIndex: initialLabelIndex,
           totalSwitches: 3,
-          labels: const ['Günlük', 'Aylık', 'Yıllık'],
+          labels: [translation(context).dailyBackup, translation(context).monthlyBackup, translation(context).yearlyBackup],
           activeBgColor: const [Color(0xffF2CB05)],
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: const Color(0xff0D1C26),
@@ -410,9 +404,6 @@ class _BackUpState extends ConsumerState<BackUp> {
             initialLabelIndex = index!;
           },
         ));
-                      child: Text(translation(context).dailyBackup,
-                      child: Text(translation(context).monthlyBackup,
-                      child: Text(translation(context).yearlyBackup,
   }
 }
 

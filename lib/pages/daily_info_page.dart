@@ -39,6 +39,14 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
       ],
     );
   }
+  void checkAndPop(int itemLength) {
+    print("kalmadı");
+    if (itemLength == 1) {
+      print("kalmadı");
+      Navigator.pop(context);
+    }
+    else null;
+  }
 
   int? registrationState;
   Widget list(BuildContext context) {
@@ -134,7 +142,9 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                   // genel bilgi sekmesi açılıyor.
                                                   return const SpendDetail();
                                                 },
-                                              );
+                                              ).then((value) {
+                                                  item.length == 1 ? Navigator.pop(context) : null;
+                                              });
                                             }
                                           },
                                           child: SizedBox(

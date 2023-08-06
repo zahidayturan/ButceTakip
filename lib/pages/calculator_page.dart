@@ -103,7 +103,6 @@ class _CalculatorState extends State<Calculator> {
         child: Scaffold(
           appBar: AppBarForPage(title: translation(context).calculatorTitle),
           //backgroundColor: const Color(0xffF2F2F2),
-          appBar: const AppBarForPage(title: 'HESAP MAKİNESİ'),
           body: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1157,10 +1156,9 @@ class _CalculatorState extends State<Calculator> {
                             },
                             keyboardType: TextInputType.number,
                             controller: sayi1Controller,
-                              hintText: translation(context).enteraNumber,
-                                height: 1,
                             decoration: InputDecoration(
-                              hintStyle: const TextStyle(
+                              hintStyle: TextStyle(
+                                  height: 1,
                                   fontSize: 14,
                                   fontFamily: 'Nexa3',
                                   color: renkler.koyuAraRenk

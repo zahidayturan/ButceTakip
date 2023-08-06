@@ -132,7 +132,9 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                               // genel bilgi sekmesi açılıyor.
                                               return const SpendDetail();
                                             },
-                                          );
+                                          ).then((value) {
+                                            item.length == 1 ? Navigator.pop(context) : null;
+                                          });
                                         }
                                       },
                                       child: SizedBox(
@@ -279,7 +281,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
               children: [
                 SizedBox(
                   width: 210,
-                  child: Text(translation(context).totalAmountStatistics,style: const TextStyle(
+                  child: Text(translation(context).totalAmountStatistics,style: TextStyle(
                     height: 1,
                     fontFamily: 'NEXA3',
                     fontSize: 17,
