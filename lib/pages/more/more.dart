@@ -73,7 +73,8 @@ class More extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Icon(Icons.settings, color: renkler.arkaRenk, size: 35),
-                                  TextMod(translation(context).settings, renkler.yaziRenk, 10),
+                                  Text(translation(context).settings,style: TextStyle(color: renkler.yaziRenk,fontSize: 14,fontFamily: 'Nexa3',height: 1),textAlign: TextAlign.center,
+                                  ),
                                 ],
                               ),
                             ),
@@ -111,7 +112,7 @@ class More extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Icon(Icons.question_mark, color: renkler.arkaRenk, size: 35),
-                                  TextMod(translation(context).help, renkler.yaziRenk, 10),
+                                  Text(translation(context).help,style: TextStyle(color: renkler.yaziRenk,fontSize: 14,fontFamily: 'Nexa3',height: 1,),textAlign: TextAlign.center,),
                                 ],
                               ),
                             ),
@@ -191,7 +192,7 @@ class More extends ConsumerWidget {
                                   ref.read(settingsRiverpod).isPassword == 1
                                       ? Icon(Icons.lock, color: renkler.arkaRenk, size: 35)
                                       : Icon(Icons.lock_open, color: renkler.arkaRenk, size: 35),
-                                  TextMod(translation(context).loginPassword, renkler.yaziRenk, 10),
+                                  Text(translation(context).loginPassword,style: TextStyle(color: renkler.yaziRenk,fontSize: 14,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                 ],
                               ),
                             ),
@@ -235,7 +236,7 @@ class More extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Icon(Icons.download, color: renkler.arkaRenk, size: 35),
-                                  TextMod(translation(context).downloadData, renkler.yaziRenk, 10),
+                                  Text(translation(context).downloadData,style: TextStyle(color: renkler.yaziRenk,fontSize: 14,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                 ],
                               ),
                             ),
@@ -274,7 +275,7 @@ class More extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Icon(Icons.message, color: renkler.arkaRenk, size: 35),
-                                  TextMod(translation(context).contactUs, renkler.yaziRenk, 10),
+                                  Text(translation(context).contactUs,style: TextStyle(color: renkler.yaziRenk,fontSize: 14,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                 ],
                               ),
                             ),

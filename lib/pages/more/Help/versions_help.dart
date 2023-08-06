@@ -105,7 +105,7 @@ class VersionsHelp extends StatelessWidget {
                           Row(
                             children: [
                               Image.asset(
-                                "assets/icons/Vector.png",
+                                "assets/icons/swap.png",
                                 height: 25,
                                 width: 25,
                                 color: Colors.blue,

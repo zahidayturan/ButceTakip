@@ -55,7 +55,7 @@ class NavBar extends ConsumerWidget {
                             IconButton(
                               icon: const Icon(
                                 size: 30,
-                                Icons.equalizer,
+                                Icons.equalizer_rounded,
                                 color: Colors.white,
                               ),
                               constraints: const BoxConstraints(
@@ -87,7 +87,7 @@ class NavBar extends ConsumerWidget {
                             IconButton(
                                 icon: const Icon(
                                   size: 30,
-                                  Icons.calendar_month_sharp,
+                                  Icons.calendar_month_rounded,
                                   color: Colors.white,
                                 ),
                                 constraints: const BoxConstraints(
@@ -121,7 +121,7 @@ class NavBar extends ConsumerWidget {
                             IconButton(
                                 icon: const Icon(
                                   size: 30,
-                                  Icons.calculate_sharp,
+                                  Icons.calculate_rounded,
                                   color: Colors.white,
 
                                 ),
@@ -153,7 +153,7 @@ class NavBar extends ConsumerWidget {
                             IconButton(
                                 icon: const Icon(
                                   size: 30,
-                                  Icons.keyboard_control_sharp,
+                                  Icons.keyboard_control_rounded,
                                   color: Colors.white,
                                 ),
                                 constraints: const BoxConstraints(
@@ -202,7 +202,12 @@ class NavBar extends ConsumerWidget {
                   },
                   backgroundColor: const Color(0xffF2CB05),
                   elevation: 0,
-                  child: const Icon(Icons.add_rounded, color: Colors.white, size: 64),
+                  child: Image.asset(
+                    "assets/icons/add.png",
+                    height: 38,
+                    width: 38,
+                    color: Color(0xFFFFFFFF),
+                  ),
                 ),
               ),
             ),

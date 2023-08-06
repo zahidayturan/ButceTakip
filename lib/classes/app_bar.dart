@@ -28,34 +28,18 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             showDialog(
               context: context,
               builder: (context) {
-                return const CustomizeInstallmentList();
-              },
-            );
-          },
-          icon: const Icon(
-            Icons.monetization_on_outlined,
-            color: Color(0xFFFFFFFF),
-            size: 30,
-          ),
-          constraints: const BoxConstraints(maxWidth: 40),
-          iconSize: 20.0,
-        ),
-        IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
                 return const CustomizeList();
               },
             );
           },
           icon: const Icon(
-            Icons.recycling,
+            //Icons.event_repeat_rounded,
+            Icons.history_rounded,
             color: Color(0xFFFFFFFF),
             size: 30,
           ),
-          constraints: const BoxConstraints(maxWidth: 40),
-          iconSize: 20.0,
+          constraints: const BoxConstraints(minWidth: 36),
+          iconSize: 22.0,
         ),
         IconButton(
           onPressed: () {
@@ -67,12 +51,12 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             );
           },
           icon: const Icon(
-            Icons.bookmark_outlined,
+            Icons.bookmark_outline_rounded,
             color: Color(0xFFFFFFFF),
             size: 30,
           ),
-          constraints: const BoxConstraints(maxWidth: 40),
-          iconSize: 20.0,
+          constraints: const BoxConstraints(minWidth: 36),
+          iconSize: 22.0,
         ),
         IconButton(
           onPressed: () {
@@ -92,25 +76,14 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             );
           },
           icon: const Icon(
-            Icons.question_mark,
+            Icons.help_outline_rounded,
             color: Color(0xFFFFFFFF),
             size: 30,
           ),
-          constraints: const BoxConstraints(maxWidth: 40),
+          constraints: const BoxConstraints(minWidth: 36),
+          iconSize: 22.0,
 
         ),
-        /*
-        IconButton(
-          onPressed:() => print("reset"),
-          icon: const Icon(
-            Icons.refresh,
-            color: Color(0xFFFFFFFF),
-            size: 30,
-          ),
-          constraints: BoxConstraints(maxWidth: 40),
-        ),
-
-         */
         IconButton(
           onPressed:() {
             Navigator.push(
@@ -129,13 +102,14 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             );
           },
           icon: const Icon(
-            Icons.settings,
-            color: Color(0xFFFFFFFF),
+            Icons.settings_rounded,
+            color: Color(0xFFF2CB05),
             size: 30,
           ),
-          constraints: const BoxConstraints(maxWidth: 40),
+          constraints: const BoxConstraints(minWidth: 36),
+          iconSize: 22.0,
         ),
-        const SizedBox(width: 5,),
+        const SizedBox(width: 10,),
       ],
     );
   }

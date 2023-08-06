@@ -1,4 +1,5 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/category_info_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class Statistics extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBarForPage(title: translation(context).statisticsTitle),
-        body: StaticticsBody(),
+        body: const StaticticsBody(),
       ),
     );
   }
@@ -40,32 +41,16 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       children: [
         const SizedBox(height: 15),
         SizedBox(
+          height: size.height * 0.26,
           width: size.width,
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                RotatedBox(
-                  quarterTurns: 3,
-                  child: gelirGiderButon(context),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    height: size.height * 0.26,
-                    child: pasta(context),
-                  ),
-                ),
-                RotatedBox(
-                  quarterTurns: 3,
-                  child: tarihButon(context),
-                ),
-              ],
-            ),
-          ),
+          child: pasta(context),
         ),
         const SizedBox(
           height: 15,
+        ),
+        filterAdd(context),
+        const SizedBox(
+          height: 8,
         ),
         Expanded(
           child: SizedBox(
@@ -77,6 +62,287 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               "data ${validDateMenu} tür ${giderGelirHepsi} yıl ${selectedYearIndex} ay ${selectedMonthIndex} hafta ${selectedWeekIndex} gün ${selectedDayIndex}"),
         ),*/
       ],
+    );
+  }
+
+  Widget filterAdd(BuildContext context){
+    var size = MediaQuery.of(context).size;
+    CustomColors renkler = CustomColors();
+    return InkWell(
+      child: Container(
+        width: size.width*0.9,
+        height: 30,
+        decoration: BoxDecoration(
+          color: Theme.of(context).highlightColor,
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+      ),
+        child: Center(child: Text("Filtrelemek için dokunun",style: TextStyle(color: renkler.arkaRenk,fontFamily: 'Nexa3',fontSize: 15),)),
+
+      ),
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return StatefulBuilder(
+              builder: (context, setState) {
+                return AlertDialog(
+                  contentPadding: const EdgeInsets.only(top: 10,bottom: 10),
+                  backgroundColor: Theme.of(context).primaryColor,
+                  shadowColor: Colors.black54,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(10))),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8,right: 8),
+                            child: SizedBox(
+                              width: size.width*0.95,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                   "İstatistik Filtreleme",
+                                    style: TextStyle(
+                                        color: Theme.of(context).canvasColor,
+                                        fontFamily: "Nexa4",
+                                        fontSize: 21),
+                                  ),
+                                  SizedBox(
+                                    height: 32,
+                                    width: 32,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).canvasColor,
+                                        borderRadius:
+                                        const BorderRadius.all(Radius.circular(20)),
+                                      ),
+                                      child: IconButton(
+                                        icon: Image.asset(
+                                          "assets/icons/remove.png",
+                                          height: 16,
+                                          width: 16,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        iconSize: 24,
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 14.0,
+                          ),
+                          Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Container(
+                                  height: 30,
+                                  width: size.width*0.95,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                child: SizedBox(
+                                  height: 32,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text("İşlem Türü",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Container(
+                                        height: 36,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: renkler.sariRenk,
+                                          borderRadius: const BorderRadius.all(Radius.circular(10))
+                                          
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Container(
+                                  height: 30,
+                                  width: size.width*0.95,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                child: SizedBox(
+                                  height: 32,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Tarih",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Container(
+                                        height: 36,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                            color: renkler.sariRenk,
+                                            borderRadius: const BorderRadius.all(Radius.circular(10))
+
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Container(
+                                  height: 30,
+                                  width: size.width*0.95,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                child: SizedBox(
+                                  height: 32,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Sadece Kayıtlı İşlemler",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Container(
+                                        height: 36,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                            color: renkler.sariRenk,
+                                            borderRadius: const BorderRadius.all(Radius.circular(10))
+
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Container(
+                                  height: 30,
+                                  width: size.width*0.95,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                child: SizedBox(
+                                  height: 32,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text("İşlem Aracı",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Container(
+                                        height: 36,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                            color: renkler.sariRenk,
+                                            borderRadius: const BorderRadius.all(Radius.circular(10))
+
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 4,right: 4),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                onTap: () {
+
+                                },
+                                  child: Container(
+                                    height: 26,
+                                    width: 150,
+                                    decoration: BoxDecoration(color: Theme.of(context).shadowColor,
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    ),
+                                    child: Center(child: Text("Eski Haline Getir",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 15,fontFamily: 'Nexa3'),)),
+                                  ),
+                              ),
+                                InkWell(
+                                  onTap: () {
+
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 100,
+                                    decoration: BoxDecoration(color: Theme.of(context).highlightColor,
+                                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                    child: Center(child: Text("TAMAM",style: TextStyle(color: renkler.arkaRenk,fontSize: 15,fontFamily: 'Nexa3'),)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                      const Text(
+                        "Debug:",
+                        style: TextStyle(color: Colors.red),
+                      )
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ).then((_) => setState(() {}));
+      },
     );
   }
 
@@ -183,7 +449,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         child: Scrollbar(
                           thumbVisibility: true,
                           controller: scrolbarcontroller1,
-                          scrollbarOrientation: readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.left :
+                          scrollbarOrientation: readSettings.localChanger() == const Locale("ar") ? ScrollbarOrientation.left :
                           ScrollbarOrientation.right,
                           interactive: true,
                           thickness: 7,
@@ -314,7 +580,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
                           color: Theme.of(context).focusColor,
                         ),
                         height: 26,
