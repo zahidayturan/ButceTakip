@@ -133,13 +133,13 @@ class CurrencyRiverpod extends ChangeNotifier {
       if(currrenciesFirestoreList!.isNotEmpty){
         DateTime? date = DateTime.tryParse(currrenciesFirestoreList![currrenciesFirestoreList!.length -1].lastApiUpdateDate!);
         if(date!.isBefore(globalNow!)){ // son kullanma tarihi geçmiş diye kontrol ediyorum.
-          print("6 saat veya daha önce güncellenmiş");
+          print("3 saat veya daha önce güncellenmiş");
           await fetchExchangeRates().then((info) {
             firestoreHelper.createCurrencyFirestore(info);
             if(currencySqlList!.isNotEmpty){
               var dateSQL = DateTime.tryParse(currencySqlList![currencySqlList!.length - 1].lastApiUpdateDate!);
               if(dateSQL!.isBefore(globalNow!)){
-                print("yerel database ile firestore daki veriler arasında 6 saatten den fazla zaman gecikmiş");
+                print("yerel database ile firestore daki veriler arasında 3 saatten den fazla zaman gecikmiş");
                 firestoreHelper.readCurrenciesFirestore().then((currrenciesFirestoreList) {
                   SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
                     calculateAllSQLRealTime();
@@ -164,7 +164,7 @@ class CurrencyRiverpod extends ChangeNotifier {
           if(currencySqlList!.isNotEmpty){
             var dateSQL = DateTime.tryParse(currencySqlList![currencySqlList!.length - 1].lastApiUpdateDate!);
             if(dateSQL!.isBefore(globalNow)){
-              print("yerel database ile firestore daki veriler arasında 6 saatten den fazla zaman gecikmiş");
+              print("yerel database ile firestore daki veriler arasında 3 saatten den fazla zaman gecikmiş");
               firestoreHelper.readCurrenciesFirestore().then((currrenciesFirestoreList) {
                 SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
                   calculateAllSQLRealTime();

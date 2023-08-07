@@ -35,7 +35,7 @@ class VersionsHelp extends StatelessWidget {
                         ),
                         SizedBox(
                           width: size.width / 1.4,
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(

@@ -322,7 +322,7 @@ class _SettingsState extends ConsumerState<Settings> {
                       child: Row(
                         children: [
                           const Text(
-                            "Para Birimi (Varsayılan)",
+                            "Varsayılan Para Birimi",
                             style: TextStyle(
                               fontFamily: "Nexa3",
                                 fontSize: 15,

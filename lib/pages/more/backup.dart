@@ -2,6 +2,7 @@ import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
+import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -179,8 +180,14 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   InkWell(
-                                    onTap: () {
-                                      readGglAuth.downloadFileToDevice();
+                                    onTap: () async {
+                                      readGglAuth.downloadFileToDevice().then((value) {
+                                        SQLHelper.getItems().then((value) {
+                                          value[0].realAmount == 0.0
+                                              ? print("afas")
+                                              : print("yaaaaaaaaaaa");
+                                        });
+                                      });
                                       //GoogleDrive().uploadFileToGoogleDrive();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
