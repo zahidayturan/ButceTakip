@@ -351,8 +351,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                 onChanged: (newValue) {
                                   if (readSetting.Prefix != newValue) {
                                     readSetting.setPrefix(newValue!);
-                                    currencyRiv
-                                        .calculateAllSQLRealTime(); //Bütün kayıtları hocam değiştiriyor.
+                                    currencyRiv.calculateAllSQLRealTime(); //Bütün kayıtları hocam değiştiriyor.
                                     readSetting.setisuseinsert();
                                   }
                                   print("");

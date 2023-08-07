@@ -48,8 +48,7 @@ class Generalinfo extends ConsumerWidget {
     int indexmounth = watchhome.indexmounth;
     return StreamBuilder<Map<String, dynamic>>(
         stream: readdb.myMethod(),
-        builder: (BuildContext context,
-            AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -63,8 +62,7 @@ class Generalinfo extends ConsumerWidget {
               padding: const EdgeInsets.only(top: 5),
               child: Container(
                 constraints: const BoxConstraints(
-                  maxHeight: double
-                      .infinity, //container in boyutunu içindekiler belirliyor.
+                  maxHeight: double.infinity, //container in boyutunu içindekiler belirliyor.
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,9 +134,7 @@ class Generalinfo extends ConsumerWidget {
                                                     }
                                                   }
                                                   readhome.changeindex(indexmounth, indexyear);
-                                                  readdb.setMonthandYear(
-                                                      (indexmounth + 1).toString(),
-                                                      years[indexyear]);
+                                                  readdb.setMonthandYear((indexmounth + 1).toString(), years[indexyear]);
                                                 },
                                                 child: SizedBox(
                                                   height: 20,
@@ -202,15 +198,12 @@ class Generalinfo extends ConsumerWidget {
                                                 onTap: () {
                                                   if (indexmounth < months.length - 1) {
                                                     indexmounth += 1;
-                                                  } else if (indexyear <
-                                                      years.length - 1) {
+                                                  } else if (indexyear < years.length - 1) {
                                                     indexmounth = 0;
                                                     indexyear += 1;
                                                   }
                                                   readhome.changeindex(indexmounth, indexyear);
-                                                  readdb.setMonthandYear(
-                                                      (indexmounth + 1).toString(),
-                                                      years[indexyear]);
+                                                  readdb.setMonthandYear((indexmounth + 1).toString(), years[indexyear]);
                                                 },
                                                 child: SizedBox(
                                                   height: 20,

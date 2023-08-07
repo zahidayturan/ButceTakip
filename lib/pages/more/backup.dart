@@ -181,14 +181,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-                                      readGglAuth.downloadFileToDevice().then((value) {
-                                        SQLHelper.getItems().then((value) {
-                                          value[0].realAmount == 0.0
-                                              ? print("afas")
-                                              : print("yaaaaaaaaaaa");
-                                        });
-                                      });
-                                      //GoogleDrive().uploadFileToGoogleDrive();
+                                      await readGglAuth.downloadFileToDevice();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           backgroundColor:
@@ -219,7 +212,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           child: Padding(
                                             padding: EdgeInsets.all(8),
                                             child: Text(
-                                              translation(context).restoreData,
+                                              translation(context).restoreData, // geri yükle
                                               style: TextStyle(
                                                 height: 1,
                                                   color: renkler.arkaRenk,

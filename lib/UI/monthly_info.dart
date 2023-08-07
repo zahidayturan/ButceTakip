@@ -6,14 +6,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constans/text_pref.dart';
 import 'package:butcekontrol/classes/language.dart';
 
-class Aylikinfo extends ConsumerWidget {
+class Aylikinfo extends ConsumerStatefulWidget {
   const Aylikinfo({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final ScrollController scrolbarcontroller1 = ScrollController();
+  ConsumerState<Aylikinfo> createState() => _AylikinfoState();
+}
+
+class _AylikinfoState extends ConsumerState<Aylikinfo> {
+  final ScrollController scrolbarcontroller1 = ScrollController();
+
+  @override
+  void dispose() {
+    scrolbarcontroller1.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var readHome = ref.read(homeRiverpod);
+    PageController _controller = PageController(initialPage: readHome.indexmounth - 1);
+
     var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(databaseRiverpod);
-    var readHome = ref.read(homeRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     ref.listen(databaseRiverpod, (previous, next) {
       ///buna bir bakılacak ? bunun sayesinde çlaışıyor bakıcam
@@ -27,403 +42,407 @@ class Aylikinfo extends ConsumerWidget {
     var abuzer = 1;
     return Expanded(
       child: StreamBuilder<Map<String, dynamic>>(
-          stream: read.myMethod(),
-          builder: (BuildContext context,
-              AsyncSnapshot<Map<String, dynamic>> snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            var dailyTotals = snapshot.data!['dailyTotals'];
-            var items = snapshot.data!["items"];
-            return Directionality(
-              textDirection: TextDirection.ltr,
-              child: Center(
-                child: Padding(
-                  //borderin scroll ile birleşimi gözüksü diye soldan padding
-                  padding: const EdgeInsets.only(left: 4.0, top: 8, bottom: 4),
-                  child: dailyTotals.length == 0
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "assets/image/origami_noinfo.png",
-                                width: 45,
-                                height: 45,
-                                color: Theme.of(context).canvasColor,
-                              ),
-                              SizedBox(
-                                height: 22,
-                                width: 85,
-                                child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Theme.of(context).canvasColor,
-                                    ),
-                                    child: Center(
-                                        child: TextMod(
-                                            translation(context).noActivity,
-                                            Theme.of(context).primaryColor,
-                                            14))),
-                              ),
-                            ],
-                          ),
-                        )
-                      : Theme(
-                          data: Theme.of(context).copyWith(
-                              colorScheme: ColorScheme.fromSwatch(
-                                accentColor: const Color(0xFFF2CB05),
-                              ),
-                              scrollbarTheme: ScrollbarThemeData(
-                                thumbColor: MaterialStateProperty.all(
-                                  Theme.of(context).shadowColor,
-                                ),
-                              )),
-                          child: Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 1.6, right: 1.6),
-                                child: Container(
-                                  width: 4,
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(30)),
-                                      color: dailyTotals.length <= 6
-                                          ? Theme.of(context).indicatorColor
-                                          : Theme.of(context).highlightColor),
-                                ),
-                              ),
-                              Scrollbar(
-                                controller: scrolbarcontroller1,
-                                thumbVisibility: true,
-                                scrollbarOrientation: ScrollbarOrientation.left,
-                                interactive: true,
-                                thickness: 7,
-                                radius: const Radius.circular(15.0),
-                                child: ListView.builder(
-                                    controller: scrolbarcontroller1,
-                                    itemCount: dailyTotals.length,
-                                    itemBuilder: (BuildContext context, index) {
-                                      var keys = dailyTotals.keys.toList();
-                                      var day = keys[index];
-                                      var month = read.month;
-                                      var year = read.year;
-                                      var dayTotals = dailyTotals[day]!;
-                                      var dayItemLength =  dayTotals['itemsLength']!;
-                                      var totalAmount =
-                                          dayTotals['totalAmount']!;
-                                      var totalAmount2 =
-                                          dayTotals['totalAmount2']!;
-                                      final formattedTotal =
-                                          (totalAmount - totalAmount2)
-                                              .toStringAsFixed(2);
-                                      var dateTime = DateTime(int.parse(year),
-                                          int.parse(month), int.parse(day));
-                                      var dayOfWeekName = _getDayOfWeekName(
-                                          dateTime.weekday, context);
-                                      return Column(
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              readHome.setDailyStatus(
-                                                  totalAmount.toString(),
-                                                  totalAmount2.toString(),
-                                                  formattedTotal.toString());
-                                              if (double.parse(
-                                                      formattedTotal) <=
-                                                  0) {
-                                                read.setStatus("-");
-                                              } else {
-                                                read.setStatus("+");
-                                              }
-                                              read.setDay(day);
-                                              read.setDate(
-                                                  items[index].operationDate);
-                                              readDailyInfo.setDate(
-                                                  int.parse(day),
-                                                  int.parse(month),
-                                                  int.parse(year));
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const DailyInfo()));
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                height: 45,
-                                                decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .indicatorColor,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(
-                                                                10))),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(3),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: [
-                                                            Stack(
-                                                              children: [
-                                                                Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: double.parse(formattedTotal) <
-                                                                            0
-                                                                        ? renkler
-                                                                            .kirmiziRenk
-                                                                        : renkler
-                                                                            .yesilRenk,
-                                                                    borderRadius:
-                                                                        const BorderRadius
-                                                                            .only(
-                                                                      bottomRight:
-                                                                          Radius.circular(
-                                                                              90),
-                                                                      bottomLeft:
-                                                                          Radius.circular(
-                                                                              20),
-                                                                      topLeft: Radius
-                                                                          .circular(
-                                                                              50),
-                                                                      topRight:
-                                                                          Radius.circular(
-                                                                              20),
-                                                                    ),
-                                                                  ),
-                                                                  height: 18,
-                                                                  width: 18,
-                                                                ),
-                                                                Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      left: 9,
-                                                                      top: 5),
-                                                                  child: Text(
-                                                                    day,
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      height: 1,
-                                                                      fontFamily:
-                                                                          "Nexa4",
-                                                                      fontSize:
-                                                                          19,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      left: 8),
-                                                              child: Text(
-                                                                dayOfWeekName,
-                                                                style:
-                                                                    const TextStyle(
-                                                                  height: 1,
-                                                                  fontFamily:
-                                                                      "Nexa3",
-                                                                  fontSize: 13,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      top: 5),
-                                                              child: RichText(
-                                                                  text: TextSpan(children: [
-                                                                    TextSpan(
-                                                                      text:  formattedTotal,
-                                                                      style: TextStyle(
-                                                                        height: 1,
-                                                                        color: double.parse(
-                                                                            formattedTotal) <
-                                                                            0
-                                                                            ? renkler
-                                                                            .kirmiziRenk
-                                                                            : Theme.of(
-                                                                            context)
-                                                                            .canvasColor,
-                                                                        fontFamily:
-                                                                        "Nexa4",
-                                                                        fontSize: 17,
-                                                                      ),
-                                                                    ),
-                                                                    TextSpan(
-                                                                      text: readSettings.prefixSymbol,
-                                                                      style: TextStyle(
-                                                                        height: 1,
-                                                                        color: double.parse(
-                                                                            formattedTotal) <
-                                                                            0
-                                                                            ? renkler
-                                                                            .kirmiziRenk
-                                                                            : Theme.of(
-                                                                            context)
-                                                                            .canvasColor,
-                                                                        fontFamily:
-                                                                        "TL",
-                                                                        fontSize: 17,
-                                                                      ),
-                                                                    ),
-                                                                  ])),
+        stream: read.myMethod(),
+        builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          var dailyTotals = snapshot.data!['dailyTotals'];
+          var items = snapshot.data!["items"];
+          return PageView.builder(
+            controller: _controller,
+            itemCount: 14,
 
-                                                              /*Text(
-                                                                " ${formattedTotal} \$",
-                                                                style:
-                                                                    TextStyle(
-                                                                  height: 1,
-                                                                  color: double.parse(
-                                                                              formattedTotal) <
-                                                                          0
-                                                                      ? renkler
-                                                                          .kirmiziRenk
-                                                                      : Theme.of(
-                                                                              context)
-                                                                          .canvasColor,
-                                                                  fontFamily:
-                                                                      "Nexa4",
-                                                                  fontSize: 17,
-                                                                ),
-                                                              ),*/
-                                                            ),
-                                                            Text(
-                                                              "${dayItemLength.toStringAsFixed(0)} Kayıt",
-                                                              style: TextStyle(
-                                                                height: 1,
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .canvasColor,
-                                                                fontFamily:
-                                                                    "Nexa3",
-                                                                fontSize: 11,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .end,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      top: 5),
-                                                              child:  RichText(
-                                                                  text: TextSpan(children: [
-                                                                    TextSpan(
-                                                                      text:  totalAmount.toStringAsFixed(2),
-                                                                      style: TextStyle(
-                                                                        height: 1,
-                                                                        color: renkler
-                                                                            .yesilRenk,
-                                                                        fontFamily:
-                                                                        "Nexa3",
-                                                                        fontSize: 14,
-                                                                      ),
-                                                                    ),
-                                                                    TextSpan(
-                                                                      text: readSettings.prefixSymbol,
-                                                                      style: TextStyle(
-                                                                        height: 1,
-                                                                        color: renkler
-                                                                            .yesilRenk,
-                                                                        fontFamily:
-                                                                        "TL",
-                                                                        fontSize: 14,
-                                                                      ),
-                                                                    ),
-                                                                  ])),
-                                                            ),
-                                                            RichText(
-                                                                text: TextSpan(children: [
-                                                                  TextSpan(
-                                                                    text:  totalAmount2.toStringAsFixed(2),
-                                                                    style: TextStyle(
-                                                                      height: 1,
-                                                                      color: renkler
-                                                                          .kirmiziRenk,
-                                                                      fontFamily:
-                                                                      "Nexa3",
-                                                                      fontSize: 14,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    text: readSettings.prefixSymbol,
-                                                                    style: TextStyle(
-                                                                      height: 1,
-                                                                      color: renkler
-                                                                          .kirmiziRenk,
-                                                                      fontFamily:
-                                                                      "TL",
-                                                                      fontSize: 14,
-                                                                    ),
-                                                                  ),
-                                                                ])),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 6)
-                                        ],
-                                      );
-                                    }),
+            onPageChanged: (index) {
+
+              if(_controller.page!.toInt() < index){
+                print("Sağa kaydırıldı.");
+                if(index == 13){
+                  _controller.animateToPage(1, duration: Duration(milliseconds: 10), curve: Curves.linear);
+                }
+                read.setMonthandYear((index ).toString(), "2023");
+              }else if(_controller.page!.toInt() == index){ // what böyle çalıştı anlamadım.
+                print("Sola kaydırıldı");
+                if(index == 0) {
+                  _controller.animateToPage(12, duration: Duration(milliseconds: 10), curve: Curves.linear);
+
+                }
+                read.setMonthandYear((index ).toString(), "2023");
+              }
+              print(index);
+            },
+            itemBuilder: (context, index) {
+              return Directionality(
+                textDirection: TextDirection.ltr,
+                child: Center(
+                  child: Padding(
+                    //borderin scroll ile birleşimi gözüksü diye soldan padding
+                    padding: const EdgeInsets.only(left: 4.0, top: 8, bottom: 4),
+                    child: dailyTotals.length == 0
+                      ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/image/origami_noinfo.png",
+                              width: 45,
+                              height: 45,
+                              color: Theme.of(context).canvasColor,
+                            ),
+                            SizedBox(
+                              height: 22,
+                              width: 85,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Theme.of(context).canvasColor,
+                                ),
+                                child: Center(
+                                  child: TextMod(
+                                      translation(context).noActivity,
+                                      Theme.of(context).primaryColor,
+                                      14
+                                  )
+                                )
                               ),
-                            ],
+                            ),
+                          ],
+                        ),
+                      )
+                    : Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 1.6, right: 1.6),
+                          child: Container(
+                            width: 4,
+                            decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(30)),
+                                color: dailyTotals.length <= 6
+                                    ? Theme.of(context).indicatorColor
+                                    : Theme.of(context).highlightColor),
                           ),
                         ),
-                ),
+                        ListView.builder(
+                            controller: scrolbarcontroller1,
+                            itemCount: dailyTotals.length,
+                            itemBuilder: (BuildContext context, index) {
+                              var keys = dailyTotals.keys.toList();
+                              var day = keys[index];
+                              var month = read.month;
+                              var year = read.year;
+                              var dayTotals = dailyTotals[day]!;
+                              var dayItemLength =  dayTotals['itemsLength']!;
+                              var totalAmount = dayTotals['totalAmount']!;
+                              var totalAmount2 = dayTotals['totalAmount2']!;
+                              final formattedTotal = (totalAmount - totalAmount2).toStringAsFixed(2);
+                              var dateTime = DateTime(int.parse(year), int.parse(month), int.parse(day));
+                              var dayOfWeekName = _getDayOfWeekName(dateTime.weekday, context);
+                              return Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      readHome.setDailyStatus(
+                                          totalAmount.toString(),
+                                          totalAmount2.toString(),
+                                          formattedTotal.toString());
+                                      if (double.parse(
+                                          formattedTotal) <=
+                                          0) {
+                                        read.setStatus("-");
+                                      } else {
+                                        read.setStatus("+");
+                                      }
+                                      read.setDay(day);
+                                      read.setDate(
+                                          items[index].operationDate);
+                                      readDailyInfo.setDate(
+                                          int.parse(day),
+                                          int.parse(month),
+                                          int.parse(year));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                              const DailyInfo()));
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15, right: 15),
+                                      child: Container(
+                                        height: 45,
+                                        decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .indicatorColor,
+                                            borderRadius:
+                                            const BorderRadius.all(
+                                                Radius.circular(
+                                                    10))),
+                                        child: Padding(
+                                          padding:
+                                          const EdgeInsets.all(3),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceAround,
+                                                  children: [
+                                                    Stack(
+                                                      children: [
+                                                        Container(
+                                                          decoration:
+                                                          BoxDecoration(
+                                                            color: double.parse(formattedTotal) <
+                                                                0
+                                                                ? renkler
+                                                                .kirmiziRenk
+                                                                : renkler
+                                                                .yesilRenk,
+                                                            borderRadius:
+                                                            const BorderRadius
+                                                                .only(
+                                                              bottomRight:
+                                                              Radius.circular(
+                                                                  90),
+                                                              bottomLeft:
+                                                              Radius.circular(
+                                                                  20),
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                  50),
+                                                              topRight:
+                                                              Radius.circular(
+                                                                  20),
+                                                            ),
+                                                          ),
+                                                          height: 18,
+                                                          width: 18,
+                                                        ),
+                                                        Padding(
+                                                          padding: const EdgeInsets
+                                                              .only(
+                                                              left: 9,
+                                                              top: 5),
+                                                          child: Text(
+                                                            day,
+                                                            style:
+                                                            const TextStyle(
+                                                              height: 1,
+                                                              fontFamily:
+                                                              "Nexa4",
+                                                              fontSize:
+                                                              19,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .only(
+                                                          left: 8),
+                                                      child: Text(
+                                                        dayOfWeekName,
+                                                        style:
+                                                        const TextStyle(
+                                                          height: 1,
+                                                          fontFamily:
+                                                          "Nexa3",
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .center,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceAround,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .only(
+                                                          top: 5),
+                                                      child: RichText(
+                                                          text: TextSpan(children: [
+                                                            TextSpan(
+                                                              text:  formattedTotal,
+                                                              style: TextStyle(
+                                                                height: 1,
+                                                                color: double.parse(
+                                                                    formattedTotal) <
+                                                                    0
+                                                                    ? renkler
+                                                                    .kirmiziRenk
+                                                                    : Theme.of(
+                                                                    context)
+                                                                    .canvasColor,
+                                                                fontFamily:
+                                                                "Nexa4",
+                                                                fontSize: 17,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text: readSettings.prefixSymbol,
+                                                              style: TextStyle(
+                                                                height: 1,
+                                                                color: double.parse(
+                                                                    formattedTotal) <
+                                                                    0
+                                                                    ? renkler
+                                                                    .kirmiziRenk
+                                                                    : Theme.of(
+                                                                    context)
+                                                                    .canvasColor,
+                                                                fontFamily:
+                                                                "TL",
+                                                                fontSize: 17,
+                                                              ),
+                                                            ),
+                                                          ])),
+
+                                                      /*Text(
+                                                            " ${formattedTotal} \$",
+                                                            style:
+                                                                TextStyle(
+                                                              height: 1,
+                                                              color: double.parse(
+                                                                          formattedTotal) <
+                                                                      0
+                                                                  ? renkler
+                                                                      .kirmiziRenk
+                                                                  : Theme.of(
+                                                                          context)
+                                                                      .canvasColor,
+                                                              fontFamily:
+                                                                  "Nexa4",
+                                                              fontSize: 17,
+                                                            ),
+                                                          ),*/
+                                                    ),
+                                                    Text(
+                                                      "${dayItemLength.toStringAsFixed(0)} Kayıt",
+                                                      style: TextStyle(
+                                                        height: 1,
+                                                        color: Theme.of(
+                                                            context)
+                                                            .canvasColor,
+                                                        fontFamily:
+                                                        "Nexa3",
+                                                        fontSize: 11,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .end,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceAround,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .only(
+                                                          top: 5),
+                                                      child:  RichText(
+                                                          text: TextSpan(children: [
+                                                            TextSpan(
+                                                              text:  totalAmount.toStringAsFixed(2),
+                                                              style: TextStyle(
+                                                                height: 1,
+                                                                color: renkler
+                                                                    .yesilRenk,
+                                                                fontFamily:
+                                                                "Nexa3",
+                                                                fontSize: 14,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text: readSettings.prefixSymbol,
+                                                              style: TextStyle(
+                                                                height: 1,
+                                                                color: renkler
+                                                                    .yesilRenk,
+                                                                fontFamily:
+                                                                "TL",
+                                                                fontSize: 14,
+                                                              ),
+                                                            ),
+                                                          ])),
+                                                    ),
+                                                    RichText(
+                                                      text: TextSpan(children: [
+                                                        TextSpan(
+                                                          text:  totalAmount2.toStringAsFixed(2),
+                                                          style: TextStyle(
+                                                            height: 1,
+                                                            color: renkler
+                                                                .kirmiziRenk,
+                                                            fontFamily:
+                                                            "Nexa3",
+                                                            fontSize: 14,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text: readSettings.prefixSymbol,
+                                                          style: TextStyle(
+                                                            height: 1,
+                                                            color: renkler
+                                                                .kirmiziRenk,
+                                                            fontFamily:
+                                                            "TL",
+                                                            fontSize: 14,
+                                                          ),
+                                                        ),
+                                                      ]
+                                                    )
+                                                  ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 6)
+                        ],
+                        );
+                      }),
+                    ],
+                  ),
               ),
-            );
-          }),
+            ),
+          );
+        },
+      );
+    }),
     );
   }
 
