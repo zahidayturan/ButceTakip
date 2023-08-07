@@ -9,6 +9,19 @@ class UpdateDataRiverpod extends ChangeNotifier {
   SpendInfo? items;
   var id;
 
+  final TextEditingController _note = TextEditingController();
+  final TextEditingController _amount = TextEditingController();
+  final TextEditingController _operationType = TextEditingController();
+  final TextEditingController _category = TextEditingController();
+  final TextEditingController _operationTool = TextEditingController();
+  final TextEditingController _registration = TextEditingController();
+  final TextEditingController _operationDate = TextEditingController();
+  final TextEditingController _moneyType = TextEditingController();
+  final TextEditingController _customize = TextEditingController();
+  final TextEditingController _realAmount = TextEditingController();
+  final TextEditingController _userCategory = TextEditingController();
+  final TextEditingController _systemMessage = TextEditingController();
+
   setItems(SpendInfo items) {
     this.items = items;
     id = items.id.toString();
@@ -19,8 +32,11 @@ class UpdateDataRiverpod extends ChangeNotifier {
     _operationTool.text = items.operationTool.toString();
     _registration.text = items.registration.toString();
     _operationDate.text = items.operationDate.toString();
-    _registration.text = items.registration.toString();
+    _moneyType.text = items.moneyType.toString();
     _customize.text = items.processOnce.toString();
+    _realAmount.text = items.realAmount.toString();
+    _userCategory.text = items.userCategory.toString();
+    _systemMessage.text = items.systemMessage.toString();
   }
 
   getId() {
@@ -54,12 +70,23 @@ class UpdateDataRiverpod extends ChangeNotifier {
   getOperationDate() {
     return _operationDate;
   }
-  /*
+
   getMoneyType() {
     return _moneyType;
-  }*/
+  }
   getProcessOnce() {
     return _customize;
+  }
+  getRealAmount() {
+    return _realAmount;
+  }
+
+  getUserCategory() {
+    return _userCategory;
+  }
+
+  getSystemMessage() {
+    return _systemMessage;
   }
 
   bool isuseinsert = false;
@@ -73,17 +100,17 @@ class UpdateDataRiverpod extends ChangeNotifier {
       double? amount,
       String? note,
       String operationDate,
+      String moneyType,
+      String processOnce,
       double? realamount,
+      String userCategory,
+      String systemMessage
       )async {
     String time = operationDate ;
     List <String> parts = time.split(".");
     int parseDay = int.parse(parts[0]);
     int parseMonth = int.parse(parts[1]);
     int parseYear = int.parse(parts[2]);
-    String moneyType = '0';
-    String processOnce = '0';
-    String userCategory = '';
-    String systemMessage = '';
     final updateinfo = SpendInfo.withId(
         id,
         operationType,
@@ -107,16 +134,6 @@ class UpdateDataRiverpod extends ChangeNotifier {
     isuseinsert = !isuseinsert;
     notifyListeners();
   }
-
-  final TextEditingController _note = TextEditingController();
-  final TextEditingController _amount = TextEditingController();
-  final TextEditingController _operationType = TextEditingController();
-  final TextEditingController _category = TextEditingController();
-  final TextEditingController _operationTool = TextEditingController();
-  final TextEditingController _registration = TextEditingController();
-  final TextEditingController _operationDate = TextEditingController();
-  //final TextEditingController _moneyType = TextEditingController();
-  final TextEditingController _customize = TextEditingController();
 
   Future<Map<String, List<String>>> myCategoryLists() async {
     List<SpendInfo> spendInfoListExpense =

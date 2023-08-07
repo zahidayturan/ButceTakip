@@ -116,7 +116,7 @@ class CurrencyRiverpod extends ChangeNotifier {
         responseMap["rates"]["JOD"].toString(),
         responseMap["rates"]["IQD"].toString(),
         responseMap["rates"]["SAR"].toString(),
-        globalNow.add(Duration(hours: 6)).toString(),
+        globalNow.add(Duration(hours: 3)).toString(),
       );
     }else{
       return currencyInfo("TRY", "1", "1", "1", "1", "1", "1", "1", "1", DateTime.now().toString());

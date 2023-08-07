@@ -265,6 +265,7 @@ class Generalinfo extends ConsumerWidget {
                                         text: readSettings.prefixSymbol,
                                         style: TextStyle(
                                           fontFamily: 'TL',
+                                          height: 1,
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                           color: renkler.yesilRenk,
@@ -318,6 +319,7 @@ class Generalinfo extends ConsumerWidget {
                                       TextSpan(
                                         text: readSettings.prefixSymbol,
                                         style: TextStyle(
+                                          height: 1,
                                           fontFamily: 'TL',
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
