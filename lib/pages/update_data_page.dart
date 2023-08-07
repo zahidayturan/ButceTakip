@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:intl/intl.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../riverpod_management.dart';
 import 'package:butcekontrol/classes/language.dart';
@@ -38,77 +37,80 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var read = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
-    return SizedBox(
-      width: size.width,
-      height: 60,
-      child: Stack(
-        children: [
-          Positioned(
-            left: 0,
-            top: 0,
-            child: SizedBox(
-              height: 60,
-              child: Container(
-                width: size.width,
-                decoration: BoxDecoration(
-                    color: const Color(0xff0D1C26),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 5,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: SizedBox(
+        width: size.width,
+        height: 60,
+        child: Stack(
+          children: [
+            Positioned(
+              left: 0,
+              top: 0,
+              child: SizedBox(
+                height: 60,
+                child: Container(
+                  width: size.width,
+                  decoration: BoxDecoration(
+                      color: const Color(0xff0D1C26),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                        ),
+                      ],
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(100),
+                      )),
+                  child:  Padding(
+                    padding: EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      translation(context).editTitle,
+                      style: const TextStyle(
+                        height: 1,
+                        fontFamily: 'Nexa4',
+                        fontSize: 22,
+                        color: Colors.white,
                       ),
-                    ],
-                    borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(100),
-                    )),
-                child:  Padding(
-                  padding: EdgeInsets.only(left: 20, top: 20),
-                  child: Text(
-                    translation(context).editTitle,
-                    style: const TextStyle(
-                      height: 1,
-                      fontFamily: 'Nexa4',
-                      fontSize: 22,
-                      color: Colors.white,
                     ),
                   ),
                 ),
               ),
-            ),
-        ),
-          Positioned(
-            right: 0,
-            top: 0,
-            child: SizedBox(
-              height: 60,
-              child: Container(
-                width: 60,
-                decoration: const BoxDecoration(
-                    color: Color(0xffF2CB05),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(100),
-                      bottomLeft: Radius.circular(100),
-                      topLeft: Radius.circular(100),
-                    )),
-                child: IconButton(
-                  padding: const EdgeInsets.only(right: 1.0),
-                  iconSize: 60,
-                  icon: Image.asset(
-                    "assets/icons/remove.png",
-                    height: 26,
-                    width: 26,
-                    color: Colors.white,
+          ),
+            Positioned(
+              right: 0,
+              top: 0,
+              child: SizedBox(
+                height: 60,
+                child: Container(
+                  width: 60,
+                  decoration: const BoxDecoration(
+                      color: Color(0xffF2CB05),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(100),
+                        bottomLeft: Radius.circular(100),
+                        topLeft: Radius.circular(100),
+                      )),
+                  child: IconButton(
+                    padding: const EdgeInsets.only(right: 1.0),
+                    iconSize: 60,
+                    icon: Image.asset(
+                      "assets/icons/remove.png",
+                      height: 26,
+                      width: 26,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      read.setCurrentindex(0);
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    read.setCurrentindex(0);
-                  },
                 ),
               ),
             ),
-          ),
-          ],
+            ],
+        ),
       ),
     );
   }
@@ -136,6 +138,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     final registration = readUpdateData.getRegistration();
     final note = readUpdateData.getNote();
     final customize = readUpdateData.getProcessOnce();
+    final moneyType = readUpdateData.getMoneyType();
+    final realAmount0 = readUpdateData.getRealAmount();
+    final userCategory = readUpdateData.getUserCategory();
+    final systemMessage = readUpdateData.getSystemMessage();
     var size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -190,10 +196,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               //height: 15,
               height : 5,
             ),
-            amountCustomButton(context),
+            amountCustomButton(),
             SizedBox(
                 width: size.width*0.9,
-                child: Text('DEBUG: ${operationType.text} - ${category.text} - ${operationTool.text} - ${int.parse(registration.text)} - ${amount.text} - ${note.text} - ${customize.text} -${operationDate.text}',style: const TextStyle(color: Colors.red))),
+                child: Text('DEBUG: ${operationType.text} -${operationDate.text} - ${category.text} - ${operationTool.text} - ${int.parse(registration.text)} - ${note.text} - ${customize.text} - ${amount.text} - ${moneyType.text} - ${realAmount0.text} - ${userCategory.text} - ${systemMessage.text} - ${moneyTypeSymbol.text}',style: const TextStyle(color: Colors.red,fontFamily: 'TL'))),
             const SizedBox(
               height: 5,
             ),
@@ -253,11 +259,89 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           },
         ));
   }
-
   String? selectedValue;
   int initialLabelIndex2 = 0;
   int selectedAddCategoryMenu = 0;
   Widget categoryBarCustom(BuildContext context, WidgetRef ref) {
+    var size = MediaQuery.of(context).size;
+    var readUpdateDB = ref.read(updateDataRiverpod);
+    final category = readUpdateDB.getCategory();
+    return SizedBox(
+            height: 40,
+            width: size.width * 0.9,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 3),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Color(0xFFF2CB05),
+                    ),
+                    height: 34,
+                    width: size.width * 0.9,
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 130,
+                        ),
+                        InkWell(
+                          child: SizedBox(
+                            width: size.width * 0.9 - 135,
+                            child: Center(
+                              child: Text(
+                                category.text == ""
+                                    ? "Seçmek için dokunun"
+                                    : "${category.text}",
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'Nexa3',
+                                ),
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              category.clear();
+                              selectedValue = null;
+                            });
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return categoryList(context, ref);
+                              },
+                            ).then((_) => setState(() {}));
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 130,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).highlightColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "KATEGORİ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'Nexa4',
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+
+  }
+  Widget categoryList(BuildContext context, WidgetRef ref) {
     var size = MediaQuery.of(context).size;
     var readUpdateDB = ref.read(updateDataRiverpod);
     final category = readUpdateDB.getCategory();
@@ -304,374 +388,302 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           List<String> mergedIncomeList = mergedSetIncome.toList();
           Set<String> mergedSetExpens = {...oldCategoryListExpense, ...categoryListExpense};
           List<String> mergedExpensList = mergedSetExpens.toList();
-          return SizedBox(
-            height: 40,
-            width: size.width * 0.9,
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 3),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
-                      color: Color(0xFFF2CB05),
-                    ),
-                    height: 34,
-                    width: size.width * 0.9,
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 130,
-                        ),
-                        InkWell(
-                          child: SizedBox(
-                            width: size.width * 0.9 - 135,
-                            child: Center(
-                              child: Text(
-                                category.text == ""
-                                    ? "Seçmek için dokunun"
-                                    : "${category.text}",
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: 'Nexa3',
+           return StatefulBuilder(
+                    builder: (context, setState) {
+                      return AlertDialog(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        shadowColor: Colors.black54,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15))),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Container(
+                                    width: 270,
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                        border: Border.all(width: 1.5,color: Theme.of(context).secondaryHeaderColor,)
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                          onTap: () {
-                            setState(() {
-                              category.clear();
-                              selectedValue = null;
-                            });
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return StatefulBuilder(
-                                  builder: (context, setState) {
-                                    return AlertDialog(
-                                      backgroundColor: Theme.of(context).primaryColor,
-                                      shadowColor: Colors.black54,
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Stack(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(top: 15),
-                                                child: Container(
-                                                  width: 270,
-                                                  height: 90,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                                      border: Border.all(width: 1.5,color: Theme.of(context).secondaryHeaderColor,)
+                                Center(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        width: 221,
+                                        height : 30,
+                                        child: ToggleSwitch(
+                                          initialLabelIndex: initialLabelIndex2,
+                                          totalSwitches: 2,
+                                          labels: const ['SEÇ', 'EKLE'],
+                                          activeBgColor: const [Color(0xffF2CB05)],
+                                          activeFgColor: const Color(0xff0D1C26),
+                                          inactiveBgColor: Theme.of(context).highlightColor,
+                                          inactiveFgColor: const Color(0xFFE9E9E9),
+                                          minWidth: 110,
+                                          cornerRadius: 20,
+                                          radiusStyle: true,
+                                          animate: true,
+                                          curve: Curves.linearToEaseOut,
+                                          customTextStyles: const [
+                                            TextStyle(
+                                                fontSize: 18, fontFamily: 'Nexa4', fontWeight: FontWeight.w800)
+                                          ],
+                                          onToggle: (index) {
+                                            setState(() {
+                                              if (index == 0) {
+                                                selectedAddCategoryMenu = 0;
+                                                category.clear();
+
+                                              } else {
+                                                selectedAddCategoryMenu = 1;
+                                                category.clear();
+                                              }
+                                              initialLabelIndex2 = index!;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      selectedAddCategoryMenu == 0 ?  SizedBox(
+                                        width: 200,
+                                        height: 60,
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(height: 10,),
+                                            DropdownButtonHideUnderline(
+                                              child: DropdownButton2<String>(
+                                                isExpanded: true,
+                                                hint: Text(
+                                                  'Seçiniz',
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontFamily: 'Nexa3',
+                                                    color: Theme.of(context).canvasColor,
                                                   ),
                                                 ),
-                                              ),
-                                              Center(
-                                                child: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 221,
-                                                      height : 30,
-                                                      child: ToggleSwitch(
-                                                        initialLabelIndex: initialLabelIndex2,
-                                                        totalSwitches: 2,
-                                                        labels: const ['SEÇ', 'EKLE'],
-                                                        activeBgColor: const [Color(0xffF2CB05)],
-                                                        activeFgColor: const Color(0xff0D1C26),
-                                                        inactiveBgColor: Theme.of(context).highlightColor,
-                                                        inactiveFgColor: const Color(0xFFE9E9E9),
-                                                        minWidth: 110,
-                                                        cornerRadius: 20,
-                                                        radiusStyle: true,
-                                                        animate: true,
-                                                        curve: Curves.linearToEaseOut,
-                                                        customTextStyles: const [
-                                                          TextStyle(
-                                                              fontSize: 18, fontFamily: 'Nexa4', fontWeight: FontWeight.w800)
-                                                        ],
-                                                        onToggle: (index) {
-                                                          setState(() {
-                                                            if (index == 0) {
-                                                              selectedAddCategoryMenu = 0;
-                                                              category.clear();
-
-                                                            } else {
-                                                              selectedAddCategoryMenu = 1;
-                                                              category.clear();
-                                                            }
-                                                            initialLabelIndex2 = index!;
-                                                          });
-                                                        },
-                                                      ),
+                                                items: selectedCategory == 0 ? mergedExpensList
+                                                    .map((item) => DropdownMenuItem(
+                                                  value: item,
+                                                  child: Text(
+                                                    item,
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontFamily: 'Nexa3',
+                                                        color: Theme.of(context).canvasColor),
+                                                  ),
+                                                ))
+                                                    .toList() : mergedIncomeList
+                                                    .map((item) => DropdownMenuItem(
+                                                  value: item,
+                                                  child: Text(
+                                                    item,
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontFamily: 'Nexa3',
+                                                        color: Theme.of(context).canvasColor),
+                                                  ),
+                                                ))
+                                                    .toList(),
+                                                value: selectedValue,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    selectedValue = value;
+                                                    category.text = value.toString();
+                                                    this.setState(() {});
+                                                  });
+                                                },
+                                                barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
+                                                buttonStyleData:
+                                                ButtonStyleData(
+                                                  overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                                  padding: const EdgeInsets.symmetric(
+                                                      horizontal: 16),
+                                                  height: 40,
+                                                  width: 200,
+                                                ),
+                                                dropdownStyleData:
+                                                DropdownStyleData(
+                                                    maxHeight: 250, width: 200,
+                                                    decoration: BoxDecoration(
+                                                      color: Theme.of(context).primaryColor,
                                                     ),
-                                                    selectedAddCategoryMenu == 0 ?  SizedBox(
-                                                      width: 200,
-                                                      height: 60,
-                                                      child: Column(
-                                                        children: [
-                                                          const SizedBox(height: 10,),
-                                                          DropdownButtonHideUnderline(
-                                                            child: DropdownButton2<String>(
-                                                              isExpanded: true,
-                                                              hint: Text(
-                                                                'Seçiniz',
-                                                                style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  fontFamily: 'Nexa3',
-                                                                  color: Theme.of(context).canvasColor,
-                                                                ),
-                                                              ),
-                                                              items: selectedCategory == 0 ? mergedExpensList
-                                                                  .map((item) => DropdownMenuItem(
-                                                                value: item,
-                                                                child: Text(
-                                                                  item,
-                                                                  style: TextStyle(
-                                                                      fontSize: 18,
-                                                                      fontFamily: 'Nexa3',
-                                                                      color: Theme.of(context).canvasColor),
-                                                                ),
-                                                              ))
-                                                                  .toList() : mergedIncomeList
-                                                                  .map((item) => DropdownMenuItem(
-                                                                value: item,
-                                                                child: Text(
-                                                                  item,
-                                                                  style: TextStyle(
-                                                                      fontSize: 18,
-                                                                      fontFamily: 'Nexa3',
-                                                                      color: Theme.of(context).canvasColor),
-                                                                ),
-                                                              ))
-                                                                  .toList(),
-                                                              value: selectedValue,
-                                                              onChanged: (value) {
-                                                                setState(() {
-                                                                  selectedValue = value;
-                                                                  category.text = value.toString();
-                                                                  this.setState(() {});
-                                                                });
-                                                              },
-                                                              barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
-                                                              buttonStyleData:
-                                                              ButtonStyleData(
-                                                                overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
-                                                                padding: const EdgeInsets.symmetric(
-                                                                    horizontal: 16),
-                                                                height: 40,
-                                                                width: 200,
-                                                              ),
-                                                              dropdownStyleData:
-                                                              DropdownStyleData(
-                                                                  maxHeight: 250, width: 200,
-                                                                  decoration: BoxDecoration(
-                                                                    color: Theme.of(context).primaryColor,
-                                                                  ),
-                                                                  scrollbarTheme: ScrollbarThemeData(
-                                                                      radius: const Radius.circular(15),
-                                                                      thumbColor: MaterialStatePropertyAll(renkler.sariRenk)
-                                                                  )),
-                                                              menuItemStyleData:
-                                                              MenuItemStyleData(
-                                                                overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
-                                                                height: 40,
-                                                              ),
-                                                              iconStyleData: IconStyleData(
-                                                                icon: const Icon(
-                                                                  Icons.arrow_drop_down,
-                                                                ),
-                                                                iconSize: 30,
-                                                                iconEnabledColor: Theme.of(context).secondaryHeaderColor,
-                                                                iconDisabledColor: Theme.of(context).secondaryHeaderColor,
-                                                                openMenuIcon: Icon(
-                                                                  Icons.arrow_right,
-                                                                  color: Theme.of(context).canvasColor,
-                                                                  size: 24,
-                                                                ),
-                                                              ),
-                                                              dropdownSearchData:
-                                                              DropdownSearchData(
-                                                                searchController: category,
-                                                                searchInnerWidgetHeight: 50,
-                                                                searchInnerWidget: Container(
-                                                                  height: 50,
-                                                                  padding: const EdgeInsets.only(
-                                                                    top: 8,
-                                                                    bottom: 4,
-                                                                    right: 8,
-                                                                    left: 8,
-                                                                  ),
+                                                    scrollbarTheme: ScrollbarThemeData(
+                                                        radius: const Radius.circular(15),
+                                                        thumbColor: MaterialStatePropertyAll(renkler.sariRenk)
+                                                    )),
+                                                menuItemStyleData:
+                                                MenuItemStyleData(
+                                                  overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                                  height: 40,
+                                                ),
+                                                iconStyleData: IconStyleData(
+                                                  icon: const Icon(
+                                                    Icons.arrow_drop_down,
+                                                  ),
+                                                  iconSize: 30,
+                                                  iconEnabledColor: Theme.of(context).secondaryHeaderColor,
+                                                  iconDisabledColor: Theme.of(context).secondaryHeaderColor,
+                                                  openMenuIcon: Icon(
+                                                    Icons.arrow_right,
+                                                    color: Theme.of(context).canvasColor,
+                                                    size: 24,
+                                                  ),
+                                                ),
+                                                dropdownSearchData:
+                                                DropdownSearchData(
+                                                  searchController: category,
+                                                  searchInnerWidgetHeight: 50,
+                                                  searchInnerWidget: Container(
+                                                    height: 50,
+                                                    padding: const EdgeInsets.only(
+                                                      top: 8,
+                                                      bottom: 4,
+                                                      right: 8,
+                                                      left: 8,
+                                                    ),
 
-                                                                  child: TextField(
-                                                                    textCapitalization: TextCapitalization.words,
-                                                                    expands: true,
-                                                                    maxLines: null,
-                                                                    style: TextStyle(
-                                                                      color: Theme.of(context).canvasColor,
-                                                                    ),
-                                                                    controller:
-                                                                    category,
-                                                                    decoration: InputDecoration(
-                                                                      isDense: true,
-                                                                      contentPadding:
-                                                                      const EdgeInsets
-                                                                          .symmetric(
-                                                                        horizontal: 10,
-                                                                        vertical: 8,
-                                                                      ),
-                                                                      hintText: 'Kategori Arayın',
-                                                                      hintStyle: TextStyle(
-                                                                          fontSize: 18,
-                                                                          color:
-                                                                          Theme.of(context).secondaryHeaderColor),
-                                                                      border: OutlineInputBorder(
-                                                                        borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            8),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                searchMatchFn:
-                                                                    (item, searchValue) {
-                                                                  return item.value
-                                                                      .toString()
-                                                                      .contains(searchValue);
-                                                                },
-                                                              ),
-                                                              //This to clear the search value when you close the menu
-                                                              onMenuStateChange: (isOpen) {
-                                                                if (!isOpen) {
-                                                                  category.clear();
-                                                                }
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ],
+                                                    child: TextField(
+                                                      textCapitalization: TextCapitalization.words,
+                                                      expands: true,
+                                                      maxLines: null,
+                                                      style: TextStyle(
+                                                        color: Theme.of(context).canvasColor,
                                                       ),
-                                                    ) : const SizedBox(),
-                                                    selectedAddCategoryMenu == 1 ? SizedBox(
-                                                      width: 220,
-                                                      height: 60,
-                                                      child: Column(
-                                                        children: [
-                                                          const SizedBox(height: 10,),
-                                                          TextField(
-                                                            maxLength: 20,
-                                                            maxLines: 1,
-                                                            style:
-                                                            TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),
-                                                            decoration: InputDecoration(
-                                                                hintText: 'Kategoriyi yazınız',
-                                                                hintStyle: TextStyle(
-                                                                    color: Theme.of(context).canvasColor,
-                                                                    fontSize: 18,
-                                                                    fontFamily: 'Nexa3'),
-                                                                counterText: '',
-                                                                border: InputBorder.none),
-                                                            cursorRadius: const Radius.circular(10),
-                                                            keyboardType: TextInputType.text,
-                                                            textCapitalization: TextCapitalization.words,
-                                                            controller: category,
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                this.setState(() {});
-                                                              });
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ): const SizedBox(),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                      children: [
-                                                        initialLabelIndex2 == 1 ? SizedBox(
-                                                          width: 80,
-                                                          height: 30,
-                                                          child: Align(
-                                                            alignment: Alignment.centerLeft,
-                                                            child: Text(
-                                                              '${category.text.length.toString()}/20',
-                                                              style: TextStyle(
-                                                                backgroundColor: Theme.of(context).primaryColor,
-                                                                color: const Color(0xffF2CB05),
-                                                                fontSize: 13,
-                                                                fontFamily: 'Nexa4',
-                                                                fontWeight: FontWeight.w800,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ): const SizedBox(width: 80,),
-                                                        SizedBox(
-                                                          width: 80,
-                                                          height: 30,
-                                                          child: TextButton(
-                                                            style: ButtonStyle(
-                                                                backgroundColor: MaterialStatePropertyAll(renkler.sariRenk),
-                                                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                    RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadius.circular(20),
-                                                                    )
-                                                                )
-                                                            ),
-                                                            onPressed: () {
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                            child: Text("Tamam",style: TextStyle(
-                                                              color: renkler.koyuuRenk,
-                                                              fontSize: 16, fontFamily: 'Nexa3',
-                                                            ),),
-                                                          ),
+                                                      controller:
+                                                      category,
+                                                      decoration: InputDecoration(
+                                                        isDense: true,
+                                                        contentPadding:
+                                                        const EdgeInsets
+                                                            .symmetric(
+                                                          horizontal: 10,
+                                                          vertical: 8,
                                                         ),
-                                                      ],
+                                                        hintText: 'Kategori Arayın',
+                                                        hintStyle: TextStyle(
+                                                            fontSize: 18,
+                                                            color:
+                                                            Theme.of(context).secondaryHeaderColor),
+                                                        border: OutlineInputBorder(
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ],
+                                                  ),
+                                                  searchMatchFn:
+                                                      (item, searchValue) {
+                                                    return item.value
+                                                        .toString()
+                                                        .contains(searchValue);
+                                                  },
+                                                ),
+                                                //This to clear the search value when you close the menu
+                                                onMenuStateChange: (isOpen) {
+                                                  if (!isOpen) {
+                                                    category.clear();
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ) : const SizedBox(),
+                                      selectedAddCategoryMenu == 1 ? SizedBox(
+                                        width: 220,
+                                        height: 60,
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(height: 10,),
+                                            TextField(
+                                              maxLength: 20,
+                                              maxLines: 1,
+                                              style:
+                                              TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),
+                                              decoration: InputDecoration(
+                                                  hintText: 'Kategoriyi yazınız',
+                                                  hintStyle: TextStyle(
+                                                      color: Theme.of(context).canvasColor,
+                                                      fontSize: 18,
+                                                      fontFamily: 'Nexa3'),
+                                                  counterText: '',
+                                                  border: InputBorder.none),
+                                              cursorRadius: const Radius.circular(10),
+                                              keyboardType: TextInputType.text,
+                                              textCapitalization: TextCapitalization.words,
+                                              controller: category,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  this.setState(() {});
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ): const SizedBox(),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          initialLabelIndex2 == 1 ? SizedBox(
+                                            width: 80,
+                                            height: 30,
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                '${category.text.length.toString()}/20',
+                                                style: TextStyle(
+                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                  color: const Color(0xffF2CB05),
+                                                  fontSize: 13,
+                                                  fontFamily: 'Nexa4',
+                                                  fontWeight: FontWeight.w800,
                                                 ),
                                               ),
-                                            ],
+                                            ),
+                                          ): const SizedBox(width: 80,),
+                                          SizedBox(
+                                            width: 80,
+                                            height: 30,
+                                            child: TextButton(
+                                              style: ButtonStyle(
+                                                  backgroundColor: MaterialStatePropertyAll(renkler.sariRenk),
+                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(20),
+                                                      )
+                                                  )
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("Tamam",style: TextStyle(
+                                                color: renkler.koyuuRenk,
+                                                fontSize: 16, fontFamily: 'Nexa3',
+                                              ),),
+                                            ),
                                           ),
-                                          Text(
-                                            "Debug:${category.text}",
-                                            style: const TextStyle(color: Colors.red),
-                                          )
                                         ],
                                       ),
-                                    );
-                                  },
-                                );
-                              },
-                            ).then((_) => setState(() {}));
-                          },
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              "Debug:${category.text}",
+                              style: const TextStyle(color: Colors.red),
+                            )
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 130,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).highlightColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "KATEGORİ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'Nexa4',
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
+                      );
+                    },
+                  );
         }
       },
     );
@@ -794,9 +806,389 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     );
   }
 
-  Widget amountCustomButton(BuildContext context) {
+  double moneyTypeWidth = 38.0;
+  double moneyTypeHeight = 38.0;
+  bool openMoneyTypeMenu = false;
+  final TextEditingController moneyTypeSymbol =  TextEditingController(text: "₺");
+  Widget amountCustomButton() {
     var readUpdateData = ref.read(updateDataRiverpod);
     final amount = readUpdateData.getAmount();
+    final moneyType = readUpdateData.getMoneyType();
+    final realAmount0 = readUpdateData.getRealAmount();
+    String getSymbolForMoneyType(){
+      String controller = moneyType.text;
+      if(controller == 'TRY'){
+        return '₺';
+      }else if (controller == 'USD'){
+        return '\$';
+      }
+      else if (controller == 'EUR'){
+        return '€';
+      }
+      else if (controller == 'GBP'){
+        return '£';
+      }
+      else if (controller == 'KWD'){
+        return 'د.ك';
+      }
+      else if (controller == 'JOD'){
+        return 'د.أ';
+      }
+      else if (controller == 'IQD'){
+        return 'د.ع';
+      }
+      else if (controller == 'SAR'){
+        return 'ر.س';
+      }
+      else{return '!';}
+    }
+    var size = MediaQuery.of(context).size;
+    return SizedBox(
+      width: size.width * 0.92,
+      child: Stack(
+        children: [
+          Positioned(
+            top: 40,
+            child: Container(
+              width: size.width * 0.92,
+              height: 4,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).highlightColor,
+                  borderRadius: const BorderRadius.all(Radius.circular(20))),
+            ),
+          ),
+          Center(
+            child: SizedBox(
+              width: 250,
+              height:80,
+              child: Row(
+                children: [
+                  openMoneyTypeMenu == false ? SizedBox(
+                    height: 38,
+                    width: 207,
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(40)),
+                              color: Theme.of(context).highlightColor,
+                            ),
+                            height: 34,
+                            width: 205,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 95,
+                              child: Center(
+                                child: Text(translation(context).amountDetails,
+                                    style: TextStyle(
+                                        height: 1,
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontFamily: 'Nexa4',
+                                        fontWeight: FontWeight.w800)),
+                              ),
+                            ),
+                            Container(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                color: Color(0xffF2CB05),
+                              ),
+                              child: SizedBox(
+                                height: 38,
+                                width: 112,
+                                child: TextFormField(
+                                    onTap: () {
+                                      //_amount.clear();
+                                    },
+                                    style: const TextStyle(
+                                        color: Color(0xff0D1C26),
+                                        fontSize: 17,
+                                        fontFamily: 'Nexa4',
+                                        fontWeight: FontWeight.w100),
+                                    controller: amount,
+                                    autofocus: false,
+                                    focusNode: amountFocusNode,
+                                    keyboardType: const TextInputType.numberWithOptions(
+                                        decimal: true),
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d{0,5}(\.\d{0,2})?'),
+                                      )
+                                    ],
+                                    textAlign: TextAlign.center,
+                                    onEditingComplete: () {
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        isDense: true,
+                                        hintText: "00.00",
+                                        hintStyle: TextStyle(
+                                          color: renkler.koyuAraRenk,
+                                        ),
+                                        contentPadding: const EdgeInsets.only(top: 12))),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ) : const SizedBox(),
+                  openMoneyTypeMenu == false ? const SizedBox(width: 5,): const SizedBox(),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        openMoneyTypeMenu == false ? openMoneyTypeMenu = true : openMoneyTypeMenu = false;
+                        openMoneyTypeMenu == true ? moneyTypeWidth = 250 : moneyTypeWidth = 38;
+                        openMoneyTypeMenu == true ? moneyTypeHeight = 80 : moneyTypeHeight = 38;
+                      });
+                    },
+                    child:  Container(
+                      height: moneyTypeHeight,
+                      width: moneyTypeWidth,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: Color(0xffF2CB05),
+                      ),
+                      child: openMoneyTypeMenu == false ? Center(
+                        child:  Text(
+                          getSymbolForMoneyType(),
+                          style: const TextStyle(
+                            fontFamily: 'TL',
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff0D1C26),
+                          ),
+                        ),
+                      ) : Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'TRY';
+                                    moneyTypeSymbol.text = "₺";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "TRY", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'USD';
+                                    moneyTypeSymbol.text = "\$";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child:Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "USD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'EUR';
+                                    moneyTypeSymbol.text = "€";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "EUR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'GBP';
+                                    moneyTypeSymbol.text = "£";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "GBP", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 4,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'KWD';
+                                    moneyTypeSymbol.text = "د.ك";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "KWD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'JOD';
+                                    moneyTypeSymbol.text = "د.أ";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "JOD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'IQD';
+                                    moneyTypeSymbol.text = "د.ع";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child:Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "IQD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'SAR';
+                                    moneyTypeSymbol.text = "ر.س";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "SAR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /*Widget amountCustomButton(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final amount = readUpdateData.getAmount();
+    final moneyType = readUpdateData.getMoneyType();
+    final realAmount0 = readUpdateData.getRealAmount();
     var size = MediaQuery.of(context).size;
     return SizedBox(
       height: 40,
@@ -910,7 +1302,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
         ],
       ),
     );
-  }
+  }*/
 
   int selectedCategory = 0;
   int initialLabelIndexTool = 0;
@@ -1701,6 +2093,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     final operationDate = readUpdateData.getOperationDate();
     final registration = readUpdateData.getRegistration();
     final customize = readUpdateData.getProcessOnce();
+    final moneyType = readUpdateData.getMoneyType();
+    final realAmount0 = readUpdateData.getRealAmount();
+    final userCategory = readUpdateData.getUserCategory();
+    final systemMessage = readUpdateData.getSystemMessage();
     var size = MediaQuery.of(context).size;
     String alertContent = '';
     int alertOperator = 0;
@@ -1746,7 +2142,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           amount,
                           note.text,
                           operationDate.text,
-                          customize.text);
+                          moneyType.text,
+                          customize.text,
+                          ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
+                          userCategory.text,
+                          systemMessage.text);
                           read.update();
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();

@@ -190,7 +190,7 @@ class DbProvider extends ChangeNotifier {
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(2);
+    return (totalAmount - totalAmount2).toStringAsFixed(1);
   }
 
   String getTotalAmountPositive(List<SpendInfo> items) { //Gelir olan Kayıtları listeliyor.
@@ -198,14 +198,14 @@ class DbProvider extends ChangeNotifier {
         .where((element) => element.operationType == 'Gelir')
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
 
-    return totalAmount.toStringAsFixed(2);
+    return totalAmount.toStringAsFixed(1);
   }
 
   String getTotalAmountNegative(List<SpendInfo> items) { //Gider olan Kayıtları listeliyor.
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
-    return totalAmount2.toStringAsFixed(2);
+    return totalAmount2.toStringAsFixed(1);
   }
 
 

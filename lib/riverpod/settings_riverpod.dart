@@ -98,6 +98,11 @@ class SettingsRiverpod extends ChangeNotifier{
     DarkMode = mode ? 1 : 0 ;
     Updating();
   }
+  void setDarkModeNotBool(){
+    DarkMode = DarkMode == 1 ? 0 : 1 ;
+    Updating();
+
+  }
   void setPrefix(String prefix){
     this.Prefix = prefix;
 

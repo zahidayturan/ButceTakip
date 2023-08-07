@@ -7,6 +7,7 @@ import 'package:butcekontrol/pages/search_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart';
 
 
 class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
@@ -15,6 +16,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(60);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var readSetting = ref.read(settingsRiverpod);
     return Directionality(
       textDirection: TextDirection.ltr,
       child: AppBar(
@@ -114,30 +116,36 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             iconSize: 22.0,
 
           ),
-          IconButton(
-            onPressed:() {
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  transitionDuration: const Duration(milliseconds: 1),
-                  pageBuilder: (context, animation, nextanim) => const Settings(),
-                  reverseTransitionDuration: const Duration(milliseconds: 1),
-                  transitionsBuilder: (context, animation, nexttanim, child) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
-                ),
-              ).then((value) => ref.read(botomNavBarRiverpod).setCurrentindex(4));
-            },
-            icon: const Icon(
-              Icons.settings_rounded,
-              color: Color(0xFFF2CB05),
-              size: 30,
+          Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: InkWell(
+              onLongPress: () {
+                readSetting.setDarkModeNotBool();
+              },
+              onTap:() {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 1),
+                    pageBuilder: (context, animation, nextanim) => const Settings(),
+                    reverseTransitionDuration: const Duration(milliseconds: 1),
+                    transitionsBuilder: (context, animation, nexttanim, child) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                  ),
+                ).then((value) => ref.read(botomNavBarRiverpod).setCurrentindex(4));
+              },
+              child: const Icon(
+                Icons.settings_rounded,
+                color: Color(0xFFF2CB05),
+                size: 30,
+              ),
+             // constraints: const BoxConstraints(minWidth: 36),
+              //iconSize: 22.0,
             ),
-            constraints: const BoxConstraints(minWidth: 36),
-            iconSize: 22.0,
           ),
           const SizedBox(width: 10,),
         ],
