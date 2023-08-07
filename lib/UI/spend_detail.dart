@@ -284,8 +284,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
-                children: [
+              Row(
+                children: const [
                   Text("NOT",
                       style: TextStyle(
                         color: Colors.white,

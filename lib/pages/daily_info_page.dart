@@ -124,18 +124,12 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                         child: InkWell(
                                           onTap: () {
                                             {
-                                              readDailyInfo.setSpendDetail(
-                                                  item, index);
-                                              readDailyInfo.regChange(
-                                                  item[index].registration);
+                                              readDailyInfo.setSpendDetail(item, index);
+                                              readDailyInfo.regChange(item[index].registration);
                                               ref.watch(databaseRiverpod).delete;
                                               showModalBottomSheet(
                                                 context: context,
-                                                shape: const RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.vertical(
-                                                        top: Radius.circular(
-                                                            25))),
+                                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
                                                 backgroundColor:
                                                 const Color(0xff0D1C26),
                                                 builder: (context) {

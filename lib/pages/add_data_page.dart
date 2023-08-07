@@ -2245,7 +2245,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                               _note.text,
                               _operationDate.text,
                               _moneyType.text,
-                              ref.read(currencyRiverpod).calculateRealAmount(amount, "KWD", ref.read(settingsRiverpod).Prefix!),
+                              ref.read(currencyRiverpod).calculateRealAmount(amount, _moneyType.text, ref.read(settingsRiverpod).Prefix!),
                               _customize.text,)
                               ;
 

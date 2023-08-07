@@ -150,8 +150,7 @@ class SpendInfo {
         o[11].toString(),
         o[12].toString(),
         o[13].toString(),
-         //CurrencyRiverpod().calculateRealAmount(double.parse(o[5].toString()), o[12].toString(), "TRY"),
-        0.0,
+        0.0, //CurrencyRiverpod().calculateRealAmount(double.parse(o[5].toString()), o[12].toString(), "TRY"),
         "",
         "",
       );

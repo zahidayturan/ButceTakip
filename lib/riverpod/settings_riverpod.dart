@@ -118,7 +118,7 @@ class SettingsRiverpod extends ChangeNotifier{
         this.prefixSymbol = " د.ك";
         break;
       case "JOD":
-        this.prefixSymbol = " د.أ";
+        this.prefixSymbol = " JD";
         break;
       case "IQD":
         this.prefixSymbol = " د.ع";
