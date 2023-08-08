@@ -1,5 +1,6 @@
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
+import 'package:butcekontrol/riverpod/home_riverpod.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,12 +22,17 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
     scrolbarcontroller1.dispose();
     super.dispose();
   }
-
+  int indexYear = 0;
+  var years = ["2020","2021","2022","2023","2024","2025", "2026", "2027", "2028", "2029", "2030"];
   @override
   Widget build(BuildContext context) {
     var readHome = ref.read(homeRiverpod);
-    PageController _controller = PageController(initialPage: readHome.indexmounth - 1);
+    var watchHome = ref.watch(homeRiverpod);
+    indexYear = watchHome.indexyear;
 
+    PageController _controller = PageController(initialPage: watchHome.indexmounth + 1 );
+    readHome.setControllerPageMontly(_controller);
+    //int indexYear = readHome.indexyear;
     var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(databaseRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
@@ -52,26 +58,34 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
           var dailyTotals = snapshot.data!['dailyTotals'];
           var items = snapshot.data!["items"];
           return PageView.builder(
-            controller: _controller,
+            controller: watchHome.controllerPageMontly,
             itemCount: 14,
-
             onPageChanged: (index) {
-
               if(_controller.page!.toInt() < index){
-                print("Sağa kaydırıldı.");
                 if(index == 13){
-                  _controller.animateToPage(1, duration: Duration(milliseconds: 10), curve: Curves.linear);
+                  if( indexYear < years.length - 1 ){
+                    indexYear += 1;
+                    _controller.jumpToPage(1);
+                  }else{
+                    _controller.jumpToPage(12);
+                  }
+                }else{
+                  readHome.changeindex(index - 1 , indexYear);
+                  read.setMonthandYear((index ).toString(), years[indexYear]);
                 }
-                read.setMonthandYear((index ).toString(), "2023");
               }else if(_controller.page!.toInt() == index){ // what böyle çalıştı anlamadım.
-                print("Sola kaydırıldı");
                 if(index == 0) {
-                  _controller.animateToPage(12, duration: Duration(milliseconds: 10), curve: Curves.linear);
-
+                  if( indexYear != 0){
+                    indexYear -= 1 ;
+                    _controller.jumpToPage(12);
+                  }else{
+                    _controller.jumpToPage(1);
+                  }
+                }else{
+                  readHome.changeindex(index - 1  , indexYear);
+                  read.setMonthandYear((index).toString(), years[indexYear]);
                 }
-                read.setMonthandYear((index ).toString(), "2023");
               }
-              print(index);
             },
             itemBuilder: (context, index) {
               return Directionality(

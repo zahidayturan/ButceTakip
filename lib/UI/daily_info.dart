@@ -118,7 +118,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                           ),
                         ),
                       ) :SizedBox(
-                        height: size.height * .25,
+                        height: 199,
                         child: Padding(
                           //borderin scroll ile birleşimi gözüksü diye soldan padding
                           padding: const EdgeInsets.only(left: 5.0, top: 5),
