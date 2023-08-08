@@ -19,6 +19,11 @@ class _addAssetsState extends ConsumerState<addAssets> {
   List<String> moneyTypes = ["TRY", "USD", "EUR", "GBP", "KWD", "JOD", "IQD", "SAR"];
   var moneyType ;
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
@@ -121,7 +126,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                   RegExp(r'^\d{0,6}(\.\d{0,2})?'),)
                               ],
                               decoration: InputDecoration(
-                                hintText: "Tutar.",
+                                hintText: "Tutar",
                                 hintStyle: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
@@ -269,7 +274,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
         child: ToggleSwitch(
           initialLabelIndex: initialLabelIndexTool,
           totalSwitches: 2,
-          labels: const ['GELİR', 'GİDER'],
+          labels: const ['Arttır', 'Azalt'],
           activeBgColor: const [Color(0xffF2CB05)],
           activeFgColor: const Color(0xff0D1C26),
           inactiveFgColor: const Color(0xFFE9E9E9),

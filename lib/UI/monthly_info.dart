@@ -163,24 +163,15 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                           totalAmount.toString(),
                                           totalAmount2.toString(),
                                           formattedTotal.toString());
-                                      if (double.parse(
-                                          formattedTotal) <=
-                                          0) {
+                                      if (double.parse(formattedTotal) <= 0) {
                                         read.setStatus("-");
                                       } else {
                                         read.setStatus("+");
                                       }
                                       read.setDay(day);
-                                      read.setDate(
-                                          items[index].operationDate);
-                                      readDailyInfo.setDate(
-                                          int.parse(day),
-                                          int.parse(month),
-                                          int.parse(year));
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                              const DailyInfo()));
+                                      read.setDate(items[index].operationDate);
+                                      readDailyInfo.setDate(int.parse(day), int.parse(month), int.parse(year));
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.only(

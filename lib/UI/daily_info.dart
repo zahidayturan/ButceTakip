@@ -8,6 +8,8 @@ import '../constans/text_pref.dart';
 import '../models/spend_info.dart';
 import 'package:butcekontrol/classes/language.dart';
 
+import '../pages/daily_info_page.dart';
+
 
 class GunlukInfo extends ConsumerStatefulWidget {
   const GunlukInfo({super.key});
@@ -25,6 +27,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
     });
     var readSettings = ref.read(settingsRiverpod);
     var readDB = ref.read(databaseRiverpod);
+    var readDailyInfo = ref.read(dailyInfoRiverpod);
     DateTime now = DateTime.now();
     //String formattedDate = intl.DateFormat('dd.MM.yyyy').format(now);
     String formattedDate = readSettings.localChanger() == const Locale("ar") ? intl.DateFormat('yyyy.MM.dd').format(now) : intl.DateFormat('dd.MM.yyyy').format(now);
@@ -43,21 +46,28 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          color: Theme.of(context).highlightColor,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20, top: 6, bottom: 3),
-                          child: Text(
-                            translation(context).todaysActivities, /// dil destekli yazi
-                            //"Bugünün İşlem Bilgileri",
-                            style: TextStyle(
-                              color: renkler.arkaRenk,
-                              height: 1,
-                              fontFamily: 'Nexa3',
-                              fontSize: 17,
+                      GestureDetector(
+                        onTap: () {
+                          var date = DateTime.now() ;
+                          readDailyInfo.setDate(int.parse(date.day.toString()), int.parse(readDB.month), int.parse(readDB.year));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
+                        },
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            color: Theme.of(context).highlightColor,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 20, right: 20, top: 6, bottom: 3),
+                            child: Text(
+                              translation(context).todaysActivities, /// dil destekli yazi
+                              //"Bugünün İşlem Bilgileri",
+                              style: TextStyle(
+                                color: renkler.arkaRenk,
+                                height: 1,
+                                fontFamily: 'Nexa3',
+                                fontSize: 17,
+                              ),
                             ),
                           ),
                         ),
