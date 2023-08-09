@@ -1,13 +1,16 @@
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:googleapis/driveactivity/v2.dart';
 
+import '../riverpod_management.dart';
 import '../utils/date_time_manager.dart';
 import '../utils/db_helper.dart';
 
 class UpdateDataRiverpod extends ChangeNotifier {
   SpendInfo? items;
   var id;
+  var menuController;
 
   final TextEditingController _note = TextEditingController();
   final TextEditingController _amount = TextEditingController();
@@ -21,6 +24,10 @@ class UpdateDataRiverpod extends ChangeNotifier {
   final TextEditingController _realAmount = TextEditingController();
   final TextEditingController _userCategory = TextEditingController();
   final TextEditingController _systemMessage = TextEditingController();
+
+  setMenu(int menuController) {
+    this.menuController = menuController;
+  }
 
   setItems(SpendInfo items) {
     this.items = items;
@@ -37,6 +44,10 @@ class UpdateDataRiverpod extends ChangeNotifier {
     _realAmount.text = items.realAmount.toString();
     _userCategory.text = items.userCategory.toString();
     _systemMessage.text = items.systemMessage.toString();
+  }
+
+  getMenuController(){
+    return menuController;
   }
 
   getId() {
@@ -182,7 +193,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
     return filteredList;
   }
 
-  Future customizeRepeatedOperation() async {
+  Future customizeRepeatedOperation(WidgetRef ref) async {
     List<SpendInfo> customizeItems =
         await SQLHelper.getCustomizeOperationList();
     customizeItems.forEach((item) {
@@ -217,11 +228,12 @@ class UpdateDataRiverpod extends ChangeNotifier {
               date1.year.toString(),
               DateTimeManager.getCurrentTime(),
               "${date1.day.toString()}.${date1.month.toString()}.${date1.year.toString()}", // item.operationDate güncellendi
-              "0",
+              item.moneyType,
               i == daysBetween - 1 ? item.processOnce : "",
-              0.0,
-              "",
-              ""
+              //item.realAmount,
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+              item.userCategory,
+              item.systemMessage
             );
             SQLHelper.createItem(newinfo);
             print("Veri Eklendi ${item.operationDate} - ${item.processOnce}");
@@ -262,11 +274,12 @@ class UpdateDataRiverpod extends ChangeNotifier {
               date1.year.toString(),
               DateTimeManager.getCurrentTime(),
               "${date1.day.toString()}.${date1.month.toString()}.${date1.year.toString()}", // item.operationDate güncellendi
-              "0",
+              item.moneyType,
               i == daysBetween - 1 ? item.processOnce : "",
-                0.0,
-                "",
-                ""
+              //item.realAmount,
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+              item.userCategory,
+              item.systemMessage
             );
             SQLHelper.createItem(newinfo);
             print("Veri Eklendi ${item.operationDate} - ${item.processOnce}");
@@ -308,11 +321,12 @@ class UpdateDataRiverpod extends ChangeNotifier {
               date1.year.toString(),
               DateTimeManager.getCurrentTime(),
               "${date1.day.toString()}.${date1.month.toString()}.${date1.year.toString()}", // item.operationDate güncellendi
-              "0",
+              item.moneyType,
               i == daysBetween - 1 ? item.processOnce : "",
-                0.0,
-                "",
-                ""
+              //item.realAmount,
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+              item.userCategory,
+              item.systemMessage
             );
             SQLHelper.createItem(newinfo);
             print("Veri Eklendi ${item.operationDate} - ${item.processOnce}");
@@ -320,6 +334,436 @@ class UpdateDataRiverpod extends ChangeNotifier {
             date1 = date1.add(Duration(days: 14));
           }
           SQLHelper.updateCustomize(item.id, "");
+        }else{
+
+        }
+      } else if(item.processOnce == 'Aylık') {
+        DateTime currentDate = DateTime.now();
+        DateTime operationDate = DateTime(int.parse(item.operationYear!),
+            int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
+
+        if (!currentDate.isBefore(operationDate)) {
+          int calculateMonthsBetween(DateTime date1, DateTime date2) {
+            int difference = 0 ;
+            int differenceYear = 0;
+            if(date2.day < date1.day){
+              difference = (date2.month - date1.month) -1;
+            }
+            else if(date2.day == date1.day){
+              difference = date2.month - date1.month;
+            }
+            else if(date2.day > date1.day){
+              difference = date2.month - date1.month;
+            }
+            else{
+              difference = 1;
+            }
+            differenceYear = date2.year - date1.year;
+            return (differenceYear*12)+difference;
+          }
+          DateTime date1 = DateTime(int.parse(item.operationYear!),
+              int.parse(item.operationMonth!), int.parse(item.operationDay!));
+          DateTime date2 = DateTime(
+              DateTime.now().year, DateTime.now().month, DateTime.now().day);
+          int monthsBetween = calculateMonthsBetween(date1, date2);
+
+          calculateInitialDate(DateTime date,int count){
+            DateTime initialDate = DateTime(date.year, date.month, date.day);
+            for(int i =0 ; i < count ; i++){
+              print("\n Hesaplanan $date");
+              int nextMonth = date.month + 1;
+
+              int nextYear = date.year;
+              print(nextYear);
+              if (nextMonth > 12) {
+                nextMonth = 1;
+                nextYear++;
+              }print(nextMonth);
+              int lastDayOfMonth = DateTime(date.year, date.month+1, 0).day;
+              int lastDayOfNextMonth = DateTime(nextYear, nextMonth+1, 0).day;
+              print("last day $lastDayOfMonth");
+              print("last day next month $lastDayOfNextMonth");
+              if (date.day == lastDayOfMonth) {
+                print("Son gün");
+                initialDate = DateTime(nextYear, nextMonth, lastDayOfNextMonth);
+              } else if(nextMonth == 2 && date.day > 28) {
+                print("Değil Ama Şubat");
+                initialDate = DateTime(nextYear, nextMonth,lastDayOfNextMonth);
+              } else {
+                print("Değil");
+                initialDate = DateTime(nextYear, nextMonth,date.day);
+              }
+              print("Sonuç $initialDate");
+              date = initialDate;
+
+              final newinfo = SpendInfo(
+                  item.operationType,
+                  item.category,
+                  item.operationTool,
+                  item.registration,
+                  item.amount,
+                  item.note,
+                  initialDate.day.toString(),
+                  initialDate.month.toString(),
+                  initialDate.year.toString(),
+                  DateTimeManager.getCurrentTime(),
+                  "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
+                  item.moneyType,
+                  i == monthsBetween - 1 ? item.processOnce : "",
+                  //item.realAmount,
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                  item.userCategory,
+                  item.systemMessage
+              );
+              SQLHelper.createItem(newinfo);
+              SQLHelper.updateCustomize(item.id, "");
+            }
+          }
+          calculateInitialDate(date1, monthsBetween);
+        }else{
+
+        }
+      }else if(item.processOnce == 'İki Ayda Bir') {
+        DateTime currentDate = DateTime.now();
+        DateTime operationDate = DateTime(int.parse(item.operationYear!),
+            int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
+
+        if (!currentDate.isBefore(operationDate)) {
+          int calculateMonthsBetween(DateTime date1, DateTime date2) {
+            int difference = 0 ;
+            int differenceYear = 0;
+            if(date2.day < date1.day){
+              difference = (date2.month - date1.month) -1;
+            }
+            else if(date2.day == date1.day){
+              difference = date2.month - date1.month;
+            }
+            else if(date2.day > date1.day){
+              difference = date2.month - date1.month;
+            }
+            else{
+              difference = 1;
+            }
+            differenceYear = date2.year - date1.year;
+            return (differenceYear*12)+difference;
+          }
+          DateTime date1 = DateTime(int.parse(item.operationYear!),
+              int.parse(item.operationMonth!), int.parse(item.operationDay!));
+          DateTime date2 = DateTime(
+              DateTime.now().year, DateTime.now().month, DateTime.now().day);
+          int monthsBetween = calculateMonthsBetween(date1, date2);
+
+          calculateInitialDate(DateTime date,int count){
+            DateTime initialDate = DateTime(date.year, date.month, date.day);
+            for(int i =0 ; i < count ; i++){
+              print("\n Hesaplanan $date");
+              int nextMonth = date.month + 2;
+
+              int nextYear = date.year;
+              print(nextYear);
+              if (nextMonth > 12) {
+                nextMonth = 1;
+                nextYear++;
+              }print(nextMonth);
+              int lastDayOfMonth = DateTime(date.year, date.month+1, 0).day;
+              int lastDayOfNextMonth = DateTime(nextYear, nextMonth+1, 0).day;
+              print("last day $lastDayOfMonth");
+              print("last day next month $lastDayOfNextMonth");
+              if (date.day == lastDayOfMonth) {
+                print("Son gün");
+                initialDate = DateTime(nextYear, nextMonth, lastDayOfNextMonth);
+              } else if(nextMonth == 2 && date.day > 28) {
+                print("Değil Ama Şubat");
+                initialDate = DateTime(nextYear, nextMonth,lastDayOfNextMonth);
+              } else {
+                print("Değil");
+                initialDate = DateTime(nextYear, nextMonth,date.day);
+              }
+              print("Sonuç $initialDate");
+              date = initialDate;
+
+              final newinfo = SpendInfo(
+                  item.operationType,
+                  item.category,
+                  item.operationTool,
+                  item.registration,
+                  item.amount,
+                  item.note,
+                  initialDate.day.toString(),
+                  initialDate.month.toString(),
+                  initialDate.year.toString(),
+                  DateTimeManager.getCurrentTime(),
+                  "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
+                  item.moneyType,
+                  i == monthsBetween - 1 ? item.processOnce : "",
+                  //item.realAmount,
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                  item.userCategory,
+                  item.systemMessage
+              );
+              SQLHelper.createItem(newinfo);
+              SQLHelper.updateCustomize(item.id, "");
+            }
+          }
+          calculateInitialDate(date1, monthsBetween);
+        }else{
+
+        }
+      }else if(item.processOnce == 'Dört Ayda Bir') {
+        DateTime currentDate = DateTime.now();
+        DateTime operationDate = DateTime(int.parse(item.operationYear!),
+            int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
+
+        if (!currentDate.isBefore(operationDate)) {
+          int calculateMonthsBetween(DateTime date1, DateTime date2) {
+            int difference = 0 ;
+            int differenceYear = 0;
+            if(date2.day < date1.day){
+              difference = (date2.month - date1.month) -1;
+            }
+            else if(date2.day == date1.day){
+              difference = date2.month - date1.month;
+            }
+            else if(date2.day > date1.day){
+              difference = date2.month - date1.month;
+            }
+            else{
+              difference = 1;
+            }
+            differenceYear = date2.year - date1.year;
+            return (differenceYear*12)+difference;
+          }
+          DateTime date1 = DateTime(int.parse(item.operationYear!),
+              int.parse(item.operationMonth!), int.parse(item.operationDay!));
+          DateTime date2 = DateTime(
+              DateTime.now().year, DateTime.now().month, DateTime.now().day);
+          int monthsBetween = calculateMonthsBetween(date1, date2);
+
+          calculateInitialDate(DateTime date,int count){
+            DateTime initialDate = DateTime(date.year, date.month, date.day);
+            for(int i =0 ; i < count ; i++){
+              print("\n Hesaplanan $date");
+              int nextMonth = date.month + 4;
+
+              int nextYear = date.year;
+              print(nextYear);
+              if (nextMonth > 12) {
+                nextMonth = 1;
+                nextYear++;
+              }print(nextMonth);
+              int lastDayOfMonth = DateTime(date.year, date.month+1, 0).day;
+              int lastDayOfNextMonth = DateTime(nextYear, nextMonth+1, 0).day;
+              print("last day $lastDayOfMonth");
+              print("last day next month $lastDayOfNextMonth");
+              if (date.day == lastDayOfMonth) {
+                print("Son gün");
+                initialDate = DateTime(nextYear, nextMonth, lastDayOfNextMonth);
+              } else if(nextMonth == 2 && date.day > 28) {
+                print("Değil Ama Şubat");
+                initialDate = DateTime(nextYear, nextMonth,lastDayOfNextMonth);
+              } else {
+                print("Değil");
+                initialDate = DateTime(nextYear, nextMonth,date.day);
+              }
+              print("Sonuç $initialDate");
+              date = initialDate;
+
+              final newinfo = SpendInfo(
+                  item.operationType,
+                  item.category,
+                  item.operationTool,
+                  item.registration,
+                  item.amount,
+                  item.note,
+                  initialDate.day.toString(),
+                  initialDate.month.toString(),
+                  initialDate.year.toString(),
+                  DateTimeManager.getCurrentTime(),
+                  "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
+                  item.moneyType,
+                  i == monthsBetween - 1 ? item.processOnce : "",
+                  //item.realAmount,
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                  item.userCategory,
+                  item.systemMessage
+              );
+              SQLHelper.createItem(newinfo);
+              SQLHelper.updateCustomize(item.id, "");
+            }
+          }
+          calculateInitialDate(date1, monthsBetween);
+        }else{
+
+        }
+      }else if(item.processOnce == 'Altı Ayda Bir') {
+        DateTime currentDate = DateTime.now();
+        DateTime operationDate = DateTime(int.parse(item.operationYear!),
+            int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
+
+        if (!currentDate.isBefore(operationDate)) {
+          int calculateMonthsBetween(DateTime date1, DateTime date2) {
+            int difference = 0 ;
+            int differenceYear = 0;
+            if(date2.day < date1.day){
+              difference = (date2.month - date1.month) -1;
+            }
+            else if(date2.day == date1.day){
+              difference = date2.month - date1.month;
+            }
+            else if(date2.day > date1.day){
+              difference = date2.month - date1.month;
+            }
+            else{
+              difference = 1;
+            }
+            differenceYear = date2.year - date1.year;
+            return (differenceYear*12)+difference;
+          }
+          DateTime date1 = DateTime(int.parse(item.operationYear!),
+              int.parse(item.operationMonth!), int.parse(item.operationDay!));
+          DateTime date2 = DateTime(
+              DateTime.now().year, DateTime.now().month, DateTime.now().day);
+          int monthsBetween = calculateMonthsBetween(date1, date2);
+
+          calculateInitialDate(DateTime date,int count){
+            DateTime initialDate = DateTime(date.year, date.month, date.day);
+            for(int i =0 ; i < count ; i++){
+              print("\n Hesaplanan $date");
+              int nextMonth = date.month + 6;
+
+              int nextYear = date.year;
+              print(nextYear);
+              if (nextMonth > 12) {
+                nextMonth = 1;
+                nextYear++;
+              }print(nextMonth);
+              int lastDayOfMonth = DateTime(date.year, date.month+1, 0).day;
+              int lastDayOfNextMonth = DateTime(nextYear, nextMonth+1, 0).day;
+              print("last day $lastDayOfMonth");
+              print("last day next month $lastDayOfNextMonth");
+              if (date.day == lastDayOfMonth) {
+                print("Son gün");
+                initialDate = DateTime(nextYear, nextMonth, lastDayOfNextMonth);
+              } else if(nextMonth == 2 && date.day > 28) {
+                print("Değil Ama Şubat");
+                initialDate = DateTime(nextYear, nextMonth,lastDayOfNextMonth);
+              } else {
+                print("Değil");
+                initialDate = DateTime(nextYear, nextMonth,date.day);
+              }
+              print("Sonuç $initialDate");
+              date = initialDate;
+
+              final newinfo = SpendInfo(
+                  item.operationType,
+                  item.category,
+                  item.operationTool,
+                  item.registration,
+                  item.amount,
+                  item.note,
+                  initialDate.day.toString(),
+                  initialDate.month.toString(),
+                  initialDate.year.toString(),
+                  DateTimeManager.getCurrentTime(),
+                  "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
+                  item.moneyType,
+                  i == monthsBetween - 1 ? item.processOnce : "",
+                  //item.realAmount,
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                  item.userCategory,
+                  item.systemMessage
+              );
+              SQLHelper.createItem(newinfo);
+              SQLHelper.updateCustomize(item.id, "");
+            }
+          }
+          calculateInitialDate(date1, monthsBetween);
+        }else{
+
+        }
+      }else if(item.processOnce == 'Yıllık') {
+        DateTime currentDate = DateTime.now();
+        DateTime operationDate = DateTime(int.parse(item.operationYear!),
+            int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
+
+        if (!currentDate.isBefore(operationDate)) {
+          int calculateMonthsBetween(DateTime date1, DateTime date2) {
+            int difference = 0 ;
+            int differenceYear = 0;
+            if(date2.day < date1.day){
+              difference = (date2.month - date1.month) -1;
+            }
+            else if(date2.day == date1.day){
+              difference = date2.month - date1.month;
+            }
+            else if(date2.day > date1.day){
+              difference = date2.month - date1.month;
+            }
+            else{
+              difference = 1;
+            }
+            differenceYear = date2.year - date1.year;
+            return (differenceYear*12)+difference;
+          }
+          DateTime date1 = DateTime(int.parse(item.operationYear!),
+              int.parse(item.operationMonth!), int.parse(item.operationDay!));
+          DateTime date2 = DateTime(
+              DateTime.now().year, DateTime.now().month, DateTime.now().day);
+          int monthsBetween = calculateMonthsBetween(date1, date2);
+
+          calculateInitialDate(DateTime date,int count){
+            DateTime initialDate = DateTime(date.year, date.month, date.day);
+            for(int i =0 ; i < count ; i++){
+              print("\n Hesaplanan $date");
+              int nextMonth = date.month + 12;
+
+              int nextYear = date.year;
+              print(nextYear);
+              if (nextMonth > 12) {
+                nextMonth = 1;
+                nextYear++;
+              }print(nextMonth);
+              int lastDayOfMonth = DateTime(date.year, date.month+1, 0).day;
+              int lastDayOfNextMonth = DateTime(nextYear, nextMonth+1, 0).day;
+              print("last day $lastDayOfMonth");
+              print("last day next month $lastDayOfNextMonth");
+              if (date.day == lastDayOfMonth) {
+                print("Son gün");
+                initialDate = DateTime(nextYear, nextMonth, lastDayOfNextMonth);
+              } else if(nextMonth == 2 && date.day > 28) {
+                print("Değil Ama Şubat");
+                initialDate = DateTime(nextYear, nextMonth,lastDayOfNextMonth);
+              } else {
+                print("Değil");
+                initialDate = DateTime(nextYear, nextMonth,date.day);
+              }
+              print("Sonuç $initialDate");
+              date = initialDate;
+
+              final newinfo = SpendInfo(
+                  item.operationType,
+                  item.category,
+                  item.operationTool,
+                  item.registration,
+                  item.amount,
+                  item.note,
+                  initialDate.day.toString(),
+                  initialDate.month.toString(),
+                  initialDate.year.toString(),
+                  DateTimeManager.getCurrentTime(),
+                  "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
+                  item.moneyType,
+                  i == monthsBetween - 1 ? item.processOnce : "",
+                  //item.realAmount,
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                  item.userCategory,
+                  item.systemMessage
+              );
+              SQLHelper.createItem(newinfo);
+              SQLHelper.updateCustomize(item.id, "");
+            }
+          }
+          calculateInitialDate(date1, monthsBetween);
         }else{
 
         }
@@ -331,44 +775,111 @@ class UpdateDataRiverpod extends ChangeNotifier {
     });
   }
 
-  Future customizeInstallmentOperation() async {
+  Future customizeInstallmentOperation(WidgetRef ref) async {
     List<SpendInfo> customizeItems = await SQLHelper.getCustomizeOperationList();
     List<SpendInfo> filteredList = customizeItems
         .where((element) => _isProcessOnceValidNumber(element.processOnce!))
         .toList();
+
     filteredList.forEach((item) {
+
+      DateTime currentDate = DateTime.now();
+      DateTime operationDate = DateTime(int.parse(item.operationYear!),
+          int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
+
+
       List<String> partsProcessOnce = item.processOnce!.split("/");
       int finished = int.parse(partsProcessOnce[0]);
       int total = int.parse(partsProcessOnce[1]);
       int remainder = total - finished;
 
 
-      String time = item.operationDate!;
-      List<String> parts = time.split(".");
-      int parseDay = int.parse(parts[0]);
-      int parseMonth = int.parse(parts[1]);
-      int parseYear = int.parse(parts[2]);
-      DateTime initialDate = DateTime(parseYear, parseMonth, parseDay);
-      DateTime currentDate = DateTime.now();
-
-      // Bir sonraki taksit tarihini hesaplama
-      int nextMonth = initialDate.month + 1;
-      int nextYear = initialDate.year;
-      if (nextMonth > 12) {
-        // Eğer bir sonraki ay 12'den büyükse, yılı güncelleyip ayı 1 yapma
-        nextMonth = 1;
-        nextYear++;
+      int calculateMonthsBetween(DateTime date1, DateTime date2) {
+        int difference = 0 ;
+        int differenceYear = 0;
+        if(date2.day < date1.day){
+          difference = (date2.month - date1.month) -1;
+        }
+        else if(date2.day == date1.day){
+          difference = date2.month - date1.month;
+        }
+        else if(date2.day > date1.day){
+          difference = date2.month - date1.month;
+        }
+        else{
+          difference = 1;
+        }
+        differenceYear = date2.year - date1.year;
+        return (differenceYear*12)+difference;
       }
-      // Ayın son gününü al
-      int lastDayOfMonth = DateTime(nextYear, nextMonth + 1, 0).day;
-      // Sonraki taksit tarihini ayarla (ayın son gününe göre veya aynı gün)
-      if (parseDay > lastDayOfMonth) {//son günse
-        initialDate = DateTime(nextYear, nextMonth, lastDayOfMonth);
-      } else { //son gün değilse
-        initialDate = DateTime(nextYear, nextMonth, parseDay);
-      }
+      DateTime date1 = DateTime(int.parse(item.operationYear!),
+          int.parse(item.operationMonth!), int.parse(item.operationDay!));
+      DateTime date2 = DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day);
+      int monthsBetween = calculateMonthsBetween(date1, date2);
 
-        if(remainder == 1 && !currentDate.isBefore(DateTime(int.parse(item.operationYear!),int.parse(item.operationMonth!),int.parse(item.operationDay!)))){///SON TAKSİT
+      calculateInitialDate(DateTime date,int count){
+        DateTime initialDate = DateTime(date.year, date.month, date.day);
+        for(int i =0 ; i < count ; i++){
+          if(remainder >0){
+            print("\n Hesaplanan $date");
+            int nextMonth = date.month + 1;
+
+            int nextYear = date.year;
+            print(nextYear);
+            if (nextMonth > 12) {
+              nextMonth = 1;
+              nextYear++;
+            }print(nextMonth);
+            int lastDayOfMonth = DateTime(date.year, date.month+1, 0).day;
+            int lastDayOfNextMonth = DateTime(nextYear, nextMonth+1, 0).day;
+            print("last day $lastDayOfMonth");
+            print("last day next month $lastDayOfNextMonth");
+            if (date.day == lastDayOfMonth) {
+              print("Son gün");
+              initialDate = DateTime(nextYear, nextMonth, lastDayOfNextMonth);
+            } else if(nextMonth == 2 && date.day > 28) {
+              print("Değil Ama Şubat");
+              initialDate = DateTime(nextYear, nextMonth,lastDayOfNextMonth);
+            } else {
+              print("Değil");
+              initialDate = DateTime(nextYear, nextMonth,date.day);
+            }
+            print("Sonuç $initialDate");
+            remainder == 1 ? print("Son taksit") : null;
+            date = initialDate;
+
+            final newinfo = SpendInfo(
+                item.operationType,
+                item.category,
+                item.operationTool,
+                item.registration,
+                item.amount,
+                item.note,
+                initialDate.day.toString(),
+                initialDate.month.toString(),
+                initialDate.year.toString(),
+                DateTimeManager.getCurrentTime(),
+                "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
+                item.moneyType,
+                count < remainder ? i == count -1 ? "${finished + 1}/$total" : "" : remainder == 1 ? "" : "" ,
+                ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                item.userCategory,
+                remainder == 1 ? "${total}/$total Taksit Bitti" : "${finished+1}/$total Taksit İşlendi"
+            );
+            SQLHelper.createItem(newinfo);
+            SQLHelper.updateCustomize(item.id, "");
+            finished++;
+            remainder--;
+            print("Kalan işlem $remainder");
+          }else{print("else düştün");}
+        }
+      }
+      calculateInitialDate(date1, monthsBetween);
+
+
+
+       /* if(remainder == 1 && !currentDate.isBefore(operationDate)){///SON TAKSİT
           print("son taksit");
           final newinfo = SpendInfo(
             item.operationType,
@@ -382,16 +893,16 @@ class UpdateDataRiverpod extends ChangeNotifier {
             initialDate.year.toString(),
             DateTimeManager.getCurrentTime(),
             "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
-            "0",
-            "",
-              0.0,
+              item.moneyType,
               "",
-              ""
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+              item.userCategory,
+              "${total}/$total Taksit Bitti"
           );
           SQLHelper.createItem(newinfo);
           SQLHelper.updateCustomize(item.id, "");
         }
-        else if (!currentDate.isBefore(initialDate) && remainder > 1) {
+        else if (!currentDate.isBefore(operationDate) && remainder > 1) {
           print("ara taksit");
           final newinfo = SpendInfo(
             item.operationType,
@@ -405,11 +916,11 @@ class UpdateDataRiverpod extends ChangeNotifier {
             initialDate.year.toString(),
             DateTimeManager.getCurrentTime(),
             "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
-            "0",
-            "${finished + 1}/$total",
-              0.0,
-              "",
-              ""
+              item.moneyType,
+              "${finished + 1}/$total",
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix.toString()),
+              item.userCategory,
+              item.systemMessage
           );
           SQLHelper.createItem(newinfo);
           SQLHelper.updateCustomize(item.id, "");
@@ -417,7 +928,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
         else{
           print("boş");
           null;
-        }
+        }*/
 
     });
 
@@ -427,6 +938,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
     return processOnce.contains(RegExp(r'\d'));
   }
 
+  /*
   customizeOperation(
       String customize,
       String operationDate,
@@ -435,7 +947,11 @@ class UpdateDataRiverpod extends ChangeNotifier {
       String operationTool,
       int registration,
       double amount,
-      String note) {
+      String note,
+      String moneyType,
+      String userCategory,
+      String systemMessage,
+      ref) {
     String time = operationDate;
     List<String> parts = time.split(".");
     int parseDay = int.parse(parts[0]);
@@ -447,25 +963,23 @@ class UpdateDataRiverpod extends ChangeNotifier {
     DateTime initialDate = DateTime(parseYear, parseMonth, parseDay);
 
     for (int i = 1; i <= customizeController; i++) {
-      String noteWithCustomizeInfo =
-          note + " Taksit Ödemesi (${i}/${customize}) Ay";
       final newinfo = SpendInfo(
         operationType,
         category,
         operationTool,
         registration,
         amountController,
-        noteWithCustomizeInfo,
+        note,
         initialDate.day.toString(),
         initialDate.month.toString(),
         initialDate.year.toString(),
         DateTimeManager.getCurrentTime(),
         operationDate,
-        "0",
+        moneyType,
         "",
-          0.0,
-          "",
-          ""
+          ref.read(currencyRiverpod).calculateRealAmount(amount, _moneyType.text, ref.read(settingsRiverpod).Prefix!),
+          userCategory,
+          systemMessage
       );
       SQLHelper.createItem(newinfo);
 
@@ -490,4 +1004,6 @@ class UpdateDataRiverpod extends ChangeNotifier {
       }
     }
   }
+  */
+
 }

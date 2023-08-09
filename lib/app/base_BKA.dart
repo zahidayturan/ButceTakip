@@ -93,12 +93,13 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       }else{
         print("Yedekleme kapalı");
       }
-      await readCurrency.controlCurrency(); // Güncel kur database sorgusunu gerçekleştirir
+      await readCurrency.controlCurrency().then((value) {
+        var readUpdateData =  ref.read(updateDataRiverpod);
+        readUpdateData.customizeRepeatedOperation(ref);
+        readUpdateData.customizeInstallmentOperation(ref);
+      }
+      ); // Güncel kur database sorgusunu gerçekleştirir
     });
-
-    var readUpdateData =  ref.read(updateDataRiverpod);
-    readUpdateData.customizeRepeatedOperation();
-    readUpdateData.customizeInstallmentOperation();
   }
 
   @override

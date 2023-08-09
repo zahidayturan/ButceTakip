@@ -154,6 +154,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
   final TextEditingController _category = TextEditingController(text: "");
   final TextEditingController _customize = TextEditingController(text: "");
   final TextEditingController _moneyType =  TextEditingController(text: "");
+  final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
+
   void dispose() {
     _category.dispose();
     _customize.dispose();
@@ -259,7 +262,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),
-          minWidth: 92,
+          minWidth: size.width > 392 ? size.width*0.235 : 92,
           cornerRadius: 15,
           radiusStyle: true,
           animate: true,
@@ -321,7 +324,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                       child: Center(
                         child: Text(
                           translation(context).categoryDetails,
-                          style: TextStyle(
+                          style: const TextStyle(
+                            height: 1,
                             color: Colors.white,
                             fontSize: 15,
                             fontFamily: 'Nexa4',
@@ -339,6 +343,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                 ? "Seçmek için dokunun"
                                 : _category.text,
                             style: TextStyle(
+                              height: 1,
                               fontSize: 14,
                               fontFamily: 'Nexa3',
                               color: renkler.koyuuRenk
@@ -355,7 +360,501 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return categoryList(context, ref);
+                            var readUpdateDB = ref.read(updateDataRiverpod);
+                            return FutureBuilder<Map<String, List<String>>>(
+                              future: readUpdateDB.myCategoryLists(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return const CircularProgressIndicator();
+                                } else if (snapshot.hasError) {
+                                  return Text('Bir hata oluştu: ${snapshot.error}');
+                                } else {
+                                  final categoryLists = snapshot.data!;
+                                  List<String> oldCategoryListIncome = [
+                                    'Harçlık',
+                                    'Burs',
+                                    'Maaş',
+                                    'Kredi',
+                                    'Özel+',
+                                    'Kira/Ödenek',
+                                    'Fazla Mesai',
+                                    'İş Getirisi',
+                                    'Döviz Getirisi',
+                                    'Yatırım Getirisi',
+                                    'Diğer+',
+                                  ];
+                                  final categoryListIncome =
+                                      categoryLists['income'] ?? ['Kategori bulunamadı'];
+                                  List<String> oldCategoryListExpense = [
+                                    'Yemek',
+                                    'Giyim',
+                                    'Eğlence',
+                                    'Eğitim',
+                                    'Aidat/Kira',
+                                    'Alışveriş',
+                                    'Özel-',
+                                    'Ulaşım',
+                                    'Sağlık',
+                                    'Günlük Yaşam',
+                                    'Hobi',
+                                    'Diğer-'
+                                  ];
+                                  final categoryListExpense =
+                                      categoryLists['expense'] ?? ['Kategori bulunamadı'];
+
+                                  Set<String> mergedSetIncome = {
+                                    ...oldCategoryListIncome,
+                                    ...categoryListIncome
+                                  };
+                                  List<String> mergedIncomeList = mergedSetIncome.toList();
+                                  Set<String> mergedSetExpens = {
+                                    ...oldCategoryListExpense,
+                                    ...categoryListExpense
+                                  };
+                                  List<String> mergedExpensList = mergedSetExpens.toList();
+                                  return StatefulBuilder(
+                                    builder: (context, setState) {
+                                      return AlertDialog(
+                                        backgroundColor:
+                                        Theme.of(context).primaryColor,
+                                        shadowColor: Colors.black54,
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15))),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Stack(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      top: 15),
+                                                  child: Container(
+                                                    width: 270,
+                                                    height: 90,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                        const BorderRadius
+                                                            .all(
+                                                            Radius.circular(
+                                                                15)),
+                                                        border: Border.all(
+                                                          width: 1.5,
+                                                          color: Theme.of(context)
+                                                              .secondaryHeaderColor,
+                                                        )),
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: Column(
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 221,
+                                                        height: 30,
+                                                        child: ToggleSwitch(
+                                                          initialLabelIndex:
+                                                          initialLabelIndex2,
+                                                          totalSwitches: 2,
+                                                          labels: const [
+                                                            'SEÇ',
+                                                            'EKLE'
+                                                          ],
+                                                          activeBgColor: const [
+                                                            Color(0xffF2CB05)
+                                                          ],
+                                                          activeFgColor:
+                                                          const Color(
+                                                              0xff0D1C26),
+                                                          inactiveBgColor:
+                                                          Theme.of(context)
+                                                              .highlightColor,
+                                                          inactiveFgColor:
+                                                          const Color(
+                                                              0xFFE9E9E9),
+                                                          minWidth: 110,
+                                                          cornerRadius: 20,
+                                                          radiusStyle: true,
+                                                          animate: true,
+                                                          curve: Curves
+                                                              .linearToEaseOut,
+                                                          customTextStyles: const [
+                                                            TextStyle(
+                                                                fontSize: 18,
+                                                                fontFamily:
+                                                                'Nexa4',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w800)
+                                                          ],
+                                                          onToggle: (index) {
+                                                            setState(() {
+                                                              if (index == 0) {
+                                                                selectedAddCategoryMenu =
+                                                                0;
+                                                                _category.clear();
+                                                              } else {
+                                                                selectedAddCategoryMenu =
+                                                                1;
+                                                                _category.clear();
+                                                              }
+                                                              initialLabelIndex2 =
+                                                              index!;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                      selectedAddCategoryMenu == 0
+                                                          ? SizedBox(
+                                                        width: 200,
+                                                        height: 60,
+                                                        child: Column(
+                                                          children: [
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            DropdownButtonHideUnderline(
+                                                              child:
+                                                              DropdownButton2<
+                                                                  String>(
+                                                                isExpanded:
+                                                                true,
+                                                                hint: Text(
+                                                                  'Seçiniz',
+                                                                  style:
+                                                                  TextStyle(
+                                                                    fontSize:
+                                                                    18,
+                                                                    fontFamily:
+                                                                    'Nexa3',
+                                                                    color: Theme.of(context)
+                                                                        .canvasColor,
+                                                                  ),
+                                                                ),
+                                                                items: selectedCategory ==
+                                                                    0
+                                                                    ? mergedExpensList
+                                                                    .map((item) =>
+                                                                    DropdownMenuItem(
+                                                                      value: item,
+                                                                      child: Text(
+                                                                        item,
+                                                                        style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
+                                                                      ),
+                                                                    ))
+                                                                    .toList()
+                                                                    : mergedIncomeList
+                                                                    .map((item) =>
+                                                                    DropdownMenuItem(
+                                                                      value: item,
+                                                                      child: Text(
+                                                                        item,
+                                                                        style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
+                                                                      ),
+                                                                    ))
+                                                                    .toList(),
+                                                                value:
+                                                                selectedValue,
+                                                                onChanged:
+                                                                    (value) {
+                                                                  setState(
+                                                                          () {
+                                                                        selectedValue =
+                                                                            value;
+                                                                        _category.text =
+                                                                            value.toString();
+                                                                        this.setState(
+                                                                                () {});
+                                                                      });
+                                                                },
+                                                                barrierColor: renkler
+                                                                    .koyuAraRenk
+                                                                    .withOpacity(
+                                                                    0.8),
+                                                                buttonStyleData:
+                                                                ButtonStyleData(
+                                                                  overlayColor:
+                                                                  MaterialStatePropertyAll(
+                                                                      renkler.koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                      16),
+                                                                  height:
+                                                                  40,
+                                                                  width:
+                                                                  200,
+                                                                ),
+                                                                dropdownStyleData: DropdownStyleData(
+                                                                    maxHeight: 250,
+                                                                    width: 200,
+                                                                    decoration: BoxDecoration(
+                                                                      color:
+                                                                      Theme.of(context).primaryColor,
+                                                                    ),
+                                                                    scrollbarTheme: ScrollbarThemeData(radius: const Radius.circular(15), thumbColor: MaterialStatePropertyAll(renkler.sariRenk))),
+                                                                menuItemStyleData:
+                                                                MenuItemStyleData(
+                                                                  overlayColor:
+                                                                  MaterialStatePropertyAll(
+                                                                      renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                                                  height:
+                                                                  40,
+                                                                ),
+                                                                iconStyleData:
+                                                                IconStyleData(
+                                                                  icon:
+                                                                  const Icon(
+                                                                    Icons
+                                                                        .arrow_drop_down,
+                                                                  ),
+                                                                  iconSize:
+                                                                  30,
+                                                                  iconEnabledColor:
+                                                                  Theme.of(context)
+                                                                      .secondaryHeaderColor,
+                                                                  iconDisabledColor:
+                                                                  Theme.of(context)
+                                                                      .secondaryHeaderColor,
+                                                                  openMenuIcon:
+                                                                  Icon(
+                                                                    Icons
+                                                                        .arrow_right,
+                                                                    color: Theme.of(context)
+                                                                        .canvasColor,
+                                                                    size:
+                                                                    24,
+                                                                  ),
+                                                                ),
+                                                                dropdownSearchData:
+                                                                DropdownSearchData(
+                                                                  searchController:
+                                                                  _category,
+                                                                  searchInnerWidgetHeight:
+                                                                  50,
+                                                                  searchInnerWidget:
+                                                                  Container(
+                                                                    height:
+                                                                    50,
+                                                                    padding:
+                                                                    const EdgeInsets.only(
+                                                                      top:
+                                                                      8,
+                                                                      bottom:
+                                                                      4,
+                                                                      right:
+                                                                      8,
+                                                                      left:
+                                                                      8,
+                                                                    ),
+                                                                    child:
+                                                                    TextField(
+                                                                      textCapitalization:
+                                                                      TextCapitalization.words,
+                                                                      keyboardType: TextInputType.text,
+                                                                      expands:
+                                                                      true,
+                                                                      maxLines:
+                                                                      null,
+                                                                      style:
+                                                                      TextStyle(
+                                                                        color:
+                                                                        Theme.of(context).canvasColor,
+                                                                      ),
+                                                                      controller:
+                                                                      _category,
+                                                                      decoration:
+                                                                      InputDecoration(
+                                                                        isDense:
+                                                                        true,
+                                                                        contentPadding:
+                                                                        const EdgeInsets.symmetric(
+                                                                          horizontal: 10,
+                                                                          vertical: 8,
+                                                                        ),
+                                                                        hintText:
+                                                                        'Kategori Arayın',
+                                                                        hintStyle:
+                                                                        TextStyle(fontSize: 18, color: Theme.of(context).secondaryHeaderColor),
+                                                                        border:
+                                                                        OutlineInputBorder(
+                                                                          borderRadius: BorderRadius.circular(8),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  searchMatchFn:
+                                                                      (item,
+                                                                      searchValue) {
+                                                                    return item
+                                                                        .value
+                                                                        .toString()
+                                                                        .contains(searchValue);
+                                                                  },
+                                                                ),
+                                                                //This to clear the search value when you close the menu
+                                                                onMenuStateChange:
+                                                                    (isOpen) {
+                                                                  if (!isOpen) {
+                                                                    _category
+                                                                        .clear();
+                                                                  }
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                          : const SizedBox(),
+                                                      selectedAddCategoryMenu == 1
+                                                          ? SizedBox(
+                                                        width: 220,
+                                                        height: 60,
+                                                        child: Column(
+                                                          children: [
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            TextField(
+                                                              enabled: true,
+                                                              maxLength: 20,
+                                                              maxLines: 1,
+                                                              style: TextStyle(
+                                                                  color: Theme.of(
+                                                                      context)
+                                                                      .canvasColor,
+                                                                  fontSize:
+                                                                  17,
+                                                                  fontFamily:
+                                                                  'Nexa3'),
+                                                              decoration: InputDecoration(
+                                                                  hintText:
+                                                                  'Kategoriyi yazınız',
+                                                                  hintStyle: TextStyle(
+                                                                      color: Theme.of(context)
+                                                                          .canvasColor,
+                                                                      fontSize:
+                                                                      18,
+                                                                      fontFamily:
+                                                                      'Nexa3'),
+                                                                  counterText:
+                                                                  '',
+                                                                  border: InputBorder
+                                                                      .none),
+                                                              cursorRadius:
+                                                              const Radius
+                                                                  .circular(10),
+                                                              keyboardType:
+                                                              TextInputType
+                                                                  .text,
+                                                              textCapitalization:
+                                                              TextCapitalization
+                                                                  .words,
+                                                              controller:
+                                                              _category,
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(
+                                                                        () {
+                                                                      this.setState(
+                                                                              () {});
+                                                                    });
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                          : const SizedBox(),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                        children: [
+                                                          initialLabelIndex2 == 1
+                                                              ? SizedBox(
+                                                            width: 80,
+                                                            height: 30,
+                                                            child: Align(
+                                                              alignment:
+                                                              Alignment
+                                                                  .centerLeft,
+                                                              child: Text(
+                                                                '${_category.text.length.toString()}/20',
+                                                                style:
+                                                                TextStyle(
+                                                                  backgroundColor:
+                                                                  Theme.of(context)
+                                                                      .primaryColor,
+                                                                  color: const Color(
+                                                                      0xffF2CB05),
+                                                                  fontSize:
+                                                                  13,
+                                                                  fontFamily:
+                                                                  'Nexa4',
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w800,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          )
+                                                              : const SizedBox(
+                                                            width: 80,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 80,
+                                                            height: 30,
+                                                            child: TextButton(
+                                                              style: ButtonStyle(
+                                                                  backgroundColor:
+                                                                  MaterialStatePropertyAll(
+                                                                      renkler
+                                                                          .sariRenk),
+                                                                  shape: MaterialStateProperty.all<
+                                                                      RoundedRectangleBorder>(
+                                                                      RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                            20),
+                                                                      ))),
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                    context)
+                                                                    .pop();
+                                                              },
+                                                              child: Text(
+                                                                translation(context).ok,
+                                                                style: TextStyle(
+                                                                  color: renkler
+                                                                      .koyuuRenk,
+                                                                  fontSize: 16,
+                                                                  height: 1,
+                                                                  fontFamily:
+                                                                  'Nexa3',
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              "Debug:${_category.text}",
+                                              style: const TextStyle(
+                                                  color: Colors.red),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                            );
                           },
                         ).then((_) => setState(() {}));
                       },
@@ -722,6 +1221,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                           height: 10,
                                         ),
                                         TextField(
+                                          enabled: true,
                                           maxLength: 20,
                                           maxLines: 1,
                                           style: TextStyle(
@@ -930,6 +1430,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           : '${_customize.text} Ay Taksit',
                       maxLines: 2,
                       style: TextStyle(
+                        height: 1,
                         fontSize: 14,
                         fontFamily: 'Nexa3',
                           color: renkler.koyuuRenk
@@ -1484,7 +1985,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                 width: 65,
                 child: Center(
                   child: Text(translation(context).date,
-                      style: TextStyle(
+                      style: const TextStyle(
                         height: 1,
                           color: Colors.white,
                           fontSize: 15,
@@ -1907,6 +2408,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
   int selectedCategory = 0;
   int initialLabelIndexTool = 0;
   Widget toolCustomButton(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return SizedBox(
         height: 34,
         child: ToggleSwitch(
@@ -1918,14 +2420,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),
-          minWidth: 70,
+          minWidth: size.width > 392 ? size.width*0.18 : 70,
           cornerRadius: 15,
           radiusStyle: true,
           animate: true,
           curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 13, fontFamily: 'Nexa4', fontWeight: FontWeight.w800)
+                fontSize: 13, fontFamily: 'Nexa4',height: 1, fontWeight: FontWeight.w800)
           ],
           onToggle: (index) {
             if (index == 0) {
@@ -1967,6 +2469,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                   child: Text(translation(context).save,
                       style: TextStyle(
                           color: Colors.white,
+                          height: 1,
                           fontSize: 15,
                           fontFamily: 'Nexa4',
                           fontWeight: FontWeight.w800)),
@@ -2106,6 +2609,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                         translation(context).addNote,
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
+                          height: 1,
                           fontSize: 15,
                           fontFamily: 'Nexa4',
                           fontWeight: FontWeight.w800,
@@ -2155,6 +2659,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
     );
   }
 
+  String systemMessage = "";
+
   Widget operationCustomButton(BuildContext context) {
     var read = ref.read(databaseRiverpod);
     var read2 = ref.read(botomNavBarRiverpod);
@@ -2187,7 +2693,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: 130,
+              width: size.width > 392 ? size.width*0.34 : 130,
               child: Stack(
                 children: [
                   Container(
@@ -2195,8 +2701,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       color: Theme.of(context).shadowColor,
                     ),
-                    height: 28,
-                    width: 130,
+                    height: 32,
+                    width: size.width > 392 ? size.width*0.34 : 130,
                     child: TextButton(
                       onPressed: () {
                         _note.text = "";
@@ -2213,7 +2719,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                           style: TextStyle(
                             height: 1,
                               color: Theme.of(context).canvasColor,
-                              fontSize: 15,
+                              fontSize: 14,
                               fontFamily: 'Nexa4',
                               fontWeight: FontWeight.w900)),
                     ),
@@ -2222,7 +2728,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
               ),
             ),
             SizedBox(
-              width: 150,
+              width: size.width > 392 ? size.width*0.39 : 150,
               child: Stack(
                 children: [
                   Container(
@@ -2231,7 +2737,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                       color: renkler.sariRenk,
                     ),
                     height: 34,
-                    width: 150,
+                    width: size.width > 392 ? size.width*0.39 : 150,
                     child: TextButton(
                       onPressed: () {
                         setAlertContent(context);
@@ -2239,25 +2745,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                         if (amount != 0.0 && _category.text.isNotEmpty) {
                           if (selectedCustomizeMenu == 1 &&
                               _customize.text != "") {
-                            /*
-                            readUpdateData.customizeOperation(
-                                _customize.text,
-                                _operationDate.text,
-                                _operationType.text,
-                                _category.text,
-                                _operationTool.text,
-                                int.parse(_registration.text),
-                                amount,
-                                _note.text);*/
-                            int installmentCount = int.parse(_customize.text);
-                            amount = amount / double.parse(_customize.text);
-                            _note.text =
-                                "${_note.text} (1/${_customize.text} taksit işlendi)";
+                            amount = double.parse((amount / double.parse(_customize.text)).toStringAsFixed(2));
+                            systemMessage =
+                                "1/${_customize.text} taksit işlendi";
                             _customize.text = "1/${_customize.text}";
                           } else if (selectedCustomizeMenu == 0 &&
                               _customize.text != "") {
-                            _note.text =
-                                "${_note.text} (${_customize.text} olan tekrar işlendi)";
+                            systemMessage =
+                                "${_customize.text} tekrar işlendi";
                           }
                           read.insertDataBase(
                               _operationType.text,
@@ -2269,7 +2764,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                               _operationDate.text,
                               _moneyType.text,
                               ref.read(currencyRiverpod).calculateRealAmount(amount, _moneyType.text, ref.read(settingsRiverpod).Prefix!),
-                              _customize.text,)
+                              _customize.text,
+                          "",
+                          systemMessage,
+                          )
                               ;
 
                           if (adCounter == 0) {

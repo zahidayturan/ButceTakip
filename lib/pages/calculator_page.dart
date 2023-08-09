@@ -1123,7 +1123,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       ),
                       child: SizedBox(
                         height: 30,
-                        width: 145,
+                        width: 100,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5,right: 5),
                           child: TextFormField(
@@ -1214,7 +1214,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                           ),
                           child: SizedBox(
                             height: 30,
-                            width: 145,
+                            width: 100,
                             child: Padding(
                               padding: const EdgeInsets.only(left: 5,right: 5),
                               child: TextFormField(
@@ -1319,7 +1319,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       ),
                       child: SizedBox(
                         height: 30,
-                        width: 145,
+                        width: 100,
                         child: Padding(
                           padding:  const EdgeInsets.only(left: 5,right: 5),
                           child: TextFormField(
@@ -1418,7 +1418,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         )),
                     child: SizedBox(
                       height: 30,
-                      width: 145,
+                      width: 100,
                       child: Padding(
                         padding:  const EdgeInsets.only(left: 5,bottom: 2,right: 5),
                         child: TextFormField(
