@@ -1,7 +1,5 @@
-import 'package:butcekontrol/models/settings_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:path/path.dart';
 import '../models/spend_info.dart';
 import '../utils/db_helper.dart';
 import 'package:butcekontrol/classes/language.dart';
@@ -17,6 +15,7 @@ class DailyInfoRiverpod extends ChangeNotifier {
   int? setReg(){
     return reg;
   }
+
 
   late int day ;
   late int month ;

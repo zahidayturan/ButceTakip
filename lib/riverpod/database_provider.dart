@@ -107,8 +107,7 @@ class DbProvider extends ChangeNotifier {
   }
 
   Stream <Map<String, Object>> myMethod() async* {
-    List<SpendInfo> items =
-    await SQLHelper.getItemsByOperationMonthAndYear(month ,year);
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month ,year);
     var groupedItems = groupBy(items, (item) => item.operationDay);
     var dailyTotals = <String, Map<String, double>>{};
     groupedItems.forEach((day, dayItems) {

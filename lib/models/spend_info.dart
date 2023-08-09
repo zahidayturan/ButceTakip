@@ -1,5 +1,8 @@
 import 'package:butcekontrol/Riverpod/settings_riverpod.dart';
 import 'package:butcekontrol/riverpod/currency_riverpod.dart';
+import 'package:flutter/material.dart';
+
+import '../riverpod_management.dart';
 
 class SpendInfo {
   int ?id ;
@@ -111,9 +114,9 @@ class SpendInfo {
     return value;
   }
 
-  factory SpendInfo.fromCVSObjetct(List<dynamic> o ){
+  factory SpendInfo.fromCVSObjetct(List<dynamic> o){
     if(o.length > 15){
-      print("AYYYYYYYY");
+      print("yeni yedekleme");
       return SpendInfo.withId(
         int.parse(o[0].toString()),//id
         o[1].toString(),//operationType
@@ -133,8 +136,8 @@ class SpendInfo {
         o[15].toString(),//userCategory
         o[16].toString(),//systemMessage
       );
-    }else {
-      print("BAKAKKKKKKK");
+    }else {/// güncelleme sonrası spend infonun colum eklenmesinden çıkan sorundan dolayı eski kayıtlar buraya girecek .
+      print("Eski yedekleme");
       return SpendInfo.withId(
         int.parse(o[0].toString()),
         o[1].toString(),
@@ -150,7 +153,7 @@ class SpendInfo {
         o[11].toString(),
         o[12].toString(),
         o[13].toString(),
-        0.0, //CurrencyRiverpod().calculateRealAmount(double.parse(o[5].toString()), o[12].toString(), "TRY"),
+        double.parse(o[5].toString()),// amount ile aynı değeri eşitledim.
         "",
         "",
       );

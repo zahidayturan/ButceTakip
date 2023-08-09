@@ -12,7 +12,11 @@ class searchPage extends ConsumerStatefulWidget {
 
 class _searchPageState extends ConsumerState<searchPage> {
   TextEditingController _controller = TextEditingController();
-
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     var dbRiv = ref.watch(databaseRiverpod);
@@ -197,7 +201,9 @@ class _searchPageState extends ConsumerState<searchPage> {
                                                SizedBox(
                                                  width : size.width * .7,
                                                  child: Text(
-                                                   "${dbRiv.searchListTile![index].note}",
+                                                   dbRiv.searchListTile![index].note != ""
+                                                   ?"${dbRiv.searchListTile![index].note}"
+                                                   :"Not Eklenmemiş.",
                                                    style: TextStyle(
                                                        color: renkler.arkaRenk,
                                                        fontSize: 16
