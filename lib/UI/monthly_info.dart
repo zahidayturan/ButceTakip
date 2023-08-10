@@ -60,6 +60,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
           return PageView.builder(
             controller: watchHome.controllerPageMontly,
             itemCount: 14,
+            pageSnapping: true,
             onPageChanged: (index) {
               if(_controller.page!.toInt() < index){
                 if(index == 13){

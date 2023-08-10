@@ -64,7 +64,24 @@ class _searchPageState extends ConsumerState<searchPage> {
                             ),
                           ),
                         ),
-
+                        GestureDetector(
+                          onTap: () {
+                            dbRiv.setSearcSort();
+                            dbRiv.searchItem(_controller.text);
+                          },
+                          child: Container(
+                            width: size.width * .085,
+                            height: size.width * .085,
+                            decoration: BoxDecoration(
+                                color: dbRiv.searchSort ? renkler.sariRenk : Colors.orangeAccent,
+                                shape: BoxShape.circle
+                            ),
+                            child: Transform.rotate(
+                                angle: 3.14 / 2,
+                                child: Icon(Icons.swap_horiz)
+                            ),
+                          ),
+                        ),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).pop();
@@ -267,7 +284,12 @@ class _searchPageState extends ConsumerState<searchPage> {
                     padding: EdgeInsets.symmetric(horizontal:size.width * .07, vertical: size.height * 0.02),
                     child: Column(
                       children: [
-
+                        Text(
+                            "Gösterilen Kayıt Sayısı : ${dbRiv.searchListTile!.length}",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                          ),
+                        ),
                       ],
                     ),
                   )
