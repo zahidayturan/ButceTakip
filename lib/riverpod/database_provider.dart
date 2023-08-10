@@ -61,14 +61,14 @@ class DbProvider extends ChangeNotifier {
       String moneyType,
       double ?realAmount,
       String processOnce,
+      String userCategory,
+      String systemMessage
       )async {
     String time = operationDate ;
     List <String> parts = time.split(".");
     int parseDay = int.parse(parts[0]);
     int parseMonth = int.parse(parts[1]);
     int parseYear = int.parse(parts[2]);
-    String userCategory = '';
-    String systemMessage = '';
     final newinfo = SpendInfo(
         operationType,
         category,

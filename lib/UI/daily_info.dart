@@ -148,7 +148,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                   padding: const EdgeInsets.only(left: 1.75, right: 1.75),
                                   child: SizedBox(
                                     width: 4,
-                                    height: size.height * .25,
+                                    height: 199,
                                     child:  DecoratedBox(
                                       decoration: BoxDecoration(
                                           borderRadius: const BorderRadius.all(Radius.circular(30)),

@@ -157,7 +157,7 @@ class CustomizeInstallmentList extends ConsumerWidget {
                                                           ),
                                                         ),
                                                         Text(
-                                                          "${item[index].amount}",
+                                                          "${item[index].amount!.toStringAsFixed(2)}",
                                                           style: TextStyle(
                                                             color: item[index]
                                                                 .operationType ==
