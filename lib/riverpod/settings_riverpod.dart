@@ -59,7 +59,7 @@ class SettingsRiverpod extends ChangeNotifier{
       prefixSymbol = settingsReglength[0].prefixSymbol;
       readDb();
     }else{
-      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2, "₺") ;
+      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺") ;
       await SQLHelper.addItemSetting(info);
       readDb();
     }

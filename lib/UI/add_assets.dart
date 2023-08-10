@@ -211,7 +211,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                           padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
                           decoration: BoxDecoration(
                             color: renkler.sariRenk,
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(7),
                           ),
                           child: const Text(
                               "Ekle",

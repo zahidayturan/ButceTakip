@@ -34,6 +34,15 @@ class CurrencyRiverpod extends ChangeNotifier {
     }
     return realAmount ?? 0.0;
   }
+  double calculateRate(double Amount, String moneyType, String prefix){
+    double ?rate;
+    if(double.tryParse(currencySqlList![currencySqlList.length -1].toMap()[moneyType])! > 0.0){
+      rate = double.parse(((double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType])!)).toStringAsFixed(5))!;
+    }else{
+      rate = 0.0 ;
+    }
+    return rate ;
+  }
 
   void calculateAllSQLRealTime() async { //Bütün kayıtları dolaşıp realAmount güncellenmesi yapıyor.
     List<SpendInfo> AllData = await SQLHelper.getItems();

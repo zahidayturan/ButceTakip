@@ -1,3 +1,4 @@
+import 'package:butcekontrol/UI/change_currency_page.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/models/spend_info.dart';
@@ -9,10 +10,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../UI/add_assets.dart';
 import '../../constans/material_color.dart';
 
-class assetsPage extends ConsumerWidget {
-  assetsPage({Key? key}) : super(key: key);
+class assetsPage extends ConsumerStatefulWidget {
+  const assetsPage({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  ConsumerState<assetsPage> createState() => _assetsPage();
+}
+
+class _assetsPage extends ConsumerState<assetsPage> {
+  var icsclick = true;
+  List? yansanayidata;
+  @override
+  Widget build(BuildContext context) {
     List<double> getMeasure(double kart, double  nakit, double  diger){
       var totalorigin =  kart + nakit + diger ;
       if(kart <= 0){
@@ -41,232 +50,431 @@ class assetsPage extends ConsumerWidget {
     var size = MediaQuery.of(context).size;
     var renkler = CustomColors();
     var time = DateTime.now().hour;
-    print(time);
     Future<List<SpendInfo>> Total =  SQLHelper.getItems();
     return SafeArea(
         child: Scaffold(
-          appBar: const AppBarForPage(title: "VARLIK"),
-          body: SingleChildScrollView(
-            child: FutureBuilder(
-              future: Total,
-              builder:
-              (context, snapshot) {
-                if(snapshot.hasData){
-                  var myData = snapshot.data;
-                  List<double> measureList = getMeasure(double.tryParse(dbRiv.getTotalAmountByKart(myData!))!, double.tryParse(dbRiv.getTotalAmountByNakit(myData!))!, double.tryParse(dbRiv.getTotalAmountByDiger(myData!))!);
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width * .05,vertical: size.height * .02),
-                    child: SizedBox(
-                      height: size.height * .8,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: size.height * .05,
-                            width: double.infinity,
-                            padding: EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: renkler.arkaRenk,
-                              borderRadius: BorderRadius.circular(11),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  time > 5 && time < 12
-                                  ? "Günaydın! Umarız iyisinizdir."
-                                  : time >= 12 && time < 18
-                                    ? "iyi günler! Umarız iyisinizdir."
-                                    : time >= 18 && time <= 23
-                                      ? "iyi akşamlar! Umarız iyisinizdir."
-                                      : "iyi geceler! Umarız iyisinizdir.",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                              ],
-                            ),
+          appBar: const AppBarForPage(title: "VARLIKLARIM"),
+          body: FutureBuilder(
+            future: Total,
+            builder:
+            (context, snapshot) {
+              if(snapshot.hasData){
+                var myData = snapshot.data; //bütün kaytları içerir.
+                List<double> measureList = getMeasure(double.tryParse(dbRiv.getTotalAmountByKart(myData!))!, double.tryParse(dbRiv.getTotalAmountByNakit(myData!))!, double.tryParse(dbRiv.getTotalAmountByDiger(myData!))!);
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .05,vertical: size.height * .02),
+                  child: SizedBox(
+                    height: size.height ,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: size.height * .05,
+                          width: double.infinity,
+                          padding: EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: renkler.arkaRenk,
+                            borderRadius: BorderRadius.circular(11),
                           ),
-                          SizedBox(
-                            height: size.width * .65,
-                            width: size.width * .65,
-                            child: measureList[3] <= 0
-                              ? Padding(
-                              padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: renkler.arkaRenk.withOpacity(0.7),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Center(child: Text("Net Varlık Bulunamadı!")),
+                          child: Row(
+                            children: [
+                              Center(
+                                child: Image.asset(
+                                  time > 5 && time < 12
+                                      ? "assets/icons/good-Morning.png"
+                                      : time >= 12 && time < 18
+                                      ? "assets/icons/good-tag.png"
+                                      : time >= 18 && time <= 23
+                                      ? "assets/icons/day-and-night.png"
+                                      : "assets/icons/good-night.png",
+                                  height: 30,
                                 ),
-                              )
-                              :Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: renkler.arkaRenk.withOpacity(0.7),
-                                        shape: BoxShape.circle,
+                              ),
+                              SizedBox(width: size.width * .02),
+                              Text(
+                                time > 5 && time < 12
+                                ? "Günaydın! Umarız iyisinizdir."
+                                : time >= 12 && time < 18
+                                  ? "iyi günler! Umarız iyisinizdir."
+                                  : time >= 18 && time <= 23
+                                    ? "iyi akşamlar! Umarız iyisinizdir."
+                                    : "iyi geceler! Umarız iyisinizdir.",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ],
+                          ),
+                        ), ///Karşılama
+                        SizedBox(height: size.height *.01),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: size.width * .52,
+                              width: size.width * .52,
+                              child: measureList[3] <= 0
+                                ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: renkler.arkaRenk.withOpacity(0.7),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Center(child: Text("Net Varlık Bulunamadı!")),
+                                  ),
+                                )
+                                :Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(11.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: renkler.arkaRenk.withOpacity(0.7),
+                                          shape: BoxShape.circle,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  DChartPie(
-                                    strokeWidth: 1,
-                                    showLabelLine: false,
-                                    labelPosition: PieLabelPosition.outside,
-                                    data: [
-                                      {'domain': 'Banka', 'measure': measureList[0]},
-                                      {'domain': 'Nakit', 'measure': measureList[1]},
-                                      {'domain': 'Diğer', 'measure': measureList[2]},
-                                    ],
-                                    fillColor: (pieData, index) {
-                                      return colorsList[index!];
-                                    },
-                                    donutWidth: 22,
-                                  ),
-                                  Center(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        TextMod("TOPLAM",Colors.black, 17),
-                                        SizedBox(height: size.width * .06),
-                                        TextMod("${measureList[3]} ${readSettingsRiv.Prefix}",Colors.black, 22),
+                                    DChartPie(
+                                      strokeWidth: 1,
+                                      showLabelLine: false,
+                                      labelPosition: PieLabelPosition.outside,
+                                      data: [
+                                        {'domain': 'Banka', 'measure': measureList[0]},
+                                        {'domain': 'Nakit', 'measure': measureList[1]},
+                                        {'domain': 'Diğer', 'measure': measureList[2]},
                                       ],
-                                    ),
-                                  ),
-                                ]
-                              ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: size.width * .01),
-                                    height: size.width * .02,
-                                    width: size.width * .02,
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xFFF5ECB9),
-                                      shape: BoxShape.circle
-                                    ),
-                                  ),
-                                  SizedBox(width: size.width * .02),
-                                  Text("Banka")
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: size.width * .01),
-                                    height: size.width * .02,
-                                    width: size.width * .02,
-                                    decoration: const BoxDecoration(
-                                        color: Color(0xFFF9D1AC),
-                                        shape: BoxShape.circle
-                                    ),
-                                  ),
-                                  SizedBox(width: size.width * .02),
-                                  Text("Nakit")
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: size.width * .01),
-                                    height: size.width * .02,
-                                    width: size.width * .02,
-                                    decoration: const BoxDecoration(
-                                        color: Color(0xFFF9ACAC),
-                                        shape: BoxShape.circle
-                                    ),
-                                  ),
-                                  SizedBox(width: size.width * .02),
-                                  Text("Diğer")
-                                ],
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            height: 1,
-                            color: renkler.sariRenk,
-                            thickness: 2,
-                          ),
-                          Text("VARLIKLAR"),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              assetBox(context, ref, "Banka" , dbRiv.getTotalAmountByKart(myData!)),
-                              assetBox(context, ref, "Nakit" , dbRiv.getTotalAmountByNakit(myData!)),
-                              assetBox(context, ref, "Diğer" , dbRiv.getTotalAmountByDiger(myData!)),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        opaque: false, //sayfa saydam olması için
-                                        transitionDuration: const Duration(milliseconds: 1),
-                                        pageBuilder: (context, animation, nextanim) => const addAssets(),
-                                        reverseTransitionDuration: const Duration(milliseconds: 1),
-                                        transitionsBuilder: (context, animation, nexttanim, child) {
-                                        return FadeTransition(
-                                          opacity: animation,
-                                          child: child,
-                                        );
+                                      fillColor: (pieData, index) {
+                                        return colorsList[index!];
                                       },
+                                      donutWidth: 16,
                                     ),
-                                  );
-                                },
-                                child: FittedBox(
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(vertical: size.height * .01, horizontal: size.width *.03),
-                                    decoration: BoxDecoration(
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          TextMod("TOPLAM",Colors.black, 16),
+                                          SizedBox(height: size.width * .016),
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: "${measureList[3]}" ,style: TextStyle(
+                                                    fontFamily: 'NEXA3',
+                                                    fontSize: 19,
+                                                    color: Theme.of(context).canvasColor
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: readSettingsRiv.prefixSymbol,
+                                                  style: TextStyle(
+                                                      fontFamily: 'TL',
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: Theme.of(context).canvasColor
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ]
+                                ),
+                            ),
+                            SizedBox(
+                              height: size.height * .19,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  assetBox(context, ref, "Kart" , dbRiv.getTotalAmountByKart(myData!)),
+                                  assetBox(context, ref, "Nakit" , dbRiv.getTotalAmountByNakit(myData!)),
+                                  assetBox(context, ref, "Diğer" , dbRiv.getTotalAmountByDiger(myData!)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),///pasta satırı
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(bottom: size.width * .01),
+                                  height: size.width * .02,
+                                  width: size.width * .02,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFF5ECB9),
+                                    shape: BoxShape.circle
+                                  ),
+                                ),
+                                SizedBox(width: size.width * .02),
+                                Text("Banka")
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(bottom: size.width * .01),
+                                  height: size.width * .02,
+                                  width: size.width * .02,
+                                  decoration: const BoxDecoration(
+                                      color: Color(0xFFF9D1AC),
+                                      shape: BoxShape.circle
+                                  ),
+                                ),
+                                SizedBox(width: size.width * .02),
+                                Text("Nakit")
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(bottom: size.width * .01),
+                                  height: size.width * .02,
+                                  width: size.width * .02,
+                                  decoration: const BoxDecoration(
+                                      color: Color(0xFFF9ACAC),
+                                      shape: BoxShape.circle
+                                  ),
+                                ),
+                                SizedBox(width: size.width * .02),
+                                Text("Diğer")
+                              ],
+                            ),
+                            SizedBox(width: size.width * .06),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    opaque: false, //sayfa saydam olması için
+                                    transitionDuration: const Duration(milliseconds: 1),
+                                    pageBuilder: (context, animation, nextanim) => const addAssets(),
+                                    reverseTransitionDuration: const Duration(milliseconds: 1),
+                                    transitionsBuilder: (context, animation, nexttanim, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                              child: FittedBox(
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.03),
+                                  decoration: BoxDecoration(
                                       color: renkler.koyuuRenk,
-                                      borderRadius: BorderRadius.circular(12),
+                                      borderRadius: BorderRadius.circular(8),
                                       boxShadow: const [
                                         BoxShadow(
-                                          color: Colors.black12,
-                                          blurRadius: 3,
-                                          spreadRadius: 1
+                                            color: Colors.black12,
+                                            blurRadius: 3,
+                                            spreadRadius: 1
                                         )
                                       ]
-                                    ),
-                                    child: Row(
-                                      children: const [
-                                        Text(
-                                            "Varlık Ekle",
+                                  ),
+                                  child: Row(
+                                    children: const [
+                                      Center(
+                                        child: Text(
+                                          "Varlık Ekle/Çıkart",
                                           style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18
+                                              color: Colors.white,
+                                              fontSize: 13
                                           ),
                                         ),
-                                        SizedBox(width: 5),
-                                        Icon(
-                                            Icons.add,
-                                          color: Colors.white,
-                                        )
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: size.height *.01),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                                "Dövizlerim",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontFamily: "Nexa3",
+
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * .46,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Container(
+                                  color: Colors.black,
+                                  height: 3,
+                                  width: double.infinity,
+                                  child: const VerticalDivider(
+                                    thickness: 1,
+                                    width: 0,
+                                    color: Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                print("DEĞİŞŞŞ REALLMANETİYY");
+                                print(yansanayidata!.map((e) => e.operationDate));
+                                setState(() {
+                                 icsclick = !icsclick;
+                               });
+                              },
+                              borderRadius: BorderRadius.circular(20),
+                              child: AnimatedContainer(
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.bounceIn,
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  color: renkler.sariRenk,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Transform.rotate(
+                                  angle: 3.14 / 2,
+                                  child: Icon(Icons.swap_horiz)
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * .07,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Container(
+                                  color: Colors.black,
+                                  height: 3,
+                                  width: double.infinity,
+                                  child: const VerticalDivider(
+                                    thickness: 1,
+                                    width: 0,
+                                    color: Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: size.height *.01),
+                        Expanded(
+                          child: FutureBuilder(
+                            future: SQLHelper.getItemsByCurrency(readSettingsRiv.Prefix!),
+                            builder: (context, snapshot) {
+                              List ?data ;
+                              if(snapshot.hasData){
+                                switch(icsclick){
+                                  case true:
+                                    data = List.from(snapshot.data!);
+                                    data.sort((a, b) {
+                                      DateTime dateA = convertDate(a.operationDate);
+                                      DateTime dateB = convertDate(b.operationDate);
+                                      return dateA!.compareTo(dateB!);
+                                    });
+                                    yansanayidata = data;
+                                    break;
+                                  case false:
+                                    data = snapshot.data! ;
+                                    yansanayidata = data;
+                                    break;
+                                  default:
+                                    print("afafs");
+                                }
+                                return data!.length == 0
+                                ?const Center(child: Text("Döviz Bulunamadı"))
+                                :GridView.builder(
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: size.width * .06,
+                                      mainAxisSpacing: size.height * .005,
+                                      childAspectRatio: 3
+                                  ),
+                                  itemCount: data!.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            opaque: false, //sayfa saydam olması için
+                                            transitionDuration: const Duration(milliseconds: 1),
+                                            pageBuilder: (context, animation, nextanim) => changeCurrencyPage(data![index]),
+                                            reverseTransitionDuration: const Duration(milliseconds: 1),
+                                            transitionsBuilder: (context, animation, nexttanim, child) {
+                                              return FadeTransition(
+                                                opacity: animation,
+                                                child: child,
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(horizontal: size.width *.02, vertical: size.height * .013),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12),
+                                          color: renkler.arkaRenk,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 6,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        "${data![index].operationTool}"
+                                                      ),
+                                                      Text(
+                                                          data![index].operationDate.toString()  == "null" ? "VARLIK" : data![index].operationDate.toString() ,
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Text(
+                                                      "${data[index].amount} ${data[index].moneyType}"
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Icon(Icons.swap_horiz_rounded)
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }else{
+                                return CircularProgressIndicator();
+                              }
+                            },
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  );
-                }else{
-                  return const CircularProgressIndicator();
-                }
-              },
-            ),
+                  ),
+                );
+              }else{
+                return const CircularProgressIndicator();
+              }
+            },
           ),
         )
     );
@@ -283,7 +491,7 @@ class assetsPage extends ConsumerWidget {
     var readSettings = ref.read(settingsRiverpod);
     var renkkler = CustomColors();
     IconData ?myIcon ;
-    if(title == "Banka") {
+    if(title == "Kart") {
       myIcon = Icons.credit_card;
     }else if(title == "Nakit"){
       myIcon = Icons.wallet;
@@ -291,34 +499,124 @@ class assetsPage extends ConsumerWidget {
       myIcon = Icons.animation_outlined;
     }
     return Container(
-      height: size.height * .13,
-      width: size.width * .25,
-      padding: EdgeInsets.symmetric(vertical: 12),
+      height: size.height * .052,
+      width: size.width * .36,
+      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(7),
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 1,
-            spreadRadius: 2,
+            spreadRadius: 1,
           )
         ],
         color: renkkler.arkaRenk,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(
-              myIcon,
-            size: 26,
+          SizedBox(
+            width: 35,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                title == "Kart"
+                ? Image.asset(
+                  "assets/icons/bank.png",
+                  height: 21,
+                  alignment: Alignment.centerLeft,
+                ) : title == "Nakit"
+                  ? Image.asset(
+                    "assets/icons/money.png",
+                    height: 22,
+                    alignment: Alignment.centerLeft,
+                  )
+                  : Icon(
+                    myIcon,
+                    size: 22,
+                  ),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
           ),
-          Text(title),
-          Text("${amaount} ${readSettings.Prefix}"),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "${amaount}" ,style: TextStyle(
+                    fontFamily: 'NEXA3',
+                    fontSize: 12,
+                    color: Theme.of(context).canvasColor
+                  ),
+                ),
+                TextSpan(
+                  text: readSettings.prefixSymbol,
+                  style: TextStyle(
+                      fontFamily: 'TL',
+                      fontSize: 16,
+                      color: Theme.of(context).canvasColor
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
+
+  DateTime convertDate(String Date) {
+    // Date format: "dd.MM.yyyy
+    if(Date == "null"){
+      Date = "00.00.0000";
+    }
+    List<String> dateSplit = Date.split(".");
+    print(dateSplit.length);
+    int day = int.parse(dateSplit[0]);
+    int month = int.parse(dateSplit[1]);
+    int year = int.parse(dateSplit[2]);
+    return DateTime(year, month, day);
+  }
+
 }
 /*
+class FezaiGridView extends StatelessWidget {
+  final int itemCount;
+  final int columnCount;
+  final Widget Function(BuildContext context, int index) itemBuilder;
+  const FezaiGridView({required this.itemCount, required this.itemBuilder, this.columnCount : 2});
+
+  Widget build(BuildContext context, index) {
+    List<Widget> Row= [];
+    int a = itemCount; //kayıt sayısı
+    int row = 0; // kaç row gelir.
+    int column = 3; // sutün sayısı
+    for(int row = 0; row < (a / column).toInt() ; row ++){
+
+    }
+    while (row < (a / column).toInt()) {
+      //Row.add(itemBuilder(context, index));
+      row++;
+    }
+    //stdout.write("* " * (a % column));
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+
+        ],
+      ),
+    );
+  }
+
+}
 
  */
