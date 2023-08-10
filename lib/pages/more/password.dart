@@ -316,10 +316,9 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                     ),
                                   )
                               ),
-                              const SizedBox(width: 10),
-                              IconButton(
-                                  icon : const Icon(Icons.backspace),
-                                onPressed: () {
+                              const SizedBox(width: 11),
+                              InkWell(
+                                onTap: () {
                                   if(security){
                                     if(num1){
                                       password2list.removeLast();
@@ -356,6 +355,11 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                     }
                                   }
                                 },
+                                highlightColor: Theme.of(context).indicatorColor,
+                                borderRadius:BorderRadius.circular(12) ,
+                                child: Container(
+                                  child: Icon(Icons.backspace),
+                                ),
                               )
                             ],
                           ),

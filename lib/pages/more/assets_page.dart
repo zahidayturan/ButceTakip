@@ -325,8 +325,6 @@ class _assetsPage extends ConsumerState<assetsPage> {
                             ),
                             InkWell(
                               onTap: () {
-                                print("DEĞİŞŞŞ REALLMANETİYY");
-                                print(yansanayidata!.map((e) => e.operationDate));
                                 setState(() {
                                  icsclick = !icsclick;
                                });
@@ -387,7 +385,6 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     yansanayidata = data;
                                     break;
                                   default:
-                                    print("afafs");
                                 }
                                 return data!.length == 0
                                 ?const Center(child: Text("Döviz Bulunamadı"))
@@ -578,7 +575,6 @@ class _assetsPage extends ConsumerState<assetsPage> {
       Date = "00.00.0000";
     }
     List<String> dateSplit = Date.split(".");
-    print(dateSplit.length);
     int day = int.parse(dateSplit[0]);
     int month = int.parse(dateSplit[1]);
     int year = int.parse(dateSplit[2]);

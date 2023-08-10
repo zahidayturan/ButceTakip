@@ -8,6 +8,7 @@ import 'package:butcekontrol/pages/more/Help/help_statistic.dart';
 import 'package:butcekontrol/pages/more/Help/versions_help.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../app/information_app.dart';
 import '../../../classes/app_bar_for_page.dart';
   import '../../../classes/language.dart';
 import '../../../constans/material_color.dart';
@@ -110,8 +111,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                   ),
                                 );
                               },
-                              child: const Text(
-                                  "Android 1.1.1v Update(3.06.2023)"
+                              child: Text(
+                                  "Android ${informationApp.version}v Sürüm Notu (3.06.2023)"
                               ),
                             ),
                           ],
@@ -166,6 +167,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       ),
                                     );
                                   },
+                                  borderRadius: BorderRadius.circular(15),
                                   child: SizedBox(
                                     height: 45,
                                     width: (size.width - 100) / 3,
@@ -229,6 +231,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       ),
                                     );
                                   },
+                                  borderRadius: BorderRadius.circular(15),
                                   child: SizedBox(
                                     height: 45,
                                     width: (size.width - 100) / 3,
@@ -292,6 +295,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       ),
                                     );
                                   },
+                                  borderRadius: BorderRadius.circular(15),
                                   child: SizedBox(
                                     height: 45,
                                     width: (size.width - 100) / 3,
@@ -359,6 +363,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       ),
                                     );
                                   },
+                                  borderRadius: BorderRadius.circular(15),
                                   child: SizedBox(
                                     height: 45,
                                     width: (size.width - 80) / 3,
@@ -422,6 +427,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       ),
                                     );
                                   },
+                                  borderRadius: BorderRadius.circular(15),
                                   child: SizedBox(
                                     height: 45,
                                     width: (size.width - 70) / 3,
@@ -493,13 +499,13 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
-                          child: DecoratedBox(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).indicatorColor,
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: ExpansionTile(
-
                               title: Text(translation(context).appShutdown),
                               trailing: customicom1 ? const Icon(
                                 Icons.keyboard_arrow_up,
@@ -526,8 +532,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 3),
-                          child: DecoratedBox(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).indicatorColor,
                                 borderRadius: BorderRadius.circular(20)
@@ -561,7 +568,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
-                          child: DecoratedBox(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).indicatorColor,
                                 borderRadius: BorderRadius.circular(20)
@@ -607,6 +615,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                             ),
                                           );
                                         },
+                                        borderRadius: BorderRadius.circular(15),
                                         child: SizedBox(
                                           height: 30,
                                           width: 120,

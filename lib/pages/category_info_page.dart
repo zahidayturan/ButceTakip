@@ -117,6 +117,8 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                     padding: const EdgeInsets.only(
                                         left: 15, right: 15, top: 5, bottom: 5),
                                     child: InkWell(
+                                      highlightColor: Theme.of(context).primaryColor,
+                                      borderRadius: BorderRadius.circular(20),
                                       onTap: () {
                                         {
                                           readDailyInfo.setSpendDetail(item, index);
@@ -408,6 +410,8 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                     borderRadius: BorderRadius.circular(40),
                   ),
                   child: IconButton(
+                    highlightColor: Theme.of(context).primaryColor,
+                    splashColor:Theme.of(context).primaryColor,
                     icon:  Image.asset(
                       "assets/icons/remove.png",
                       height: 16,

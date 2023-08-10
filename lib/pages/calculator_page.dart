@@ -197,6 +197,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InkWell(
+                      borderRadius:  BorderRadius.circular(20),
                       onTap: () {
                         changePage(0);
                       },
@@ -237,6 +238,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       ),
                     ),
                     InkWell(
+                      borderRadius:  BorderRadius.circular(20),
                       onTap: () {
                         changePage(1);
                       },
@@ -277,26 +279,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       ),
                     ),
                     InkWell(
+                      borderRadius:  BorderRadius.circular(20),
                       onTap: () {
                         changePage(2);
-                        /*
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: const Color(0xff0D1C26),
-                            duration: const Duration(seconds: 1),
-                            content: Text(
-                              translation(context).currencyConverterWarning,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontFamily: 'Nexa3',
-                                fontWeight: FontWeight.w600,
-                                height: 1.3,
-                              ),
-                            ),
-                          ),
-                        );
-                         */
                       },
                       child: SizedBox(
                         height: size.width / 4,

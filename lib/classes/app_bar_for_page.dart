@@ -82,6 +82,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                 color : Colors.white,
                 size: 40,
               ),
+              highlightColor: Theme.of(context).indicatorColor,
               onPressed: () async {
                 if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2 || title == "VARLIKLARIM"){
                   Navigator.of(context).pop();

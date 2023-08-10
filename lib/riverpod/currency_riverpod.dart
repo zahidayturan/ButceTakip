@@ -2,8 +2,10 @@ import 'package:butcekontrol/models/currency_info.dart';
 import 'package:butcekontrol/models/settings_info.dart';
 import 'package:butcekontrol/utils/firestore_helper.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ntp/ntp.dart';
 import '../models/spend_info.dart';
+import '../riverpod_management.dart';
 import '../utils/db_helper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -27,10 +29,14 @@ class CurrencyRiverpod extends ChangeNotifier {
 
   double calculateRealAmount(double Amount, String moneyType, String prefix){ // amount moneytype kaç Prefix ?
     double realAmount;
-    if(double.tryParse(currencySqlList![currencySqlList.length -1].toMap()[moneyType])! > 0.0){
-      realAmount = double.parse((Amount * (double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType])!)).toStringAsFixed(2))!;
-    }else{
-      realAmount = Amount ;
+    try{
+      if(double.tryParse(currencySqlList![currencySqlList.length -1].toMap()[moneyType])! > 0.0){
+        realAmount = double.parse((Amount * (double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType])!)).toStringAsFixed(2))!;
+      }else{
+        realAmount = Amount ;
+      }
+    }catch(e){
+      realAmount = Amount;
     }
     return realAmount ?? 0.0;
   }
@@ -44,26 +50,21 @@ class CurrencyRiverpod extends ChangeNotifier {
     return rate ;
   }
 
-  void calculateAllSQLRealTime() async { //Bütün kayıtları dolaşıp realAmount güncellenmesi yapıyor.
+  void calculateAllSQLRealTime(WidgetRef ref) async { //Bütün kayıtları dolaşıp realAmount güncellenmesi yapıyor.
     List<SpendInfo> AllData = await SQLHelper.getItems();
     List<SettingsInfo> settingsList = await SQLHelper.settingsControl();
     AllData.forEach((info) async {
       if(info.moneyType == "0"){
         info.moneyType = "TRY";
       }
-      settingsList.forEach((element) {
-        if(element.prefixSymbol == "?"){
 
-        }
-      });
-      if(info.moneyType == settingsList[0].prefix! ){  //yanlış iflitreleme
+      if(info.moneyType == settingsList[0].prefix! ){
         info.realAmount = info.amount;
-        await SQLHelper.updateItem(info).then((value) => print("SABİT KAYIT ===>>>${info.category} eski miktar ${info.amount} ${info.moneyType} realAmount miktar ====>> ${info.realAmount} ${settingsList[0].prefix!} İD => ${info.id}"));
+        await SQLHelper.updateItem(info).then((value) => print("SABİT KAYIT ===>>>${info.category} eski miktar ${info.amount} ${info.moneyType} realAmount miktar ====>> ${info.realAmount} ${settingsList[0].prefix!} İD => ${info.id}")).then((value) => ref.read(settingsRiverpod).setisuseinsert());
       }else{
         info.realAmount = calculateRealAmount(info.amount!, info.moneyType! , settingsList[0].prefix!); // amount moneytype kaç Prefix ?
-        await SQLHelper.updateItem(info).then((value) => print("GÜNCELLENMİŞ KAYIT ===>>>${info.category} eski miktar ${info.amount} ${info.moneyType} realAmount miktar ====>> ${info.realAmount} ${settingsList[0].prefix!} İD => ${info.id}"));
+        await SQLHelper.updateItem(info).then((value) => print("GÜNCELLENMİŞ KAYIT ===>>>${info.category} eski miktar ${info.amount} ${info.moneyType} realAmount miktar ====>> ${info.realAmount} ${settingsList[0].prefix!} İD => ${info.id}")).then((value) => ref.read(settingsRiverpod).setisuseinsert());
       }
-
     });
   }
 
@@ -128,55 +129,57 @@ class CurrencyRiverpod extends ChangeNotifier {
         globalNow.add(Duration(hours: 3)).toString(),
       );
     }else{
-      return currencyInfo("TRY", "1", "1", "1", "1", "1", "1", "1", "1", DateTime.now().toString());
+      return currencyInfo("noInternet", "1", "1", "1", "1", "1", "1", "1", "1", DateTime.now().toString()); //bir kişide olan bir sıkıntı milyonları etkileyebilir.
     }
   }
 
-  Future controlCurrency() async{ //currency Kayıt değerlendiriyoruz.
+  Future controlCurrency(WidgetRef ref) async{ //currency Kayıt değerlendiriyoruz.
     DateTime ?globalNow;
+    currencySqlList = await SQLHelper.currencyControl();
     try{
       currrenciesFirestoreList = await firestoreHelper.readCurrenciesFirestore();
-      currencySqlList = await SQLHelper.currencyControl();
       globalNow = await NTP.now();
-      print("GLOBAL SAAT =>$globalNow");
-      if(currrenciesFirestoreList!.isNotEmpty){
-        DateTime? date = DateTime.tryParse(currrenciesFirestoreList![currrenciesFirestoreList!.length -1].lastApiUpdateDate!);
-        if(date!.isBefore(globalNow!)){ // son kullanma tarihi geçmiş diye kontrol ediyorum.
+      print("GLOBAL SAAT =>${globalNow}");
+      if(currrenciesFirestoreList.isNotEmpty){
+        DateTime? date = DateTime.tryParse(currrenciesFirestoreList[currrenciesFirestoreList.length -1].lastApiUpdateDate!);
+        if(date!.isBefore(globalNow)){ // son kullanma tarihi geçmiş diye kontrol ediyorum.
           print("3 saat veya daha önce güncellenmiş");
           await fetchExchangeRates().then((info) {
-            firestoreHelper.createCurrencyFirestore(info);
-            if(currencySqlList!.isNotEmpty){
-              var dateSQL = DateTime.tryParse(currencySqlList![currencySqlList!.length - 1].lastApiUpdateDate!);
-              if(dateSQL!.isBefore(globalNow!)){
-                print("yerel database ile firestore daki veriler arasında 3 saatten den fazla zaman gecikmiş");
-                firestoreHelper.readCurrenciesFirestore().then((currrenciesFirestoreList) {
-                  SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
-                    calculateAllSQLRealTime();
-                    readDb();
-                  });
-                },);
-              }else{
-                print("Bugün zaten veriler senkronizeee");
-                readDb();
+            if(info.BASE != 'noInternet'){
+              firestoreHelper.createCurrencyFirestore(info);
+              if(currencySqlList.isNotEmpty){
+                var dateSQL = DateTime.tryParse(currencySqlList[currencySqlList.length - 1].lastApiUpdateDate!);
+                if(dateSQL!.isBefore(globalNow!)){
+                  print("yerel database ile firestore daki veriler arasında 3 saatten den fazla zaman gecikmiş");
+                  firestoreHelper.readCurrenciesFirestore().then((currrenciesFirestoreList) {
+                    SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
+                      calculateAllSQLRealTime(ref);
+                      readDb();
+                    });
+                  },);
+                }else{
+                  print("Bugün zaten veriler senkronizeee");
+                  readDb();
+                }
+              }else {
+                print("bulutta veri var sql de yoktu ekledik");
+                SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
+                  SQLHelper.currencyControl().then((value) => currencySqlList = value);
+                  calculateAllSQLRealTime(ref);
+                  readDb();
+                });
               }
-            }else {
-              print("bulutta veri var sql de yoktu ekledik");
-              SQLHelper.addItemCurrency(currrenciesFirestoreList![currrenciesFirestoreList!.length - 1]).then((value) {
-                SQLHelper.currencyControl().then((value) => currencySqlList = value);
-                calculateAllSQLRealTime();
-                readDb();
-              });
             }
           });
         }else{
           print("Firestore DataBase zaten güncel");
-          if(currencySqlList!.isNotEmpty){
-            var dateSQL = DateTime.tryParse(currencySqlList![currencySqlList!.length - 1].lastApiUpdateDate!);
+          if(currencySqlList.isNotEmpty){
+            var dateSQL = DateTime.tryParse(currencySqlList[currencySqlList.length - 1].lastApiUpdateDate!);
             if(dateSQL!.isBefore(globalNow)){
               print("yerel database ile firestore daki veriler arasında 3 saatten den fazla zaman gecikmiş");
               firestoreHelper.readCurrenciesFirestore().then((currrenciesFirestoreList) {
                 SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
-                  calculateAllSQLRealTime();
+                  calculateAllSQLRealTime(ref);
                   readDb();
                 });
               },);
@@ -188,7 +191,7 @@ class CurrencyRiverpod extends ChangeNotifier {
             print("bulutta veri var sql de yoktu ekledik");
             SQLHelper.addItemCurrency(currrenciesFirestoreList![currrenciesFirestoreList!.length - 1]).then((value) {
               SQLHelper.currencyControl().then((value) => currencySqlList = value);
-              calculateAllSQLRealTime();
+              calculateAllSQLRealTime(ref);
               readDb();
             });
           }
@@ -201,10 +204,16 @@ class CurrencyRiverpod extends ChangeNotifier {
         });
       }
     }catch(e){
-      Exception("INTERNET YOKKKKKKKKK");
       print("INTERNET BULUNAMADI(DİD FOUND INTERNET TAKED DEFAULT INFORMATION [$e]");
+      if(currencySqlList.isNotEmpty){
+        readDb();
+      }else{
+        await SQLHelper.addItemCurrency(currencyInfo("noInternet", "1", "1", "1", "1", "1", "1", "1", "1", "00.00.0000"));
+        readDb();
+      }
       //varsayılan değerleri aldırsana abi tekrar kontrol gerekiyor.
-      fetchExchangeRates().then((value) => readDb());
+      //fetchExchangeRates().then((value) => readDb()); =>
+      ///zaten internet yok tekrar Api çekmeye gerek yok
     }
   }
 

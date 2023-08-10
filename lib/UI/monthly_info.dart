@@ -173,6 +173,8 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                       readDailyInfo.setDate(int.parse(day), int.parse(month), int.parse(year));
                                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
                                     },
+                                    highlightColor: Theme.of(context).dividerColor,
+                                    borderRadius: BorderRadius.circular(12),
                                     child: Padding(
                                       padding: const EdgeInsets.only(
                                           left: 15, right: 15),

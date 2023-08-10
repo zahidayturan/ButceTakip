@@ -331,6 +331,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                       ),
                     ),
                     InkWell(
+                      highlightColor: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(30),
                       child: SizedBox(
                         width: (size.width * 0.92) - 130,
                         child: Center(
@@ -809,12 +811,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                       SizedBox(
                                         width: 80,
                                         height: 30,
-                                        child: TextButton(
+                                        child: GestureDetector(
+                                          /*
                                           style: ButtonStyle(
                                               backgroundColor:
                                               MaterialStatePropertyAll(
-                                                  renkler
-                                                      .sariRenk),
+                                                  renkler.sariRenk),
                                               shape: MaterialStateProperty.all<
                                                   RoundedRectangleBorder>(
                                                   RoundedRectangleBorder(
@@ -823,20 +825,29 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                                         .circular(
                                                         20),
                                                   ))),
-                                          onPressed: () {
+                                           */
+                                          onTap: () {
                                             Navigator.of(
                                                 context)
                                                 .pop();
                                           },
-                                          child: Text(
-                                            translation(context).ok,
-                                            style: TextStyle(
-                                              color: renkler
-                                                  .koyuuRenk,
-                                              fontSize: 16,
-                                              height: 1,
-                                              fontFamily:
-                                              'Nexa3',
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: renkler.sariRenk,
+                                              borderRadius: BorderRadius.circular(20)
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                translation(context).ok,
+                                                style: TextStyle(
+                                                  color: renkler
+                                                      .koyuuRenk,
+                                                  fontSize: 16,
+                                                  height: 1,
+                                                  fontFamily:
+                                                  'Nexa3',
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -919,6 +930,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                 ),
               ),
               InkWell(
+                highlightColor: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(30),
                 child: SizedBox(
                   width: size.width * 0.92 - 130,
                   child: Center(
@@ -1667,6 +1680,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                   ) : const SizedBox(),
                   openMoneyTypeMenu == false ? const SizedBox(width: 5,): const SizedBox(),
                   InkWell(
+                    borderRadius: BorderRadius.circular(20),
                     onTap: () {
                       setState(() {
                         openMoneyTypeMenu == false ? openMoneyTypeMenu = true : openMoneyTypeMenu = false;
@@ -1992,17 +2006,18 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
 
   Widget registration(int regs) {
     if (regs == 0) {
-      return IconButton(
-          padding: EdgeInsets.zero,
-          onPressed: () {
+      return GestureDetector(
+          onTap: () {
             setState(() {
               regss = 1;
               _registration.text = '1';
             });
           },
-          icon: const Icon(
-            Icons.bookmark_add_outlined,
-            color: Colors.white,
+          child: Center(
+            child: const Icon(
+              Icons.bookmark_add_outlined,
+              color: Colors.white,
+            ),
           ));
     } else {
       return IconButton(
@@ -2125,22 +2140,24 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       color: Theme.of(context).shadowColor,
                     ),
-                    child: TextButton(
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         textLength = 0;
                         setState(() {
                           _note.text = "";
 
                         });
                       },
-                      child: Text(
-                        translation(context).delete,
-                        style: TextStyle(
-                          height: 1,
-                          color: Theme.of(context).canvasColor,
-                          fontSize: 12,
-                          fontFamily: 'Nexa4',
-                          fontWeight: FontWeight.w200,
+                      child: Center(
+                        child: Text(
+                          translation(context).delete,
+                          style: TextStyle(
+                            height: 1,
+                            color: Theme.of(context).canvasColor,
+                            fontSize: 12,
+                            fontFamily: 'Nexa4',
+                            fontWeight: FontWeight.w200,
+                          ),
                         ),
                       ),
                     ),
@@ -2197,8 +2214,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                     ),
                     height: 28,
                     width: 130,
-                    child: TextButton(
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         _note.text = "";
                         _amount.text = "";
                         textLength = 0;
@@ -2209,13 +2226,15 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                         });
                         //operationCustomButton(context);
                       },
-                      child: Text(translation(context).deleteAll,
-                          style: TextStyle(
-                            height: 1,
-                              color: Theme.of(context).canvasColor,
-                              fontSize: 15,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w900)),
+                      child: Center(
+                        child: Text(translation(context).deleteAll,
+                            style: TextStyle(
+                              height: 1,
+                                color: Theme.of(context).canvasColor,
+                                fontSize: 15,
+                                fontFamily: 'Nexa4',
+                                fontWeight: FontWeight.w900)),
+                      ),
                     ),
                   ),
                 ],
@@ -2232,8 +2251,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                     ),
                     height: 34,
                     width: 150,
-                    child: TextButton(
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         setAlertContent(context);
                         double amount = double.tryParse(_amount.text) ?? 0.0;
                         if (amount != 0.0 && _category.text.isNotEmpty) {
@@ -2355,13 +2374,15 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                               });
                         }
                       },
-                      child: Text(translation(context).done,
-                          style: TextStyle(
-                            height: 1,
-                              color: renkler.koyuuRenk,
-                              fontSize: 16,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w900)),
+                      child: Center(
+                        child: Text(translation(context).done,
+                            style: TextStyle(
+                              height: 1,
+                                color: renkler.koyuuRenk,
+                                fontSize: 16,
+                                fontFamily: 'Nexa4',
+                                fontWeight: FontWeight.w900)),
+                      ),
                     ),
                   ),
                 ],

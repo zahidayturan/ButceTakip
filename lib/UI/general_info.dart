@@ -138,6 +138,7 @@ class Generalinfo extends ConsumerWidget {
                                                   readhome.changeindex(indexmounth, indexyear);
                                                   readdb.setMonthandYear((indexmounth + 1).toString(), years[indexyear]);
                                                 },
+                                                  highlightColor: Theme.of(context).indicatorColor,
                                                 child: SizedBox(
                                                   height: 20,
                                                   width: 20,
@@ -208,6 +209,7 @@ class Generalinfo extends ConsumerWidget {
                                                   readhome.changeindex(indexmounth, indexyear);
                                                   readdb.setMonthandYear((indexmounth + 1).toString(), years[indexyear]);
                                                 },
+                                                highlightColor: Theme.of(context).indicatorColor,
                                                 child: SizedBox(
                                                   height: 20,
                                                   width: 20,

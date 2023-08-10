@@ -81,7 +81,7 @@ class SQLHelper {
           database.execute("ALTER TABLE spendinfo ADD COLUMN realAmount REAL DEFAULT 0");
           database.execute("ALTER TABLE spendinfo ADD COLUMN userCategory TEXT DEFAULT '' ");
           database.execute("ALTER TABLE spendinfo ADD COLUMN systemMessage TEXT DEFAULT '' ");
-          database.execute("ALTER TABLE setting ADD COLUMN prefixSymbol TEXT DEFAULT '₺' ");
+          database.execute("ALTER TABLE setting ADD COLUMN prefixSymbol TEXT DEFAULT ' ₺' ");
         }
       },
     );

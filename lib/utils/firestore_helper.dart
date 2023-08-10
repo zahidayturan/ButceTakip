@@ -25,7 +25,6 @@ class firestoreHelper {
         currencies.add(currency!);
       });
     }
-    print(currencies);
     return currencies;
   }
 }
