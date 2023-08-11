@@ -1,10 +1,10 @@
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../classes/app_bar_for_page.dart';
+import '../riverpod_management.dart';
 
 class Calculator extends ConsumerStatefulWidget {
   const Calculator({Key? key}) : super(key: key);
@@ -133,7 +133,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             onPageChanged: (value) =>
                                 setState(() => _currentPageindex = value),
                             children: [
-                              //calculator(),
+                              //calculator(), //Page 1
                               yuzdePage(), // Page 2
                               krediPage(), //Page 3
                               currencyConverter(context), //Page 4
@@ -197,6 +197,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InkWell(
+                      borderRadius:  BorderRadius.circular(20),
                       onTap: () {
                         changePage(0);
                       },
@@ -237,6 +238,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       ),
                     ),
                     InkWell(
+                      borderRadius:  BorderRadius.circular(20),
                       onTap: () {
                         changePage(1);
                       },
@@ -277,26 +279,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       ),
                     ),
                     InkWell(
+                      borderRadius:  BorderRadius.circular(20),
                       onTap: () {
                         changePage(2);
-                        /*
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: const Color(0xff0D1C26),
-                            duration: const Duration(seconds: 1),
-                            content: Text(
-                              translation(context).currencyConverterWarning,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontFamily: 'Nexa3',
-                                fontWeight: FontWeight.w600,
-                                height: 1.3,
-                              ),
-                            ),
-                          ),
-                        );
-                         */
                       },
                       child: SizedBox(
                         height: size.width / 4,
@@ -1062,27 +1047,6 @@ class _CalculatorState extends ConsumerState<Calculator> {
                   height: 40,
                   width: 40,
                 ),
-                /*
-                SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: renkler.yaziRenk,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: IconButton(
-                      icon: Image.asset(
-                        "assets/icons/remove.png",
-                        height: 20,
-                        width: 20,
-                      ),
-                      onPressed: () {
-                        changePage(0);
-                      },
-                    ),
-                  ),
-                ),*/
               ],
             ),
 
@@ -1097,15 +1061,15 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     SizedBox(
                       width: 180,
                       child: sayi2ishere
-                          ? Text(
-                        translation(context).firstNumber,
-                        style: const TextStyle(
-                          fontFamily: "Nexa4",
-                          fontSize: 17,
-                          color: Colors.white,
-                        ),
-                      )
-                          : Text(
+                      ? Text(
+                          translation(context).firstNumber,
+                          style: const TextStyle(
+                            fontFamily: "Nexa4",
+                            fontSize: 17,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(
                         translation(context).number,
                         style: const TextStyle(
                           fontFamily: "Nexa4",
@@ -1134,158 +1098,137 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             style: TextStyle(
                                 color: renkler.koyuuRenk,
                                 fontSize: 16,
-                                fontFamily: 'Nexa4'),
+                                fontFamily: 'Nexa4'
+                              ),
                             onChanged: (value) {
                               if (firstselect == true) {
-                                if (sayi2Controller.text != "" &&
-                                    sayi1Controller.text != "") {
-                                  sonuc = ((double.parse(sayi2Controller.text) /
-                                      double.parse(sayi1Controller.text)) *
-                                      100);
+                                if (sayi2Controller.text != "" && sayi1Controller.text != "") {
+                                  sonuc = ((double.parse(sayi2Controller.text) / double.parse(sayi1Controller.text)) * 100);
                                   yuzdeOranController.text = sonuc.toString();
                                 }
                               } else if (secondselect == true) {
-                                if (sayi1Controller.text != "" &&
-                                    sayi2Controller.text != "") {
-                                  sonuc = ((double.parse(sayi2Controller.text) -
-                                      double.parse(sayi1Controller.text)) *
-                                      100) /
-                                      double.parse(sayi1Controller.text);
+                                if (sayi1Controller.text != "" && sayi2Controller.text != "") {
+                                  sonuc = ((double.parse(sayi2Controller.text) - double.parse(sayi1Controller.text)) * 100) / double.parse(sayi1Controller.text);
                                   yuzdeOranController.text = sonuc.toString();
                                 }
                               } else if (yuzdeOranController.text != "") {
-                                sonuc = double.parse(sayi1Controller.text) *
-                                    (double.parse(yuzdeOranController.text) / 100);
+                                sonuc = double.parse(sayi1Controller.text) * (double.parse(yuzdeOranController.text) / 100);
                                 sonucController.text = sonuc.toString();
                               }
                             },
                             keyboardType: TextInputType.number,
                             controller: sayi1Controller,
                             decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  height: 1,
-                                  fontSize: 14,
-                                  fontFamily: 'Nexa3',
-                                  color: renkler.koyuAraRenk
-                                ),
-                                counterText: '',
-                              isDense: true,
-                              enabledBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  style: BorderStyle.none,
-                                ),
+                            hintStyle: TextStyle(
+                              height: 1,
+                              fontSize: 14,
+                              fontFamily: 'Nexa3',
+                              color: renkler.koyuAraRenk
+                            ),
+                            counterText: '',
+                            isDense: true,
+                            enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              style: BorderStyle.none,
                               ),
-                              focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  style: BorderStyle.none,
-                                ),
-                              ),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              style: BorderStyle.none,
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-                sayi2ishere
-                    ? Column(
-                  children: [
-                    SizedBox(
-                      height: size.height / 40,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 180,
-                          child: Text(
-                            translation(context).secondNumber,
-                            style: const TextStyle(
-                              fontFamily: "Nexa4",
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
+              ],
+            ),
+            sayi2ishere
+              ? Column(
+                children: [
+                  SizedBox(
+                    height: size.height / 40,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 180,
+                        child: Text(
+                          translation(context).secondNumber,
+                          style: const TextStyle(
+                            fontFamily: "Nexa4",
+                            fontSize: 16,
+                            color: Colors.white,
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: renkler.yaziRenk,
-                            borderRadius: const BorderRadius.all(
-                                Radius.circular(10)),
-                          ),
-                          child: SizedBox(
-                            height: 30,
-                            width: 100,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 5,right: 5),
-                              child: TextFormField(
-                                maxLength: 12,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly,
-                                ],
-                                style: TextStyle(
-                                    color: renkler.koyuuRenk,
-                                    fontSize: 16,
-                                    fontFamily: 'Nexa4'),
-                                onChanged: (value) {
-                                  if (firstselect == true) {
-                                    if (sayi2Controller.text != "" &&
-                                        sayi1Controller.text != "") {
-                                      sonuc = ((double.parse(
-                                          sayi2Controller.text) /
-                                          double.parse(
-                                              sayi1Controller.text)) *
-                                          100);
-                                      yuzdeOranController.text =
-                                          sonuc.toStringAsFixed(2);
-                                    }
-                                  } else if (secondselect == true) {
-                                    if (sayi1Controller.text != "" &&
-                                        sayi2Controller.text != "") {
-                                      sonuc = ((double.parse(
-                                          sayi2Controller.text) -
-                                          double.parse(
-                                              sayi1Controller.text)) *
-                                          100) /
-                                          double.parse(sayi1Controller.text);
-                                      yuzdeOranController.text =
-                                          sonuc.toStringAsFixed(2);
-                                    }
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: renkler.yaziRenk,
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: SizedBox(
+                          height: 30,
+                          width: 100,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5,right: 5),
+                            child: TextField(
+                              maxLength: 12,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              style: TextStyle(
+                                  color: renkler.koyuuRenk,
+                                  fontSize: 16,
+                                  fontFamily: 'Nexa4'),
+                              onChanged: (value) {
+                                if (firstselect == true) {
+                                  if (sayi2Controller.text != "" && sayi1Controller.text != "") {
+                                    sonuc = ((double.parse(sayi2Controller.text) / double.parse(sayi1Controller.text)) * 100);
+                                    yuzdeOranController.text = sonuc.toStringAsFixed(2);
                                   }
-                                },
-                                controller: sayi2Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    counterText: '',
-                                    hintText: translation(context).enteraNumber,
-                                    hintStyle: const TextStyle(
-                                      height: 1,
-                                        fontSize: 14,
-                                        fontFamily: 'Nexa3'
-                                    ),
-                                    isDense: true,
-                                    enabledBorder: const UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        style: BorderStyle.none,
-                                      ),
-                                    ),
-                                    focusedBorder: const UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        style: BorderStyle.none,
-                                      ),
-                                    ),
-                                    border: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10)),
-                                    )),
+                                } else if (secondselect == true) {
+                                  if (sayi1Controller.text != "" && sayi2Controller.text != "") {
+                                    sonuc = ((double.parse(sayi2Controller.text) - double.parse(sayi1Controller.text)) * 100) / double.parse(sayi1Controller.text);
+                                    yuzdeOranController.text = sonuc.toStringAsFixed(2);
+                                  }
+                                }
+                              },
+                              controller: sayi2Controller,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                counterText: '',
+                                hintText: translation(context).enteraNumber,
+                                hintStyle: const TextStyle(
+                                  height: 1,
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa3'
+                                ),
+                                isDense: true,
+                                enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.none,
+                                  ),
+                                ),
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.none,
+                                  ),
+                                ),
+                                border: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                )
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                )
-                    : const SizedBox(height: 1),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+              : const SizedBox(height: 1),
                 SizedBox(
                   height: size.height / 40,
                 ),
@@ -1294,7 +1237,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     SizedBox(
                       width: 180,
                       child: sayi2ishere
-                          ? Text(
+                      ? Text(
                         translation(context).result2,
                         style: const TextStyle(
                           fontFamily: "Nexa4",
@@ -1302,7 +1245,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                           color: Colors.white,
                         ),
                       )
-                          : Text(
+                      : Text(
                         translation(context).percentageRate,
                         style: const TextStyle(
                           fontFamily: "Nexa4",
@@ -1322,7 +1265,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         width: 100,
                         child: Padding(
                           padding:  const EdgeInsets.only(left: 5,right: 5),
-                          child: TextFormField(
+                          child: TextField(
                             maxLength: sayi2ishere ? null : 10,
                             readOnly: sayi2ishere ? true : false,
                             inputFormatters: [
@@ -1331,7 +1274,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             style: TextStyle(
                                 color: renkler.koyuuRenk,
                                 fontFamily: 'Nexa4',
-                                fontSize: 16),
+                                fontSize: 16
+                            ),
                             onChanged: (value) {
                               if (sayi1Controller.text.isNotEmpty && yuzdeOranController.text.isNotEmpty) {
                                 // Virgülü noktaya dönüştür
@@ -1592,7 +1536,12 @@ class _CalculatorState extends ConsumerState<Calculator> {
       pageCurrency2.jumpToPage(currentPage1);
     }
     var rea = ref.read(currencyRiverpod);
-    double? kurdolar = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.USD!)!).toStringAsFixed(2)!));
+    double? kurdolar;
+    if(rea.BASE != null){
+      kurdolar = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.USD!)!).toStringAsFixed(2)));
+    }else{
+      kurdolar = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
+    }
     List<String> listCurrency = ['TL', 'USD', 'EURO'];
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

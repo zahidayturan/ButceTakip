@@ -59,6 +59,7 @@ class More extends ConsumerWidget {
                                 ),
                               );
                             },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -98,6 +99,7 @@ class More extends ConsumerWidget {
                                 ),
                               );
                             },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -119,26 +121,6 @@ class More extends ConsumerWidget {
                             ),
                           ),
                           SizedBox(width: size.width / 15),
-                          /*
-                          InkWell(
-                            onTap: () => print("Theme"),
-                            child: Container(
-                              height: size.height / 9,
-                              width: size.height / 9,
-                              decoration: BoxDecoration(
-                                  color: renkler.koyuuRenk,
-                                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Icon(Icons.sunny, color: renkler.YaziRenk, size: 35),
-                                  Textmod("Tema", renkler.YaziRenk, 10),
-                                ],
-                              ),
-                            ),
-                          ),
-                           */
                           InkWell(
                             onTap: () {
                               if(readSetting.isPassword == 1 && readSetting.Password != "null"){
@@ -176,6 +158,7 @@ class More extends ConsumerWidget {
                                 );
                               }
                             },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -222,6 +205,7 @@ class More extends ConsumerWidget {
                                 ),
                               );
                             },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -260,6 +244,7 @@ class More extends ConsumerWidget {
                                 ),
                               );
                             },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -299,6 +284,7 @@ class More extends ConsumerWidget {
                                 ),
                               );
                             },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
                             child: Container(
                               height: size.height / 9,
                               width: size.height / 9,
@@ -321,69 +307,6 @@ class More extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      /*
-                      SizedBox(height: size.width / 15,),
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () => print("Suggestion"),
-                            child: Container(
-                              height: size.height / 9,
-                              width: size.height / 9,
-                              decoration: BoxDecoration(
-                                  color: renkler.koyuuRenk,
-                                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Icon(Icons.lightbulb, color: renkler.YaziRenk, size: 35),
-                                  Textmod("Öneri", renkler.YaziRenk, 10),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: size.width / 15),
-                          InkWell(
-                            onTap: () => print("Evaluation"),
-                            child: Container(
-                              height: size.height / 9,
-                              width: size.height / 9,
-                              decoration: BoxDecoration(
-                                  color: renkler.koyuuRenk,
-                                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Icon(Icons.star, color: renkler.YaziRenk, size: 35),
-                                  Textmod("Değerlendirme", renkler.YaziRenk, 10),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: size.width / 15),
-                          InkWell(
-                            onTap: () => print("Recommend"),
-                            child: Container(
-                              height: size.height / 9,
-                              width: size.height / 9,
-                              decoration: BoxDecoration(
-                                  color: renkler.koyuuRenk,
-                                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Icon(Icons.recommend, color: renkler.YaziRenk, size: 35),
-                                  Textmod("Tavsiye Et", renkler.YaziRenk, 10),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                       */
                     ],
                   ),
                 ],

@@ -502,8 +502,9 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     return SizedBox(
       height: size.height * 0.065,
       width: size.height * 0.065,
-      child: TextButton(
-          onPressed: () async {
+      child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: () async {
             double totalAmount = await total;
             if (totalAmount == 0) {
               showModalBottomSheet(
@@ -529,16 +530,18 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
             }
           },
-          child: Text(
-            date > 0 ? date.toString() : "",
-            style: TextStyle(
-              color: month == selectedMonthIndex
-                  ? Theme.of(context).canvasColor
-                  : Theme.of(context).indicatorColor,
-              fontSize: 20,
-              fontFamily: 'Nexa3',
-              fontWeight: FontWeight.w600,
-              height: 1.4,
+          child: Center(
+            child: Text(
+              date > 0 ? date.toString() : "",
+              style: TextStyle(
+                color: month == selectedMonthIndex
+                    ? Theme.of(context).canvasColor
+                    : Theme.of(context).indicatorColor,
+                fontSize: 20,
+                fontFamily: 'Nexa3',
+                fontWeight: FontWeight.w600,
+                height: 1.4,
+              ),
             ),
           )),
     );

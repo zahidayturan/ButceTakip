@@ -60,6 +60,7 @@ class NavBar extends ConsumerWidget {
                                   Icons.equalizer_rounded,
                                   color: Colors.white,
                                 ),
+                                highlightColor: Theme.of(context).primaryColor,
                                 constraints: const BoxConstraints(
                                     minHeight: 45,
                                     minWidth: 50
@@ -92,6 +93,7 @@ class NavBar extends ConsumerWidget {
                                     Icons.calendar_month_rounded,
                                     color: Colors.white,
                                   ),
+                                  highlightColor: Theme.of(context).primaryColor,
                                   constraints: const BoxConstraints(
                                       minHeight: 45,
                                       minWidth: 50
@@ -125,8 +127,8 @@ class NavBar extends ConsumerWidget {
                                     size: 30,
                                     Icons.calculate_rounded,
                                     color: Colors.white,
-
                                   ),
+                                  highlightColor: Theme.of(context).primaryColor,
                                   constraints: const BoxConstraints(
                                       minHeight: 45,
                                       minWidth: 50
@@ -158,6 +160,7 @@ class NavBar extends ConsumerWidget {
                                     Icons.keyboard_control_rounded,
                                     color: Colors.white,
                                   ),
+                                  highlightColor: Theme.of(context).primaryColor,
                                   constraints: const BoxConstraints(
                                       minHeight: 45,
                                       minWidth: 50
@@ -202,6 +205,7 @@ class NavBar extends ConsumerWidget {
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AddData(),));
                       read.setcur();  /// arastırılacak
                     },
+                    splashColor: Theme.of(context).primaryColor,
                     backgroundColor: const Color(0xffF2CB05),
                     elevation: 0,
                     child: Image.asset(

@@ -69,6 +69,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
     return InkWell(
+      borderRadius: BorderRadius.circular(15),
       child: Container(
         width: size.width*0.9,
         height: 30,
@@ -462,6 +463,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 padding: const EdgeInsets.only(
                                     bottom: 8, right: 16, left: 16),
                                 child: InkWell(
+                                  highlightColor: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(20),
                                   onTap: () {
                                     readCategoryInfo.setDateAndCategory(
                                         selectedDayIndex,

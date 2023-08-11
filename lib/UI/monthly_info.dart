@@ -1,6 +1,5 @@
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
-import 'package:butcekontrol/riverpod/home_riverpod.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,8 +29,8 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
     var watchHome = ref.watch(homeRiverpod);
     indexYear = watchHome.indexyear;
 
-    PageController _controller = PageController(initialPage: watchHome.indexmounth + 1 );
-    readHome.setControllerPageMontly(_controller);
+    PageController controller = PageController(initialPage: watchHome.indexmounth + 1 );
+    readHome.setControllerPageMontly(controller);
     //int indexYear = readHome.indexyear;
     var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(databaseRiverpod);
@@ -43,9 +42,6 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
       return ref.watch(databaseRiverpod);
     });
     CustomColors renkler = CustomColors();
-    var ceyrekwsize = MediaQuery.of(context).size.width / 5;
-    var size = MediaQuery.of(context).size;
-    var abuzer = 1;
     return Expanded(
       child: StreamBuilder<Map<String, dynamic>>(
         stream: read.myMethod(),
@@ -60,26 +56,27 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
           return PageView.builder(
             controller: watchHome.controllerPageMontly,
             itemCount: 14,
+            pageSnapping: true,
             onPageChanged: (index) {
-              if(_controller.page!.toInt() < index){
+              if(controller.page!.toInt() < index){
                 if(index == 13){
                   if( indexYear < years.length - 1 ){
                     indexYear += 1;
-                    _controller.jumpToPage(1);
+                    controller.jumpToPage(1);
                   }else{
-                    _controller.jumpToPage(12);
+                    controller.jumpToPage(12);
                   }
                 }else{
                   readHome.changeindex(index - 1 , indexYear);
                   read.setMonthandYear((index ).toString(), years[indexYear]);
                 }
-              }else if(_controller.page!.toInt() == index){ // what böyle çalıştı anlamadım.
+              }else if(controller.page!.toInt() == index){ // what böyle çalıştı anlamadım.
                 if(index == 0) {
                   if( indexYear != 0){
                     indexYear -= 1 ;
-                    _controller.jumpToPage(12);
+                    controller.jumpToPage(12);
                   }else{
-                    _controller.jumpToPage(1);
+                    controller.jumpToPage(1);
                   }
                 }else{
                   readHome.changeindex(index - 1  , indexYear);
@@ -173,6 +170,8 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                       readDailyInfo.setDate(int.parse(day), int.parse(month), int.parse(year));
                                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
                                     },
+                                    highlightColor: Theme.of(context).dividerColor,
+                                    borderRadius: BorderRadius.circular(12),
                                     child: Padding(
                                       padding: const EdgeInsets.only(
                                           left: 15, right: 15),

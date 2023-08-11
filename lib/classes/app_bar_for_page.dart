@@ -72,7 +72,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                   || title == translation(context).contactUsTitle
                   || title == translation(context).backupTitle
                   || title == translation(context).loginPasswordTitle
-                  || title == "VARLIK"
+                  || title == "VARLIKLARIM"
               ?const Icon(
                 Icons.arrow_back,
                 color: Colors.white,
@@ -82,8 +82,9 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                 color : Colors.white,
                 size: 40,
               ),
+              highlightColor: Theme.of(context).indicatorColor,
               onPressed: () async {
-                if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2 || title == "VARLIK"){
+                if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2 || title == "VARLIKLARIM"){
                   Navigator.of(context).pop();
                 }else if(title == translation(context).loginPasswordTitle) {
                   if(readsetting.isPassword == 1 && readsetting.Password == "null") {

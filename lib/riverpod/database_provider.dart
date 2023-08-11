@@ -216,10 +216,39 @@ class DbProvider extends ChangeNotifier {
     List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(todayNow,monthNow,yearNow);
     return items;
   }
-
+  bool searchSort = false ;
+  void setSearcSort(){
+    searchSort = !searchSort;
+    notifyListeners();
+  }
   void searchItem(searchText) async {
     searchListTile = await SQLHelper.searchItem(searchText);
+    var sortedlist;
+    searchListTile!.sort((a, b) {
+      DateTime dateA = convertDate(a.operationDate!);
+      DateTime dateB = convertDate(b.operationDate!);
+      switch(searchSort){
+        case true:
+          sortedlist = dateB.compareTo(dateA);
+          break;
+        case false:
+          sortedlist = dateA.compareTo(dateB);
+          break;
+      }
+      return sortedlist;
+    });
     notifyListeners();
+  }
+  DateTime convertDate(String Date) {
+    // Date format: "dd.MM.yyyy
+    if(Date == "null"){
+      Date = "00.00.0000";
+    }
+    List<String> dateSplit = Date.split(".");
+    int day = int.parse(dateSplit[0]);
+    int month = int.parse(dateSplit[1]);
+    int year = int.parse(dateSplit[2]);
+    return DateTime(year, month, day);
   }
 
 }

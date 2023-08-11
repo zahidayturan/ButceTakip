@@ -209,9 +209,11 @@ class Communicate extends StatelessWidget {
                                           launchURL(
                                               'https://github.com/ibrahimeth');
                                         },
+                                        highlightColor: Theme.of(context).indicatorColor,
+                                        borderRadius: BorderRadius.circular(15),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(7),
                                           child: Container(
                                             width: 90,
                                             color: Theme.of(context).indicatorColor,
@@ -241,9 +243,11 @@ class Communicate extends StatelessWidget {
                                           launchURL(
                                               "https://www.linkedin.com/in/ibrahim-ethem-akb%C4%B1y%C4%B1k-53a099224/");
                                         },
+                                        highlightColor: Theme.of(context).indicatorColor,
+                                        borderRadius: BorderRadius.circular(15),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(7),
                                           child: Container(
                                             width: 95,
                                             color: Theme.of(context).indicatorColor,
@@ -324,9 +328,11 @@ class Communicate extends StatelessWidget {
                                           launchURL(
                                               'https://github.com/Hamza-Bayar-2');
                                         },
+                                        highlightColor: Theme.of(context).indicatorColor,
+                                        borderRadius: BorderRadius.circular(15),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(7),
                                           child: Container(
                                             width: 95,
                                             color: Theme.of(context).indicatorColor,
@@ -356,9 +362,11 @@ class Communicate extends StatelessWidget {
                                           launchURL(
                                               "https://www.linkedin.com/in/hamza-bayar-251b7b234/");
                                         },
+                                        highlightColor: Theme.of(context).indicatorColor,
+                                        borderRadius: BorderRadius.circular(15),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(7),
                                           child: Container(
                                             width: 95,
                                             color: Theme.of(context).indicatorColor,
@@ -439,9 +447,11 @@ class Communicate extends StatelessWidget {
                                           launchURL(
                                               'https://github.com/zahidayturan');
                                         },
+                                        highlightColor: Theme.of(context).indicatorColor,
+                                        borderRadius: BorderRadius.circular(15),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(7),
                                           child: Container(
                                             width: 95,
                                             color: Theme.of(context).indicatorColor,

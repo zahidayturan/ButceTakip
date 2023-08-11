@@ -81,7 +81,7 @@ class SQLHelper {
           database.execute("ALTER TABLE spendinfo ADD COLUMN realAmount REAL DEFAULT 0");
           database.execute("ALTER TABLE spendinfo ADD COLUMN userCategory TEXT DEFAULT '' ");
           database.execute("ALTER TABLE spendinfo ADD COLUMN systemMessage TEXT DEFAULT '' ");
-          database.execute("ALTER TABLE setting ADD COLUMN prefixSymbol TEXT DEFAULT '₺' ");
+          database.execute("ALTER TABLE setting ADD COLUMN prefixSymbol TEXT DEFAULT ' ₺' ");
         }
       },
     );
@@ -158,6 +158,11 @@ class SQLHelper {
     final result = await db.update("spendinfo", {"registration": newRegistration}, where: "id = ?", whereArgs: [id]);
     return result;
   }
+  static Future<int> updateDB(int? id,String DbName, Map<String,dynamic> Changes) async { //verilen değerleri göre her db yi günceller.
+    final db = await SQLHelper.db();
+    final result = await db.update("$DbName", Changes, where: "id = ?", whereArgs: [id]);
+    return result;
+  }
 
   static Future<int> updateCustomize(int? id, String customize) async {
     final db = await SQLHelper.db();
@@ -177,12 +182,18 @@ class SQLHelper {
   static Future<List<SpendInfo>> searchItem(String searchText) async {
     final db = await SQLHelper.db();
     //var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (note LIKE '%${searchText}%' OR category LIKE '%${searchText}%') AND note != '' AND category != ''");
-    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE ((note LIKE '%${searchText}%'  AND note != ''  )OR category LIKE '%${searchText}%') AND category != ''");
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE ((note LIKE '%${searchText}%'  AND note != ''  )OR category LIKE '%${searchText}%') AND category != 'null' ");
     return List.generate(result.length, (index){
       return SpendInfo.fromObject(result[index]);
     });
   }
-
+  static Future<List<SpendInfo>> getItemsByCurrency(String prefix) async {
+    final db = await SQLHelper.db();
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE moneyType != '${prefix}' ");
+    return List.generate(result.length, (index) {
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
   static Future<List<SpendInfo>> getItemsByOperationMonthAndYear(String operationMonth, String operationYear) async {
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "operationMonth = ? AND operationYear = ?", whereArgs: [operationMonth, operationYear], orderBy: "id");

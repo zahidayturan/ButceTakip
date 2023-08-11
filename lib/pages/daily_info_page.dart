@@ -142,6 +142,8 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                               });
                                             }
                                           },
+                                          highlightColor: Theme.of(context).primaryColor,
+                                          borderRadius: BorderRadius.circular(13),
                                           child: SizedBox(
                                             height: 48,
                                             child: DecoratedBox(
@@ -577,6 +579,8 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                             width: 16,
                             color: Colors.white,
                           ),
+                          highlightColor: Theme.of(context).primaryColor,
+                          splashColor:Theme.of(context).primaryColor,
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
