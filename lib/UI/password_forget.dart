@@ -34,7 +34,6 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
   @override
   Widget build(BuildContext context) {
     String errorText = "" ;
-    var size = MediaQuery.of(context).size ;
     var readSetting = ref.read(settingsRiverpod) ;
     return SizedBox(
       child: Padding(
@@ -95,7 +94,7 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
                         child: TextField(
                           controller: animalController,
                           keyboardType: TextInputType.text,
-                          inputFormatters:  [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZğĞıİöÖüÜşŞçÇ]"))],
+                          inputFormatters:  [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZğĞıİöÖüÜşŞçÇ ]"))],
                           style: TextStyle(fontSize: 18,color: renkler.koyuuRenk),
                           textAlign: TextAlign.center,
 
@@ -131,7 +130,7 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
                                   const Color(0xff0D1C26),
                                   builder: (context) {
                                     // genel bilgi sekmesi açılıyor.
-                                    return PasswordForget();
+                                    return const PasswordForget();
                                   },
                                 );
                             }

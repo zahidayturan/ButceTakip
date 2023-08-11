@@ -182,7 +182,7 @@ class SQLHelper {
   static Future<List<SpendInfo>> searchItem(String searchText) async {
     final db = await SQLHelper.db();
     //var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (note LIKE '%${searchText}%' OR category LIKE '%${searchText}%') AND note != '' AND category != ''");
-    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE ((note LIKE '%${searchText}%'  AND note != ''  )OR category LIKE '%${searchText}%') AND category != '' ");
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE ((note LIKE '%${searchText}%'  AND note != ''  )OR category LIKE '%${searchText}%') AND category != 'null' ");
     return List.generate(result.length, (index){
       return SpendInfo.fromObject(result[index]);
     });

@@ -2784,8 +2784,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                               _moneyType.text,
                               ref.read(currencyRiverpod).calculateRealAmount(amount, _moneyType.text, ref.read(settingsRiverpod).Prefix!),
                               _customize.text,
-                          "",
-                          systemMessage,
+                              "",
+                              systemMessage,
                           )
                               ;
 

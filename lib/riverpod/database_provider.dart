@@ -219,7 +219,6 @@ class DbProvider extends ChangeNotifier {
   bool searchSort = false ;
   void setSearcSort(){
     searchSort = !searchSort;
-    print(searchSort);
     notifyListeners();
   }
   void searchItem(searchText) async {

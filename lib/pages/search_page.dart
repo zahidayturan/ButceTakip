@@ -73,7 +73,7 @@ class _searchPageState extends ConsumerState<searchPage> {
                             width: size.width * .085,
                             height: size.width * .085,
                             decoration: BoxDecoration(
-                                color: dbRiv.searchSort ? renkler.sariRenk : Colors.orangeAccent,
+                                color: dbRiv.searchSort ? Colors.orangeAccent : renkler.sariRenk ,
                                 shape: BoxShape.circle
                             ),
                             child: Transform.rotate(
@@ -285,7 +285,7 @@ class _searchPageState extends ConsumerState<searchPage> {
                     child: Column(
                       children: [
                         Text(
-                            "Gösterilen Kayıt Sayısı : ${dbRiv.searchListTile!.length}",
+                            "Gösterilen Kayıt Sayısı : ${dbRiv.searchListTile?.length ?? 0}",
                           style: TextStyle(
                             color: Theme.of(context).secondaryHeaderColor,
                           ),

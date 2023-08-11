@@ -15,9 +15,10 @@ class addAssets extends ConsumerStatefulWidget {
 }
 
 class _addAssetsState extends ConsumerState<addAssets> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   List<String> moneyTypes = ["TRY", "USD", "EUR", "GBP", "KWD", "JOD", "IQD", "SAR"];
   var moneyType ;
+  String BugFixText = "";
   @override
   void dispose() {
     _controller.dispose();
@@ -47,9 +48,9 @@ class _addAssetsState extends ConsumerState<addAssets> {
 
                 },
                 child: Container( //boyut
-                  height: size.width * .6,
+                  height: size.width * .61,
                   width: size.width * .6,
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     color: renkler.koyuuRenk,
                     borderRadius: BorderRadius.circular(20),
@@ -110,7 +111,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             width: size.width * .2010,
                             height: size.height * .032,
                             decoration: BoxDecoration(
-                              color: Color(0xff1C2B35),
+                              color: const Color(0xff1C2B35),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: TextField(
@@ -141,7 +142,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             width: 80,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff1C2B35),
+                              color: const Color(0xff1C2B35),
                             ),
                             padding: const EdgeInsets.symmetric(horizontal: 5.0),
                             child: DropdownButtonHideUnderline(
@@ -201,14 +202,19 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                 "",
                                 "",
                             );
-                            await SQLHelper.createItem(newinfo).then((value) => readSettings.setisuseinsert());
-                            Navigator.of(context).pop();
+                            await SQLHelper.createItem(newinfo).then((value) {
+                              readSettings.setisuseinsert();
+                              Navigator.of(context).pop();
+                              }
+                            );
                           }else{//geri mesaj ver.
-
+                            setState(() {
+                              BugFixText = moneyType ==null ? "Lütfen Bir Para birimi seçiniz." : "Lütfen Bir Değer giriniz." ;
+                            });
                           }
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
                           decoration: BoxDecoration(
                             color: renkler.sariRenk,
                             borderRadius: BorderRadius.circular(7),
@@ -218,6 +224,17 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             style: TextStyle(
                               fontFamily: "Nexa2"
                             ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: size.height * .008),
+                      Center(
+                        child: Text(
+                            BugFixText,
+                          style: TextStyle(
+                            fontFamily: "Nexa3",
+                            fontSize: 11,
+                            color: renkler.kirmiziRenk
                           ),
                         ),
                       ),
