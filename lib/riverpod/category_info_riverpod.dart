@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/spend_info.dart';
@@ -82,14 +83,14 @@ class CategoryInfoRiverpod extends ChangeNotifier {
       List<SpendInfo> items = await SQLHelper.getItemsByOperationYear(year.toString());
       double totalAmount = items
           .where((element) => element.category == category)
-          .fold(0, (previousValue, element) => previousValue + element.amount!);
+          .fold(0, (previousValue, element) => previousValue + element.realAmount!);
       totalBaseAmount =  totalAmount;
     }
     if(validDateMenu ==  2){
       List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month.toString(), year.toString());
       double totalAmount = items
           .where((element) => element.category == category)
-          .fold(0, (previousValue, element) => previousValue + element.amount!);
+          .fold(0, (previousValue, element) => previousValue + element.realAmount!);
       totalBaseAmount =  totalAmount;
     }
     if(validDateMenu ==  3){
@@ -107,14 +108,14 @@ class CategoryInfoRiverpod extends ChangeNotifier {
       List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
       double totalAmount = items
           .where((element) => element.category == category)
-          .fold(0, (previousValue, element) => previousValue + element.amount!);
+          .fold(0, (previousValue, element) => previousValue + element.realAmount!);
       totalBaseAmount =  totalAmount;
     }
     if(validDateMenu ==  4){
       List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(),month.toString(), year.toString());
       double totalAmount = items
           .where((element) => element.category == category)
-          .fold(0, (previousValue, element) => previousValue + element.amount!);
+          .fold(0, (previousValue, element) => previousValue + element.realAmount!);
       totalBaseAmount =  totalAmount;
     }
     return totalBaseAmount;

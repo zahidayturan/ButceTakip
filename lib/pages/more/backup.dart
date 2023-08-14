@@ -2,9 +2,11 @@ import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
+import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import '../../classes/app_bar_for_page.dart';
 import '../../classes/nav_bar.dart';
 import '../../riverpod_management.dart';
@@ -38,7 +40,7 @@ class _BackUpState extends ConsumerState<BackUp> {
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
+          //backgroundColor: const Color(0xffF2F2F2),
           bottomNavigationBar: const NavBar(),
           appBar: AppBarForPage(title: translation(context).backupTitle),
           body: Padding(
@@ -52,20 +54,21 @@ class _BackUpState extends ConsumerState<BackUp> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: renkler.arkaRenk,
+                      color: Theme.of(context).indicatorColor,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
                           children: [
                             Text(
                               translation(context).backupStatus,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: "Nexa3",
+                                color: Theme.of(context).canvasColor,
                               ),
                             ),
                           const Spacer(),
-                          isopen ? Text(translation(context).on, style: const TextStyle(fontFamily: "Nexa3"),)
-                              : Text(translation(context).off, style: const TextStyle(fontFamily: "Nexa3"),),
+                          isopen ? Text(translation(context).on, style: TextStyle(fontFamily: "Nexa3",color:  Theme.of(context).canvasColor,),)
+                              : Text(translation(context).off, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor,),),
                           Switch(
                             activeColor: renkler.sariRenk,
                             value: isopen ,
@@ -86,7 +89,7 @@ class _BackUpState extends ConsumerState<BackUp> {
               if (!isopen) const SizedBox() else ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
-                  color: renkler.arkaRenk,
+                  color: Theme.of(context).indicatorColor,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
                     child: Column(
@@ -94,10 +97,11 @@ class _BackUpState extends ConsumerState<BackUp> {
                       children: [
                         Text(
                           translation(context).backupViaGoogleCloud,
-                          style: const TextStyle(
+                          style: TextStyle(
                             height: 1,
                             fontSize: 16,
-                            fontFamily: "Nexa4"
+                            fontFamily: "Nexa4",
+                            color: Theme.of(context).canvasColor,
                           ),
                         ),
                         Divider(thickness: 2.0,color: renkler.sariRenk),
@@ -108,15 +112,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod(translation(context).email, Colors.black,  15),
-                                  TextMod("${readGglAuth.getUserEmail()}", Colors.black, 15),
+                                  TextMod(translation(context).email,  Theme.of(context).canvasColor,  15),
+                                  TextMod("${readGglAuth.getUserEmail()}", Theme.of(context).canvasColor, 15),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod(translation(context).nameAndSurname, Colors.black, 15),
+                                  TextMod(translation(context).nameAndSurname, Theme.of(context).canvasColor, 15),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
@@ -134,7 +138,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         ),
                                       ),
                                       SizedBox(width: size.width * 0.01),
-                                      TextMod("${readGglAuth.getUserDisplayName()}", Colors.black, 15),
+                                      TextMod("${readGglAuth.getUserDisplayName()}", Theme.of(context).canvasColor, 15),
                                     ],
                                   ),
                                 ],
@@ -143,8 +147,8 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod(translation(context).lastBackupDate, Colors.black, 15),
-                                  TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : "Yedeklenmedi", Colors.black, 15),
+                                  TextMod(translation(context).lastBackupDate, Theme.of(context).canvasColor, 15),
+                                  TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : "Yedeklenmedi", Theme.of(context).canvasColor, 15),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.015),
@@ -159,13 +163,14 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     style:TextStyle(
                                       fontFamily: "Nexa3",
                                       fontSize: 15  ,
+                                      color: Theme.of(context).canvasColor
                                     ),
                                   ),
                                   SizedBox(height: size.height * 0.01),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      toolCustomButton(context),
+                                      backupCustomButton(context),
                                     ],
                                   ),
                                 ],
@@ -175,9 +180,8 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   InkWell(
-                                    onTap: () {
-                                      readGglAuth.downloadFileToDevice();
-                                      //GoogleDrive().uploadFileToGoogleDrive();
+                                    onTap: () async {
+                                      await readGglAuth.downloadFileToDevice();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           backgroundColor:
@@ -208,10 +212,10 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           child: Padding(
                                             padding: EdgeInsets.all(8),
                                             child: Text(
-                                              translation(context).restoreData,
+                                              translation(context).restoreData, // geri yükle
                                               style: TextStyle(
                                                 height: 1,
-                                                  color: Colors.white,
+                                                  color: renkler.arkaRenk,
                                                   fontSize: 15,
                                                   fontFamily: "Nexa3"
                                               ),
@@ -261,8 +265,8 @@ class _BackUpState extends ConsumerState<BackUp> {
                                             child: Text(
                                               translation(context).backup,
                                               style: TextStyle(
+                                                  color: renkler.arkaRenk,
                                                 height: 1,
-                                                  color: Colors.white,
                                                   fontSize: 15,
                                                   fontFamily: "Nexa3"
                                               ),
@@ -296,7 +300,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           translation(context).logOut,
                                           style: TextStyle(
                                             height: 1,
-                                              color: Colors.white,
+                                              color: renkler.arkaRenk,
                                               fontSize: 15,
                                               fontFamily: "Nexa3"
                                           ),
@@ -329,9 +333,9 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         padding: const EdgeInsets.all(8),
                                         child: Text(
                                           translation(context).signIn,
-                                          style: const TextStyle(
+                                          style: TextStyle(
+                                              color: renkler.arkaRenk,
                                             height: 1,
-                                              color: Colors.white,
                                               fontSize: 15,
                                               fontFamily: "Nexa3"
                                           ),
@@ -356,151 +360,50 @@ class _BackUpState extends ConsumerState<BackUp> {
       )
     );
   }
-  double heightTool_ = 32;
-  double heightTool2_ = 38;
-  double heightTool3_ = 32;
-  Color _containerColorTool3 = const Color(0xff0D1C26);
-  Color _containerColorTool2 = const Color(0xff0D1C26);
-  Color _containerColorTool = const Color(0xffF2CB05);
-  Color _textColorTool = const Color(0xff0D1C26);
-  Color _textColorTool2 = Colors.white;
-  Color _textColorTool3 = Colors.white;
-  Widget toolCustomButton(BuildContext context) {
+
+  int initialLabelIndex = 0;
+  Widget backupCustomButton(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
-    if(readSetting.Backuptimes == "Günlük"){
-      setState(() {
-        heightTool2_ = 32;
-        heightTool_ = 26;
-        heightTool3_ = 26;
-        _containerColorTool = const Color(0xffF2CB05);
-        _containerColorTool2 = const Color(0xff0D1C26);
-        _containerColorTool3 = const Color(0xff0D1C26);
-        _textColorTool = const Color(0xff0D1C26);
-        _textColorTool2 = Colors.white;
-        _textColorTool3 = Colors.white;
-      });
-    }else if(readSetting.Backuptimes == "Aylık"){
-      setState(() {
-        heightTool_ = 32;
-        heightTool2_ = 26;
-        heightTool3_ = 26;
-        _containerColorTool2 = const Color(0xffF2CB05);
-        _containerColorTool = const Color(0xff0D1C26);
-        _containerColorTool3 = const Color(0xff0D1C26);
-        _textColorTool = Colors.white;
-        _textColorTool2 = const Color(0xff0D1C26);
-        _textColorTool3 = Colors.white;
-      });
-    }else{
-      setState(() {
-        heightTool_ = 26;
-        heightTool2_ = 26;
-        heightTool3_ = 32;
-        _containerColorTool3 = const Color(0xffF2CB05);
-        _containerColorTool = const Color(0xff0D1C26);
-        _containerColorTool2 = const Color(0xff0D1C26);
-        _textColorTool = Colors.white;
-        _textColorTool2 = Colors.white;
-        _textColorTool3 = const Color(0xff0D1C26);
-      });
-    }
     return SizedBox(
-      height: 32,
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 2,bottom: 2),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 28,
-              width: 190,
-            ),
-          ),
-          Row(
-            children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool,
-                ),
-                height: heightTool2_,
-                child: SizedBox(
-                  width: 60,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          readSetting.setBackuptimes("Günlük");
-                        });
-                      },
-                      child: Text(translation(context).dailyBackup,
-                          style: TextStyle(
-                            height: .4,
-                              color: _textColorTool,
-                              fontSize: 13,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool2,
-                ),
-                height: heightTool_,
-                child: SizedBox(
-                  width: 70,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          readSetting.setBackuptimes("Aylık");
-                        });
-                      },
-                      child: Text(translation(context).monthlyBackup,
-                          style: TextStyle(
-                            height: .4,
-                              color: _textColorTool2,
-                              fontSize: 13,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool3,
-                ),
-                height: heightTool3_,
-                child: SizedBox(
-                  width: 60,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          readSetting.setBackuptimes("Yıllık");
-                        });
-                      },
-                      child: Text(translation(context).yearlyBackup,
-                          style: TextStyle(
-                            height: .4,
-                              color: _textColorTool3,
-                              fontSize: 13,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+        height: 32,
+        child: ToggleSwitch(
+          initialLabelIndex: initialLabelIndex,
+          totalSwitches: 3,
+          labels: [translation(context).dailyBackup, translation(context).monthlyBackup, translation(context).yearlyBackup],
+          activeBgColor: const [Color(0xffF2CB05)],
+          activeFgColor: const Color(0xff0D1C26),
+          inactiveBgColor: const Color(0xff0D1C26),
+          inactiveFgColor: const Color(0xFFE9E9E9),
+          minWidth: 60,
+          cornerRadius: 20,
+          radiusStyle: true,
+          animate: true,
+          curve: Curves.linearToEaseOut,
+          customTextStyles: const [
+            TextStyle(
+                fontSize: 12, fontFamily: 'Nexa3', fontWeight: FontWeight.w800)
+          ],
+          onToggle: (index) {
+            if (index == 0) {
+              setState(() {
+                readSetting.setBackuptimes("Günlük");
+              });
+            } else if (index == 1) {
+              setState(() {
+                readSetting.setBackuptimes("Aylık");
+              });
+            }
+            else if (index == 2){
+              setState(() {
+                readSetting.setBackuptimes("Yıllık");
+              });
+            }
+            else{
+
+            }
+            initialLabelIndex = index!;
+          },
+        ));
   }
 }
 

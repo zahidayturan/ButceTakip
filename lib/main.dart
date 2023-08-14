@@ -13,7 +13,7 @@ void main() async{
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,  // Sadece Dikeyde çalışması için .
   ]);
-  await Future.delayed(const Duration(milliseconds: 750));
+  //await Future.delayed(const Duration(milliseconds: 750));
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor: Color(0xFF03111A), // navigation bar color

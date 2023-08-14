@@ -13,7 +13,7 @@ class HelpHomePage extends StatelessWidget {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
+          //backgroundColor: const Color(0xffF2F2F2),
           appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -23,7 +23,7 @@ class HelpHomePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
                   child: Container(
-                    color: renkler.koyuuRenk,
+                    color: Theme.of(context).highlightColor,
                     height: 65,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -35,7 +35,7 @@ class HelpHomePage extends StatelessWidget {
                           width: 60,
                         ),
                         const Text(
-                          "Help Center",
+                          "Yardım Merkezi",
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: "Nexa3",
@@ -52,46 +52,52 @@ class HelpHomePage extends StatelessWidget {
                  ),
                child: Column(
                  children: [
-                   const Align(
+                   Align(
                      alignment: Alignment.centerLeft,
                      child: Text(
                          "Ana Sayfa",
                        style: TextStyle(
                          fontFamily: "Nexa3",
                          fontSize: 30,
-                         color: Colors.black,
+                         color: Theme.of(context).canvasColor,
                        ),
                      ),
                    ),
-                   const SizedBox(
+                   SizedBox(height: 10,),
+                   SizedBox(
                      child: Text(
                        """Uygulamamızın Ana sayfasında kullanıcıya kolaylık sağlanması amacıyla faydalı alanı en kullanışlı şekilde dizayn ettik. Burada hem Aylık harcama bilgilerini hem de o güne ait verileri ana sayfamız üzerinden gösterimini sağladık. 
-                       """
+                       """,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                      ),
                    ),
                    Image.asset(
                      "assets/image/helphome1.png",
                    ),
-                   const Text(
+                   Text(
                      "\nKullanıcı istediği kaydın üzerine tıklayarak o güne ait verilerin olduğu sayfaya yönlendiriliyor. Harcamaların üzerinden istenilen kayda gidildiğinde harcamanın detay sayfası bizi karşılıyor\n"
+                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                    ),
                    Image.asset(
                      "assets/image/helphome2.png",
                    ),
-                   const Text(
+                   Text(
                        """\nGünlük harcama bilgilerinin gösterildiği alanda  kullanıcının en çok görmek istediği verileri düşünerek Kategori, Ödeme türü, Miktar bilgisi ve harcama saati bilgisine yer verdik."""
+                   ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                    ),
+                   SizedBox(height: 5,),
                    Image.asset(
                      "assets/image/helphome3.png",
                    ),
-                   const Text(
+                   Text(
                        """\nAna Sayfamızın Appbar kısmında Bazı shortWay’ler  kullanılmıştır Bunlar aşağıda belirtilmiştir. \n"""
+                   ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                    ),
                    Image.asset(
                      "assets/image/helphome4.png",
                    ),
-                   const Text(
-                       """\nKaydedilen sekmesinde kullanıcının tekrar tekrar aynı verileri  girmesinden kaçınılmak için tek seferde veriyi kaydetmesini sağlamaktadır örneğin ; Maaş, Aidat/Kira, Burs , vb.\n\n"""
+                   Text(
+                       """\nKaydedilen sekmesinde kullanıcının tekrar tekrar aynı verileri girmesinden kaçınılmak için tek seferde veriyi kaydetmesini sağlamaktadır örneğin ; Maaş, Aidat/Kira, Burs , vb.\n\n"""
+                   ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
                    ),
                    Image.asset(
                      "assets/image/helphome5.png",

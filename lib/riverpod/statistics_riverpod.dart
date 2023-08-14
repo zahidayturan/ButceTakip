@@ -168,7 +168,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == giderKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           giderKategoriTutarlari[i] = amount;
         }
@@ -180,7 +180,7 @@ class StatisticsRiverpod extends ChangeNotifier {
           double amount = items
               .where((element) => element.category == hepsiKategorileri[i])
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           hepsiKategoriTutarlari[i] = amount;
         }
@@ -194,7 +194,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == gelirKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
           gelirKategoriTutarlari[i] = amount;
         }
         categoryAmounts = gelirKategoriTutarlari;
@@ -214,7 +214,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == giderKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           giderKategoriTutarlari[i] = amount;
         }
@@ -226,7 +226,7 @@ class StatisticsRiverpod extends ChangeNotifier {
           double amount = items
               .where((element) => element.category == hepsiKategorileri[i])
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           hepsiKategoriTutarlari[i] = amount;
         }
@@ -240,7 +240,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == gelirKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
           gelirKategoriTutarlari[i] = amount;
         }
         categoryAmounts = gelirKategoriTutarlari;
@@ -273,7 +273,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == giderKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           giderKategoriTutarlari[i] = amount;
         }
@@ -284,7 +284,7 @@ class StatisticsRiverpod extends ChangeNotifier {
           double amount = items
               .where((element) => element.category == hepsiKategorileri[i])
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           hepsiKategoriTutarlari[i] = amount;
         }
@@ -297,7 +297,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == gelirKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
           gelirKategoriTutarlari[i] = amount;
         }
         categoryAmounts = gelirKategoriTutarlari;
@@ -317,7 +317,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == giderKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           giderKategoriTutarlari[i] = amount;
         }
@@ -328,7 +328,7 @@ class StatisticsRiverpod extends ChangeNotifier {
           double amount = items
               .where((element) => element.category == hepsiKategorileri[i])
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           hepsiKategoriTutarlari[i] = amount;
         }
@@ -341,7 +341,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == gelirKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
           gelirKategoriTutarlari[i] = amount;
         }
         categoryAmounts = gelirKategoriTutarlari;
@@ -360,7 +360,7 @@ class StatisticsRiverpod extends ChangeNotifier {
     }
 
     double total = categoryBaseAmounts.fold(0, (a, b) => a + b);
-    List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(1))).toList();
+    List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(2))).toList();
     List<Map<String, dynamic>> listMap = [];
     for (int i = 0; i < categoryBaseAmounts.length; i++) {
       if (categoryBaseAmounts[i] != 0) {
@@ -391,7 +391,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == giderKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           giderKategoriTutarlari[i] = amount;
         }
@@ -402,7 +402,7 @@ class StatisticsRiverpod extends ChangeNotifier {
           double amount = items
               .where((element) => element.category == hepsiKategorileri[i])
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           hepsiKategoriTutarlari[i] = amount;
         }
@@ -415,7 +415,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == gelirKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
           gelirKategoriTutarlari[i] = amount;
         }
         categoryAmounts = gelirKategoriTutarlari;
@@ -434,7 +434,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == giderKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           giderKategoriTutarlari[i] = amount;
         }
@@ -445,7 +445,7 @@ class StatisticsRiverpod extends ChangeNotifier {
           double amount = items
               .where((element) => element.category == hepsiKategorileri[i])
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           hepsiKategoriTutarlari[i] = amount;
         }
@@ -458,7 +458,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == gelirKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
           gelirKategoriTutarlari[i] = amount;
         }
         categoryAmounts = gelirKategoriTutarlari;
@@ -491,7 +491,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == giderKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           giderKategoriTutarlari[i] = amount;
         }
@@ -502,7 +502,7 @@ class StatisticsRiverpod extends ChangeNotifier {
           double amount = items
               .where((element) => element.category == hepsiKategorileri[i])
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           hepsiKategoriTutarlari[i] = amount;
         }
@@ -515,7 +515,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == gelirKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
           gelirKategoriTutarlari[i] = amount;
         }
         categoryAmounts = gelirKategoriTutarlari;
@@ -532,7 +532,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == giderKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           giderKategoriTutarlari[i] = amount;
         }
@@ -544,7 +544,7 @@ class StatisticsRiverpod extends ChangeNotifier {
           double amount = items
               .where((element) => element.category == hepsiKategorileri[i])
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
 
           hepsiKategoriTutarlari[i] = amount;
         }
@@ -558,7 +558,7 @@ class StatisticsRiverpod extends ChangeNotifier {
               .where((element) => element.category == gelirKategorileri[i])
 
               .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+              0, (previousValue, element) => previousValue + element.realAmount!);
           gelirKategoriTutarlari[i] = amount;
         }
         categoryAmounts = gelirKategoriTutarlari;
@@ -577,7 +577,7 @@ class StatisticsRiverpod extends ChangeNotifier {
       categoryBaseType = gelirKategorileri2;
     }
     double total = categoryBaseAmounts.fold(0, (a, b) => a + b);
-    List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(1))).toList();
+    List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(2))).toList();
     List<Map<String, dynamic>> listMap = [];
     for (int i = 0; i < categoryBaseAmounts.length; i++) {
       if(type != 'Hepsi') {

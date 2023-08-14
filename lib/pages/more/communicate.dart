@@ -27,7 +27,7 @@ class Communicate extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffF2F2F2),
+        //backgroundColor: const Color(0xffF2F2F2),
         bottomNavigationBar: const NavBar(),
         appBar: AppBarForPage(title: translation(context).contactUsTitle),
         body: Column(
@@ -41,6 +41,7 @@ class Communicate extends StatelessWidget {
                   child: Image.asset(
                     "assets/image/icon_BKA/LOGOBKA-2.png",
                     width: size.width / 2,
+                    color: Theme.of(context).canvasColor,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -48,9 +49,9 @@ class Communicate extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20),
                   child: Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 4),
-                        child: Icon(Icons.mail),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Icon(Icons.mail,color: Theme.of(context).canvasColor),
                       ),
                       const SizedBox(width: 5),
                       InkWell(
@@ -58,11 +59,11 @@ class Communicate extends StatelessWidget {
                             text: TextSpan(children: [
                           TextSpan(
                             text: translation(context).email,
-                            style: const TextStyle(
+                            style: TextStyle(
                               height: 1,
                               fontSize: 16,
                               fontFamily: 'Nexa3',
-                              color: Color(0xff0D1C26),
+                              color: Theme.of(context).canvasColor,
                             ),
                           ),
                           const TextSpan(
@@ -78,10 +79,10 @@ class Communicate extends StatelessWidget {
                           Clipboard.setData(
                               const ClipboardData(text: 'fezaitech@gmail.com'));
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  backgroundColor: Color(0xff0D1C26),
-                                  duration: Duration(seconds: 1),
-                                  content: Text('Email kopyalandı')));
+                              SnackBar(
+                                  backgroundColor: const Color(0xff0D1C26),
+                                  duration: const Duration(seconds: 1),
+                                  content: Text('Email Panoya Kopyalandı',style: TextStyle(color : Theme.of(context).canvasColor,fontFamily: 'Nexa3',fontSize: 15),)));
                         },
                       )
                     ],
@@ -92,9 +93,9 @@ class Communicate extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20),
                   child: Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 4),
-                        child: Icon(Icons.account_circle_outlined),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Icon(Icons.account_circle_outlined,color: Theme.of(context).canvasColor),
                       ),
                       const SizedBox(width: 5),
                       InkWell(
@@ -105,11 +106,11 @@ class Communicate extends StatelessWidget {
                             text: TextSpan(children: [
                           TextSpan(
                             text: translation(context).github,
-                            style: const TextStyle(
+                            style: TextStyle(
                               height: 1,
                               fontSize: 16,
                               fontFamily: 'Nexa3',
-                              color: Color(0xff0D1C26),
+                              color: Theme.of(context).canvasColor,
                             ),
                           ),
                           const TextSpan(
@@ -132,7 +133,7 @@ class Communicate extends StatelessWidget {
                       // Title
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          color: renkler.koyuuRenk,
+                          color: Theme.of(context).highlightColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
@@ -141,10 +142,10 @@ class Communicate extends StatelessWidget {
                                 horizontal: 10, vertical: 9),
                             child: Text(
                               translation(context).developers,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontFamily: "Nexa4",
                                   fontSize: 18,
-                                  color: Colors.white),
+                                  color: renkler.arkaRenk),
                             ),
                           ),
                         ),
@@ -168,7 +169,7 @@ class Communicate extends StatelessWidget {
                                         const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.shade500,
+                                        color: Theme.of(context).indicatorColor,
                                         spreadRadius: 3,
                                         blurRadius: 7,
                                         offset: const Offset(
@@ -208,12 +209,14 @@ class Communicate extends StatelessWidget {
                                           launchURL(
                                               'https://github.com/ibrahimeth');
                                         },
+                                        highlightColor: Theme.of(context).indicatorColor,
+                                        borderRadius: BorderRadius.circular(15),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(7),
                                           child: Container(
                                             width: 90,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -225,9 +228,10 @@ class Communicate extends StatelessWidget {
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
+                                                    color: Theme.of(context).canvasColor,
                                                   ),
                                                 ),
-                                                const Text("Github"),
+                                                const Text("GitHub"),
                                               ],
                                             ),
                                           ),
@@ -239,12 +243,14 @@ class Communicate extends StatelessWidget {
                                           launchURL(
                                               "https://www.linkedin.com/in/ibrahim-ethem-akb%C4%B1y%C4%B1k-53a099224/");
                                         },
+                                        highlightColor: Theme.of(context).indicatorColor,
+                                        borderRadius: BorderRadius.circular(15),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(7),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -258,7 +264,7 @@ class Communicate extends StatelessWidget {
                                                     height: 18,
                                                   ),
                                                 ),
-                                                const Text("Linkedin"),
+                                                const Text("LinkedIn"),
                                               ],
                                             ),
                                           ),
@@ -282,7 +288,7 @@ class Communicate extends StatelessWidget {
                                         const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.shade500,
+                                        color: Theme.of(context).indicatorColor,
                                         spreadRadius: 3,
                                         blurRadius: 7,
                                         offset: const Offset(
@@ -322,12 +328,14 @@ class Communicate extends StatelessWidget {
                                           launchURL(
                                               'https://github.com/Hamza-Bayar-2');
                                         },
+                                        highlightColor: Theme.of(context).indicatorColor,
+                                        borderRadius: BorderRadius.circular(15),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(7),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -339,9 +347,10 @@ class Communicate extends StatelessWidget {
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
+                                                    color: Theme.of(context).canvasColor,
                                                   ),
                                                 ),
-                                                const Text("Github"),
+                                                const Text("GitHub"),
                                               ],
                                             ),
                                           ),
@@ -353,12 +362,14 @@ class Communicate extends StatelessWidget {
                                           launchURL(
                                               "https://www.linkedin.com/in/hamza-bayar-251b7b234/");
                                         },
+                                        highlightColor: Theme.of(context).indicatorColor,
+                                        borderRadius: BorderRadius.circular(15),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(7),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -372,7 +383,7 @@ class Communicate extends StatelessWidget {
                                                     height: 18,
                                                   ),
                                                 ),
-                                                const Text("Linkedin"),
+                                                const Text("LinkedIn"),
                                               ],
                                             ),
                                           ),
@@ -396,7 +407,7 @@ class Communicate extends StatelessWidget {
                                         const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.shade500,
+                                        color: Theme.of(context).indicatorColor,
                                         spreadRadius: 3,
                                         blurRadius: 7,
                                         offset: const Offset(
@@ -436,12 +447,14 @@ class Communicate extends StatelessWidget {
                                           launchURL(
                                               'https://github.com/zahidayturan');
                                         },
+                                        highlightColor: Theme.of(context).indicatorColor,
+                                        borderRadius: BorderRadius.circular(15),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(7),
                                           child: Container(
                                             width: 95,
-                                            color: Colors.grey.shade300,
+                                            color: Theme.of(context).indicatorColor,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -453,9 +466,10 @@ class Communicate extends StatelessWidget {
                                                   child: Image.asset(
                                                     "assets/icons/github.png",
                                                     height: 18,
+                                                    color: Theme.of(context).canvasColor,
                                                   ),
                                                 ),
-                                                const Text("Github"),
+                                                const Text("GitHub"),
                                               ],
                                             ),
                                           ),

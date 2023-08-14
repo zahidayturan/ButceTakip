@@ -25,15 +25,15 @@
   "november": "Kasım",
   "december": "Aralık",
 
-  "monday": "Pzt",
-  "tuesday": "Sal",
-  "wednesday": "Çar",
-  "thursday": "Per",
-  "friday": "Cum",
-  "saturday": "Cmt",
-  "sunday": "Paz",
+  "monday": "Pazartesi",
+  "tuesday": "Salı",
+  "wednesday": "Çarşamba",
+  "thursday": "Perşembe",
+  "friday": "Cuma",
+  "saturday": "Cumartesi",
+  "sunday": "Pazar",
 
-  "todaysActivities": "Bugünün İşlem Bilgileri",
+  "todaysActivities": "Bugünün Bilgileri",
 
   "category": "Kategori",
   "payment": "Ödeme",

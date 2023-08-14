@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:butcekontrol/riverpod/currency_riverpod.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,6 @@ class GglDriveRiverpod extends ChangeNotifier{
     final filePath = "${tempDir.path}/$fileName";
     final f = File(filePath);
     Reference storageRef = _storage.ref().child("ButceTakipArchive/${_auth.currentUser?.email}/Bka_CSV.cvs");
-
     final downloadTask = storageRef.writeToFile(f);
     downloadTask.snapshotEvents.listen((taskSnapshot) async {
       switch (taskSnapshot.state) {

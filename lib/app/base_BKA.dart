@@ -1,8 +1,10 @@
 import 'package:butcekontrol/classes/nav_bar.dart';
+import 'package:butcekontrol/models/settings_info.dart';
+import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:butcekontrol/utils/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../pages/more/password_splash.dart';
+import '../Pages/more/password_splash.dart';
 import '../riverpod_management.dart';
 import '../utils/cvs_converter.dart';
 
@@ -14,16 +16,31 @@ class base_BKA extends ConsumerStatefulWidget {
 }
 
 class _base_BKAState extends ConsumerState<base_BKA> {
-  void loadData()  async {
+  Future<void> loadData()  async {
     // örnek gecikme
     var readSetting =  ref.read(settingsRiverpod); //read okuma işlemleri gerçekleşti
+    var readCurrency = ref.read(currencyRiverpod);
     var readGglAuth = ref.read(gglDriveRiverpod);
     readGglAuth.checkAuthState(); //Google User açık mı sorgusu yapılıyor
-    var read  = readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
+    var read =  readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
     await Future.delayed(Duration(milliseconds: 100));
     read.then((value) async {
+      if(readSetting.isPassword == 1 && readSetting.Password != "null") { // password controll
+        Navigator.push(context, PageRouteBuilder(
+          transitionDuration: const Duration(milliseconds: 1),
+          pageBuilder: (context, animation, nextanim) => PasswordSplash(),
+          reverseTransitionDuration: Duration(milliseconds: 1),
+          transitionsBuilder: (context, animation, nexttanim, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        ),
+        );
+      }
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
-        print("YEdeklenme açık");
+        print("Yedeklenme açık");
         if(readGglAuth.accountStatus == true) {
           List<String> datesplit = readSetting.lastBackup!.split(".");
           if(readSetting.Backuptimes == "Günlük"){
@@ -73,21 +90,15 @@ class _base_BKAState extends ConsumerState<base_BKA> {
           readSetting.setBackup(false);
           print("yedeklenmesi gerekiyor ama hesabın açık değil GAHPE");
         }
+      }else{
+        print("Yedekleme kapalı");
       }
-      if(readSetting.isPassword == 1 && readSetting.Password != "null") { // password controll
-        Navigator.push(context, PageRouteBuilder(
-          transitionDuration: Duration(milliseconds: 1),
-          pageBuilder: (context, animation, nextanim) => PasswordSplash(),
-          reverseTransitionDuration: Duration(milliseconds: 1),
-          transitionsBuilder: (context, animation, nexttanim, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-        ),
-        );
+      await readCurrency.controlCurrency(ref).then((value) {
+        var readUpdateData =  ref.read(updateDataRiverpod);
+        readUpdateData.customizeRepeatedOperation(ref);
+        readUpdateData.customizeInstallmentOperation(ref);
       }
+      ); // Güncel kur database sorgusunu gerçekleştirir
     });
   }
 
@@ -101,8 +112,28 @@ class _base_BKAState extends ConsumerState<base_BKA> {
   @override
   Widget build(BuildContext context) {
     var watch = ref.watch(botomNavBarRiverpod);
+    // Future<List<SettingsInfo>> setting =  SQLHelper.settingsControl() ;
     return Scaffold(
-      body:watch.body(),
+      /*
+      body: FutureBuilder(
+        future: setting,
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            var data = snapshot.data;
+            if(data![0].isPassword == 0){
+              return watch.body();
+            }else{
+              return PasswordSplash();
+            }
+          }else{
+            return CircularProgressIndicator();
+          }
+        },
+      ) ,
+
+       */
+      body : watch.body(),
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: NavBar(),
     );
   }

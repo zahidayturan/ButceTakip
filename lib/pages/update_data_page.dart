@@ -1,7 +1,10 @@
+import 'package:butcekontrol/constans/material_color.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:toggle_switch/toggle_switch.dart';
 import '../riverpod_management.dart';
 import 'package:butcekontrol/classes/language.dart';
 
@@ -17,7 +20,7 @@ class _AddDataState extends State<UpdateData> {
     return const SafeArea(
       bottom: false,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.white,
         appBar: _AddAppBar(),
         body: ButtonMenu(),
         bottomNavigationBar: null,
@@ -34,6 +37,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var read = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
+    int menuController = ref.read(updateDataRiverpod).getMenuController();
     return Directionality(
       textDirection: TextDirection.ltr,
       child: SizedBox(
@@ -48,26 +52,46 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 height: 60,
                 child: Container(
                   width: size.width,
-                  decoration: const BoxDecoration(
-                      color: Color(0xff0D1C26),
-                      borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                      color: const Color(0xff0D1C26),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                        ),
+                      ],
+                      borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(100),
                       )),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 20),
-                    child: Text(
-                      translation(context).editTitle,
-                      style: const TextStyle(
-                        height: 1,
-                        fontFamily: 'Nexa4',
-                        fontSize: 22,
-                        color: Colors.white,
+                  child:  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Image.asset(
+                          "assets/icons/pencil.png",
+                          height: 18,
+                          width: 18,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20,right: 20,top: 6),
+                        child: Text(
+                          menuController == 0 ? translation(context).editTitle : "İŞLEMİ TEKRAR EKLE",
+                          style: const TextStyle(
+                            height: 1,
+                            fontFamily: 'Nexa4',
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
+          ),
             Positioned(
               right: 0,
               top: 0,
@@ -99,7 +123,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-          ],
+            ],
         ),
       ),
     );
@@ -116,200 +140,909 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
 
   FocusNode amountFocusNode = FocusNode();
   FocusNode dateFocusNode = FocusNode();
+  CustomColors renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final operationType = readUpdateData.getType();
+    final category = readUpdateData.getCategory();
+    final operationDate = readUpdateData.getOperationDate();
+    final amount = readUpdateData.getAmount();
+    final operationTool = readUpdateData.getOperationTool();
+    final registration = readUpdateData.getRegistration();
+    final note = readUpdateData.getNote();
+    final customize = readUpdateData.getProcessOnce();
+    final moneyType = readUpdateData.getMoneyType();
+    final realAmount0 = readUpdateData.getRealAmount();
+    final userCategory = readUpdateData.getUserCategory();
+    final systemMessage = readUpdateData.getSystemMessage();
     var size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: SizedBox(
         height: size.height*0.85,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [typeCustomButton(context), dateCustomButton(context)],
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            categoryBarCustomButton(context),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                const SizedBox(width: 15,),
-                Expanded(
-                    child: categoryCustomButton(context)),
-                const SizedBox(width: 15,),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                toolCustomButton(context),
-                regCustomButton(context),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            noteCustomButton(context),
-            const SizedBox(
-              //height: 15,
-              height : 5,
-            ),
-            amountCustomButton(context),
-            const SizedBox(
-              height: 5,
-            ),
-            operationCustomButton(context),
-          ],
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: size.width*0.95,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [typeCustomButton(context), dateCustomButton(context)],
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              categoryBarCustom(context,ref),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: size.width*0.95,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    toolCustomButton(context),
+                    regCustomButton(context),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              noteCustomButton(context),
+              const SizedBox(
+                height: 15,
+              ),
+              customizeBarCustom(context,ref),
+              const SizedBox(
+                //height: 15,
+                height : 5,
+              ),
+              amountCustomButton(),
+              SizedBox(
+                  width: size.width*0.95,
+                  child: Text('DEBUG: ${operationType.text} -${operationDate.text} - ${category.text} - ${operationTool.text} - ${int.parse(registration.text)} - ${note.text} - ${customize.text} - ${amount.text} - ${moneyType.text} - ${realAmount0.text} - ${userCategory.text} - ${systemMessage.text} - ${moneyTypeSymbol.text}',style: const TextStyle(color: Colors.red,fontFamily: 'TL'))),
+              const SizedBox(
+                height: 5,
+              ),
+              operationCustomButton(context),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  double heightType_ = 34;
-  double heightType2_ = 42;
-  Color _containerColorType2 = const Color(0xff0D1C26);
-  Color _containerColorType = const Color(0xffF2CB05);
-  Color _textColorType = const Color(0xff0D1C26);
-  Color _textColorType2 = Colors.white;
+
+
   Widget typeCustomButton(BuildContext context) {
 
     var readUpdateData = ref.read(updateDataRiverpod);
     final operationType = readUpdateData.getType();
     final category = readUpdateData.getCategory();
-    int indexx ;
-    operationType.text == 'Gider' ? indexx = 0: indexx =1;
-
-    if(indexx == 0){
-        heightType2_ = 40;
-        heightType_ = 34;
-        _containerColorType = const Color(0xffF2CB05);
-        _containerColorType2 = const Color(0xff0D1C26);
-        _textColorType = const Color(0xff0D1C26);
-        _textColorType2 = Colors.white;
-        selectedCategory = 0;
-    }
-    else{
-        heightType_ = 40;
-        heightType2_ = 34;
-        _containerColorType2 = const Color(0xffF2CB05);
-        _containerColorType = const Color(0xff0D1C26);
-        _textColorType = Colors.white;
-        _textColorType2 = const Color(0xff0D1C26);
-        selectedCategory = 1;
-    }
-    void changeColorType(int index) {
-      if (index == 0) {
-        setState(() {
-          heightType2_ = 40;
-          heightType_ = 34;
-          _containerColorType = const Color(0xffF2CB05);
-          _containerColorType2 = const Color(0xff0D1C26);
-          _textColorType = const Color(0xff0D1C26);
-          _textColorType2 = Colors.white;
-          index = 1;
-          selectedCategory = 0;
-        });
-      } else {
-        heightType_ = 40;
-        heightType2_ = 34;
-        _containerColorType2 = const Color(0xffF2CB05);
-        _containerColorType = const Color(0xff0D1C26);
-        _textColorType = Colors.white;
-        _textColorType2 = const Color(0xff0D1C26);
-        index = 0;
-        selectedCategory = 1;
-      }
-    }
-
+    int initialLabelIndex ;
+    operationType.text == 'Gider' ? initialLabelIndex = 0: initialLabelIndex =1;
+    var size = MediaQuery.of(context).size;
     return SizedBox(
-      height: 40,
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 3),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 34,
-              width: 130,
-            ),
-          ),
-          Row(
-            children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorType,
+        height: 34,
+        child: ToggleSwitch(
+          initialLabelIndex: initialLabelIndex,
+          totalSwitches: 2,
+          labels: [translation(context).expenses, translation(context).income],
+          activeBgColor: const [Color(0xffF2CB05)],
+          activeFgColor: const Color(0xff0D1C26),
+          inactiveBgColor: Theme.of(context).highlightColor,
+          inactiveFgColor: const Color(0xFFE9E9E9),
+          minWidth: size.width > 392.6 ? size.width*0.235 : 92,
+          cornerRadius: 15,
+          radiusStyle: true,
+          animate: true,
+          curve: Curves.linearToEaseOut,
+          customTextStyles: const [
+            TextStyle(
+                fontSize: 13, fontFamily: 'Nexa4',height: 1, fontWeight: FontWeight.w800)
+          ],
+          onToggle: (index) {
+            if (index == 0) {
+              setState(() {
+                operationType.text = "Gider";
+                selectedCategory = 0;
+                category.clear();
+                selectedValue = null;
+              });
+            } else {
+              setState(() {
+                operationType.text = "Gelir";
+                selectedCategory = 1;
+                category.clear();
+                selectedValue = null;
+              });
+            }
+            initialLabelIndex = index!;
+          },
+        ));
+  }
+  String? selectedValue;
+  int initialLabelIndex2 = 0;
+  int selectedAddCategoryMenu = 0;
+  Widget categoryBarCustom(BuildContext context, WidgetRef ref) {
+    var size = MediaQuery.of(context).size;
+    var readUpdateDB = ref.read(updateDataRiverpod);
+    final category = readUpdateDB.getCategory();
+    return SizedBox(
+            height: 38,
+            width: size.width * 0.92,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 2,left: 2,right: 2),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      color: Color(0xFFF2CB05),
+                    ),
+                    height: 34,
+                    width: (size.width * 0.92),
+                  ),
                 ),
-                height: heightType2_,
-                child: SizedBox(
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeColorType(0);
-                          operationType.text = "Gider";
-                          selectedCategory = 0;
-                          category.text = 'Yemek';
-                          indexx = 1;
-                        });
-                      },
-                      child: Text(translation(context).expenses,
-                          style: TextStyle(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 38,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).highlightColor,
+                        borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          translation(context).categoryDetails,
+                          style: const TextStyle(
                             height: 1,
-                              color: _textColorType,
-                              fontSize: 17,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorType2,
-                ),
-                height: heightType_,
-                child: SizedBox(
-                  child: TextButton(
-                      onPressed: () {
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: 'Nexa4',
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      child: SizedBox(
+                        width: (size.width * 0.92) - 130,
+                        child: Center(
+                          child: Text(
+                            category.text == ""
+                                ? "Seçmek için dokunun"
+                                : "${category.text}",
+                            style: TextStyle(
+                                height: 1,
+                                fontSize: 14,
+                                fontFamily: 'Nexa3',
+                                color: renkler.koyuuRenk
+                            ),
+                            maxLines: 2,
+                          ),
+                        ),
+                      ),
+                      onTap: () {
                         setState(() {
-                          changeColorType(1);
-                          operationType.text = "Gelir";
-                          selectedCategory = 1;
-                          category.text = 'Harçlık';
-                          indexx = 0;
+                          category.clear();
+                          selectedValue = null;
                         });
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            var readUpdateDB = ref.read(updateDataRiverpod);
+                            final category = readUpdateDB.getCategory();
+                            return FutureBuilder<Map<String, List<String>>>(
+                              future: readUpdateDB.myCategoryLists(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return const CircularProgressIndicator();
+                                } else if (snapshot.hasError) {
+                                  return Text('Bir hata oluştu: ${snapshot.error}');
+                                } else {
+                                  final categoryLists = snapshot.data!;
+                                  List<String> oldCategoryListIncome = [
+                                    'Harçlık',
+                                    'Burs',
+                                    'Maaş',
+                                    'Kredi',
+                                    'Özel+',
+                                    'Kira/Ödenek',
+                                    'Fazla Mesai',
+                                    'İş Getirisi',
+                                    'Döviz Getirisi',
+                                    'Yatırım Getirisi',
+                                    'Diğer+',
+                                  ] ;
+                                  final categoryListIncome = categoryLists['income'] ?? ['Kategori bulunamadı'];
+                                  List<String> oldCategoryListExpense = [
+                                    'Yemek',
+                                    'Giyim',
+                                    'Eğlence',
+                                    'Eğitim',
+                                    'Aidat/Kira',
+                                    'Alışveriş',
+                                    'Özel-',
+                                    'Ulaşım',
+                                    'Sağlık',
+                                    'Günlük Yaşam',
+                                    'Hobi',
+                                    'Diğer-'
+                                  ] ;
+                                  final categoryListExpense = categoryLists['expense'] ?? ['Kategori bulunamadı'];
+
+                                  Set<String> mergedSetIncome = {...oldCategoryListIncome, ...categoryListIncome};
+                                  List<String> mergedIncomeList = mergedSetIncome.toList();
+                                  Set<String> mergedSetExpens = {...oldCategoryListExpense, ...categoryListExpense};
+                                  List<String> mergedExpensList = mergedSetExpens.toList();
+                                  return StatefulBuilder(
+                                    builder: (context, setState) {
+                                      return AlertDialog(
+                                        backgroundColor: Theme.of(context).primaryColor,
+                                        shadowColor: Colors.black54,
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(15))),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Stack(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 15),
+                                                  child: Container(
+                                                    width: 270,
+                                                    height: 90,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                                        border: Border.all(width: 1.5,color: Theme.of(context).secondaryHeaderColor,)
+                                                    ),
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: Column(
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 221,
+                                                        height : 30,
+                                                        child: ToggleSwitch(
+                                                          initialLabelIndex: initialLabelIndex2,
+                                                          totalSwitches: 2,
+                                                          labels: const ['SEÇ', 'EKLE'],
+                                                          activeBgColor: const [Color(0xffF2CB05)],
+                                                          activeFgColor: const Color(0xff0D1C26),
+                                                          inactiveBgColor: Theme.of(context).highlightColor,
+                                                          inactiveFgColor: const Color(0xFFE9E9E9),
+                                                          minWidth: 110,
+                                                          cornerRadius: 20,
+                                                          radiusStyle: true,
+                                                          animate: true,
+                                                          curve: Curves.linearToEaseOut,
+                                                          customTextStyles: const [
+                                                            TextStyle(
+                                                                fontSize: 18, fontFamily: 'Nexa4', height: 1,fontWeight: FontWeight.w800)
+                                                          ],
+                                                          onToggle: (index) {
+                                                            setState(() {
+                                                              if (index == 0) {
+                                                                selectedAddCategoryMenu = 0;
+                                                                category.clear();
+
+                                                              } else {
+                                                                selectedAddCategoryMenu = 1;
+                                                                category.clear();
+                                                              }
+                                                              initialLabelIndex2 = index!;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                      selectedAddCategoryMenu == 0 ?  SizedBox(
+                                                        width: 200,
+                                                        height: 60,
+                                                        child: Column(
+                                                          children: [
+                                                            const SizedBox(height: 10,),
+                                                            DropdownButtonHideUnderline(
+                                                              child: DropdownButton2<String>(
+                                                                isExpanded: true,
+                                                                hint: Text(
+                                                                  'Seçiniz',
+                                                                  style: TextStyle(
+                                                                    fontSize: 18,
+                                                                    fontFamily: 'Nexa3',
+                                                                    color: Theme.of(context).canvasColor,
+                                                                  ),
+                                                                ),
+                                                                items: selectedCategory == 0 ? mergedExpensList
+                                                                    .map((item) => DropdownMenuItem(
+                                                                  value: item,
+                                                                  child: Text(
+                                                                    item,
+                                                                    style: TextStyle(
+                                                                        fontSize: 18,
+                                                                        fontFamily: 'Nexa3',
+                                                                        color: Theme.of(context).canvasColor),
+                                                                  ),
+                                                                ))
+                                                                    .toList() : mergedIncomeList
+                                                                    .map((item) => DropdownMenuItem(
+                                                                  value: item,
+                                                                  child: Text(
+                                                                    item,
+                                                                    style: TextStyle(
+                                                                        fontSize: 18,
+                                                                        fontFamily: 'Nexa3',
+                                                                        color: Theme.of(context).canvasColor),
+                                                                  ),
+                                                                ))
+                                                                    .toList(),
+                                                                value: selectedValue,
+                                                                onChanged: (value) {
+                                                                  setState(() {
+                                                                    selectedValue = value;
+                                                                    category.text = value.toString();
+                                                                    this.setState(() {});
+                                                                  });
+                                                                },
+                                                                barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
+                                                                buttonStyleData:
+                                                                ButtonStyleData(
+                                                                  overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                                                  padding: const EdgeInsets.symmetric(
+                                                                      horizontal: 16),
+                                                                  height: 40,
+                                                                  width: 200,
+                                                                ),
+                                                                dropdownStyleData:
+                                                                DropdownStyleData(
+                                                                    maxHeight: 250, width: 200,
+                                                                    decoration: BoxDecoration(
+                                                                      color: Theme.of(context).primaryColor,
+                                                                    ),
+                                                                    scrollbarTheme: ScrollbarThemeData(
+                                                                        radius: const Radius.circular(15),
+                                                                        thumbColor: MaterialStatePropertyAll(renkler.sariRenk)
+                                                                    )),
+                                                                menuItemStyleData:
+                                                                MenuItemStyleData(
+                                                                  overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                                                  height: 40,
+                                                                ),
+                                                                iconStyleData: IconStyleData(
+                                                                  icon: const Icon(
+                                                                    Icons.arrow_drop_down,
+                                                                  ),
+                                                                  iconSize: 30,
+                                                                  iconEnabledColor: Theme.of(context).secondaryHeaderColor,
+                                                                  iconDisabledColor: Theme.of(context).secondaryHeaderColor,
+                                                                  openMenuIcon: Icon(
+                                                                    Icons.arrow_right,
+                                                                    color: Theme.of(context).canvasColor,
+                                                                    size: 24,
+                                                                  ),
+                                                                ),
+                                                                dropdownSearchData:
+                                                                DropdownSearchData(
+                                                                  searchController: category,
+                                                                  searchInnerWidgetHeight: 50,
+                                                                  searchInnerWidget: Container(
+                                                                    height: 50,
+                                                                    padding: const EdgeInsets.only(
+                                                                      top: 8,
+                                                                      bottom: 4,
+                                                                      right: 8,
+                                                                      left: 8,
+                                                                    ),
+
+                                                                    child: TextField(
+                                                                      textCapitalization: TextCapitalization.words,
+                                                                      expands: true,
+                                                                      maxLines: null,
+                                                                      style: TextStyle(
+                                                                        color: Theme.of(context).canvasColor,
+                                                                      ),
+                                                                      controller:
+                                                                      category,
+                                                                      decoration: InputDecoration(
+                                                                        isDense: true,
+                                                                        contentPadding:
+                                                                        const EdgeInsets
+                                                                            .symmetric(
+                                                                          horizontal: 10,
+                                                                          vertical: 8,
+                                                                        ),
+                                                                        hintText: 'Kategori Arayın',
+                                                                        hintStyle: TextStyle(
+                                                                            fontSize: 18,
+                                                                            color:
+                                                                            Theme.of(context).secondaryHeaderColor),
+                                                                        border: OutlineInputBorder(
+                                                                          borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  searchMatchFn:
+                                                                      (item, searchValue) {
+                                                                    return item.value
+                                                                        .toString()
+                                                                        .contains(searchValue);
+                                                                  },
+                                                                ),
+                                                                //This to clear the search value when you close the menu
+                                                                onMenuStateChange: (isOpen) {
+                                                                  if (!isOpen) {
+                                                                    category.clear();
+                                                                  }
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ) : const SizedBox(),
+                                                      selectedAddCategoryMenu == 1 ? SizedBox(
+                                                        width: 220,
+                                                        height: 60,
+                                                        child: Column(
+                                                          children: [
+                                                            const SizedBox(height: 10,),
+                                                            TextField(
+                                                              maxLength: 20,
+                                                              maxLines: 1,
+                                                              style:
+                                                              TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),
+                                                              decoration: InputDecoration(
+                                                                  hintText: 'Kategoriyi yazınız',
+                                                                  hintStyle: TextStyle(
+                                                                      color: Theme.of(context).canvasColor,
+                                                                      fontSize: 18,
+                                                                      fontFamily: 'Nexa3'),
+                                                                  counterText: '',
+                                                                  border: InputBorder.none),
+                                                              cursorRadius: const Radius.circular(10),
+                                                              keyboardType: TextInputType.text,
+                                                              textCapitalization: TextCapitalization.words,
+                                                              controller: category,
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  this.setState(() {});
+                                                                });
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ): const SizedBox(),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                        children: [
+                                                          initialLabelIndex2 == 1 ? SizedBox(
+                                                            width: 80,
+                                                            height: 30,
+                                                            child: Align(
+                                                              alignment: Alignment.centerLeft,
+                                                              child: Text(
+                                                                '${category.text.length.toString()}/20',
+                                                                style: TextStyle(
+                                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                                  color: const Color(0xffF2CB05),
+                                                                  fontSize: 13,
+                                                                  fontFamily: 'Nexa4',
+                                                                  fontWeight: FontWeight.w800,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ): const SizedBox(width: 80,),
+                                                          SizedBox(
+                                                            width: 80,
+                                                            height: 30,
+                                                            child: TextButton(
+                                                              style: ButtonStyle(
+                                                                  backgroundColor: MaterialStatePropertyAll(renkler.sariRenk),
+                                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                      RoundedRectangleBorder(
+                                                                        borderRadius: BorderRadius.circular(20),
+                                                                      )
+                                                                  )
+                                                              ),
+                                                              onPressed: () {
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              child: Text("Tamam",style: TextStyle(
+                                                                color: renkler.koyuuRenk,
+                                                                fontSize: 16, fontFamily: 'Nexa3',
+                                                              ),),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              "Debug:${category.text}",
+                                              style: const TextStyle(color: Colors.red),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                            );
+                          },
+                        ).then((_) => setState(() {}));
                       },
-                      child: Text(translation(context).income,
-                          style: TextStyle(
-                              height: 1,
-                              color: _textColorType2,
-                              fontSize: 17,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w800))),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
+          );
+
+  }
+  Widget categoryList(BuildContext context, WidgetRef ref) {
+    var size = MediaQuery.of(context).size;
+    var readUpdateDB = ref.read(updateDataRiverpod);
+    final category = readUpdateDB.getCategory();
+    return FutureBuilder<Map<String, List<String>>>(
+      future: readUpdateDB.myCategoryLists(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Bir hata oluştu: ${snapshot.error}');
+        } else {
+          final categoryLists = snapshot.data!;
+          List<String> oldCategoryListIncome = [
+            'Harçlık',
+            'Burs',
+            'Maaş',
+            'Kredi',
+            'Özel+',
+            'Kira/Ödenek',
+            'Fazla Mesai',
+            'İş Getirisi',
+            'Döviz Getirisi',
+            'Yatırım Getirisi',
+            'Diğer+',
+          ] ;
+          final categoryListIncome = categoryLists['income'] ?? ['Kategori bulunamadı'];
+          List<String> oldCategoryListExpense = [
+            'Yemek',
+            'Giyim',
+            'Eğlence',
+            'Eğitim',
+            'Aidat/Kira',
+            'Alışveriş',
+            'Özel-',
+            'Ulaşım',
+            'Sağlık',
+            'Günlük Yaşam',
+            'Hobi',
+            'Diğer-'
+          ] ;
+          final categoryListExpense = categoryLists['expense'] ?? ['Kategori bulunamadı'];
+
+          Set<String> mergedSetIncome = {...oldCategoryListIncome, ...categoryListIncome};
+          List<String> mergedIncomeList = mergedSetIncome.toList();
+          Set<String> mergedSetExpens = {...oldCategoryListExpense, ...categoryListExpense};
+          List<String> mergedExpensList = mergedSetExpens.toList();
+           return StatefulBuilder(
+                    builder: (context, setState) {
+                      return AlertDialog(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        shadowColor: Colors.black54,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15))),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Container(
+                                    width: 270,
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                        border: Border.all(width: 1.5,color: Theme.of(context).secondaryHeaderColor,)
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        width: 221,
+                                        height : 30,
+                                        child: ToggleSwitch(
+                                          initialLabelIndex: initialLabelIndex2,
+                                          totalSwitches: 2,
+                                          labels: const ['SEÇ', 'EKLE'],
+                                          activeBgColor: const [Color(0xffF2CB05)],
+                                          activeFgColor: const Color(0xff0D1C26),
+                                          inactiveBgColor: Theme.of(context).highlightColor,
+                                          inactiveFgColor: const Color(0xFFE9E9E9),
+                                          minWidth: 110,
+                                          cornerRadius: 20,
+                                          radiusStyle: true,
+                                          animate: true,
+                                          curve: Curves.linearToEaseOut,
+                                          customTextStyles: const [
+                                            TextStyle(
+                                                fontSize: 18, fontFamily: 'Nexa4', height: 1,fontWeight: FontWeight.w800)
+                                          ],
+                                          onToggle: (index) {
+                                            setState(() {
+                                              if (index == 0) {
+                                                selectedAddCategoryMenu = 0;
+                                                category.clear();
+
+                                              } else {
+                                                selectedAddCategoryMenu = 1;
+                                                category.clear();
+                                              }
+                                              initialLabelIndex2 = index!;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      selectedAddCategoryMenu == 0 ?  SizedBox(
+                                        width: 200,
+                                        height: 60,
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(height: 10,),
+                                            DropdownButtonHideUnderline(
+                                              child: DropdownButton2<String>(
+                                                isExpanded: true,
+                                                hint: Text(
+                                                  'Seçiniz',
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontFamily: 'Nexa3',
+                                                    color: Theme.of(context).canvasColor,
+                                                  ),
+                                                ),
+                                                items: selectedCategory == 0 ? mergedExpensList
+                                                    .map((item) => DropdownMenuItem(
+                                                  value: item,
+                                                  child: Text(
+                                                    item,
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontFamily: 'Nexa3',
+                                                        color: Theme.of(context).canvasColor),
+                                                  ),
+                                                ))
+                                                    .toList() : mergedIncomeList
+                                                    .map((item) => DropdownMenuItem(
+                                                  value: item,
+                                                  child: Text(
+                                                    item,
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontFamily: 'Nexa3',
+                                                        color: Theme.of(context).canvasColor),
+                                                  ),
+                                                ))
+                                                    .toList(),
+                                                value: selectedValue,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    selectedValue = value;
+                                                    category.text = value.toString();
+                                                    this.setState(() {});
+                                                  });
+                                                },
+                                                barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
+                                                buttonStyleData:
+                                                ButtonStyleData(
+                                                  overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                                  padding: const EdgeInsets.symmetric(
+                                                      horizontal: 16),
+                                                  height: 40,
+                                                  width: 200,
+                                                ),
+                                                dropdownStyleData:
+                                                DropdownStyleData(
+                                                    maxHeight: 250, width: 200,
+                                                    decoration: BoxDecoration(
+                                                      color: Theme.of(context).primaryColor,
+                                                    ),
+                                                    scrollbarTheme: ScrollbarThemeData(
+                                                        radius: const Radius.circular(15),
+                                                        thumbColor: MaterialStatePropertyAll(renkler.sariRenk)
+                                                    )),
+                                                menuItemStyleData:
+                                                MenuItemStyleData(
+                                                  overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                                  height: 40,
+                                                ),
+                                                iconStyleData: IconStyleData(
+                                                  icon: const Icon(
+                                                    Icons.arrow_drop_down,
+                                                  ),
+                                                  iconSize: 30,
+                                                  iconEnabledColor: Theme.of(context).secondaryHeaderColor,
+                                                  iconDisabledColor: Theme.of(context).secondaryHeaderColor,
+                                                  openMenuIcon: Icon(
+                                                    Icons.arrow_right,
+                                                    color: Theme.of(context).canvasColor,
+                                                    size: 24,
+                                                  ),
+                                                ),
+                                                dropdownSearchData:
+                                                DropdownSearchData(
+                                                  searchController: category,
+                                                  searchInnerWidgetHeight: 50,
+                                                  searchInnerWidget: Container(
+                                                    height: 50,
+                                                    padding: const EdgeInsets.only(
+                                                      top: 8,
+                                                      bottom: 4,
+                                                      right: 8,
+                                                      left: 8,
+                                                    ),
+
+                                                    child: TextField(
+                                                      textCapitalization: TextCapitalization.words,
+                                                      expands: true,
+                                                      maxLines: null,
+                                                      style: TextStyle(
+                                                        color: Theme.of(context).canvasColor,
+                                                      ),
+                                                      controller:
+                                                      category,
+                                                      decoration: InputDecoration(
+                                                        isDense: true,
+                                                        contentPadding:
+                                                        const EdgeInsets
+                                                            .symmetric(
+                                                          horizontal: 10,
+                                                          vertical: 8,
+                                                        ),
+                                                        hintText: 'Kategori Arayın',
+                                                        hintStyle: TextStyle(
+                                                            fontSize: 18,
+                                                            color:
+                                                            Theme.of(context).secondaryHeaderColor),
+                                                        border: OutlineInputBorder(
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  searchMatchFn:
+                                                      (item, searchValue) {
+                                                    return item.value
+                                                        .toString()
+                                                        .contains(searchValue);
+                                                  },
+                                                ),
+                                                //This to clear the search value when you close the menu
+                                                onMenuStateChange: (isOpen) {
+                                                  if (!isOpen) {
+                                                    category.clear();
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ) : const SizedBox(),
+                                      selectedAddCategoryMenu == 1 ? SizedBox(
+                                        width: 220,
+                                        height: 60,
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(height: 10,),
+                                            TextField(
+                                              maxLength: 20,
+                                              maxLines: 1,
+                                              style:
+                                              TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),
+                                              decoration: InputDecoration(
+                                                  hintText: 'Kategoriyi yazınız',
+                                                  hintStyle: TextStyle(
+                                                      color: Theme.of(context).canvasColor,
+                                                      fontSize: 18,
+                                                      fontFamily: 'Nexa3'),
+                                                  counterText: '',
+                                                  border: InputBorder.none),
+                                              cursorRadius: const Radius.circular(10),
+                                              keyboardType: TextInputType.text,
+                                              textCapitalization: TextCapitalization.words,
+                                              controller: category,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  this.setState(() {});
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ): const SizedBox(),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          initialLabelIndex2 == 1 ? SizedBox(
+                                            width: 80,
+                                            height: 30,
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                '${category.text.length.toString()}/20',
+                                                style: TextStyle(
+                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                  color: const Color(0xffF2CB05),
+                                                  fontSize: 13,
+                                                  fontFamily: 'Nexa4',
+                                                  fontWeight: FontWeight.w800,
+                                                ),
+                                              ),
+                                            ),
+                                          ): const SizedBox(width: 80,),
+                                          SizedBox(
+                                            width: 80,
+                                            height: 30,
+                                            child: TextButton(
+                                              style: ButtonStyle(
+                                                  backgroundColor: MaterialStatePropertyAll(renkler.sariRenk),
+                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(20),
+                                                      )
+                                                  )
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("Tamam",style: TextStyle(
+                                                color: renkler.koyuuRenk,
+                                                fontSize: 16, fontFamily: 'Nexa3',
+                                              ),),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              "Debug:${category.text}",
+                              style: const TextStyle(color: Colors.red),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  );
+        }
+      },
     );
   }
 
@@ -324,6 +1057,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
         initialDate: _selectedDate ?? DateTime.now(),
         firstDate: DateTime(2020),
         lastDate: DateTime(2030),
+        fieldLabelText: 'Tarih Girişi Aktif Değil',
+        keyboardType: TextInputType.number,
         builder: (context, child) {
           FocusScope.of(context).unfocus();
           return Theme(
@@ -359,1061 +1094,68 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     }
 
     return SizedBox(
-      height: 40,
+      height: 38,
+      width: 175,
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 3),
+            padding: const EdgeInsets.only(top: 2),
             child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Color(0xff0D1C26),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(40)),
+                color: Theme.of(context).highlightColor,
               ),
               height: 34,
-              width: 205,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 5),
-            child: Row(
-              children: [
-                SizedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8, right: 8),
-                    child: Text(translation(context).date,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontFamily: 'Nexa4',
-                            fontWeight: FontWeight.w800)),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
-                    color: Color(0xffF2CB05),
-                  ),
-                  child: SizedBox(
-                    height: 40,
-                    width: 130,
-                    child: TextFormField(
-                      focusNode: dateFocusNode,
-                      onTap: () {
-                        selectDate(context);
-                        FocusScope.of(context).unfocus();
-                      },
-                      onEditingComplete: () {
-                        FocusScope.of(context).unfocus();
-                      },
-                      style: const TextStyle(
-                          color: Color(0xff0D1C26),
-                          fontSize: 17,
-                          fontFamily: 'Nexa4',
-                          fontWeight: FontWeight.w800),
-                      controller: operationDate,
-                      autofocus: false,
-                      keyboardType: TextInputType.datetime,
-                      textAlign: TextAlign.center,
-                      readOnly: true,
-                      decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          isDense: true,
-                          contentPadding: EdgeInsets.only(top: 12)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget amountCustomButton(BuildContext context) {
-    var readUpdateData = ref.read(updateDataRiverpod);
-    final amount = readUpdateData.getAmount();
-    var size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: 40,
-      width: size.width * 0.9,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 18,
-            child: Container(
-              width: size.width * 0.9,
-              height: 4,
-              decoration: const BoxDecoration(
-                  color: Color(0xff0D1C26),
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-            ),
-          ),
-          Center(
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 34,
-              width: 185,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
-                    child: Text(translation(context).amountDetails,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontFamily: 'Nexa4',
-                            fontWeight: FontWeight.w800)),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
-                    color: Color(0xffF2CB05),
-                  ),
-                  child: SizedBox(
-                    height: 40,
-                    width: 110,
-                    child: TextFormField(
-                        onTap: () {
-                          //amount.clear();
-                        },
-                        style: const TextStyle(
-                            color: Color(0xff0D1C26),
-                            fontSize: 17,
-                            fontFamily: 'Nexa4',
-                            fontWeight: FontWeight.w100),
-                        controller: amount,
-                        autofocus: false,
-                        focusNode: amountFocusNode,
-                        keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp(r'^\d{0,5}(\.\d{0,2})?'),),
-                        ],
-                        textAlign: TextAlign.center,
-                        onEditingComplete: () {
-                          FocusScope.of(context).unfocus();
-                        },
-                        decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            isDense: true,
-                            hintText: "00.00",
-                            contentPadding: EdgeInsets.only(top: 12))),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  int selectedCategory = 0;
-  Color colorContainerYemek = const Color(0xffF2CB05);
-  Color colorContainerGiyim = Colors.white;
-  Color colorContainerEglence = Colors.white;
-  Color colorContainerEgitim = Colors.white;
-  Color colorContainerAidat = Colors.white;
-  Color colorContainerAlisveris = Colors.white;
-  Color colorContainerOzel = Colors.white;
-  Color colorContainerUlasim = Colors.white;
-  Color colorContainerSaglik = Colors.white;
-  Color colorContainerGunluk = Colors.white;
-  Color colorContainerHobi = Colors.white;
-  Color colorContainerDiger = Colors.white;
-
-  Color colorTextYemek = Colors.white;
-  Color colorTextGiyim = const Color(0xff0D1C26);
-  Color colorTextEglence = const Color(0xff0D1C26);
-  Color colorTextEgitim = const Color(0xff0D1C26);
-  Color colorTextAidat = const Color(0xff0D1C26);
-  Color colorTextAlisveris = const Color(0xff0D1C26);
-  Color colorTextOzel = const Color(0xff0D1C26);
-  Color colorTextUlasim = const Color(0xff0D1C26);
-  Color colorTextSaglik = const Color(0xff0D1C26);
-  Color colorTextGunluk = const Color(0xff0D1C26);
-  Color colorTextHobi = const Color(0xff0D1C26);
-  Color colorTextDiger = const Color(0xff0D1C26);
-  Widget categoryCustomButton(BuildContext context) {
-    var readUpdateData = ref.read(updateDataRiverpod);
-  final category = readUpdateData.getCategory();
-    void resetColor() {
-      colorContainerYemek = Colors.white;
-      colorContainerGiyim = Colors.white;
-      colorContainerEglence = Colors.white;
-      colorContainerEgitim = Colors.white;
-      colorContainerAidat = Colors.white;
-      colorContainerAlisveris = Colors.white;
-      colorContainerOzel = Colors.white;
-      colorContainerUlasim = Colors.white;
-      colorContainerSaglik = Colors.white;
-      colorContainerGunluk = Colors.white;
-      colorContainerHobi = Colors.white;
-      colorContainerDiger = Colors.white;
-      colorTextYemek = const Color(0xff0D1C26);
-      colorTextGiyim = const Color(0xff0D1C26);
-      colorTextEglence = const Color(0xff0D1C26);
-      colorTextEgitim = const Color(0xff0D1C26);
-      colorTextAidat = const Color(0xff0D1C26);
-      colorTextAlisveris = const Color(0xff0D1C26);
-      colorTextOzel = const Color(0xff0D1C26);
-      colorTextUlasim = const Color(0xff0D1C26);
-      colorTextSaglik = const Color(0xff0D1C26);
-      colorTextGunluk = const Color(0xff0D1C26);
-      colorTextHobi = const Color(0xff0D1C26);
-      colorTextDiger = const Color(0xff0D1C26);
-    }
-      if (category.text == 'Yemek' || category.text == 'Harçlık') {
-        resetColor();
-        colorContainerYemek = const Color(0xffF2CB05);
-        colorTextYemek = Colors.white;
-      } else if (category.text == 'Giyim' || category.text == 'Burs') {
-        resetColor();
-        colorContainerGiyim = const Color(0xffF2CB05);
-        colorTextGiyim = Colors.white;
-      } else if (category.text == 'Eğlence' || category.text == 'Maaş') {
-        resetColor();
-        colorContainerEglence = const Color(0xffF2CB05);
-        colorTextEglence = Colors.white;
-      } else if (category.text == 'Eğitim' || category.text == 'Kredi') {
-        resetColor();
-        colorContainerEgitim = const Color(0xffF2CB05);
-        colorTextEgitim = Colors.white;
-      } else if (category.text == 'Aidat/Kira' || category.text == 'Özel+') {
-        resetColor();
-        colorContainerAidat = const Color(0xffF2CB05);
-        colorTextAidat = Colors.white;
-      } else if (category.text == 'Alışveriş' || category.text == 'Kira/Ödenek') {
-        resetColor();
-        colorContainerAlisveris = const Color(0xffF2CB05);
-        colorTextAlisveris = Colors.white;
-      } else if (category.text == 'Özel-' || category.text == 'Fazla Mesai') {
-        resetColor();
-        colorContainerOzel = const Color(0xffF2CB05);
-        colorTextOzel = Colors.white;
-      } else if (category.text == 'Ulaşım' || category.text == 'İş Getirisi') {
-        resetColor();
-        colorContainerUlasim = const Color(0xffF2CB05);
-        colorTextUlasim = Colors.white;
-      } else if (category.text == 'Sağlık' || category.text == 'Döviz Getirisi') {
-        resetColor();
-        colorContainerSaglik = const Color(0xffF2CB05);
-        colorTextSaglik = Colors.white;
-      } else if (category.text == 'Günlük Yaşam' || category.text == 'Yatırım Getirisi') {
-        resetColor();
-        colorContainerGunluk = const Color(0xffF2CB05);
-        colorTextGunluk = Colors.white;
-      } else if (category.text == 'Hobi' || category.text == 'Diğer+') {
-        resetColor();
-        colorContainerHobi = const Color(0xffF2CB05);
-        colorTextHobi = Colors.white;
-      } else if (category.text == 'Diğer-') {
-        resetColor();
-        colorContainerDiger = const Color(0xffF2CB05);
-        colorTextDiger = Colors.white;
-      }
-    void changeCategoryColor1(int index) {
-      if (index == 1) {
-        resetColor();
-        colorContainerYemek = const Color(0xffF2CB05);
-        colorTextYemek = Colors.white;
-      } else if (index == 2) {
-        resetColor();
-        colorContainerGiyim = const Color(0xffF2CB05);
-        colorTextGiyim = Colors.white;
-      } else if (index == 3) {
-        resetColor();
-        colorContainerEglence = const Color(0xffF2CB05);
-        colorTextEglence = Colors.white;
-      } else if (index == 4) {
-        resetColor();
-        colorContainerEgitim = const Color(0xffF2CB05);
-        colorTextEgitim = Colors.white;
-      } else if (index == 5) {
-        resetColor();
-        colorContainerAidat = const Color(0xffF2CB05);
-        colorTextAidat = Colors.white;
-      } else if (index == 6) {
-        resetColor();
-        colorContainerAlisveris = const Color(0xffF2CB05);
-        colorTextAlisveris = Colors.white;
-      } else if (index == 7) {
-        resetColor();
-        colorContainerOzel = const Color(0xffF2CB05);
-        colorTextOzel = Colors.white;
-      } else if (index == 8) {
-        resetColor();
-        colorContainerUlasim = const Color(0xffF2CB05);
-        colorTextUlasim = Colors.white;
-      } else if (index == 9) {
-        resetColor();
-        colorContainerSaglik = const Color(0xffF2CB05);
-        colorTextSaglik = Colors.white;
-      } else if (index == 10) {
-        resetColor();
-        colorContainerGunluk = const Color(0xffF2CB05);
-        colorTextGunluk = Colors.white;
-      } else if (index == 11) {
-        resetColor();
-        colorContainerHobi = const Color(0xffF2CB05);
-        colorTextHobi = Colors.white;
-      } else if (index == 12) {
-        resetColor();
-        colorContainerDiger = const Color(0xffF2CB05);
-        colorTextDiger = Colors.white;
-      }
-    }
-
-    var size = MediaQuery.of(context).size;
-    if (selectedCategory == 0) {
-      return SizedBox(
-        width: size.width * 0.9,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerYemek,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(1);
-                          category.text = 'Yemek';
-                        });
-                      },
-                      child: Text("Yemek",
-                          style: TextStyle(
-                              color: colorTextYemek,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerGiyim,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(2);
-                          category.text = 'Giyim';
-                        });
-                      },
-                      child: Text("Giyim",
-                          style: TextStyle(
-                              color: colorTextGiyim,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerEglence,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(3);
-                          category.text = 'Eğlence';
-                        });
-                      },
-                      child: Text("Eğlence",
-                          style: TextStyle(
-                              color: colorTextEglence,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerEgitim,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(4);
-                          category.text = 'Eğitim';
-                        });
-                      },
-                      child: Text("Eğitim",
-                          style: TextStyle(
-                              color: colorTextEgitim,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerAidat,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(5);
-                          category.text = 'Aidat/Kira';
-                        });
-                      },
-                      child: Text("Aidat/Kira",
-                          style: TextStyle(
-                              color: colorTextAidat,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerAlisveris,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(6);
-                          category.text = 'Alışveriş';
-                        });
-                      },
-                      child: Text("Alışveriş",
-                          style: TextStyle(
-                              color: colorTextAlisveris,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerOzel,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(7);
-                          category.text = 'Özel-';
-                        });
-                      },
-                      child: Text("Özel",
-                          style: TextStyle(
-                              color: colorTextOzel,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerUlasim,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(8);
-                          category.text = 'Ulaşım';
-                        });
-                      },
-                      child: Text("Ulaşım",
-                          style: TextStyle(
-                              color: colorTextUlasim,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerSaglik,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(9);
-                          category.text = 'Sağlık';
-                        });
-                      },
-                      child: Text("Sağlık",
-                          style: TextStyle(
-                              color: colorTextSaglik,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerGunluk,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(10);
-                          category.text = 'Günlük Yaşam';
-                        });
-                      },
-                      child: Text("Günlük Yaşam",
-                          style: TextStyle(
-                              color: colorTextGunluk,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerHobi,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(11);
-                          category.text = 'Hobi';
-                        });
-                      },
-                      child: Text("Hobi",
-                          style: TextStyle(
-                              color: colorTextHobi,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerDiger,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(12);
-                          category.text = 'Diğer-';
-                        });
-                      },
-                      child: Text("Diğer",
-                          style: TextStyle(
-                              color: colorTextDiger,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-              ],
-            )
-          ],
-        ),
-      );
-    } else {
-      return SizedBox(
-        width: size.width * 0.9,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerYemek,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(1);
-                          category.text = 'Harçlık';
-                        });
-                      },
-                      child: Text("Harçlık",
-                          style: TextStyle(
-                              color: colorTextYemek,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerGiyim,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(2);
-                          category.text = 'Burs';
-                        });
-                      },
-                      child: Text("Burs",
-                          style: TextStyle(
-                              color: colorTextGiyim,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerEglence,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(3);
-                          category.text = 'Maaş';
-                        });
-                      },
-                      child: Text("Maaş",
-                          style: TextStyle(
-                              color: colorTextEglence,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerEgitim,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(4);
-                          category.text = 'Kredi';
-                        });
-                      },
-                      child: Text("Kredi",
-                          style: TextStyle(
-                              color: colorTextEgitim,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerAidat,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(5);
-                          category.text = 'Özel+';
-                        });
-                      },
-                      child: Text("Özel",
-                          style: TextStyle(
-                              color: colorTextAidat,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerAlisveris,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(6);
-                          category.text = 'Kira/Ödenek';
-                        });
-                      },
-                      child: Text("Kira/Ödenek",
-                          style: TextStyle(
-                              color: colorTextAlisveris,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerOzel,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(7);
-                          category.text = 'Fazla Mesai';
-                        });
-                      },
-                      child: Text("Fazla Mesai",
-                          style: TextStyle(
-                              color: colorTextOzel,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerUlasim,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(8);
-                          category.text = 'İş Getirisi';
-                        });
-                      },
-                      child: Text("İş Getirisi",
-                          style: TextStyle(
-                              color: colorTextUlasim,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerSaglik,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(9);
-                          category.text = 'Döviz Getirisi';
-                        });
-                      },
-                      child: Text("Döviz Getirisi",
-                          style: TextStyle(
-                              color: colorTextSaglik,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerGunluk,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(10);
-                          category.text = 'Yatırım Getirisi';
-                        });
-                      },
-                      child: Text("Yatırım Getirisi",
-                          style: TextStyle(
-                              color: colorTextGunluk,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1800),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: colorContainerHobi,
-                  ),
-                  height: 34,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          changeCategoryColor1(11);
-                          category.text = 'Diğer+';
-                        });
-                      },
-                      child: Text("Diğer",
-                          style: TextStyle(
-                              color: colorTextHobi,
-                              fontSize: 18,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w700))),
-                ),
-              ],
-            )
-          ],
-        ),
-      );
-    }
-  }
-
-  double heightTool_ = 34;
-  double heightTool2_ = 42;
-  double heightTool3_ = 34;
-  Color _containerColorTool3 = const Color(0xff0D1C26);
-  Color _containerColorTool2 = const Color(0xff0D1C26);
-  Color _containerColorTool = const Color(0xffF2CB05);
-  Color _textColorTool = const Color(0xff0D1C26);
-  Color _textColorTool2 = Colors.white;
-  Color _textColorTool3 = Colors.white;
-  int index = 0;
-  Widget toolCustomButton(BuildContext context) {
-    var readUpdateData = ref.read(updateDataRiverpod);
-    final operationTool = readUpdateData.getOperationTool();
-    if(operationTool.text == 'Nakit'){
-      heightTool2_ = 40;
-      heightTool_ = 34;
-      heightTool3_ = 34;
-      _containerColorTool = const Color(0xffF2CB05);
-      _containerColorTool2 = const Color(0xff0D1C26);
-      _containerColorTool3 = const Color(0xff0D1C26);
-      _textColorTool = const Color(0xff0D1C26);
-      _textColorTool2 = Colors.white;
-      _textColorTool3 = Colors.white;
-    }
-    else if(operationTool.text == 'Kart'){
-      heightTool_ = 40;
-      heightTool2_ = 34;
-      heightTool3_ = 34;
-      _containerColorTool2 = const Color(0xffF2CB05);
-      _containerColorTool = const Color(0xff0D1C26);
-      _containerColorTool3 = const Color(0xff0D1C26);
-      _textColorTool = Colors.white;
-      _textColorTool2 = const Color(0xff0D1C26);
-      _textColorTool3 = Colors.white;
-    }
-    else{
-      heightTool_ = 34;
-      heightTool2_ = 34;
-      heightTool3_ = 40;
-      _containerColorTool3 = const Color(0xffF2CB05);
-      _containerColorTool = const Color(0xff0D1C26);
-      _containerColorTool2 = const Color(0xff0D1C26);
-      _textColorTool = Colors.white;
-      _textColorTool2 = Colors.white;
-      _textColorTool3 = const Color(0xff0D1C26);
-    }
-
-
-    void changeColor(int index) {
-      if (index == 0) {
-        setState(() {
-          heightTool2_ = 40;
-          heightTool_ = 34;
-          heightTool3_ = 34;
-          _containerColorTool = const Color(0xffF2CB05);
-          _containerColorTool2 = const Color(0xff0D1C26);
-          _containerColorTool3 = const Color(0xff0D1C26);
-          _textColorTool = const Color(0xff0D1C26);
-          _textColorTool2 = Colors.white;
-          _textColorTool3 = Colors.white;
-        });
-      } else if (index == 1) {
-        setState(() {
-          heightTool_ = 40;
-          heightTool2_ = 34;
-          heightTool3_ = 34;
-          _containerColorTool2 = const Color(0xffF2CB05);
-          _containerColorTool = const Color(0xff0D1C26);
-          _containerColorTool3 = const Color(0xff0D1C26);
-          _textColorTool = Colors.white;
-          _textColorTool2 = const Color(0xff0D1C26);
-          _textColorTool3 = Colors.white;
-        });
-      } else {
-        setState(() {
-          heightTool_ = 34;
-          heightTool2_ = 34;
-          heightTool3_ = 40;
-          _containerColorTool3 = const Color(0xffF2CB05);
-          _containerColorTool = const Color(0xff0D1C26);
-          _containerColorTool2 = const Color(0xff0D1C26);
-          _textColorTool = Colors.white;
-          _textColorTool2 = Colors.white;
-          _textColorTool3 = const Color(0xff0D1C26);
-        });
-      }
-    }
-
-    return SizedBox(
-      height: 40,
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 3),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 34,
-              width: 205,
+              width: 173,
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool,
-                ),
-                height: heightTool2_,
-                child: SizedBox(
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          operationTool.text = "Nakit";
-                          changeColor(0);
-                        });
-                      },
-                      child: Text(translation(context).cash,
-                          style: TextStyle(
-                              height: 1,
-                              color: _textColorTool,
-                              fontSize: 17,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w800))),
+              SizedBox(
+                width: 65,
+                child: Center(
+                  child: Text(translation(context).date,
+                      style: const TextStyle(
+                        height: 1,
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontFamily: 'Nexa4',
+                          fontWeight: FontWeight.w800)),
                 ),
               ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool2,
+              Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  color: Color(0xffF2CB05),
                 ),
-                height: heightTool_,
                 child: SizedBox(
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          operationTool.text = "Kart";
-                          changeColor(1);
-                        });
-                      },
-                      child: Text(translation(context).card,
-                          style: TextStyle(
-                              height: 1,
-                              color: _textColorTool2,
-                              fontSize: 17,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool3,
-                ),
-                height: heightTool3_,
-                child: SizedBox(
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          operationTool.text = "Diger";
-                          changeColor(2);
-                        });
-                      },
-                      child: Text(translation(context).otherPaye,
-                          style: TextStyle(
-                              height: 1,
-                              color: _textColorTool3,
-                              fontSize: 17,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w800))),
+                  height: 38,
+                  width: 110,
+                  child: TextFormField(
+                    focusNode: dateFocusNode,
+                    onTap: () {
+                      selectDate(context);
+                      FocusScope.of(context).unfocus();
+                    },
+                    onEditingComplete: () {
+                      FocusScope.of(context).unfocus();
+                    },
+                    style: const TextStyle(
+                        color: Color(0xff0D1C26),
+                        fontSize: 14,
+                        fontFamily: 'Nexa4',
+                        fontWeight: FontWeight.w800),
+                    controller: operationDate,
+                    autofocus: false,
+                    keyboardType: TextInputType.datetime,
+                    textAlign: TextAlign.center,
+                    readOnly: true,
+                    decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        isDense: true,
+                        contentPadding: EdgeInsets.only(top: 12)),
+                  ),
                 ),
               ),
             ],
@@ -1423,37 +1165,377 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     );
   }
 
-  Widget categoryBarCustomButton(BuildContext context) {
+  double moneyTypeWidth = 38.0;
+  double moneyTypeHeight = 38.0;
+  bool openMoneyTypeMenu = false;
+  final TextEditingController moneyTypeSymbol =  TextEditingController(text: "₺");
+  Widget amountCustomButton() {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final amount = readUpdateData.getAmount();
+    final moneyType = readUpdateData.getMoneyType();
+    final realAmount0 = readUpdateData.getRealAmount();
+    String getSymbolForMoneyType(){
+      String controller = moneyType.text;
+      if(controller == 'TRY'){
+        return '₺';
+      }else if (controller == 'USD'){
+        return '\$';
+      }
+      else if (controller == 'EUR'){
+        return '€';
+      }
+      else if (controller == 'GBP'){
+        return '£';
+      }
+      else if (controller == 'KWD'){
+        return 'د.ك';
+      }
+      else if (controller == 'JOD'){
+        return 'د.أ';
+      }
+      else if (controller == 'IQD'){
+        return 'د.ع';
+      }
+      else if (controller == 'SAR'){
+        return 'ر.س';
+      }
+      else{return '!';}
+    }
     var size = MediaQuery.of(context).size;
     return SizedBox(
-      height: 40,
-      width: size.width * 0.9,
+      width: size.width * 0.92,
       child: Stack(
         children: [
           Positioned(
-            top: 18,
+            top: 40,
             child: Container(
-              width: size.width * 0.9,
+              width: size.width * 0.92,
               height: 4,
-              decoration: const BoxDecoration(
-                  color: Color(0xff0D1C26),
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).highlightColor,
+                  borderRadius: const BorderRadius.all(Radius.circular(20))),
             ),
           ),
           Center(
-            child: Container(
-              width: 130,
-              height: 40,
-              decoration: const BoxDecoration(
-                  color: Color(0xff0D1C26),
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: Center(
-                  child: Text(translation(context).categoryDetails,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'Nexa4',
-                          fontWeight: FontWeight.w800))),
+            child: SizedBox(
+              width: 250,
+              height:80,
+              child: Row(
+                children: [
+                  openMoneyTypeMenu == false ? SizedBox(
+                    height: 38,
+                    width: 207,
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(40)),
+                              color: Theme.of(context).highlightColor,
+                            ),
+                            height: 34,
+                            width: 205,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 95,
+                              child: Center(
+                                child: Text(translation(context).amountDetails,
+                                    style: TextStyle(
+                                        height: 1,
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontFamily: 'Nexa4',
+                                        fontWeight: FontWeight.w800)),
+                              ),
+                            ),
+                            Container(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                color: Color(0xffF2CB05),
+                              ),
+                              child: SizedBox(
+                                height: 38,
+                                width: 112,
+                                child: TextFormField(
+                                    onTap: () {
+                                      //_amount.clear();
+                                    },
+                                    style: const TextStyle(
+                                        color: Color(0xff0D1C26),
+                                        fontSize: 17,
+                                        fontFamily: 'Nexa4',
+                                        fontWeight: FontWeight.w100),
+                                    controller: amount,
+                                    autofocus: false,
+                                    focusNode: amountFocusNode,
+                                    keyboardType: const TextInputType.numberWithOptions(
+                                        decimal: true),
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d{0,5}(\.\d{0,2})?'),
+                                      )
+                                    ],
+                                    textAlign: TextAlign.center,
+                                    onEditingComplete: () {
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        isDense: true,
+                                        hintText: "00.00",
+                                        hintStyle: TextStyle(
+                                          color: renkler.koyuAraRenk,
+                                        ),
+                                        contentPadding: const EdgeInsets.only(top: 12))),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ) : const SizedBox(),
+                  openMoneyTypeMenu == false ? const SizedBox(width: 5,): const SizedBox(),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        openMoneyTypeMenu == false ? openMoneyTypeMenu = true : openMoneyTypeMenu = false;
+                        openMoneyTypeMenu == true ? moneyTypeWidth = 250 : moneyTypeWidth = 38;
+                        openMoneyTypeMenu == true ? moneyTypeHeight = 80 : moneyTypeHeight = 38;
+                      });
+                    },
+                    child:  Container(
+                      height: moneyTypeHeight,
+                      width: moneyTypeWidth,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: Color(0xffF2CB05),
+                      ),
+                      child: openMoneyTypeMenu == false ? Center(
+                        child:  Text(
+                          getSymbolForMoneyType(),
+                          style: const TextStyle(
+                            fontFamily: 'TL',
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff0D1C26),
+                          ),
+                        ),
+                      ) : Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'TRY';
+                                    moneyTypeSymbol.text = "₺";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "TRY", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'USD';
+                                    moneyTypeSymbol.text = "\$";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child:Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "USD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'EUR';
+                                    moneyTypeSymbol.text = "€";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "EUR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'GBP';
+                                    moneyTypeSymbol.text = "£";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "GBP", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 4,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'KWD';
+                                    moneyTypeSymbol.text = "د.ك";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "KWD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'JOD';
+                                    moneyTypeSymbol.text = "د.أ";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "JOD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'IQD';
+                                    moneyTypeSymbol.text = "د.ع";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child:Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "IQD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    moneyType.text = 'SAR';
+                                    moneyTypeSymbol.text = "ر.س";
+                                    openMoneyTypeMenu = false;
+                                    moneyTypeWidth = 38.0;
+                                    moneyTypeHeight = 38.0;
+                                  });
+                                },
+                                child: Container(
+                                  width: 44,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "SAR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -1461,51 +1543,106 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     );
   }
 
+  int selectedCategory = 0;
+  int initialLabelIndexTool = 0;
+  Widget toolCustomButton(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final operationTool = readUpdateData.getOperationTool();
+    if(operationTool.text == 'Nakit'){
+      initialLabelIndexTool =0;
+    }
+    else if(operationTool.text == 'Kart'){
+      initialLabelIndexTool =1;
+    }
+    else{
+      initialLabelIndexTool =2;
+    }
+    return SizedBox(
+        height: 34,
+        child: ToggleSwitch(
+          initialLabelIndex: initialLabelIndexTool,
+          totalSwitches: 3,
+          dividerColor: Theme.of(context).highlightColor,
+          labels:  [translation(context).cash, translation(context).card, translation(context).otherPaye],
+          activeBgColor: const [Color(0xffF2CB05)],
+          activeFgColor: const Color(0xff0D1C26),
+          inactiveBgColor: Theme.of(context).highlightColor,
+          inactiveFgColor: const Color(0xFFE9E9E9),
+          minWidth: size.width > 392 ? size.width*0.18 : 70,
+          cornerRadius: 15,
+          radiusStyle: true,
+          animate: true,
+          curve: Curves.linearToEaseOut,
+          customTextStyles: const [
+            TextStyle(
+                fontSize: 13, fontFamily: 'Nexa4', height: 1,fontWeight: FontWeight.w800)
+          ],
+          onToggle: (index) {
+            if (index == 0) {
+              setState(() {
+                operationTool.text = "Nakit";
+              });
+            } else if(index == 1 ) {
+              setState(() {
+                operationTool.text = "Kart";
+              });
+            }
+            else{
+              setState(() {
+                operationTool.text = "Diger";
+              });
+            }
+            initialLabelIndexTool = index!;
+          },
+        ));
+  }
+
   int regss = 0;
   Widget regCustomButton(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: 38,
+      width: 126,
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 3),
+            padding: const EdgeInsets.only(top: 2),
             child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Color(0xff0D1C26),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(40)),
+                color: Theme.of(context).highlightColor,
               ),
               height: 34,
-              width: 130,
+              width: 120,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 5, right: 5),
-            child: Row(
-              children: [
-                SizedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8, right: 8),
-                    child: Text(translation(context).save,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontFamily: 'Nexa4',
-                            fontWeight: FontWeight.w800)),
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: 86,
+                child: Center(
+                  child: Text(translation(context).save,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          height: 1,
+                          fontSize: 15,
+                          fontFamily: 'Nexa4',
+                          fontWeight: FontWeight.w800)),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Color(0xffF2CB05),
-                  ),
-                  child: SizedBox(
-                    height: 40,
-                    width: 40,
-                    child: registration(regss),
-                  ),
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: Color(0xffF2CB05),
                 ),
-              ],
-            ),
+                child: SizedBox(
+                  height: 38,
+                  width: 38,
+                  child: registration(regss),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -1553,7 +1690,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     var size = MediaQuery.of(context).size;
     var readSettings = ref.read(settingsRiverpod);
     return SizedBox(
-      width: size.width * 0.9,
+      width: size.width * 0.92,
       height: 125,
       child: Stack(
         children: [
@@ -1561,18 +1698,18 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             padding: const EdgeInsets.only(top: 20),
             child: SizedBox(
               height: 90,
-              width: size.width * 0.9,
+              width: size.width * 0.92,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
-                  border:
-                      Border.all(color: const Color(0xff0D1C26), width: 1.5),
+                  border: Border.all(
+                      color: Theme.of(context).highlightColor, width: 1.5),
                 ),
               ),
             ),
           ),
           SizedBox(
-            width: size.width * 0.88,
+            width: size.width * 0.9,
             height: 115,
             child: Stack(
               children: [
@@ -1581,6 +1718,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   child: TextFormField(
                     decoration: InputDecoration(
                         hintText: translation(context).clickToAddNote,
+                        hintStyle: TextStyle(
+                          color: Theme.of(context).canvasColor,
+                        ),
                         counterText: "",
                         border: InputBorder.none),
                     cursorRadius: const Radius.circular(10),
@@ -1602,9 +1742,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     right: 20,
                     child: Text(
                       '${textLength.toString()}/${maxLength.toString()}',
-                      style: const TextStyle(
-                        backgroundColor: Colors.white,
-                        color: Color(0xffF2CB05),
+                      style: TextStyle(
+                        backgroundColor: Theme.of(context).splashColor,
+                        color: const Color(0xffF2CB05),
                         fontSize: 13,
                         fontFamily: 'Nexa4',
                         fontWeight: FontWeight.w800,
@@ -1613,66 +1753,541 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               ],
             ),
           ),
-          Positioned(
-            left: 20,
-            child: SizedBox(
-              width: 130,
-              height: 40,
-              child: DecoratedBox(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Color(0xff0D1C26),
-                ),
-                child: Padding(
-                  padding: readSettings.localChanger() == const Locale("en") ?
-                  const EdgeInsets.only(left: 15, top: 12) :
-                  const EdgeInsets.only(left: 18, right: 18, top: 12), /// ingilzce olunc yazı sığmıyor o yüzden koşul koydum
-                  child: SizedBox(
-                    child: Text(
-                      translation(context).addNote,
-                      style: const TextStyle(
-                        height: 1,
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'Nexa4',
-                        fontWeight: FontWeight.w800,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20,right: 20),
+                child: SizedBox(
+                  width: 114,
+                  height: 38,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      color: Theme.of(context).secondaryHeaderColor,
+                    ),
+                    child:  Center(
+                      child: Text(
+                        translation(context).addNote,
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          height: 1,
+                          fontSize: 15,
+                          fontFamily: 'Nexa4',
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
-          Positioned(
-            right: 20,
-            top: 8,
-            child: SizedBox(
-              width: 60,
-              height: 26,
-              child: DecoratedBox(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  color: Color(0xffF2CB05),
-                ),
-                child: TextButton(
-                  onPressed: () {
-                    setState(() {
-                      note.text = "";
-                    });
-                  },
-                  child: Text(
-                    translation(context).delete,
-                    style: const TextStyle(
-                      height: 1,
-                      color: Color(0xff0D1C26),
-                      fontSize: 12,
-                      fontFamily: 'Nexa4',
-                      fontWeight: FontWeight.w200,
+              Padding(
+                padding: const EdgeInsets.only(right: 20,left: 20),
+                child: SizedBox(
+                  width: 60,
+                  height: 26,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      color: Theme.of(context).shadowColor,
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          note.text = "";
+                        });
+                      },
+                      child: Text(
+                        translation(context).delete,
+                        style: TextStyle(
+                          color: Theme.of(context).canvasColor,
+                          height: 1,
+                          fontSize: 12,
+                          fontFamily: 'Nexa4',
+                          fontWeight: FontWeight.w200,
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  String? selectedValueCustomize;
+  int initialLabelIndexCustomize = 0;
+  //int selectedCustomizeMenu = 0;
+  bool _isProcessOnceValidNumber(String processOnce) {
+     return processOnce.contains(RegExp(r'\d'));
+     }
+
+  Widget customizeBarCustom(BuildContext context, WidgetRef ref) {
+    var readUpdateData = ref.read(updateDataRiverpod);
+    final _customize = readUpdateData.getProcessOnce();
+  bool menuController = _isProcessOnceValidNumber(_customize.text);
+     ///RAKAM İÇERİRSE TRUE
+    var size = MediaQuery.of(context).size;
+    List<String> repetitiveList = [
+      "Günlük",
+      "Haftalık",
+      "İki Haftada Bir",
+      "Aylık",
+      "İki Ayda Bir",
+      "Üç Aylık",
+      "Dört Ayda Bir",
+      "Altı Ayda Bir",
+      "Yıllık"
+    ];
+    return SizedBox(
+      height: 38,
+      width: size.width * 0.92,
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 2,left: 2,right: 2),
+            child: Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                color: Color(0xFFF2CB05),
+              ),
+              height: 34,
+              width: size.width * 0.92,
             ),
+          ),
+          Row(
+            children: [
+              Container(
+                width: 130,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).highlightColor,
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                ),
+                child: const Center(
+                  child: Text(
+                    "ÖZELLEŞTİR",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontFamily: 'Nexa4',
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+              ),
+              InkWell(
+                child: SizedBox(
+                  width: size.width * 0.92 - 130,
+                  child: Center(
+                    child: Text(
+                      _customize.text == ""
+                          ? "Özelleştirmek için dokunun"
+                          :  menuController == false
+                          ? '${_customize.text} Tekrar'
+                          : '${_customize.text} Ay Taksit',
+                      style: TextStyle(
+                        height: 1,
+                        fontSize: 14,
+                        fontFamily: 'Nexa3',
+                          color: renkler.koyuuRenk
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  setState(() {
+                    //_customize.clear();
+                    //selectedValueCustomize = null;
+                  });
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return StatefulBuilder(
+                        builder: (context, setState) {
+                          return AlertDialog(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            shadowColor: Colors.black54,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Stack(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.only(top: 15),
+                                      child: Container(
+                                        width: 270,
+                                        height: 90,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            const BorderRadius.all(
+                                                Radius.circular(15)),
+                                            border: Border.all(
+                                              width: 1.5,
+                                              color: Theme.of(context)
+                                                  .secondaryHeaderColor,
+                                            )),
+                                      ),
+                                    ),
+                                    Center(
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            width: 221,
+                                            height: 30,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context).highlightColor,
+                                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  menuController == true ? "TAKSİT" : "TEKRAR", style: TextStyle(
+                                                    color: renkler.arkaRenk,fontSize: 18, fontFamily: 'Nexa4', height: 1,fontWeight: FontWeight.w800
+                                                ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          menuController == false
+                                              ? SizedBox(
+                                            width: 200,
+                                            height: 60,
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                DropdownButtonHideUnderline(
+                                                  child:
+                                                  DropdownButton2<
+                                                      String>(
+                                                    isExpanded: true,
+                                                    hint: Text(
+                                                      _customize.text,
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                        'Nexa3',
+                                                        color: Theme.of(
+                                                            context)
+                                                            .canvasColor,
+                                                      ),
+                                                    ),
+                                                    items:
+                                                    repetitiveList
+                                                        .map((item) =>
+                                                        DropdownMenuItem(
+                                                          value:
+                                                          item,
+                                                          child:
+                                                          Text(
+                                                            item,
+                                                            style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
+                                                          ),
+                                                        ))
+                                                        .toList(),
+                                                    value:
+                                                    selectedValueCustomize,
+                                                    onChanged:
+                                                        (value) {
+                                                      setState(() {
+                                                        selectedValueCustomize =
+                                                            value;
+                                                        _customize
+                                                            .text =
+                                                            value
+                                                                .toString();
+                                                        this.setState(
+                                                                () {});
+                                                      });
+                                                    },
+                                                    barrierColor: renkler
+                                                        .koyuAraRenk
+                                                        .withOpacity(
+                                                        0.8),
+                                                    buttonStyleData:
+                                                    ButtonStyleData(
+                                                      overlayColor:
+                                                      MaterialStatePropertyAll(
+                                                          renkler
+                                                              .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal:
+                                                          16),
+                                                      height: 40,
+                                                      width: 200,
+                                                    ),
+                                                    dropdownStyleData:
+                                                    DropdownStyleData(
+                                                        maxHeight:
+                                                        250,
+                                                        width:
+                                                        200,
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          color: Theme.of(context)
+                                                              .primaryColor,
+                                                        ),
+                                                        scrollbarTheme: ScrollbarThemeData(
+                                                            radius: const Radius.circular(
+                                                                15),
+                                                            thumbColor:
+                                                            MaterialStatePropertyAll(renkler.sariRenk))),
+                                                    menuItemStyleData:
+                                                    MenuItemStyleData(
+                                                      overlayColor:
+                                                      MaterialStatePropertyAll(
+                                                          renkler
+                                                              .koyuAraRenk), // MENÜ BASILMA RENGİ
+                                                      height: 40,
+                                                    ),
+                                                    iconStyleData:
+                                                    IconStyleData(
+                                                      icon:
+                                                      const Icon(
+                                                        Icons
+                                                            .arrow_drop_down,
+                                                      ),
+                                                      iconSize: 30,
+                                                      iconEnabledColor:
+                                                      Theme.of(
+                                                          context)
+                                                          .secondaryHeaderColor,
+                                                      iconDisabledColor:
+                                                      Theme.of(
+                                                          context)
+                                                          .secondaryHeaderColor,
+                                                      openMenuIcon:
+                                                      Icon(
+                                                        Icons
+                                                            .arrow_right,
+                                                        color: Theme.of(
+                                                            context)
+                                                            .canvasColor,
+                                                        size: 24,
+                                                      ),
+                                                    ),
+                                                    onMenuStateChange:
+                                                        (isOpen) {
+                                                      if (!isOpen) {
+                                                        _customize
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                              : const SizedBox(),
+                                          menuController == true
+                                              ? SizedBox(
+                                            width: 220,
+                                            height: 60,
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                TextField(
+                                                  maxLength: 3,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                      color: Theme.of(
+                                                          context)
+                                                          .canvasColor,
+                                                      fontSize: 17,
+                                                      fontFamily:
+                                                      'Nexa3'),
+                                                  decoration:
+                                                  InputDecoration(
+                                                      hintText:
+                                                      'Ay sayısını yazınız (1-144)',
+                                                      hintStyle: TextStyle(
+                                                          color: Theme.of(context)
+                                                              .canvasColor,
+                                                          fontSize:
+                                                          15,
+                                                          fontFamily:
+                                                          'Nexa3'),
+                                                      suffixText:
+                                                      'Ay',
+                                                      suffixStyle:
+                                                      TextStyle(
+                                                        color: Theme.of(
+                                                            context)
+                                                            .canvasColor,
+                                                        fontSize:
+                                                        16,
+                                                        fontFamily:
+                                                        'Nexa3',
+                                                      ),
+                                                      counterText:
+                                                      '',
+                                                      border:
+                                                      InputBorder
+                                                          .none),
+                                                  cursorRadius:
+                                                  const Radius
+                                                      .circular(10),
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .allow(RegExp(
+                                                        r'^(1[0-4][0-4]|[1-9][0-9]|[1-9])$')),
+                                                  ],
+                                                  keyboardType:
+                                                  const TextInputType
+                                                      .numberWithOptions(
+                                                      signed:
+                                                      false,
+                                                      decimal:
+                                                      false),
+                                                  controller:
+                                                  _customize,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      this.setState(
+                                                              () {});
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                              : const SizedBox(),
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceAround,
+                                            children: [
+                                              menuController ==
+                                                  true
+                                                  ? SizedBox(
+                                                width: 80,
+                                                height: 30,
+                                                child: Align(
+                                                  alignment: Alignment
+                                                      .centerLeft,
+                                                  child: Text(
+                                                    'Aylık Taksit',
+                                                    style: TextStyle(
+                                                      backgroundColor:
+                                                      Theme.of(
+                                                          context)
+                                                          .primaryColor,
+                                                      color: Theme.of(context).canvasColor,
+                                                      fontSize: 13,
+                                                      fontFamily:
+                                                      'Nexa4',
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w800,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                                  : SizedBox(
+                                                width: 100,
+                                                height: 26,
+                                                child: TextButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                      MaterialStatePropertyAll(
+                                                          Theme.of(context)
+                                                              .highlightColor),
+                                                      shape: MaterialStateProperty.all<
+                                                          RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                20),
+                                                          ))),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      selectedValueCustomize =
+                                                      null;
+                                                      _customize
+                                                          .text = "";
+                                                      this.setState(
+                                                              () {});
+                                                    });
+                                                  },
+                                                  child: Text(
+                                                    "Seçimi Kaldır",
+                                                    style: TextStyle(
+                                                      color: renkler
+                                                          .arkaRenk,
+                                                      fontSize: 12,
+                                                      fontFamily:
+                                                      'Nexa3',
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 80,
+                                                height: 30,
+                                                child: TextButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                      MaterialStatePropertyAll(
+                                                          renkler
+                                                              .sariRenk),
+                                                      shape: MaterialStateProperty.all<
+                                                          RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                20),
+                                                          ))),
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop();
+                                                  },
+                                                  child: Text(
+                                                    "Tamam",
+                                                    style: TextStyle(
+                                                      color:
+                                                      renkler.koyuuRenk,
+                                                      fontSize: 16,
+                                                      fontFamily: 'Nexa3',
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  "Debug:${_customize.text}",
+                                  style: const TextStyle(color: Colors.red),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ).then((_) => setState(() {}));
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -1691,88 +2306,152 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     final operationTool = readUpdateData.getOperationTool();
     final operationDate = readUpdateData.getOperationDate();
     final registration = readUpdateData.getRegistration();
+    final customize = readUpdateData.getProcessOnce();
+    final moneyType = readUpdateData.getMoneyType();
+    final realAmount0 = readUpdateData.getRealAmount();
+    final userCategory = readUpdateData.getUserCategory();
+    var systemMessage = readUpdateData.getSystemMessage();
+    var menuController = readUpdateData.getMenuController();
     var size = MediaQuery.of(context).size;
+    String alertContent = '';
+    int alertOperator = 0;
+    double amount = double.tryParse(amount0.text) ?? 0.0;
+    void setAlertContent() {
+      if (amount == 0 && category.text.isEmpty) {
+        alertContent = "Lütfen bir tutar ve bir kategori giriniz!";
+        alertOperator = 1;
+      } else if (category.text.isNotEmpty) {
+        alertContent = "Lütfen bir tutar giriniz!";
+        alertOperator = 2;
+      } else {
+        alertContent = "Lütfen bir kategori giriniz!";
+        alertOperator = 3;
+      }
+    }
     return SizedBox(
       width: size.width * 0.9,
-      height: 70,
+      height: 50,
       child: Center(
-        child: SizedBox(
-          width: 140,
-          child: Stack(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Color(0xffF2CB05),
-                ),
-                height: 40,
-                width: 140,
-                child: TextButton(
-                  onPressed: () {
-                    double amount = double.tryParse(amount0.text) ?? 0.0;
-                    if (amount != 0.0) {
-                          readUpdateData.updateDataBase(
-                          int.parse(id),
-                          operationType.text,
-                          category.text,
-                          operationTool.text,
-                          int.parse(registration.text),
-                          amount,
-                          note.text,
-                          operationDate.text);
-                          read.update();
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                      readHome.setStatus();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor:
-                          const Color(0xff0D1C26),
-                          duration: const Duration(seconds: 1),
-                          content: Text(
-                            translation(context).activityUpdated,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w600,
-                              height: 1.3,
-                            ),
+        child: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Color(0xffF2CB05),
+              ),
+              height: 40,
+              width: size.width*0.4,
+              child: TextButton(
+                onPressed: () {
+                  setAlertContent();
+                  double amount = double.tryParse(amount0.text) ?? 0.0;
+                  if (amount != 0.0 && category.text.isNotEmpty) {
+                    if (_isProcessOnceValidNumber(customize.text) == true &&
+                        customize.text != "") {
+                      amount = double.parse((amount / double.parse(customize.text)).toStringAsFixed(2));
+                      systemMessage = "(1/${customize.text} taksit işlendi)";
+                      customize.text = "1/${customize.text}";
+                    } else if (_isProcessOnceValidNumber(customize.text) == false &&
+                        customize.text != "") {
+                      systemMessage = "(${customize.text} tekrar işlendi)";
+                    }
+                        if(menuController == 0){readUpdateData.updateDataBase(
+                            int.parse(id),
+                            operationType.text,
+                            category.text,
+                            operationTool.text,
+                            int.parse(registration.text),
+                            amount,
+                            note.text,
+                            operationDate.text,
+                            moneyType.text,
+                            customize.text,
+                            ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
+                            userCategory.text,
+                            systemMessage.text);
+                        read.update();}
+                        else{
+                          read.insertDataBase(
+                            operationType.text,
+                            category.text,
+                            operationTool.text,
+                            int.parse(registration.text),
+                            amount,
+                            note.text,
+                            operationDate.text,
+                            moneyType.text,
+                            ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
+                            customize.text,
+                            "",
+                            systemMessage.text,
+                          );
+                        }
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    readHome.setStatus();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor:
+                        const Color(0xff0D1C26),
+                        duration: const Duration(seconds: 1),
+                        content: Text(
+                          menuController == 0 ? translation(context).activityUpdated : translation(context).activityAdded,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontFamily: 'Nexa3',
+                            fontWeight: FontWeight.w600,
+                            height: 1.3,
                           ),
                         ),
-                      );
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text(translation(context).missingEntry),
-                              content: Text(translation(context).pleaseEnterAnAmount),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    amount0.clear();
-                                    FocusScope.of(context)
-                                        .requestFocus(amountFocusNode);
-                                  },
-                                  child: Text(translation(context).ok),
-                                )
-                              ],
-                            );
-                          });
-                    }
-                  },
-                  child: Text(translation(context).updateDone,
-                      style: const TextStyle(
-                          color: Color(0xff0D1C26),
-                          fontSize: 17,
-                          fontFamily: 'Nexa4',
-                          fontWeight: FontWeight.w900)),
-                ),
+                      ),
+                    );
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            title: Text("Eksik İşlem Yaptınız",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 22,fontFamily: 'Nexa3')),
+                            content: Text(alertContent,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 16,fontFamily: 'Nexa3'),),
+                            shadowColor: renkler.koyuuRenk,
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (alertOperator == 1) {
+                                      amount0.clear();
+                                      category.clear();
+                                    } else if (alertOperator == 2) {
+                                      amount0.clear();
+                                      category.clear();
+                                    } else if(alertOperator == 3){
+                                      category.clear();
+                                    }
+                                    else{
+                                      amount0.clear();
+                                      category.clear();
+                                    }
+                                  });
+                                  Navigator.of(context).pop();
+                                  //FocusScope.of(context).requestFocus(amountFocusNode);
+                                },
+                                child: Text("Tamam",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 18,fontFamily: 'Nexa3'),),
+                              )
+                            ],
+                          );
+                        });
+                  }
+                },
+                child: Text(menuController == 0 ? translation(context).updateDone : "EKLE",
+                    style: const TextStyle(
+                        color: Color(0xff0D1C26),
+                        fontSize: 17,
+                        fontFamily: 'Nexa4',
+                        fontWeight: FontWeight.w900)),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -8,6 +8,7 @@ import 'package:butcekontrol/pages/more/Help/help_statistic.dart';
 import 'package:butcekontrol/pages/more/Help/versions_help.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../app/information_app.dart';
 import '../../../classes/app_bar_for_page.dart';
   import '../../../classes/language.dart';
 import '../../../constans/material_color.dart';
@@ -32,7 +33,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffF2F2F2),
+        //backgroundColor: const Color(0xffF2F2F2),
         appBar: AppBarForPage(title: translation(context).helpTitle),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -42,7 +43,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
                 child: Container(
-                  color: renkler.koyuuRenk,
+                  color: Theme.of(context).highlightColor,
                   height: 65,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -77,11 +78,11 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                           children: [
                             Text(
                               translation(context).whatsNew,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 height: 1,
                                 fontFamily: "Nexa3",
-                                fontSize: 26,
-                                color: Colors.black,
+                                fontSize: 22,
+                                color: Theme.of(context).canvasColor,
                               ),
                             ),
                           ],
@@ -110,30 +111,31 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                   ),
                                 );
                               },
-                              child: const Text(
-                                  "Android 1.1.1v Update(3.06.2023)"
+                              child: Text(
+                                  "Android ${informationApp.version}v Sürüm Notu (3.06.2023)"
                               ),
                             ),
                           ],
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Divider(
-                            color: Colors.black,
+                            color: Theme.of(context).canvasColor,
                             thickness: 2,
                           ),
                         ),
+                        const SizedBox(height: 5,)
                       ],
                     ),//news
                     Row(
                       children: [
                         Text(
                           translation(context).guideline,
-                          style:const TextStyle(
+                          style:TextStyle(
                             height: 1,
                             fontSize: 25,
                             fontFamily: "Nexa3",
-                            color: Colors.black,
+                          color: Theme.of(context).canvasColor,
                           ),
                         ),
                       ],
@@ -165,6 +167,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       ),
                                     );
                                   },
+                                  borderRadius: BorderRadius.circular(15),
                                   child: SizedBox(
                                     height: 45,
                                     width: (size.width - 100) / 3,
@@ -172,12 +175,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       decoration: BoxDecoration(
                                           color: renkler.koyuuRenk,
                                           borderRadius: BorderRadius.circular(15),
-                                          boxShadow: const [
+                                          boxShadow:  [
                                             BoxShadow(
-                                                color: Colors.grey,
+                                                color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
@@ -228,6 +231,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       ),
                                     );
                                   },
+                                  borderRadius: BorderRadius.circular(15),
                                   child: SizedBox(
                                     height: 45,
                                     width: (size.width - 100) / 3,
@@ -235,12 +239,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       decoration: BoxDecoration(
                                           color: renkler.koyuuRenk,
                                           borderRadius: BorderRadius.circular(15),
-                                          boxShadow: const [
+                                          boxShadow: [
                                             BoxShadow(
-                                                color: Colors.grey,
+                                                color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
@@ -291,6 +295,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       ),
                                     );
                                   },
+                                  borderRadius: BorderRadius.circular(15),
                                   child: SizedBox(
                                     height: 45,
                                     width: (size.width - 100) / 3,
@@ -298,12 +303,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       decoration: BoxDecoration(
                                           color: renkler.koyuuRenk,
                                           borderRadius: BorderRadius.circular(15),
-                                          boxShadow: const [
+                                          boxShadow: [
                                             BoxShadow(
-                                                color: Colors.grey,
+                                                color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
@@ -358,6 +363,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       ),
                                     );
                                   },
+                                  borderRadius: BorderRadius.circular(15),
                                   child: SizedBox(
                                     height: 45,
                                     width: (size.width - 80) / 3,
@@ -365,12 +371,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       decoration: BoxDecoration(
                                           color: renkler.koyuuRenk,
                                           borderRadius: BorderRadius.circular(15),
-                                          boxShadow: const [
+                                          boxShadow: [
                                             BoxShadow(
-                                                color: Colors.grey,
+                                                color: Theme.of(context).indicatorColor,
                                                 spreadRadius: 3,
                                                 blurRadius: 7,
-                                                offset: Offset(3, 3)
+                                                offset: const Offset(3, 3)
                                             ),
                                           ]
                                       ),
@@ -421,6 +427,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       ),
                                     );
                                   },
+                                  borderRadius: BorderRadius.circular(15),
                                   child: SizedBox(
                                     height: 45,
                                     width: (size.width - 70) / 3,
@@ -428,12 +435,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       decoration: BoxDecoration(
                                         color: renkler.koyuuRenk,
                                         borderRadius: BorderRadius.circular(15),
-                                        boxShadow: const [
+                                        boxShadow: [
                                           BoxShadow(
-                                            color: Colors.grey,
+                                            color: Theme.of(context).indicatorColor,
                                             spreadRadius: 3,
                                             blurRadius: 7,
-                                            offset: Offset(3, 3)
+                                            offset: const Offset(3, 3)
                                           ),
                                         ]
                                       ),
@@ -479,10 +486,10 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                       children: [
                         Text(
                           translation(context).faq,
-                          style: const TextStyle(
-                              color: Colors.black,
+                          style: TextStyle(
                               fontFamily: "Nexa3",
-                              fontSize: 25
+                              fontSize: 25,
+                            color: Theme.of(context).canvasColor,
                           ),
                         ),
                       ],
@@ -492,21 +499,22 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
-                          child: DecoratedBox(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
                             decoration: BoxDecoration(
-                                color: const Color(0xffDDDCDC),
+                                color: Theme.of(context).indicatorColor,
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: ExpansionTile(
-
                               title: Text(translation(context).appShutdown),
                               trailing: customicom1 ? const Icon(
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
-                                  : const Icon(
+                                  : Icon(
                                 Icons.keyboard_arrow_down,
                                 size: 30,
+                                color: Theme.of(context).canvasColor,
                               ),
                               onExpansionChanged: (bool expanded) {
                                 setState(() => customicom1 = expanded);
@@ -524,10 +532,11 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 3),
-                          child: DecoratedBox(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
                             decoration: BoxDecoration(
-                                color: const Color(0xffDDDCDC),
+                                color: Theme.of(context).indicatorColor,
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: ExpansionTile(
@@ -537,9 +546,10 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
-                                  : const Icon(
+                                  : Icon(
                                 Icons.keyboard_arrow_down,
                                 size: 30,
+                                color: Theme.of(context).canvasColor,
                               ),
                               onExpansionChanged: (bool expanded) {
                                 setState(() => customicom2 = expanded);
@@ -558,9 +568,10 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
-                          child: DecoratedBox(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 3),
                             decoration: BoxDecoration(
-                                color: const Color(0xffDDDCDC),
+                                color: Theme.of(context).indicatorColor,
                                 borderRadius: BorderRadius.circular(20)
                             ),
                             child: ExpansionTile(
@@ -569,9 +580,10 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 Icons.keyboard_arrow_up,
                                 size: 30,
                               )
-                                  : const Icon(
+                                  : Icon(
                                 Icons.keyboard_arrow_down,
                                 size: 30,
+                                color: Theme.of(context).canvasColor,
                               ),
                               onExpansionChanged: (bool expanded) {
                                 setState(() => customicom3 = expanded);
@@ -603,6 +615,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                             ),
                                           );
                                         },
+                                        borderRadius: BorderRadius.circular(15),
                                         child: SizedBox(
                                           height: 30,
                                           width: 120,

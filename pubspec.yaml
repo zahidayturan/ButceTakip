@@ -53,6 +53,11 @@ dependencies:
   cloud_firestore: ^4.7.1
   device_info_plus: ^9.0.1
   url_launcher: ^6.0.0
+  toggle_switch: ^2.1.0
+  dropdown_button2: any
+  app_settings: ^5.0.0
+  http: any
+  ntp: ^2.0.0
 
 
 flutter_native_splash:

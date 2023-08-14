@@ -12,9 +12,11 @@ class DbProvider extends ChangeNotifier {
   String year = DateTime.now().year.toString() ;
   Future<List<SpendInfo>> ?daylist ;
   List<SpendInfo> ?registeryListTile ;
+  List<SpendInfo> ?searchListTile ;
   String ?status ;
   String ?day ;
   String ?date ;
+  String ?operationType;
 
   void setDate(String date) {
     this.date = date ;
@@ -43,6 +45,11 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changeisuseinsert(){
+    isuseinsert != isuseinsert;
+    notifyListeners();
+  }
+
   Future insertDataBase(
       String? operationType ,
       String? category,
@@ -52,13 +59,16 @@ class DbProvider extends ChangeNotifier {
       String? note,
       String operationDate,
       String moneyType,
+      double ?realAmount,
+      String processOnce,
+      String userCategory,
+      String systemMessage
       )async {
     String time = operationDate ;
     List <String> parts = time.split(".");
     int parseDay = int.parse(parts[0]);
     int parseMonth = int.parse(parts[1]);
     int parseYear = int.parse(parts[2]);
-    String processOnce = '0';
     final newinfo = SpendInfo(
         operationType,
         category,
@@ -72,8 +82,12 @@ class DbProvider extends ChangeNotifier {
         DateTimeManager.getCurrentTime(),
         operationDate,
         moneyType,
-        processOnce
+        processOnce,
+        realAmount,
+        userCategory,
+        systemMessage,
     );
+    print(newinfo.toMap());
     await SQLHelper.createItem(newinfo);
     isuseinsert = !isuseinsert ;
     notifyListeners();
@@ -93,27 +107,27 @@ class DbProvider extends ChangeNotifier {
   }
 
   Stream <Map<String, Object>> myMethod() async* {
-    List<SpendInfo> items =
-    await SQLHelper.getItemsByOperationMonthAndYear(month ,year);
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month ,year);
     var groupedItems = groupBy(items, (item) => item.operationDay);
     var dailyTotals = <String, Map<String, double>>{};
     groupedItems.forEach((day, dayItems) {
+      int itemLength = dayItems.length;
       double totalAmount = dayItems
           .where((element) => element.operationType == 'Gelir')
           .fold(
-          0, (previousValue, element) => previousValue + element.amount!);
+          0, (previousValue, element) => previousValue + element.realAmount!);
 
       double totalAmount2 = dayItems
           .where((element) => element.operationType == 'Gider')
           .fold(
-          0, (previousValue, element) => previousValue + element.amount!);
+          0, (previousValue, element) => previousValue + element.realAmount!);
       dailyTotals[day!] = {
         'totalAmount': totalAmount,
-        'totalAmount2': totalAmount2
+        'totalAmount2': totalAmount2,
+        'itemsLength' : itemLength.toDouble()
       };
     });
-    dailyTotals = Map.fromEntries(dailyTotals.entries.toList()
-      ..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
+    dailyTotals = Map.fromEntries(dailyTotals.entries.toList()..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
     notifyListeners();
     yield {"items" : items, "dailyTotals" : dailyTotals};
   }
@@ -125,35 +139,71 @@ class DbProvider extends ChangeNotifier {
     return items;
   }
 
+
   Future <List<SpendInfo>> registeryList() async {
     List<SpendInfo> items = await SQLHelper.getRegisteryQuery();
     registeryListTile = items ;
     notifyListeners();
     return items ;
   }
+  String getTotalAmountByKart(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
+    double totalAmount = items
+        .where((element) => element.operationTool == 'Kart')
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    double totalAmount2 = items
+        .where((element) => element.operationTool == 'Kart')
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
+  }
 
-  String getTotalAmount(List<SpendInfo> items) {
+  String getTotalAmountByNakit(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
+    double totalAmount = items
+        .where((element) => element.operationTool == 'Nakit')
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    double totalAmount2 = items
+        .where((element) => element.operationTool == 'Nakit')
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
+  }
+
+  String getTotalAmountByDiger(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
+    double totalAmount = items
+        .where((element) => element.operationTool == 'Diger')
+        .where((element) => element.operationType == 'Gelir')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    double totalAmount2 = items
+        .where((element) => element.operationTool == 'Diger')
+        .where((element) => element.operationType == 'Gider')
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
+    return (totalAmount - totalAmount2).toStringAsFixed(2);
+  }
+
+  String getTotalAmount(List<SpendInfo> items) {  //Bütün net Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
     return (totalAmount - totalAmount2).toStringAsFixed(1);
   }
 
-  String getTotalAmountPositive(List<SpendInfo> items) {
+  String getTotalAmountPositive(List<SpendInfo> items) { //Gelir olan Kayıtları listeliyor.
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
 
     return totalAmount.toStringAsFixed(1);
   }
 
-  String getTotalAmountNegative(List<SpendInfo> items) {
+  String getTotalAmountNegative(List<SpendInfo> items) { //Gider olan Kayıtları listeliyor.
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
     return totalAmount2.toStringAsFixed(1);
   }
 
@@ -161,8 +211,44 @@ class DbProvider extends ChangeNotifier {
   static String todayNow = DateTimeManager.getCurrentDay();
   static String monthNow = DateTimeManager.getCurrentMonth();
   static String yearNow = DateTimeManager.getCurrentYear();
+
   Future<List<SpendInfo>> myDailyMethod() async {
     List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(todayNow,monthNow,yearNow);
     return items;
   }
+  bool searchSort = false ;
+  void setSearcSort(){
+    searchSort = !searchSort;
+    notifyListeners();
+  }
+  void searchItem(searchText) async {
+    searchListTile = await SQLHelper.searchItem(searchText);
+    var sortedlist;
+    searchListTile!.sort((a, b) {
+      DateTime dateA = convertDate(a.operationDate!);
+      DateTime dateB = convertDate(b.operationDate!);
+      switch(searchSort){
+        case true:
+          sortedlist = dateB.compareTo(dateA);
+          break;
+        case false:
+          sortedlist = dateA.compareTo(dateB);
+          break;
+      }
+      return sortedlist;
+    });
+    notifyListeners();
+  }
+  DateTime convertDate(String Date) {
+    // Date format: "dd.MM.yyyy
+    if(Date == "null"){
+      Date = "00.00.0000";
+    }
+    List<String> dateSplit = Date.split(".");
+    int day = int.parse(dateSplit[0]);
+    int month = int.parse(dateSplit[1]);
+    int year = int.parse(dateSplit[2]);
+    return DateTime(year, month, day);
+  }
+
 }
