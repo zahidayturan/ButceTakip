@@ -155,7 +155,7 @@ class DbProvider extends ChangeNotifier {
         .where((element) => element.operationTool == 'Kart')
         .where((element) => element.operationType == 'Gider')
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(2);
+    return (totalAmount - totalAmount2).toStringAsFixed(1);
   }
 
   String getTotalAmountByNakit(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
@@ -167,7 +167,7 @@ class DbProvider extends ChangeNotifier {
         .where((element) => element.operationTool == 'Nakit')
         .where((element) => element.operationType == 'Gider')
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(2);
+    return (totalAmount - totalAmount2).toStringAsFixed(1);
   }
 
   String getTotalAmountByDiger(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
@@ -179,7 +179,7 @@ class DbProvider extends ChangeNotifier {
         .where((element) => element.operationTool == 'Diger')
         .where((element) => element.operationType == 'Gider')
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(2);
+    return (totalAmount - totalAmount2).toStringAsFixed(1);
   }
 
   String getTotalAmount(List<SpendInfo> items) {  //Bütün net Bütçe Gösteriliyor.

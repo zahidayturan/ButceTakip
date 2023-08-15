@@ -152,8 +152,8 @@ class UpdateDataRiverpod extends ChangeNotifier {
     List<String> categoryListExpense = [];
 
     for (var spendInfo in spendInfoListExpense) {
-      if (!categoryListExpense.contains(spendInfo.category)) {
-        categoryListExpense.add(spendInfo.category!);
+      if (!categoryListExpense.contains(spendInfo.userCategory) && spendInfo.userCategory != '') {
+        categoryListExpense.add(spendInfo.userCategory!);
       }
     }
 
@@ -162,11 +162,10 @@ class UpdateDataRiverpod extends ChangeNotifier {
     List<String> categoryListIncome = [];
 
     for (var spendInfo in spendInfoListIncome) {
-      if (!categoryListIncome.contains(spendInfo.category)) {
-        categoryListIncome.add(spendInfo.category!);
+      if (!categoryListIncome.contains(spendInfo.userCategory) && spendInfo.userCategory != '') {
+        categoryListIncome.add(spendInfo.userCategory!);
       }
     }
-
     return {
       'expense': categoryListExpense,
       'income': categoryListIncome,
@@ -937,6 +936,35 @@ class UpdateDataRiverpod extends ChangeNotifier {
   bool _isProcessOnceValidNumber(String processOnce) {
     return processOnce.contains(RegExp(r'\d'));
   }
+
+  Future<int> categoryUsageCount(int operationTypeController, String categoryName, int operationController, String newCategory) async {
+    String operationType = operationTypeController == 0 ? 'Gider' : 'Gelir';
+    List<SpendInfo> customizeItems = await SQLHelper.getCategoryByType(operationType, categoryName);
+    customizeItems.forEach((element) {print("${element.category} ${element.userCategory} ${element.id} ${element.realAmount}");});
+
+    if(operationController == 1 ){
+      customizeItems.forEach((element) {
+        SQLHelper.updateCategory(element.id, element.category!,"");
+      });
+    }else if(operationController == 2){
+      customizeItems.forEach((element) {
+        SQLHelper.updateCategory(element.id, newCategory,newCategory);
+      });
+    }
+    else if(operationController == 3){
+      customizeItems.forEach((element) {
+        SQLHelper.updateCategory(element.id, element.category!,newCategory);
+      });
+    }
+    else if(operationController == 4){
+      customizeItems.forEach((element) {
+        SQLHelper.updateCategory(element.id, newCategory,newCategory);
+      });
+    }
+    return customizeItems.length;
+  }
+
+
 
   /*
   customizeOperation(

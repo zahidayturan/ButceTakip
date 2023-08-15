@@ -46,7 +46,6 @@ class StatisticsRiverpod extends ChangeNotifier {
 
       if(dateType ==  0){
         List<SpendInfo> items = await SQLHelper.getItemsByOperationYear(year.toString());
-
         if(operationType == 'Hepsi'){
           filteredList = items;
         }else{

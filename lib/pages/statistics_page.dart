@@ -916,7 +916,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         translation(context).income) {
                                       operationType = 'Gelir';
                                     } else if (selectedValueType ==
-                                        translation(context).income) {
+                                        translation(context).expenses) {
                                       operationType = 'Gider';
                                     } else {
                                       operationType = 'Hepsi';

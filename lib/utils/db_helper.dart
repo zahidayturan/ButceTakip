@@ -169,6 +169,11 @@ class SQLHelper {
     final result = await db.update("spendinfo", {"processOnce": customize}, where: "id = ?", whereArgs: [id]);
     return result;
   }
+  static Future<int> updateCategory(int? id, String category, String userCategory) async {
+    final db = await SQLHelper.db();
+    final result = await db.update("spendinfo", {"category": category, "userCategory": userCategory} , where: "id = ?", whereArgs: [id]);
+    return result;
+  }
 
   // Delete
   static Future<void> deleteItem(int id) async {
@@ -266,6 +271,13 @@ class SQLHelper {
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "processOnce != '' AND processOnce IS NOT NULL AND processOnce != '0'", orderBy: "id");
     return List.generate(result.length, (index) {
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
+  static Future<List<SpendInfo>> getCategoryByType(String operationType, String categoryName) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationType = ? AND category = ?", whereArgs: [operationType, categoryName], orderBy: "id");
+    return List.generate(result.length, (index){
       return SpendInfo.fromObject(result[index]);
     });
   }
