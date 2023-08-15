@@ -167,15 +167,17 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                     ),
                                                   ),
                                                   const SizedBox(width: 5),
-                                                  Text(
-                                                    "${item[index].category}",
-                                                    style: TextStyle(
-                                                      fontFamily: 'NEXA3',
-                                                      fontSize: 18,
-                                                      color: Theme.of(context).canvasColor,
+                                                  Expanded(
+                                                    child: Text(
+                                                      "${item[index].category}",
+                                                      style: TextStyle(
+                                                        fontFamily: 'NEXA3',
+                                                        fontSize: 18,
+                                                        color: Theme.of(context).canvasColor,
+                                                      ),
+                                                      overflow: TextOverflow.ellipsis,
                                                     ),
                                                   ),
-                                                  const Spacer(),
                                                   Padding(
                                                     padding: const EdgeInsets.only(
                                                         right: 8.0),
@@ -186,7 +188,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                       text: TextSpan(
                                                         children: [
                                                           TextSpan(
-                                                            text:item[index].realAmount.toString(),style: TextStyle(
+                                                            text:item[index].realAmount!.toStringAsFixed(2),style: TextStyle(
                                                             fontFamily: 'NEXA3',
                                                             fontSize: 18,
                                                             color: Theme.of(context).canvasColor
@@ -207,7 +209,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                       text: TextSpan(
                                                         children: [
                                                           TextSpan(
-                                                            text:item[index].realAmount.toString(),style: TextStyle(
+                                                            text:item[index].realAmount!.toStringAsFixed(2),style: TextStyle(
                                                             fontFamily: 'NEXA3',
                                                             fontSize: 18,
                                                             color: renkler.kirmiziRenk,
@@ -317,7 +319,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                             " +${data[0]}",
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 17,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -330,7 +332,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                             "-${data[1]} ",
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 17,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -356,7 +358,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                           "${data[2]}",
                           style: const TextStyle(
                             color: Color(0xff0D1C26),
-                            fontSize: 18,
+                            fontSize: 17,
                             fontFamily: 'Nexa3',
                             fontWeight: FontWeight.w900,
                             height: 1.4,
@@ -394,14 +396,14 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                   style: TextStyle(
                     color: Theme.of(context).canvasColor,
                     fontFamily: 'Nexa3',
-                    fontSize: 18,
+                    fontSize: 17,
                   ),
                 ),
                 Text("${data[1]} ${translation(context).expenseInfo}",
                     style: TextStyle(
                       color: Theme.of(context).canvasColor,
                       fontFamily: 'Nexa3',
-                      fontSize: 18,
+                      fontSize: 17,
                     )),
               ],
             ),

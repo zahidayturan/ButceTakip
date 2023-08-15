@@ -1222,11 +1222,11 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                 )
                               ),
+                            ),
+                          )
+                        )
+                      )
                             ],
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               )
@@ -1546,12 +1546,21 @@ class _CalculatorState extends ConsumerState<Calculator> {
 
     var rea = ref.read(currencyRiverpod);
     double? kurdolar;
+    double? kureuro;
+    double? kursterlin;
+    double? kursar;
     if(rea.BASE != null){
       kurdolar = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.USD!)!).toStringAsFixed(2)));
+      kureuro = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.EUR!)!).toStringAsFixed(2)));
+      kursterlin = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.GBP!)!).toStringAsFixed(2)));
+      kursar = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.SAR!)!).toStringAsFixed(2)));
     }else{
       kurdolar = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
+      kureuro = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
+      kursterlin = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
+      kursar = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
     }
-    List<String> listCurrency = ['TL', 'USD', 'EURO'];
+    List<String> listCurrency = ['TL', 'USD', 'EURO', 'SAR'];
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [

@@ -147,12 +147,16 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         fontFamily: 'Nexa4',
                         fontSize: 18,
                       )),
-                  Text("${item[index].category}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Nexa3',
-                        fontSize: 18,
-                      )),
+                  Expanded(
+                    child: Text("${item[index].category}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa3',
+                          fontSize: 18,
+                        ),
+                    textAlign: TextAlign.end,
+                    overflow: TextOverflow.ellipsis),
+                  ),
                 ],
               ),
               Row(
@@ -213,11 +217,11 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           )),
                 ],
               ),
-              item[index].processOnce != ''
+              item[index].processOnce != '' && item[index].processOnce != '0'
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Tekrar veya Taksit",
+                        const Text("TEKRAR / TAKSİT",
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Nexa4',
@@ -272,7 +276,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  const Row(
                     children: [
                       Text("NOT",
                           style: TextStyle(

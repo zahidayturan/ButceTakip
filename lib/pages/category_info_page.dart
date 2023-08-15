@@ -351,8 +351,16 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
     var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(categoryInfoRiverpod);
     var size = MediaQuery.of(context).size;
-    List myCategory = read.getCategory();
-    List myDate = read.getDate();
+    List myCategory = read.getCategory(context);
+    List myDate = read.getDate(context);
+    print(myDate);
+    String textConverter(){
+      String text = '';
+      for(int i =0 ; i<myDate.length ; i++){
+        text = '$text ${myDate[i].toString()}';
+      }
+      return text;
+    }
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(top: 10, bottom: 5),
@@ -377,20 +385,25 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      myCategory[0],
+                      '${myCategory[0]} ${myCategory[1]}',
                       style: const TextStyle(
                         color: Colors.white,
                         fontFamily: "NEXA3",
-                        fontSize: 25,
+                        height: 1,
+                        fontSize: 20,
                       ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
                       height: 4,
                     ),
                     Text(
-                      myDate[0],
+                      textConverter(),
                       style: const TextStyle(
                         color: Colors.white,
+                        height: 1,
                         fontFamily: "NEXA3",
                         fontSize: 13,
                       ),
