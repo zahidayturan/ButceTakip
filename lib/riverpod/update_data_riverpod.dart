@@ -940,23 +940,23 @@ class UpdateDataRiverpod extends ChangeNotifier {
   Future<int> categoryUsageCount(int operationTypeController, String categoryName, int operationController, String newCategory) async {
     String operationType = operationTypeController == 0 ? 'Gider' : 'Gelir';
     List<SpendInfo> customizeItems = await SQLHelper.getCategoryByType(operationType, categoryName);
-    customizeItems.forEach((element) {print("${element.category} ${element.userCategory} ${element.id} ${element.realAmount}");});
+    //customizeItems.forEach((element) {print("${element.category} ${element.userCategory} ${element.id} ${element.realAmount}");});
 
-    if(operationController == 1 ){
+    if(operationController == 1 ){///delete 1
       customizeItems.forEach((element) {
         SQLHelper.updateCategory(element.id, element.category!,"");
       });
-    }else if(operationController == 2){
+    }else if(operationController == 2){///delete 2
       customizeItems.forEach((element) {
         SQLHelper.updateCategory(element.id, newCategory,newCategory);
       });
     }
-    else if(operationController == 3){
+    else if(operationController == 3){///edit 1
       customizeItems.forEach((element) {
         SQLHelper.updateCategory(element.id, element.category!,newCategory);
       });
     }
-    else if(operationController == 4){
+    else if(operationController == 4){///edit 2
       customizeItems.forEach((element) {
         SQLHelper.updateCategory(element.id, newCategory,newCategory);
       });
