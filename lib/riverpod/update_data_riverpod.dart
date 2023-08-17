@@ -947,10 +947,22 @@ class UpdateDataRiverpod extends ChangeNotifier {
       customizeItems.forEach((element) {
         SQLHelper.updateCategory(element.id, element.category!,"");
       });
+      if(customizeItems.isEmpty){
+        List<SpendInfo> userCategoryItems = await SQLHelper.getUserCategoryByType(operationType, categoryName);
+        userCategoryItems.forEach((element) {
+          SQLHelper.updateCategory(element.id, element.category!,"");
+        });
+      }
     }else if(operationController == 2){///delete 2
       customizeItems.forEach((element) {
         SQLHelper.updateCategory(element.id, newCategory,newCategory);
       });
+      if(customizeItems.isEmpty){
+        List<SpendInfo> userCategoryItems = await SQLHelper.getUserCategoryByType(operationType, categoryName);
+        userCategoryItems.forEach((element) {
+          SQLHelper.updateCategory(element.id, newCategory,newCategory);
+        });
+      }
     }
     else if(operationController == 3){///edit 1
       customizeItems.forEach((element) {
@@ -967,6 +979,12 @@ class UpdateDataRiverpod extends ChangeNotifier {
       customizeItems.forEach((element) {
         SQLHelper.updateCategory(element.id, newCategory,newCategory);
       });
+      if(customizeItems.isEmpty){
+        List<SpendInfo> userCategoryItems = await SQLHelper.getUserCategoryByType(operationType, categoryName);
+        userCategoryItems.forEach((element) {
+          SQLHelper.updateCategory(element.id, newCategory,newCategory);
+        });
+      }
     }
     return customizeItems.length;
   }

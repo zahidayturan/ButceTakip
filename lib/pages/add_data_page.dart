@@ -3969,7 +3969,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: renkler.sariRenk,
                       ),
                       height: 34,

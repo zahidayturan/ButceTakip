@@ -1,7 +1,9 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../riverpod_management.dart';
@@ -35,9 +37,19 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [calendarDesign(context, ref)],
+    var size = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: SizedBox(
+        height: size.height*0.78,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            calendarDesign(context, ref),
+          ],
+
+        ),
+      ),
     );
   }
 
@@ -133,7 +145,9 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
       PageController(initialPage: DateTime.now().year - 2020);
   CustomColors renkler = CustomColors();
   int initialLabelIndex = 0;
-  final TextEditingController customDate = TextEditingController(text: "");
+  List<String> dayList = ["1","15","31","24","7","2","3","4","5","6","8","9","10","11","12","13","14","16","17","18","19","20","21","22","23","25","26","27","28","29","30"];
+  String? selectedValueDay;
+  final TextEditingController customDate = TextEditingController(text: "1");
   Widget dateSelector(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var read = ref.read(calendarRiverpod);
@@ -162,6 +176,8 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               iconSize: 30,
               onPressed: () {
                 setState(() {
+                  customDate.text = "1";
+                  selectedValueDay = "1";
                 });
               },
             ),
@@ -267,6 +283,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             child: Center(
               child: TextButton(
                 onPressed: () {
+                  selectedValueDay = customDate.text;
                   showDialog(
                     context: context,
                     builder: (context) {
@@ -293,7 +310,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "Ayın Başlangıç Tarihi",
+                                              "Ayın Başlangıç Günü",
                                               style: TextStyle(
                                                   color: Theme.of(context).canvasColor,
                                                   fontFamily: "Nexa4",
@@ -330,60 +347,84 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                       height: 14.0,
                                     ),
                                     SizedBox(
-                                        height: 34,
-                                        child: ToggleSwitch(
-                                          initialLabelIndex: initialLabelIndex,
-                                          totalSwitches: 3,
-                                          labels: ["1","15","Diğer"],
-                                          activeBgColor: const [Color(0xffF2CB05)],
-                                          activeFgColor: const Color(0xff0D1C26),
-                                          inactiveBgColor: Theme.of(context).highlightColor,
-                                          inactiveFgColor: const Color(0xFFE9E9E9),
-                                          minWidth: size.width > 392 ? size.width * 0.235 : 92,
-                                          cornerRadius: 15,
-                                          radiusStyle: true,
-                                          animate: true,
-                                          curve: Curves.linearToEaseOut,
-                                          customTextStyles: const [
-                                            TextStyle(
+                                      width : 60,
+                                      height : 36,
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton2<String>(
+                                          isExpanded: true,
+                                          hint: Center(
+                                            child: Text(
+                                              customDate.text,
+                                              style: TextStyle(
                                                 fontSize: 13,
                                                 fontFamily: 'Nexa4',
-                                                height: 1,
-                                                fontWeight: FontWeight.w800)
-                                          ],
-                                          onToggle: (index) {
+                                                color: renkler.koyuuRenk,
+                                              ),
+                                            ),
+                                          ),
+                                          items: dayList
+                                              .map((String item) =>
+                                              DropdownMenuItem<String>(
+                                                value: item,
+                                                child: Center(
+                                                  child: Text(
+                                                    item,
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        height: 1,
+                                                        fontFamily:
+                                                        'Nexa4',
+                                                        color: renkler
+                                                            .koyuuRenk),
+                                                  ),
+                                                ),
+                                              ))
+                                              .toList(),
+                                          value: selectedValueDay,
+                                          onChanged: (String? value) {
                                             setState(() {
+                                              selectedValueDay = value;
                                             });
-                                            initialLabelIndex = index!;
                                           },
-                                        )),
-                                    const SizedBox(
-                                      height: 14.0,
-                                    ),
-                                    Visibility(
-                                      visible : initialLabelIndex ==2,
-                                      child: TextField(
-                                        maxLength: 20,
-                                        maxLines: 1,
-                                        style:
-                                        TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),
-                                        decoration: InputDecoration(
-                                            hintText: 'Kategoriyi yazınız',
-                                            hintStyle: TextStyle(
-                                                color: Theme.of(context).canvasColor,
-                                                fontSize: 18,
-                                                fontFamily: 'Nexa3'),
-                                            counterText: '',
-                                            border: InputBorder.none),
-                                        cursorRadius: const Radius.circular(10),
-                                        keyboardType: TextInputType.text,
-                                        textCapitalization: TextCapitalization.words,
-                                        controller: customDate,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            this.setState(() {});
-                                          });
-                                        },
+                                          iconStyleData: IconStyleData(
+                                            iconSize: 18,
+                                            iconDisabledColor: renkler.koyuuRenk,
+                                            iconEnabledColor: renkler.koyuuRenk
+                                          ),
+                                          dropdownStyleData:
+                                          DropdownStyleData(
+                                            ///açılmış kutu
+                                              decoration: BoxDecoration(
+                                                color: renkler.arkaRenk,
+                                                borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                              ),
+                                          maxHeight: 120),
+                                          buttonStyleData: ButtonStyleData(
+                                              padding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              height: 36,
+                                              width: 60,
+                                              decoration: BoxDecoration(
+                                                  color: renkler.sariRenk,
+                                                  borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(10))
+
+                                                ///AÇILMAMIŞ KUTU
+                                              )),
+                                          menuItemStyleData:
+                                          MenuItemStyleData(
+                                            ///açılmış kutu
+                                            height: 36,
+                                            overlayColor:
+                                            MaterialStatePropertyAll(
+                                                renkler.sariRenk),
+                                            padding: const EdgeInsets.all(8),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(
@@ -397,10 +438,14 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                         children: [
                                           InkWell(
                                             onTap: () {
+                                              setState((){
+                                                customDate.text = "1";
+                                                selectedValueDay = "1";
+                                              });
+                                              Navigator.of(context).pop();
                                             },
                                             child: Container(
                                               height: 30,
-                                              //width: 150,
                                               decoration: BoxDecoration(
                                                 color: Theme.of(context).highlightColor,
                                                 borderRadius: const BorderRadius.all(
@@ -411,7 +456,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                                     child: Padding(
                                                       padding: const EdgeInsets.only(left: 10,right: 10,top: 2,bottom: 2),
                                                       child: Text(
-                                                        "Varsayılan",
+                                                        "Varsayılan (1)",
                                                         style: TextStyle(
                                                             color: renkler.arkaRenk,
                                                             fontSize: 15,
@@ -423,23 +468,31 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                           ),
                                           InkWell(
                                             onTap: () {
+                                              setState((){
+                                                customDate.text = selectedValueDay.toString();
+                                              });
                                               Navigator.of(context).pop();
                                             },
                                             child: Container(
                                               height: 30,
-                                              width: 100,
+                                             // width: 100,
                                               decoration: BoxDecoration(
                                                 color: renkler.sariRenk,
                                                 borderRadius: const BorderRadius.all(
                                                     Radius.circular(10)),
                                               ),
                                               child: Center(
-                                                  child: Text(
-                                                    "Ayarla",
-                                                    style: TextStyle(
-                                                        color: renkler.koyuuRenk,
-                                                        fontSize: 15,
-                                                        fontFamily: 'Nexa3'),
+                                                  child: FittedBox(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                                                      child: Text(
+                                                         "$selectedValueDay Olarak Ayarla",
+                                                        style: TextStyle(
+                                                            color: renkler.koyuuRenk,
+                                                            fontSize: 15,
+                                                            fontFamily: 'Nexa3'),
+                                                      ),
+                                                    ),
                                                   )),
                                             ),
                                           ),
@@ -458,7 +511,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                 },
                 child: FittedBox(
                   child: Text(
-                      "1",style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'Nexa4'),
+                      customDate.text,style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'Nexa4'),
                   ),
                 ),
               ),

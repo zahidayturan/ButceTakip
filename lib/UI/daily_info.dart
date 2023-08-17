@@ -1,3 +1,4 @@
+import 'package:butcekontrol/Pages/calendar_page.dart';
 import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
@@ -32,6 +33,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
     //String formattedDate = intl.DateFormat('dd.MM.yyyy').format(now);
     String formattedDate = readSettings.localChanger() == const Locale("ar") ? intl.DateFormat('yyyy.MM.dd').format(now) : intl.DateFormat('dd.MM.yyyy').format(now);
     var size = MediaQuery.of(context).size;
+    var read = ref.read(botomNavBarRiverpod);
     CustomColors renkler = CustomColors();
     return Center(
       child: SizedBox(
@@ -74,14 +76,20 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                       left: 25,
                       top: 4,
                     ),
-                    child: Text(formattedDate,
-                        style: TextStyle(
-                            fontSize: 17,
-                            height: 1,
-                            fontFamily: 'Nexa4',
-                            fontWeight: FontWeight.w900,
-                        color: Theme.of(context).canvasColor
-                        )),
+                    child: GestureDetector(
+                      onTap: () {
+                        read.setCurrentindex(2);
+                        Navigator.of(context).popUntil((route) => route.isFirst) ;
+                      },
+                      child: Text(formattedDate,
+                          style: TextStyle(
+                              fontSize: 17,
+                              height: 1,
+                              fontFamily: 'Nexa4',
+                              fontWeight: FontWeight.w900,
+                          color: Theme.of(context).canvasColor
+                          )),
+                    ),
                   )
                 ],
               ),
@@ -173,9 +181,9 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Container(
-                      padding: EdgeInsets.only(top: 5.2, bottom:5.2 , right: 14),
+                      padding: EdgeInsets.only(top: 5.2, bottom:5.2 , right: 18),
                       height:  40, // container boyu veriyoruz.
-                      width: size.width * .92,
+                      width: size.width * .93,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(Radius.circular(10)),
                         color: Theme.of(context).indicatorColor,
@@ -298,7 +306,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
               ),
               Positioned(
                 top: 8.0,
-                right: 4.0,
+                right: 8.0,
                 child: Container(
                   decoration: BoxDecoration(
                     color:  Theme.of(context).highlightColor,
