@@ -130,7 +130,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                 hintText: "Tutar",
                                 hintStyle: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 15,
+                                  fontSize: 10,
                                 ),
                                 contentPadding: EdgeInsets.symmetric(horizontal: size.width * .016,vertical: size.width * .028),
                                 border: InputBorder.none
@@ -150,6 +150,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                 hint: Text(
                                     "Seçiniz",
                                   style: TextStyle(
+                                    fontSize: 9,
                                     color: renkler.sariRenk,
                                   ),
                                 ),

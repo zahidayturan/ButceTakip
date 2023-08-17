@@ -1,6 +1,4 @@
 import 'package:butcekontrol/classes/nav_bar.dart';
-import 'package:butcekontrol/models/settings_info.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:butcekontrol/utils/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
