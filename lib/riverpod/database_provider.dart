@@ -182,29 +182,57 @@ class DbProvider extends ChangeNotifier {
     return (totalAmount - totalAmount2).toStringAsFixed(1);
   }
 
-  String getTotalAmount(List<SpendInfo> items) {  //Bütün net Bütçe Gösteriliyor.
+  List<String> getTotalAmount(List<SpendInfo> items) {  //Bütün net Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
-    return (totalAmount - totalAmount2).toStringAsFixed(1);
+
+    double totalAmountEx = totalAmount - totalAmount2;
+    String formattedTotalAmountEx = totalAmountEx.toStringAsFixed(2);
+    if (formattedTotalAmountEx.length >= 10) {
+      formattedTotalAmountEx = totalAmountEx.toStringAsFixed(0);
+    }
+    else if (formattedTotalAmountEx.length >= 8) {
+      formattedTotalAmountEx = totalAmountEx.toStringAsFixed(1);
+    }
+    List<String> totalAmountList = [formattedTotalAmountEx,totalAmountEx.toStringAsFixed(2)];
+    return totalAmountList;
   }
 
-  String getTotalAmountPositive(List<SpendInfo> items) { //Gelir olan Kayıtları listeliyor.
+  List<String> getTotalAmountPositive(List<SpendInfo> items) { //Gelir olan Kayıtları listeliyor.
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
 
-    return totalAmount.toStringAsFixed(1);
+    String formattedPositiveAmount = totalAmount.toStringAsFixed(2);
+    if (formattedPositiveAmount.length >= 10) {
+      formattedPositiveAmount = totalAmount.toStringAsFixed(0);
+    }
+    else if (formattedPositiveAmount.length >= 8) {
+      formattedPositiveAmount = totalAmount.toStringAsFixed(1);
+    }
+    List<String> positiveAmountList = [formattedPositiveAmount,totalAmount.toStringAsFixed(2)];
+
+    return positiveAmountList;
   }
 
-  String getTotalAmountNegative(List<SpendInfo> items) { //Gider olan Kayıtları listeliyor.
+  List<String> getTotalAmountNegative(List<SpendInfo> items) { //Gider olan Kayıtları listeliyor.
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
-    return totalAmount2.toStringAsFixed(1);
+
+    String formattedNegativeAmount = totalAmount2.toStringAsFixed(2);
+    if (formattedNegativeAmount.length >= 10) {
+      formattedNegativeAmount = totalAmount2.toStringAsFixed(0);
+    }
+    else if (formattedNegativeAmount.length >= 8) {
+      formattedNegativeAmount = totalAmount2.toStringAsFixed(1);
+    }
+    List<String> negativeAmountList = [formattedNegativeAmount,totalAmount2.toStringAsFixed(2)];
+    return negativeAmountList;
   }
 
 

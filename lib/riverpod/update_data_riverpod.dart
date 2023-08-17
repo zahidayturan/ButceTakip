@@ -937,6 +937,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
     return processOnce.contains(RegExp(r'\d'));
   }
 
+
   Future<int> categoryUsageCount(int operationTypeController, String categoryName, int operationController, String newCategory) async {
     String operationType = operationTypeController == 0 ? 'Gider' : 'Gelir';
     List<SpendInfo> customizeItems = await SQLHelper.getCategoryByType(operationType, categoryName);
@@ -955,6 +956,12 @@ class UpdateDataRiverpod extends ChangeNotifier {
       customizeItems.forEach((element) {
         SQLHelper.updateCategory(element.id, element.category!,newCategory);
       });
+      if(customizeItems.isEmpty){
+        List<SpendInfo> userCategoryItems = await SQLHelper.getUserCategoryByType(operationType, categoryName);
+        userCategoryItems.forEach((element) {
+          SQLHelper.updateCategory(element.id, element.category!,newCategory);
+        });
+      }
     }
     else if(operationController == 4){///edit 2
       customizeItems.forEach((element) {

@@ -170,7 +170,7 @@ class RegisteryList extends ConsumerWidget {
                                                       BorderRadius.vertical(
                                                           top: Radius
                                                               .circular(
-                                                                  25))),
+                                                                  15))),
                                               backgroundColor:
                                                   const Color(0xff0D1C26),
                                               builder: (context) {

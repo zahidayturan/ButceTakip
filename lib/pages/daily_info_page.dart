@@ -129,7 +129,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                               ref.watch(databaseRiverpod).delete;
                                               showModalBottomSheet(
                                                 context: context,
-                                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
+                                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
                                                 backgroundColor:
                                                 const Color(0xff0D1C26),
                                                 builder: (context) {
@@ -257,7 +257,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                   child: Text(
                                     "${item.length}",
                                     style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
+                                        color: Theme.of(context).scaffoldBackgroundColor,
                                         fontSize: 18,
                                         fontFamily: 'NEXA4'),
                                   ),
@@ -315,27 +315,31 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            " +${data[0]}",
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w900,
-                              height: 1.4,
+                          FittedBox(
+                            child: Text(
+                              " +${data[0]}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w900,
+                                height: 1.4,
+                              ),
                             ),
                           ),
                           SizedBox(
                             width: size.width * 0.15,
                           ),
-                          Text(
-                            "-${data[1]} ",
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w900,
-                              height: 1.4,
+                          FittedBox(
+                            child: Text(
+                              "-${data[1]} ",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w900,
+                                height: 1.4,
+                              ),
                             ),
                           )
                         ],
@@ -354,14 +358,16 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                         color: Color(0xffF2CB05),
                       ),
                       child: Center(
-                        child: Text(
-                          "${data[2]}",
-                          style: const TextStyle(
-                            color: Color(0xff0D1C26),
-                            fontSize: 17,
-                            fontFamily: 'Nexa3',
-                            fontWeight: FontWeight.w900,
-                            height: 1.4,
+                        child: FittedBox(
+                          child: Text(
+                            "${data[2]}",
+                            style: const TextStyle(
+                              color: Color(0xff0D1C26),
+                              fontSize: 17,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w900,
+                              height: 1.4,
+                            ),
                           ),
                         ),
                       ), //Toplam değişim.

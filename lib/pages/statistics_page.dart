@@ -1918,8 +1918,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 210,
+                      FittedBox(
                         child: Text(
                           translation(context).totalAmountStatistics,
                           style: TextStyle(
@@ -1938,11 +1937,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         ),
                         height: 26,
                         child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 10, left: 10),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(right: 10, left: 10),
+                            child: FittedBox(
                               child: RichText(
                                 text: TextSpan(
                                   children: [

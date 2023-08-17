@@ -281,6 +281,13 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
+  static Future<List<SpendInfo>> getUserCategoryByType(String operationType, String userCategory) async {
+    final db = await SQLHelper.db();
+    var result = await db.query('spendinfo', where: "operationType = ? AND userCategory = ?", whereArgs: [operationType, userCategory], orderBy: "id");
+    return List.generate(result.length, (index){
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
 
   //çok tehlikeli bir fonksiyon tüm tabloyu siliyor geri döndürülemez.
   static Future <void> deleteTable(String tableName) async {

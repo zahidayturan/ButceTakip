@@ -1,7 +1,9 @@
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import '../riverpod_management.dart';
 import 'package:butcekontrol/classes/language.dart';
 
@@ -129,83 +131,81 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
       PageController(initialPage: DateTime.now().month - 1);
   final PageController pageYearController =
       PageController(initialPage: DateTime.now().year - 2020);
-
+  CustomColors renkler = CustomColors();
+  int initialLabelIndex = 0;
+  final TextEditingController customDate = TextEditingController(text: "");
   Widget dateSelector(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var read = ref.read(calendarRiverpod);
     List monthName = read.getMonths(context);
     List yearName = read.getYears();
-    return Stack(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        SizedBox(
-          width: size.width * 0.53,
-          height: size.height * 0.074,
-          child: Stack(
-            children: [
-              Positioned(
-                top: size.height * 0.007,
-                child: Container(
-                  height: size.height * 0.060,
-                  width: size.width * 0.52,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    color: Color(0xFFF2CB05),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Container(
+          height: size.height * 0.05,
+          decoration: BoxDecoration(
+            color: Theme.of(context).highlightColor,
+            borderRadius: BorderRadius.all(Radius.circular(20))
+          ),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: IconButton(
+              icon: const Icon(Icons
+                  .refresh_rounded),
+              padding:
+              EdgeInsets.zero,
+              alignment: Alignment
+                  .center,
+              color: renkler
+                  .arkaRenk,
+              iconSize: 30,
+              onPressed: () {
+                setState(() {
+                });
+              },
+            ),
+          ),
+        ),
+        Stack(
+          children: [
+            SizedBox(
+              width: size.width * 0.53,
+              height: size.height * 0.074,
+              child: Stack(
                 children: [
-                  SizedBox(
-                    height: size.height * 0.060,
-                    width: size.width * 0.3,
-                    child: PageView(
-                      controller: pageMonthController,
-                      onPageChanged: (index) {
-                        setState(() {
-                          selectedMonthIndex = index + 1;
-                        });
-                      },
-                      children: monthName
-                          .map(
-                            (month) => Center(
-                          widthFactor: 1.5,
-                          child: Text(
-                            month,
-                            style: const TextStyle(
-                              color: Color(0xff0D1C26),
-                              fontSize: 20,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w600,
-                              height: 1.3,
-                            ),
-                          ),
-                        ),
-                      )
-                          .toList(),
+                  Positioned(
+                    top: size.height * 0.007,
+                    child: Container(
+                      height: size.height * 0.060,
+                      width: size.width * 0.52,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        color: Color(0xFFF2CB05),
+                      ),
                     ),
                   ),
-                  Container(
-                    height: size.height * 0.074,
-                    width: size.width * 0.2,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(30)),
-                      color: Theme.of(context).highlightColor,
-                    ),
-                    child: PageView(
-                      controller: pageYearController,
-                      onPageChanged: (index) {
-                        setState(() {
-                          selectedYearIndex = index + 2020;
-                        });
-                      },
-                      children: yearName
-                          .map(
-                            (year) => Center(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: size.height * 0.060,
+                        width: size.width * 0.3,
+                        child: PageView(
+                          controller: pageMonthController,
+                          onPageChanged: (index) {
+                            setState(() {
+                              selectedMonthIndex = index + 1;
+                            });
+                          },
+                          children: monthName
+                              .map(
+                                (month) => Center(
+                              widthFactor: 1.5,
                               child: Text(
-                                year,
-                                style: TextStyle(
-                                  color: Theme.of(context).dialogBackgroundColor,
+                                month,
+                                style: const TextStyle(
+                                  color: Color(0xff0D1C26),
                                   fontSize: 20,
                                   fontFamily: 'Nexa4',
                                   fontWeight: FontWeight.w600,
@@ -214,12 +214,255 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                               ),
                             ),
                           )
-                          .toList(),
-                    ),
+                              .toList(),
+                        ),
+                      ),
+                      Container(
+                        height: size.height * 0.074,
+                        width: size.width * 0.2,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(30)),
+                          color: Theme.of(context).highlightColor,
+                        ),
+                        child: PageView(
+                          controller: pageYearController,
+                          onPageChanged: (index) {
+                            setState(() {
+                              selectedYearIndex = index + 2020;
+                            });
+                          },
+                          children: yearName
+                              .map(
+                                (year) => Center(
+                                  child: Text(
+                                    year,
+                                    style: TextStyle(
+                                      color: Theme.of(context).dialogBackgroundColor,
+                                      fontSize: 20,
+                                      fontFamily: 'Nexa4',
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.3,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
+          ],
+        ),
+        Container(
+          height: size.height * 0.05,
+          decoration: BoxDecoration(
+              color: renkler.sariRenk,
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Center(
+              child: TextButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return StatefulBuilder(
+                        builder: (context, setState) {
+                          return AlertDialog(
+                            contentPadding: const EdgeInsets.only(top: 10, bottom: 10),
+                            insetPadding: const EdgeInsets.symmetric(horizontal: 15),
+                            backgroundColor: Theme.of(context).primaryColor,
+                            shadowColor: Colors.black54,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10))),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8, right: 8),
+                                      child: SizedBox(
+                                        width: size.width * 0.95,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Ayın Başlangıç Tarihi",
+                                              style: TextStyle(
+                                                  color: Theme.of(context).canvasColor,
+                                                  fontFamily: "Nexa4",
+                                                  fontSize: 21),
+                                            ),
+                                            SizedBox(
+                                              height: 32,
+                                              width: 32,
+                                              child: DecoratedBox(
+                                                decoration: BoxDecoration(
+                                                  color: Theme.of(context).canvasColor,
+                                                  borderRadius: const BorderRadius.all(
+                                                      Radius.circular(20)),
+                                                ),
+                                                child: IconButton(
+                                                  icon: Image.asset(
+                                                    "assets/icons/remove.png",
+                                                    height: 16,
+                                                    width: 16,
+                                                    color: Theme.of(context).primaryColor,
+                                                  ),
+                                                  iconSize: 24,
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 14.0,
+                                    ),
+                                    SizedBox(
+                                        height: 34,
+                                        child: ToggleSwitch(
+                                          initialLabelIndex: initialLabelIndex,
+                                          totalSwitches: 3,
+                                          labels: ["1","15","Diğer"],
+                                          activeBgColor: const [Color(0xffF2CB05)],
+                                          activeFgColor: const Color(0xff0D1C26),
+                                          inactiveBgColor: Theme.of(context).highlightColor,
+                                          inactiveFgColor: const Color(0xFFE9E9E9),
+                                          minWidth: size.width > 392 ? size.width * 0.235 : 92,
+                                          cornerRadius: 15,
+                                          radiusStyle: true,
+                                          animate: true,
+                                          curve: Curves.linearToEaseOut,
+                                          customTextStyles: const [
+                                            TextStyle(
+                                                fontSize: 13,
+                                                fontFamily: 'Nexa4',
+                                                height: 1,
+                                                fontWeight: FontWeight.w800)
+                                          ],
+                                          onToggle: (index) {
+                                            setState(() {
+                                            });
+                                            initialLabelIndex = index!;
+                                          },
+                                        )),
+                                    const SizedBox(
+                                      height: 14.0,
+                                    ),
+                                    Visibility(
+                                      visible : initialLabelIndex ==2,
+                                      child: TextField(
+                                        maxLength: 20,
+                                        maxLines: 1,
+                                        style:
+                                        TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),
+                                        decoration: InputDecoration(
+                                            hintText: 'Kategoriyi yazınız',
+                                            hintStyle: TextStyle(
+                                                color: Theme.of(context).canvasColor,
+                                                fontSize: 18,
+                                                fontFamily: 'Nexa3'),
+                                            counterText: '',
+                                            border: InputBorder.none),
+                                        cursorRadius: const Radius.circular(10),
+                                        keyboardType: TextInputType.text,
+                                        textCapitalization: TextCapitalization.words,
+                                        controller: customDate,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            this.setState(() {});
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 14.0,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10, right: 10),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              //width: 150,
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context).highlightColor,
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                              ),
+                                              child: Center(
+                                                  child: FittedBox(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(left: 10,right: 10,top: 2,bottom: 2),
+                                                      child: Text(
+                                                        "Varsayılan",
+                                                        style: TextStyle(
+                                                            color: renkler.arkaRenk,
+                                                            fontSize: 15,
+                                                            fontFamily: 'Nexa3'),
+                                                      ),
+                                                    ),
+                                                  )),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                color: renkler.sariRenk,
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                              ),
+                                              child: Center(
+                                                  child: Text(
+                                                    "Ayarla",
+                                                    style: TextStyle(
+                                                        color: renkler.koyuuRenk,
+                                                        fontSize: 15,
+                                                        fontFamily: 'Nexa3'),
+                                                  )),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ).then((_) => setState(() {}));
+                },
+                child: FittedBox(
+                  child: Text(
+                      "1",style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'Nexa4'),
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ],
@@ -342,7 +585,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             "  +${data[0]}",
                             style: const TextStyle(
                               color:  Colors.white,
-                              fontSize: 18,
+                              fontSize: 15,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -355,7 +598,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             "-${data[1]}  ",
                             style: const TextStyle(
                               color:  Colors.white,
-                              fontSize: 18,
+                              fontSize: 15,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -377,14 +620,16 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         color: Color(0xffF2CB05),
                       ),
                       child: Center(
-                        child: Text(
-                          "${data[2]}",
-                          style: const TextStyle(
-                            color: Color(0xff0D1C26),
-                            fontSize: 18,
-                            fontFamily: 'Nexa3',
-                            fontWeight: FontWeight.w900,
-                            height: 1.4,
+                        child: FittedBox(
+                          child: Text(
+                            "${data[2]}",
+                            style: const TextStyle(
+                              color: Color(0xff0D1C26),
+                              fontSize: 17,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w900,
+                              height: 1.4,
+                            ),
                           ),
                         ),
                       ), //Toplam değişim.

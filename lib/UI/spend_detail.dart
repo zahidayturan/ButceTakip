@@ -43,310 +43,398 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: Text(
-                      "${translation(context).details}  ",
-                      style: TextStyle(
-                        color: renkler.arkaRenk,
-                        fontFamily: 'Nexa4',
-                        fontSize: 22,
-                      ),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.remove_red_eye,
-                    color: Color(0xffF2CB05),
-                    size: 34,
-                  ),
-                  const Spacer(),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(36),
-                      ),
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: Image.asset(
-                          "assets/icons/remove.png",
-                          height: 22,
-                          width: 22,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        "${translation(context).details}  ",
+                        style: TextStyle(
+                          color: Theme.of(context).dialogBackgroundColor,
+                          fontFamily: 'Nexa4',
+                          fontSize: 22,
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(translation(context).dateDetails,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Nexa4',
-                        fontSize: 18,
-                      )),
-                  SizedBox(
-                    height: 26,
-                    child: DecoratedBox(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                    const Icon(
+                      Icons.remove_red_eye,
+                      color: Color(0xffF2CB05),
+                      size: 34,
+                    ),
+                    const Spacer(),
+                    Container(
+                      width: 32,
+                      height: 32,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).dialogBackgroundColor,
+                          borderRadius: BorderRadius.circular(36),
+                        ),
+                        child: IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: Image.asset(
+                            "assets/icons/remove.png",
+                            height: 18,
+                            width: 18,
+                          ),
+                        ),
                       ),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 15.0, right: 15.0, top: 2.0),
-                          child: Text(
-                            "${item[index].operationDate}",
-                            style: TextStyle(
-                              color: renkler.koyuuRenk,
-                              fontFamily: 'NEXA3',
-                              fontSize: 18,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom:10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(translation(context).dateDetails,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa4',
+                          fontSize: 18,
+                        )),
+                    SizedBox(
+                      height: 26,
+                      child: DecoratedBox(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 15.0, right: 15.0, top: 2.0),
+                            child: Text(
+                              "${item[index].operationDate}",
+                              style: TextStyle(
+                                color: renkler.koyuuRenk,
+                                fontFamily: 'NEXA3',
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(translation(context).timeDetails,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Nexa4',
-                        fontSize: 18,
-                      )),
-                  Text("${item[index].operationTime}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Nexa3',
-                        fontSize: 18,
-                      )),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(translation(context).categoryDetails,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Nexa4',
-                        fontSize: 18,
-                      )),
-                  Expanded(
-                    child: Text("${item[index].category}",
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(translation(context).timeDetails,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa4',
+                          fontSize: 18,
+                        )),
+                    Text("${item[index].operationTime}",
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa3',
                           fontSize: 18,
+                        )),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(translation(context).categoryDetails,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa4',
+                          fontSize: 18,
+                        )),
+                    Expanded(
+                      child: Text("${item[index].category}",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Nexa3',
+                            fontSize: 18,
+                          ),
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(translation(context).paymentTypeDetails,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa4',
+                          fontSize: 18,
+                        )),
+                    Text("${item[index].operationTool}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa3',
+                          fontSize: 18,
+                        )),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(translation(context).amountDetails,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa4',
+                          fontSize: 18,
+                        )),
+                    Text("${item[index].amount} ${item[index].moneyType}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa3',
+                          fontSize: 18,
+                        )),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(translation(context).savingStatusDetails,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa4',
+                          fontSize: 18,
+                        )),
+                    item[index].registration == 0
+                        ? Text(translation(context).notSaved,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Nexa3',
+                              fontSize: 18,
+                            ))
+                        : Text(translation(context).saved,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Nexa3',
+                              fontSize: 18,
+                            )),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: item[index].processOnce != '' && item[index].processOnce != '0',
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("TEKRAR / TAKSİT",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Nexa4',
+                                  fontSize: 18,
+                                )),
+                            item[index].processOnce == ""
+                                ? const Text("Tekrar yok",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Nexa3',
+                                      fontSize: 18,
+                                    ))
+                                : Text("${item[index].processOnce}",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Nexa3',
+                                      fontSize: 18,
+                                    )),
+                          ],
                         ),
-                    textAlign: TextAlign.end,
-                    overflow: TextOverflow.ellipsis),
+                    ),
                   ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(translation(context).paymentTypeDetails,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Nexa4',
-                        fontSize: 18,
-                      )),
-                  Text("${item[index].operationTool}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Nexa3',
-                        fontSize: 18,
-                      )),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(translation(context).amountDetails,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Nexa4',
-                        fontSize: 18,
-                      )),
-                  Text("${item[index].amount} ${item[index].moneyType}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Nexa3',
-                        fontSize: 18,
-                      )),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(translation(context).savingStatusDetails,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Nexa4',
-                        fontSize: 18,
-                      )),
-                  item[index].registration == 0
-                      ? Text(translation(context).notSaved,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Nexa3',
-                            fontSize: 18,
-                          ))
-                      : Text(translation(context).saved,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Nexa3',
-                            fontSize: 18,
-                          )),
-                ],
-              ),
-              item[index].processOnce != '' && item[index].processOnce != '0'
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Visibility(
+                visible: item[index].systemMessage != '',
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("SİSTEM MESAJI",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Nexa4',
+                                  fontSize: 18,
+                                )),
+                            item[index].systemMessage == ""
+                                ? const Text("Mesaj yok",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Nexa3',
+                                      fontSize: 18,
+                                    ))
+                                : Text("${item[index].systemMessage}",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Nexa3',
+                                      fontSize: 18,
+                                    )),
+                          ],
+                        ),
+                    ),
+                  ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Row(
                       children: [
-                        const Text("TEKRAR / TAKSİT",
+                        Text("NOT",
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Nexa4',
                               fontSize: 18,
                             )),
-                        item[index].processOnce == ""
-                            ? const Text("Tekrar yok",
+                        SizedBox()
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 5),
+                      child: SizedBox(
+                        child: item[index].note == ''
+                            ? const Text("Not eklenmemiş",
+                                textAlign: TextAlign.justify,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Nexa3',
                                   fontSize: 18,
                                 ))
-                            : Text("${item[index].processOnce}",
+                            : Text("${item[index].note}",
+                                textAlign: TextAlign.justify,
+                                maxLines: 6,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Nexa3',
                                   fontSize: 18,
                                 )),
-                      ],
-                    )
-                  : const SizedBox(
-                      child: Text("debug için"),
+                      ),
                     ),
-              item[index].systemMessage != ''
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("SİSTEM MESAJI",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Nexa4',
-                              fontSize: 18,
-                            )),
-                        item[index].systemMessage == ""
-                            ? const Text("Mesaj yok",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Nexa3',
-                                  fontSize: 18,
-                                ))
-                            : Text("${item[index].systemMessage}",
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Nexa3',
-                                  fontSize: 18,
-                                )),
-                      ],
-                    )
-                  : const SizedBox(
-                      child: Text("debug için"),
-                    ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Row(
-                    children: [
-                      Text("NOT",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Nexa4',
-                            fontSize: 18,
-                          )),
-                      SizedBox()
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 5),
-                    child: SizedBox(
-                      child: item[index].note == ''
-                          ? const Text("Not eklenmemiş",
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Nexa3',
-                                fontSize: 18,
-                              ))
-                          : Text("${item[index].note}",
-                              textAlign: TextAlign.justify,
-                              maxLines: 6,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Nexa3',
-                                fontSize: 18,
-                              )),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-
               ///KAYDETME BUTONU ŞU AN KAPALI
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  /*Column(
-                    children: [
-                      DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF2CB05),
-                          borderRadius: BorderRadius.circular(50),
+              Padding(
+                padding: const EdgeInsets.only(top: 6),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    /*Column(
+                      children: [
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF2CB05),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                readDailyInfo.regChange(item[index].registration);
+                                readDailyInfo.updateRegistration(item[index].id);
+                                //readDailyInfo.regChange(item[index].registration = item[index].registration == 0 ? 1 : 0);
+                                //Navigator.of(context).pop();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: const Color(0xff0D1C26),
+                                    duration: const Duration(seconds: 1),
+                                    content: item[index].registration == 1
+                                        ? const Text(
+                                      'İşaret Kaldırıldı',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontFamily: 'Nexa3',
+                                        fontWeight: FontWeight.w600,
+                                        height: 1.3,
+                                      ),
+                                    )
+                                        : const Text(
+                                      'İşaret Eklendi',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontFamily: 'Nexa3',
+                                        fontWeight: FontWeight.w600,
+                                        height: 1.3,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              });
+                            },
+                            iconSize: 30,
+                            icon: item[index].registration == 0
+                                ? const Icon(Icons.bookmark_outline)
+                                : const Icon(Icons.bookmark_outlined),
+                          ),
                         ),
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              readDailyInfo.regChange(item[index].registration);
-                              readDailyInfo.updateRegistration(item[index].id);
-                              //readDailyInfo.regChange(item[index].registration = item[index].registration == 0 ? 1 : 0);
-                              //Navigator.of(context).pop();
+                        const Padding(
+                          padding: EdgeInsets.only(top: 4.0),
+                          child: Text(
+                            "İşaretle",
+                            style: TextStyle(
+                              color: Color(0xFFF2CB05),
+                              fontFamily: 'Nexa3',
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),*/
+                    Column(
+                      children: [
+                        Container(
+                          width: 45,
+                          height: 45,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).dialogBackgroundColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: Icon(
+                              Icons.delete,
+                              size: 32,
+                              color: renkler.koyuuRenk,
+                            ),
+                            onPressed: () {
+                              readHome.setStatus();
+                              readDB.delete(item[index].id!);
+                              readDB.myMethod2();
+                              Navigator.of(context).pop();
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: const Color(0xff0D1C26),
                                   duration: const Duration(seconds: 1),
-                                  content: item[index].registration == 1
-                                      ? const Text(
-                                    'İşaret Kaldırıldı',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontFamily: 'Nexa3',
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.3,
-                                    ),
-                                  )
-                                      : const Text(
-                                    'İşaret Eklendi',
-                                    style: TextStyle(
+                                  content: Text(
+                                    translation(context).activityDeleted,
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
                                       fontFamily: 'Nexa3',
@@ -356,202 +444,145 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                   ),
                                 ),
                               );
-                            });
-                          },
-                          iconSize: 30,
-                          icon: item[index].registration == 0
-                              ? const Icon(Icons.bookmark_outline)
-                              : const Icon(Icons.bookmark_outlined),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          "İşaretle",
-                          style: TextStyle(
-                            color: Color(0xFFF2CB05),
-                            fontFamily: 'Nexa3',
-                            fontSize: 15,
+                            },
                           ),
                         ),
-                      ),
-                    ],
-                  ),*/
-                  Column(
-                    children: [
-                      Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF2CB05),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          icon: Icon(
-                            Icons.delete,
-                            size: 32,
-                            color: renkler.koyuuRenk,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 6.0),
+                          child: Text(
+                            translation(context).deleteDetails,
+                            style: TextStyle(
+                              color: Theme.of(context).dialogBackgroundColor,
+                              fontFamily: 'Nexa3',
+                              fontSize: 16,
+                            ),
                           ),
-                          onPressed: () {
-                            readHome.setStatus();
-                            readDB.delete(item[index].id!);
-                            readDB.myMethod2();
-                            Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: const Color(0xff0D1C26),
-                                duration: const Duration(seconds: 1),
-                                content: Text(
-                                  translation(context).activityDeleted,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
-                                  ),
-                                ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 45,
+                          width: 45,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF2CB05),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              icon: Icon(
+                                Icons.refresh_rounded,
+                                size: 36,
+                                color: renkler.koyuuRenk,
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          translation(context).deleteDetails,
-                          style: const TextStyle(
-                            color: Color(0xFFF2CB05),
-                            fontFamily: 'Nexa3',
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 45,
-                        width: 45,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF2CB05),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            icon: Icon(
-                              Icons.refresh_rounded,
-                              size: 36,
-                              color: renkler.koyuuRenk,
+                              onPressed: () {
+                                readUpdateData.setMenu(1);
+                                String time = DateTimeManager.getCurrentDayMonthYear() ;
+                                List <String> parts = time.split(".");
+                                int parseDay = int.parse(parts[0]);
+                                int parseMonth = int.parse(parts[1]);
+                                int parseYear = int.parse(parts[2]);
+                                readUpdateData.setItems(SpendInfo.withId(
+                                    item[index].id!,
+                                    item[index].operationType,
+                                    item[index].category,
+                                    item[index].operationTool,
+                                    item[index].registration,
+                                    item[index].amount,
+                                    item[index].note,
+                                    parseDay.toString(),
+                                    parseMonth.toString(),
+                                    parseYear.toString(),
+                                    DateTimeManager.getCurrentTime(),
+                                    time,
+                                    item[index].moneyType,
+                                    item[index].processOnce,
+                                    item[index].realAmount,
+                                    item[index].userCategory,
+                                    item[index].systemMessage));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const UpdateData(),
+                                ));
+                              },
                             ),
-                            onPressed: () {
-                              readUpdateData.setMenu(1);
-                              String time = DateTimeManager.getCurrentDayMonthYear() ;
-                              List <String> parts = time.split(".");
-                              int parseDay = int.parse(parts[0]);
-                              int parseMonth = int.parse(parts[1]);
-                              int parseYear = int.parse(parts[2]);
-                              readUpdateData.setItems(SpendInfo.withId(
-                                  item[index].id!,
-                                  item[index].operationType,
-                                  item[index].category,
-                                  item[index].operationTool,
-                                  item[index].registration,
-                                  item[index].amount,
-                                  item[index].note,
-                                  parseDay.toString(),
-                                  parseMonth.toString(),
-                                  parseYear.toString(),
-                                  DateTimeManager.getCurrentTime(),
-                                  time,
-                                  item[index].moneyType,
-                                  item[index].processOnce,
-                                  item[index].realAmount,
-                                  item[index].userCategory,
-                                  item[index].systemMessage));
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UpdateData(),
-                              ));
-                            },
                           ),
                         ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          "Tekrar Ekle",
-                          style: TextStyle(
-                            color: Color(0xFFF2CB05),
-                            fontFamily: 'Nexa3',
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 45,
-                        width: 45,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF2CB05),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            icon: Icon(
-                              Icons.create_rounded,
-                              size: 36,
-                              color: renkler.koyuuRenk,
+                        const Padding(
+                          padding: EdgeInsets.only(top: 6.0),
+                          child: Text(
+                            "Tekrar Ekle",
+                            style: TextStyle(
+                              color: Color(0xFFF2CB05),
+                              fontFamily: 'Nexa3',
+                              fontSize: 16,
                             ),
-                            onPressed: () {
-                              readUpdateData.setMenu(0);
-                              readUpdateData.setItems(SpendInfo.withId(
-                                  item[index].id!,
-                                  item[index].operationType,
-                                  item[index].category,
-                                  item[index].operationTool,
-                                  item[index].registration,
-                                  item[index].amount,
-                                  item[index].note,
-                                  item[index].operationDay,
-                                  item[index].operationMonth,
-                                  item[index].operationYear,
-                                  item[index].operationTime,
-                                  item[index].operationDate,
-                                  item[index].moneyType,
-                                  item[index].processOnce,
-                                  item[index].realAmount,
-                                  item[index].userCategory,
-                                  item[index].systemMessage));
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UpdateData(),
-                              ));
-                            },
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          translation(context).edit,
-                          style: const TextStyle(
-                            color: Color(0xFFF2CB05),
-                            fontFamily: 'Nexa3',
-                            fontSize: 16,
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 45,
+                          width: 45,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF2CB05),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              icon: Icon(
+                                Icons.create_rounded,
+                                size: 36,
+                                color: renkler.koyuuRenk,
+                              ),
+                              onPressed: () {
+                                readUpdateData.setMenu(0);
+                                readUpdateData.setItems(SpendInfo.withId(
+                                    item[index].id!,
+                                    item[index].operationType,
+                                    item[index].category,
+                                    item[index].operationTool,
+                                    item[index].registration,
+                                    item[index].amount,
+                                    item[index].note,
+                                    item[index].operationDay,
+                                    item[index].operationMonth,
+                                    item[index].operationYear,
+                                    item[index].operationTime,
+                                    item[index].operationDate,
+                                    item[index].moneyType,
+                                    item[index].processOnce,
+                                    item[index].realAmount,
+                                    item[index].userCategory,
+                                    item[index].systemMessage));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const UpdateData(),
+                                ));
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                        Padding(
+                          padding: const EdgeInsets.only(top: 6.0),
+                          child: Text(
+                            translation(context).edit,
+                            style: const TextStyle(
+                              color: Color(0xFFF2CB05),
+                              fontFamily: 'Nexa3',
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ],
           ),

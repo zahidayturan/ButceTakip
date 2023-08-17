@@ -127,7 +127,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                             context: context,
                                             shape: const RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.vertical(
-                                                    top: Radius.circular(25))),
+                                                    top: Radius.circular(15))),
                                             backgroundColor:
                                                 const Color(0xff0D1C26),
                                             builder: (context) {
@@ -140,7 +140,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                         }
                                       },
                                       child: SizedBox(
-                                        height: 48,
+                                        height: 40,
                                         child: DecoratedBox(
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10),
@@ -149,7 +149,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                           child: Row(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.all(9.0),
+                                                padding: const EdgeInsets.only(bottom: 5,left: 6,right: 6),
                                                 child: Icon(
                                                   Icons.remove_red_eye,
                                                   color:
@@ -164,7 +164,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                 "${item[index].operationDate}",
                                                 style: TextStyle(
                                                   fontFamily: 'NEXA3',
-                                                  fontSize: 18,
+                                                  fontSize: 17,
                                                   color: Theme.of(context).canvasColor,
                                                 ),
                                               ),
@@ -180,7 +180,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                       TextSpan(
                                                         text:item[index].realAmount.toString(),style: TextStyle(
                                                         fontFamily: 'NEXA3',
-                                                        fontSize: 18,
+                                                        fontSize: 17,
                                                           color: Theme.of(context).canvasColor
                                                       ),
                                                       ),
@@ -188,7 +188,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                         text: readSettings.prefixSymbol,
                                                         style: TextStyle(
                                                           fontFamily: 'TL',
-                                                          fontSize: 18,
+                                                          fontSize: 17,
                                                           fontWeight: FontWeight.w600,
                                                             color: Theme.of(context).canvasColor
                                                         ),
@@ -201,7 +201,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                       TextSpan(
                                                         text:item[index].realAmount.toString(),style: TextStyle(
                                                         fontFamily: 'NEXA3',
-                                                        fontSize: 18,
+                                                        fontSize: 17,
                                                         color: renkler.kirmiziRenk,
                                                       ),
                                                       ),
@@ -209,7 +209,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                         text: readSettings.prefixSymbol,
                                                         style: TextStyle(
                                                           fontFamily: 'TL',
-                                                          fontSize: 18,
+                                                          fontSize: 17,
                                                           fontWeight: FontWeight.w600,
                                                           color: renkler.kirmiziRenk,
                                                         ),
@@ -245,7 +245,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                               padding: const EdgeInsets.only(right: 5),
                               child: Text(
                                 "${item.length}",
-                                style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 18,fontFamily: 'NEXA3'),
+                                style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor,fontSize: 18,fontFamily: 'NEXA3'),
                               ),
                             ),
                           ),
@@ -282,8 +282,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 210,
+                FittedBox(
                   child: Text(translation(context).totalAmountStatistics,style: TextStyle(
                     height: 1,
                     fontFamily: 'NEXA3',
