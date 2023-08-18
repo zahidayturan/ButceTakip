@@ -91,7 +91,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                     decoration: BoxDecoration(
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(30)),
-                                        color: snapshot.data!.length <= 10
+                                        color: snapshot.data!.length <= 12
                                             ? Theme.of(context).indicatorColor
                                             : Theme.of(context).canvasColor),
                                   ),
@@ -145,90 +145,98 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                           highlightColor: Theme.of(context).primaryColor,
                                           borderRadius: BorderRadius.circular(13),
                                           child: SizedBox(
-                                            height: 48,
+                                            height: 40,
                                             child: DecoratedBox(
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                 BorderRadius.circular(10),
                                                 color: Theme.of(context).indicatorColor,
                                               ),
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(9.0),
-                                                    child: Icon(
-                                                      Icons.remove_red_eye,
-                                                      color: item[index]
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(top: 4),
+                                                child: Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets.only(bottom: 5,left: 6,right: 6),
+                                                      child: Icon(
+                                                        Icons.remove_red_eye,
+                                                        color: item[index]
+                                                            .operationType ==
+                                                            "Gider"
+                                                            ? const Color(0xFFD91A2A)
+                                                            : Theme.of(context).canvasColor,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 5),
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${item[index].category}",
+                                                        style: TextStyle(
+                                                          fontFamily: 'NEXA3',
+                                                          fontSize: 17,
+                                                          height: 1,
+                                                          color: Theme.of(context).canvasColor,
+                                                        ),
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(
+                                                          right: 8.0),
+                                                      child : item[index]
                                                           .operationType ==
-                                                          "Gider"
-                                                          ? const Color(0xFFD91A2A)
-                                                          : Theme.of(context).canvasColor,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 5),
-                                                  Expanded(
-                                                    child: Text(
-                                                      "${item[index].category}",
-                                                      style: TextStyle(
-                                                        fontFamily: 'NEXA3',
-                                                        fontSize: 18,
-                                                        color: Theme.of(context).canvasColor,
-                                                      ),
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        right: 8.0),
-                                                    child : item[index]
-                                                        .operationType ==
-                                                        "Gelir"
-                                                        ? RichText(
-                                                      text: TextSpan(
-                                                        children: [
-                                                          TextSpan(
-                                                            text:item[index].realAmount!.toStringAsFixed(2),style: TextStyle(
-                                                            fontFamily: 'NEXA3',
-                                                            fontSize: 18,
-                                                            color: Theme.of(context).canvasColor
-                                                          ),
-                                                          ),
-                                                           TextSpan(
-                                                            text: readSetting.prefixSymbol,
-                                                            style: TextStyle(
-                                                              fontFamily: 'TL',
-                                                              fontSize: 18,
-                                                              fontWeight: FontWeight.w600,
-                                                                color: Theme.of(context).canvasColor
+                                                          "Gelir"
+                                                          ? RichText(
+                                                        text: TextSpan(
+                                                          children: [
+                                                            TextSpan(
+                                                              text:item[index].realAmount!.toStringAsFixed(2),style: TextStyle(
+                                                              fontFamily: 'NEXA3',
+                                                              fontSize: 17,
+                                                              height: 1,
+                                                              color: Theme.of(context).canvasColor
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ) : RichText(
-                                                      text: TextSpan(
-                                                        children: [
-                                                          TextSpan(
-                                                            text:item[index].realAmount!.toStringAsFixed(2),style: TextStyle(
-                                                            fontFamily: 'NEXA3',
-                                                            fontSize: 18,
-                                                            color: renkler.kirmiziRenk,
-                                                          ),
-                                                          ),
-                                                          TextSpan(
-                                                            text: readSetting.prefixSymbol,
-                                                            style: TextStyle(
-                                                              fontFamily: 'TL',
-                                                              fontSize: 18,
-                                                              fontWeight: FontWeight.w600,
+                                                            ),
+                                                             TextSpan(
+                                                              text: readSetting.prefixSymbol,
+                                                              style: TextStyle(
+                                                                fontFamily: 'TL',
+                                                                fontSize: 17,
+                                                                height: 1,
+                                                                fontWeight: FontWeight.w600,
+                                                                  color: Theme.of(context).canvasColor
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ) : RichText(
+                                                        text: TextSpan(
+                                                          children: [
+                                                            TextSpan(
+                                                              text:item[index].realAmount!.toStringAsFixed(2),style: TextStyle(
+                                                              fontFamily: 'Nexa3',
+                                                              fontSize: 17,
+                                                              height: 1,
                                                               color: renkler.kirmiziRenk,
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                  ),
-                                                  )
-                                                ],
+                                                            ),
+                                                            TextSpan(
+                                                              text: readSetting.prefixSymbol,
+                                                              style: TextStyle(
+                                                                fontFamily: 'TL',
+                                                                fontSize: 17,
+                                                                height: 1,
+                                                                fontWeight: FontWeight.w600,
+                                                                color: renkler.kirmiziRenk,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                    ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -478,7 +486,8 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                             style: const TextStyle(
                               color: Colors.white,
                               fontFamily: "Nexa3",
-                              fontSize: 28,
+                              height: 1,
+                              fontSize: 24,
                             ),
                           ),
                            Text(
@@ -487,6 +496,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                               color: Colors.white,
                               fontFamily: "Nexa3",
                               fontWeight: FontWeight.w400,
+                              height: 1,
                               fontSize: 13,
                             ),
                           ),
@@ -554,7 +564,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                               height: 1,
                               color: Colors.white,
                               fontFamily: "NEXA3",
-                              fontSize: 28,
+                              fontSize: 24,
                             ),
                           ),
                            Text(

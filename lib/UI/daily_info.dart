@@ -33,7 +33,8 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
     //String formattedDate = intl.DateFormat('dd.MM.yyyy').format(now);
     String formattedDate = readSettings.localChanger() == const Locale("ar") ? intl.DateFormat('yyyy.MM.dd').format(now) : intl.DateFormat('dd.MM.yyyy').format(now);
     var size = MediaQuery.of(context).size;
-    var read = ref.read(botomNavBarRiverpod);
+    var readNavBar = ref.read(botomNavBarRiverpod);
+    var readCalendar = ref.read(calendarRiverpod);
     CustomColors renkler = CustomColors();
     return Center(
       child: SizedBox(
@@ -78,8 +79,10 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        read.setCurrentindex(2);
+                        readNavBar.setCurrentindex(2);
                         Navigator.of(context).popUntil((route) => route.isFirst) ;
+                        readCalendar.setIndex(0, 3);
+                        readCalendar.resetPageController();
                       },
                       child: Text(formattedDate,
                           style: TextStyle(

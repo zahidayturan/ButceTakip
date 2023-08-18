@@ -86,7 +86,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                 decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(30)),
-                                    color: snapshot.data!.length <= 10
+                                    color: snapshot.data!.length <= 12
                                         ? Theme.of(context).indicatorColor
                                         : Theme.of(context).canvasColor),
                               ),
@@ -146,79 +146,87 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                             borderRadius: BorderRadius.circular(10),
                                             color: Theme.of(context).indicatorColor,
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(bottom: 5,left: 6,right: 6),
-                                                child: Icon(
-                                                  Icons.remove_red_eye,
-                                                  color:
-                                                      item[index].operationType ==
-                                                              "Gider"
-                                                          ? const Color(0xFFD91A2A)
-                                                          : Theme.of(context).canvasColor,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top: 4),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(bottom: 5,left: 6,right: 6),
+                                                  child: Icon(
+                                                    Icons.remove_red_eye,
+                                                    color:
+                                                        item[index].operationType ==
+                                                                "Gider"
+                                                            ? const Color(0xFFD91A2A)
+                                                            : Theme.of(context).canvasColor,
+                                                  ),
                                                 ),
-                                              ),
-                                              const SizedBox(width: 5),
-                                              Text(
-                                                "${item[index].operationDate}",
-                                                style: TextStyle(
-                                                  fontFamily: 'NEXA3',
-                                                  fontSize: 17,
-                                                  color: Theme.of(context).canvasColor,
+                                                const SizedBox(width: 5),
+                                                Text(
+                                                  "${item[index].operationDate}",
+                                                  style: TextStyle(
+                                                    fontFamily: 'NEXA3',
+                                                    fontSize: 17,
+                                                    height: 1,
+                                                    color: Theme.of(context).canvasColor,
+                                                  ),
                                                 ),
-                                              ),
-                                              const Spacer(),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 8.0),
-                                                child: item[index].operationType ==
-                                                        "Gelir"
-                                                    ? RichText(
-                                                  text: TextSpan(
-                                                    children: [
-                                                      TextSpan(
-                                                        text:item[index].realAmount.toString(),style: TextStyle(
-                                                        fontFamily: 'NEXA3',
-                                                        fontSize: 17,
-                                                          color: Theme.of(context).canvasColor
-                                                      ),
-                                                      ),
-                                                      TextSpan(
-                                                        text: readSettings.prefixSymbol,
-                                                        style: TextStyle(
-                                                          fontFamily: 'TL',
+                                                const Spacer(),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      right: 8.0),
+                                                  child: item[index].operationType ==
+                                                          "Gelir"
+                                                      ? RichText(
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text:item[index].realAmount.toString(),style: TextStyle(
+                                                          fontFamily: 'NEXA3',
                                                           fontSize: 17,
-                                                          fontWeight: FontWeight.w600,
+                                                            height: 1,
                                                             color: Theme.of(context).canvasColor
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ) : RichText(
-                                                  text: TextSpan(
-                                                    children: [
-                                                      TextSpan(
-                                                        text:item[index].realAmount.toString(),style: TextStyle(
-                                                        fontFamily: 'NEXA3',
-                                                        fontSize: 17,
-                                                        color: renkler.kirmiziRenk,
-                                                      ),
-                                                      ),
-                                                      TextSpan(
-                                                        text: readSettings.prefixSymbol,
-                                                        style: TextStyle(
-                                                          fontFamily: 'TL',
+                                                        ),
+                                                        TextSpan(
+                                                          text: readSettings.prefixSymbol,
+                                                          style: TextStyle(
+                                                            fontFamily: 'TL',
+                                                            fontSize: 17,
+                                                            height: 1,
+                                                            fontWeight: FontWeight.w600,
+                                                              color: Theme.of(context).canvasColor
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ) : RichText(
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text:item[index].realAmount.toString(),style: TextStyle(
+                                                          fontFamily: 'NEXA3',
                                                           fontSize: 17,
-                                                          fontWeight: FontWeight.w600,
+                                                          height: 1,
                                                           color: renkler.kirmiziRenk,
                                                         ),
-                                                      ),
-                                                    ],
+                                                        ),
+                                                        TextSpan(
+                                                          text: readSettings.prefixSymbol,
+                                                          style: TextStyle(
+                                                            fontFamily: 'TL',
+                                                            fontSize: 17,
+                                                            height: 1,
+                                                            fontWeight: FontWeight.w600,
+                                                            color: renkler.kirmiziRenk,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                            ],
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),

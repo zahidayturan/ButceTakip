@@ -320,7 +320,7 @@ class Generalinfo extends ConsumerWidget {
                                           TextSpan(
                                             text: readdb.getTotalAmount(items)[0],
                                             style: TextStyle(
-                                              fontSize: 18,
+                                              fontSize: 19,
                                               fontFamily: 'Nexa3',
                                               color: Theme.of(context).canvasColor,
                                             ),
