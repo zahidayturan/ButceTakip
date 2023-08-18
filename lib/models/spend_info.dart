@@ -152,7 +152,7 @@ class SpendInfo {
         o[10].toString(),
         o[11].toString(),
         o[12].toString(),
-        o[13].toString(),
+        "",
         double.parse(o[5].toString()),// amount ile aynı değeri eşitledim.
         "",
         "",

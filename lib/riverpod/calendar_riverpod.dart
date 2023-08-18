@@ -9,6 +9,57 @@ import '../utils/db_helper.dart';
 import 'package:butcekontrol/classes/language.dart';
 
 class CalendarRiverpod extends ChangeNotifier {
+
+  int currentIndex = (DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12);
+  int monthIndex = (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))%12)+1;
+  int yearIndex = (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))~/12)+2020;
+
+  late PageController pageMonthController;
+  late PageController pageYearController;
+  setIndex(int index,int operation) {
+    if(operation == 0){///ay arttırma
+      monthIndex = index+1;
+      currentIndex = (monthIndex-1)+((yearIndex-2020)*12);
+    }
+    else if(operation == 1){///yıl arttırma
+      yearIndex = index+2020;
+      currentIndex = (monthIndex-1)+((yearIndex-2020)*12);
+    }
+    else if(operation == 2){///page değiştirme
+      if(index == 0){///1AY GERİ
+        currentIndex = currentIndex-1;
+        monthIndex = (currentIndex % 12)+1;
+        yearIndex = (currentIndex~/12)+2020;
+      }else if(index == 2){///1AY İLERİ
+        currentIndex = currentIndex+1;
+        monthIndex = (currentIndex % 12)+1;
+        yearIndex = (currentIndex~/12)+2020;
+      }
+      else if(index == 1){///SABİT
+        currentIndex = currentIndex;
+        monthIndex = (currentIndex % 12)+1;
+        yearIndex = (currentIndex~/12)+2020;
+      }
+    }
+    else if(operation == 3){///resetleme
+      currentIndex = (DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12);
+      monthIndex = (currentIndex % 12)+1;
+      yearIndex = (currentIndex~/12)+2020;
+    }
+  }
+  List<int> getIndex() {
+    return [currentIndex,monthIndex,yearIndex];
+  }
+  List<int> indexCalculator(int index){
+    int monthIndexCalc = (index % 12)+1;
+    int yearIndexCalc = (index~/12)+2020;
+    return[monthIndexCalc,yearIndexCalc];
+  }
+  resetPageController(){
+    pageMonthController = PageController(initialPage:monthIndex-1);
+    pageYearController = PageController(initialPage: yearIndex-2020);
+  }
+
   static const List<int> _daysInMonth = [
     31, // Ocak
     28, // Şubat
@@ -86,7 +137,7 @@ class CalendarRiverpod extends ChangeNotifier {
 
     double result = totalAmount - totalAmount2;
     String formattedResult = result.toStringAsFixed(1);
-    List amountList = [totalAmount.toStringAsFixed(1),totalAmount2.toStringAsFixed(2),formattedResult];
+    List amountList = [totalAmount.toStringAsFixed(1),totalAmount2.toStringAsFixed(1),formattedResult];
     return Future.value(amountList);
   }
 

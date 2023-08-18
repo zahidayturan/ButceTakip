@@ -69,7 +69,7 @@ class DailyInfoRiverpod extends ChangeNotifier {
 
     double result = totalAmount - totalAmount2;
     String formattedResult = result.toStringAsFixed(1);
-    List amountList = [totalAmount,totalAmount2.toStringAsFixed(2),formattedResult,result];
+    List amountList = [totalAmount,totalAmount2.toStringAsFixed(1),formattedResult,result];
     return Future.value(amountList);
   }
 
