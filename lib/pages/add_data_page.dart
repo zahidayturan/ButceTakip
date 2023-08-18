@@ -1850,6 +1850,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
                                                       renkler.koyuuRenk,
                                                       fontSize: 16,
                                                       fontFamily: 'Nexa3',
+                                                      height: 1
                                                     ),
                                                   ),
                                                 ),
@@ -2713,25 +2714,25 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
               width: size.width > 392 ? size.width*0.34 : 130,
               child: Stack(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Theme.of(context).shadowColor,
-                    ),
-                    height: 32,
-                    width: size.width > 392 ? size.width*0.34 : 130,
-                    child: GestureDetector(
-                      onTap: () {
-                        _note.text = "";
-                        _amount.text = "";
-                        textLength = 0;
-                        setState(() {
-                          _category.text = "";
-                          _customize.text = "";
+                  GestureDetector(
+                    onTap: () {
+                      _note.text = "";
+                      _amount.text = "";
+                      textLength = 0;
+                      setState(() {
+                        _category.text = "";
+                        _customize.text = "";
 
-                        });
-                        //operationCustomButton(context);
-                      },
+                      });
+                      //operationCustomButton(context);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: Theme.of(context).shadowColor,
+                      ),
+                      height: 32,
+                      width: size.width > 392 ? size.width*0.34 : 130,
                       child: Center(
                         child: Text(translation(context).deleteAll,
                             style: TextStyle(
@@ -2750,128 +2751,128 @@ class _ButtonMenu extends ConsumerState<ButtonMenu>{
               width: size.width > 392 ? size.width*0.39 : 150,
               child: Stack(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: renkler.sariRenk,
-                    ),
-                    height: 34,
-                    width: size.width > 392 ? size.width*0.39 : 150,
-                    child: GestureDetector(
-                      onTap: () {
-                        setAlertContent(context);
-                        double amount = double.tryParse(_amount.text) ?? 0.0;
-                        if (amount != 0.0 && _category.text.isNotEmpty) {
-                          if (selectedCustomizeMenu == 1 &&
-                              _customize.text != "") {
-                            amount = double.parse((amount / double.parse(_customize.text)).toStringAsFixed(2));
-                            systemMessage =
-                                "1/${_customize.text} taksit işlendi";
-                            _customize.text = "1/${_customize.text}";
-                          } else if (selectedCustomizeMenu == 0 &&
-                              _customize.text != "") {
-                            systemMessage =
-                                "${_customize.text} tekrar işlendi";
-                          }
-                          read.insertDataBase(
-                              _operationType.text,
-                              _category.text,
-                              _operationTool.text,
-                              int.parse(_registration.text),
-                              amount,
-                              _note.text,
-                              _operationDate.text,
-                              _moneyType.text,
-                              ref.read(currencyRiverpod).calculateRealAmount(amount, _moneyType.text, ref.read(settingsRiverpod).Prefix!),
-                              _customize.text,
-                              "",
-                              systemMessage,
-                          )
-                              ;
+                  GestureDetector(
+                    onTap: () {
+                      setAlertContent(context);
+                      double amount = double.tryParse(_amount.text) ?? 0.0;
+                      if (amount != 0.0 && _category.text.isNotEmpty) {
+                        if (selectedCustomizeMenu == 1 &&
+                            _customize.text != "") {
+                          amount = double.parse((amount / double.parse(_customize.text)).toStringAsFixed(2));
+                          systemMessage =
+                              "1/${_customize.text} taksit işlendi";
+                          _customize.text = "1/${_customize.text}";
+                        } else if (selectedCustomizeMenu == 0 &&
+                            _customize.text != "") {
+                          systemMessage =
+                              "${_customize.text} tekrar işlendi";
+                        }
+                        read.insertDataBase(
+                            _operationType.text,
+                            _category.text,
+                            _operationTool.text,
+                            int.parse(_registration.text),
+                            amount,
+                            _note.text,
+                            _operationDate.text,
+                            _moneyType.text,
+                            ref.read(currencyRiverpod).calculateRealAmount(amount, _moneyType.text, ref.read(settingsRiverpod).Prefix!),
+                            _customize.text,
+                            "",
+                            systemMessage,
+                        )
+                            ;
 
-                          if (adCounter == 0) {
-                            _showInterstitialAd(context);
+                        if (adCounter == 0) {
+                          _showInterstitialAd(context);
 
-                            ///reklam
-                            readSettings.resetAdCounter();
+                          ///reklam
+                          readSettings.resetAdCounter();
 
-                            ///2 leme
-                          } else {
-                            readSettings.useAdCounter();
+                          ///2 leme
+                        } else {
+                          readSettings.useAdCounter();
 
-                            ///eksi 1
-                          }
-                          Navigator.of(context).pop();
-                          read2.setCurrentindex(0);
-                          readHome.setStatus();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Theme.of(context).highlightColor,
-                              duration: const Duration(seconds: 1),
-                              content: Text(
-                                translation(context).activityAdded,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontFamily: 'Nexa3',
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.3,
-                                ),
+                          ///eksi 1
+                        }
+                        Navigator.of(context).pop();
+                        read2.setCurrentindex(0);
+                        readHome.setStatus();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Theme.of(context).highlightColor,
+                            duration: const Duration(seconds: 1),
+                            content: Text(
+                              translation(context).activityAdded,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w600,
+                                height: 1.3,
                               ),
                             ),
-                          );
-                        } else {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  backgroundColor: Theme.of(context).primaryColor,
-                                  title: Text("Eksik İşlem Yaptınız",
+                          ),
+                        );
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                backgroundColor: Theme.of(context).primaryColor,
+                                title: Text("Eksik İşlem Yaptınız",
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .secondaryHeaderColor,
+                                        fontSize: 22,
+                                        fontFamily: 'Nexa3')),
+                                content: Text(
+                                  alertContent,
+                                  style: TextStyle(
+                                      color: Theme.of(context).canvasColor,
+                                      fontSize: 16,
+                                      fontFamily: 'Nexa3'),
+                                ),
+                                shadowColor: renkler.koyuuRenk,
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      if (alertOperator == 1) {
+                                        _amount.clear();
+                                        _category.clear();
+                                      } else if (alertOperator == 2) {
+                                        _amount.clear();
+                                      } else if (alertOperator == 3) {
+                                        _category.clear();
+                                      } else {
+                                        _amount.clear();
+                                        _category.clear();
+                                      }
+                                      Navigator.of(context).pop();
+                                      //FocusScope.of(context).requestFocus(amountFocusNode);
+                                    },
+                                    child: Text(
+                                      translation(context).ok,
                                       style: TextStyle(
                                           color: Theme.of(context)
                                               .secondaryHeaderColor,
-                                          fontSize: 22,
-                                          fontFamily: 'Nexa3')),
-                                  content: Text(
-                                    alertContent,
-                                    style: TextStyle(
-                                        color: Theme.of(context).canvasColor,
-                                        fontSize: 16,
-                                        fontFamily: 'Nexa3'),
-                                  ),
-                                  shadowColor: renkler.koyuuRenk,
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        if (alertOperator == 1) {
-                                          _amount.clear();
-                                          _category.clear();
-                                        } else if (alertOperator == 2) {
-                                          _amount.clear();
-                                        } else if (alertOperator == 3) {
-                                          _category.clear();
-                                        } else {
-                                          _amount.clear();
-                                          _category.clear();
-                                        }
-                                        Navigator.of(context).pop();
-                                        //FocusScope.of(context).requestFocus(amountFocusNode);
-                                      },
-                                      child: Text(
-                                        translation(context).ok,
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .secondaryHeaderColor,
-                                            fontSize: 18,
-                                            height: 1,
-                                            fontFamily: 'Nexa3'),
-                                      ),
-                                    )
-                                  ],
-                                );
-                              });
-                        }
-                      },
+                                          fontSize: 18,
+                                          height: 1,
+                                          fontFamily: 'Nexa3'),
+                                    ),
+                                  )
+                                ],
+                              );
+                            });
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: renkler.sariRenk,
+                      ),
+                      height: 34,
+                      width: size.width > 392 ? size.width*0.39 : 150,
                       child: Center(
                         child: Text(translation(context).done,
                             style: TextStyle(

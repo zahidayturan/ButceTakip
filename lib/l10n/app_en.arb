@@ -12,6 +12,11 @@
     "backupTitle": "BACKUP",
     "contactUsTitle": "CONTACT US",
 
+    "savedActivities": "Saved Activities",
+    "savedActivitiesAmount": "Amount",
+    "savedActivitiesCategory": "Category",
+    "numberOfSavedActivities": "Number of Saved Activities:",
+
     "january": "January",
     "february": "February",
     "march": "March",
@@ -187,8 +192,9 @@
     "yes": "Yes",
     "no": "No",
 
-    "whatIsYourFavoriteAnimal": "What is your favorite animal?",
+    "whatIsYourFavoriteAnimal": "What is your favorite animal ?",
     "pleaseEnteraName": "Please enter a name",
+    "enter": "Enter",
 
 
 

@@ -1093,6 +1093,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5, right: 5),
                           child: TextFormField(
+
                             maxLength: 12,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
@@ -1121,11 +1122,11 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             keyboardType: TextInputType.number,
                             controller: sayi1Controller,
                             decoration: InputDecoration(
-                            hintStyle: TextStyle(
+                              hintText: translation(context).enteraNumber,
+                            hintStyle: const TextStyle(
                               height: 1,
                               fontSize: 14,
                               fontFamily: 'Nexa3',
-                              color: renkler.koyuAraRenk
                             ),
                             counterText: '',
                             isDense: true,
@@ -1222,11 +1223,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                 )
                               ),
-                            ],
                           ),
                         ),
                       ),
-                    ],
+                      )],
                   ),
                 ],
               )
@@ -1821,7 +1821,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
           ),
         ),
         Text(
-          "Euro Kuru : $kureuro ",
+          "Euro Kuru : kureuro ",
           style: const TextStyle(
             fontFamily: 'NEXA4',
             fontSize: 17,
@@ -1829,7 +1829,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
           ),
         ),
         Text(
-          "Sterlin Kuru : $kursterlin ",
+          "Sterlin Kuru : kursterlin ",
           style: const TextStyle(
             fontFamily: 'NEXA4',
             fontSize: 17,

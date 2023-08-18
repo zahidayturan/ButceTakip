@@ -1,4 +1,5 @@
 import 'package:butcekontrol/UI/spend_detail.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class RegisteryList extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Kaydedilen İşlemler",
+                    translation(context).savedActivities,
                     style: TextStyle(
                         color: Theme.of(context).canvasColor,
                         fontFamily: "Nexa4",
@@ -86,20 +87,22 @@ class RegisteryList extends ConsumerWidget {
                         Padding(
                           padding: EdgeInsets.only(left: 20),
                           child: Text(
-                            "     İşlem\nKategorisi",
+                            translation(context).savedActivitiesCategory,
                             style: TextStyle(
                               color: Theme.of(context).canvasColor,
                               fontFamily: "Nexa3",
+                              height: 1
                             ),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(right: 35),
                           child: Text(
-                            " İşlem\nTutarı",
+                            translation(context).savedActivitiesAmount,
                             style: TextStyle(
                               color: Theme.of(context).canvasColor,
                               fontFamily: "Nexa3",
+                              height: 1
                             ),
                           ),
                         ),
@@ -304,9 +307,12 @@ class RegisteryList extends ConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 12),
                           child: Text(
-                            "Kaydedilen İşlem Sayısı : ${item.length}",
+                            "${translation(context).numberOfSavedActivities} ${item.length}",
                             style: TextStyle(
-                                color: Theme.of(context).canvasColor, fontSize: 13),
+                                color: Theme.of(context).canvasColor, fontSize: 13,
+                            height: 1
+                            ),
+
                           ),
                         ),
                       ],

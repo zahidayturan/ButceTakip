@@ -12,6 +12,11 @@
   "backupTitle": "YEDEKLEME",
   "contactUsTitle": "İLETİŞİM",
 
+  "savedActivities": "Kaydedilen İşlemler",
+  "savedActivitiesAmount": "İşlem\nTutarı",
+  "savedActivitiesCategory": "İşlem\nKategorisi",
+  "numberOfSavedActivities": "Kaydedilen İşlem Sayısı",
+
   "january": "Ocak",
   "february": "Şubat",
   "march": "Mart",
@@ -80,7 +85,7 @@
 
   "date": "TARİH",
   "missingEntry": "Eksik İşlem",
-  "pleaseEnterAnAmount": "Lütfen bir tutar girin!",
+  "pleaseEnterAnAmount": "Lütfen bir tutar giriniz!",
   "ok": "Tamam",
 
   "food": "Yemek",
@@ -181,6 +186,7 @@
   "passwordCreated": "Şifreniz Oluşturuldu",
   "securityQuestion": "Güvenlik sorusu:",
 
+
   "enterThePasscode": "Şifre kodunu giriniz",
   "wrongPassword": "Yanlış şifre",
 
@@ -189,8 +195,11 @@
   "yes": "Geri Dön",
   "no": "Vazgeç",
 
-  "whatIsYourFavoriteAnimal": "En sevdiğin hayvan nedir?",
+  "whatIsYourFavoriteAnimal": "En sevdiğin hayvan nedir ?",
   "pleaseEnteraName": "Lütfen bir değer giriniz",
+  "enter": "Giriniz",
+
+
 
 
 

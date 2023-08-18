@@ -12,6 +12,11 @@
   "backupTitle": "النسخ الاحتياطي",
   "contactUsTitle": "تواصل معنا",
 
+  "savedActivities": "المعاملات المسجلة",
+  "savedActivitiesAmount": "مبلغ المعاملة",
+  "savedActivitiesCategory": "فئة المعاملة",
+  "numberOfSavedActivities": "عدد المعاملات المحفوظة:",
+
   "january": "كانون الثّاني",
   "february": "شباط",
   "march": "آذار",
@@ -104,7 +109,7 @@
   "delete": "حذف",
   "deleteAll": "حذف الجميع",
   "done": "تم",
-  "activityAdded": "تم إضافة  العملية",
+  "activityAdded": "تم إضافة المعاملة",
 
   "percentageCalculation": "الحساب بنسبة المئوية",
   "calculator": "الآلة الحاسبة",
@@ -119,7 +124,7 @@
   "secondNumber": "الرقم الثاني",
   "result2": "نتيحة العملية",
   "secondNumberPercentageOfFirstNumber": "النسبة المئوية للرقم الثاني من الرقم الأول؟",
-  "rateOfChange": "ما هو معدل التغير من الرقم الأول إلى الرقم الثاني؟",
+  "rateOfChange": "ما هو معدل التغير من الرقم الأول\nإلى الرقم الثاني؟",
 
   "creditCalculation": "حساب القرض",
   "amount2": "المبلغ",
@@ -141,7 +146,7 @@
   "currencyConverterWarning": "لم يتم تفعيل محول العملات بعد.",
 
   "settings": "الإعدادات",
-  "help": "مساعدة",
+  "help": "المساعدة",
   "loginPassword": "كلمة المرور",
   "downloadData": "تحميل البيانات",
   "contactUs": "تواصل معنا",
@@ -188,9 +193,9 @@
   "yes": "استمرار",
   "no": "تراجع",
 
-  "whatIsYourFavoriteAnimal": "ما هو حيوانك المفضل؟",
+  "whatIsYourFavoriteAnimal": "ما هو حيوانك المفضل ؟",
   "pleaseEnteraName": "الرجاء إدخال اسم",
-
+  "enter": "أدخل",
 
 
 
@@ -228,7 +233,7 @@
   "notSaved": "غير محفوظ",
   "noteDetails": "ملاحظة",
   "deleteDetails": "حذف",
-  "activityDeleted": "تم حذف  العملية",
+  "activityDeleted": "تم حذف  المعاملة",
   "edit": "تعديل",
 
   "updateDone": "حفظ",

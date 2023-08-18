@@ -83,7 +83,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                 fontSize: 18,
                                 fontFamily: 'Nexa4',
                                 fontWeight: FontWeight.w900,
-                            color: Theme.of(context).canvasColor
+                            color: Theme.of(context).canvasColor,
                             )),
                       )
                     ],
@@ -128,7 +128,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                           ),
                         ),
                       ) :SizedBox(
-                        height: 199,
+                        height: 198,
                         child: Padding(
                           //borderin scroll ile birleşimi gözüksü diye soldan padding
                           padding: const EdgeInsets.only(left: 5.0, top: 5),
