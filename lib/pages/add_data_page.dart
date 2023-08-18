@@ -313,6 +313,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   int categoryEditChanger2 = 0;
   Widget categoryBarCustom(BuildContext context, WidgetRef ref) {
     var size = MediaQuery.of(context).size;
+    var readHome = ref.read(homeRiverpod);
     return SizedBox(
       height: 38,
       width: size.width * 0.95,
@@ -920,6 +921,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                           onPressed: () {
                                                             Navigator.of(context)
                                                                 .pop();
+                                                            readHome.setStatus();
                                                           },
                                                           child: Text(
                                                             translation(context)
@@ -1663,6 +1665,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                       editChanger = 1;
                                                                                                     });
                                                                                                 Navigator.of(context).pop();
+                                                                                                readHome.setStatus();
                                                                                               }
                                                                                             },
                                                                                             style: ButtonStyle(
@@ -2119,6 +2122,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                 ///user cateory == seçili category, olanları bul ve bu listenin userCategorysini '' yap
                                                                                                 readUpdateDB.categoryUsageCount(selectedCategory, _categoryController.text,1,'');
                                                                                                 Navigator.of(context).pop();
+                                                                                                readHome.setStatus();
                                                                                                 setState((){});
                                                                                               },
                                                                                             ),
@@ -2354,6 +2358,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                           editChanger = 1;
                                                                                                         });
                                                                                                     Navigator.of(context).pop();
+                                                                                                    readHome.setStatus();
                                                                                                   }
                                                                                                 },
                                                                                                 style: ButtonStyle(

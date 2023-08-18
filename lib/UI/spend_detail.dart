@@ -47,7 +47,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 9),
                 child: Row(
                   children: [
                     Padding(
@@ -57,6 +57,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         style: TextStyle(
                           color: Theme.of(context).dialogBackgroundColor,
                           fontFamily: 'Nexa4',
+                          height: 1,
                           fontSize: 22,
                         ),
                       ),
@@ -92,7 +93,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom:10),
+                padding: const EdgeInsets.only(bottom:9),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -100,6 +101,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa4',
+                          height: 1,
                           fontSize: 18,
                         )),
                     SizedBox(
@@ -117,6 +119,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                               "${item[index].operationDate}",
                               style: TextStyle(
                                 color: renkler.koyuuRenk,
+                                height: 1,
                                 fontFamily: 'NEXA3',
                                 fontSize: 18,
                               ),
@@ -129,7 +132,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 9),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -137,19 +140,21 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa4',
+                          height: 1,
                           fontSize: 18,
                         )),
                     Text("${item[index].operationTime}",
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa3',
+                          height: 1,
                           fontSize: 18,
                         )),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 9),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,13 +162,15 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa4',
+                          height: 1,
                           fontSize: 18,
                         )),
                     Expanded(
-                      child: Text("${item[index].category}",
+                      child: Text("${item[index].category} - ${item[index].userCategory}",
                           style: const TextStyle(
                             color: Colors.white,
                             fontFamily: 'Nexa3',
+                            height: 1,
                             fontSize: 18,
                           ),
                       textAlign: TextAlign.end,
@@ -173,7 +180,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 9),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -181,19 +188,21 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa4',
+                          height: 1,
                           fontSize: 18,
                         )),
                     Text("${item[index].operationTool}",
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa3',
+                          height: 1,
                           fontSize: 18,
                         )),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 9),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -201,19 +210,25 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa4',
+                          height: 1,
                           fontSize: 18,
                         )),
-                    Text("${item[index].amount} ${item[index].moneyType}",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Nexa3',
-                          fontSize: 18,
-                        )),
+                    Expanded(
+                      child: Text("${item[index].amount} ${item[index].moneyType}",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Nexa3',
+                            height: 1,
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.end,
+                          overflow: TextOverflow.ellipsis),
+                    ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 9),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -221,6 +236,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa4',
+                          height: 1,
                           fontSize: 18,
                         )),
                     item[index].registration == 0
@@ -228,12 +244,14 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                             style: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'Nexa3',
+                              height: 1,
                               fontSize: 18,
                             ))
                         : Text(translation(context).saved,
                             style: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'Nexa3',
+                              height: 1,
                               fontSize: 18,
                             )),
                   ],
@@ -242,7 +260,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               Visibility(
                 visible: item[index].processOnce != '' && item[index].processOnce != '0',
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(bottom: 9),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -250,21 +268,21 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Nexa4',
+                                  height: 1,
                                   fontSize: 18,
                                 )),
-                            item[index].processOnce == ""
-                                ? const Text("Tekrar yok",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Nexa3',
-                                      fontSize: 18,
-                                    ))
-                                : Text("${item[index].processOnce}",
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Nexa3',
-                                      fontSize: 18,
-                                    )),
+                               Expanded(
+                                 child: Text("${item[index].processOnce}",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'Nexa3',
+                                        height: 1,
+                                        fontSize: 18,
+                                      ),
+                                     textAlign: TextAlign.end,
+                                     overflow: TextOverflow.ellipsis
+                                 ),
+                               ),
                           ],
                         ),
                     ),
@@ -272,35 +290,38 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               Visibility(
                 visible: item[index].systemMessage != '',
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text("SİSTEM MESAJI",
-                                style: TextStyle(
+                      padding: const EdgeInsets.only(bottom: 9),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Row(
+                            children: [
+                              Text("SİSTEM MESAJI",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Nexa4',
+                                    height: 1,
+                                    fontSize: 18,
+                                  )),
+                              SizedBox()
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5, left: 5),
+                            child: Text("${item[index].systemMessage}",
+                                style: const TextStyle(
                                   color: Colors.white,
-                                  fontFamily: 'Nexa4',
+                                  fontFamily: 'Nexa3',
+                                  height: 1,
                                   fontSize: 18,
                                 )),
-                            item[index].systemMessage == ""
-                                ? const Text("Mesaj yok",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Nexa3',
-                                      fontSize: 18,
-                                    ))
-                                : Text("${item[index].systemMessage}",
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Nexa3',
-                                      fontSize: 18,
-                                    )),
-                          ],
-                        ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 9),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -310,6 +331,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Nexa4',
+                              height: 1,
                               fontSize: 18,
                             )),
                         SizedBox()
@@ -324,14 +346,17 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Nexa3',
+                                  height: 1,
                                   fontSize: 18,
                                 ))
                             : Text("${item[index].note}",
                                 textAlign: TextAlign.justify,
+                            overflow: TextOverflow.ellipsis,
                                 maxLines: 6,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Nexa3',
+                                  height: 1,
                                   fontSize: 18,
                                 )),
                       ),
@@ -341,7 +366,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               ),
               ///KAYDETME BUTONU ŞU AN KAPALI
               Padding(
-                padding: const EdgeInsets.only(top: 6),
+                padding: const EdgeInsets.only(top: 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -410,8 +435,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     Column(
                       children: [
                         Container(
-                          width: 45,
-                          height: 45,
+                          width: 42,
+                          height: 42,
                           decoration: BoxDecoration(
                             color: Theme.of(context).dialogBackgroundColor,
                             borderRadius: BorderRadius.circular(15),
@@ -454,6 +479,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                             style: TextStyle(
                               color: Theme.of(context).dialogBackgroundColor,
                               fontFamily: 'Nexa3',
+                              height: 1,
                               fontSize: 16,
                             ),
                           ),
@@ -464,8 +490,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: 45,
-                          width: 45,
+                          height: 42,
+                          width: 42,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               color: const Color(0xFFF2CB05),
@@ -517,6 +543,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                             style: TextStyle(
                               color: Color(0xFFF2CB05),
                               fontFamily: 'Nexa3',
+                              height: 1,
                               fontSize: 16,
                             ),
                           ),
@@ -527,8 +554,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: 45,
-                          width: 45,
+                          height: 42,
+                          width: 42,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               color: const Color(0xFFF2CB05),
@@ -575,6 +602,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                             style: const TextStyle(
                               color: Color(0xFFF2CB05),
                               fontFamily: 'Nexa3',
+                              height: 1,
                               fontSize: 16,
                             ),
                           ),
@@ -608,7 +636,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
         .map((line) => Text(
               line,
               style: const TextStyle(
-                  color: Colors.white, fontFamily: "Nexa3", fontSize: 18),
+                  color: Colors.white, fontFamily: "Nexa3",height: 1, fontSize: 18),
             ))
         .toList();
 

@@ -120,7 +120,7 @@ class Generalinfo extends ConsumerWidget {
                                           Padding(
                                             padding: const EdgeInsets.only(left: 2),
                                             child: RotatedBox(
-                                              quarterTurns: 0,
+                                              quarterTurns: 1,
                                               child: InkWell(
                                                 //alignment: Alignment.topCenter,
                                                 //padding: EdgeInsets.zero,
@@ -144,7 +144,6 @@ class Generalinfo extends ConsumerWidget {
                                                   width: 20,
                                                   child: Image.asset(
                                                     "assets/icons/arrow.png",
-                                                    height: 18,
                                                     color: renkler.koyuuRenk,
                                                   ),
                                                 )
@@ -153,39 +152,45 @@ class Generalinfo extends ConsumerWidget {
                                           ),
                                           Directionality(
                                             textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
-                                            child: ClipRRect(
-                                              // yuvarlıyorum ay değişimi barını
-                                              borderRadius:
-                                              const BorderRadius.all(Radius.circular(50)),
-                                              child: Container(
-                                                height: 32,
-                                                width: 164,
-                                                color: Theme.of(context).highlightColor,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(top: 5),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Text(
-                                                        months[readhome.indexmounth],
-                                                        style: TextStyle(
-                                                          color: renkler.arkaRenk,
-                                                          fontSize: 17,
-                                                          fontFamily: 'Nexa3',
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                readhome.controllerPageMontly!.jumpToPage(DateTime.now().month-1);
+                                                readhome.changeindex(DateTime.now().month-1, DateTime.now().year-2020);
+                                                readdb.setMonthandYear(DateTime.now().month.toString(), DateTime.now().year.toString());
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                const BorderRadius.all(Radius.circular(50)),
+                                                child: Container(
+                                                  height: 32,
+                                                  width: 164,
+                                                  color: Theme.of(context).highlightColor,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(top: 5),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Text(
+                                                          months[readhome.indexmounth],
+                                                          style: TextStyle(
+                                                            color: renkler.arkaRenk,
+                                                            fontSize: 17,
+                                                            fontFamily: 'Nexa3',
+                                                          ),
                                                         ),
-                                                      ),
-                                                      // Ay gösterge
-                                                      const SizedBox(width: 4),
-                                                      Text(
-                                                        years[readhome.indexyear],
-                                                        style: TextStyle(
-                                                          color: renkler.arkaRenk,
-                                                          fontSize: 17,
-                                                          fontFamily: 'Nexa4',
+                                                        // Ay gösterge
+                                                        const SizedBox(width: 4),
+                                                        Text(
+                                                          years[readhome.indexyear],
+                                                          style: TextStyle(
+                                                            color: renkler.arkaRenk,
+                                                            fontSize: 17,
+                                                            fontFamily: 'Nexa4',
+                                                          ),
                                                         ),
-                                                      ),
-                                                      // Yıl gösterge
-                                                    ],
+                                                        // Yıl gösterge
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -194,7 +199,7 @@ class Generalinfo extends ConsumerWidget {
                                           Padding(
                                             padding: const EdgeInsets.only(right: 2),
                                             child: RotatedBox(
-                                              quarterTurns: 2,
+                                              quarterTurns: 3,
                                               child: InkWell(
                                                 //padding: EdgeInsets.zero,
                                                 //alignment: Alignment.topCenter,
@@ -215,7 +220,6 @@ class Generalinfo extends ConsumerWidget {
                                                   width: 20,
                                                   child: Image.asset(
                                                     "assets/icons/arrow.png",
-                                                    height: 18,
                                                     color: renkler.koyuuRenk,
                                                   ),
                                                 ),

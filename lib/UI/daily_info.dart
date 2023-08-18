@@ -48,8 +48,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      var date = DateTime.now() ;
-                      readDailyInfo.setDate(int.parse(date.day.toString()), int.parse(readDB.month), int.parse(readDB.year));
+                      readDailyInfo.setDate(DateTime.now().day, DateTime.now().month, DateTime.now().year);
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
                     },
                     child: DecoratedBox(

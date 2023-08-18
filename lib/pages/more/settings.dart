@@ -31,6 +31,19 @@ class _SettingsState extends ConsumerState<Settings> {
     "IQD",
     "SAR"
   ];
+  List<String> getMoneyNameList(){
+  List<String> moneyNameList = <String>[
+    'TRY - Türkiye - ₺',
+    "USD - USA - \$",
+    "EUR - Europe - €",
+    "GBP - The United Kingdom - £",
+    "KWD - Kuwait - د.ك",
+    "JOD - Jordan - د.أ'",
+    "IQD - Iraq - د.ع",
+    "SAR - Saudi Arabia - ر.س",
+  ];
+  return moneyNameList;
+  }
   List<String> dilDestegi = <String>["Türkçe", "English", "العربية"];
   CustomColors renkler = CustomColors();
 
@@ -362,7 +375,9 @@ class _SettingsState extends ConsumerState<Settings> {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
-                                    onTap: () {},
+                                    onTap: () {
+                                      print(value);
+                                    },
                                   );
                                 }).toList(),
                               ),

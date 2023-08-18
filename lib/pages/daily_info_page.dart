@@ -145,7 +145,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                           highlightColor: Theme.of(context).primaryColor,
                                           borderRadius: BorderRadius.circular(13),
                                           child: SizedBox(
-                                            height: 40,
+                                            height: 50,
                                             child: DecoratedBox(
                                               decoration: BoxDecoration(
                                                 borderRadius:
