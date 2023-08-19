@@ -50,11 +50,14 @@
 
   "yearly": "YILLIK",
   "monthly": "AYLIK",
-  "weekly": "HAFTA",
-  "daily": "GÜN",
+  "weekly": "HAFTALIK",
+  "daily": "GÜNLÜK",
 
   "dataNotFound": "Veri bulunamadı",
   "totalAmountStatistics": "Toplam Tutar",
+  "yesBig": "EVET",
+  "noBig": "HAYIR",
+  "categoryAppBar" : "Kategorisi",
 
 
 

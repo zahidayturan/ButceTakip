@@ -1,11 +1,16 @@
+import 'package:butcekontrol/Riverpod/statistics_riverpod.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/pages/category_info_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:butcekontrol/classes/language.dart';
+import 'package:http/http.dart';
+import 'package:intl/intl.dart' as intl;
 
 class Statistics extends ConsumerWidget {
   const Statistics({super.key});
@@ -32,21 +37,32 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     ref.listen(databaseRiverpod, (previous, next) {
       ref.watch(databaseRiverpod).isuseinsert;
       ref.watch(databaseRiverpod).updatest;
-      categoryList(context);
+      //myCategoryList(context);
       return ref.watch(databaseRiverpod);
     });
     var size = MediaQuery.of(context).size;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        const SizedBox(height: 15),
-        SizedBox(
-          height: size.height * 0.26,
-          width: size.width,
-          child: pasta(context),
+        const SizedBox(height: 10),
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              leftInfoButton(context),
+              Expanded(
+                child: SizedBox(
+                  height: size.height * 0.26,
+                  child: pasta(context),
+                ),
+              ),
+              rightInfoButton(context),
+            ],
+          ),
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         filterAdd(context),
         const SizedBox(
@@ -54,8 +70,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         ),
         Expanded(
           child: SizedBox(
-              width: size.width * 0.9,
-              child: categoryList(context)),
+              width: size.width * 0.98, child: myCategoryList(context)),
         ),
         /*SizedBox(
           child: Text(
@@ -65,20 +80,83 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     );
   }
 
-  Widget filterAdd(BuildContext context){
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  String operationType = 'Hepsi';
+  int day = DateTime.now().day;
+  int month = DateTime.now().month;
+  int year = DateTime.now().year;
+  int week = (DateTime.now().day / 7).ceil();
+  int dateType = 1;
+  int registration = 0;
+  List<String> operationTool = ['Hepsi'];
+
+  List<String> createItemListForType(BuildContext context) {
+    return [
+      translation(context).income,
+      translation(context).expenses,
+      translation(context).both,
+    ];
+  }
+
+  List<String> createItemListForTool(BuildContext context) {
+    return [
+      translation(context).cash,
+      translation(context).card,
+      translation(context).otherPaye,
+      translation(context).both,
+    ];
+  }
+
+  List<String> dateTypeList(BuildContext context) {
+    return [
+      translation(context).yearly,
+      translation(context).monthly,
+      translation(context).weekly,
+      translation(context).daily,
+      'PERİYOT',
+    ];
+  }
+
+  String selectedValueTypes(String value, BuildContext context) {
+    return translation(context).both;
+  }
+
+  String? selectedValueDate;
+  String? selectedValueType;
+  List<String> selectedItemsTool = [];
+  List<String> selectedItemsToolToData = [];
+
+
+  Widget filterAdd(BuildContext context) {
+    var readStatistics = ref.read(statisticsRiverpod);
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
     return InkWell(
-      borderRadius: BorderRadius.circular(15),
+      borderRadius: BorderRadius.circular(10),
       child: Container(
-        width: size.width*0.9,
+        width: size.width * 0.92,
         height: 30,
         decoration: BoxDecoration(
           color: Theme.of(context).highlightColor,
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-      ),
-        child: Center(child: Text("Filtrelemek için dokunun",style: TextStyle(color: renkler.arkaRenk,fontFamily: 'Nexa3',fontSize: 15),)),
-
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+        ),
+        child: Center(
+            child: Text(
+          "Filtrelemek için dokunun",
+          style: TextStyle(
+              color: renkler.arkaRenk, fontFamily: 'Nexa3', fontSize: 15),
+        )),
       ),
       onTap: () {
         showDialog(
@@ -87,26 +165,27 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             return StatefulBuilder(
               builder: (context, setState) {
                 return AlertDialog(
-                  contentPadding: const EdgeInsets.only(top: 10,bottom: 10),
+                  contentPadding: const EdgeInsets.only(top: 10, bottom: 10),
+                  insetPadding: const EdgeInsets.symmetric(horizontal: 15),
                   backgroundColor: Theme.of(context).primaryColor,
                   shadowColor: Colors.black54,
                   shape: const RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(10))),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 8,right: 8),
+                            padding: const EdgeInsets.only(left: 8, right: 8),
                             child: SizedBox(
-                              width: size.width*0.95,
+                              width: size.width * 0.95,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                   "İstatistik Filtreleme",
+                                    "İstatistik Filtreleme",
                                     style: TextStyle(
                                         color: Theme.of(context).canvasColor,
                                         fontFamily: "Nexa4",
@@ -118,8 +197,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
                                         color: Theme.of(context).canvasColor,
-                                        borderRadius:
-                                        const BorderRadius.all(Radius.circular(20)),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(20)),
                                       ),
                                       child: IconButton(
                                         icon: Image.asset(
@@ -148,29 +227,116 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 padding: const EdgeInsets.only(top: 1),
                                 child: Container(
                                   height: 30,
-                                  width: size.width*0.95,
+                                  width: size.width * 0.95,
                                   color: Theme.of(context).highlightColor,
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                padding:
+                                    const EdgeInsets.only(left: 8.0, right: 8),
                                 child: SizedBox(
                                   height: 32,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Text("İşlem Türü",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          "İşlem Türü",
+                                          style: TextStyle(
+                                              color: renkler.arkaRenk,
+                                              fontSize: 15,
+                                              fontFamily: 'Nexa3'),
+                                        ),
+                                      ),
                                       Container(
                                         height: 36,
-                                        width: 100,
+                                        //width: 100,
                                         decoration: BoxDecoration(
                                           color: renkler.sariRenk,
-                                          borderRadius: const BorderRadius.all(Radius.circular(10))
-                                          
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10)),
+                                        ),
+                                        child: DropdownButtonHideUnderline(
+                                          child: DropdownButton2<String>(
+                                            isExpanded: true,
+                                            hint: Center(
+                                              child: Text(
+                                                translation(context).both,
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Nexa4',
+                                                  color: renkler.koyuuRenk,
+                                                ),
+                                              ),
+                                            ),
+                                            items: createItemListForType(
+                                                    context)
+                                                .map((String item) =>
+                                                    DropdownMenuItem<String>(
+                                                      value: item,
+                                                      child: Center(
+                                                        child: Text(
+                                                          item,
+                                                          style: TextStyle(
+                                                              fontSize: 13,
+                                                              height: 1,
+                                                              fontFamily:
+                                                                  'Nexa4',
+                                                              color: renkler
+                                                                  .koyuuRenk),
+                                                        ),
+                                                      ),
+                                                    ))
+                                                .toList(),
+                                            value: selectedValueType,
+                                            onChanged: (String? value) {
+                                              setState(() {
+                                                selectedValueType = value;
+                                              });
+                                            },
+                                            iconStyleData: const IconStyleData(
+                                              iconSize: 0,
+                                            ),
+                                            dropdownStyleData:
+                                                DropdownStyleData(
+
+                                                    ///açılmış kutu
+                                                    decoration: BoxDecoration(
+                                              color: renkler.arkaRenk,
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(10)),
+                                            )),
+                                            buttonStyleData: ButtonStyleData(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                height: 36,
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                    color: renkler.sariRenk,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(10))
+
+                                                    ///AÇILMAMIŞ KUTU
+                                                    )),
+                                            menuItemStyleData:
+                                                MenuItemStyleData(
+                                              ///açılmış kutu
+                                              height: 32,
+                                              overlayColor:
+                                                  MaterialStatePropertyAll(
+                                                      renkler.sariRenk),
+                                              padding: const EdgeInsets.all(8),
+                                            ),
+                                          ),
                                         ),
                                       )
-
                                     ],
                                   ),
                                 ),
@@ -186,29 +352,142 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 padding: const EdgeInsets.only(top: 1),
                                 child: Container(
                                   height: 30,
-                                  width: size.width*0.95,
+                                  width: size.width * 0.95,
                                   color: Theme.of(context).highlightColor,
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                padding:
+                                    const EdgeInsets.only(left: 8.0, right: 8),
                                 child: SizedBox(
                                   height: 32,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Text("Tarih",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
-                                      Container(
-                                        height: 36,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                            color: renkler.sariRenk,
-                                            borderRadius: const BorderRadius.all(Radius.circular(10))
-
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          "Tarih",
+                                          style: TextStyle(
+                                              color: renkler.arkaRenk,
+                                              fontSize: 15,
+                                              fontFamily: 'Nexa3'),
                                         ),
-                                      )
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            height: 36,
+                                            //width: 100,
+                                            decoration: BoxDecoration(
+                                              color: renkler.sariRenk,
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(10)),
+                                            ),
+                                            child: DropdownButtonHideUnderline(
+                                              child: DropdownButton2<String>(
+                                                isExpanded: true,
+                                                hint: Center(
+                                                  child: Text(
+                                                    translation(context)
+                                                        .monthly,
+                                                    style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontFamily: 'Nexa4',
+                                                      color: renkler.koyuuRenk,
+                                                    ),
+                                                  ),
+                                                ),
+                                                items: dateTypeList(context)
+                                                    .map((String item) =>
+                                                        DropdownMenuItem<
+                                                            String>(
+                                                          value: item,
+                                                          child: Center(
+                                                            child: Text(
+                                                              item,
+                                                              style: TextStyle(
+                                                                  fontSize: 13,
+                                                                  height: 1,
+                                                                  fontFamily:
+                                                                      'Nexa4',
+                                                                  color: renkler
+                                                                      .koyuuRenk),
+                                                            ),
+                                                          ),
+                                                        ))
+                                                    .toList(),
+                                                value: selectedValueDate,
+                                                onChanged: (String? value) {
+                                                  setState(() {
+                                                    selectedValueDate = value;
+                                                  });
+                                                },
+                                                iconStyleData:
+                                                    const IconStyleData(
+                                                  iconSize: 0,
+                                                ),
+                                                dropdownStyleData:
+                                                    DropdownStyleData(
+                                                        width: 100,
 
+                                                        ///açılmış kutu
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              renkler.arkaRenk,
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          10)),
+                                                        )),
+                                                buttonStyleData:
+                                                    ButtonStyleData(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 4),
+                                                        height: 36,
+                                                        width: 80,
+                                                        decoration: BoxDecoration(
+                                                            color: renkler
+                                                                .sariRenk,
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                        .all(
+                                                                    Radius
+                                                                        .circular(
+                                                                            10))
+
+                                                            ///AÇILMAMIŞ KUTU
+                                                            )),
+                                                menuItemStyleData:
+                                                    MenuItemStyleData(
+                                                  ///açılmış kutu
+                                                  height: 32,
+                                                  overlayColor:
+                                                      MaterialStatePropertyAll(
+                                                          renkler.sariRenk),
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          dateMenu(context, selectedValueDate)
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -224,29 +503,83 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 padding: const EdgeInsets.only(top: 1),
                                 child: Container(
                                   height: 30,
-                                  width: size.width*0.95,
+                                  width: size.width * 0.95,
                                   color: Theme.of(context).highlightColor,
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                padding:
+                                    const EdgeInsets.only(left: 8.0, right: 8),
                                 child: SizedBox(
                                   height: 32,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Text("Sadece Kayıtlı İşlemler",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          "Sadece Kayıtlı İşlemler",
+                                          style: TextStyle(
+                                              color: renkler.arkaRenk,
+                                              fontSize: 15,
+                                              fontFamily: 'Nexa3'),
+                                        ),
+                                      ),
                                       Container(
                                         height: 36,
-                                        width: 100,
+                                        width: 86,
                                         decoration: BoxDecoration(
                                             color: renkler.sariRenk,
-                                            borderRadius: const BorderRadius.all(Radius.circular(10))
-
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10))),
+                                        child: InkWell(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10)),
+                                          onTap: () {
+                                            registration == 0
+                                                ? registration = 1
+                                                : registration = 0;
+                                            setState(() {});
+                                          },
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              if (registration == 1)
+                                                Icon(
+                                                  Icons.check_box_rounded,
+                                                  color: renkler.koyuuRenk,
+                                                )
+                                              else
+                                                Icon(
+                                                  Icons
+                                                      .check_box_outline_blank_rounded,
+                                                  color: renkler.koyuuRenk,
+                                                ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 2),
+                                                child: Text(
+                                                  registration == 1
+                                                      ? translation(context).yesBig
+                                                      : translation(context).noBig,
+                                                  style: TextStyle(
+                                                      color: renkler.koyuuRenk,
+                                                      fontFamily: 'Nexa4',
+                                                      height: 1,
+                                                      fontSize: 13),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       )
-
                                     ],
                                   ),
                                 ),
@@ -262,29 +595,252 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 padding: const EdgeInsets.only(top: 1),
                                 child: Container(
                                   height: 30,
-                                  width: size.width*0.95,
+                                  width: size.width * 0.95,
                                   color: Theme.of(context).highlightColor,
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left:8.0,right: 8),
+                                padding:
+                                    const EdgeInsets.only(left: 8.0, right: 8),
                                 child: SizedBox(
                                   height: 32,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Text("İşlem Aracı",style: TextStyle(color: renkler.arkaRenk,fontSize: 16,fontFamily: 'Nexa3'),),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          "İşlem Aracı",
+                                          style: TextStyle(
+                                              color: renkler.arkaRenk,
+                                              fontSize: 15,
+                                              fontFamily: 'Nexa3'),
+                                        ),
+                                      ),
                                       Container(
                                         height: 36,
-                                        width: 100,
+                                        //width: 100,
                                         decoration: BoxDecoration(
                                             color: renkler.sariRenk,
-                                            borderRadius: const BorderRadius.all(Radius.circular(10))
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10))),
+                                        child: DropdownButtonHideUnderline(
+                                          child: DropdownButton2<String>(
+                                            isExpanded: true,
+                                            hint: Center(
+                                              child: Text(
+                                                translation(context).both,
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  height: 1,
+                                                  fontFamily: 'Nexa4',
+                                                  color: renkler.koyuuRenk,
+                                                ),
+                                              ),
+                                            ),
+                                            items:
+                                                createItemListForTool(context)
+                                                    .map((item) {
+                                              return DropdownMenuItem(
+                                                value: item,
+                                                //disable default onTap to avoid closing menu when selecting an item
+                                                enabled: false,
+                                                child: StatefulBuilder(
+                                                  builder:
+                                                      (context, menuSetState) {
+                                                    final isSelected =
+                                                        selectedItemsTool
+                                                            .contains(item);
+                                                    return InkWell(
+                                                      onTap: () {
+                                                        if (item ==
+                                                            translation(context)
+                                                                .both) {
+                                                          isSelected
+                                                              ? selectedItemsTool
+                                                                  .remove(item)
+                                                              : (selectedItemsTool
+                                                                ..clear()
+                                                                ..add(item));
+                                                          isSelected
+                                                              ? null
+                                                              : Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                        } else {
+                                                          isSelected
+                                                              ? selectedItemsTool
+                                                                  .remove(item)
+                                                              : selectedItemsTool
+                                                                      .contains(
+                                                                          translation(context)
+                                                                              .both)
+                                                                  ? {
+                                                                      (selectedItemsTool
+                                                                        ..remove(
+                                                                            translation(context).both)
+                                                                        ..add(
+                                                                            item)),
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop()
+                                                                    }
+                                                                  : selectedItemsTool
+                                                                      .add(
+                                                                          item);
+                                                        }
+                                                        if (selectedItemsTool.contains(translation(context).cash) &&
+                                                            selectedItemsTool
+                                                                .contains(
+                                                                    translation(
+                                                                            context)
+                                                                        .card) &&
+                                                            selectedItemsTool
+                                                                .contains(translation(
+                                                                        context)
+                                                                    .otherPaye)) {
+                                                          selectedItemsTool
+                                                            ..clear()
+                                                            ..add(translation(
+                                                                    context)
+                                                                .both);
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        }
 
+                                                        //isSelected ? selectedItemsTool.remove(item) : selectedItemsTool.add(item);
+
+                                                        //This rebuilds the StatefulWidget to update the button's text
+                                                        setState(() {});
+                                                        //This rebuilds the dropdownMenu Widget to update the check mark
+                                                        menuSetState(() {});
+                                                      },
+                                                      child: Container(
+                                                        height: double.infinity,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal:
+                                                                    16.0),
+                                                        child: Row(
+                                                          children: [
+                                                            if (isSelected)
+                                                              Icon(
+                                                                Icons
+                                                                    .check_box_outlined,
+                                                                color: renkler
+                                                                    .koyuuRenk,
+                                                              )
+                                                            else
+                                                              Icon(
+                                                                Icons
+                                                                    .check_box_outline_blank,
+                                                                color: renkler
+                                                                    .koyuuRenk,
+                                                              ),
+                                                            const SizedBox(
+                                                                width: 16),
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: Text(
+                                                                  item,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          13,
+                                                                      height: 1,
+                                                                      fontFamily:
+                                                                          'Nexa4',
+                                                                      color: renkler
+                                                                          .koyuuRenk),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            }).toList(),
+                                            //Use last selected item as the current value so if we've limited menu height, it scroll to last item.
+                                            value: selectedItemsTool.isEmpty
+                                                ? null
+                                                : selectedItemsTool.last,
+                                            onChanged: (value) {},
+                                            selectedItemBuilder: (context) {
+                                              return createItemListForTool(
+                                                      context)
+                                                  .map(
+                                                (item) {
+                                                  return Container(
+                                                    alignment:
+                                                        AlignmentDirectional
+                                                            .center,
+                                                    child: Text(
+                                                      selectedItemsTool
+                                                          .join(', '),
+                                                      style: TextStyle(
+                                                        fontSize: 13,
+                                                        fontFamily: 'Nexa4',
+                                                        height: 1,
+                                                        color:
+                                                            renkler.koyuuRenk,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                      maxLines: 1,
+                                                    ),
+                                                  );
+                                                },
+                                              ).toList();
+                                            },
+                                            iconStyleData: const IconStyleData(
+                                              iconSize: 0,
+                                            ),
+                                            dropdownStyleData:
+                                                DropdownStyleData(
+
+                                                    ///açılmış kutu
+                                                    width: 120,
+                                                    padding: EdgeInsets.zero,
+                                                    decoration: BoxDecoration(
+                                                      color: renkler.arkaRenk,
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                                  .all(
+                                                              Radius.circular(
+                                                                  10)),
+                                                    )),
+                                            buttonStyleData: ButtonStyleData(
+                                                //padding: EdgeInsets.symmetric(horizontal: 16),
+                                                height: 36,
+                                                width: 120,
+                                                decoration: BoxDecoration(
+                                                    color: renkler.sariRenk,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(10))
+
+                                                    ///AÇILMAMIŞ KUTU
+                                                    )),
+                                            menuItemStyleData:
+                                                MenuItemStyleData(
+                                              ///açılmış kutu
+                                              height: 32,
+                                              padding: EdgeInsets.zero,
+                                              overlayColor:
+                                                  MaterialStatePropertyAll(
+                                                      renkler.sariRenk),
+                                              //padding: EdgeInsets.all(8),
+                                            ),
+                                          ),
                                         ),
                                       )
-
                                     ],
                                   ),
                                 ),
@@ -295,47 +851,164 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             height: 14,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 4,right: 4),
+                            padding: const EdgeInsets.only(left: 4, right: 4),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 InkWell(
-                                onTap: () {
-
-                                },
+                                  onTap: () {
+                                    selectedValueType = null;
+                                    operationType = 'Hepsi';
+                                    registration = 0;
+                                    selectedValueDate =
+                                        translation(context).monthly;
+                                    year = DateTime.now().year;
+                                    selectedValueYear = null;
+                                    day = DateTime.now().day;
+                                    selectedValueDay = null;
+                                    month = DateTime.now().month;
+                                    selectedValueMonth = null;
+                                    week = (DateTime.now().day / 7).ceil();
+                                    selectedValueWeek = null;
+                                    selectedItemsTool.clear();
+                                    selectedItemsToolToData.clear();
+                                    operationTool
+                                      ..clear()
+                                      ..add('Hepsi');
+                                    firstDate = null;
+                                    secondDate = null;
+                                    setState(() {});
+                                  },
                                   child: Container(
                                     height: 26,
                                     width: 150,
-                                    decoration: BoxDecoration(color: Theme.of(context).shadowColor,
-                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).shadowColor,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15)),
                                     ),
-                                    child: Center(child: Text("Eski Haline Getir",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 15,fontFamily: 'Nexa3'),)),
+                                    child: Center(
+                                        child: Text(
+                                      "Eski Haline Getir",
+                                      style: TextStyle(
+                                          color: Theme.of(context).canvasColor,
+                                          fontSize: 15,
+                                          fontFamily: 'Nexa3'),
+                                    )),
                                   ),
-                              ),
+                                ),
+                                InkWell(
+                                    onTap: () {
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.lightGreenAccent,
+                                    )),
                                 InkWell(
                                   onTap: () {
+                                    if (selectedValueType ==
+                                        translation(context).both) {
+                                      operationType = 'Hepsi';
+                                    } else if (selectedValueType ==
+                                        translation(context).income) {
+                                      operationType = 'Gelir';
+                                    } else if (selectedValueType ==
+                                        translation(context).expenses) {
+                                      operationType = 'Gider';
+                                    } else {
+                                      operationType = 'Hepsi';
+                                    }
+                                    print(
+                                        'Tamam bastın ve type : ${operationType}');
+                                    selectedItemsToolToData.clear();
+                                    print(selectedItemsTool);
+                                    for (int i = 0;
+                                        i < selectedItemsTool.length;
+                                        i++) {
+                                      if (selectedItemsTool[i] ==
+                                          translation(context).both) {
+                                        selectedItemsToolToData.add('Hepsi');
+                                        break;
+                                      } else if (selectedItemsTool[i] ==
+                                          translation(context).cash) {
+                                        selectedItemsToolToData.add('Nakit');
+                                      } else if (selectedItemsTool[i] ==
+                                          translation(context).card) {
+                                        selectedItemsToolToData.add('Kart');
+                                      } else {
+                                        selectedItemsToolToData.add('Diğer');
+                                      }
+                                    }
+                                    if (selectedItemsTool.isEmpty) {
+                                      selectedItemsToolToData.add('Hepsi');
+                                    }
+                                    operationTool = selectedItemsToolToData;
+                                    print(
+                                        'Tamam bastın ve tool : ${operationTool}');
 
+                                    if (selectedValueDate ==
+                                        translation(context).yearly) {
+                                      dateType = 0;
+                                    } else if (selectedValueDate ==
+                                        translation(context).monthly) {
+                                      dateType = 1;
+                                    } else if (selectedValueDate ==
+                                        translation(context).weekly) {
+                                      dateType = 2;
+                                    } else if (selectedValueDate ==
+                                        translation(context).daily) {
+                                      dateType = 3;
+                                    } else if (selectedValueDate == 'PERİYOT') {
+                                      dateType = 4;
+                                    } else {
+                                      dateType = 1;
+                                    }
+                                    print(
+                                        'Tamam bastın ve dateType : ${dateType}');
+                                    year = selectedValueYear != null
+                                        ? int.parse(selectedValueYear!)
+                                        : year;
+                                    print('Tamam bastın ve yıl : ${year}');
+                                    month = selectedValueMonth != null
+                                        ? convertMonth(selectedValueMonth!)
+                                        : month;
+                                    print('Tamam bastın ve ay : ${month}');
+                                    week = selectedValueWeek != null
+                                        ? int.parse(selectedValueWeek!)
+                                        : week;
+                                    print('Tamam bastın ve hafta : ${week}');
+                                    day = selectedValueDay != null
+                                        ? int.parse(selectedValueDay!)
+                                        : day;
+                                    print('Tamam bastın ve gün : ${day}');
+                                    Navigator.of(context).pop();
                                   },
                                   child: Container(
                                     height: 30,
                                     width: 100,
-                                    decoration: BoxDecoration(color: Theme.of(context).highlightColor,
-                                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).highlightColor,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(5)),
                                     ),
-                                    child: Center(child: Text("TAMAM",style: TextStyle(color: renkler.arkaRenk,fontSize: 15,fontFamily: 'Nexa3'),)),
+                                    child: Center(
+                                        child: Text(
+                                      "TAMAM",
+                                      style: TextStyle(
+                                          color: renkler.arkaRenk,
+                                          fontSize: 15,
+                                          fontFamily: 'Nexa3'),
+                                    )),
                                   ),
                                 ),
                               ],
                             ),
                           )
-
                         ],
                       ),
-                      const Text(
-                        "Debug:",
-                        style: TextStyle(color: Colors.red),
-                      )
                     ],
                   ),
                 );
@@ -347,19 +1020,672 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     );
   }
 
-  Widget categoryList(BuildContext context) {
+  Widget rightInfoButton(BuildContext context) {
+    var readStatistics = ref.read(statisticsRiverpod);
+    String dateInfo = selectedValueDate != null
+        ? selectedValueDate.toString()
+        : translation(context).monthly;
+    String yearText =
+        selectedValueYear != null ? selectedValueYear! : year.toString();
+    int monthText =
+        selectedValueMonth != null ? convertMonth(selectedValueMonth!) : month;
+    String monthTextTip = selectedValueMonth != null ? selectedValueMonth! : readStatistics.getMonths(context)[month-1] ;
+    String weekText =
+        selectedValueWeek != null ? selectedValueWeek! : week.toString();
+    String dayText =
+        selectedValueDay != null ? selectedValueDay! : day.toString();
+    int dateController = 1;
+    if (dateInfo == translation(context).monthly) {
+      dateController = 1;
+    } else if (dateInfo == translation(context).yearly) {
+      dateController = 0;
+    } else if (dateInfo == translation(context).weekly) {
+      dateController = 2;
+    } else if (dateInfo == translation(context).daily) {
+      dateController = 3;
+    } else if (dateInfo == 'PERİYOT') {
+      dateController = 4;
+    } else {
+      dateController = 1;
+    }
+    DateTime initialStartDate = intl.DateFormat("dd.MM.yyyy").parse(
+        '15.${DateTime.now().day > 15 ? DateTime.now().month : DateTime.now().month - 1}.${DateTime.now().year}');
+    DateTime initialEndDate = intl.DateFormat("dd.MM.yyyy").parse(
+        '15.${DateTime.now().day > 15 ? DateTime.now().month + 1 : DateTime.now().month}.${DateTime.now().year}');
+    String date1 = firstDate != null
+        ? '${firstDate!.day}.${firstDate!.month}.${firstDate!.year}'
+        : '${initialStartDate.day}.${initialStartDate.month}.${initialStartDate.year}';
+    String date2 = secondDate != null
+        ? '${secondDate!.day}.${secondDate!.month}.${secondDate!.year}'
+        : '${initialEndDate.day}.${initialEndDate.month}.${initialEndDate.year}';
+    CustomColors renkler = CustomColors();
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 170),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(0, 4))
+            ]),
+            child: ClipPath(
+              clipper: MyCustomClipperForRight(),
+              child: Tooltip(
+                message: '$date1 / $date2',
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: dateController == 4 ? const Duration(seconds: 1) : const Duration(seconds: 0),
+                textStyle: TextStyle(
+                    fontSize: 13,
+                    color: renkler.arkaRenk,
+                    height: 1),
+                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5)),
+                    color: Theme.of(context).highlightColor),
+                child: Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    color: dateController == 4
+                        ? renkler.sariRenk
+                        : Theme.of(context).focusColor,
+                  ),
+                  child: Icon(Icons.linear_scale_sharp,
+                      color: dateController == 4
+                          ? renkler.koyuuRenk
+                          : Theme.of(context).primaryColor),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 136),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(0, 4))
+            ]),
+            child: ClipPath(
+              clipper: MyCustomClipperForRight(),
+              child: Tooltip(
+                message: '$dayText. Gün'.toUpperCase(),
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: dateController == 3 ? const Duration(seconds: 1) : const Duration(seconds: 0),
+                textStyle: TextStyle(
+                    fontSize: 13,
+                    color: renkler.arkaRenk,
+                    height: 1),
+                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5)),
+                    color: Theme.of(context).highlightColor),
+                child: Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    color: dateController == 3
+                        ? renkler.sariRenk
+                        : Theme.of(context).focusColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      dayText,
+                      style: TextStyle(
+                          color: dateController == 3
+                              ? renkler.koyuuRenk
+                              : Theme.of(context).primaryColor),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 102),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(0, 4))
+            ]),
+            child: ClipPath(
+              clipper: MyCustomClipperForRight(),
+              child: Tooltip(
+                message: '$weekText. Hafta'.toUpperCase(),
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: dateController == 2 ? const Duration(seconds: 1) : const Duration(seconds: 0),
+                textStyle: TextStyle(
+                    fontSize: 13,
+                    color: renkler.arkaRenk,
+                    height: 1),
+                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5)),
+                    color: Theme.of(context).highlightColor),
+                child: Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    color: dateController == 2
+                        ? renkler.sariRenk
+                        : Theme.of(context).focusColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      weekText,
+                      style: TextStyle(
+                        color: dateController == 2
+                            ? renkler.koyuuRenk
+                            : Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 68),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(0, 4))
+            ]),
+            child: ClipPath(
+              clipper: MyCustomClipperForRight(),
+              child: Tooltip(
+                message: monthTextTip.toUpperCase(),
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: dateController == 1 ? const Duration(seconds: 1) : const Duration(seconds: 0),
+                textStyle: TextStyle(
+                    fontSize: 13,
+                    color: renkler.arkaRenk,
+                    height: 1),
+                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5)),
+                    color: Theme.of(context).highlightColor),
+                child: Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    color: dateController == 1
+                        ? renkler.sariRenk
+                        : Theme.of(context).focusColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      monthText.toString(),
+                      style: TextStyle(
+                        color: dateController == 1
+                            ? renkler.koyuuRenk
+                            : Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 34),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(0, 4))
+            ]),
+            child: ClipPath(
+              clipper: MyCustomClipperForRight(),
+              child: Tooltip(
+                message: yearText,
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: dateController != 4 ? const Duration(seconds: 1) : const Duration(seconds: 0),
+                textStyle: TextStyle(
+                    fontSize: 13,
+                    color: renkler.arkaRenk,
+                    height: 1),
+                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5)),
+                    color: Theme.of(context).highlightColor),
+                child: Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    color: dateController != 4
+                        ? renkler.sariRenk
+                        : Theme.of(context).focusColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      yearText.substring(yearText.length - 2),
+                      style: TextStyle(
+                        color: dateController != 4
+                            ? renkler.koyuuRenk
+                            : Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.3),
+                spreadRadius: 1,
+                blurRadius: 8,
+                offset: Offset(0, 4))
+          ]),
+          child: ClipPath(
+            clipper: MyCustomClipperForRight(),
+            child: Tooltip(
+              message: dateInfo,
+              triggerMode: TooltipTriggerMode.tap,
+              showDuration: const Duration(seconds: 1),
+              textStyle: TextStyle(
+                  fontSize: 13,
+                  color: renkler.arkaRenk,
+                  height: 1),
+              textAlign: TextAlign.center,
+              decoration: BoxDecoration(
+                  borderRadius:
+                  const BorderRadius.all(Radius.circular(5)),
+                  color: Theme.of(context).highlightColor),
+              child: Container(
+                height: 36,
+                width: 36,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).secondaryHeaderColor,
+                ),
+                child: Icon(Icons.date_range_rounded,
+                    color: Theme.of(context).primaryColor),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget leftInfoButton(BuildContext context) {
+    String typeInfo = selectedValueType != null
+        ? selectedValueType!
+        : translation(context).both;
+    List<String> toolInfo = selectedItemsTool.isNotEmpty
+        ? selectedItemsTool!
+        : [translation(context).both];
+    String regInfo =
+        registration == 0 ? 'Kayıtlı Olmayanlar' : 'Kayıtlı Olanlar';
+
+    int typeInfoController = 0;
+    if (toolInfo.length == 1 && toolInfo[0] == translation(context).both) {
+      typeInfoController = 0;
+    } else if (toolInfo.length == 1 &&
+        toolInfo[0] == translation(context).cash) {
+      typeInfoController = 1;
+    } else if (toolInfo.length == 1 &&
+        toolInfo[0] == translation(context).card) {
+      typeInfoController = 2;
+    } else if (toolInfo.length == 1 &&
+        toolInfo[0] == translation(context).otherPaye) {
+      typeInfoController = 3;
+    } else if (toolInfo.length == 2 &&
+        toolInfo.contains(translation(context).otherPaye) == false) {
+      typeInfoController = 4;
+    } else if (toolInfo.length == 2 &&
+        toolInfo.contains(translation(context).card) == false) {
+      typeInfoController = 5;
+    } else if (toolInfo.length == 2 &&
+        toolInfo.contains(translation(context).cash) == false) {
+      typeInfoController = 6;
+    } else {
+      typeInfoController = 0;
+    }
+
+    CustomColors renkler = CustomColors();
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 170),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(0, 4))
+            ]),
+            child: ClipPath(
+              clipper: MyCustomClipper(),
+              child: Tooltip(
+                message: 'Sadece Kayıtlı İşlemler'.toUpperCase(),
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: registration == 1 ? const Duration(seconds: 1) : const Duration(seconds: 0),
+                textStyle: TextStyle(
+                    fontSize: 13,
+                    color: renkler.arkaRenk,
+                    height: 1),
+                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5)),
+                    color: Theme.of(context).highlightColor),
+                child: Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    color: registration == 1
+                        ? renkler.sariRenk
+                        : Theme.of(context).focusColor,
+                  ),
+                  child: Icon(
+                    registration == 0
+                        ? Icons.bookmark_outline_rounded
+                        : Icons.bookmark_added_rounded,
+                    color: registration == 1
+                        ? renkler.koyuuRenk
+                        : Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 136),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(0, 4))
+            ]),
+            child: ClipPath(
+              clipper: MyCustomClipper(),
+              child: Tooltip(
+                message: translation(context).otherPaye,
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: typeInfoController == 0 ||
+                    typeInfoController == 3 ||
+                    typeInfoController == 5 ||
+                    typeInfoController == 6 ? const Duration(seconds: 1) : const Duration(seconds: 0),
+                textStyle: TextStyle(
+                    fontSize: 13,
+                    color: renkler.arkaRenk,
+                    height: 1),
+                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5)),
+                    color: Theme.of(context).highlightColor),
+                child: Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    color: typeInfoController == 0 ||
+                            typeInfoController == 3 ||
+                            typeInfoController == 5 ||
+                            typeInfoController == 6
+                        ? renkler.sariRenk
+                        : Theme.of(context).focusColor,
+                  ),
+                  child: Icon(
+                    Icons.more_horiz_rounded,
+                    color: typeInfoController == 0 ||
+                            typeInfoController == 3 ||
+                            typeInfoController == 5 ||
+                            typeInfoController == 6
+                        ? renkler.koyuuRenk
+                        : Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 102),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(0, 4))
+            ]),
+            child: ClipPath(
+              clipper: MyCustomClipper(),
+              child: Tooltip(
+                message: translation(context).card,
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: typeInfoController == 0 ||
+                    typeInfoController == 2 ||
+                    typeInfoController == 4 ||
+                    typeInfoController == 6 ? const Duration(seconds: 1) : const Duration(seconds: 0),
+                textStyle: TextStyle(
+                    fontSize: 13,
+                    color: renkler.arkaRenk,
+                    height: 1),
+                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5)),
+                    color: Theme.of(context).highlightColor),
+                child: Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    color: typeInfoController == 0 ||
+                            typeInfoController == 2 ||
+                            typeInfoController == 4 ||
+                            typeInfoController == 6
+                        ? renkler.sariRenk
+                        : Theme.of(context).focusColor,
+                  ),
+                  child: Icon(
+                    Icons.credit_card_rounded,
+                    color: typeInfoController == 0 ||
+                            typeInfoController == 2 ||
+                            typeInfoController == 4 ||
+                            typeInfoController == 6
+                        ? renkler.koyuuRenk
+                        : Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 68),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(0, 4))
+            ]),
+            child: ClipPath(
+              clipper: MyCustomClipper(),
+              child: Tooltip(
+                message: translation(context).cash,
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: typeInfoController == 0 ||
+    typeInfoController == 1 ||
+    typeInfoController == 4 ||
+    typeInfoController == 5 ? const Duration(seconds: 1) : const Duration(seconds: 0),
+                textStyle: TextStyle(
+                    fontSize: 13,
+                    color: renkler.arkaRenk,
+                    height: 1),
+                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5)),
+                    color: Theme.of(context).highlightColor),
+                child: Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    color: typeInfoController == 0 ||
+                            typeInfoController == 1 ||
+                            typeInfoController == 4 ||
+                            typeInfoController == 5
+                        ? renkler.sariRenk
+                        : Theme.of(context).focusColor,
+                  ),
+                  child: Icon(
+                    Icons.money_rounded,
+                    color: typeInfoController == 0 ||
+                            typeInfoController == 1 ||
+                            typeInfoController == 4 ||
+                            typeInfoController == 5
+                        ? renkler.koyuuRenk
+                        : Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 34),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: Offset(0, 4))
+            ]),
+            child: ClipPath(
+              clipper: MyCustomClipper(),
+              child: Tooltip(
+                message: translation(context).expenses,
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: typeInfo == translation(context).income ? const Duration(seconds: 0) : const Duration(seconds: 1),
+                textStyle: TextStyle(
+                    fontSize: 13,
+                    color: renkler.arkaRenk,
+                    height: 1),
+                textAlign: TextAlign.center,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5)),
+                    color: Theme.of(context).highlightColor),
+                child: Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    color: typeInfo == translation(context).both ||
+                            typeInfo == translation(context).expenses
+                        ? renkler.sariRenk
+                        : Theme.of(context).focusColor,
+                  ),
+                  child: Icon(
+                    Icons.south_west_rounded,
+                    color: typeInfo == translation(context).both ||
+                            typeInfo == translation(context).expenses
+                        ? renkler.koyuuRenk
+                        : Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 8,
+                offset: Offset(0, 4))
+          ]),
+          child: ClipPath(
+            clipper: MyCustomClipper(),
+            child: Tooltip(
+              message: translation(context).income,
+              triggerMode: TooltipTriggerMode.tap,
+              showDuration: typeInfo == translation(context).expenses ? const Duration(seconds: 0) : const Duration(seconds: 1),
+              textStyle: TextStyle(
+                  fontSize: 13,
+                  color: renkler.arkaRenk,
+                  height: 1),
+              textAlign: TextAlign.center,
+              decoration: BoxDecoration(
+                  borderRadius:
+                  const BorderRadius.all(Radius.circular(5)),
+                  color: Theme.of(context).highlightColor),
+              child: Container(
+                height: 36,
+                width: 36,
+                decoration: BoxDecoration(
+                  color: typeInfo == translation(context).both ||
+                          typeInfo == translation(context).income
+                      ? renkler.sariRenk
+                      : Theme.of(context).focusColor,
+                ),
+                child: Icon(
+                  Icons.north_east_rounded,
+                  color: typeInfo == translation(context).both ||
+                          typeInfo == translation(context).income
+                      ? renkler.koyuuRenk
+                      : Theme.of(context).primaryColor,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget myCategoryList(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     var readSettings = ref.read(settingsRiverpod);
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var size = MediaQuery.of(context).size;
     final ScrollController scrolbarcontroller1 = ScrollController();
-    Future<List<Map<String, dynamic>>> myList = read.getCategoryByMonth(
-        validDateMenu,
-        giderGelirHepsi,
-        selectedYearIndex,
-        selectedMonthIndex,
-        selectedWeekIndex,
-        selectedDayIndex);
+    Future<List<Map<String, dynamic>>> myList = read.getCategoryList(
+        operationType,
+        registration,
+        operationTool,
+        dateType,
+        year,
+        month,
+        week,
+        day,
+        firstDate,
+        secondDate);
     return FutureBuilder(
         future: myList,
         builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
@@ -371,20 +1697,13 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           var item = snapshot.data!;
           double totalAmount = 0;
           for (var item in item) {
-            totalAmount += item['amount'];
-          }
-          int colorChangeCount = 0;
-          ///Yüzde 5\'ten büyük olan eleman sayısı:
-          for (int i = 0; i < item.length; i++) {
-            if (item[i]['percentages'] != null && item[i]['percentages'] > 5) {
-              colorChangeCount++;
-            }
+            totalAmount += item['realAmount']!;
           }
           if (snapshot.data!.isEmpty) {
             return Column(
               children: [
                 SizedBox(
-                  width: size.width * 0.9,
+                  width: size.width * 0.95,
                   height: size.height * 0.32,
                   child: Center(
                     child: Container(
@@ -396,7 +1715,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       child: Center(
                           child: Text(
                         translation(context).dataNotFound,
-                        style: const TextStyle(height: 1,color: Colors.white, fontSize: 16),
+                        style: const TextStyle(
+                            height: 1, color: Colors.white, fontSize: 16),
                       )),
                     ),
                   ),
@@ -427,14 +1747,15 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 1.5, left: 1.5),
+                            padding:
+                                const EdgeInsets.only(right: 1.5, left: 1.5),
                             child: Container(
                               width: 4,
                               //height: size.height * 0.35,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(30)),
-                                  color: snapshot.data!.length <= 4
+                                  color: snapshot.data!.length <= 7
                                       ? Theme.of(context).indicatorColor
                                       : Theme.of(context).canvasColor),
                             ),
@@ -444,35 +1765,57 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       Theme(
                         data: Theme.of(context).copyWith(
                             scrollbarTheme: ScrollbarThemeData(
-                          thumbColor: MaterialStateProperty.all(
-                            Theme.of(context).dialogBackgroundColor,)
-                        )),
+                                thumbColor: MaterialStateProperty.all(
+                          Theme.of(context).dialogBackgroundColor,
+                        ))),
                         child: Scrollbar(
                           thumbVisibility: true,
                           controller: scrolbarcontroller1,
-                          scrollbarOrientation: readSettings.localChanger() == const Locale("ar") ? ScrollbarOrientation.left :
-                          ScrollbarOrientation.right,
+                          scrollbarOrientation:
+                              readSettings.localChanger() == const Locale("ar")
+                                  ? ScrollbarOrientation.left
+                                  : ScrollbarOrientation.right,
                           interactive: true,
                           thickness: 7,
                           radius: const Radius.circular(15.0),
                           child: ListView.builder(
                             controller: scrolbarcontroller1,
-                            itemCount: snapshot.data!.length,
+                            itemCount: snapshot.data!.length > 30
+                                ? 30
+                                : snapshot.data!.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: const EdgeInsets.only(
                                     bottom: 8, right: 16, left: 16),
                                 child: InkWell(
-                                  highlightColor: Theme.of(context).primaryColor,
+                                  highlightColor:
+                                      Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(20),
                                   onTap: () {
+                                    year = selectedValueYear != null
+                                        ? int.parse(selectedValueYear!)
+                                        : year;
+                                    month = selectedValueMonth != null
+                                        ? convertMonth(selectedValueMonth!)
+                                        : month;
+                                    week = selectedValueWeek != null
+                                        ? int.parse(selectedValueWeek!)
+                                        : week;
+                                    day = selectedValueDay != null
+                                        ? int.parse(selectedValueDay!)
+                                        : day;
+                                    registration = registration ?? 0;
                                     readCategoryInfo.setDateAndCategory(
-                                        selectedDayIndex,
-                                        selectedMonthIndex,
-                                        selectedYearIndex,
-                                        selectedWeekIndex,
+                                        day,
+                                        month,
+                                        year,
+                                        week,
                                         item[index]['category'],
-                                        validDateMenu);
+                                        registration,
+                                        operationTool,
+                                        dateType,
+                                        firstDate,
+                                        secondDate);
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
                                       builder: (context) =>
@@ -481,17 +1824,17 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   },
                                   child: SizedBox(
                                     height: 42,
+                                    width: size.width * 0.95,
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(10),
                                         color: Theme.of(context).focusColor,
                                       ),
                                       child: Row(
                                         children: [
                                           const SizedBox(width: 5),
                                           Container(
-                                            width: 65,
+                                            width: 70,
                                             height: 25,
                                             decoration: BoxDecoration(
                                               color: colorsList[index],
@@ -500,7 +1843,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             ),
                                             child: Center(
                                                 child: Text(
-                                              "% ${item[index]['percentages'].toString()}",
+                                              "% ${item[index]['percentages']}",
                                               style: const TextStyle(
                                                 height: 1,
                                                 fontFamily: 'NEXA3',
@@ -509,38 +1852,44 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             )),
                                           ),
                                           const SizedBox(width: 10),
-                                          Text(
-                                            item[index]['category'],
-                                            style: TextStyle(
-                                              height: 1,
-                                              fontFamily: 'NEXA3',
-                                              fontSize: 18,
-                                              color: Theme.of(context).canvasColor,
+                                          Expanded(
+                                            child: Text(
+                                              item[index]['category'],
+                                              style: TextStyle(
+                                                height: 1,
+                                                fontFamily: 'NEXA3',
+                                                fontSize: 18,
+                                                color:
+                                                    Theme.of(context).canvasColor,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
-                                          const Spacer(),
                                           RichText(
                                             text: TextSpan(
                                               children: [
                                                 TextSpan(
-                                                  text: item[index]['amount']
+                                                  text: item[index]
+                                                          ['realAmount']
                                                       .toStringAsFixed(2),
                                                   style: TextStyle(
                                                     height: 1,
                                                     fontFamily: 'NEXA3',
                                                     fontSize: 16,
-                                                    color: Theme.of(context).dialogBackgroundColor,
+                                                    color: Theme.of(context)
+                                                        .dialogBackgroundColor,
                                                   ),
                                                 ),
                                                 TextSpan(
-                                                  text: readSettings.prefixSymbol,
+                                                  text:
+                                                      readSettings.prefixSymbol,
                                                   style: TextStyle(
                                                     height: 1,
                                                     fontFamily: 'TL',
                                                     fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w600,
-                                                    color: Theme.of(context).dialogBackgroundColor,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Theme.of(context)
+                                                        .dialogBackgroundColor,
                                                   ),
                                                 ),
                                               ],
@@ -569,8 +1918,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 210,
+                      FittedBox(
                         child: Text(
                           translation(context).totalAmountStatistics,
                           style: TextStyle(
@@ -583,16 +1931,16 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
                           color: Theme.of(context).focusColor,
                         ),
                         height: 26,
                         child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 10, left: 10),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(right: 10, left: 10),
+                            child: FittedBox(
                               child: RichText(
                                 text: TextSpan(
                                   children: [
@@ -605,7 +1953,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         color: Theme.of(context).canvasColor,
                                       ),
                                     ),
-                                     TextSpan(
+                                    TextSpan(
                                       text: readSettings.prefixSymbol,
                                       style: TextStyle(
                                         height: 1,
@@ -631,1102 +1979,664 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         });
   }
 
-  tarihButon(BuildContext context) {
-    if (selectDateMenu == 0) {
-      return dateSelectMenu(context);
-    } else if (selectDateMenu == 1) {
-      return yearSelectMenu(context);
-    } else if (selectDateMenu == 2) {
-      return monthSelectMenu(context);
-    } else if (selectDateMenu == 3) {
-      return weekSelectMenu(context);
+  String? selectedValueMonth;
+  String? selectedValueYear;
+  String? selectedValueWeek;
+  String? selectedValueDay;
+  DateTime? _selectedDate;
+  DateTime? firstDate;
+  DateTime? secondDate;
+  Widget dateMenu(BuildContext context, String? dateType) {
+    int typer = 1;
+    if (dateType == translation(context).yearly) {
+      typer = 0;
+    } else if (dateType == translation(context).monthly) {
+      typer = 1;
+    } else if (dateType == translation(context).weekly) {
+      typer = 2;
+    } else if (dateType == translation(context).daily) {
+      typer = 3;
+    } else if (dateType == 'PERİYOT') {
+      typer = 4;
     } else {
-      return daySelectMenu(context);
+      typer = 1;
     }
-  }
-
-  int selectDateMenu = 2;
-  int validDateMenu = 2;
-  int selectedMonthIndex = DateTime.now().month;
-  int selectedYearIndex = DateTime.now().year;
-  int selectedWeekIndex = 1;
-  int selectedDayIndex = DateTime.now().day;
-  final PageController pageDayController =
-      PageController(initialPage: DateTime.now().day - 1);
-  final PageController pageWeekController = PageController(initialPage: 0);
-  final PageController pageMonthController =
-      PageController(initialPage: DateTime.now().month - 1);
-  final PageController pageYearController =
-      PageController(initialPage: DateTime.now().year - 2020);
-
-  Widget dateSelectMenu(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      width: 240,
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 34,
-              width: 240,
-            ),
-          ),
-          SizedBox(
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Center(
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                selectDateMenu = 1;
-                                validDateMenu = 1;
-                                selectedYearIndex = DateTime.now().year;
-                              });
-                            },
-                            child: Text(
-                              translation(context).yearly,
-                              style: const TextStyle(
-                                height: 1,
-                                fontFamily: 'NEXA4',
-                                fontSize: 14,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        child: Container(
-                          height: 5,
-                          width: 36,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(10),
-                                topLeft: Radius.circular(10)),
-                            color: Color(0xffF2CB05),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                  width: 44,
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Center(
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                selectDateMenu = 2;
-                                validDateMenu = 2;
-                                selectedYearIndex = DateTime.now().year;
-                                selectedMonthIndex = DateTime.now().month;
-                              });
-                            },
-                            child: Text(
-                              translation(context).monthly,
-                              style: const TextStyle(
-                                height: 1,
-                                fontFamily: 'NEXA4',
-                                fontSize: 14,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        child: Container(
-                          height: 5,
-                          width: 40,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(15),
-                                topLeft: Radius.circular(15)),
-                            color: Color(0xffF2CB05),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 70,
-                  height: 40,
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 6),
-                        child: Center(
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                selectedYearIndex = DateTime.now().year;
-                                selectedMonthIndex = DateTime.now().month;
-                                selectedWeekIndex = 1;
-                                selectDateMenu = 3;
-                                validDateMenu = 3;
-                              });
-                            },
-                            child: Text(
-                              translation(context).weekly,
-                              style: const TextStyle(
-                                height: 1,
-                                fontFamily: 'NEXA4',
-                                fontSize: 14,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        child: Container(
-                          height: 5,
-                          width: 66,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(15),
-                                topLeft: Radius.circular(15)),
-                            color: Color(0xffF2CB05),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                  width: 50,
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Center(
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                selectedYearIndex = DateTime.now().year;
-                                selectedMonthIndex = DateTime.now().month;
-                                selectedDayIndex = DateTime.now().day;
-                                selectDateMenu = 4;
-                                validDateMenu = 4;
-                              });
-                            },
-                            child: Text(
-                              translation(context).daily,
-                              style: const TextStyle(
-                                height: 1,
-                                fontFamily: 'NEXA4',
-                                fontSize: 14,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                          bottom: 0,
-                          child: Container(
-                            height: 5,
-                            width: 46,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(15),
-                                  topLeft: Radius.circular(15)),
-                              color: Color(0xffF2CB05),
-                            ),
-                          ))
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget monthSelectMenu(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
-    List monthName = read.getMonths();
-    List yearName = read.getYears();
-    return SizedBox(
-      height: 40,
-      width: 240,
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 34,
-              width: 240,
-            ),
-          ),
-          SizedBox(
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 6),
-                  child: Container(
-                    height: 40,
-                    width: 80,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
-                          topLeft: Radius.circular(15)),
-                      color: Color(0xffF2CB05),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 6),
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            selectDateMenu = 0;
-                          });
-                        },
-                        child: Text(
-                          translation(context).monthly,
-                          style: const TextStyle(
-                            height: 1,
-                            fontFamily: 'NEXA4',
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+    int yearCount =
+        selectedValueYear != null ? int.parse(selectedValueYear!) : year;
+    int monthCount =
+        selectedValueMonth != null ? convertMonth(selectedValueMonth!) : month;
+    List<String> dayName = read.getDays(monthCount!, yearCount!);
+    List<String> weekName = read.getWeeks(monthCount!, yearCount!);
+    List<String> monthName = read.getMonths(context);
+    List<String> yearName = read.getYears();
+    DateTime dateForDate2 = DateTime.now().add(Duration(days: 15));
+
+    CustomColors renkler = CustomColors();
+    DateTime initialStartDate = intl.DateFormat("dd.MM.yyyy").parse(
+        '15.${DateTime.now().day > 15 ? DateTime.now().month : DateTime.now().month - 1}.${DateTime.now().year}');
+    DateTime initialEndDate = intl.DateFormat("dd.MM.yyyy").parse(
+        '15.${DateTime.now().day > 15 ? DateTime.now().month + 1 : DateTime.now().month}.${DateTime.now().year}');
+    String date1 = firstDate != null
+        ? '${firstDate!.day}.${firstDate!.month}.${firstDate!.year}'
+        : '${initialStartDate.day}.${initialStartDate.month}.${initialStartDate.year}';
+    String date2 = secondDate != null
+        ? '${secondDate!.day}.${secondDate!.month}.${secondDate!.year}'
+        : '${initialEndDate.day}.${initialEndDate.month}.${initialEndDate.year}';
+    Future<void> selectDate(BuildContext context, setState) async {
+      DateTimeRange? picked = await showDateRangePicker(
+        context: context,
+        firstDate: DateTime(2020),
+        lastDate: DateTime(2030),
+        initialDateRange: DateTimeRange(
+          end: secondDate != null ? secondDate! : initialEndDate,
+          start: firstDate != null ? firstDate! : initialStartDate,
+        ),
+        builder: (BuildContext context, child) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return Theme(
+                data: Theme.of(context).copyWith(
+                  textTheme: TextTheme(
+                      labelLarge: TextStyle(
+
+                          ///buton yazıları
+                          fontFamily: 'Nexa3',
+                          fontSize: 16,
+                          color: renkler.koyuuRenk),
+                      labelSmall: TextStyle(
+
+                          ///tarih seçiniz
+                          fontSize: 16,
+                          fontFamily: 'Nexa3',
+                          color: renkler.yesilRenk),
+                      titleSmall: TextStyle(
+
+                          ///ay ve yıl
+                          fontSize: 16,
+                          fontFamily: 'Nexa3',
+                          color: renkler.koyuuRenk),
+                      headlineMedium: TextStyle(
+
+                          ///gün ay gün
+                          fontSize: 26,
+                          fontFamily: 'Nexa3',
+                          color: renkler.koyuuRenk),
+                      bodySmall: TextStyle(
+
+                          ///ana tarihler
+                          fontSize: 16,
+                          fontFamily: 'Nexa3',
+                          color: renkler.kirmiziRenk),
+                      titleMedium: TextStyle(
+
+                          ///tarih yazma rengi
+                          fontSize: 16,
+                          fontFamily: 'Nexa3',
+                          color: renkler.kirmiziRenk),
+                      bodyLarge: TextStyle(
+
+                          ///alt YILLAR
+                          fontSize: 16,
+                          fontFamily: 'Nexa3',
+                          color: renkler.koyuuRenk),
+                      headlineLarge: TextStyle(
+                          fontFamily: 'Nexa4',
+                          fontSize: 18,
+                          color: renkler.yesilRenk,
+                          fontWeight: FontWeight.w900)),
+                  colorScheme: ColorScheme(
+                    brightness: Brightness.light,
+                    primary: renkler.arkaRenk, // üst taraf arkaplan rengi
+                    onPrimary: renkler.koyuuRenk, //üst taraf yazı rengi
+                    secondary: renkler.kirmiziRenk,
+                    onSecondary: renkler.arkaRenk,
+                    primaryContainer: renkler.kirmiziRenk,
+                    error: const Color(0xFFD91A2A),
+                    onError: const Color(0xFFD91A2A),
+                    background: renkler.kirmiziRenk,
+                    onBackground: renkler.yesilRenk,
+                    surface: renkler.koyuuRenk, //ÜST TARAF RENK
+                    onPrimaryContainer: renkler.yesilRenk,
+                    onSurface: renkler.koyuuRenk, //alt günlerin rengi
                   ),
                 ),
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 34,
-                      width: 60,
-                      child: PageView(
-                        controller: pageMonthController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedMonthIndex = index + 1;
-                          });
-                        },
-                        children: monthName
-                            .map(
-                              (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        height: 5,
-                        width: 60,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15)),
-                          color: Color(0xffF2CB05),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 34,
-                      width: 48,
-                      child: PageView(
-                        controller: pageYearController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedYearIndex = index + 2020;
-                          });
-                        },
-                        children: yearName
-                            .map(
-                              (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa4',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        height: 5,
-                        width: 48,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15)),
-                          color: Color(0xffF2CB05),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget yearSelectMenu(BuildContext context) {
-    var read = ref.read(statisticsRiverpod);
-    List yearName = read.getYears();
-    return SizedBox(
-      height: 40,
-      width: 240,
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 34,
-              width: 240,
-            ),
-          ),
-          SizedBox(
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 6),
-                  child: Container(
-                    height: 40,
-                    width: 140,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
-                          topLeft: Radius.circular(15)),
-                      color: Color(0xffF2CB05),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Center(
-                        child: TextButton(
-                          onPressed: () {
-                            setState(() {
-                              selectDateMenu = 0;
-                            });
-                          },
-                          child: Text(
-                            translation(context).yearly,
-                            style: const TextStyle(
-                              height: 1,
-                              fontFamily: 'NEXA4',
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 34,
-                      width: 48,
-                      child: PageView(
-                        controller: pageYearController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedYearIndex = index + 2020;
-                          });
-                        },
-                        children: yearName
-                            .map(
-                              (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa4',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        height: 5,
-                        width: 48,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15)),
-                          color: Color(0xffF2CB05),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget weekSelectMenu(BuildContext context) {
-    var read = ref.read(statisticsRiverpod);
-    List yearName = read.getYears();
-    List monthName = read.getMonths();
-    List weekName = read.getWeeks(selectedMonthIndex, selectedYearIndex + 2020);
-    return SizedBox(
-      height: 40,
-      width: 240,
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 34,
-              width: 240,
-            ),
-          ),
-          SizedBox(
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 6),
-                  child: Container(
-                    height: 40,
-                    width: 66,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
-                          topLeft: Radius.circular(15)),
-                      color: Color(0xffF2CB05),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Center(
-                        child: TextButton(
-                          onPressed: () {
-                            setState(() {
-                              selectDateMenu = 0;
-                            });
-                          },
-                          child: Text(
-                            translation(context).weekly,
-                            style: const TextStyle(
-                              height: 1,
-                              fontFamily: 'NEXA4',
-                              fontSize: 14,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 34,
-                      width: 16,
-                      child: PageView(
-                        controller: pageWeekController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedWeekIndex = index + 1;
-                          });
-                        },
-                        children: weekName
-                            .map(
-                              (week) => Center(
-                                child: Text(
-                                  "$week.",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        height: 5,
-                        width: 12,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15)),
-                          color: Color(0xffF2CB05),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 34,
-                      width: 60,
-                      child: PageView(
-                        controller: pageMonthController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedMonthIndex = index + 1;
-                          });
-                        },
-                        children: monthName
-                            .map(
-                              (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        height: 5,
-                        width: 60,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15)),
-                          color: Color(0xffF2CB05),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 34,
-                      width: 48,
-                      child: PageView(
-                        controller: pageYearController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedYearIndex = index + 2020;
-                          });
-                        },
-                        children: yearName
-                            .map(
-                              (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa4',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        height: 5,
-                        width: 48,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15)),
-                          color: Color(0xffF2CB05),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget daySelectMenu(BuildContext context) {
-    var read = ref.read(statisticsRiverpod);
-    List yearName = read.getYears();
-    List monthName = read.getMonths();
-    List dayName = read.getDays(selectedMonthIndex, selectedYearIndex + 2020);
-    return SizedBox(
-      height: 40,
-      width: 240,
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 34,
-              width: 240,
-            ),
-          ),
-          SizedBox(
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 6),
-                  child: Container(
-                    height: 40,
-                    width: 56,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
-                          topLeft: Radius.circular(15)),
-                      color: Color(0xffF2CB05),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Center(
-                        child: TextButton(
-                          onPressed: () {
-                            setState(() {
-                              selectDateMenu = 0;
-                            });
-                          },
-                          child: Text(
-                            translation(context).daily,
-                            style: const TextStyle(
-                              height: 1,
-                              fontFamily: 'NEXA4',
-                              fontSize: 14,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 34,
-                      width: 20,
-                      child: PageView(
-                        controller: pageDayController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedDayIndex = index + 1;
-                          });
-                        },
-                        children: dayName
-                            .map(
-                              (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        height: 5,
-                        width: 18,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15)),
-                          color: Color(0xffF2CB05),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 34,
-                      width: 60,
-                      child: PageView(
-                        controller: pageMonthController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedMonthIndex = index + 1;
-                          });
-                        },
-                        children: monthName
-                            .map(
-                              (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        height: 5,
-                        width: 60,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15)),
-                          color: Color(0xffF2CB05),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 34,
-                      width: 48,
-                      child: PageView(
-                        controller: pageYearController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            selectedYearIndex = index + 2020;
-                          });
-                        },
-                        children: yearName
-                            .map(
-                              (year) => Center(
-                                child: Text(
-                                  year,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontFamily: 'Nexa4',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        height: 5,
-                        width: 48,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15)),
-                          color: Color(0xffF2CB05),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  String giderGelirHepsi = 'Gider';
-  double buttonHeight = 34; //Basılmamış yükseklik
-  double buttonHeight2 = 40; //Basılmış yükseklik
-  double buttonHeight3 = 34; //Basılmamış yükseklik
-  Color containerColor3 = const Color(0xff0D1C26); //Basılmamış renk
-  Color containerColor2 = const Color(0xff0D1C26); //Basılmamış renk
-  Color containerColor = const Color(0xffF2CB05); //Basılmış renk
-  Color textColor3 = Colors.white; //Basılmamış yazı rengi
-  Color textColor2 = Colors.white; //Basılmamış yazı rengi
-  Color textColor = const Color(0xff0D1C26); //Basılmış yazı rengi
-  int index = 0; // Gider ve Gelir butonları arasında geçiş yapmak için
-  Widget gelirGiderButon(BuildContext context) {
-    void changeColor2(int index) {
-      if (index == 0) {
+                child: child!,
+              );
+            },
+          );
+        },
+        keyboardType: TextInputType.number,
+      );
+      if (picked != null) {
         setState(() {
-          buttonHeight2 = 40;
-          buttonHeight = 34;
-          buttonHeight3 = 34;
-          containerColor = const Color(0xffF2CB05);
-          containerColor2 = const Color(0xff0D1C26);
-          containerColor3 = const Color(0xff0D1C26);
-          textColor = const Color(0xff0D1C26);
-          textColor2 = Colors.white;
-          textColor3 = Colors.white;
-          //this.index = 1;
-        });
-      } else if (index == 1) {
-        setState(() {
-          buttonHeight = 40;
-          buttonHeight2 = 34;
-          buttonHeight3 = 34;
-          containerColor2 = const Color(0xffF2CB05);
-          containerColor = const Color(0xff0D1C26);
-          containerColor3 = const Color(0xff0D1C26);
-          textColor = Colors.white;
-          textColor2 = const Color(0xff0D1C26);
-          textColor3 = Colors.white;
-          //this.index = 0;
-        });
-      } else {
-        setState(() {
-          buttonHeight3 = 40;
-          buttonHeight2 = 34;
-          buttonHeight = 34;
-          containerColor3 = const Color(0xffF2CB05);
-          containerColor2 = const Color(0xff0D1C26);
-          containerColor = const Color(0xff0D1C26);
-          textColor = Colors.white;
-          textColor2 = Colors.white;
-          textColor3 = const Color(0xff0D1C26);
-          //this.index = 0;
+          firstDate = picked.start;
+          secondDate = picked.end;
+          date1 = '${firstDate!.day}.${firstDate!.month}.${firstDate!.year}';
+          date2 = '${secondDate!.day}.${secondDate!.month}.${secondDate!.year}';
         });
       }
     }
-    return SizedBox(
-      height: 40,
-      child: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20)),
-              color: Color(0xff0D1C26),
-            ),
-            height: 34,
-            width: 240,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1200),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(15),
-                        bottomLeft: Radius.circular(15)),
-                    color: containerColor,
-                  ),
-                  height: buttonHeight2,
-                  child: SizedBox(
-                    width: 70,
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            changeColor2(0);
-                            giderGelirHepsi = "Gider";
-                          });
-                        },
-                        child: Text(translation(context).expenses,
-                            style: TextStyle(
-                              height: 1,
-                                color: textColor,
-                                fontSize: 16,
-                                fontFamily: 'Nexa4',
-                                fontWeight: FontWeight.w800))),
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1200),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(15),
-                        bottomLeft: Radius.circular(15)),
-                    color: containerColor2,
-                  ),
-                  height: buttonHeight,
-                  child: SizedBox(
-                    width: 70,
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            changeColor2(1);
-                            giderGelirHepsi = 'Gelir';
-                          });
-                        },
-                        child: Text(translation(context).income,
-                            style: TextStyle(
-                              height: 1,
-                                color: textColor2,
-                                fontSize: 16,
-                                fontFamily: 'Nexa4',
-                                fontWeight: FontWeight.w800))),
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1200),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(15),
-                        bottomLeft: Radius.circular(15)),
-                    color: containerColor3,
-                  ),
-                  height: buttonHeight3,
-                  child: SizedBox(
-                    width: 70,
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            changeColor2(3);
-                            giderGelirHepsi = 'Hepsi';
-                          });
-                        },
-                        child: Text(translation(context).both,
-                            style: TextStyle(
-                              height: 1,
-                                color: textColor3,
-                                fontSize: 16,
-                                fontFamily: 'Nexa4',
-                                fontWeight: FontWeight.w800))),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
 
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Visibility(
+              visible: typer == 3,
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: 34,
+                    width: 38,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        hint: Center(
+                          child: Text(
+                            day.toString(),
+                            style: TextStyle(
+                                fontSize: 13,
+                                height: 1,
+                                color: renkler.arkaRenk),
+                          ),
+                        ),
+                        items: dayName!
+                            .map((String item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Center(
+                                    child: Text(
+                                      item,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          height: 1,
+                                          color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        value: selectedValueDay,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedValueDay = value;
+                          });
+                        },
+                        iconStyleData: const IconStyleData(
+                          iconSize: 0,
+                        ),
+                        //alignment: Alignment.center,
+                        dropdownStyleData: DropdownStyleData(
+                            maxHeight: 160,
+
+                            ///açılmış kutu
+                            decoration: BoxDecoration(
+                              color: renkler.koyuuRenk,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            )),
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          height: 36,
+                          width: 96,
+                        ),
+                        menuItemStyleData: MenuItemStyleData(
+                          ///açılmış kutu
+                          height: 32,
+                          overlayColor:
+                              MaterialStatePropertyAll(renkler.sariRenk),
+                          padding: const EdgeInsets.all(8),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: 5,
+                      width: 38,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(15),
+                            topLeft: Radius.circular(15)),
+                        color: Color(0xffF2CB05),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Visibility(
+                visible: typer == 3,
+                child: SizedBox(
+                  width: 5,
+                )),
+            Visibility(
+              visible: typer == 2,
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: 34,
+                    width: 34,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        hint: Center(
+                          child: Text(
+                            "${week.toString()}.",
+                            style: TextStyle(
+                                fontSize: 13,
+                                height: 1,
+                                color: renkler.arkaRenk),
+                          ),
+                        ),
+                        items: weekName
+                            .map((String item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Center(
+                                    child: Text(
+                                      "$item.",
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          height: 1,
+                                          color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        value: selectedValueWeek,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedValueWeek = value;
+                          });
+                        },
+                        iconStyleData: const IconStyleData(
+                          iconSize: 0,
+                        ),
+                        //alignment: Alignment.center,
+                        dropdownStyleData: DropdownStyleData(
+                            maxHeight: 160,
+
+                            ///açılmış kutu
+                            decoration: BoxDecoration(
+                              color: renkler.koyuuRenk,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            )),
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          height: 36,
+                          width: 96,
+                        ),
+                        menuItemStyleData: MenuItemStyleData(
+                          ///açılmış kutu
+                          height: 32,
+                          overlayColor:
+                              MaterialStatePropertyAll(renkler.sariRenk),
+                          padding: const EdgeInsets.all(8),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: 5,
+                      width: 34,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(15),
+                            topLeft: Radius.circular(15)),
+                        color: Color(0xffF2CB05),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Visibility(
+                visible: typer == 2,
+                child: SizedBox(
+                  width: 5,
+                )),
+            Visibility(
+              visible: typer == 1 || typer == 2 || typer == 3,
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: 34,
+                    width: 86,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        hint: Center(
+                          child: Text(
+                            monthName[month - 1],
+                            style: TextStyle(
+                                fontSize: 12,
+                                height: 1,
+                                color: renkler.arkaRenk),
+                          ),
+                        ),
+                        items: monthName
+                            .map((String item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Center(
+                                    child: Text(
+                                      item,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          height: 1,
+                                          color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        value: selectedValueMonth,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedValueMonth = value;
+                            monthCount = selectedValueMonth != null
+                                ? convertMonth(selectedValueMonth!)
+                                : month;
+                            dayName = read.getDays(monthCount!, yearCount!);
+                            weekName = read.getWeeks(monthCount!, yearCount!);
+                            int.parse(selectedValueWeek != null
+                                        ? selectedValueWeek!
+                                        : '1') >
+                                    weekName.length
+                                ? selectedValueWeek = weekName.last
+                                : null;
+                            int.parse(selectedValueDay != null
+                                        ? selectedValueDay!
+                                        : '15') >
+                                    dayName.length
+                                ? selectedValueDay = dayName.last
+                                : null;
+                          });
+                          setState(() {});
+                        },
+                        iconStyleData: const IconStyleData(
+                          iconSize: 0,
+                        ),
+                        //alignment: Alignment.center,
+                        dropdownStyleData: DropdownStyleData(
+                            maxHeight: 160,
+                            width: 86,
+
+                            ///açılmış kutu
+                            decoration: BoxDecoration(
+                              color: renkler.koyuuRenk,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            )),
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          height: 36,
+                          width: 86,
+                        ),
+                        menuItemStyleData: MenuItemStyleData(
+                          ///açılmış kutu
+                          height: 32,
+                          overlayColor:
+                              MaterialStatePropertyAll(renkler.sariRenk),
+                          padding: const EdgeInsets.all(8),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: 5,
+                      width: 84,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(15),
+                            topLeft: Radius.circular(15)),
+                        color: Color(0xffF2CB05),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Visibility(
+                visible: typer == 1 || typer == 2 || typer == 3,
+                child: SizedBox(
+                  width: 5,
+                )),
+            Visibility(
+              visible: typer == 0 || typer == 1 || typer == 2 || typer == 3,
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: 34,
+                    width: 54,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        hint: Center(
+                          child: Text(
+                            year.toString(),
+                            style: TextStyle(
+                                fontSize: 12,
+                                height: 1,
+                                color: renkler.arkaRenk),
+                          ),
+                        ),
+                        items: yearName
+                            .map((String item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Center(
+                                    child: Text(
+                                      item,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          height: 1,
+                                          color: renkler.arkaRenk),
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        value: selectedValueYear,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedValueYear = value;
+                          });
+                          yearCount = selectedValueYear != null
+                              ? int.parse(selectedValueYear!)
+                              : year;
+                          dayName = read.getDays(monthCount!, yearCount!);
+                          weekName = read.getWeeks(monthCount!, yearCount!);
+                          int.parse(selectedValueWeek != null
+                                      ? selectedValueWeek!
+                                      : '1') >
+                                  weekName.length
+                              ? selectedValueWeek = weekName.last
+                              : null;
+                          int.parse(selectedValueDay != null
+                                      ? selectedValueDay!
+                                      : '15') >
+                                  dayName.length
+                              ? selectedValueDay = dayName.last
+                              : null;
+                        },
+                        iconStyleData: const IconStyleData(
+                          iconSize: 0,
+                        ),
+                        //alignment: Alignment.center,
+                        dropdownStyleData: DropdownStyleData(
+                            maxHeight: 160,
+
+                            ///açılmış kutu
+                            decoration: BoxDecoration(
+                              color: renkler.koyuuRenk,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            )),
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          height: 36,
+                          width: 96,
+                        ),
+                        menuItemStyleData: MenuItemStyleData(
+                          ///açılmış kutu
+                          height: 32,
+                          overlayColor:
+                              MaterialStatePropertyAll(renkler.sariRenk),
+                          padding: const EdgeInsets.all(8),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: 5,
+                      width: 54,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(15),
+                            topLeft: Radius.circular(15)),
+                        color: Color(0xffF2CB05),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Visibility(
+              visible: typer == 4,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Stack(
+                    children: [
+                      SizedBox(
+                          height: 34,
+                          width: 80,
+                          child: InkWell(
+                            onTap: () {
+                              selectDate(context, setState);
+                            },
+                            child: Center(
+                                child: Text(
+                              date1,
+                              style: TextStyle(
+                                  color: renkler.arkaRenk,
+                                  height: 1,
+                                  fontSize: 13,
+                                  fontFamily: 'Nexa3'),
+                            )),
+                          )),
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          height: 5,
+                          width: 80,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(15),
+                                topLeft: Radius.circular(15)),
+                            color: Color(0xffF2CB05),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Center(
+                      child: Text(
+                    '/',
+                    style: TextStyle(color: renkler.arkaRenk),
+                  )),
+                  Stack(
+                    children: [
+                      SizedBox(
+                        height: 34,
+                        width: 80,
+                        child: InkWell(
+                          onTap: () {
+                            selectDate(context, setState);
+                          },
+                          child: Center(
+                              child: Text(
+                            date2,
+                            style: TextStyle(
+                                color: renkler.arkaRenk,
+                                height: 1,
+                                fontSize: 13,
+                                fontFamily: 'Nexa3'),
+                          )),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          height: 5,
+                          width: 80,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(15),
+                                topLeft: Radius.circular(15)),
+                            color: Color(0xffF2CB05),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  int convertMonth(String monthName) {
+    if (monthName == translation(context).january) {
+      return 1;
+    } else if (monthName == translation(context).february) {
+      return 2;
+    } else if (monthName == translation(context).march) {
+      return 3;
+    } else if (monthName == translation(context).april) {
+      return 4;
+    } else if (monthName == translation(context).may) {
+      return 5;
+    } else if (monthName == translation(context).june) {
+      return 6;
+    } else if (monthName == translation(context).july) {
+      return 7;
+    } else if (monthName == translation(context).august) {
+      return 8;
+    } else if (monthName == translation(context).september) {
+      return 9;
+    } else if (monthName == translation(context).october) {
+      return 10;
+    } else if (monthName == translation(context).november) {
+      return 11;
+    } else if (monthName == translation(context).december) {
+      return 12;
+    } else {
+      return month;
+    }
   }
 
   Widget pasta(BuildContext context) {
     var read = ref.read(statisticsRiverpod);
     Future<List<Map<String, dynamic>>> listeeme = read.getCategoryAndAmount(
-        validDateMenu,
-        giderGelirHepsi,
-        selectedYearIndex,
-        selectedMonthIndex,
-        selectedWeekIndex,
-        selectedDayIndex);
+        operationType,
+        registration,
+        operationTool,
+        dateType,
+        year,
+        month,
+        week,
+        day,
+        firstDate,
+        secondDate);
 
     return FutureBuilder(
         future: listeeme,
@@ -1754,7 +2664,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               data: item,
               strokeWidth: 1,
               fillColor: (pieData, index) {
-                return  colorsList[index!];
+                return colorsList[index!];
               },
               pieLabel: (pieData, index) {
                 return "${pieData['domain']}:\n${pieData['measure']}%";
@@ -1796,18 +2706,60 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     Colors.deepPurple.shade500,
     Colors.deepPurple.shade200,
   ];
-  var colorsList2 = [
-    Colors.red,
-    Colors.orange,
-    Colors.amber,
-    Colors.yellow,
-    Colors.lime,
-    Colors.lightGreen,
-    Colors.green,
-    Colors.teal,
-    Colors.cyanAccent,
-    Colors.blue,
-    Colors.indigo,
-    Colors.deepPurple,
-  ];
+}
+
+class MyCustomClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    double roundnessFactor = 4.0;
+    double height = 36.0;
+    double width = 36.0;
+    Path path = Path();
+    path.moveTo(0, 0);
+    path.lineTo(width - roundnessFactor, 0);
+    path.quadraticBezierTo(width, 0, width, roundnessFactor);
+
+    path.lineTo(width - roundnessFactor, height - roundnessFactor);
+
+    path.quadraticBezierTo(
+        width - roundnessFactor, height, width - (roundnessFactor * 2), height);
+
+    path.lineTo(0, height);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return true;
+  }
+}
+
+class MyCustomClipperForRight extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    double roundnessFactor = 4.0;
+    double height = 36.0;
+    double width = 36.0;
+    Path path = Path();
+    path.moveTo(36, 0);
+    path.lineTo(roundnessFactor, 0);
+    path.quadraticBezierTo(0, 0, 0, roundnessFactor);
+
+    path.lineTo(roundnessFactor, height - roundnessFactor);
+
+    path.quadraticBezierTo(
+        roundnessFactor, height, roundnessFactor * 2, height);
+
+    path.lineTo(width, height);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return true;
+  }
 }

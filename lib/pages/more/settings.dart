@@ -29,6 +29,19 @@ class _SettingsState extends ConsumerState<Settings> {
     "IQD",
     "SAR"
   ];
+  List<String> getMoneyNameList(){
+  List<String> moneyNameList = <String>[
+    'TRY - Türkiye - ₺',
+    "USD - USA - \$",
+    "EUR - Europe - €",
+    "GBP - The United Kingdom - £",
+    "KWD - Kuwait - د.ك",
+    "JOD - Jordan - د.أ'",
+    "IQD - Iraq - د.ع",
+    "SAR - Saudi Arabia - ر.س",
+  ];
+  return moneyNameList;
+  }
   List<String> dilDestegi = <String>["Türkçe", "English", "العربية"];
   CustomColors renkler = CustomColors();
 
@@ -346,13 +359,23 @@ class _SettingsState extends ConsumerState<Settings> {
                                   height: 2,
                                   color: renkler.koyuuRenk,
                                 ),
-                                onChanged: (newValue) {
+                                onChanged: (newValue) async {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return Center(child: CircularProgressIndicator(
+                                        color: renkler.sariRenk,
+                                        backgroundColor: renkler.koyuuRenk,
+                                      ));
+                                    },
+                                  );
                                   if (readSetting.Prefix != newValue) {
                                     readSetting.setPrefix(newValue!);
-                                    currencyRiv.calculateAllSQLRealTime(ref); //Bütün kayıtları hocam değiştiriyor.
+                                    await currencyRiv.calculateAllSQLRealTime(ref);
                                     readSetting.setisuseinsert();
                                   }
-                                  print("");
+                                  Navigator.of(context).pop();
                                 },
                                 items: moneyPrefix
                                     .map<DropdownMenuItem<String>>(
@@ -360,7 +383,9 @@ class _SettingsState extends ConsumerState<Settings> {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
-                                    onTap: () {},
+                                    onTap: () {
+                                      print(value);
+                                    },
                                   );
                                 }).toList(),
                               ),

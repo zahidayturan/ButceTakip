@@ -2,6 +2,7 @@ import 'package:butcekontrol/models/currency_info.dart';
 import 'package:butcekontrol/models/settings_info.dart';
 import 'package:butcekontrol/utils/firestore_helper.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ntp/ntp.dart';
 import '../models/spend_info.dart';
@@ -50,23 +51,33 @@ class CurrencyRiverpod extends ChangeNotifier {
     return rate ;
   }
 
-  void calculateAllSQLRealTime(WidgetRef ref) async { //Bütün kayıtları dolaşıp realAmount güncellenmesi yapıyor.
+
+  Future<void> calculateAllSQLRealTime(WidgetRef ref) async {
     List<SpendInfo> AllData = await SQLHelper.getItems();
     List<SettingsInfo> settingsList = await SQLHelper.settingsControl();
-    AllData.forEach((info) async {
-      if(info.moneyType == "0"){
+
+    for (var info in AllData) {
+      if (info.moneyType == "0") {
         info.moneyType = "TRY";
       }
 
-      if(info.moneyType == settingsList[0].prefix! ){
+      if (info.moneyType == settingsList[0].prefix!) {
         info.realAmount = info.amount;
-        await SQLHelper.updateItem(info).then((value) => print("SABİT KAYIT ===>>>${info.category} eski miktar ${info.amount} ${info.moneyType} realAmount miktar ====>> ${info.realAmount} ${settingsList[0].prefix!} İD => ${info.id}")).then((value) => ref.read(settingsRiverpod).setisuseinsert());
-      }else{
-        info.realAmount = calculateRealAmount(info.amount!, info.moneyType! , settingsList[0].prefix!); // amount moneytype kaç Prefix ?
-        await SQLHelper.updateItem(info).then((value) => print("GÜNCELLENMİŞ KAYIT ===>>>${info.category} eski miktar ${info.amount} ${info.moneyType} realAmount miktar ====>> ${info.realAmount} ${settingsList[0].prefix!} İD => ${info.id}")).then((value) => ref.read(settingsRiverpod).setisuseinsert());
+      } else {
+        info.realAmount = calculateRealAmount(
+          info.amount!,
+          info.moneyType!,
+          settingsList[0].prefix!,
+        );
       }
-    });
+
+      await SQLHelper.updateItem(info);
+
+      print("Kayıt güncellendi: ${info.category} - Eski miktar: ${info.amount} ${info.moneyType} - RealAmount miktar: ${info.realAmount} ${settingsList[0].prefix!} - ID: ${info.id}");
+      ref.read(settingsRiverpod).setisuseinsert();
+    }
   }
+
 
   Future readDb() async{
     List<currencyInfo> currency = await SQLHelper.currencyControl() ;
@@ -77,6 +88,10 @@ class CurrencyRiverpod extends ChangeNotifier {
     EUR = currency[currency.length - 1].EUR;
     GBP = currency[currency.length - 1].GBP;
     KWD = currency[currency.length - 1].KWD;
+    JOD = currency[currency.length - 1].JOD;
+    IQD = currency[currency.length - 1].IQD;
+    SAR = currency[currency.length - 1].SAR;
+
     lastApiUpdateDate = currency[currency.length -1].lastApiUpdateDate;
     print("""
       id  : ${currency[currency.length - 1].id}
