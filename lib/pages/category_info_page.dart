@@ -140,7 +140,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                         }
                                       },
                                       child: SizedBox(
-                                        height: 40,
+                                        height: 50,
                                         child: DecoratedBox(
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10),

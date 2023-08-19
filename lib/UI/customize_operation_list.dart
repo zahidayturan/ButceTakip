@@ -15,7 +15,7 @@ class CustomizeList extends ConsumerWidget {
     return StatefulBuilder(
       builder: (context, setState) {
         return AlertDialog(
-          contentPadding: EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(10),
           content: ConstrainedBox(
               constraints: const BoxConstraints(
                 maxHeight: 390,
@@ -47,10 +47,10 @@ class CustomizeList extends ConsumerWidget {
                                 ),
                               ),
                               child: IconButton(
-                                icon: Icon(Icons.swap_horiz_rounded),
+                                icon: const Icon(Icons.swap_horiz_rounded),
                                 padding: EdgeInsets.zero,
                                 alignment: Alignment.center,
-                                color: renkler.koyuuRenk,
+                                color: selectedOperationController == false ? renkler.koyuuRenk : Colors.white,
                                 iconSize: 30,
                                 onPressed: () {
                                   setState(
@@ -61,7 +61,7 @@ class CustomizeList extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 10,),
+                          const SizedBox(width: 10,),
                           SizedBox(
                             height: 32,
                             width: 32,
@@ -92,7 +92,7 @@ class CustomizeList extends ConsumerWidget {
                   const SizedBox(
                     height: 12.0,
                   ),
-                  selectedOperationController == false ? repeatedList(context, ref) : installemntList(context, ref),
+                  selectedOperationController == false ? repeatedList(context, ref,setState) : installemntList(context, ref,setState),
                 ],
               )),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -106,9 +106,12 @@ class CustomizeList extends ConsumerWidget {
 
   }
 
-  Widget repeatedList(BuildContext context, WidgetRef ref) {
+
+
+  Widget repeatedList(BuildContext context, WidgetRef ref,setState) {
     var readUpdateData = ref.read(updateDataRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     return FutureBuilder(
@@ -134,7 +137,7 @@ class CustomizeList extends ConsumerWidget {
                       decoration: BoxDecoration(
                         borderRadius:
                         const BorderRadius.all(Radius.circular(30)),
-                        color: item.length > 5
+                        color: item.length > 4
                             ? renkler.arkaRenk
                             : Theme.of(context).indicatorColor,
                       ),
@@ -149,7 +152,7 @@ class CustomizeList extends ConsumerWidget {
                     child: Theme(
                       data: Theme.of(context).copyWith(
                           colorScheme: ColorScheme.fromSwatch(
-                            accentColor: Color(0xFFF2CB05),
+                            accentColor: const Color(0xFFF2CB05),
                           ),
                           scrollbarTheme: ScrollbarThemeData(
                               thumbColor: MaterialStateProperty.all(
@@ -193,15 +196,16 @@ class CustomizeList extends ConsumerWidget {
                                           },
                                         );
                                       },
+                                      highlightColor : Theme.of(context).scaffoldBackgroundColor,
                                       child: Padding(
-                                        padding: EdgeInsets.only(right: 15),
+                                        padding: const EdgeInsets.only(right: 15),
                                         child: Container(
-                                          height: 60,
+                                          height: 64,
                                           decoration: BoxDecoration(
                                               color: Theme.of(context)
                                                   .indicatorColor,
                                               borderRadius:
-                                              BorderRadius.all(
+                                              const BorderRadius.all(
                                                   Radius.circular(10))),
                                           child: Padding(
                                             padding: const EdgeInsets.only(
@@ -226,21 +230,48 @@ class CustomizeList extends ConsumerWidget {
                                                         fontSize: 16,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      "${item[index].amount!.toStringAsFixed(2)}",
-                                                      style: TextStyle(
-                                                        color: item[index]
-                                                            .operationType ==
-                                                            "Gider"
-                                                            ? renkler
-                                                            .kirmiziRenk
-                                                            : Theme.of(
-                                                            context)
-                                                            .canvasColor,
-                                                        fontFamily: "Nexa4",
-                                                        fontSize: 17,
-                                                      ),
-                                                    ),
+                                                    Expanded(
+                                                      child: RichText(
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          textAlign: TextAlign.end,
+                                                          text: TextSpan(children: [
+                                                            TextSpan(
+                                                              text:  item[index].realAmount!.toStringAsFixed(1),
+                                                              style: TextStyle(
+                                                                height: 1,
+                                                                color: item[index]
+                                                                    .operationType ==
+                                                                    "Gider"
+                                                                    ? renkler
+                                                                    .kirmiziRenk
+                                                                    : Theme.of(
+                                                                    context)
+                                                                    .canvasColor,
+                                                                fontFamily:
+                                                                "Nexa4",
+                                                                fontSize: 16,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text: readSettings.prefixSymbol,
+                                                              style: TextStyle(
+                                                                height: 1,
+                                                                color: item[index]
+                                                                    .operationType ==
+                                                                    "Gider"
+                                                                    ? renkler
+                                                                    .kirmiziRenk
+                                                                    : Theme.of(
+                                                                    context)
+                                                                    .canvasColor,
+                                                                fontFamily:
+                                                                "TL",
+                                                                fontSize: 17,
+                                                              ),
+                                                            ),
+                                                          ])),
+                                                    )
                                                   ],
                                                 ),
                                                 Row(
@@ -256,14 +287,18 @@ class CustomizeList extends ConsumerWidget {
                                                         fontSize: 13,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      "${item[index].category}",
-                                                      style: TextStyle(
-                                                        color: Theme.of(
-                                                            context)
-                                                            .canvasColor,
-                                                        fontFamily: "Nexa3",
-                                                        fontSize: 13,
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${item[index].category}",
+                                                        style: TextStyle(
+                                                          color: Theme.of(
+                                                              context)
+                                                              .canvasColor,
+                                                          fontFamily: "Nexa3",
+                                                          fontSize: 13,
+                                                        ),
+                                                        overflow: TextOverflow.ellipsis,
+                                                        textAlign: TextAlign.end,
                                                       ),
                                                     ),
                                                   ],
@@ -273,94 +308,133 @@ class CustomizeList extends ConsumerWidget {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                                   children: [
-                                                    Container(
-                                                      width: 82,
-                                                      height: 15,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(
-                                                                  6),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                  6)),
-                                                          color: Theme.of(
-                                                              context)
-                                                              .canvasColor),
-                                                      child: Center(
-                                                          child: Padding(
-                                                            padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                top: 2),
-                                                            child: Text(
-                                                              "İşlem Detayları",
-                                                              style: TextStyle(
-                                                                  fontSize: 10,
-                                                                  color: Theme.of(
-                                                                      context)
-                                                                      .primaryColor),
-                                                            ),
-                                                          )),
+                                                    SizedBox(
+                                                    height : 18,
+                                                    child: TextButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return AlertDialog(
+                                                                backgroundColor: Theme.of(context).primaryColor,
+                                                                title: Text("Tekrarı İptal Et",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
+                                                                titlePadding: EdgeInsets.all(10),
+                                                                content: Text("Bundan sonra bu işlem tekrarlanmayacak, onaylıyor musunuz?",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
+                                                                shadowColor: renkler.koyuuRenk,
+                                                                contentPadding: EdgeInsets.only(top: 2,left: 16,right: 16,bottom: 2),
+                                                                actionsPadding: EdgeInsets.all(0),
+                                                                actions: [
+                                                                  Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                    children: [
+                                                                      TextButton(
+                                                                        onPressed: () {
+                                                                          Navigator.of(context).pop();
+                                                                        },
+                                                                        child: Text("Vazgeç",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                      ),
+                                                                      TextButton(
+                                                                        onPressed: () {
+                                                                          setState(() {
+                                                                            readUpdateData.removeProcessOnce(item[index].id!);
+                                                                          });
+                                                                          Navigator.of(context).pop();
+                                                                          ScaffoldMessenger.of(context).showSnackBar(
+                                                                            SnackBar(
+                                                                              backgroundColor: Theme.of(context).highlightColor,
+                                                                              duration: const Duration(seconds: 1),
+                                                                              content: const Text(
+                                                                                "Tekrar iptal edildi",
+                                                                                style: TextStyle(
+                                                                                  color: Colors.white,
+                                                                                  fontSize: 16,
+                                                                                  fontFamily: 'Nexa3',
+                                                                                  fontWeight: FontWeight.w600,
+                                                                                  height: 1.3,
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child: Text("Evet",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                      ),
+                                                                    ],
+
+                                                                  )
+                                                                ],
+                                                              );
+                                                            });
+                                                        },
+                                                      style: ButtonStyle(
+                                                          backgroundColor:MaterialStatePropertyAll(renkler.sariRenk),
+                                                          shape: MaterialStateProperty.all<
+                                                              RoundedRectangleBorder>(
+                                                              const RoundedRectangleBorder(
+                                                                  borderRadius: BorderRadius.only(
+                                                                      topRight: Radius.circular(5),
+                                                                      topLeft: Radius.circular(5)
+                                                                  )
+                                                              )),
+                                                          padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
+                                                      ),
+                                                      child: Text(
+                                                        "Tekrarı İptal Et",
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            height : 1,
+                                                            color: renkler
+                                                                .koyuuRenk),
+                                                      ),
                                                     ),
-                                                    Container(
-                                                      width: 82,
-                                                      height: 15,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(
-                                                                  6),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                  6)),
-                                                          color: renkler
-                                                              .sariRenk),
-                                                      child: Center(
-                                                          child: Padding(
-                                                            padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                top: 2),
-                                                            child: Text(
-                                                              "Tekrarı İptal Et",
-                                                              style: TextStyle(
-                                                                  fontSize: 10,
-                                                                  color: renkler
-                                                                      .koyuuRenk),
-                                                            ),
-                                                          )),
+                                                  ),
+                                                    SizedBox(
+                                                      height : 18,
+                                                      child: TextButton(
+                                                        onPressed: () {
+                                                          readDailyInfo.setSpendDetail(
+                                                              item, index);
+                                                          showModalBottomSheet(
+                                                            context: context,
+                                                            shape:
+                                                            const RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                BorderRadius.vertical(
+                                                                    top: Radius
+                                                                        .circular(
+                                                                        15))),
+                                                            backgroundColor:
+                                                            const Color(0xff0D1C26),
+                                                            builder: (context) {
+                                                              // genel bilgi sekmesi açılıyor.
+                                                              ref
+                                                                  .watch(databaseRiverpod)
+                                                                  .deletst;
+                                                              return const SpendDetail();
+                                                            },
+                                                          );
+                                                        },
+                                                        style: ButtonStyle(
+                                                            backgroundColor:MaterialStatePropertyAll(renkler.koyuuRenk),
+                                                            shape: MaterialStateProperty.all<
+                                                                RoundedRectangleBorder>(
+                                                                const RoundedRectangleBorder(
+                                                                    borderRadius: BorderRadius.only(
+                                                                        topRight: Radius.circular(5),
+                                                                        topLeft: Radius.circular(5)
+                                                                    )
+                                                                )),
+                                                            padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
+                                                        ),
+                                                        child: Text(
+                                                          "İşlem Detayları",
+                                                          style: TextStyle(
+                                                              fontSize: 10,
+                                                              height : 1,
+                                                              color: renkler
+                                                                  .arkaRenk),
+                                                        ),
+                                                      ),
                                                     ),
-                                                    Container(
-                                                      width: 82,
-                                                      height: 15,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(
-                                                                  6),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                  6)),
-                                                          color: Theme.of(
-                                                              context)
-                                                              .canvasColor),
-                                                      child: Center(
-                                                          child: Padding(
-                                                            padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                top: 2),
-                                                            child: Text(
-                                                              "Tekrarı Düzenle",
-                                                              style: TextStyle(
-                                                                  fontSize: 10,
-                                                                  color: Theme.of(
-                                                                      context)
-                                                                      .primaryColor),
-                                                            ),
-                                                          )),
-                                                    )
                                                   ],
                                                 ),
                                               ],
@@ -403,9 +477,10 @@ class CustomizeList extends ConsumerWidget {
     );
   }
 
-  Widget installemntList(BuildContext context, WidgetRef ref) {
+  Widget installemntList(BuildContext context, WidgetRef ref,setState) {
     var readUpdateData = ref.read(updateDataRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     return FutureBuilder(
@@ -431,7 +506,7 @@ class CustomizeList extends ConsumerWidget {
                       decoration: BoxDecoration(
                         borderRadius:
                         const BorderRadius.all(Radius.circular(30)),
-                        color: item.length > 5
+                        color: item.length > 4
                             ? renkler.arkaRenk
                             : Theme.of(context).indicatorColor,
                       ),
@@ -446,7 +521,7 @@ class CustomizeList extends ConsumerWidget {
                     child: Theme(
                       data: Theme.of(context).copyWith(
                           colorScheme: ColorScheme.fromSwatch(
-                            accentColor: Color(0xFFF2CB05),
+                            accentColor: const Color(0xFFF2CB05),
                           ),
                           scrollbarTheme: ScrollbarThemeData(
                               thumbColor:
@@ -481,13 +556,14 @@ class CustomizeList extends ConsumerWidget {
                                           },
                                         );
                                       },
+                                      highlightColor : Theme.of(context).scaffoldBackgroundColor,
                                       child: Padding(
-                                        padding: EdgeInsets.only(right: 15),
+                                        padding: const EdgeInsets.only(right: 15),
                                         child: Container(
-                                          height: 60,
+                                          height: 64,
                                           decoration: BoxDecoration(
                                               color: Theme.of(context).indicatorColor,
-                                              borderRadius: BorderRadius.all(Radius.circular(10))
+                                              borderRadius: const BorderRadius.all(Radius.circular(10))
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.only(top: 8.0,left: 8,right: 8),
@@ -496,7 +572,8 @@ class CustomizeList extends ConsumerWidget {
                                               children: [
                                                 Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                                   children: [
                                                     Text(
                                                       "${item[index].processOnce}",
@@ -506,23 +583,54 @@ class CustomizeList extends ConsumerWidget {
                                                         fontSize: 16,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      "${item[index].amount!.toStringAsFixed(2)}",
-                                                      style: TextStyle(
-                                                        color: item[index]
-                                                            .operationType ==
-                                                            "Gider"
-                                                            ? renkler.kirmiziRenk
-                                                            : Theme.of(context).canvasColor,
-                                                        fontFamily: "Nexa4",
-                                                        fontSize: 17,
-                                                      ),
-                                                    ),
+                                                    Expanded(
+                                                      child: RichText(
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          textAlign: TextAlign.end,
+                                                          text: TextSpan(children: [
+                                                            TextSpan(
+                                                              text:  item[index].realAmount!.toStringAsFixed(1),
+                                                              style: TextStyle(
+                                                                height: 1,
+                                                                color: item[index]
+                                                                    .operationType ==
+                                                                    "Gider"
+                                                                    ? renkler
+                                                                    .kirmiziRenk
+                                                                    : Theme.of(
+                                                                    context)
+                                                                    .canvasColor,
+                                                                fontFamily:
+                                                                "Nexa4",
+                                                                fontSize: 16,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text: readSettings.prefixSymbol,
+                                                              style: TextStyle(
+                                                                height: 1,
+                                                                color: item[index]
+                                                                    .operationType ==
+                                                                    "Gider"
+                                                                    ? renkler
+                                                                    .kirmiziRenk
+                                                                    : Theme.of(
+                                                                    context)
+                                                                    .canvasColor,
+                                                                fontFamily:
+                                                                "TL",
+                                                                fontSize: 17,
+                                                              ),
+                                                            ),
+                                                          ])),
+                                                    )
                                                   ],
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                                   children: [
                                                     Text(
                                                       "${item[index].operationDate}",
@@ -532,56 +640,154 @@ class CustomizeList extends ConsumerWidget {
                                                         fontSize: 13,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      "${item[index].category}",
-                                                      style: TextStyle(
-                                                        color: Theme.of(context).canvasColor,
-                                                        fontFamily: "Nexa3",
-                                                        fontSize: 13,
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${item[index].category}",
+                                                        style: TextStyle(
+                                                          color: Theme.of(
+                                                              context)
+                                                              .canvasColor,
+                                                          fontFamily: "Nexa3",
+                                                          fontSize: 13,
+                                                        ),
+                                                        overflow: TextOverflow.ellipsis,
+                                                        textAlign: TextAlign.end,
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                                   children: [
-                                                    Container(
-                                                      width: 82,
-                                                      height: 15,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(6),topRight: Radius.circular(6)),
-                                                          color: Theme.of(context).canvasColor
+                                                    SizedBox(
+                                                      height : 18,
+                                                      child: TextButton(
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) {
+                                                                return AlertDialog(
+                                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                                  title: Text("Taksidi İptal Et",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
+                                                                  titlePadding: EdgeInsets.all(10),
+                                                                  content: Text("Bundan sonra ki taksitler işleme alınmayacak, onaylıyor musunuz?",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
+                                                                  shadowColor: renkler.koyuuRenk,
+                                                                  contentPadding: EdgeInsets.only(top: 2,left: 16,right: 16,bottom: 2),
+                                                                  actionsPadding: EdgeInsets.all(0),
+                                                                  actions: [
+                                                                    Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                      children: [
+                                                                        TextButton(
+                                                                          onPressed: () {
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                          child: Text("Vazgeç",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                        ),
+                                                                        TextButton(
+                                                                          onPressed: () {
+                                                                            setState(() {
+                                                                              readUpdateData.removeProcessOnce(item[index].id!);
+                                                                            });
+                                                                            Navigator.of(context).pop();
+                                                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                                              SnackBar(
+                                                                                backgroundColor: Theme.of(context).highlightColor,
+                                                                                duration: const Duration(seconds: 1),
+                                                                                content: const Text(
+                                                                                  "Taksit iptal edildi",
+                                                                                  style: TextStyle(
+                                                                                    color: Colors.white,
+                                                                                    fontSize: 16,
+                                                                                    fontFamily: 'Nexa3',
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    height: 1.3,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                          child: Text("Evet",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                        ),
+                                                                      ],
+
+                                                                    )
+                                                                  ],
+                                                                );
+                                                              });
+                                                        },
+                                                        style: ButtonStyle(
+                                                            backgroundColor:MaterialStatePropertyAll(renkler.sariRenk),
+                                                            shape: MaterialStateProperty.all<
+                                                                RoundedRectangleBorder>(
+                                                                const RoundedRectangleBorder(
+                                                                    borderRadius: BorderRadius.only(
+                                                                        topRight: Radius.circular(5),
+                                                                        topLeft: Radius.circular(5)
+                                                                    )
+                                                                )),
+                                                            padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
+                                                        ),
+                                                        child: Text(
+                                                          "Taksidi İptal Et",
+                                                          style: TextStyle(
+                                                              fontSize: 10,
+                                                              height : 1,
+                                                              color: renkler
+                                                                  .koyuuRenk),
+                                                        ),
                                                       ),
-                                                      child: Center(child: Padding(
-                                                        padding: const EdgeInsets.only(top: 2),
-                                                        child: Text("İşlem Detayları",style: TextStyle(fontSize: 10,color: Theme.of(context).primaryColor),),
-                                                      )),
                                                     ),
-                                                    Container(
-                                                      width: 82,
-                                                      height: 15,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(6),topRight: Radius.circular(6)),
-                                                          color: renkler.sariRenk
+                                                    SizedBox(
+                                                      height : 18,
+                                                      child: TextButton(
+                                                        onPressed: () {
+                                                          readDailyInfo.setSpendDetail(
+                                                              item, index);
+                                                          showModalBottomSheet(
+                                                            context: context,
+                                                            shape:
+                                                            const RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                BorderRadius.vertical(
+                                                                    top: Radius
+                                                                        .circular(
+                                                                        15))),
+                                                            backgroundColor:
+                                                            const Color(0xff0D1C26),
+                                                            builder: (context) {
+                                                              // genel bilgi sekmesi açılıyor.
+                                                              ref
+                                                                  .watch(databaseRiverpod)
+                                                                  .deletst;
+                                                              return const SpendDetail();
+                                                            },
+                                                          );
+                                                        },
+                                                        style: ButtonStyle(
+                                                            backgroundColor:MaterialStatePropertyAll(renkler.koyuuRenk),
+                                                            shape: MaterialStateProperty.all<
+                                                                RoundedRectangleBorder>(
+                                                                const RoundedRectangleBorder(
+                                                                    borderRadius: BorderRadius.only(
+                                                                        topRight: Radius.circular(5),
+                                                                        topLeft: Radius.circular(5)
+                                                                    )
+                                                                )),
+                                                            padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
+                                                        ),
+                                                        child: Text(
+                                                          "İşlem Detayları",
+                                                          style: TextStyle(
+                                                              fontSize: 10,
+                                                              height : 1,
+                                                              color: renkler
+                                                                  .arkaRenk),
+                                                        ),
                                                       ),
-                                                      child: Center(child: Padding(
-                                                        padding: const EdgeInsets.only(top: 2),
-                                                        child: Text("Taksidi İptal Et",style: TextStyle(fontSize: 10,color: renkler.koyuuRenk),),
-                                                      )),
                                                     ),
-                                                    Container(
-                                                      width: 82,
-                                                      height: 15,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(6),topRight: Radius.circular(6)),
-                                                          color: Theme.of(context).canvasColor
-                                                      ),
-                                                      child: Center(child: Padding(
-                                                        padding: const EdgeInsets.only(top: 2),
-                                                        child: Text("Taksidi Düzenle",style: TextStyle(fontSize: 10,color: Theme.of(context).primaryColor),),
-                                                      )),
-                                                    )
                                                   ],
                                                 ),
                                               ],

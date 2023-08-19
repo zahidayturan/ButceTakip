@@ -146,6 +146,10 @@ class UpdateDataRiverpod extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeProcessOnce(int id){
+    SQLHelper.updateCustomize(id, "");
+  }
+
   Future<Map<String, List<String>>> myCategoryLists() async {
     List<SpendInfo> spendInfoListExpense =
         await SQLHelper.getCategoryListByType('Gider');
@@ -955,14 +959,17 @@ class UpdateDataRiverpod extends ChangeNotifier {
       }
     }else if(operationController == 2){///delete 2
       customizeItems.forEach((element) {
-        SQLHelper.updateCategory(element.id, newCategory,newCategory);
+
+        if(element.userCategory != ""){
+          SQLHelper.updateCategory(element.id, newCategory,newCategory);
+        }
       });
-      if(customizeItems.isEmpty){
         List<SpendInfo> userCategoryItems = await SQLHelper.getUserCategoryByType(operationType, categoryName);
         userCategoryItems.forEach((element) {
+          if(element.userCategory != ""){
           SQLHelper.updateCategory(element.id, newCategory,newCategory);
+          }
         });
-      }
     }
     else if(operationController == 3){///edit 1
       customizeItems.forEach((element) {
@@ -982,7 +989,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
       if(customizeItems.isEmpty){
         List<SpendInfo> userCategoryItems = await SQLHelper.getUserCategoryByType(operationType, categoryName);
         userCategoryItems.forEach((element) {
-          SQLHelper.updateCategory(element.id, newCategory,newCategory);
+          SQLHelper.updateCategory(element.id, element.category!,newCategory);
         });
       }
     }

@@ -1625,7 +1625,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         Container(
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(0.3),
+                color: Colors.black.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 8,
                 offset: Offset(0, 4))
