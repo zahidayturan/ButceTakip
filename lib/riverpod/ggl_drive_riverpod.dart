@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-
 
 class GoogleAuthClient extends http.BaseClient {
   final Map<String, String> _headers;
@@ -36,13 +34,11 @@ class GglDriveRiverpod extends ChangeNotifier{
   Future<void> _initializeDrive(GoogleSignInAccount account) async {
     final authHeaders = await account.authHeaders;
     final client = GoogleAuthClient(authHeaders);
-
     _driveApi = drive.DriveApi(client);
   } //+
 
   Future<UserCredential> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    await _initializeDrive(googleUser!);
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: ['email', drive.DriveApi.driveScope]).signIn();
     final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
@@ -57,8 +53,8 @@ class GglDriveRiverpod extends ChangeNotifier{
   Future<String?> checkFolderID() async { // drive içerisinde BütçeTakip adlı dosya var mı kontrolu yapıyor.
     var fileList = await  _driveApi!.files.list();
     if (fileList.files != null) {
-      var A = await fileList.files!.where((element) => element.name == "BütçeTakip");
-       if (A.length == 0) {
+      var A = await fileList.files?.where((element) => element.name == "BütçeTakip");
+      if (A?.length == 0) {
          final folder = drive.File()
            ..name = 'BütçeTakip'
            ..mimeType = 'application/vnd.google-apps.folder';
@@ -66,7 +62,7 @@ class GglDriveRiverpod extends ChangeNotifier{
          print('Folder created with ID: ${createdFolder.id}');
          return createdFolder.id ;
        }else{
-         return A.first.id ;
+         return A!.first.id ;
          print("Dosya Zaten Var");
        }
     } else {
@@ -74,7 +70,7 @@ class GglDriveRiverpod extends ChangeNotifier{
         ..name = 'BütçeTakip'
         ..mimeType = 'application/vnd.google-apps.folder';
       final createdFolder = await _driveApi!.files.create(folder);
-      print('Folder created with ID: ${createdFolder.id}');
+      print('Folder created with ID: ${createdFolder?.id}');
       return createdFolder.id ;
     }
   }//+
@@ -82,16 +78,16 @@ class GglDriveRiverpod extends ChangeNotifier{
     drive.FileList fileList = await _driveApi!.files.list(q: "'$folderID' in parents");
     List listem = fileList.files!;
     List filteredFile = await listem.where((file) {
-      return file.name!.toString().startsWith("Bka_data") && file.name!.toString().endsWith(".csv") ;
+      return file.name!.toString().startsWith("BT_Data") && file.name!.toString().endsWith(".csv") && file.name.toString().length >= 20 ;
     }).toList();
     return filteredFile ;
   }//+
   Future<void> downloadGoogleDriveFile(String fileId, String fileName) async {
+
     Directory tempDir = await getTemporaryDirectory();
     final filePath = "${tempDir.path}/$fileName";
 
     try {
-      await _googleSignIn.signIn(); // Initialize Google Sign-In
       final GoogleSignInAccount? googleSignInAccount = _googleSignIn.currentUser;
       if (googleSignInAccount != null) {
         final authentication = await googleSignInAccount.authentication;
@@ -104,8 +100,8 @@ class GglDriveRiverpod extends ChangeNotifier{
 
         if (response.statusCode == 200) {
           final saveFile = File(filePath); // Remove quotes around savePath
-          await saveFile.writeAsBytes(response.bodyBytes).then((value) => restore(fileName));
           print('Dosya indirildi => ${saveFile.path} ');
+          await saveFile.writeAsBytes(response.bodyBytes).then((value) => restore(fileName));
         } else {
           print('Failed to download file. Status code: ${response.statusCode}');
         }
@@ -122,23 +118,28 @@ class GglDriveRiverpod extends ChangeNotifier{
       print("Bir hata meydana geldi $e");
     }
   }
-  Future<void> uploadFileToDrive(String filePath) async {
-    final file = File(filePath);
+  Future<void> uploadFileToDrive(String fileName) async {
+    Directory tempDir = await getTemporaryDirectory();
+      final file = File("${tempDir.path}/$fileName");
 
-    final driveFile = drive.File()
-      ..name = file.uri.pathSegments.last
-      ..mimeType = "text/csv"
-      ..parents = [folderID!];
+      final driveFile = drive.File()
+        ..name = file.uri.pathSegments.last
+        ..mimeType = "text/csv"
+        ..parents = [folderID!];
 
-    if(_driveApi != null)  {
-       _driveApi?.files.create(
-        driveFile,
-        uploadMedia: drive.Media(file.openRead(), file.lengthSync()),
-      );
-      print('File uploaded to user\'s Google Drive.');
-    }else{
-      print("ilk değer atnamadı :/");
-    }
+      if(_driveApi != null)  {
+        try {
+          _driveApi!.files.create(
+            driveFile,
+            uploadMedia: drive.Media(file.openRead(), file.lengthSync()),
+          );
+          print('File uploaded to user\'s Google Drive.');
+        } catch (e) {
+          print('Error uploading file: $e');
+        }
+      }else{
+        print("ilk değer atnamadı :/");
+      }
   }//+
   Future<String?> uploadFileToStorage() async {
     //bu çalışıyor A planı
@@ -185,7 +186,7 @@ class GglDriveRiverpod extends ChangeNotifier{
       print('Dosya bulunamadı ==> $filePath');
       return null;
     }
-  }//+
+  }//-
   Future<void> downloadFileToDevice() async {
     //var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
     Directory tempDir = await getTemporaryDirectory();
@@ -209,12 +210,7 @@ class GglDriveRiverpod extends ChangeNotifier{
           break;
       }
     });
-  }//+
-  Future <void> downloadFile(Reference ref) async {
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File("${dir.path}/${ref.name}");
-    await ref.writeToFile(file);
-  }
+  }//-
   Future<User?> getCurrentUser() async {
     final user = _auth.currentUser;
     if (user != null) {
@@ -232,31 +228,7 @@ class GglDriveRiverpod extends ChangeNotifier{
 
     return currentUser;
   }
-  Future<void> uploadFile() async {
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email', drive.DriveApi.driveFileScope]);
-
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    final UserCredential userCredential = await firebaseAuth.signInWithCredential(credential);
-    final User? user = userCredential.user;
-
-    final file = File('/file.txt');
-    final fileStream = file.openRead();
-    final expiryDateTime = DateTime.now().add(Duration(hours: 1)).toUtc();
-    final driveFile = drive.File();
-    driveFile.name = basename(file.path);
-
-    final uploadMedia = drive.Media(fileStream, file.lengthSync());
-    //print('Dosya yüklendi: ${uploadedFile?.name}');
-  }
   Future<void> signOutWithGoogle() async { // Hesaplardan  Çıkış yapıyor.
-    await _googleSignIn.signOut();
     await GoogleSignIn().signOut();
     await FirebaseAuth.instance.signOut();
     setAccountStatus(false);
@@ -267,11 +239,23 @@ class GglDriveRiverpod extends ChangeNotifier{
     final User? user = _auth.currentUser;
     return user != null;
   }
-  void checkAuthState() async { // Base_BKA tarafından çalıştırılan bir dosyadır. giriş durumunu atar.
+  Future<void> checkAuthState() async { // Base_BKA tarafından çalıştırılan bir dosyadır. giriş durumunu atar.
     if(_auth.currentUser != null)  {
       accountStatus = true;
-      await _googleSignIn.signIn().then((value) => _initializeDrive(value!));
+      _googleSignIn.signInSilently().then((value) async {
+        await _initializeDrive(_googleSignIn.currentUser!).then((value) => print("yükledim"));
+        await checkFolderID().then((value) {
+          folderID = value;
+          print("Yükledim 2");
+        });
+      });
+      //drive.DriveApi _driveApi = _initializeDrive(_googleSignIn.currentUser!) as drive.DriveApi;
+      /*
+      _googleSignIn.signIn().then((value) {
+        _initializeDrive(_googleSignIn.currentUser!);
+      });
       folderID = await checkFolderID();
+       */
     }else{
       accountStatus = false;
     }
@@ -317,7 +301,7 @@ class GglDriveRiverpod extends ChangeNotifier{
     notifyListeners();
   }
   void setAccountStatus(bool status) {
-    print("değiştirdiiim = > ${status}") ;
+    print("Hesap Durumu Güncellendi. = > ${status}") ;
     accountStatus = status ;
     notifyListeners();
   }

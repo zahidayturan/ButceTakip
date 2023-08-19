@@ -10,7 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 //Yedekleme Not Db güncellenmesi sonrasında verilerin işlenebilmesi için
 //spendinfo dosyası   factory SpendInfo.fromCVSObjetct(List<dynamic> o ) fonksiyonu
 ///güncellendi.
-Future <void> writeToCvs() async {
+Future <void> writeToCvs(String fileName) async {
   PermissionStatus ?permissionStatus;
   bool avalibility = false ;
   var verisonAn = await getAndroidVersion();
@@ -34,7 +34,7 @@ Future <void> writeToCvs() async {
       print(row);
       rows.add(row);
     }
-    final String fileName = "Bka_data.csv";
+    DateTime date = DateTime.now();
     final directory = "${tempDir.path}/$fileName";
     final File f = File(directory);
     final String cvs = ListToCsvConverter().convert(rows);

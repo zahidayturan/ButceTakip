@@ -12,7 +12,7 @@ class listBackUpPopUp extends ConsumerStatefulWidget{
 
 class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
   Future<List> ?backUpList  ;
-
+  bool isclicked = false ;
   @override
   Widget build(BuildContext context) {
     var readGglAuth = ref.read(gglDriveRiverpod);
@@ -55,7 +55,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                         if(data.length > 30){
 
                         }
-                        return Theme(
+                        return Theme (
                           data: Theme.of(context).copyWith(
                               colorScheme: ColorScheme.fromSwatch(
                                 accentColor: const Color(0xFFF2CB05),
@@ -77,7 +77,36 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                      InkWell(
                                        onTap:() async {
                                          print("${data[index].id}");
-                                         await readGglAuth.downloadGoogleDriveFile("${data[index].id}", "${data[index].name}");
+                                         setState(() {
+                                           isclicked = true;
+                                         });
+                                         try{
+                                           await readGglAuth.downloadGoogleDriveFile("${data[index].id}", "${data[index].name}").then((value) {
+                                            Navigator.of(context).popUntil((route) => route.isFirst);
+                                             setState(() {
+                                               isclicked = false ;
+                                             });
+                                             ScaffoldMessenger.of(context).showSnackBar(
+                                               const SnackBar(
+                                                 backgroundColor:
+                                                 Color(0xff0D1C26),
+                                                 duration: Duration(seconds: 1),
+                                                 content: Text(
+                                                   'Cloud üzerinden Verileriniz Çekildi',
+                                                   style: TextStyle(
+                                                     color: Colors.white,
+                                                     fontSize: 16,
+                                                     fontFamily: 'Nexa3',
+                                                     fontWeight: FontWeight.w600,
+                                                     height: 1.3,
+                                                   ),
+                                                 ),
+                                               ),
+                                             );
+                                           });
+                                         }catch(e){
+                                           print("iki kez pop edildi $e");
+                                         }
                                        },
                                        borderRadius: BorderRadius.circular(12),
                                        child: Container(
@@ -91,7 +120,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                            child: Row(
                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                              children: [
-                                               Text("${data[index].name}"),
+                                               Text(!isclicked ? "${data[index].name}" : "Yükleniyor ..."),
                                                Icon(Icons.download_rounded),
                                              ],
                                            ),
