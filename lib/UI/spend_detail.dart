@@ -294,7 +294,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Text("SİSTEM MESAJI",
                                   style: TextStyle(
@@ -325,8 +325,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
-                      children: [
+                    Row(
+                      children: const [
                         Text("NOT",
                             style: TextStyle(
                               color: Colors.white,

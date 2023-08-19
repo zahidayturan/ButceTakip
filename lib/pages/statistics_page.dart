@@ -1,7 +1,5 @@
-import 'package:butcekontrol/Riverpod/statistics_riverpod.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/pages/category_info_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -9,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:butcekontrol/classes/language.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart' as intl;
 
 class Statistics extends ConsumerWidget {
@@ -2106,7 +2103,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             },
           );
         },
-        keyboardType: TextInputType.number,
       );
       if (picked != null) {
         setState(() {
