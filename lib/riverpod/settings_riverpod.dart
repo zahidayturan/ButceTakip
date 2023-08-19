@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:butcekontrol/models/settings_info.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class SettingsRiverpod extends ChangeNotifier{
       prefixSymbol = settingsReglength[0].prefixSymbol;
       readDb();
     }else{
-      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺") ;
+      final info = SettingsInfo("TRY", 0, 0, getDeviceLocaleLanguage(), 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺") ;
       await SQLHelper.addItemSetting(info);
       readDb();
     }
@@ -177,7 +178,21 @@ class SettingsRiverpod extends ChangeNotifier{
     }else if(Language == "العربية"){
       return Locale("ar");
     }else{
-      return Locale("tr");
+      return Locale("en");
+    }
+  }
+  String getDeviceLocaleLanguage(){
+    var deviceLocaleFullLanguageCode  = Platform.localeName; /// 'en_US' şeklinde return'lüyor
+    var deviceLanguageCode = deviceLocaleFullLanguageCode.split('_')[0]; /// ayırıp sadece 'en' yi alıyoruz.
+
+    if(deviceLanguageCode == "tr"){
+      return "Turkce";
+    }else if(deviceLanguageCode == "en"){
+      return "English";
+    }else if(deviceLanguageCode == "ar"){
+      return "العربية";
+    }else{
+      return "English";
     }
   }
   Future Updating() async {
