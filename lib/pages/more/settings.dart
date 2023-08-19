@@ -361,13 +361,23 @@ class _SettingsState extends ConsumerState<Settings> {
                                   height: 2,
                                   color: renkler.koyuuRenk,
                                 ),
-                                onChanged: (newValue) {
+                                onChanged: (newValue) async {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return Center(child: CircularProgressIndicator(
+                                        color: renkler.sariRenk,
+                                        backgroundColor: renkler.koyuuRenk,
+                                      ));
+                                    },
+                                  );
                                   if (readSetting.Prefix != newValue) {
                                     readSetting.setPrefix(newValue!);
-                                    currencyRiv.calculateAllSQLRealTime(ref); //Bütün kayıtları hocam değiştiriyor.
+                                    await currencyRiv.calculateAllSQLRealTime(ref);
                                     readSetting.setisuseinsert();
                                   }
-                                  print("");
+                                  Navigator.of(context).pop();
                                 },
                                 items: moneyPrefix
                                     .map<DropdownMenuItem<String>>(

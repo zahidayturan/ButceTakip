@@ -146,6 +146,10 @@ class UpdateDataRiverpod extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeProcessOnce(int id){
+    SQLHelper.updateCustomize(id, "");
+  }
+
   Future<Map<String, List<String>>> myCategoryLists() async {
     List<SpendInfo> spendInfoListExpense =
         await SQLHelper.getCategoryListByType('Gider');

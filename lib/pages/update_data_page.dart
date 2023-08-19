@@ -2374,7 +2374,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             customize.text,
                             ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
                             userCategory.text,
-                            customize.text != "" ? systemMessage.toString() : "");
+                            customize.text != "" ? systemMessage.text.toString() : "");
                         read.update();}
                         else{
                           read.insertDataBase(
@@ -2389,7 +2389,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
                             customize.text,
                             "",
-                            systemMessage.toString(),
+                            systemMessage.text.toString(),
                           );
                         }
                     Navigator.of(context).pop();

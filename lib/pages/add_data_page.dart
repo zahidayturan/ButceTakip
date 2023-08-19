@@ -725,6 +725,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                       index;
                                                                 });
                                                               },
+                                                              highlightColor: Theme.of(context).primaryColor,
                                                               child: Container(
                                                                 alignment:
                                                                 Alignment
@@ -767,67 +768,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                         TextAlign.center,
                                                                       ),
                                                                     ),
-                                                                    Visibility(
-                                                                      visible:
-                                                                      editChanger !=
-                                                                          0,
-                                                                      child: (selectedCategory == 0 ? oldCategoryListExpense.contains(getList(selectedCategory, sortChanger)[index].toString()) == false : oldCategoryListIncome.contains(getList(selectedCategory, sortChanger).toString()) == false) ?
-                                                                      Row(
-                                                                        mainAxisAlignment:
-                                                                        MainAxisAlignment.spaceAround,
-                                                                        children: [
-                                                                          Container(
-                                                                            width:
-                                                                            20,
-                                                                            height:
-                                                                            20,
-                                                                            decoration:
-                                                                            BoxDecoration(color: renkler.kirmiziRenk, borderRadius: BorderRadius.all(Radius.circular(5))),
-                                                                            child:
-                                                                            IconButton(
-                                                                              onPressed: () {
-                                                                                setState((){
-                                                                                  categoryDeleteChanger=0;
-                                                                                });
-                                                                              },
-                                                                              icon: Icon(
-                                                                                Icons.delete_forever_rounded,
-                                                                                size: 16,
-                                                                                color: renkler.arkaRenk,
-                                                                              ),
-                                                                              padding: EdgeInsets.zero,
-                                                                            ),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                            20,
-                                                                            height:
-                                                                            20,
-                                                                            decoration:
-                                                                            BoxDecoration(color: Theme.of(context).highlightColor, borderRadius: BorderRadius.all(Radius.circular(5))),
-                                                                            child:
-                                                                            IconButton(
-                                                                              onPressed: () {
-                                                                                setState((){
-                                                                                  categoryEditChanger=0;
-                                                                                  categoryEditChanger2=0;
-                                                                                });
-                                                                              },
-                                                                              icon: Icon(
-                                                                                Icons.edit_rounded,
-                                                                                size: 18,
-                                                                                color: renkler.arkaRenk,
-                                                                              ),
-                                                                              padding: EdgeInsets.zero,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ) : FittedBox(
-                                                                        child: Text("Sistem\nKategorisi",textAlign: TextAlign.center,style: TextStyle(
-                                                                            fontSize: 12,height: 1
-                                                                        ),),
-                                                                      ),
-                                                                    )
                                                                   ],
                                                                 ),
                                                               ),
@@ -1154,122 +1094,109 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                 (BuildContext
                                                             context,
                                                                 index) {
-                                                              return InkWell(
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    _category
-                                                                        .text = getList(selectedCategory, sortChanger)[
-                                                                    index]
-                                                                        .toString();
-
-                                                                    categoryColorChanger =
-                                                                        index;
-                                                                  });
-                                                                },
-                                                                child: Container(
-                                                                  alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                                  //height: 50,
-                                                                  decoration:
-                                                                  BoxDecoration(
-                                                                    //border: Border.all(color: renkler.koyuuRenk,width: 1),
-                                                                    color: editChanger == 0 ? categoryColorChanger ==
-                                                                        index
-                                                                        ? renkler
-                                                                        .sariRenk
-                                                                        : null : Theme.of(context).splashColor.withOpacity(0.5)
-                                                                    ,
-                                                                    borderRadius:
-                                                                    BorderRadius.circular(5),
-                                                                  ),
-                                                                  child: Column(
-                                                                    mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
-                                                                    children: [
-                                                                      Center(
-                                                                        child:
-                                                                        Text(
-                                                                          getList(selectedCategory, sortChanger)[index]
-                                                                          ,
-                                                                          style:
-                                                                          const TextStyle(
-                                                                            fontSize:
-                                                                            14,
-                                                                            height:
-                                                                            1,
-                                                                          ),
-                                                                          maxLines:
-                                                                          2,
-                                                                          overflow:
-                                                                          TextOverflow.ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign.center,
+                                                              return Container(
+                                                                alignment:
+                                                                Alignment
+                                                                    .center,
+                                                                //height: 50,
+                                                                decoration:
+                                                                BoxDecoration(
+                                                                  //border: Border.all(color: renkler.koyuuRenk,width: 1),
+                                                                  color: editChanger == 0 ? categoryColorChanger ==
+                                                                      index
+                                                                      ? renkler
+                                                                      .sariRenk
+                                                                      : null : Theme.of(context).splashColor.withOpacity(0.5)
+                                                                  ,
+                                                                  borderRadius:
+                                                                  BorderRadius.circular(5),
+                                                                ),
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                                  children: [
+                                                                    Center(
+                                                                      child:
+                                                                      Text(
+                                                                        getList(selectedCategory, sortChanger)[index]
+                                                                        ,
+                                                                        style:
+                                                                        const TextStyle(
+                                                                          fontSize:
+                                                                          14,
+                                                                          height:
+                                                                          1,
                                                                         ),
+                                                                        maxLines:
+                                                                        2,
+                                                                        overflow:
+                                                                        TextOverflow.ellipsis,
+                                                                        textAlign:
+                                                                        TextAlign.center,
                                                                       ),
-                                                                      (selectedCategory == 0 ? oldCategoryListExpense.contains(getList(selectedCategory, sortChanger)[index].toString()) == false : oldCategoryListIncome.contains(getList(selectedCategory, sortChanger)[index].toString()) == false) ?
-                                                                      Row(
-                                                                        mainAxisAlignment:
-                                                                        MainAxisAlignment.spaceAround,
-                                                                        children: [
-                                                                          Container(
-                                                                            width:
-                                                                            20,
-                                                                            height:
-                                                                            20,
-                                                                            decoration:
-                                                                            BoxDecoration(color: renkler.kirmiziRenk, borderRadius: BorderRadius.all(Radius.circular(5))),
-                                                                            child:
-                                                                            IconButton(
-                                                                              onPressed: () {
-                                                                                setState((){
-                                                                                  _categoryController.text = getList(selectedCategory, sortChanger)[index];
-                                                                                  editChanger = 2;
-                                                                                  categoryDeleteChanger=0;
-                                                                                });
-                                                                              },
-                                                                              icon: Icon(
-                                                                                Icons.delete_forever_rounded,
-                                                                                size: 16,
-                                                                                color: renkler.arkaRenk,
-                                                                              ),
-                                                                              padding: EdgeInsets.zero,
+                                                                    ),
+                                                                    (selectedCategory == 0 ? oldCategoryListExpense.contains(getList(selectedCategory, sortChanger)[index].toString()) == false : oldCategoryListIncome.contains(getList(selectedCategory, sortChanger)[index].toString()) == false) ?
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                      MainAxisAlignment.spaceAround,
+                                                                      children: [
+                                                                        Container(
+                                                                          width:
+                                                                          20,
+                                                                          height:
+                                                                          20,
+                                                                          decoration:
+                                                                          BoxDecoration(color: renkler.kirmiziRenk, borderRadius: BorderRadius.all(Radius.circular(5))),
+                                                                          child:
+                                                                          IconButton(
+                                                                            onPressed: () {
+                                                                              setState((){
+                                                                                _categoryController.text = getList(selectedCategory, sortChanger)[index];
+                                                                                editChanger = 2;
+                                                                                categoryDeleteChanger=0;
+                                                                              });
+                                                                            },
+                                                                            icon: Icon(
+                                                                              Icons.delete_forever_rounded,
+                                                                              size: 16,
+                                                                              color: renkler.arkaRenk,
                                                                             ),
+                                                                            padding: EdgeInsets.zero,
                                                                           ),
-                                                                          Container(
-                                                                            width:
-                                                                            20,
-                                                                            height:
-                                                                            20,
-                                                                            decoration:
-                                                                            BoxDecoration(color: Theme.of(context).secondaryHeaderColor, borderRadius: BorderRadius.all(Radius.circular(5))),
-                                                                            child:
-                                                                            IconButton(
-                                                                              onPressed: () {
-                                                                                setState((){
-                                                                                  _categoryController.text = getList(selectedCategory, sortChanger)[index];
-                                                                                  editChanger = 3;
-                                                                                  categoryEditChanger=0;
-                                                                                  categoryEditChanger2=0;
-                                                                                });
-                                                                              },
-                                                                              icon: Icon(
-                                                                                Icons.edit_rounded,
-                                                                                size: 18,
-                                                                                color: Theme.of(context).primaryColor,
-                                                                              ),
-                                                                              padding: EdgeInsets.zero,
+                                                                        ),
+                                                                        Container(
+                                                                          width:
+                                                                          20,
+                                                                          height:
+                                                                          20,
+                                                                          decoration:
+                                                                          BoxDecoration(color: Theme.of(context).secondaryHeaderColor, borderRadius: BorderRadius.all(Radius.circular(5))),
+                                                                          child:
+                                                                          IconButton(
+                                                                            onPressed: () {
+                                                                              setState((){
+                                                                                _categoryController.text = getList(selectedCategory, sortChanger)[index];
+                                                                                editChanger = 3;
+                                                                                categoryEditChanger=0;
+                                                                                categoryEditChanger2=0;
+                                                                              });
+                                                                            },
+                                                                            icon: Icon(
+                                                                              Icons.edit_rounded,
+                                                                              size: 18,
+                                                                              color: Theme.of(context).primaryColor,
                                                                             ),
+                                                                            padding: EdgeInsets.zero,
                                                                           ),
-                                                                        ],
-                                                                      ) : const FittedBox(
-                                                                        child: Text("Sistem\nKategorisi",textAlign: TextAlign.center,style: TextStyle(
-                                                                            fontSize: 11,height: 1
-                                                                        ),),
-                                                                      )
-                                                                    ],
-                                                                  ),
+                                                                        ),
+                                                                      ],
+                                                                    ) : const FittedBox(
+                                                                      child: Text("Sistem\nKategorisi",textAlign: TextAlign.center,style: TextStyle(
+                                                                          fontSize: 11,height: 1
+                                                                      ),),
+                                                                    )
+                                                                  ],
                                                                 ),
                                                               );
                                                             }),

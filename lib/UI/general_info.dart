@@ -154,7 +154,7 @@ class Generalinfo extends ConsumerWidget {
                                             textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
                                             child: GestureDetector(
                                               onTap: () {
-                                                readhome.controllerPageMontly!.jumpToPage(DateTime.now().month-1);
+                                                readhome.controllerPageMontly!.jumpToPage(DateTime.now().month);
                                                 readhome.changeindex(DateTime.now().month-1, DateTime.now().year-2020);
                                                 readdb.setMonthandYear(DateTime.now().month.toString(), DateTime.now().year.toString());
                                               },
