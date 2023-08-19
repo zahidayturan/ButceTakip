@@ -102,10 +102,10 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                   size: 35,
                                 ),
                                 const SizedBox(width: 20),
-                                const TextMod("Uyarı", Colors.white, 18),
+                                TextMod(translation(context).warning, Colors.white, 18),
                               ],
                             ),
-                            content:  const TextMod("Herhangi bir şifre koymadınız\nŞifre koymaktan vaz mı geçiyorsunuz?", Colors.white, 15),
+                            content: TextMod(translation(context).youHaveNotCreatedAnyPasswordWarning, Colors.white, 15),
                             actions: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(20) ,
@@ -118,7 +118,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                       onTap: () => Navigator.pop(context, false),
                                       child: SizedBox(
                                           child: Center(
-                                              child: TextMod("Geri Dön", renkler.koyuuRenk, 16)
+                                              child: TextMod(translation(context).yes, renkler.koyuuRenk, 16)
                                           )
                                       )
                                   ) ,
@@ -139,7 +139,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                       },
                                       child: SizedBox(
                                           child: Center(
-                                              child: TextMod("Vazgeç", renkler.koyuuRenk, 16)
+                                              child: TextMod(translation(context).no, renkler.koyuuRenk, 16)
                                           )
                                       )
                                   ) ,

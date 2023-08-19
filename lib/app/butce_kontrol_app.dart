@@ -29,7 +29,7 @@ class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
 
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: readSettings.localChanger(),
+      locale: readSettings.localChanger(), ///Dil ayarlama
 
       debugShowCheckedModeBanner: false,
       title: "Bütçe Takip",

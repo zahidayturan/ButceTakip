@@ -2813,6 +2813,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                       color: renkler.koyuuRenk,
                                                       fontSize: 16,
                                                       fontFamily: 'Nexa3',
+                                                      height: 1
                                                     ),
                                                   ),
                                                 ),

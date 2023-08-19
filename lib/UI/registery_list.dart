@@ -1,4 +1,5 @@
 import 'package:butcekontrol/UI/spend_detail.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class RegisteryList extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Kaydedilen İşlemler",
+                    translation(context).savedActivities,
                     style: TextStyle(
                         color: Theme.of(context).canvasColor,
                         fontFamily: "Nexa4",
@@ -320,9 +321,12 @@ class RegisteryList extends ConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 12),
                           child: Text(
-                            "Kaydedilen İşlem Sayısı : ${item.length}",
+                            "${translation(context).numberOfSavedActivities} ${item.length}",
                             style: TextStyle(
-                                color: Theme.of(context).canvasColor, fontSize: 13),
+                                color: Theme.of(context).canvasColor, fontSize: 13,
+                            height: 1
+                            ),
+
                           ),
                         ),
                       ],
