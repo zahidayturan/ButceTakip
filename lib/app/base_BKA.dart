@@ -1,4 +1,6 @@
 import 'package:butcekontrol/classes/nav_bar.dart';
+import 'package:butcekontrol/models/settings_info.dart';
+import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:butcekontrol/utils/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,20 +16,16 @@ class base_BKA extends ConsumerStatefulWidget {
 }
 
 class _base_BKAState extends ConsumerState<base_BKA> {
-  bool ?yuklemeTamam ;
   Future<void> loadData()  async {
     // örnek gecikme
-    DateTime date = DateTime.now();
-    final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
     var readSetting =  ref.read(settingsRiverpod); //read okuma işlemleri gerçekleşti
     var readCurrency = ref.read(currencyRiverpod);
     var readGglAuth = ref.read(gglDriveRiverpod);
-    await readGglAuth.checkAuthState(); //Google User açık mı sorgusu yapılıyor
-    var Query = readSetting.controlSettings();
-    //Future.delayed(Duration(milliseconds: 100));// Settings tablosunu çekiyoruz. ve implemente ettik
-    Query.then((value) async {
+    readGglAuth.checkAuthState(); //Google User açık mı sorgusu yapılıyor
+    var read =  readSetting.controlSettings() ; // Settings tablosunu çekiyoruz. ve implemente ettik
+    await Future.delayed(Duration(milliseconds: 100));
+    read.then((value) async {
       if(readSetting.isPassword == 1 && readSetting.Password != "null") { // password controll
-        print("Password var göster");
         Navigator.push(context, PageRouteBuilder(
           transitionDuration: const Duration(milliseconds: 1),
           pageBuilder: (context, animation, nextanim) => PasswordSplash(),
@@ -40,17 +38,9 @@ class _base_BKAState extends ConsumerState<base_BKA> {
           },
         ),
         );
-      }else if (readSetting.isPassword == null){
-        print("Password için emulator yavas kaldı.");
       }
-      await readCurrency.controlCurrency(ref).then((value) {
-        var readUpdateData =  ref.read(updateDataRiverpod);
-        readUpdateData.customizeRepeatedOperation(ref);
-        readUpdateData.customizeInstallmentOperation(ref);
-      }); // Güncel kur database sorgusunu gerçekleştirir
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
         print("Yedeklenme açık");
-        await Future.delayed(Duration(seconds: 4, milliseconds: 500));
         if(readGglAuth.accountStatus == true) {
           List<String> datesplit = readSetting.lastBackup!.split(".");
           if(readSetting.Backuptimes == "Günlük"){
@@ -58,10 +48,9 @@ class _base_BKAState extends ConsumerState<base_BKA> {
             if(int.parse(datesplit[0]) != DateTime.now().day) {
               print("gunluk guncellendi.");
               //readSetting.Backup();
-              await writeToCvs(fileName).then((value) async {
-                  await readGglAuth.uploadFileToDrive(fileName);
-                  //readGglAuth.uploadFileToStorage();
-                  readSetting.setLastBackup();
+              await writeToCvs().then((value) {
+                readGglAuth.uploadFileToStorage();
+                readSetting.setLastBackup();
               });
             }else{
               print("mevcut gün => ${DateTime.now().day}");
@@ -74,16 +63,14 @@ class _base_BKAState extends ConsumerState<base_BKA> {
               if(DateTime.now().month - int.parse(datesplit[1]) >= 1 ){
                 print("ay bazında kayıt yapıyoruz.");
                 //readSetting.Backup();
-                await writeToCvs(fileName).then((value) async {
-                  await readGglAuth.uploadFileToDrive(fileName);
-                  //readGglAuth.uploadFileToStorage();
+                await writeToCvs().then((value) {
+                  readGglAuth.uploadFileToStorage();
                   readSetting.setLastBackup();
                 });
               }
             }else{
-              await writeToCvs(fileName).then((value) async {
-                await readGglAuth.uploadFileToDrive(fileName);
-                //readGglAuth.uploadFileToStorage();
+              await writeToCvs().then((value) {
+                readGglAuth.uploadFileToStorage();
                 readSetting.setLastBackup();
               });
               //readSetting.Backup();
@@ -92,9 +79,8 @@ class _base_BKAState extends ConsumerState<base_BKA> {
             print("Yıllık giriş var");
             if(int.parse(datesplit[2]) != DateTime.now().year){
               //readSetting.Backup();
-              await writeToCvs(fileName).then((value) async{
-                await readGglAuth.uploadFileToDrive(fileName);
-                //readGglAuth.uploadFileToStorage();
+              await writeToCvs().then((value) {
+                readGglAuth.uploadFileToStorage();
                 readSetting.setLastBackup();
               });
             }
@@ -104,21 +90,11 @@ class _base_BKAState extends ConsumerState<base_BKA> {
           readSetting.setBackup(false);
           print("yedeklenmesi gerekiyor ama hesabın açık değil GAHPE");
         }
-      }else if(readSetting.isBackUp == 0) {
-        print("Yedekleme kapalı");
       }else{
-        print("Sorgular için Emulator yavas kalıyor.");
+        print("Yedekleme kapalı");
       }
-
-
-
     }
     );
-    //await Future.delayed(Duration(milliseconds: 100));
-    /*
-    read.then((value) async {
-
-     */
   }
 
   @override
