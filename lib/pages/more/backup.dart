@@ -2,11 +2,11 @@ import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import '../../UI/list_bacup_popup.dart';
 import '../../classes/app_bar_for_page.dart';
 import '../../classes/nav_bar.dart';
 import '../../riverpod_management.dart';
@@ -95,14 +95,24 @@ class _BackUpState extends ConsumerState<BackUp> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          translation(context).backupViaGoogleCloud,
-                          style: TextStyle(
-                            height: 1,
-                            fontSize: 16,
-                            fontFamily: "Nexa4",
-                            color: Theme.of(context).canvasColor,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              translation(context).backupViaGoogleCloud,
+                              style: TextStyle(
+                                height: 1,
+                                fontSize: 16,
+                                fontFamily: "Nexa4",
+                                color: Theme.of(context).canvasColor,
+                              ),
+                            ),
+                            Image.asset(
+                              "assets/image/googleDrive.png",
+                              width: 85,
+                              height: 25,
+                            )
+                          ],
                         ),
                         Divider(thickness: 2.0,color: renkler.sariRenk),
                         readGglAuth.accountStatus == true || readGglAuth.isSignedIn
@@ -180,23 +190,20 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   InkWell(
-                                    onTap: () async {
-                                      await readGglAuth.downloadFileToDevice();
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          backgroundColor:
-                                          Color(0xff0D1C26),
-                                          duration: Duration(seconds: 1),
-                                          content: Text(
-                                            'Cloud üzerinden Verileriniz Çekildi',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontFamily: 'Nexa3',
-                                              fontWeight: FontWeight.w600,
-                                              height: 1.3,
-                                            ),
-                                          ),
+                                    onTap: () async { // geri yükle.
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          opaque: false, //sayfa saydam olması için
+                                          transitionDuration: const Duration(milliseconds: 1),
+                                          pageBuilder: (context, animation, nextanim) => const listBackUpPopUp(),
+                                          reverseTransitionDuration: const Duration(milliseconds: 1),
+                                          transitionsBuilder: (context, animation, nexttanim, child) {
+                                            return FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            );
+                                          },
                                         ),
                                       );
                                     },
@@ -227,12 +234,19 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   ),
                                   SizedBox(width:size.width * 0.04),
                                   InkWell(
-                                    onTap: () async {
-                                      await writeToCvs().then((value) {
-                                        readGglAuth.uploadFileToStorage().then((value) => readGglAuth.refreshPage());
+                                    onTap: () async { // Yedekle.
+                                      DateTime date = DateTime.now();
+                                      final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
+                                      await writeToCvs(fileName).then((value) async  {
+                                        try{
+                                          await readGglAuth.uploadFileToDrive(fileName);
+                                        }catch (e){
+                                          print("HATAAAAAAAAAAA ===============>>>>>>>>>>${e.toString()}");
+
+                                        }
+                                        //await readGglAuth.uploadFileToStorage().then((value) => readGglAuth.refreshPage());
                                         readSetting.setLastBackup();
                                       });
-                                      //readGglAuth.uploadFile();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           backgroundColor:
@@ -361,9 +375,9 @@ class _BackUpState extends ConsumerState<BackUp> {
     );
   }
 
-  int initialLabelIndex = 0;
   Widget backupCustomButton(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
+    int  initialLabelIndex = readSetting.Backuptimes == "Günlük" ? 0 : readSetting.Backuptimes == "Aylık" ? 1 : 2;
     return SizedBox(
         height: 32,
         child: ToggleSwitch(
@@ -387,6 +401,7 @@ class _BackUpState extends ConsumerState<BackUp> {
             if (index == 0) {
               setState(() {
                 readSetting.setBackuptimes("Günlük");
+                initialLabelIndex = 0;
               });
             } else if (index == 1) {
               setState(() {

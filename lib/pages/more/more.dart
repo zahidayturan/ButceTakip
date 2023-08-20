@@ -1,16 +1,17 @@
 import 'package:butcekontrol/Pages/more/communicate.dart';
+import 'package:butcekontrol/app/information_app.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/pages/more/assets_page.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
-import 'package:butcekontrol/app/information_app.dart';
+import 'package:pay/pay.dart';
 import '../../riverpod_management.dart';
+import '../../utils/payment_config.dart';
 import 'Help/help_page.dart';
 import 'password_splash.dart';
 import 'backup.dart';
@@ -18,6 +19,23 @@ import 'backup.dart';
 class More extends ConsumerWidget {
   More({Key? key}) : super(key: key);
   final renkler = CustomColors();
+  var buton = GooglePayButton(
+    paymentConfiguration: PaymentConfiguration.fromJsonString(defaultGooglePay),
+    paymentItems: const [
+      PaymentItem(
+          label: "Total" ,
+          amount: "10.0",
+          status: PaymentItemStatus.final_price
+      ),
+    ],
+    width: double.infinity,
+    type: GooglePayButtonType.subscribe,
+    margin: const EdgeInsets.only(top: 15.0),
+    onPaymentResult: (result) => print('Payment Result ${result}'),
+    loadingIndicator: const Center(
+      child: CircularProgressIndicator(),
+    ),
+  );
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readSetting = ref.read(settingsRiverpod);
@@ -32,7 +50,7 @@ class More extends ConsumerWidget {
           //backgroundColor: const Color(0xffF2F2F2),
           appBar: AppBarForPage(title: translation(context).otherActivitiesTitle),
           body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(  // 9 adet butonun bulundugu yer, her uc buton bir Row`a yerlestirildi.
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -321,16 +339,13 @@ class More extends ConsumerWidget {
                         height: 70,
                       ),
                       const SizedBox(height: 8),
-                      TextMod("${translation(context).version}  ${"1.1.1"}", Theme.of(context).canvasColor, 13),
+                      TextMod("${translation(context).version}  ${informationApp.version}", Theme.of(context).canvasColor, 13),
                       const SizedBox(height: 2),
                       TextMod("FezaiTech", Theme.of(context).canvasColor, 13),
                     ],
                   )
                 ],
               ),
-              SizedBox(
-                height: 52,
-              )
             ],
           ),
         ),

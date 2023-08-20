@@ -278,8 +278,8 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                         )
                                       ]
                                   ),
-                                  child: const Row(
-                                    children: [
+                                  child:  Row(
+                                    children: const [
                                       Center(
                                         child: Text(
                                           "Varlık Ekle/Çıkart",
