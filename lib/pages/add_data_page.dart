@@ -64,7 +64,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                       borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(100),
                       )),
-                  child: Padding(
+                  child:  Padding(
                     padding: const EdgeInsets.only(left: 20, top: 22),
                     child: Text(
                       translation(context).addIncomeExpensesTitle,
@@ -123,7 +123,7 @@ class ButtonMenu extends ConsumerStatefulWidget {
   ConsumerState<ButtonMenu> createState() => _ButtonMenu();
 }
 
-class _ButtonMenu extends ConsumerState<ButtonMenu> {
+class _ButtonMenu extends ConsumerState<ButtonMenu>{
   final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
   @override
   void initState() {
@@ -147,19 +147,15 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
 
   final TextEditingController _note = TextEditingController(text: "");
   final TextEditingController _amount = TextEditingController();
-  final TextEditingController _operationType =
-      TextEditingController(text: "Gider");
-  final TextEditingController _operationTool =
-      TextEditingController(text: "Nakit");
+  final TextEditingController _operationType = TextEditingController(text: "Gider");
+  final TextEditingController _operationTool = TextEditingController(text: "Nakit");
   final TextEditingController _registration = TextEditingController(text: "0");
-  final TextEditingController _operationDate =
-      TextEditingController(text: DateTimeManager.getCurrentDayMonthYear());
+  final TextEditingController _operationDate = TextEditingController(text: DateTimeManager.getCurrentDayMonthYear());
   final TextEditingController _category = TextEditingController(text: "");
-  final TextEditingController _categoryEdit = TextEditingController(text: "");
-  final TextEditingController _categoryController = TextEditingController(text: "");
   final TextEditingController _customize = TextEditingController(text: "");
-  final TextEditingController _moneyType = TextEditingController(text: "");
-
+  final TextEditingController _moneyType =  TextEditingController(text: "");
+  final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
 
   void dispose() {
     _category.dispose();
@@ -175,7 +171,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     dateFocusNode;
     super.dispose();
   }
-
   FocusNode amountFocusNode = FocusNode();
   FocusNode dateFocusNode = FocusNode();
   CustomColors renkler = CustomColors();
@@ -194,9 +189,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 height: 20,
               ),
               SizedBox(
-                width: size.width * 0.95,
+                width: size.width*0.95,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     typeCustomButton(context),
                     dateCustomButton(context)
@@ -211,9 +206,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 height: 20,
               ),
               SizedBox(
-                width: size.width * 0.95,
+                width: size.width*0.95,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     toolCustomButton(context),
                     regCustomButton(context),
@@ -236,11 +231,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 height: 5,
               ),
               SizedBox(
-                  width: size.width * 0.98,
+                  width: size.width * 0.95,
                   child: Text(
                       'DEBUG: ${_operationType.text} - ${_category.text} - ${_operationTool.text} - ${int.parse(_registration.text)} - ${_amount.text} - ${_note.text} - ${_operationDate.text} -${_customize.text} - ${selectedCustomizeMenu} - ${_moneyType.text}',
-                      style: const TextStyle(
-                          color: Colors.red, fontFamily: 'TL'))),
+                      style: const TextStyle(color: Colors.red,fontFamily: 'TL'))),
               const SizedBox(
                 height: 5,
               ),
@@ -268,17 +262,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),
-          minWidth: size.width > 392 ? size.width * 0.235 : 92,
+          minWidth: size.width > 392 ? size.width*0.235 : 92,
           cornerRadius: 15,
           radiusStyle: true,
           animate: true,
           curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 13,
-                fontFamily: 'Nexa4',
-                height: 1,
-                fontWeight: FontWeight.w800)
+                fontSize: 13, fontFamily: 'Nexa4',height: 1, fontWeight: FontWeight.w800)
           ],
           onToggle: (index) {
             setState(() {
@@ -293,7 +284,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 _category.clear();
                 selectedValue = null;
               }
-              categoryColorChanger = 999;
             });
             initialLabelIndex = index!;
           },
@@ -303,2061 +293,1087 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   String? selectedValue;
   int selectedAddCategoryMenu = 0;
   int initialLabelIndex2 = 0;
-  int sortChanger = 0;
-  int editChanger = 0;
-  double heightChanger = 40.0;
-  int categoryColorChanger = 999;
-  int categoryDeleteChanger = 0;
-  int categoryDeleteChanger2 = 0;
-  int categoryEditChanger = 0;
-  int categoryEditChanger2 = 0;
   Widget categoryBarCustom(BuildContext context, WidgetRef ref) {
     var size = MediaQuery.of(context).size;
-    var readHome = ref.read(homeRiverpod);
     return SizedBox(
-      height: 38,
-      width: size.width * 0.95,
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 2, left: 2, right: 2),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Color(0xFFF2CB05),
-              ),
-              height: 34,
-              width: (size.width * 0.95),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                width: 130,
-                height: 38,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).highlightColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                ),
-                child: Center(
-                  child: Text(
-                    translation(context).categoryDetails,
-                    style: const TextStyle(
-                      height: 1,
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontFamily: 'Nexa4',
-                      fontWeight: FontWeight.w800,
+            height: 38,
+            width: size.width * 0.92,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 2,left: 2,right: 2),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      color: Color(0xFFF2CB05),
                     ),
+                    height: 34,
+                    width: (size.width * 0.92),
                   ),
                 ),
-              ),
-              InkWell(
-                highlightColor: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(30),
-                child: SizedBox(
-                  width: (size.width * 0.95) - 130,
-                  child: Center(
-                    child: Text(
-                      _category.text == ""
-                          ? "Seçmek için dokunun"
-                          : _category.text,
-                      style: TextStyle(
-                          height: 1,
-                          fontSize: 14,
-                          fontFamily: 'Nexa3',
-                          color: renkler.koyuuRenk),
-                      maxLines: 2,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 38,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).highlightColor,
+                        borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          translation(context).categoryDetails,
+                          style: const TextStyle(
+                            height: 1,
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: 'Nexa4',
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                onTap: () {
-                  setState(() {
-                    editChanger = 0;
-                    heightChanger = 40.0;
-                    //_category.clear();
-                    selectedValue = null;
-                  });
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      var readUpdateDB = ref.read(updateDataRiverpod);
-                      return FutureBuilder<Map<String, List<String>>>(
-                        future: readUpdateDB.myCategoryLists(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text('Bir hata oluştu: ${snapshot.error}');
-                          } else {
-                            final categoryLists = snapshot.data!;
-                            List<String> oldCategoryListIncome = [
-                              'Harçlık',
-                              'Burs',
-                              'Maaş',
-                              'Kredi',
-                              'Özel+',
-                              'Kira/Ödenek',
-                              'Fazla Mesai',
-                              'İş Getirisi',
-                              'Döviz Getirisi',
-                              'Yatırım Getirisi',
-                              'Diğer+',
-                            ];
-                            final categoryListIncome =
-                                categoryLists['income'] ??
-                                    ['Kategori bulunamadı'];
-                            List<String> oldCategoryListExpense = [
-                              'Yemek',
-                              'Giyim',
-                              'Eğlence',
-                              'Eğitim',
-                              'Aidat/Kira',
-                              'Alışveriş',
-                              'Özel-',
-                              'Ulaşım',
-                              'Sağlık',
-                              'Günlük Yaşam',
-                              'Hobi',
-                              'Diğer-'
-                            ];
-                            final categoryListExpense =
-                                categoryLists['expense'] ??
-                                    ['Kategori bulunamadı'];
+                    InkWell(
+                      highlightColor: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(30),
+                      child: SizedBox(
+                        width: (size.width * 0.92) - 130,
+                        child: Center(
+                          child: Text(
+                            _category.text == ""
+                                ? "Seçmek için dokunun"
+                                : _category.text,
+                            style: TextStyle(
+                              height: 1,
+                              fontSize: 14,
+                              fontFamily: 'Nexa3',
+                              color: renkler.koyuuRenk
+                            ),
+                            maxLines: 2,
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          _category.clear();
+                          selectedValue = null;
+                        });
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            var readUpdateDB = ref.read(updateDataRiverpod);
+                            return FutureBuilder<Map<String, List<String>>>(
+                              future: readUpdateDB.myCategoryLists(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return const CircularProgressIndicator();
+                                } else if (snapshot.hasError) {
+                                  return Text('Bir hata oluştu: ${snapshot.error}');
+                                } else {
+                                  final categoryLists = snapshot.data!;
+                                  List<String> oldCategoryListIncome = [
+                                    'Harçlık',
+                                    'Burs',
+                                    'Maaş',
+                                    'Kredi',
+                                    'Özel+',
+                                    'Kira/Ödenek',
+                                    'Fazla Mesai',
+                                    'İş Getirisi',
+                                    'Döviz Getirisi',
+                                    'Yatırım Getirisi',
+                                    'Diğer+',
+                                  ];
+                                  final categoryListIncome =
+                                      categoryLists['income'] ?? ['Kategori bulunamadı'];
+                                  List<String> oldCategoryListExpense = [
+                                    'Yemek',
+                                    'Giyim',
+                                    'Eğlence',
+                                    'Eğitim',
+                                    'Aidat/Kira',
+                                    'Alışveriş',
+                                    'Özel-',
+                                    'Ulaşım',
+                                    'Sağlık',
+                                    'Günlük Yaşam',
+                                    'Hobi',
+                                    'Diğer-'
+                                  ];
+                                  final categoryListExpense =
+                                      categoryLists['expense'] ?? ['Kategori bulunamadı'];
 
-                            Set<String> mergedSetIncome = {
-                              ...oldCategoryListIncome,
-                              ...categoryListIncome
-                            };
-                            List<String> mergedIncomeList =
-                            mergedSetIncome.toList();
-                            Set<String> mergedSetExpens = {
-                              ...oldCategoryListExpense,
-                              ...categoryListExpense
-                            };
-                            List<String> mergedExpensList = mergedSetExpens.toList();
-                            List<String> mergedSortExpenseList = List.from(mergedExpensList);
-                            mergedSortExpenseList.sort();
-                            List<String> mergedSortReverseExpenseList = List.from(mergedSortExpenseList);
-                            mergedSortReverseExpenseList = mergedSortReverseExpenseList.reversed.toList();
-                            List<String> mergedSortIncomeList = List.from(mergedIncomeList);
-                            mergedSortIncomeList.sort();
-                            List<String> mergedSortReverseIncomeList = List.from(mergedSortIncomeList);
-                            mergedSortReverseIncomeList = mergedSortReverseIncomeList.reversed.toList();
-
-                            List<String> getList(int type, int sortChanger){
-                              if(type==0){
-                                if(sortChanger == 0){
-                                  return mergedExpensList;
-                                }
-                                else if(sortChanger == 1){
-                                  return mergedSortExpenseList;
-                                }
-                                else if(sortChanger == 2){
-                                  return mergedSortReverseExpenseList;
-                                }
-                                else {
-                                  return mergedExpensList;
-                                }
-                              }
-                              else{
-                                if(sortChanger == 0){
-                                  return mergedIncomeList;
-                                }
-                                else if(sortChanger == 1){
-                                  return mergedSortIncomeList;
-                                }
-                                else if(sortChanger == 2){
-                                  return mergedSortReverseIncomeList;
-                                }
-                                else {
-                                  return mergedIncomeList;
-                                }
-                              }
-                            }
-                            return StatefulBuilder(
-                              builder: (context, setState) {
-                                return AlertDialog(
-                                  contentPadding: const EdgeInsets.only(
-                                      top: 10, bottom: 10),
-                                  insetPadding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  backgroundColor:
-                                  Theme.of(context).primaryColor,
-                                  shadowColor: Colors.black54,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Visibility(
-                                        visible : editChanger == 0 ,
-                                        child: Stack(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(15),
-                                              child: Container(
-                                                width: size.width * 0.95,
-                                                height: (size.height * 0.3) + 20,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(5)),
-                                                    border: Border.all(
-                                                      width: 1.5,
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor,
-                                                    )),
-                                              ),
-                                            ),
-                                            Center(
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(
-                                                        left: 18, right: 18),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 30,
-                                                          height: 30,
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                                color: renkler
-                                                                    .sariRenk,
-                                                                borderRadius: const BorderRadius
-                                                                    .all(Radius
-                                                                    .circular(
-                                                                    5))),
-                                                            child: IconButton(
-                                                              icon: Icon(Icons
-                                                                  .refresh_rounded),
-                                                              padding:
-                                                              EdgeInsets.zero,
-                                                              alignment: Alignment
-                                                                  .center,
-                                                              color: renkler
-                                                                  .koyuuRenk,
-                                                              iconSize: 30,
-                                                              onPressed: () {
-                                                                setState(() {
-                                                                  sortChanger = 0;
-                                                                  categoryColorChanger = 999;
-                                                                  _category.clear();
-                                                                });
+                                  Set<String> mergedSetIncome = {
+                                    ...oldCategoryListIncome,
+                                    ...categoryListIncome
+                                  };
+                                  List<String> mergedIncomeList = mergedSetIncome.toList();
+                                  Set<String> mergedSetExpens = {
+                                    ...oldCategoryListExpense,
+                                    ...categoryListExpense
+                                  };
+                                  List<String> mergedExpensList = mergedSetExpens.toList();
+                                  return StatefulBuilder(
+                                    builder: (context, setState) {
+                                      return AlertDialog(
+                                        backgroundColor:
+                                        Theme.of(context).primaryColor,
+                                        shadowColor: Colors.black54,
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15))),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Stack(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      top: 15),
+                                                  child: Container(
+                                                    width: 270,
+                                                    height: 90,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                        const BorderRadius
+                                                            .all(
+                                                            Radius.circular(
+                                                                15)),
+                                                        border: Border.all(
+                                                          width: 1.5,
+                                                          color: Theme.of(context)
+                                                              .secondaryHeaderColor,
+                                                        )),
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: Column(
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 221,
+                                                        height: 30,
+                                                        child: ToggleSwitch(
+                                                          initialLabelIndex:
+                                                          initialLabelIndex2,
+                                                          totalSwitches: 2,
+                                                          labels: const [
+                                                            'SEÇ',
+                                                            'EKLE'
+                                                          ],
+                                                          activeBgColor: const [
+                                                            Color(0xffF2CB05)
+                                                          ],
+                                                          activeFgColor:
+                                                          const Color(
+                                                              0xff0D1C26),
+                                                          inactiveBgColor:
+                                                          Theme.of(context)
+                                                              .highlightColor,
+                                                          inactiveFgColor:
+                                                          const Color(
+                                                              0xFFE9E9E9),
+                                                          minWidth: 110,
+                                                          cornerRadius: 20,
+                                                          radiusStyle: true,
+                                                          animate: true,
+                                                          curve: Curves
+                                                              .linearToEaseOut,
+                                                          customTextStyles: const [
+                                                            TextStyle(
+                                                                fontSize: 18,
+                                                                fontFamily:
+                                                                'Nexa4',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w800)
+                                                          ],
+                                                          onToggle: (index) {
+                                                            setState(() {
+                                                              if (index == 0) {
+                                                                selectedAddCategoryMenu =
+                                                                0;
+                                                                _category.clear();
+                                                              } else {
+                                                                selectedAddCategoryMenu =
+                                                                1;
+                                                                _category.clear();
+                                                              }
+                                                              initialLabelIndex2 =
+                                                              index!;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                      selectedAddCategoryMenu == 0
+                                                          ? SizedBox(
+                                                        width: 200,
+                                                        height: 60,
+                                                        child: Column(
+                                                          children: [
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            DropdownButtonHideUnderline(
+                                                              child:
+                                                              DropdownButton2<
+                                                                  String>(
+                                                                isExpanded:
+                                                                true,
+                                                                hint: Text(
+                                                                  'Seçiniz',
+                                                                  style:
+                                                                  TextStyle(
+                                                                    fontSize:
+                                                                    18,
+                                                                    fontFamily:
+                                                                    'Nexa3',
+                                                                    color: Theme.of(context)
+                                                                        .canvasColor,
+                                                                  ),
+                                                                ),
+                                                                items: selectedCategory ==
+                                                                    0
+                                                                    ? mergedExpensList
+                                                                    .map((item) =>
+                                                                    DropdownMenuItem(
+                                                                      value: item,
+                                                                      child: Text(
+                                                                        item,
+                                                                        style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
+                                                                      ),
+                                                                    ))
+                                                                    .toList()
+                                                                    : mergedIncomeList
+                                                                    .map((item) =>
+                                                                    DropdownMenuItem(
+                                                                      value: item,
+                                                                      child: Text(
+                                                                        item,
+                                                                        style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
+                                                                      ),
+                                                                    ))
+                                                                    .toList(),
+                                                                value:
+                                                                selectedValue,
+                                                                onChanged:
+                                                                    (value) {
+                                                                  setState(
+                                                                          () {
+                                                                        selectedValue =
+                                                                            value;
+                                                                        _category.text =
+                                                                            value.toString();
+                                                                        this.setState(
+                                                                                () {});
+                                                                      });
+                                                                },
+                                                                barrierColor: renkler
+                                                                    .koyuAraRenk
+                                                                    .withOpacity(
+                                                                    0.8),
+                                                                buttonStyleData:
+                                                                ButtonStyleData(
+                                                                  overlayColor:
+                                                                  MaterialStatePropertyAll(
+                                                                      renkler.koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                      16),
+                                                                  height:
+                                                                  40,
+                                                                  width:
+                                                                  200,
+                                                                ),
+                                                                dropdownStyleData: DropdownStyleData(
+                                                                    maxHeight: 250,
+                                                                    width: 200,
+                                                                    decoration: BoxDecoration(
+                                                                      color:
+                                                                      Theme.of(context).primaryColor,
+                                                                    ),
+                                                                    scrollbarTheme: ScrollbarThemeData(radius: const Radius.circular(15), thumbColor: MaterialStatePropertyAll(renkler.sariRenk))),
+                                                                menuItemStyleData:
+                                                                MenuItemStyleData(
+                                                                  overlayColor:
+                                                                  MaterialStatePropertyAll(
+                                                                      renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                                                  height:
+                                                                  40,
+                                                                ),
+                                                                iconStyleData:
+                                                                IconStyleData(
+                                                                  icon:
+                                                                  const Icon(
+                                                                    Icons
+                                                                        .arrow_drop_down,
+                                                                  ),
+                                                                  iconSize:
+                                                                  30,
+                                                                  iconEnabledColor:
+                                                                  Theme.of(context)
+                                                                      .secondaryHeaderColor,
+                                                                  iconDisabledColor:
+                                                                  Theme.of(context)
+                                                                      .secondaryHeaderColor,
+                                                                  openMenuIcon:
+                                                                  Icon(
+                                                                    Icons
+                                                                        .arrow_right,
+                                                                    color: Theme.of(context)
+                                                                        .canvasColor,
+                                                                    size:
+                                                                    24,
+                                                                  ),
+                                                                ),
+                                                                dropdownSearchData:
+                                                                DropdownSearchData(
+                                                                  searchController:
+                                                                  _category,
+                                                                  searchInnerWidgetHeight:
+                                                                  50,
+                                                                  searchInnerWidget:
+                                                                  Container(
+                                                                    height:
+                                                                    50,
+                                                                    padding:
+                                                                    const EdgeInsets.only(
+                                                                      top:
+                                                                      8,
+                                                                      bottom:
+                                                                      4,
+                                                                      right:
+                                                                      8,
+                                                                      left:
+                                                                      8,
+                                                                    ),
+                                                                    child:
+                                                                    TextField(
+                                                                      textCapitalization:
+                                                                      TextCapitalization.words,
+                                                                      keyboardType: TextInputType.text,
+                                                                      expands:
+                                                                      true,
+                                                                      maxLines:
+                                                                      null,
+                                                                      style:
+                                                                      TextStyle(
+                                                                        color:
+                                                                        Theme.of(context).canvasColor,
+                                                                      ),
+                                                                      controller:
+                                                                      _category,
+                                                                      decoration:
+                                                                      InputDecoration(
+                                                                        isDense:
+                                                                        true,
+                                                                        contentPadding:
+                                                                        const EdgeInsets.symmetric(
+                                                                          horizontal: 10,
+                                                                          vertical: 8,
+                                                                        ),
+                                                                        hintText:
+                                                                        'Kategori Arayın',
+                                                                        hintStyle:
+                                                                        TextStyle(fontSize: 18, color: Theme.of(context).secondaryHeaderColor),
+                                                                        border:
+                                                                        OutlineInputBorder(
+                                                                          borderRadius: BorderRadius.circular(8),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  searchMatchFn:
+                                                                      (item,
+                                                                      searchValue) {
+                                                                    return item
+                                                                        .value
+                                                                        .toString()
+                                                                        .contains(searchValue);
+                                                                  },
+                                                                ),
+                                                                //This to clear the search value when you close the menu
+                                                                onMenuStateChange:
+                                                                    (isOpen) {
+                                                                  if (!isOpen) {
+                                                                    _category
+                                                                        .clear();
+                                                                  }
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                          : const SizedBox(),
+                                                      selectedAddCategoryMenu == 1
+                                                          ? SizedBox(
+                                                        width: 220,
+                                                        height: 60,
+                                                        child: Column(
+                                                          children: [
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            TextField(
+                                                              enabled: true,
+                                                              maxLength: 20,
+                                                              maxLines: 1,
+                                                              style: TextStyle(
+                                                                  color: Theme.of(
+                                                                      context)
+                                                                      .canvasColor,
+                                                                  fontSize:
+                                                                  17,
+                                                                  fontFamily:
+                                                                  'Nexa3'),
+                                                              decoration: InputDecoration(
+                                                                  hintText:
+                                                                  'Kategoriyi yazınız',
+                                                                  hintStyle: TextStyle(
+                                                                      color: Theme.of(context)
+                                                                          .canvasColor,
+                                                                      fontSize:
+                                                                      18,
+                                                                      fontFamily:
+                                                                      'Nexa3'),
+                                                                  counterText:
+                                                                  '',
+                                                                  border: InputBorder
+                                                                      .none),
+                                                              cursorRadius:
+                                                              const Radius
+                                                                  .circular(10),
+                                                              keyboardType:
+                                                              TextInputType
+                                                                  .text,
+                                                              textCapitalization:
+                                                              TextCapitalization
+                                                                  .words,
+                                                              controller:
+                                                              _category,
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(
+                                                                        () {
+                                                                      this.setState(
+                                                                              () {});
+                                                                    });
                                                               },
                                                             ),
-                                                          ),
+                                                          ],
                                                         ),
-                                                        Container(
-                                                          width: size.width * 0.6,
-                                                          height: 30,
-                                                          decoration: BoxDecoration(
-                                                              color: Theme.of(
-                                                                  context)
-                                                                  .highlightColor,
-                                                              borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                  10)),
-                                                          child: editChanger == 0
-                                                              ? Center(
-                                                            child:
-                                                            FittedBox(
+                                                      )
+                                                          : const SizedBox(),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                        children: [
+                                                          initialLabelIndex2 == 1
+                                                              ? SizedBox(
+                                                            width: 80,
+                                                            height: 30,
+                                                            child: Align(
+                                                              alignment:
+                                                              Alignment
+                                                                  .centerLeft,
                                                               child: Text(
-                                                                selectedCategory ==
-                                                                    0
-                                                                    ? "Gider Kategorileri"
-                                                                    : "Gelir Kategorileri",
-                                                                style: TextStyle(
-                                                                    color: renkler
-                                                                        .arkaRenk,
-                                                                    fontSize:
-                                                                    15),
-                                                                //overflow: TextOverflow.visible,
+                                                                '${_category.text.length.toString()}/20',
+                                                                style:
+                                                                TextStyle(
+                                                                  backgroundColor:
+                                                                  Theme.of(context)
+                                                                      .primaryColor,
+                                                                  color: const Color(
+                                                                      0xffF2CB05),
+                                                                  fontSize:
+                                                                  13,
+                                                                  fontFamily:
+                                                                  'Nexa4',
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w800,
+                                                                ),
                                                               ),
                                                             ),
                                                           )
-                                                              : Center(
-                                                            child: SizedBox(
-                                                              height: 30,
-                                                              child:
-                                                              TextField(
-                                                                onTap: () {
-                                                                  setState((){
-                                                                    if (categoryColorChanger != 999) {
-                                                                      categoryColorChanger = 999;
-                                                                      _category.clear();
-                                                                    }
-                                                                  });
-                                                                },
-                                                                enabled:
-                                                                true,
-                                                                maxLength:
-                                                                20,
-                                                                maxLines: 1,
-                                                                style: TextStyle(
-                                                                    color: renkler
-                                                                        .arkaRenk,
-                                                                    fontSize:
-                                                                    15,
-                                                                    height:
-                                                                    1,
-                                                                    fontFamily:
-                                                                    'Nexa3'),
-                                                                decoration: InputDecoration(
-                                                                    isDense:
-                                                                    true,
-                                                                    hintText: selectedCategory == 0
-                                                                        ? "Gider kategorisi ekleyin"
-                                                                        : "Gelir kategorisi ekleyin",
-                                                                    hintStyle: TextStyle(
-                                                                        color: renkler
-                                                                            .arkaRenk,
-                                                                        height:
-                                                                        1,
-                                                                        fontSize:
-                                                                        15,
-                                                                        fontFamily:
-                                                                        'Nexa3'),
-                                                                    counterText:
-                                                                    '',
-                                                                    border:
-                                                                    InputBorder.none),
-                                                                cursorRadius:
-                                                                const Radius.circular(
-                                                                    10),
-                                                                keyboardType:
-                                                                TextInputType
-                                                                    .text,
-                                                                textCapitalization:
-                                                                TextCapitalization
-                                                                    .words,
-                                                                textAlign:
-                                                                TextAlign
-                                                                    .center,
-                                                                controller:
-                                                                _category,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  setState(
-                                                                          () {
-                                                                        this.setState(
-                                                                                () {});
-                                                                      });
-                                                                },
-                                                              ),
-                                                            ),
+                                                              : const SizedBox(
+                                                            width: 80,
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 30,
-                                                          height: 30,
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                                color: sortChanger == 0 ? Theme.of(context).highlightColor : renkler.sariRenk,
-                                                                borderRadius:
-                                                                BorderRadius.all(
-                                                                    Radius.circular(5))),
-                                                            child:
-                                                            Padding(
-                                                              padding: EdgeInsets.all(3),
-                                                              child: GestureDetector(
-                                                                onTap: () {
-                                                                  setState(
-                                                                          () {
-                                                                        sortChanger == 1 ? sortChanger = 2 : sortChanger = 1;
-                                                                        categoryColorChanger = 999;
-                                                                        _category.clear();
-                                                                      });
-                                                                },
-                                                                child: Image.asset(
-                                                                  sortChanger == 1 ? "assets/icons/sort1.png" : sortChanger == 2 ? "assets/icons/sort2.png" : "assets/icons/sort1.png",
-                                                                  color: sortChanger == 0 ? renkler.arkaRenk : renkler.koyuuRenk,
-                                                                  fit: BoxFit.contain,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(
-                                                        8.0),
-                                                    child: SizedBox(
-                                                      width: size.width * 0.81,
-                                                      height:
-                                                      size.height * 0.3 -
-                                                          30,
-                                                      child: GridView.builder(
-                                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                              crossAxisCount: 3,
-                                                              mainAxisExtent:
-                                                              heightChanger,
-                                                              //childAspectRatio:1/2,
-                                                              crossAxisSpacing:
-                                                              2,
-                                                              mainAxisSpacing:
-                                                              2),
-                                                          itemCount: getList(selectedCategory, sortChanger).length,
-                                                          itemBuilder:
-                                                              (BuildContext
-                                                          context,
-                                                              index) {
-                                                            return InkWell(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  _category
-                                                                      .text = getList(selectedCategory, sortChanger)[
-                                                                  index]
-                                                                      .toString();
-                                                                  categoryColorChanger =
-                                                                      index;
-                                                                });
+                                                          SizedBox(
+                                                            width: 80,
+                                                            height: 30,
+                                                            child: TextButton(
+                                                              style: ButtonStyle(
+                                                                  backgroundColor:
+                                                                  MaterialStatePropertyAll(
+                                                                      renkler
+                                                                          .sariRenk),
+                                                                  shape: MaterialStateProperty.all<
+                                                                      RoundedRectangleBorder>(
+                                                                      RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                            20),
+                                                                      ))),
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                    context)
+                                                                    .pop();
                                                               },
-                                                              highlightColor: Theme.of(context).primaryColor,
-                                                              child: Container(
-                                                                alignment:
-                                                                Alignment
-                                                                    .center,
-                                                                //height: 50,
-                                                                decoration:
-                                                                BoxDecoration(
-                                                                  //border: Border.all(color: renkler.koyuuRenk,width: 1),
-                                                                  color: editChanger == 0 ? categoryColorChanger ==
-                                                                      index
-                                                                      ? renkler
-                                                                      .sariRenk
-                                                                      : null : renkler
-                                                                      .koyuAraRenk.withOpacity(0.1)
-                                                                  ,
-                                                                  borderRadius:
-                                                                  BorderRadius.circular(5),
-                                                                ),
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                                  children: [
-                                                                    Center(
-                                                                      child:
-                                                                      Text(
-                                                                        getList(selectedCategory, sortChanger)[index],
-                                                                        style:
-                                                                        const TextStyle(
-                                                                          fontSize:
-                                                                          14,
-                                                                          height:
-                                                                          1,
-                                                                        ),
-                                                                        maxLines:
-                                                                        2,
-                                                                        overflow:
-                                                                        TextOverflow.ellipsis,
-                                                                        textAlign:
-                                                                        TextAlign.center,
-                                                                      ),
-                                                                    ),
-                                                                  ],
+                                                              child: Text(
+                                                                translation(context).ok,
+                                                                style: TextStyle(
+                                                                  color: renkler
+                                                                      .koyuuRenk,
+                                                                  fontSize: 16,
+                                                                  height: 1,
+                                                                  fontFamily:
+                                                                  'Nexa3',
                                                                 ),
                                                               ),
-                                                            );
-                                                          }),
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                    children: [
-                                                      SizedBox(
-                                                        width: size.width * 0.45,
-                                                        height: 30,
-                                                        child: TextButton(
-                                                          style: ButtonStyle(
-                                                              backgroundColor: editChanger ==
-                                                                  0
-                                                                  ? MaterialStatePropertyAll(
-                                                                  Theme.of(
-                                                                      context)
-                                                                      .highlightColor)
-                                                                  : MaterialStatePropertyAll(
-                                                                  renkler
-                                                                      .sariRenk),
-                                                              shape: MaterialStateProperty.all<
-                                                                  RoundedRectangleBorder>(
-                                                                  RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                        20),
-                                                                  ))),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              categoryColorChanger = 999;
-                                                              _category.clear();
-                                                              editChanger == 0
-                                                                  ? editChanger =
-                                                              1
-                                                                  : editChanger =
-                                                              0;
-                                                              heightChanger ==
-                                                                  40.0
-                                                                  ? heightChanger =
-                                                              60.0
-                                                                  : heightChanger =
-                                                              40.0;
-                                                            });
-                                                          },
-                                                          child: FittedBox(
-                                                            child: Text(
-                                                              "Kategori Ekle / Sil",
-                                                              style: TextStyle(
-                                                                color: editChanger ==
-                                                                    0
-                                                                    ? renkler
-                                                                    .arkaRenk
-                                                                    : renkler
-                                                                    .koyuuRenk,
-                                                                fontSize: 14,
-                                                                height: 1,
-                                                                fontFamily:
-                                                                'Nexa3',
-                                                              ),
-                                                              overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
                                                             ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: size.width * 0.22,
-                                                        height: 30,
-                                                        child: TextButton(
-                                                          style: ButtonStyle(
-                                                              backgroundColor:
-                                                              MaterialStatePropertyAll(
-                                                                  renkler
-                                                                      .sariRenk),
-                                                              shape: MaterialStateProperty.all<
-                                                                  RoundedRectangleBorder>(
-                                                                  RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                        5),
-                                                                  ))),
-                                                          onPressed: () {
-                                                            Navigator.of(context)
-                                                                .pop();
-                                                            readHome.setStatus();
-                                                          },
-                                                          child: Text(
-                                                            translation(context)
-                                                                .ok,
-                                                            style: TextStyle(
-                                                              color: renkler
-                                                                  .koyuuRenk,
-                                                              fontSize: 14,
-                                                              height: 1,
-                                                              fontFamily: 'Nexa3',
-                                                            ),
-                                                          ),
-                                                        ),
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
+                                            Text(
+                                              "Debug:${_category.text}",
+                                              style: const TextStyle(
+                                                  color: Colors.red),
+                                            )
                                           ],
                                         ),
-                                      ),
-                                      Visibility(
-                                        visible : editChanger == 1,
-                                        child: Stack(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(15),
-                                              child: Container(
-                                                width: size.width * 0.95,
-                                                height: (size.height * 0.3) + 20,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(5)),
-                                                    border: Border.all(
-                                                      width: 1.5,
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor,
-                                                    )),
-                                              ),
-                                            ),
-                                            Center(
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(
-                                                        left: 18, right: 18),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                      children: [
-                                                        Container(
-                                                          width: size.width * 0.7,
-                                                          height: 30,
-                                                          decoration: BoxDecoration(
-                                                              color: renkler.sariRenk,
-                                                              borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                  10)),
-                                                          child: Center(
-                                                            child: SizedBox(
-                                                              height: 30,
-                                                              child:
-                                                              TextField(
-                                                                onTap: () {
-                                                                  setState((){
-                                                                    if (categoryColorChanger != 999) {
-                                                                      categoryColorChanger = 999;
-                                                                      _category.clear();
-                                                                    }
-                                                                  });
-                                                                },
-                                                                enabled:
-                                                                true,
-                                                                maxLength:
-                                                                20,
-                                                                maxLines: 1,
-                                                                style: TextStyle(
-                                                                    color: renkler
-                                                                        .koyuuRenk,
-                                                                    fontSize:
-                                                                    15,
-                                                                    height:
-                                                                    1,
-                                                                    fontFamily:
-                                                                    'Nexa3'),
-                                                                decoration: InputDecoration(
-                                                                    isDense:
-                                                                    true,
-                                                                    hintText: selectedCategory == 0
-                                                                        ? "Gider kategorisi ekleyin"
-                                                                        : "Gelir kategorisi ekleyin",
-                                                                    hintStyle: TextStyle(
-                                                                        color: renkler
-                                                                            .koyuuRenk,
-                                                                        height:
-                                                                        1,
-                                                                        fontSize:
-                                                                        15,
-                                                                        fontFamily:
-                                                                        'Nexa3'),
-                                                                    counterText:
-                                                                    '',
-                                                                    border:
-                                                                    InputBorder.none),
-                                                                cursorRadius:
-                                                                const Radius.circular(
-                                                                    10),
-                                                                keyboardType:
-                                                                TextInputType
-                                                                    .text,
-                                                                textCapitalization:
-                                                                TextCapitalization
-                                                                    .words,
-                                                                textAlign:
-                                                                TextAlign
-                                                                    .center,
-                                                                controller:
-                                                                _category,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  setState(
-                                                                          () {
-                                                                        this.setState(
-                                                                                () {});
-                                                                      });
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 30,
-                                                          height: 30,
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                                color: renkler
-                                                                    .sariRenk,
-                                                                borderRadius:
-                                                                BorderRadius.all(
-                                                                    Radius.circular(5))),
-                                                            child:
-                                                            IconButton(
-                                                              icon: Icon(Icons
-                                                                  .add_rounded),
-                                                              padding:
-                                                              EdgeInsets
-                                                                  .zero,
-                                                              alignment:
-                                                              Alignment
-                                                                  .center,
-                                                              color: renkler
-                                                                  .koyuuRenk,
-                                                              iconSize: 30,
-                                                              onPressed:
-                                                                  () {
-                                                                if (_category
-                                                                    .text ==
-                                                                    '') {
-                                                                  showDialog(
-                                                                      context:
-                                                                      context,
-                                                                      builder:
-                                                                          (context) {
-                                                                        return AlertDialog(
-                                                                          backgroundColor: Theme.of(context).primaryColor,
-                                                                          title: Text("Eksik İşlem Yaptınız", style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3')),
-                                                                          content: Text(
-                                                                            "Lütfen bir kategori giriniz!",
-                                                                            style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
-                                                                          ),
-                                                                          shadowColor: renkler.koyuuRenk,
-                                                                          actions: [
-                                                                            TextButton(
-                                                                              onPressed: () {
-                                                                                Navigator.of(context).pop();
-                                                                              },
-                                                                              child: Text(
-                                                                                translation(context).ok,
-                                                                                style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'Nexa3'),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        );
-                                                                      });
-                                                                } else {
-                                                                  Navigator.of(
-                                                                      context)
-                                                                      .pop();
-                                                                }
-
-                                                                setState(
-                                                                        () {});
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Visibility(
-                                                    visible:
-                                                    selectedAddCategoryMenu ==
-                                                        0,
-                                                    child: Padding(
-                                                      padding:
-                                                      const EdgeInsets.all(
-                                                          8.0),
-                                                      child: SizedBox(
-                                                        width: size.width * 0.81,
-                                                        height:
-                                                        size.height * 0.3 -
-                                                            30,
-                                                        child: GridView.builder(
-                                                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                                crossAxisCount: 3,
-                                                                mainAxisExtent:
-                                                                heightChanger,
-                                                                //childAspectRatio:1/2,
-                                                                crossAxisSpacing:
-                                                                2,
-                                                                mainAxisSpacing:
-                                                                2),
-                                                            itemCount:getList(selectedCategory, sortChanger).length,
-                                                            itemBuilder:
-                                                                (BuildContext
-                                                            context,
-                                                                index) {
-                                                              return Container(
-                                                                alignment:
-                                                                Alignment
-                                                                    .center,
-                                                                //height: 50,
-                                                                decoration:
-                                                                BoxDecoration(
-                                                                  //border: Border.all(color: renkler.koyuuRenk,width: 1),
-                                                                  color: editChanger == 0 ? categoryColorChanger ==
-                                                                      index
-                                                                      ? renkler
-                                                                      .sariRenk
-                                                                      : null : Theme.of(context).splashColor.withOpacity(0.5)
-                                                                  ,
-                                                                  borderRadius:
-                                                                  BorderRadius.circular(5),
-                                                                ),
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceEvenly,
-                                                                  children: [
-                                                                    Center(
-                                                                      child:
-                                                                      Text(
-                                                                        getList(selectedCategory, sortChanger)[index]
-                                                                        ,
-                                                                        style:
-                                                                        const TextStyle(
-                                                                          fontSize:
-                                                                          14,
-                                                                          height:
-                                                                          1,
-                                                                        ),
-                                                                        maxLines:
-                                                                        2,
-                                                                        overflow:
-                                                                        TextOverflow.ellipsis,
-                                                                        textAlign:
-                                                                        TextAlign.center,
-                                                                      ),
-                                                                    ),
-                                                                    (selectedCategory == 0 ? oldCategoryListExpense.contains(getList(selectedCategory, sortChanger)[index].toString()) == false : oldCategoryListIncome.contains(getList(selectedCategory, sortChanger)[index].toString()) == false) ?
-                                                                    Row(
-                                                                      mainAxisAlignment:
-                                                                      MainAxisAlignment.spaceAround,
-                                                                      children: [
-                                                                        Container(
-                                                                          width:
-                                                                          20,
-                                                                          height:
-                                                                          20,
-                                                                          decoration:
-                                                                          BoxDecoration(color: renkler.kirmiziRenk, borderRadius: BorderRadius.all(Radius.circular(5))),
-                                                                          child:
-                                                                          IconButton(
-                                                                            onPressed: () {
-                                                                              setState((){
-                                                                                _categoryController.text = getList(selectedCategory, sortChanger)[index];
-                                                                                editChanger = 2;
-                                                                                categoryDeleteChanger=0;
-                                                                              });
-                                                                            },
-                                                                            icon: Icon(
-                                                                              Icons.delete_forever_rounded,
-                                                                              size: 16,
-                                                                              color: renkler.arkaRenk,
-                                                                            ),
-                                                                            padding: EdgeInsets.zero,
-                                                                          ),
-                                                                        ),
-                                                                        Container(
-                                                                          width:
-                                                                          20,
-                                                                          height:
-                                                                          20,
-                                                                          decoration:
-                                                                          BoxDecoration(color: Theme.of(context).secondaryHeaderColor, borderRadius: BorderRadius.all(Radius.circular(5))),
-                                                                          child:
-                                                                          IconButton(
-                                                                            onPressed: () {
-                                                                              setState((){
-                                                                                _categoryController.text = getList(selectedCategory, sortChanger)[index];
-                                                                                editChanger = 3;
-                                                                                categoryEditChanger=0;
-                                                                                categoryEditChanger2=0;
-                                                                              });
-                                                                            },
-                                                                            icon: Icon(
-                                                                              Icons.edit_rounded,
-                                                                              size: 18,
-                                                                              color: Theme.of(context).primaryColor,
-                                                                            ),
-                                                                            padding: EdgeInsets.zero,
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ) : const FittedBox(
-                                                                      child: Text("Sistem\nKategorisi",textAlign: TextAlign.center,style: TextStyle(
-                                                                          fontSize: 11,height: 1
-                                                                      ),),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            }),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                    children: [
-                                                      SizedBox(
-                                                        width: size.width * 0.45,
-                                                        height: 30,
-                                                        child: TextButton(
-                                                          style: ButtonStyle(
-                                                              backgroundColor: editChanger ==
-                                                                  0
-                                                                  ? MaterialStatePropertyAll(
-                                                                  Theme.of(
-                                                                      context)
-                                                                      .highlightColor)
-                                                                  : MaterialStatePropertyAll(
-                                                                  renkler
-                                                                      .sariRenk),
-                                                              shape: MaterialStateProperty.all<
-                                                                  RoundedRectangleBorder>(
-                                                                  RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                        20),
-                                                                  ))),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              editChanger == 0
-                                                                  ? editChanger =
-                                                              1
-                                                                  : editChanger =
-                                                              0;
-                                                              heightChanger ==
-                                                                  40.0
-                                                                  ? heightChanger =
-                                                              60.0
-                                                                  : heightChanger =
-                                                              40.0;
-                                                            });
-                                                          },
-                                                          child: FittedBox(
-                                                            child: Text(
-                                                              "Kategori Ekle / Sil",
-                                                              style: TextStyle(
-                                                                color: editChanger ==
-                                                                    0
-                                                                    ? renkler
-                                                                    .arkaRenk
-                                                                    : renkler
-                                                                    .koyuuRenk,
-                                                                fontSize: 14,
-                                                                height: 1,
-                                                                fontFamily:
-                                                                'Nexa3',
-                                                              ),
-                                                              overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: size.width * 0.22,
-                                                        height: 30,
-                                                        child: TextButton(
-                                                          style: ButtonStyle(
-                                                              backgroundColor:
-                                                              MaterialStatePropertyAll(
-                                                                  renkler
-                                                                      .sariRenk),
-                                                              shape: MaterialStateProperty.all<
-                                                                  RoundedRectangleBorder>(
-                                                                  RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                        5),
-                                                                  ))),
-                                                          onPressed: () {
-                                                            Navigator.of(context)
-                                                                .pop();
-                                                          },
-                                                          child: Text(
-                                                            translation(context)
-                                                                .ok,
-                                                            style: TextStyle(
-                                                              color: renkler
-                                                                  .koyuuRenk,
-                                                              fontSize: 14,
-                                                              height: 1,
-                                                              fontFamily: 'Nexa3',
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible : editChanger == 3,
-                                        child: Stack(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(15),
-                                              child: Container(
-                                                width: size.width * 0.95,
-                                                height: (size.height * 0.3) + 20,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(5)),
-                                                    border: Border.all(
-                                                      width: 1.5,
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor,
-                                                    )),
-                                              ),
-                                            ),
-                                            Center(
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(
-                                                        left: 18, right: 18),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 30,
-                                                          height: 30,
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                                color: renkler
-                                                                    .sariRenk,
-                                                                borderRadius:
-                                                                BorderRadius.all(
-                                                                    Radius.circular(5))),
-                                                            child:
-                                                            IconButton(
-                                                              icon: Icon(Icons
-                                                                  .arrow_back_ios_new_rounded),
-                                                              padding:
-                                                              EdgeInsets
-                                                                  .zero,
-                                                              alignment:
-                                                              Alignment
-                                                                  .center,
-                                                              color: renkler
-                                                                  .koyuuRenk,
-                                                              iconSize: 30,
-                                                              onPressed:
-                                                                  () {
-                                                                setState(
-                                                                        () {
-                                                                      editChanger = 1;
-                                                                    });
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: size.width * 0.7,
-                                                          height: 30,
-                                                          decoration: BoxDecoration(
-                                                              color: Theme.of(
-                                                                  context)
-                                                                  .highlightColor,
-                                                              borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                  10)),
-                                                          child: SizedBox(
-                                                              height: 30,
-                                                              child:
-                                                              Center(
-                                                                child: Text(
-                                                                  "Kategori Düzenleme",style: TextStyle(color: renkler.arkaRenk),
-                                                                ),
-                                                              )
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  FutureBuilder<int>(
-                                                    future: readUpdateDB.categoryUsageCount(selectedCategory, _categoryController.text,0,''),
-                                                    builder: (context, snapshot) {
-                                                      if (snapshot.connectionState ==
-                                                          ConnectionState.waiting) {
-                                                        return const CircularProgressIndicator();
-                                                      } else if (snapshot.hasError) {
-                                                        return Text('Bir hata oluştu: ${snapshot.error}');
-                                                      } else {
-                                                            return Column(
-                                                              children: <Widget>[
-                                                                Center(
-                                                                  child: Padding(
-                                                                    padding: const EdgeInsets.only(top: 10,bottom: 10),
-                                                                    child: SizedBox(
-                                                                        width: size.width * 0.81,
-                                                                        height:210,
-                                                                        child: Column(
-                                                                          children: [
-                                                                            Padding(
-                                                                              padding: const EdgeInsets.only(top: 10),
-                                                                              child: Row(
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Text("Kategori:"),
-                                                                                  Text(_categoryController.text),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                            Padding(
-                                                                              padding: const EdgeInsets.only(top: 10),
-                                                                              child: Row(
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Text("Kayıtlı İşlem Sayısı:"),
-                                                                                  Text("${snapshot.data}"),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                            Spacer(),
-                                                                            Visibility(
-                                                                              visible : categoryEditChanger == 1,
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(top: 6),
-                                                                                child: SizedBox(
-                                                                                  width: size.width * 0.81,
-                                                                                  height: 120,
-                                                                                  child: Container(
-                                                                                    decoration: BoxDecoration(
-                                                                                        border: Border.all(
-                                                                                            color: Theme.of(context).highlightColor,
-                                                                                            width: 1
-                                                                                        ),
-                                                                                        borderRadius: BorderRadius.all(Radius.circular(5))
-                                                                                    ),
-                                                                                    child: Column(
-                                                                                      mainAxisAlignment:
-                                                                                      MainAxisAlignment
-                                                                                          .spaceAround,
-                                                                                      children: [
-                                                                                        Row(
-                                                                                          mainAxisAlignment:
-                                                                                          MainAxisAlignment
-                                                                                              .spaceAround,
-                                                                                          children: [
-                                                                                            SizedBox(
-                                                                                              width: 26,
-                                                                                              height: 26,
-                                                                                              child: Container(
-                                                                                                decoration: BoxDecoration(
-                                                                                                    color: Theme.of(context).highlightColor,
-                                                                                                    borderRadius:
-                                                                                                    BorderRadius.all(
-                                                                                                        Radius.circular(5))),
-                                                                                                child:
-                                                                                                IconButton(
-                                                                                                  icon: Icon(Icons
-                                                                                                      .arrow_back_ios_new_rounded),
-                                                                                                  padding:
-                                                                                                  EdgeInsets
-                                                                                                      .zero,
-                                                                                                  alignment:
-                                                                                                  Alignment
-                                                                                                      .center,
-                                                                                                  color: renkler
-                                                                                                      .arkaRenk,
-                                                                                                  iconSize: 24,
-                                                                                                  onPressed:
-                                                                                                      () {
-                                                                                                    setState(
-                                                                                                            () {
-                                                                                                          categoryEditChanger = 0;
-                                                                                                        });
-                                                                                                  },
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                            Container(
-                                                                                              width: size.width * 0.65,
-                                                                                              height: 26,
-                                                                                              decoration: BoxDecoration(
-                                                                                                  color: renkler.sariRenk,
-                                                                                                  borderRadius:
-                                                                                                  BorderRadius
-                                                                                                      .circular(
-                                                                                                      5)),
-                                                                                              child: SizedBox(
-                                                                                                  height: 26,
-                                                                                                  child:
-                                                                                                  Center(
-                                                                                                    child: Text(
-                                                                                                      categoryEditChanger2 == 3 ? "Sakla ve düzenle": categoryEditChanger2 == 4 ? "Değiştir ve düzenle" : "Düzenle",style: TextStyle(color: renkler.koyuuRenk),
-                                                                                                    ),
-                                                                                                  )
-                                                                                              ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                        Padding(
-                                                                                          padding: const EdgeInsets.only(left: 4,right: 4),
-                                                                                          child: Column(
-                                                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                                                            children: [
-                                                                                              Text('Değiştirmek istediğiniz kategoriyi yazınız',style: TextStyle(fontSize: 14,height: 1,color: Theme.of(context).canvasColor,),),
-                                                                                              SizedBox(
-                                                                                                width : size.width*0.32,
-                                                                                                height: 24,
-                                                                                                child: TextField(
-                                                                                                  maxLength: 20,
-                                                                                                  maxLines: 1,
-                                                                                                  style:
-                                                                                                  TextStyle(color: Theme.of(context).canvasColor,fontSize: 13,fontFamily: 'Nexa3'),
-                                                                                                  decoration: InputDecoration(
-                                                                                                      hintText: 'Kategoriyi yazınız',
-                                                                                                      hintStyle: TextStyle(
-                                                                                                          color: Theme.of(context).canvasColor,
-                                                                                                          fontSize: 13,
-                                                                                                          fontFamily: 'Nexa3'),
-                                                                                                      counterText: '',
-                                                                                                      border: InputBorder.none),
-                                                                                                  cursorRadius: const Radius.circular(10),
-                                                                                                  keyboardType: TextInputType.text,
-                                                                                                  textCapitalization: TextCapitalization.words,
-                                                                                                  controller: _categoryEdit,
-                                                                                                  onEditingComplete: () {
-                                                                                                    setState((){});
-                                                                                                  },
-
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        SizedBox(
-                                                                                          height : 26,
-                                                                                          child: TextButton(
-                                                                                            onPressed: () {
-                                                                                              if (_categoryEdit
-                                                                                                  .text ==
-                                                                                                  '') {
-                                                                                                showDialog(
-                                                                                                    context:
-                                                                                                    context,
-                                                                                                    builder:
-                                                                                                        (context) {
-                                                                                                      return AlertDialog(
-                                                                                                        backgroundColor: Theme.of(context).primaryColor,
-                                                                                                        title: Text("Eksik İşlem Yaptınız", style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3')),
-                                                                                                        content: Text(
-                                                                                                          "Lütfen bir kategori giriniz!",
-                                                                                                          style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
-                                                                                                        ),
-                                                                                                        shadowColor: renkler.koyuuRenk,
-                                                                                                        actions: [
-                                                                                                          TextButton(
-                                                                                                            onPressed: () {
-                                                                                                              Navigator.of(context).pop();
-                                                                                                            },
-                                                                                                            child: Text(
-                                                                                                              translation(context).ok,
-                                                                                                              style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'Nexa3'),
-                                                                                                            ),
-                                                                                                          )
-                                                                                                        ],
-                                                                                                      );
-                                                                                                    });
-                                                                                              } else {
-                                                                                                readUpdateDB.categoryUsageCount(selectedCategory, _categoryController.text,categoryEditChanger2,_categoryEdit.text);
-                                                                                                setState(
-                                                                                                        () {
-                                                                                                      _categoryEdit.clear();
-                                                                                                      editChanger = 1;
-                                                                                                    });
-                                                                                                Navigator.of(context).pop();
-                                                                                                readHome.setStatus();
-                                                                                              }
-                                                                                            },
-                                                                                            style: ButtonStyle(
-                                                                                                backgroundColor: MaterialStatePropertyAll(renkler.sariRenk),
-                                                                                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                                                    const RoundedRectangleBorder(
-                                                                                                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                                                                    )
-                                                                                                ),
-                                                                                                padding: const MaterialStatePropertyAll(EdgeInsets.only(left: 4,right: 4),)
-                                                                                            ),
-                                                                                            child: Text(
-                                                                                              _categoryEdit.text != '' ? "${_categoryEdit.text} ile değiştir" : "Tamam",
-                                                                                              style: TextStyle(
-                                                                                                color: renkler
-                                                                                                    .koyuuRenk,
-                                                                                                fontSize: 13,
-                                                                                                height: 1,
-                                                                                                fontFamily: 'Nexa3',
-                                                                                              ),
-                                                                                              textAlign: TextAlign.center,
-                                                                                              maxLines: 4,
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            Visibility(
-                                                                              visible : categoryEditChanger == 0,
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(top: 6),
-                                                                                child: SizedBox(
-                                                                                  width: size.width * 0.81,
-                                                                                  height: 60,
-                                                                                  child: TextButton(
-                                                                                    style: ButtonStyle(
-                                                                                        backgroundColor:
-                                                                                        MaterialStatePropertyAll(
-                                                                                            renkler
-                                                                                                .sariRenk),
-                                                                                        shape: MaterialStateProperty.all<
-                                                                                            RoundedRectangleBorder>(
-                                                                                            RoundedRectangleBorder(
-                                                                                              borderRadius:
-                                                                                              BorderRadius
-                                                                                                  .circular(
-                                                                                                  5),
-                                                                                            ))),
-                                                                                    onPressed: () {
-                                                                                      setState((){
-                                                                                        selectedValue = null;
-                                                                                        _categoryEdit.clear();
-                                                                                        categoryEditChanger = 1;
-                                                                                        categoryEditChanger2 = 3;
-                                                                                      });
-                                                                                    },
-                                                                                    child: Text(
-                                                                                      "Düzenle ve eski kayıtlarda yer alan kategorileri sakla. (Önerilen)",
-                                                                                      style: TextStyle(
-                                                                                        color: renkler
-                                                                                            .koyuuRenk,
-                                                                                        fontSize: 14,
-                                                                                        height: 1,
-                                                                                        fontFamily: 'Nexa3',
-                                                                                      ),
-                                                                                      textAlign: TextAlign.center,
-                                                                                      maxLines: 4,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            Visibility(
-                                                                              visible : categoryEditChanger == 0,
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(top: 6),
-                                                                                child: SizedBox(
-                                                                                  width: size.width * 0.81,
-                                                                                  height: 60,
-                                                                                  child: TextButton(
-                                                                                    style: ButtonStyle(
-                                                                                        backgroundColor:
-                                                                                        MaterialStatePropertyAll(
-                                                                                            Theme.of(context).highlightColor),
-                                                                                        shape: MaterialStateProperty.all<
-                                                                                            RoundedRectangleBorder>(
-                                                                                            RoundedRectangleBorder(
-                                                                                              borderRadius:
-                                                                                              BorderRadius
-                                                                                                  .circular(
-                                                                                                  5),
-                                                                                            ))),
-                                                                                    onPressed: () {
-                                                                                      setState((){
-                                                                                        selectedValue = null;
-                                                                                        _categoryEdit.clear();
-                                                                                        categoryEditChanger = 1;
-                                                                                        categoryEditChanger2 = 4;
-                                                                                      });
-                                                                                    },
-                                                                                    child: Text(
-                                                                                      "Düzenle ve eski kayıtlarda yer alan kategorileri de düzenlenmiş kategori ile değiştir.",
-                                                                                      style: TextStyle(
-                                                                                        color: renkler
-                                                                                            .arkaRenk,
-                                                                                        fontSize: 14,
-                                                                                        height: 1,
-                                                                                        fontFamily: 'Nexa3',
-                                                                                      ),
-                                                                                      textAlign: TextAlign.center,
-                                                                                      maxLines: 4,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        )),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            );
-                                                      }
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible : editChanger == 2,
-                                        child: Stack(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(15),
-                                              child: Container(
-                                                width: size.width * 0.95,
-                                                height: (size.height * 0.3) + 20,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(5)),
-                                                    border: Border.all(
-                                                      width: 1.5,
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor,
-                                                    )),
-                                              ),
-                                            ),
-                                            Center(
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(
-                                                        left: 18, right: 18),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 30,
-                                                          height: 30,
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                                color: renkler
-                                                                    .sariRenk,
-                                                                borderRadius:
-                                                                BorderRadius.all(
-                                                                    Radius.circular(5))),
-                                                            child:
-                                                            IconButton(
-                                                              icon: Icon(Icons
-                                                                  .arrow_back_ios_new_rounded),
-                                                              padding:
-                                                              EdgeInsets
-                                                                  .zero,
-                                                              alignment:
-                                                              Alignment
-                                                                  .center,
-                                                              color: renkler
-                                                                  .koyuuRenk,
-                                                              iconSize: 30,
-                                                              onPressed:
-                                                                  () {
-                                                                setState(
-                                                                        () {
-                                                                      editChanger = 1;
-                                                                    });
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: size.width * 0.7,
-                                                          height: 30,
-                                                          decoration: BoxDecoration(
-                                                              color: Theme.of(
-                                                                  context)
-                                                                  .highlightColor,
-                                                              borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                  10)),
-                                                          child: SizedBox(
-                                                              height: 30,
-                                                              child:
-                                                              Center(
-                                                                child: Text(
-                                                                  "Kategori Silme",style: TextStyle(color: renkler.arkaRenk),
-                                                                ),
-                                                              )
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  FutureBuilder<int>(
-                                                      future: readUpdateDB.categoryUsageCount(selectedCategory, _categoryController.text,0,''),
-                                                      builder: (context, snapshot) {
-                                                        if (snapshot.connectionState ==
-                                                            ConnectionState.waiting) {
-                                                          return const CircularProgressIndicator();
-                                                        } else if (snapshot.hasError) {
-                                                          return Text('Bir hata oluştu: ${snapshot.error}');
-                                                        } else {
-                                                          return Column(
-                                                            children: <Widget>[
-                                                              Center(
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets.only(top: 10,bottom: 10),
-                                                                  child: SizedBox(
-                                                                      width: size.width * 0.81,
-                                                                      height:210,
-                                                                      child: Column(
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding: const EdgeInsets.only(top: 10),
-                                                                            child: Row(
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: [
-                                                                                Text("Kategori:"),
-                                                                                Text(_categoryController.text),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: const EdgeInsets.only(top: 10),
-                                                                            child: Row(
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: [
-                                                                                Text("Kayıtlı İşlem Sayısı:"),
-                                                                                Text("${snapshot.data}"),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                          Spacer(),
-                                                                          Visibility(
-                                                                            visible : categoryDeleteChanger == 0,
-                                                                            child: Padding(
-                                                                              padding: const EdgeInsets.only(top: 6),
-                                                                              child: SizedBox(
-                                                                                width: size.width * 0.81,
-                                                                                height: 60,
-                                                                                child: TextButton(
-                                                                                  style: ButtonStyle(
-                                                                                      backgroundColor:
-                                                                                      MaterialStatePropertyAll(
-                                                                                          renkler
-                                                                                              .sariRenk),
-                                                                                      shape: MaterialStateProperty.all<
-                                                                                          RoundedRectangleBorder>(
-                                                                                          RoundedRectangleBorder(
-                                                                                            borderRadius:
-                                                                                            BorderRadius
-                                                                                                .circular(
-                                                                                                5),
-                                                                                          ))),
-                                                                                  onPressed: () {
-                                                                                    setState((){
-                                                                                      selectedValue = null;
-                                                                                      _categoryEdit.clear();
-                                                                                      categoryDeleteChanger =1;
-                                                                                      categoryDeleteChanger2 = 0;});
-                                                                                  },
-                                                                                  child: Text(
-                                                                                    'Sil ve eski kayıtlarda yer alan kategorileri sakla. (Önerilen)',
-                                                                                    style: TextStyle(
-                                                                                      color: renkler
-                                                                                          .koyuuRenk,
-                                                                                      fontSize: 14,
-                                                                                      height: 1,
-                                                                                      fontFamily: 'Nexa3',
-                                                                                    ),
-                                                                                    textAlign: TextAlign.center,
-                                                                                    maxLines: 4,
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                          Visibility(
-                                                                            visible : categoryDeleteChanger == 0,
-                                                                            child: Padding(
-                                                                              padding: const EdgeInsets.only(top: 6),
-                                                                              child: SizedBox(
-                                                                                width: size.width * 0.81,
-                                                                                height: 60,
-                                                                                child: TextButton(
-                                                                                  style: ButtonStyle(
-                                                                                      backgroundColor:
-                                                                                      MaterialStatePropertyAll(
-                                                                                          Theme.of(context).highlightColor),
-                                                                                      shape: MaterialStateProperty.all<
-                                                                                          RoundedRectangleBorder>(
-                                                                                          RoundedRectangleBorder(
-                                                                                            borderRadius:
-                                                                                            BorderRadius
-                                                                                                .circular(
-                                                                                                5),
-                                                                                          ))),
-                                                                                  onPressed: () {
-                                                                                    setState((){
-                                                                                      selectedValue = null;
-                                                                                      _categoryEdit.clear();
-                                                                                      categoryDeleteChanger = 1 ;
-                                                                                      categoryDeleteChanger2 = 1 ;
-                                                                                    });
-                                                                                  },
-                                                                                  child: Text(
-                                                                                    "Sil ve eski kayıtlarda yer alan kategorileri başka bir kategori ile değiştir.",
-                                                                                    style: TextStyle(
-                                                                                      color: renkler
-                                                                                          .arkaRenk,
-                                                                                      fontSize: 14,
-                                                                                      height: 1,
-                                                                                      fontFamily: 'Nexa3',
-                                                                                    ),
-                                                                                    textAlign: TextAlign.center,
-                                                                                    maxLines: 4,
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                          Visibility(
-                                                                            visible : categoryDeleteChanger == 1,
-                                                                            child: Column(
-                                                                              children: [
-                                                                                Visibility(
-                                                                                  visible : categoryDeleteChanger2 == 0,
-                                                                                  child: Padding(
-                                                                                    padding: const EdgeInsets.only(top: 6),
-                                                                                    child: SizedBox(
-                                                                                      width: size.width * 0.81,
-                                                                                      height: 120,
-                                                                                      child: Container(
-                                                                                        decoration: BoxDecoration(
-                                                                                            border: Border.all(
-                                                                                                color: Theme.of(context).highlightColor,
-                                                                                                width: 1
-                                                                                            ),
-                                                                                            borderRadius: BorderRadius.all(Radius.circular(5))
-                                                                                        ),
-                                                                                        child: Column(
-                                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                          children: [
-                                                                                            Row(
-                                                                                              mainAxisAlignment:
-                                                                                              MainAxisAlignment
-                                                                                                  .spaceAround,
-                                                                                              children: [
-                                                                                                SizedBox(
-                                                                                                  width: 26,
-                                                                                                  height: 26,
-                                                                                                  child: Container(
-                                                                                                    decoration: BoxDecoration(
-                                                                                                        color: Theme.of(context).highlightColor,
-                                                                                                        borderRadius:
-                                                                                                        BorderRadius.all(
-                                                                                                            Radius.circular(5))),
-                                                                                                    child:
-                                                                                                    IconButton(
-                                                                                                      icon: Icon(Icons
-                                                                                                          .arrow_back_ios_new_rounded),
-                                                                                                      padding:
-                                                                                                      EdgeInsets
-                                                                                                          .zero,
-                                                                                                      alignment:
-                                                                                                      Alignment
-                                                                                                          .center,
-                                                                                                      color: renkler
-                                                                                                          .arkaRenk,
-                                                                                                      iconSize: 20,
-                                                                                                      onPressed:
-                                                                                                          () {
-                                                                                                        setState(
-                                                                                                                () {
-                                                                                                              categoryDeleteChanger = 0;
-                                                                                                            });
-                                                                                                      },
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                Container(
-                                                                                                  width: size.width * 0.65,
-                                                                                                  height: 26,
-                                                                                                  decoration: BoxDecoration(
-                                                                                                      color: renkler.sariRenk,
-                                                                                                      borderRadius:
-                                                                                                      BorderRadius
-                                                                                                          .circular(
-                                                                                                          5)),
-                                                                                                  child: Center(
-                                                                                                    child: Text(
-                                                                                                      "Sakla ve sil",style: TextStyle(color: renkler.koyuuRenk),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                            const Text("Seçtiğiniz kategori silenecek ve eski kayıtlarda bir değişiklik olmayacak.",textAlign: TextAlign.center,maxLines: 3,style: TextStyle(fontSize: 14),),
-                                                                                            InkWell(
-                                                                                              child: Container(
-                                                                                                width: 90,
-                                                                                                height: 26,
-                                                                                                decoration: BoxDecoration(
-                                                                                                    color: renkler.sariRenk,
-                                                                                                    borderRadius: BorderRadius.all(Radius.circular(5))
-                                                                                                ),
-                                                                                                child: Center(
-                                                                                                  child: Text(
-                                                                                                    "Tamam",
-                                                                                                    style: TextStyle(
-                                                                                                      color: renkler
-                                                                                                          .koyuuRenk,
-                                                                                                      fontSize: 14,
-                                                                                                      height: 1,
-                                                                                                      fontFamily: 'Nexa3',
-                                                                                                    ),
-                                                                                                    textAlign: TextAlign.center,
-                                                                                                    maxLines: 4,
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                              onTap: () {
-                                                                                                ///user cateory == seçili category, olanları bul ve bu listenin userCategorysini '' yap
-                                                                                                readUpdateDB.categoryUsageCount(selectedCategory, _categoryController.text,1,'');
-                                                                                                Navigator.of(context).pop();
-                                                                                                readHome.setStatus();
-                                                                                                setState((){});
-                                                                                              },
-                                                                                            ),
-                                                                                          ],
-
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                                Visibility(
-                                                                                  visible : categoryDeleteChanger2 == 1,
-                                                                                  child: Padding(
-                                                                                    padding: const EdgeInsets.only(top: 6),
-                                                                                    child: SizedBox(
-                                                                                      width: size.width * 0.81,
-                                                                                      height: 120,
-                                                                                      child: Container(
-                                                                                        decoration: BoxDecoration(
-                                                                                            border: Border.all(
-                                                                                                color: Theme.of(context).highlightColor,
-                                                                                                width: 1
-                                                                                            ),
-                                                                                            borderRadius: BorderRadius.all(Radius.circular(5))
-                                                                                        ),
-                                                                                        child: Column(
-                                                                                          mainAxisAlignment:
-                                                                                          MainAxisAlignment
-                                                                                              .spaceAround,
-                                                                                          children: [
-                                                                                            Row(
-                                                                                              mainAxisAlignment:
-                                                                                              MainAxisAlignment
-                                                                                                  .spaceAround,
-                                                                                              children: [
-                                                                                                SizedBox(
-                                                                                                  width: 26,
-                                                                                                  height: 26,
-                                                                                                  child: Container(
-                                                                                                    decoration: BoxDecoration(
-                                                                                                        color: Theme.of(context).highlightColor,
-                                                                                                        borderRadius:
-                                                                                                        BorderRadius.all(
-                                                                                                            Radius.circular(5))),
-                                                                                                    child:
-                                                                                                    IconButton(
-                                                                                                      icon: Icon(Icons
-                                                                                                          .arrow_back_ios_new_rounded),
-                                                                                                      padding:
-                                                                                                      EdgeInsets
-                                                                                                          .zero,
-                                                                                                      alignment:
-                                                                                                      Alignment
-                                                                                                          .center,
-                                                                                                      color: renkler
-                                                                                                          .arkaRenk,
-                                                                                                      iconSize: 24,
-                                                                                                      onPressed:
-                                                                                                          () {
-                                                                                                        setState(
-                                                                                                                () {
-                                                                                                              categoryDeleteChanger = 0;
-                                                                                                            });
-                                                                                                      },
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                Container(
-                                                                                                  width: size.width * 0.65,
-                                                                                                  height: 26,
-                                                                                                  decoration: BoxDecoration(
-                                                                                                      color: renkler.sariRenk,
-                                                                                                      borderRadius:
-                                                                                                      BorderRadius
-                                                                                                          .circular(
-                                                                                                          5)),
-                                                                                                  child: SizedBox(
-                                                                                                      height: 26,
-                                                                                                      child:
-                                                                                                      Center(
-                                                                                                        child: Text(
-                                                                                                          "Değiştir ve sil",style: TextStyle(color: renkler.koyuuRenk),
-                                                                                                        ),
-                                                                                                      )
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                            Padding(
-                                                                                              padding: const EdgeInsets.only(left: 4,right: 4),
-                                                                                              child: Column(
-                                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                children: [
-                                                                                                  Text('Değiştirmek istediğiniz kategoriyi seçiniz',style: TextStyle(fontSize: 14,height: 1,color: Theme.of(context).canvasColor,),),
-                                                                                                  DropdownButtonHideUnderline(
-                                                                                                    child: DropdownButton2<String>(
-                                                                                                      isExpanded: true,
-                                                                                                      hint: Text(
-                                                                                                        'Kategori seçiniz',
-                                                                                                        style: TextStyle(
-                                                                                                          fontSize: 13,
-                                                                                                          fontFamily: 'Nexa3',
-                                                                                                          color:
-                                                                                                          Theme.of(context).canvasColor,
-                                                                                                        ),
-                                                                                                        //textAlign: TextAlign.center,
-                                                                                                      ),
-                                                                                                      items: selectedCategory == 0
-                                                                                                          ? mergedExpensList
-                                                                                                          .map((item) =>
-                                                                                                          DropdownMenuItem(
-                                                                                                            value: item,
-                                                                                                            child: Text(
-                                                                                                              item,
-                                                                                                              //textAlign: TextAlign.center,
-                                                                                                              style: TextStyle(
-                                                                                                                  fontSize: 13,
-                                                                                                                  height: 1,
-                                                                                                                  fontFamily:
-                                                                                                                  'Nexa3',
-                                                                                                                  color: Theme.of(
-                                                                                                                      context)
-                                                                                                                      .canvasColor),
-                                                                                                            ),
-                                                                                                          ))
-                                                                                                          .toList()
-                                                                                                          : mergedIncomeList
-                                                                                                          .map((item) =>
-                                                                                                          DropdownMenuItem(
-                                                                                                            value: item,
-                                                                                                            child: Text(
-                                                                                                              item,
-                                                                                                              style: TextStyle(
-                                                                                                                  fontSize: 13,
-                                                                                                                  fontFamily:
-                                                                                                                  'Nexa3',
-                                                                                                                  color: Theme.of(
-                                                                                                                      context)
-                                                                                                                      .canvasColor),
-                                                                                                            ),
-                                                                                                          ))
-                                                                                                          .toList(),
-                                                                                                      value: selectedValue,
-                                                                                                      onChanged: (value) {
-                                                                                                        setState(() {
-                                                                                                          selectedValue = value;
-                                                                                                          _categoryEdit.text = value.toString();
-                                                                                                          this.setState(() {});
-                                                                                                        });
-                                                                                                      },
-                                                                                                      barrierColor: renkler.koyuAraRenk
-                                                                                                          .withOpacity(0.8),
-                                                                                                      buttonStyleData: ButtonStyleData(
-                                                                                                        overlayColor:
-                                                                                                        MaterialStatePropertyAll(renkler
-                                                                                                            .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
-                                                                                                        height: 30,
-                                                                                                        width: size.width*0.30,
-                                                                                                      ),
-                                                                                                      dropdownStyleData: DropdownStyleData(
-                                                                                                          maxHeight: 200,
-                                                                                                          width: size.width*0.30,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: Theme.of(context)
-                                                                                                                .primaryColor,
-                                                                                                          ),
-                                                                                                          scrollbarTheme: ScrollbarThemeData(
-                                                                                                              radius:
-                                                                                                              const Radius.circular(15),
-                                                                                                              thumbColor:
-                                                                                                              MaterialStatePropertyAll(
-                                                                                                                  renkler.sariRenk))),
-                                                                                                      menuItemStyleData: MenuItemStyleData(
-                                                                                                        overlayColor:
-                                                                                                        MaterialStatePropertyAll(renkler
-                                                                                                            .koyuAraRenk), // MENÜ BASILMA RENGİ
-                                                                                                        height: 30,
-                                                                                                      ),
-                                                                                                      iconStyleData: IconStyleData(
-                                                                                                        icon: const Icon(
-                                                                                                          Icons.arrow_drop_down,
-                                                                                                        ),
-                                                                                                        iconSize: 16,
-                                                                                                        iconEnabledColor: Theme.of(context)
-                                                                                                            .secondaryHeaderColor,
-                                                                                                        iconDisabledColor: Theme.of(context)
-                                                                                                            .secondaryHeaderColor,
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-
-                                                                                              ),
-                                                                                            ),
-                                                                                            SizedBox(
-                                                                                              height : 26,
-                                                                                              child: TextButton(
-                                                                                                onPressed: () {
-                                                                                                  if (_categoryEdit
-                                                                                                      .text ==
-                                                                                                      '') {
-                                                                                                    showDialog(
-                                                                                                        context:
-                                                                                                        context,
-                                                                                                        builder:
-                                                                                                            (context) {
-                                                                                                          return AlertDialog(
-                                                                                                            backgroundColor: Theme.of(context).primaryColor,
-                                                                                                            title: Text("Eksik İşlem Yaptınız", style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3')),
-                                                                                                            content: Text(
-                                                                                                              "Lütfen bir kategori giriniz!",
-                                                                                                              style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
-                                                                                                            ),
-                                                                                                            shadowColor: renkler.koyuuRenk,
-                                                                                                            actions: [
-                                                                                                              TextButton(
-                                                                                                                onPressed: () {
-                                                                                                                  Navigator.of(context).pop();
-                                                                                                                },
-                                                                                                                child: Text(
-                                                                                                                  translation(context).ok,
-                                                                                                                  style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'Nexa3'),
-                                                                                                                ),
-                                                                                                              )
-                                                                                                            ],
-                                                                                                          );
-                                                                                                        });
-                                                                                                  } else {
-                                                                                                    readUpdateDB.categoryUsageCount(selectedCategory, _categoryController.text,2,_categoryEdit.text);
-                                                                                                    setState(
-                                                                                                            () {
-                                                                                                          _categoryEdit.clear();
-                                                                                                          editChanger = 1;
-                                                                                                        });
-                                                                                                    Navigator.of(context).pop();
-                                                                                                    readHome.setStatus();
-                                                                                                  }
-                                                                                                },
-                                                                                                style: ButtonStyle(
-                                                                                                    backgroundColor: MaterialStatePropertyAll(renkler.sariRenk),
-                                                                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                                                        const RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                                                                        )
-                                                                                                    ),
-                                                                                                    padding: const MaterialStatePropertyAll(EdgeInsets.only(left: 4,right: 4),)
-                                                                                                ),
-                                                                                                child: Text(
-                                                                                                  _categoryEdit.text != '' ? "${_categoryEdit.text} ile değiştir" : "Tamam",
-                                                                                                  style: TextStyle(
-                                                                                                    color: renkler
-                                                                                                        .koyuuRenk,
-                                                                                                    fontSize: 13,
-                                                                                                    height: 1,
-                                                                                                    fontFamily: 'Nexa3',
-                                                                                                  ),
-                                                                                                  textAlign: TextAlign.center,
-                                                                                                  maxLines: 4,
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      )),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        }
-                                                      }
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Text(
-                                        "Debug:${_category.text}",
-                                        style:
-                                        const TextStyle(color: Colors.red),
-                                      )
-                                    ],
-                                  ),
-                                );
+                                      );
+                                    },
+                                  );
+                                }
                               },
                             );
-                          }
-                        },
-                      );
-                    },
-                  ).then((_) => setState(() {}));
+                          },
+                        ).then((_) => setState(() {}));
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+  }
+  Widget categoryList(BuildContext context, WidgetRef ref) {
+    var size = MediaQuery.of(context).size;
+    var readUpdateDB = ref.read(updateDataRiverpod);
+    return FutureBuilder<Map<String, List<String>>>(
+      future: readUpdateDB.myCategoryLists(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Bir hata oluştu: ${snapshot.error}');
+        } else {
+          final categoryLists = snapshot.data!;
+          List<String> oldCategoryListIncome = [
+            'Harçlık',
+            'Burs',
+            'Maaş',
+            'Kredi',
+            'Özel+',
+            'Kira/Ödenek',
+            'Fazla Mesai',
+            'İş Getirisi',
+            'Döviz Getirisi',
+            'Yatırım Getirisi',
+            'Diğer+',
+          ];
+          final categoryListIncome =
+              categoryLists['income'] ?? ['Kategori bulunamadı'];
+          List<String> oldCategoryListExpense = [
+            'Yemek',
+            'Giyim',
+            'Eğlence',
+            'Eğitim',
+            'Aidat/Kira',
+            'Alışveriş',
+            'Özel-',
+            'Ulaşım',
+            'Sağlık',
+            'Günlük Yaşam',
+            'Hobi',
+            'Diğer-'
+          ];
+          final categoryListExpense =
+              categoryLists['expense'] ?? ['Kategori bulunamadı'];
+
+          Set<String> mergedSetIncome = {
+            ...oldCategoryListIncome,
+            ...categoryListIncome
+          };
+          List<String> mergedIncomeList = mergedSetIncome.toList();
+          Set<String> mergedSetExpens = {
+            ...oldCategoryListExpense,
+            ...categoryListExpense
+          };
+          List<String> mergedExpensList = mergedSetExpens.toList();
+              return StatefulBuilder(
+                builder: (context, setState) {
+                  return AlertDialog(
+                    backgroundColor:
+                    Theme.of(context).primaryColor,
+                    shadowColor: Colors.black54,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(15))),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 15),
+                              child: Container(
+                                width: 270,
+                                height: 90,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    const BorderRadius
+                                        .all(
+                                        Radius.circular(
+                                            15)),
+                                    border: Border.all(
+                                      width: 1.5,
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                    )),
+                              ),
+                            ),
+                            Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: 221,
+                                    height: 30,
+                                    child: ToggleSwitch(
+                                      initialLabelIndex:
+                                      initialLabelIndex2,
+                                      totalSwitches: 2,
+                                      labels: const [
+                                        'SEÇ',
+                                        'EKLE'
+                                      ],
+                                      activeBgColor: const [
+                                        Color(0xffF2CB05)
+                                      ],
+                                      activeFgColor:
+                                      const Color(
+                                          0xff0D1C26),
+                                      inactiveBgColor:
+                                      Theme.of(context)
+                                          .highlightColor,
+                                      inactiveFgColor:
+                                      const Color(
+                                          0xFFE9E9E9),
+                                      minWidth: 110,
+                                      cornerRadius: 20,
+                                      radiusStyle: true,
+                                      animate: true,
+                                      curve: Curves
+                                          .linearToEaseOut,
+                                      customTextStyles: const [
+                                        TextStyle(
+                                            fontSize: 18,
+                                            fontFamily:
+                                            'Nexa4',
+                                            fontWeight:
+                                            FontWeight
+                                                .w800)
+                                      ],
+                                      onToggle: (index) {
+                                        setState(() {
+                                          if (index == 0) {
+                                            selectedAddCategoryMenu =
+                                            0;
+                                            _category.clear();
+                                          } else {
+                                            selectedAddCategoryMenu =
+                                            1;
+                                            _category.clear();
+                                          }
+                                          initialLabelIndex2 =
+                                          index!;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  selectedAddCategoryMenu == 0
+                                      ? SizedBox(
+                                    width: 200,
+                                    height: 60,
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        DropdownButtonHideUnderline(
+                                          child:
+                                          DropdownButton2<
+                                              String>(
+                                            isExpanded:
+                                            true,
+                                            hint: Text(
+                                              'Seçiniz',
+                                              style:
+                                              TextStyle(
+                                                fontSize:
+                                                18,
+                                                fontFamily:
+                                                'Nexa3',
+                                                color: Theme.of(context)
+                                                    .canvasColor,
+                                              ),
+                                            ),
+                                            items: selectedCategory ==
+                                                0
+                                                ? mergedExpensList
+                                                .map((item) =>
+                                                DropdownMenuItem(
+                                                  value: item,
+                                                  child: Text(
+                                                    item,
+                                                    style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
+                                                  ),
+                                                ))
+                                                .toList()
+                                                : mergedIncomeList
+                                                .map((item) =>
+                                                DropdownMenuItem(
+                                                  value: item,
+                                                  child: Text(
+                                                    item,
+                                                    style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
+                                                  ),
+                                                ))
+                                                .toList(),
+                                            value:
+                                            selectedValue,
+                                            onChanged:
+                                                (value) {
+                                              setState(
+                                                      () {
+                                                    selectedValue =
+                                                        value;
+                                                    _category.text =
+                                                        value.toString();
+                                                    this.setState(
+                                                            () {});
+                                                  });
+                                            },
+                                            barrierColor: renkler
+                                                .koyuAraRenk
+                                                .withOpacity(
+                                                0.8),
+                                            buttonStyleData:
+                                            ButtonStyleData(
+                                              overlayColor:
+                                              MaterialStatePropertyAll(
+                                                  renkler.koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                              padding: const EdgeInsets
+                                                  .symmetric(
+                                                  horizontal:
+                                                  16),
+                                              height:
+                                              40,
+                                              width:
+                                              200,
+                                            ),
+                                            dropdownStyleData: DropdownStyleData(
+                                                maxHeight: 250,
+                                                width: 200,
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                  Theme.of(context).primaryColor,
+                                                ),
+                                                scrollbarTheme: ScrollbarThemeData(radius: const Radius.circular(15), thumbColor: MaterialStatePropertyAll(renkler.sariRenk))),
+                                            menuItemStyleData:
+                                            MenuItemStyleData(
+                                              overlayColor:
+                                              MaterialStatePropertyAll(
+                                                  renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                              height:
+                                              40,
+                                            ),
+                                            iconStyleData:
+                                            IconStyleData(
+                                              icon:
+                                              const Icon(
+                                                Icons
+                                                    .arrow_drop_down,
+                                              ),
+                                              iconSize:
+                                              30,
+                                              iconEnabledColor:
+                                              Theme.of(context)
+                                                  .secondaryHeaderColor,
+                                              iconDisabledColor:
+                                              Theme.of(context)
+                                                  .secondaryHeaderColor,
+                                              openMenuIcon:
+                                              Icon(
+                                                Icons
+                                                    .arrow_right,
+                                                color: Theme.of(context)
+                                                    .canvasColor,
+                                                size:
+                                                24,
+                                              ),
+                                            ),
+                                            dropdownSearchData:
+                                            DropdownSearchData(
+                                              searchController:
+                                              _category,
+                                              searchInnerWidgetHeight:
+                                              50,
+                                              searchInnerWidget:
+                                              Container(
+                                                height:
+                                                50,
+                                                padding:
+                                                const EdgeInsets.only(
+                                                  top:
+                                                  8,
+                                                  bottom:
+                                                  4,
+                                                  right:
+                                                  8,
+                                                  left:
+                                                  8,
+                                                ),
+                                                child:
+                                                TextField(
+                                                  textCapitalization:
+                                                  TextCapitalization.words,
+                                                  expands:
+                                                  true,
+                                                  maxLines:
+                                                  null,
+                                                  style:
+                                                  TextStyle(
+                                                    color:
+                                                    Theme.of(context).canvasColor,
+                                                  ),
+                                                  controller:
+                                                  _category,
+                                                  decoration:
+                                                  InputDecoration(
+                                                    isDense:
+                                                    true,
+                                                    contentPadding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 8,
+                                                    ),
+                                                    hintText:
+                                                    'Kategori Arayın',
+                                                    hintStyle:
+                                                    TextStyle(fontSize: 18, color: Theme.of(context).secondaryHeaderColor),
+                                                    border:
+                                                    OutlineInputBorder(
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              searchMatchFn:
+                                                  (item,
+                                                  searchValue) {
+                                                return item
+                                                    .value
+                                                    .toString()
+                                                    .contains(searchValue);
+                                              },
+                                            ),
+                                            //This to clear the search value when you close the menu
+                                            onMenuStateChange:
+                                                (isOpen) {
+                                              if (!isOpen) {
+                                                _category
+                                                    .clear();
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                      : const SizedBox(),
+                                  selectedAddCategoryMenu == 1
+                                      ? SizedBox(
+                                    width: 220,
+                                    height: 60,
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        TextField(
+                                          enabled: true,
+                                          maxLength: 20,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                              color: Theme.of(
+                                                  context)
+                                                  .canvasColor,
+                                              fontSize:
+                                              17,
+                                              fontFamily:
+                                              'Nexa3'),
+                                          decoration: InputDecoration(
+                                              hintText:
+                                              'Kategoriyi yazınız',
+                                              hintStyle: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .canvasColor,
+                                                  fontSize:
+                                                  18,
+                                                  fontFamily:
+                                                  'Nexa3'),
+                                              counterText:
+                                              '',
+                                              border: InputBorder
+                                                  .none),
+                                          cursorRadius:
+                                          const Radius
+                                              .circular(10),
+                                          keyboardType:
+                                          TextInputType
+                                              .text,
+                                          textCapitalization:
+                                          TextCapitalization
+                                              .words,
+                                          controller:
+                                          _category,
+                                          onChanged:
+                                              (value) {
+                                            setState(
+                                                    () {
+                                                  this.setState(
+                                                          () {});
+                                                });
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                      : const SizedBox(),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment
+                                        .spaceAround,
+                                    children: [
+                                      initialLabelIndex2 == 1
+                                          ? SizedBox(
+                                        width: 80,
+                                        height: 30,
+                                        child: Align(
+                                          alignment:
+                                          Alignment
+                                              .centerLeft,
+                                          child: Text(
+                                            '${_category.text.length.toString()}/20',
+                                            style:
+                                            TextStyle(
+                                              backgroundColor:
+                                              Theme.of(context)
+                                                  .primaryColor,
+                                              color: const Color(
+                                                  0xffF2CB05),
+                                              fontSize:
+                                              13,
+                                              fontFamily:
+                                              'Nexa4',
+                                              fontWeight:
+                                              FontWeight
+                                                  .w800,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                          : const SizedBox(
+                                        width: 80,
+                                      ),
+                                      SizedBox(
+                                        width: 80,
+                                        height: 30,
+                                        child: GestureDetector(
+                                          /*
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                              MaterialStatePropertyAll(
+                                                  renkler.sariRenk),
+                                              shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(
+                                                        20),
+                                                  ))),
+                                           */
+                                          onTap: () {
+                                            Navigator.of(
+                                                context)
+                                                .pop();
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: renkler.sariRenk,
+                                              borderRadius: BorderRadius.circular(20)
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                translation(context).ok,
+                                                style: TextStyle(
+                                                  color: renkler
+                                                      .koyuuRenk,
+                                                  fontSize: 16,
+                                                  height: 1,
+                                                  fontFamily:
+                                                  'Nexa3',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          "Debug:${_category.text}",
+                          style: const TextStyle(
+                              color: Colors.red),
+                        )
+                      ],
+                    ),
+                  );
                 },
-              ),
-            ],
-          ),
-        ],
-      ),
+              );
+        }
+      },
     );
   }
+
   String? selectedValueCustomize;
   int initialLabelIndexCustomize = 0;
   int selectedCustomizeMenu = 0;
@@ -2378,18 +1394,18 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
 
     return SizedBox(
       height: 38,
-      width: size.width * 0.95,
+      width: size.width * 0.92,
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 2, left: 2, right: 2),
+            padding: const EdgeInsets.only(top: 2,left: 2,right: 2),
             child: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
                 color: Color(0xFFF2CB05),
               ),
               height: 34,
-              width: size.width * 0.95,
+              width: size.width * 0.92,
             ),
           ),
           Row(
@@ -2417,20 +1433,21 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 highlightColor: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(30),
                 child: SizedBox(
-                  width: size.width * 0.95 - 130,
+                  width: size.width * 0.92 - 130,
                   child: Center(
                     child: Text(
                       _customize.text == ""
                           ? "Özelleştirmek için dokunun"
                           : selectedCustomizeMenu == 0
-                              ? '${_customize.text} Tekrar'
-                              : '${_customize.text} Ay Taksit',
+                          ? '${_customize.text} Tekrar'
+                          : '${_customize.text} Ay Taksit',
                       maxLines: 2,
                       style: TextStyle(
-                          height: 1,
-                          fontSize: 14,
-                          fontFamily: 'Nexa3',
-                          color: renkler.koyuuRenk),
+                        height: 1,
+                        fontSize: 14,
+                        fontFamily: 'Nexa3',
+                          color: renkler.koyuuRenk
+                      ),
                     ),
                   ),
                 ),
@@ -2449,21 +1466,22 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             shadowColor: Colors.black54,
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
+                                BorderRadius.all(Radius.circular(15))),
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Stack(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 15),
+                                      padding:
+                                      const EdgeInsets.only(top: 15),
                                       child: Container(
                                         width: 270,
                                         height: 90,
                                         decoration: BoxDecoration(
                                             borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(15)),
+                                            const BorderRadius.all(
+                                                Radius.circular(15)),
                                             border: Border.all(
                                               width: 1.5,
                                               color: Theme.of(context)
@@ -2479,7 +1497,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                             height: 30,
                                             child: ToggleSwitch(
                                               initialLabelIndex:
-                                                  initialLabelIndexCustomize,
+                                              initialLabelIndexCustomize,
                                               totalSwitches: 2,
                                               labels: const [
                                                 'TEKRAR',
@@ -2489,11 +1507,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                 Color(0xffF2CB05)
                                               ],
                                               activeFgColor:
-                                                  const Color(0xff0D1C26),
-                                              inactiveBgColor: Theme.of(context)
+                                              const Color(0xff0D1C26),
+                                              inactiveBgColor:
+                                              Theme.of(context)
                                                   .highlightColor,
                                               inactiveFgColor:
-                                                  const Color(0xFFE9E9E9),
+                                              const Color(0xFFE9E9E9),
                                               minWidth: 110,
                                               cornerRadius: 20,
                                               radiusStyle: true,
@@ -2503,314 +1522,332 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                 TextStyle(
                                                     fontSize: 18,
                                                     fontFamily: 'Nexa4',
-                                                    fontWeight: FontWeight.w800)
+                                                    fontWeight:
+                                                    FontWeight.w800)
                                               ],
                                               onToggle: (index) {
                                                 setState(() {
                                                   if (index == 0) {
-                                                    selectedCustomizeMenu = 0;
+                                                    selectedCustomizeMenu =
+                                                    0;
                                                     _customize.clear();
                                                   } else {
-                                                    selectedCustomizeMenu = 1;
+                                                    selectedCustomizeMenu =
+                                                    1;
                                                     _customize.clear();
                                                   }
                                                   initialLabelIndexCustomize =
-                                                      index!;
+                                                  index!;
                                                 });
                                               },
                                             ),
                                           ),
                                           selectedCustomizeMenu == 0
                                               ? SizedBox(
-                                                  width: 200,
-                                                  height: 60,
-                                                  child: Column(
-                                                    children: [
-                                                      const SizedBox(
-                                                        height: 10,
+                                            width: 200,
+                                            height: 60,
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                DropdownButtonHideUnderline(
+                                                  child:
+                                                  DropdownButton2<
+                                                      String>(
+                                                    isExpanded: true,
+                                                    hint: Text(
+                                                      'Seçiniz',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                        'Nexa3',
+                                                        color: Theme.of(
+                                                            context)
+                                                            .canvasColor,
                                                       ),
-                                                      DropdownButtonHideUnderline(
-                                                        child: DropdownButton2<
-                                                            String>(
-                                                          isExpanded: true,
-                                                          hint: Text(
-                                                            'Seçiniz',
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontFamily:
-                                                                  'Nexa3',
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .canvasColor,
-                                                            ),
-                                                          ),
-                                                          items: repetitiveList
-                                                              .map((item) =>
-                                                                  DropdownMenuItem(
-                                                                    value: item,
-                                                                    child: Text(
-                                                                      item,
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              18,
-                                                                          fontFamily:
-                                                                              'Nexa3',
-                                                                          color:
-                                                                              Theme.of(context).canvasColor),
-                                                                    ),
-                                                                  ))
-                                                              .toList(),
+                                                    ),
+                                                    items:
+                                                    repetitiveList
+                                                        .map((item) =>
+                                                        DropdownMenuItem(
                                                           value:
-                                                              selectedValueCustomize,
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              selectedValueCustomize =
-                                                                  value;
-                                                              _customize.text =
-                                                                  value
-                                                                      .toString();
-                                                              this.setState(
-                                                                  () {});
-                                                            });
-                                                          },
-                                                          barrierColor: renkler
-                                                              .koyuAraRenk
-                                                              .withOpacity(0.8),
-                                                          buttonStyleData:
-                                                              ButtonStyleData(
-                                                            overlayColor:
-                                                                MaterialStatePropertyAll(
-                                                                    renkler
-                                                                        .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        16),
-                                                            height: 40,
-                                                            width: 200,
+                                                          item,
+                                                          child:
+                                                          Text(
+                                                            item,
+                                                            style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
                                                           ),
-                                                          dropdownStyleData:
-                                                              DropdownStyleData(
-                                                                  maxHeight:
-                                                                      250,
-                                                                  width: 200,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                  ),
-                                                                  scrollbarTheme: ScrollbarThemeData(
-                                                                      radius:
-                                                                          const Radius.circular(
-                                                                              15),
-                                                                      thumbColor:
-                                                                          MaterialStatePropertyAll(
-                                                                              renkler.sariRenk))),
-                                                          menuItemStyleData:
-                                                              MenuItemStyleData(
-                                                            overlayColor:
-                                                                MaterialStatePropertyAll(
-                                                                    renkler
-                                                                        .koyuAraRenk), // MENÜ BASILMA RENGİ
-                                                            height: 40,
-                                                          ),
-                                                          iconStyleData:
-                                                              IconStyleData(
-                                                            icon: const Icon(
-                                                              Icons
-                                                                  .arrow_drop_down,
-                                                            ),
-                                                            iconSize: 30,
-                                                            iconEnabledColor: Theme
-                                                                    .of(context)
-                                                                .secondaryHeaderColor,
-                                                            iconDisabledColor:
-                                                                Theme.of(
-                                                                        context)
-                                                                    .secondaryHeaderColor,
-                                                            openMenuIcon: Icon(
-                                                              Icons.arrow_right,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .canvasColor,
-                                                              size: 24,
-                                                            ),
-                                                          ),
-                                                          onMenuStateChange:
-                                                              (isOpen) {
-                                                            if (!isOpen) {
-                                                              _customize
-                                                                  .clear();
-                                                            }
-                                                          },
+                                                        ))
+                                                        .toList(),
+                                                    value:
+                                                    selectedValueCustomize,
+                                                    onChanged:
+                                                        (value) {
+                                                      setState(() {
+                                                        selectedValueCustomize =
+                                                            value;
+                                                        _customize
+                                                            .text =
+                                                            value
+                                                                .toString();
+                                                        this.setState(
+                                                                () {});
+                                                      });
+                                                    },
+                                                    barrierColor: renkler
+                                                        .koyuAraRenk
+                                                        .withOpacity(
+                                                        0.8),
+                                                    buttonStyleData:
+                                                    ButtonStyleData(
+                                                      overlayColor:
+                                                      MaterialStatePropertyAll(
+                                                          renkler
+                                                              .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal:
+                                                          16),
+                                                      height: 40,
+                                                      width: 200,
+                                                    ),
+                                                    dropdownStyleData:
+                                                    DropdownStyleData(
+                                                        maxHeight:
+                                                        250,
+                                                        width:
+                                                        200,
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          color: Theme.of(context)
+                                                              .primaryColor,
                                                         ),
+                                                        scrollbarTheme: ScrollbarThemeData(
+                                                            radius: const Radius.circular(
+                                                                15),
+                                                            thumbColor:
+                                                            MaterialStatePropertyAll(renkler.sariRenk))),
+                                                    menuItemStyleData:
+                                                    MenuItemStyleData(
+                                                      overlayColor:
+                                                      MaterialStatePropertyAll(
+                                                          renkler
+                                                              .koyuAraRenk), // MENÜ BASILMA RENGİ
+                                                      height: 40,
+                                                    ),
+                                                    iconStyleData:
+                                                    IconStyleData(
+                                                      icon:
+                                                      const Icon(
+                                                        Icons
+                                                            .arrow_drop_down,
                                                       ),
-                                                    ],
+                                                      iconSize: 30,
+                                                      iconEnabledColor:
+                                                      Theme.of(
+                                                          context)
+                                                          .secondaryHeaderColor,
+                                                      iconDisabledColor:
+                                                      Theme.of(
+                                                          context)
+                                                          .secondaryHeaderColor,
+                                                      openMenuIcon:
+                                                      Icon(
+                                                        Icons
+                                                            .arrow_right,
+                                                        color: Theme.of(
+                                                            context)
+                                                            .canvasColor,
+                                                        size: 24,
+                                                      ),
+                                                    ),
+                                                    onMenuStateChange:
+                                                        (isOpen) {
+                                                      if (!isOpen) {
+                                                        _customize
+                                                            .clear();
+                                                      }
+                                                    },
                                                   ),
-                                                )
+                                                ),
+                                              ],
+                                            ),
+                                          )
                                               : const SizedBox(),
                                           selectedCustomizeMenu == 1
                                               ? SizedBox(
-                                                  width: 220,
-                                                  height: 60,
-                                                  child: Column(
-                                                    children: [
-                                                      const SizedBox(
-                                                        height: 10,
+                                            width: 220,
+                                            height: 60,
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                TextField(
+                                                  maxLength: 3,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                      color: Theme.of(
+                                                          context)
+                                                          .canvasColor,
+                                                      fontSize: 17,
+                                                      fontFamily:
+                                                      'Nexa3'),
+                                                  decoration:
+                                                  InputDecoration(
+                                                      hintText:
+                                                      'Ay sayısını yazınız (1-144)',
+                                                      hintStyle: TextStyle(
+                                                          color: Theme.of(context)
+                                                              .canvasColor,
+                                                          fontSize:
+                                                          15,
+                                                          fontFamily:
+                                                          'Nexa3'),
+                                                      suffixText:
+                                                      'Ay',
+                                                      suffixStyle:
+                                                      TextStyle(
+                                                        color: Theme.of(
+                                                            context)
+                                                            .canvasColor,
+                                                        fontSize:
+                                                        16,
+                                                        fontFamily:
+                                                        'Nexa3',
                                                       ),
-                                                      TextField(
-                                                        maxLength: 3,
-                                                        maxLines: 1,
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .canvasColor,
-                                                            fontSize: 17,
-                                                            fontFamily:
-                                                                'Nexa3'),
-                                                        decoration:
-                                                            InputDecoration(
-                                                                hintText:
-                                                                    'Ay sayısını yazınız (1-144)',
-                                                                hintStyle: TextStyle(
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .canvasColor,
-                                                                    fontSize:
-                                                                        15,
-                                                                    fontFamily:
-                                                                        'Nexa3'),
-                                                                suffixText:
-                                                                    'Ay',
-                                                                suffixStyle:
-                                                                    TextStyle(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .canvasColor,
-                                                                  fontSize: 16,
-                                                                  fontFamily:
-                                                                      'Nexa3',
-                                                                ),
-                                                                counterText: '',
-                                                                border:
-                                                                    InputBorder
-                                                                        .none),
-                                                        cursorRadius:
-                                                            const Radius
-                                                                .circular(10),
-                                                        inputFormatters: [
-                                                          FilteringTextInputFormatter
-                                                              .allow(RegExp(
-                                                                  r'^(1[0-4][0-4]|[1-9][0-9]|[1-9])$')),
-                                                        ],
-                                                        keyboardType:
-                                                            const TextInputType
-                                                                    .numberWithOptions(
-                                                                signed: false,
-                                                                decimal: false),
-                                                        controller: _customize,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            this.setState(
-                                                                () {});
-                                                          });
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
+                                                      counterText:
+                                                      '',
+                                                      border:
+                                                      InputBorder
+                                                          .none),
+                                                  cursorRadius:
+                                                  const Radius
+                                                      .circular(10),
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .allow(RegExp(
+                                                        r'^(1[0-4][0-4]|[1-9][0-9]|[1-9])$')),
+                                                  ],
+                                                  keyboardType:
+                                                  const TextInputType
+                                                      .numberWithOptions(
+                                                      signed:
+                                                      false,
+                                                      decimal:
+                                                      false),
+                                                  controller:
+                                                  _customize,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      this.setState(
+                                                              () {});
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          )
                                               : const SizedBox(),
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
+                                            MainAxisAlignment
+                                                .spaceAround,
                                             children: [
-                                              initialLabelIndexCustomize == 1
+                                              initialLabelIndexCustomize ==
+                                                  1
                                                   ? SizedBox(
-                                                      width: 80,
-                                                      height: 30,
-                                                      child: Align(
-                                                        alignment: Alignment
-                                                            .centerLeft,
-                                                        child: Text(
-                                                          'Aylık Taksit',
-                                                          style: TextStyle(
-                                                            backgroundColor:
-                                                                Theme.of(
-                                                                        context)
-                                                                    .primaryColor,
-                                                            color: const Color(
-                                                                0xffF2CB05),
-                                                            fontSize: 13,
-                                                            fontFamily: 'Nexa4',
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  : SizedBox(
-                                                      width: 100,
-                                                      height: 26,
-                                                      child: TextButton(
-                                                        style: ButtonStyle(
-                                                            backgroundColor:
-                                                                MaterialStatePropertyAll(
-                                                                    Theme.of(
-                                                                            context)
-                                                                        .highlightColor),
-                                                            shape: MaterialStateProperty.all<
-                                                                    RoundedRectangleBorder>(
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20),
-                                                            ))),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            selectedValueCustomize =
-                                                                null;
-                                                            _customize.text =
-                                                                "";
-                                                            this.setState(
-                                                                () {});
-                                                          });
-                                                        },
-                                                        child: Text(
-                                                          "Seçimi Kaldır",
-                                                          style: TextStyle(
-                                                            color: renkler
-                                                                .arkaRenk,
-                                                            fontSize: 12,
-                                                            fontFamily: 'Nexa3',
-                                                          ),
-                                                        ),
-                                                      ),
+                                                width: 80,
+                                                height: 30,
+                                                child: Align(
+                                                  alignment: Alignment
+                                                      .centerLeft,
+                                                  child: Text(
+                                                    'Aylık Taksit',
+                                                    style: TextStyle(
+                                                      backgroundColor:
+                                                      Theme.of(
+                                                          context)
+                                                          .primaryColor,
+                                                      color: const Color(
+                                                          0xffF2CB05),
+                                                      fontSize: 13,
+                                                      fontFamily:
+                                                      'Nexa4',
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w800,
                                                     ),
+                                                  ),
+                                                ),
+                                              )
+                                                  : SizedBox(
+                                                width: 100,
+                                                height: 26,
+                                                child: TextButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                      MaterialStatePropertyAll(
+                                                          Theme.of(context)
+                                                              .highlightColor),
+                                                      shape: MaterialStateProperty.all<
+                                                          RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                20),
+                                                          ))),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      selectedValueCustomize =
+                                                      null;
+                                                      _customize
+                                                          .text = "";
+                                                      this.setState(
+                                                              () {});
+                                                    });
+                                                  },
+                                                  child: Text(
+                                                    "Seçimi Kaldır",
+                                                    style: TextStyle(
+                                                      color: renkler
+                                                          .arkaRenk,
+                                                      fontSize: 12,
+                                                      fontFamily:
+                                                      'Nexa3',
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
                                               SizedBox(
                                                 width: 80,
                                                 height: 30,
                                                 child: TextButton(
                                                   style: ButtonStyle(
                                                       backgroundColor:
-                                                          MaterialStatePropertyAll(
-                                                              renkler.sariRenk),
+                                                      MaterialStatePropertyAll(
+                                                          renkler
+                                                              .sariRenk),
                                                       shape: MaterialStateProperty.all<
-                                                              RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder>(
                                                           RoundedRectangleBorder(
-                                                        borderRadius:
+                                                            borderRadius:
                                                             BorderRadius
-                                                                .circular(20),
-                                                      ))),
+                                                                .circular(
+                                                                20),
+                                                          ))),
                                                   onPressed: () {
-                                                    Navigator.of(context).pop();
+                                                    Navigator.of(context)
+                                                        .pop();
                                                   },
                                                   child: Text(
                                                     translation(context).ok,
                                                     style: TextStyle(
-                                                      color: renkler.koyuuRenk,
+                                                      color:
+                                                      renkler.koyuuRenk,
                                                       fontSize: 16,
                                                       fontFamily: 'Nexa3',
                                                     ),
@@ -2933,15 +1970,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       if (picked != null) {
         setState(() {
           _selectedDate = picked;
-          _operationDate.text =
-              intl.DateFormat('dd.MM.yyyy').format(_selectedDate!);
+          _operationDate.text = intl.DateFormat('dd.MM.yyyy').format(_selectedDate!);
         });
       }
     }
 
     return SizedBox(
       height: 38,
-      width: 158,
+      width: 175,
       child: Stack(
         children: [
           Padding(
@@ -2952,23 +1988,22 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 color: Theme.of(context).highlightColor,
               ),
               height: 34,
-              width: 156,
+              width: 173,
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: 58,
+                width: 65,
                 child: Center(
                   child: Text(translation(context).date,
                       style: const TextStyle(
                         height: 1,
-                        color: Colors.white,
-                        fontSize: 13,
-                        fontFamily: 'Nexa4',
-                        fontWeight: FontWeight.w800,
-                      )),
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontFamily: 'Nexa4',
+                          fontWeight: FontWeight.w800,)),
                 ),
               ),
               Container(
@@ -2978,7 +2013,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 ),
                 child: SizedBox(
                   height: 38,
-                  width: 100,
+                  width: 110,
                   child: TextFormField(
                     focusNode: dateFocusNode,
                     onTap: () {
@@ -2990,7 +2025,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     },
                     style: const TextStyle(
                         color: Color(0xff0D1C26),
-                        fontSize: 13,
+                        fontSize: 14,
                         fontFamily: 'Nexa4',
                         fontWeight: FontWeight.w800),
                     controller: _operationDate,
@@ -3015,46 +2050,48 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   double moneyTypeWidth = 38.0;
   double moneyTypeHeight = 38.0;
   bool openMoneyTypeMenu = false;
+  //ref.read(settingsRiverpod).prefixSymbolfinal
   Widget amountCustomButton() {
-    String getSymbolForMoneyType() {
+    String getSymbolForMoneyType(){
       String controller = _moneyType.text;
-      if (controller == 'TRY') {
+      if(controller == 'TRY'){
         return '₺';
-      } else if (controller == 'USD') {
+      }else if (controller == 'USD'){
         return '\$';
-      } else if (controller == 'EUR') {
+      }
+      else if (controller == 'EUR'){
         return '€';
-      } else if (controller == 'GBP') {
+      }
+      else if (controller == 'GBP'){
         return '£';
-      } else if (controller == 'KWD') {
+      }
+      else if (controller == 'KWD'){
         return 'د.ك';
-      } else if (controller == 'JOD') {
+      }
+      else if (controller == 'JOD'){
         return 'د.أ';
-      } else if (controller == 'IQD') {
+      }
+      else if (controller == 'IQD'){
         return 'د.ع';
-      } else if (controller == 'SAR') {
+      }
+      else if (controller == 'SAR'){
         return 'ر.س';
-      } else {
+      }
+      else{
         setState(() {
           _moneyType.text = ref.read(settingsRiverpod).Prefix.toString();
         });
-        return ref
-            .read(settingsRiverpod)
-            .prefixSymbol
-            .toString()
-            .replaceAll(' ', '');
-      }
+        return ref.read(settingsRiverpod).prefixSymbol.toString().replaceAll(' ', '');}
     }
-
     var size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.width * 0.95,
+      width: size.width * 0.92,
       child: Stack(
         children: [
           Positioned(
             top: 40,
             child: Container(
-              width: size.width * 0.95,
+              width: size.width * 0.92,
               height: 4,
               decoration: BoxDecoration(
                   color: Theme.of(context).highlightColor,
@@ -3064,378 +2101,315 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           Center(
             child: SizedBox(
               width: 250,
-              height: 80,
+              height:80,
               child: Row(
                 children: [
-                  openMoneyTypeMenu == false
-                      ? SizedBox(
-                          height: 38,
-                          width: 207,
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(40)),
-                                    color: Theme.of(context).highlightColor,
-                                  ),
-                                  height: 34,
-                                  width: 205,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 95,
-                                    child: Center(
-                                      child: Text(
-                                          translation(context).amountDetails,
-                                          style: TextStyle(
-                                              height: 1,
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                              fontFamily: 'Nexa4',
-                                              fontWeight: FontWeight.w800)),
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(15)),
-                                      color: Color(0xffF2CB05),
-                                    ),
-                                    child: SizedBox(
-                                      height: 38,
-                                      width: 112,
-                                      child: TextFormField(
-                                          onTap: () {
-                                            //_amount.clear();
-                                          },
-                                          style: const TextStyle(
-                                              color: Color(0xff0D1C26),
-                                              fontSize: 17,
-                                              fontFamily: 'Nexa4',
-                                              fontWeight: FontWeight.w100),
-                                          controller: _amount,
-                                          autofocus: false,
-                                          focusNode: amountFocusNode,
-                                          keyboardType: const TextInputType
-                                              .numberWithOptions(decimal: true),
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                              RegExp(r'^\d{0,6}(\.\d{0,2})?'),
-                                            )
-                                          ],
-                                          textAlign: TextAlign.center,
-                                          onEditingComplete: () {
-                                            FocusScope.of(context).unfocus();
-                                          },
-                                          decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              isDense: true,
-                                              hintText: "00.00",
-                                              hintStyle: TextStyle(
-                                                color: renkler.koyuAraRenk,
-                                              ),
-                                              contentPadding:
-                                                  const EdgeInsets.only(
-                                                      top: 12))),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                  openMoneyTypeMenu == false ? SizedBox(
+                    height: 38,
+                    width: 207,
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(40)),
+                              color: Theme.of(context).highlightColor,
+                            ),
+                            height: 34,
+                            width: 205,
                           ),
-                        )
-                      : const SizedBox(),
-                  openMoneyTypeMenu == false
-                      ? const SizedBox(
-                          width: 5,
-                        )
-                      : const SizedBox(),
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 95,
+                              child: Center(
+                                child: Text(translation(context).amountDetails,
+                                    style: TextStyle(
+                                      height: 1,
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontFamily: 'Nexa4',
+                                        fontWeight: FontWeight.w800)),
+                              ),
+                            ),
+                            Container(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                color: Color(0xffF2CB05),
+                              ),
+                              child: SizedBox(
+                                height: 38,
+                                width: 112,
+                                child: TextFormField(
+                                    onTap: () {
+                                      //_amount.clear();
+                                    },
+                                    style: const TextStyle(
+                                        color: Color(0xff0D1C26),
+                                        fontSize: 17,
+                                        fontFamily: 'Nexa4',
+                                        fontWeight: FontWeight.w100),
+                                    controller: _amount,
+                                    autofocus: false,
+                                    focusNode: amountFocusNode,
+                                    keyboardType: const TextInputType.numberWithOptions(
+                                        decimal: true),
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d{0,5}(\.\d{0,2})?'),
+                                      )
+                                    ],
+                                    textAlign: TextAlign.center,
+                                    onEditingComplete: () {
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        isDense: true,
+                                        hintText: "00.00",
+                                        hintStyle: TextStyle(
+                                          color: renkler.koyuAraRenk,
+                                        ),
+                                        contentPadding: const EdgeInsets.only(top: 12))),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ) : const SizedBox(),
+                  openMoneyTypeMenu == false ? const SizedBox(width: 5,): const SizedBox(),
                   InkWell(
                     borderRadius: BorderRadius.circular(20),
                     onTap: () {
                       setState(() {
-                        openMoneyTypeMenu == false
-                            ? openMoneyTypeMenu = true
-                            : openMoneyTypeMenu = false;
-                        openMoneyTypeMenu == true
-                            ? moneyTypeWidth = 250
-                            : moneyTypeWidth = 38;
-                        openMoneyTypeMenu == true
-                            ? moneyTypeHeight = 80
-                            : moneyTypeHeight = 38;
+                        openMoneyTypeMenu == false ? openMoneyTypeMenu = true : openMoneyTypeMenu = false;
+                        openMoneyTypeMenu == true ? moneyTypeWidth = 250 : moneyTypeWidth = 38;
+                        openMoneyTypeMenu == true ? moneyTypeHeight = 80 : moneyTypeHeight = 38;
                       });
                     },
-                    child: Container(
-                      height: moneyTypeHeight,
-                      width: moneyTypeWidth,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: Color(0xffF2CB05),
-                      ),
-                      child: openMoneyTypeMenu == false
-                          ? Center(
-                              child: Text(
-                                getSymbolForMoneyType(),
-                                style: const TextStyle(
-                                  height: 1,
-                                  fontFamily: 'TL',
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xff0D1C26),
-                                ),
-                              ),
-                            )
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                    child:  Container(
+                        height: moneyTypeHeight,
+                        width: moneyTypeWidth,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          color: Color(0xffF2CB05),
+                        ),
+                        child: openMoneyTypeMenu == false ? Center(
+                          child:  Text(
+                            getSymbolForMoneyType(),
+                            style: const TextStyle(
+                              height: 1,
+                              fontFamily: 'TL',
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff0D1C26),
+                            ),
+                          ),
+                        ) : Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _moneyType.text = 'TRY';
-                                          openMoneyTypeMenu = false;
-                                          moneyTypeWidth = 38.0;
-                                          moneyTypeHeight = 38.0;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 44,
-                                        height: 32,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: renkler.koyuuRenk,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "TRY",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'Nexa4',
-                                                color: renkler.arkaRenk),
-                                          ),
-                                        ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'TRY';
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "TRY", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
                                       ),
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _moneyType.text = 'USD';
-                                          openMoneyTypeMenu = false;
-                                          moneyTypeWidth = 38.0;
-                                          moneyTypeHeight = 38.0;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 44,
-                                        height: 32,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: renkler.koyuuRenk,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "USD",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'Nexa4',
-                                                color: renkler.arkaRenk),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _moneyType.text = 'EUR';
-                                          openMoneyTypeMenu = false;
-                                          moneyTypeWidth = 38.0;
-                                          moneyTypeHeight = 38.0;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 44,
-                                        height: 32,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: renkler.koyuuRenk,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "EUR",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'Nexa4',
-                                                color: renkler.arkaRenk),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _moneyType.text = 'GBP';
-                                          openMoneyTypeMenu = false;
-                                          moneyTypeWidth = 38.0;
-                                          moneyTypeHeight = 38.0;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 44,
-                                        height: 32,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: renkler.koyuuRenk,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "GBP",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'Nexa4',
-                                                color: renkler.arkaRenk),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                                SizedBox(
-                                  height: 4,
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'USD';
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child:Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "USD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _moneyType.text = 'KWD';
-                                          openMoneyTypeMenu = false;
-                                          moneyTypeWidth = 38.0;
-                                          moneyTypeHeight = 38.0;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 44,
-                                        height: 32,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: renkler.koyuuRenk,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "KWD",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'Nexa4',
-                                                color: renkler.arkaRenk),
-                                          ),
-                                        ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'EUR';
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "EUR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
                                       ),
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _moneyType.text = 'JOD';
-                                          openMoneyTypeMenu = false;
-                                          moneyTypeWidth = 38.0;
-                                          moneyTypeHeight = 38.0;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 44,
-                                        height: 32,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: renkler.koyuuRenk,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "JOD",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'Nexa4',
-                                                color: renkler.arkaRenk),
-                                          ),
-                                        ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'GBP';
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "GBP", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
                                       ),
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _moneyType.text = 'IQD';
-                                          openMoneyTypeMenu = false;
-                                          moneyTypeWidth = 38.0;
-                                          moneyTypeHeight = 38.0;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 44,
-                                        height: 32,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: renkler.koyuuRenk,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "IQD",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'Nexa4',
-                                                color: renkler.arkaRenk),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _moneyType.text = 'SAR';
-                                          openMoneyTypeMenu = false;
-                                          moneyTypeWidth = 38.0;
-                                          moneyTypeHeight = 38.0;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 44,
-                                        height: 32,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: renkler.koyuuRenk,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "SAR",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'Nexa4',
-                                                color: renkler.arkaRenk),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ],
                             ),
+                            SizedBox(height: 4,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'KWD';
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "KWD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'JOD';
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "JOD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'IQD';
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child:Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "IQD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _moneyType.text = 'SAR';
+                                      openMoneyTypeMenu = false;
+                                      moneyTypeWidth = 38.0;
+                                      moneyTypeHeight = 38.0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 44,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                      color: renkler.koyuuRenk,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "SAR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -3455,26 +2429,19 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           initialLabelIndex: initialLabelIndexTool,
           totalSwitches: 3,
           dividerColor: Theme.of(context).highlightColor,
-          labels: [
-            translation(context).cash,
-            translation(context).card,
-            translation(context).otherPaye
-          ],
+          labels:  [translation(context).cash, translation(context).card, translation(context).otherPaye],
           activeBgColor: const [Color(0xffF2CB05)],
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),
-          minWidth: size.width > 392 ? size.width * 0.18 : 70,
+          minWidth: size.width > 392 ? size.width*0.18 : 70,
           cornerRadius: 15,
           radiusStyle: true,
           animate: true,
           curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 13,
-                fontFamily: 'Nexa4',
-                height: 1,
-                fontWeight: FontWeight.w800)
+                fontSize: 13, fontFamily: 'Nexa4',height: 1, fontWeight: FontWeight.w800)
           ],
           onToggle: (index) {
             if (index == 0) {
@@ -3493,31 +2460,31 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   Widget regCustomButton(BuildContext context) {
     return SizedBox(
       height: 38,
-      width: 120,
+      width: 126,
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 2),
+            padding: const EdgeInsets.only(top:2),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                 color: Theme.of(context).highlightColor,
               ),
               height: 34,
-              width: 114,
+              width: 120,
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: 80,
+                width: 86,
                 child: Center(
                   child: Text(translation(context).save,
                       style: TextStyle(
                           color: Colors.white,
                           height: 1,
-                          fontSize: 13,
+                          fontSize: 15,
                           fontFamily: 'Nexa4',
                           fontWeight: FontWeight.w800)),
                 ),
@@ -3576,7 +2543,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   Widget noteCustomButton(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.width * 0.95,
+      width: size.width * 0.92,
       height: 125,
       child: Stack(
         children: [
@@ -3584,7 +2551,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             padding: const EdgeInsets.only(top: 20),
             child: SizedBox(
               height: 90,
-              width: size.width * 0.95,
+              width: size.width * 0.92,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -3595,12 +2562,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             ),
           ),
           SizedBox(
-            width: size.width * 0.94,
+            width: size.width * 0.9,
             height: 115,
             child: Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 18, top: 34, right: 18),
+                  padding: const EdgeInsets.only(left: 18, top: 34,right: 18),
                   child: TextFormField(
                     decoration: InputDecoration(
                         hintText: translation(context).clickToAddNote,
@@ -3627,7 +2594,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     bottom: 0,
                     right: 20,
                     child: Text(
-                      '${_note.text.length}/${maxLength.toString()}',
+                      '${textLength.toString()}/${maxLength.toString()}',
                       style: TextStyle(
                         backgroundColor: Theme.of(context).splashColor,
                         color: const Color(0xffF2CB05),
@@ -3643,7 +2610,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20,right: 20),
                 child: SizedBox(
                   width: 114,
                   height: 38,
@@ -3668,7 +2635,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 20, left: 20),
+                padding: const EdgeInsets.only(right: 20,left: 20),
                 child: SizedBox(
                   width: 60,
                   height: 26,
@@ -3682,6 +2649,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         textLength = 0;
                         setState(() {
                           _note.text = "";
+
                         });
                       },
                       child: Center(
@@ -3702,6 +2670,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               ),
             ],
           ),
+
         ],
       ),
     );
@@ -3741,31 +2710,32 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: size.width > 392 ? size.width * 0.34 : 130,
+              width: size.width > 392 ? size.width*0.34 : 130,
               child: Stack(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      _note.text = "";
-                      _amount.text = "";
-                      textLength = 0;
-                      setState(() {
-                        _category.text = "";
-                        _customize.text = "";
-                      });
-                      //operationCustomButton(context);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: Theme.of(context).shadowColor,
-                      ),
-                      height: 32,
-                      width: size.width > 392 ? size.width * 0.34 : 130,
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Theme.of(context).shadowColor,
+                    ),
+                    height: 32,
+                    width: size.width > 392 ? size.width*0.34 : 130,
+                    child: GestureDetector(
+                      onTap: () {
+                        _note.text = "";
+                        _amount.text = "";
+                        textLength = 0;
+                        setState(() {
+                          _category.text = "";
+                          _customize.text = "";
+
+                        });
+                        //operationCustomButton(context);
+                      },
                       child: Center(
                         child: Text(translation(context).deleteAll,
                             style: TextStyle(
-                                height: 1,
+                              height: 1,
                                 color: Theme.of(context).canvasColor,
                                 fontSize: 15,
                                 fontFamily: 'Nexa4',
@@ -3777,139 +2747,135 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               ),
             ),
             SizedBox(
-              width: size.width > 392 ? size.width * 0.39 : 150,
+              width: size.width > 392 ? size.width*0.39 : 150,
               child: Stack(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      setAlertContent(context);
-                      double amount = double.tryParse(_amount.text) ?? 0.0;
-                      if (amount != 0.0 && _category.text.isNotEmpty) {
-                        if (selectedCustomizeMenu == 1 &&
-                            _customize.text != "") {
-                          amount = double.parse(
-                              (amount / double.parse(_customize.text))
-                                  .toStringAsFixed(2));
-                          systemMessage =
-                          "1/${_customize.text} taksit işlendi";
-                          _customize.text = "1/${_customize.text}";
-                        } else if (selectedCustomizeMenu == 0 &&
-                            _customize.text != "") {
-                          systemMessage = "${_customize.text} tekrar işlendi";
-                        }
-                        read.insertDataBase(
-                          _operationType.text,
-                          _category.text,
-                          _operationTool.text,
-                          int.parse(_registration.text),
-                          amount,
-                          _note.text,
-                          _operationDate.text,
-                          _moneyType.text,
-                          ref.read(currencyRiverpod).calculateRealAmount(
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: renkler.sariRenk,
+                    ),
+                    height: 34,
+                    width: size.width > 392 ? size.width*0.39 : 150,
+                    child: GestureDetector(
+                      onTap: () {
+                        setAlertContent(context);
+                        double amount = double.tryParse(_amount.text) ?? 0.0;
+                        if (amount != 0.0 && _category.text.isNotEmpty) {
+                          if (selectedCustomizeMenu == 1 &&
+                              _customize.text != "") {
+                            amount = double.parse((amount / double.parse(_customize.text)).toStringAsFixed(2));
+                            systemMessage =
+                                "1/${_customize.text} taksit işlendi";
+                            _customize.text = "1/${_customize.text}";
+                          } else if (selectedCustomizeMenu == 0 &&
+                              _customize.text != "") {
+                            systemMessage =
+                                "${_customize.text} tekrar işlendi";
+                          }
+                          read.insertDataBase(
+                              _operationType.text,
+                              _category.text,
+                              _operationTool.text,
+                              int.parse(_registration.text),
                               amount,
+                              _note.text,
+                              _operationDate.text,
                               _moneyType.text,
-                              ref.read(settingsRiverpod).Prefix!),
-                          _customize.text,
-                          _category.text,
-                          systemMessage,
-                        );
+                              ref.read(currencyRiverpod).calculateRealAmount(amount, _moneyType.text, ref.read(settingsRiverpod).Prefix!),
+                              _customize.text,
+                              "",
+                              systemMessage,
+                          )
+                              ;
 
-                        if (adCounter == 0) {
-                          _showInterstitialAd(context);
+                          if (adCounter == 0) {
+                            _showInterstitialAd(context);
 
-                          ///reklam
-                          readSettings.resetAdCounter();
+                            ///reklam
+                            readSettings.resetAdCounter();
 
-                          ///2 leme
-                        } else {
-                          readSettings.useAdCounter();
+                            ///2 leme
+                          } else {
+                            readSettings.useAdCounter();
 
-                          ///eksi 1
-                        }
-                        Navigator.of(context).pop();
-                        read2.setCurrentindex(0);
-                        readHome.setStatus();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Theme.of(context).highlightColor,
-                            duration: const Duration(seconds: 1),
-                            content: Text(
-                              translation(context).activityAdded,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontFamily: 'Nexa3',
-                                fontWeight: FontWeight.w600,
-                                height: 1.3,
+                            ///eksi 1
+                          }
+                          Navigator.of(context).pop();
+                          read2.setCurrentindex(0);
+                          readHome.setStatus();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Theme.of(context).highlightColor,
+                              duration: const Duration(seconds: 1),
+                              content: Text(
+                                translation(context).activityAdded,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontFamily: 'Nexa3',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                backgroundColor:
-                                Theme.of(context).primaryColor,
-                                title: Text("Eksik İşlem Yaptınız",
-                                    style: TextStyle(
-                                        color: Theme.of(context)
-                                            .secondaryHeaderColor,
-                                        fontSize: 22,
-                                        fontFamily: 'Nexa3')),
-                                content: Text(
-                                  alertContent,
-                                  style: TextStyle(
-                                      color: Theme.of(context).canvasColor,
-                                      fontSize: 16,
-                                      fontFamily: 'Nexa3'),
-                                ),
-                                shadowColor: renkler.koyuuRenk,
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      if (alertOperator == 1) {
-                                        _amount.clear();
-                                        _category.clear();
-                                      } else if (alertOperator == 2) {
-                                        _amount.clear();
-                                      } else if (alertOperator == 3) {
-                                        _category.clear();
-                                      } else {
-                                        _amount.clear();
-                                        _category.clear();
-                                      }
-                                      Navigator.of(context).pop();
-                                      //FocusScope.of(context).requestFocus(amountFocusNode);
-                                    },
-                                    child: Text(
-                                      translation(context).ok,
+                          );
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor: Theme.of(context).primaryColor,
+                                  title: Text("Eksik İşlem Yaptınız",
                                       style: TextStyle(
                                           color: Theme.of(context)
                                               .secondaryHeaderColor,
-                                          fontSize: 18,
-                                          height: 1,
-                                          fontFamily: 'Nexa3'),
-                                    ),
-                                  )
-                                ],
-                              );
-                            });
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: renkler.sariRenk,
-                      ),
-                      height: 34,
-                      width: size.width > 392 ? size.width * 0.39 : 150,
+                                          fontSize: 22,
+                                          fontFamily: 'Nexa3')),
+                                  content: Text(
+                                    alertContent,
+                                    style: TextStyle(
+                                        color: Theme.of(context).canvasColor,
+                                        fontSize: 16,
+                                        fontFamily: 'Nexa3'),
+                                  ),
+                                  shadowColor: renkler.koyuuRenk,
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        if (alertOperator == 1) {
+                                          _amount.clear();
+                                          _category.clear();
+                                        } else if (alertOperator == 2) {
+                                          _amount.clear();
+                                        } else if (alertOperator == 3) {
+                                          _category.clear();
+                                        } else {
+                                          _amount.clear();
+                                          _category.clear();
+                                        }
+                                        Navigator.of(context).pop();
+                                        //FocusScope.of(context).requestFocus(amountFocusNode);
+                                      },
+                                      child: Text(
+                                        translation(context).ok,
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .secondaryHeaderColor,
+                                            fontSize: 18,
+                                            height: 1,
+                                            fontFamily: 'Nexa3'),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              });
+                        }
+                      },
                       child: Center(
                         child: Text(translation(context).done,
                             style: TextStyle(
-                                height: 1,
+                              height: 1,
                                 color: renkler.koyuuRenk,
                                 fontSize: 16,
                                 fontFamily: 'Nexa4',
@@ -3926,3 +2892,753 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     );
   }
 }
+/*
+  Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 3),
+            child: Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(40)),
+                color: Color(0xff0D1C26),
+              ),
+              height: 34,
+              width: 130,
+            ),
+          ),
+          Row(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 1200),
+                curve: Curves.fastLinearToSlowEaseIn,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(25)),
+                  color: _containerColorType,
+                ),
+                height: heightType2_,
+                child: SizedBox(
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeColorType(0);
+                          _operationType.text = "Gider";
+                          selectedCategory = 0;
+                          _category.text = 'Yemek';
+                        });
+                      },
+                      child: Text("GİDER",
+                          style: TextStyle(
+                              color: _textColorType,
+                              fontSize: 17,
+                              fontFamily: 'Nexa4',
+                              fontWeight: FontWeight.w800))),
+                ),
+              ),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 1200),
+                curve: Curves.fastLinearToSlowEaseIn,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(25)),
+                  color: _containerColorType2,
+                ),
+                height: heightType_,
+                child: SizedBox(
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeColorType(1);
+                          _operationType.text = "Gelir";
+                          selectedCategory = 1;
+                          _category.text = 'Harçlık';
+                        });
+                      },
+                      child: Text("GELİR",
+                          style: TextStyle(
+                              color: _textColorType2,
+                              fontSize: 17,
+                              fontFamily: 'Nexa4',
+                              fontWeight: FontWeight.w800))),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+   */
+/*
+  Color colorContainerYemek = const Color(0xffF2CB05);
+  Color colorContainerGiyim = Colors.white;
+  Color colorContainerEglence = Colors.white;
+  Color colorContainerEgitim = Colors.white;
+  Color colorContainerAidat = Colors.white;
+  Color colorContainerAlisveris = Colors.white;
+  Color colorContainerOzel = Colors.white;
+  Color colorContainerUlasim = Colors.white;
+  Color colorContainerSaglik = Colors.white;
+  Color colorContainerGunluk = Colors.white;
+  Color colorContainerHobi = Colors.white;
+  Color colorContainerDiger = Colors.white;
+
+  Color colorTextYemek = Colors.white;
+  Color colorTextGiyim = const Color(0xff0D1C26);
+  Color colorTextEglence = const Color(0xff0D1C26);
+  Color colorTextEgitim = const Color(0xff0D1C26);
+  Color colorTextAidat = const Color(0xff0D1C26);
+  Color colorTextAlisveris = const Color(0xff0D1C26);
+  Color colorTextOzel = const Color(0xff0D1C26);
+  Color colorTextUlasim = const Color(0xff0D1C26);
+  Color colorTextSaglik = const Color(0xff0D1C26);
+  Color colorTextGunluk = const Color(0xff0D1C26);
+  Color colorTextHobi = const Color(0xff0D1C26);
+  Color colorTextDiger = const Color(0xff0D1C26);
+  Widget categoryCustomButton(BuildContext context) {
+    void resetColor() {
+      colorContainerYemek = Colors.white;
+      colorContainerGiyim = Colors.white;
+      colorContainerEglence = Colors.white;
+      colorContainerEgitim = Colors.white;
+      colorContainerAidat = Colors.white;
+      colorContainerAlisveris = Colors.white;
+      colorContainerOzel = Colors.white;
+      colorContainerUlasim = Colors.white;
+      colorContainerSaglik = Colors.white;
+      colorContainerGunluk = Colors.white;
+      colorContainerHobi = Colors.white;
+      colorContainerDiger = Colors.white;
+      colorTextYemek = const Color(0xff0D1C26);
+      colorTextGiyim = const Color(0xff0D1C26);
+      colorTextEglence = const Color(0xff0D1C26);
+      colorTextEgitim = const Color(0xff0D1C26);
+      colorTextAidat = const Color(0xff0D1C26);
+      colorTextAlisveris = const Color(0xff0D1C26);
+      colorTextOzel = const Color(0xff0D1C26);
+      colorTextUlasim = const Color(0xff0D1C26);
+      colorTextSaglik = const Color(0xff0D1C26);
+      colorTextGunluk = const Color(0xff0D1C26);
+      colorTextHobi = const Color(0xff0D1C26);
+      colorTextDiger = const Color(0xff0D1C26);
+    }
+
+    void changeCategoryColor1(int index) {
+      if (index == 1) {
+        resetColor();
+        colorContainerYemek = const Color(0xffF2CB05);
+        colorTextYemek = Colors.white;
+      } else if (index == 2) {
+        resetColor();
+        colorContainerGiyim = const Color(0xffF2CB05);
+        colorTextGiyim = Colors.white;
+      } else if (index == 3) {
+        resetColor();
+        colorContainerEglence = const Color(0xffF2CB05);
+        colorTextEglence = Colors.white;
+      } else if (index == 4) {
+        resetColor();
+        colorContainerEgitim = const Color(0xffF2CB05);
+        colorTextEgitim = Colors.white;
+      } else if (index == 5) {
+        resetColor();
+        colorContainerAidat = const Color(0xffF2CB05);
+        colorTextAidat = Colors.white;
+      } else if (index == 6) {
+        resetColor();
+        colorContainerAlisveris = const Color(0xffF2CB05);
+        colorTextAlisveris = Colors.white;
+      } else if (index == 7) {
+        resetColor();
+        colorContainerOzel = const Color(0xffF2CB05);
+        colorTextOzel = Colors.white;
+      } else if (index == 8) {
+        resetColor();
+        colorContainerUlasim = const Color(0xffF2CB05);
+        colorTextUlasim = Colors.white;
+      } else if (index == 9) {
+        resetColor();
+        colorContainerSaglik = const Color(0xffF2CB05);
+        colorTextSaglik = Colors.white;
+      } else if (index == 10) {
+        resetColor();
+        colorContainerGunluk = const Color(0xffF2CB05);
+        colorTextGunluk = Colors.white;
+      } else if (index == 11) {
+        resetColor();
+        colorContainerHobi = const Color(0xffF2CB05);
+        colorTextHobi = Colors.white;
+      } else if (index == 12) {
+        resetColor();
+        colorContainerDiger = const Color(0xffF2CB05);
+        colorTextDiger = Colors.white;
+      }
+    }
+
+    var size = MediaQuery.of(context).size;
+    if (selectedCategory == 0) {
+      return SizedBox(
+        width: size.width * 0.9,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerYemek,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(1);
+                          _category.text = 'Yemek';
+                        });
+                      },
+                      child: Text(translation(context).food,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextYemek,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerGiyim,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(2);
+                          _category.text = 'Giyim';
+                        });
+                      },
+                      child: Text(translation(context).clothing,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextGiyim,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerEglence,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(3);
+                          _category.text = 'Eğlence';
+                        });
+                      },
+                      child: Text(translation(context).entertainment,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextEglence,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerEgitim,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(4);
+                          _category.text = 'Eğitim';
+                        });
+                      },
+                      child: Text(translation(context).education,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextEgitim,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerAidat,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(5);
+                          _category.text = 'Aidat/Kira';
+                        });
+                      },
+                      child: Text(translation(context).duesRent,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextAidat,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerAlisveris,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(6);
+                          _category.text = 'Alışveriş';
+                        });
+                      },
+                      child: Text(translation(context).shopping,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextAlisveris,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerOzel,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(7);
+                          _category.text = 'Özel-';
+                        });
+                      },
+                      child: Text(translation(context).personel,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextOzel,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerUlasim,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(8);
+                          _category.text = 'Ulaşım';
+                        });
+                      },
+                      child: Text(translation(context).transport,
+                          style: TextStyle(
+                              color: colorTextUlasim,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerSaglik,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(9);
+                          _category.text = 'Sağlık';
+                        });
+                      },
+                      child: Text(translation(context).health,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextSaglik,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerGunluk,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(10);
+                          _category.text = 'Günlük Yaşam';
+                        });
+                      },
+                      child: Text(translation(context).dailyExpenses,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextGunluk,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerHobi,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(11);
+                          _category.text = 'Hobi';
+                        });
+                      },
+                      child: Text(translation(context).hobby,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextHobi,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerDiger,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(12);
+                          _category.text = 'Diğer-';
+                        });
+                      },
+                      child: Text(translation(context).other,
+                          style: TextStyle(
+                            height: 1,
+                              color: colorTextDiger,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+    } else {
+      return SizedBox(
+        width: size.width * 0.9,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerYemek,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(1);
+                          _category.text = 'Harçlık';
+                        });
+                      },
+                      child: Text("Harçlık",
+                          style: TextStyle(
+                              color: colorTextYemek,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerGiyim,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(2);
+                          _category.text = 'Burs';
+                        });
+                      },
+                      child: Text("Burs",
+                          style: TextStyle(
+                              color: colorTextGiyim,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerEglence,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(3);
+                          _category.text = 'Maaş';
+                        });
+                      },
+                      child: Text("Maaş",
+                          style: TextStyle(
+                              color: colorTextEglence,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerEgitim,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(4);
+                          _category.text = 'Kredi';
+                        });
+                      },
+                      child: Text("Kredi",
+                          style: TextStyle(
+                              color: colorTextEgitim,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerAidat,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(5);
+                          _category.text = 'Özel+';
+                        });
+                      },
+                      child: Text("Özel",
+                          style: TextStyle(
+                              color: colorTextAidat,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerAlisveris,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(6);
+                          _category.text = 'Kira/Ödenek';
+                        });
+                      },
+                      child: Text("Kira/Ödenek",
+                          style: TextStyle(
+                              color: colorTextAlisveris,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerOzel,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(7);
+                          _category.text = 'Fazla Mesai';
+                        });
+                      },
+                      child: Text("Fazla Mesai",
+                          style: TextStyle(
+                              color: colorTextOzel,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerUlasim,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(8);
+                          _category.text = 'İş Getirisi';
+                        });
+                      },
+                      child: Text("İş Getirisi",
+                          style: TextStyle(
+                              color: colorTextUlasim,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerSaglik,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(9);
+                          _category.text = 'Döviz Getirisi';
+                        });
+                      },
+                      child: Text("Döviz Getirisi",
+                          style: TextStyle(
+                              color: colorTextSaglik,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerGunluk,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(10);
+                          _category.text = 'Yatırım Getirisi';
+                        });
+                      },
+                      child: Text("Yatırım Getirisi",
+                          style: TextStyle(
+                              color: colorTextGunluk,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    color: colorContainerHobi,
+                  ),
+                  height: 34,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          changeCategoryColor1(11);
+                          _category.text = 'Diğer+';
+                        });
+                      },
+                      child: Text("Diğer",
+                          style: TextStyle(
+                              color: colorTextHobi,
+                              fontSize: 18,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w700))),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+    }
+  }
+ */

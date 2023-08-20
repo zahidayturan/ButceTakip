@@ -11,7 +11,6 @@ class NavBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(botomNavBarRiverpod).currentindex;
     var read = ref.read(botomNavBarRiverpod);
-    var readCalendar  = ref.read(calendarRiverpod);
     CustomColors renkler = CustomColors();
     final Size size = MediaQuery.of(context).size;
     return Directionality(
@@ -101,7 +100,6 @@ class NavBar extends ConsumerWidget {
                                   ),
                                   onPressed: () {
                                     read.setCurrentindex(2);
-                                    readCalendar.resetPageController();
                                     Navigator.of(context).popUntil((route) => route.isFirst) ;
                                   }
                               ),

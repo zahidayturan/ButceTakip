@@ -58,9 +58,6 @@ dependencies:
   app_settings: ^5.0.0
   http: any
   ntp: ^2.0.0
-  pay: ^1.1.2
-  file_picker: any
-  flutter_secure_storage: ^8.0.0
 
 
 flutter_native_splash:

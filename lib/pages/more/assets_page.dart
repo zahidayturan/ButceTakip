@@ -73,7 +73,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                           width: double.infinity,
                           padding: EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).indicatorColor,
+                            color: renkler.arkaRenk,
                             borderRadius: BorderRadius.circular(11),
                           ),
                           child: Row(
@@ -95,10 +95,10 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                 time > 5 && time < 12
                                 ? "Günaydın! Umarız iyisinizdir."
                                 : time >= 12 && time < 18
-                                  ? "İyi günler! Umarız iyisinizdir."
+                                  ? "iyi günler! Umarız iyisinizdir."
                                   : time >= 18 && time <= 23
-                                    ? "İyi akşamlar! Umarız iyisinizdir."
-                                    : "İyi geceler! Umarız iyisinizdir.",
+                                    ? "iyi akşamlar! Umarız iyisinizdir."
+                                    : "iyi geceler! Umarız iyisinizdir.",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold
                                 ),
@@ -118,7 +118,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                 padding: const EdgeInsets.all(8.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).indicatorColor.withOpacity(0.7),
+                                      color: renkler.arkaRenk.withOpacity(0.7),
                                       shape: BoxShape.circle,
                                     ),
                                     child: Center(child: Text("Net Varlık Bulunamadı!")),
@@ -130,7 +130,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       padding: const EdgeInsets.all(11.0),
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          color: Theme.of(context).indicatorColor.withOpacity(0.7),
+                                          color: renkler.arkaRenk.withOpacity(0.7),
                                           shape: BoxShape.circle,
                                         ),
                                       ),
@@ -139,7 +139,6 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       strokeWidth: 1,
                                       showLabelLine: false,
                                       labelPosition: PieLabelPosition.outside,
-                                      labelColor:  Theme.of(context).canvasColor,
                                       data: [
                                         {'domain': 'Banka', 'measure': measureList[0]},
                                         {'domain': 'Nakit', 'measure': measureList[1]},
@@ -154,7 +153,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          TextMod("TOPLAM",Theme.of(context).canvasColor, 16),
+                                          TextMod("TOPLAM",Colors.black, 16),
                                           SizedBox(height: size.width * .016),
                                           RichText(
                                             text: TextSpan(
@@ -212,7 +211,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                   ),
                                 ),
                                 SizedBox(width: size.width * .02),
-                                Text("Banka",style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                Text("Banka")
                               ],
                             ),
                             Row(
@@ -227,7 +226,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                   ),
                                 ),
                                 SizedBox(width: size.width * .02),
-                                Text("Nakit",style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                Text("Nakit")
                               ],
                             ),
                             Row(
@@ -242,7 +241,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                   ),
                                 ),
                                 SizedBox(width: size.width * .02),
-                                Text("Diğer",style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                Text("Diğer")
                               ],
                             ),
                             SizedBox(width: size.width * .06),
@@ -268,7 +267,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                 child: Container(
                                   padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.03),
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context).highlightColor,
+                                      color: renkler.koyuuRenk,
                                       borderRadius: BorderRadius.circular(8),
                                       boxShadow: const [
                                         BoxShadow(
@@ -278,15 +277,14 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                         )
                                       ]
                                   ),
-                                  child:  Row(
+                                  child: Row(
                                     children: const [
                                       Center(
                                         child: Text(
                                           "Varlık Ekle/Çıkart",
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 13,
-                                            height: 1
+                                              fontSize: 13
                                           ),
                                         ),
                                       ),
@@ -301,13 +299,11 @@ class _assetsPage extends ConsumerState<assetsPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                             Text(
+                            const Text(
                                 "Dövizlerim",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontFamily: "Nexa3",
-                                height: 1,
-                                color: Theme.of(context).canvasColor,
 
                               ),
                             ),
@@ -316,7 +312,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
                                 child: Container(
-                                  color: Theme.of(context).highlightColor,
+                                  color: Colors.black,
                                   height: 3,
                                   width: double.infinity,
                                   child: const VerticalDivider(
@@ -340,7 +336,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                 width: 30,
                                 height: 30,
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).shadowColor,
+                                  color: renkler.sariRenk,
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Transform.rotate(
@@ -354,7 +350,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
                                 child: Container(
-                                  color: Theme.of(context).highlightColor,
+                                  color: Colors.black,
                                   height: 3,
                                   width: double.infinity,
                                   child: const VerticalDivider(
@@ -423,7 +419,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                         padding: EdgeInsets.symmetric(horizontal: size.width *.02, vertical: size.height * .013),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(12),
-                                          color: Theme.of(context).indicatorColor,
+                                          color: renkler.arkaRenk,
                                         ),
                                         child: Row(
                                           children: [
@@ -436,27 +432,18 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Text(
-                                                        "${data![index].operationTool}",
-                                                        style: TextStyle(
-                                                          height: 1,
-                                                          color: Theme.of(context).canvasColor,
-                                                        ),
+                                                        "${data![index].operationTool}"
                                                       ),
                                                       Text(
                                                           data![index].operationDate.toString()  == "null" ? "VARLIK" : data![index].operationDate.toString() ,
                                                         style: TextStyle(
                                                           fontSize: 14,
-                                                          height: 1,
-                                                            color: Theme.of(context).canvasColor,
                                                         ),
                                                       ),
                                                     ],
                                                   ),
                                                   Text(
-                                                      "${data[index].amount} ${data[index].moneyType}",style: TextStyle(
-                                                    height: 1,
-                                                    color: Theme.of(context).canvasColor,
-                                                  ),
+                                                      "${data[index].amount} ${data[index].moneyType}"
                                                   ),
                                                 ],
                                               ),
@@ -521,7 +508,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
             spreadRadius: 1,
           )
         ],
-        color: Theme.of(context).indicatorColor,
+        color: renkkler.arkaRenk,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -536,26 +523,21 @@ class _assetsPage extends ConsumerState<assetsPage> {
                 ? Image.asset(
                   "assets/icons/bank.png",
                   height: 21,
-                  color: Theme.of(context).canvasColor,
                   alignment: Alignment.centerLeft,
                 ) : title == "Nakit"
                   ? Image.asset(
                     "assets/icons/money.png",
                     height: 22,
-                  color: Theme.of(context).canvasColor,
                     alignment: Alignment.centerLeft,
                   )
                   : Icon(
                     myIcon,
-                  color: Theme.of(context).canvasColor,
                     size: 22,
                   ),
                 Text(
                   title,
                   style: TextStyle(
                     fontSize: 11,
-                    height: 1,
-                    color: Theme.of(context).canvasColor,
                   ),
                 ),
               ],
@@ -565,10 +547,9 @@ class _assetsPage extends ConsumerState<assetsPage> {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: amaount ,style: TextStyle(
+                  text: "${amaount}" ,style: TextStyle(
                     fontFamily: 'NEXA3',
                     fontSize: 12,
-                    height: 1,
                     color: Theme.of(context).canvasColor
                   ),
                 ),
@@ -576,8 +557,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                   text: readSettings.prefixSymbol,
                   style: TextStyle(
                       fontFamily: 'TL',
-                      fontSize: 14,
-                      height: 1,
+                      fontSize: 16,
                       color: Theme.of(context).canvasColor
                   ),
                 ),

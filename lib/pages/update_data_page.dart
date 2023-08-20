@@ -611,7 +611,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                   hintStyle: TextStyle(
                                                                       color: Theme.of(context).canvasColor,
                                                                       fontSize: 18,
-                                                                      height: 1,
                                                                       fontFamily: 'Nexa3'),
                                                                   counterText: '',
                                                                   border: InputBorder.none),
@@ -1830,7 +1829,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     var readUpdateData = ref.read(updateDataRiverpod);
     final _customize = readUpdateData.getProcessOnce();
   bool menuController = _isProcessOnceValidNumber(_customize.text);
-    ///RAKAM İÇERİRSE TRUE
+     ///RAKAM İÇERİRSE TRUE
     var size = MediaQuery.of(context).size;
     List<String> repetitiveList = [
       "Günlük",
@@ -1957,217 +1956,215 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                               ),
                                             ),
                                           ),
-                                          Visibility(
-                                            visible : menuController == false,
-                                                child: SizedBox(
+                                          menuController == false
+                                              ? SizedBox(
                                             width: 200,
                                             height: 60,
                                             child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  DropdownButtonHideUnderline(
-                                                    child:
-                                                    DropdownButton2<
-                                                        String>(
-                                                      isExpanded: true,
-                                                      hint: Text(
-                                                        _customize.text != "" ? _customize.text : "Seçiniz",
-                                                        style:
-                                                        TextStyle(
-                                                          fontSize: 18,
-                                                          fontFamily:
-                                                          'Nexa3',
-                                                          color: Theme.of(
-                                                              context)
-                                                              .canvasColor,
-                                                        ),
-                                                      ),
-                                                      items:
-                                                      repetitiveList
-                                                          .map((item) =>
-                                                          DropdownMenuItem(
-                                                            value:
-                                                            item,
-                                                            child:
-                                                            Text(
-                                                              item,
-                                                              style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
-                                                            ),
-                                                          ))
-                                                          .toList(),
-                                                      value:
-                                                      selectedValueCustomize,
-                                                      onChanged:
-                                                          (value) {
-                                                        setState(() {
-                                                          selectedValueCustomize =
-                                                              value;
-                                                          _customize
-                                                              .text =
-                                                              value
-                                                                  .toString();
-                                                          this.setState(
-                                                                  () {});
-                                                        });
-                                                      },
-                                                      barrierColor: renkler
-                                                          .koyuAraRenk
-                                                          .withOpacity(
-                                                          0.8),
-                                                      buttonStyleData:
-                                                      ButtonStyleData(
-                                                        overlayColor:
-                                                        MaterialStatePropertyAll(
-                                                            renkler
-                                                                .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
-                                                            horizontal:
-                                                            16),
-                                                        height: 40,
-                                                        width: 200,
-                                                      ),
-                                                      dropdownStyleData:
-                                                      DropdownStyleData(
-                                                          maxHeight:
-                                                          250,
-                                                          width:
-                                                          200,
-                                                          decoration:
-                                                          BoxDecoration(
-                                                            color: Theme.of(context)
-                                                                .primaryColor,
-                                                          ),
-                                                          scrollbarTheme: ScrollbarThemeData(
-                                                              radius: const Radius.circular(
-                                                                  15),
-                                                              thumbColor:
-                                                              MaterialStatePropertyAll(renkler.sariRenk))),
-                                                      menuItemStyleData:
-                                                      MenuItemStyleData(
-                                                        overlayColor:
-                                                        MaterialStatePropertyAll(
-                                                            renkler
-                                                                .koyuAraRenk), // MENÜ BASILMA RENGİ
-                                                        height: 40,
-                                                      ),
-                                                      iconStyleData:
-                                                      IconStyleData(
-                                                        icon:
-                                                        const Icon(
-                                                          Icons
-                                                              .arrow_drop_down,
-                                                        ),
-                                                        iconSize: 30,
-                                                        iconEnabledColor:
-                                                        Theme.of(
-                                                            context)
-                                                            .secondaryHeaderColor,
-                                                        iconDisabledColor:
-                                                        Theme.of(
-                                                            context)
-                                                            .secondaryHeaderColor,
-                                                        openMenuIcon:
-                                                        Icon(
-                                                          Icons
-                                                              .arrow_right,
-                                                          color: Theme.of(
-                                                              context)
-                                                              .canvasColor,
-                                                          size: 24,
-                                                        ),
-                                                      ),
-                                                      onMenuStateChange:
-                                                          (isOpen) {
-                                                        if (!isOpen) {
-                                                          _customize
-                                                              .clear();
-                                                        }
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
-                                            ),
-                                          ),
-                                              ),
-                                          Visibility(
-                                            visible : menuController == true,
-                                                child: SizedBox(
-                                            width: 220,
-                                            height: 60,
-                                            child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  TextField(
-                                                    maxLength: 3,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                DropdownButtonHideUnderline(
+                                                  child:
+                                                  DropdownButton2<
+                                                      String>(
+                                                    isExpanded: true,
+                                                    hint: Text(
+                                                      _customize.text,
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                        'Nexa3',
                                                         color: Theme.of(
                                                             context)
                                                             .canvasColor,
-                                                        fontSize: 17,
-                                                        fontFamily:
-                                                        'Nexa3'),
-                                                    decoration:
-                                                    InputDecoration(
-                                                        hintText:
-                                                        'Ay sayısını yazınız (1-144)',
-                                                        hintStyle: TextStyle(
-                                                            color: Theme.of(context)
-                                                                .canvasColor,
-                                                            fontSize:
-                                                            15,
-                                                            fontFamily:
-                                                            'Nexa3'),
-                                                        suffixText:
-                                                        'Ay',
-                                                        suffixStyle:
-                                                        TextStyle(
-                                                          color: Theme.of(
-                                                              context)
-                                                              .canvasColor,
-                                                          fontSize:
-                                                          16,
-                                                          fontFamily:
-                                                          'Nexa3',
-                                                        ),
-                                                        counterText:
-                                                        '',
-                                                        border:
-                                                        InputBorder
-                                                            .none),
-                                                    cursorRadius:
-                                                    const Radius
-                                                        .circular(10),
-                                                    inputFormatters: [
-                                                      FilteringTextInputFormatter
-                                                          .allow(RegExp(
-                                                          r'^(1[0-4][0-4]|[1-9][0-9]|[1-9])$')),
-                                                    ],
-                                                    keyboardType:
-                                                    const TextInputType
-                                                        .numberWithOptions(
-                                                        signed:
-                                                        false,
-                                                        decimal:
-                                                        false),
-                                                    controller:
-                                                    _customize,
-                                                    onChanged: (value) {
+                                                      ),
+                                                    ),
+                                                    items:
+                                                    repetitiveList
+                                                        .map((item) =>
+                                                        DropdownMenuItem(
+                                                          value:
+                                                          item,
+                                                          child:
+                                                          Text(
+                                                            item,
+                                                            style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
+                                                          ),
+                                                        ))
+                                                        .toList(),
+                                                    value:
+                                                    selectedValueCustomize,
+                                                    onChanged:
+                                                        (value) {
                                                       setState(() {
+                                                        selectedValueCustomize =
+                                                            value;
+                                                        _customize
+                                                            .text =
+                                                            value
+                                                                .toString();
                                                         this.setState(
                                                                 () {});
                                                       });
                                                     },
+                                                    barrierColor: renkler
+                                                        .koyuAraRenk
+                                                        .withOpacity(
+                                                        0.8),
+                                                    buttonStyleData:
+                                                    ButtonStyleData(
+                                                      overlayColor:
+                                                      MaterialStatePropertyAll(
+                                                          renkler
+                                                              .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal:
+                                                          16),
+                                                      height: 40,
+                                                      width: 200,
+                                                    ),
+                                                    dropdownStyleData:
+                                                    DropdownStyleData(
+                                                        maxHeight:
+                                                        250,
+                                                        width:
+                                                        200,
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          color: Theme.of(context)
+                                                              .primaryColor,
+                                                        ),
+                                                        scrollbarTheme: ScrollbarThemeData(
+                                                            radius: const Radius.circular(
+                                                                15),
+                                                            thumbColor:
+                                                            MaterialStatePropertyAll(renkler.sariRenk))),
+                                                    menuItemStyleData:
+                                                    MenuItemStyleData(
+                                                      overlayColor:
+                                                      MaterialStatePropertyAll(
+                                                          renkler
+                                                              .koyuAraRenk), // MENÜ BASILMA RENGİ
+                                                      height: 40,
+                                                    ),
+                                                    iconStyleData:
+                                                    IconStyleData(
+                                                      icon:
+                                                      const Icon(
+                                                        Icons
+                                                            .arrow_drop_down,
+                                                      ),
+                                                      iconSize: 30,
+                                                      iconEnabledColor:
+                                                      Theme.of(
+                                                          context)
+                                                          .secondaryHeaderColor,
+                                                      iconDisabledColor:
+                                                      Theme.of(
+                                                          context)
+                                                          .secondaryHeaderColor,
+                                                      openMenuIcon:
+                                                      Icon(
+                                                        Icons
+                                                            .arrow_right,
+                                                        color: Theme.of(
+                                                            context)
+                                                            .canvasColor,
+                                                        size: 24,
+                                                      ),
+                                                    ),
+                                                    onMenuStateChange:
+                                                        (isOpen) {
+                                                      if (!isOpen) {
+                                                        _customize
+                                                            .clear();
+                                                      }
+                                                    },
                                                   ),
-                                                ],
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                              ),
+                                          )
+                                              : const SizedBox(),
+                                          menuController == true
+                                              ? SizedBox(
+                                            width: 220,
+                                            height: 60,
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                TextField(
+                                                  maxLength: 3,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                      color: Theme.of(
+                                                          context)
+                                                          .canvasColor,
+                                                      fontSize: 17,
+                                                      fontFamily:
+                                                      'Nexa3'),
+                                                  decoration:
+                                                  InputDecoration(
+                                                      hintText:
+                                                      'Ay sayısını yazınız (1-144)',
+                                                      hintStyle: TextStyle(
+                                                          color: Theme.of(context)
+                                                              .canvasColor,
+                                                          fontSize:
+                                                          15,
+                                                          fontFamily:
+                                                          'Nexa3'),
+                                                      suffixText:
+                                                      'Ay',
+                                                      suffixStyle:
+                                                      TextStyle(
+                                                        color: Theme.of(
+                                                            context)
+                                                            .canvasColor,
+                                                        fontSize:
+                                                        16,
+                                                        fontFamily:
+                                                        'Nexa3',
+                                                      ),
+                                                      counterText:
+                                                      '',
+                                                      border:
+                                                      InputBorder
+                                                          .none),
+                                                  cursorRadius:
+                                                  const Radius
+                                                      .circular(10),
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .allow(RegExp(
+                                                        r'^(1[0-4][0-4]|[1-9][0-9]|[1-9])$')),
+                                                  ],
+                                                  keyboardType:
+                                                  const TextInputType
+                                                      .numberWithOptions(
+                                                      signed:
+                                                      false,
+                                                      decimal:
+                                                      false),
+                                                  controller:
+                                                  _customize,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      this.setState(
+                                                              () {});
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                              : const SizedBox(),
                                           Row(
                                             mainAxisAlignment:
                                             MainAxisAlignment
@@ -2351,17 +2348,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   if (amount != 0.0 && category.text.isNotEmpty) {
                     if (_isProcessOnceValidNumber(customize.text) == true &&
                         customize.text != "") {
-                      List <String> parts = customize.text.split("/");
-                      customize.text = parts.length == 2 ?  parts[1] : parts[0];
                       amount = double.parse((amount / double.parse(customize.text)).toStringAsFixed(2));
-                      systemMessage = "1/${customize.text} taksit işlendi";
+                      systemMessage = "(1/${customize.text} taksit işlendi)";
                       customize.text = "1/${customize.text}";
                     } else if (_isProcessOnceValidNumber(customize.text) == false &&
                         customize.text != "") {
-                      systemMessage = "${customize.text} tekrar işlendi";
+                      systemMessage = "(${customize.text} tekrar işlendi)";
                     }
-                        if(menuController == 0){
-                          readUpdateData.updateDataBase(
+                        if(menuController == 0){readUpdateData.updateDataBase(
                             int.parse(id),
                             operationType.text,
                             category.text,
@@ -2374,7 +2368,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             customize.text,
                             ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
                             userCategory.text,
-                            customize.text != "" ? systemMessage.text.toString() : "");
+                            systemMessage.text);
                         read.update();}
                         else{
                           read.insertDataBase(
@@ -2389,7 +2383,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
                             customize.text,
                             "",
-                            systemMessage.text.toString(),
+                            systemMessage.text,
                           );
                         }
                     Navigator.of(context).pop();

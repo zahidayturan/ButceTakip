@@ -146,18 +146,14 @@ class UpdateDataRiverpod extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeProcessOnce(int id){
-    SQLHelper.updateCustomize(id, "");
-  }
-
   Future<Map<String, List<String>>> myCategoryLists() async {
     List<SpendInfo> spendInfoListExpense =
         await SQLHelper.getCategoryListByType('Gider');
     List<String> categoryListExpense = [];
 
     for (var spendInfo in spendInfoListExpense) {
-      if (!categoryListExpense.contains(spendInfo.userCategory) && spendInfo.userCategory != '') {
-        categoryListExpense.add(spendInfo.userCategory!);
+      if (!categoryListExpense.contains(spendInfo.category)) {
+        categoryListExpense.add(spendInfo.category!);
       }
     }
 
@@ -166,10 +162,11 @@ class UpdateDataRiverpod extends ChangeNotifier {
     List<String> categoryListIncome = [];
 
     for (var spendInfo in spendInfoListIncome) {
-      if (!categoryListIncome.contains(spendInfo.userCategory) && spendInfo.userCategory != '') {
-        categoryListIncome.add(spendInfo.userCategory!);
+      if (!categoryListIncome.contains(spendInfo.category)) {
+        categoryListIncome.add(spendInfo.category!);
       }
     }
+
     return {
       'expense': categoryListExpense,
       'income': categoryListIncome,
@@ -940,63 +937,6 @@ class UpdateDataRiverpod extends ChangeNotifier {
   bool _isProcessOnceValidNumber(String processOnce) {
     return processOnce.contains(RegExp(r'\d'));
   }
-
-
-  Future<int> categoryUsageCount(int operationTypeController, String categoryName, int operationController, String newCategory) async {
-    String operationType = operationTypeController == 0 ? 'Gider' : 'Gelir';
-    List<SpendInfo> customizeItems = await SQLHelper.getCategoryByType(operationType, categoryName);
-    //customizeItems.forEach((element) {print("${element.category} ${element.userCategory} ${element.id} ${element.realAmount}");});
-
-    if(operationController == 1 ){///delete 1
-      customizeItems.forEach((element) {
-        SQLHelper.updateCategory(element.id, element.category!,"");
-      });
-      if(customizeItems.isEmpty){
-        List<SpendInfo> userCategoryItems = await SQLHelper.getUserCategoryByType(operationType, categoryName);
-        userCategoryItems.forEach((element) {
-          SQLHelper.updateCategory(element.id, element.category!,"");
-        });
-      }
-    }else if(operationController == 2){///delete 2
-      customizeItems.forEach((element) {
-
-        if(element.userCategory != ""){
-          SQLHelper.updateCategory(element.id, newCategory,newCategory);
-        }
-      });
-        List<SpendInfo> userCategoryItems = await SQLHelper.getUserCategoryByType(operationType, categoryName);
-        userCategoryItems.forEach((element) {
-          if(element.userCategory != ""){
-          SQLHelper.updateCategory(element.id, newCategory,newCategory);
-          }
-        });
-    }
-    else if(operationController == 3){///edit 1
-      customizeItems.forEach((element) {
-        SQLHelper.updateCategory(element.id, element.category!,newCategory);
-      });
-      if(customizeItems.isEmpty){
-        List<SpendInfo> userCategoryItems = await SQLHelper.getUserCategoryByType(operationType, categoryName);
-        userCategoryItems.forEach((element) {
-          SQLHelper.updateCategory(element.id, element.category!,newCategory);
-        });
-      }
-    }
-    else if(operationController == 4){///edit 2
-      customizeItems.forEach((element) {
-        SQLHelper.updateCategory(element.id, newCategory,newCategory);
-      });
-      if(customizeItems.isEmpty){
-        List<SpendInfo> userCategoryItems = await SQLHelper.getUserCategoryByType(operationType, categoryName);
-        userCategoryItems.forEach((element) {
-          SQLHelper.updateCategory(element.id, element.category!,newCategory);
-        });
-      }
-    }
-    return customizeItems.length;
-  }
-
-
 
   /*
   customizeOperation(

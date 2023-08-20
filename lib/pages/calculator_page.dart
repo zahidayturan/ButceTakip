@@ -23,8 +23,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
     setState(() {
       _currentPageindex = pageindex;
     });
-    _pagecont.animateToPage(pageindex,
-        duration: const Duration(milliseconds: 250), curve: Curves.linear);
+    _pagecont.animateToPage(pageindex, duration: Duration(milliseconds: 250), curve: Curves.linear) ;
   }
 
   String result = "0";
@@ -192,7 +191,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     ],
                   ),
                 ),
-                SizedBox(height: size.height * 0.005),
+                SizedBox(
+                    height: size.height * 0.005),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -210,9 +210,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             borderRadius: BorderRadius.circular(20),
                             border: _currentPageindex == 0
                                 ? Border.all(
-                                    color: renkler.sariRenk,
-                                    width: 3,
-                                  )
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
                                 : null,
                           ),
                           child: Column(
@@ -251,9 +251,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             borderRadius: BorderRadius.circular(20),
                             border: _currentPageindex == 1
                                 ? Border.all(
-                                    color: renkler.sariRenk,
-                                    width: 3,
-                                  )
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
                                 : null,
                           ),
                           child: Column(
@@ -268,7 +268,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 child: Text(
                                   translation(context).calculateInterestCredit,
                                   style: const TextStyle(
-                                    height: 1,
+                                    height: 1 ,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -292,9 +292,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             borderRadius: BorderRadius.circular(20),
                             border: _currentPageindex == 2
                                 ? Border.all(
-                                    color: renkler.sariRenk,
-                                    width: 3,
-                                  )
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
                                 : null,
                           ),
                           child: Column(
@@ -516,7 +516,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                 const SizedBox(
                   height: 40,
                   width: 40,
-                ), /*
+                ),/*
                 SizedBox(
                   height: 40,
                   width: 40,
@@ -589,7 +589,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
 
                               /// kalan karakteri gösteren yazıyı kaldırıyor.
                               contentPadding:
-                                  const EdgeInsets.symmetric(vertical: 5),
+                              const EdgeInsets.symmetric(vertical: 5),
                               enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(style: BorderStyle.none),
                               ),
@@ -672,7 +672,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             decoration: InputDecoration(
                               counterText: '',
                               contentPadding:
-                                  const EdgeInsets.symmetric(vertical: 5),
+                              const EdgeInsets.symmetric(vertical: 5),
                               enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   style: BorderStyle.none,
@@ -735,25 +735,23 @@ class _CalculatorState extends ConsumerState<Calculator> {
                   height: 30,
                   decoration: BoxDecoration(
                       color: renkler.yaziRenk,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(10))),
+                      borderRadius: const BorderRadius.all(Radius.circular(10))),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: DropdownButtonFormField<String>(
                       key: dropDownKey,
-
                       /// bunun kullanim nedeni sıfırla yapınca varsayılan vade gelmesi için
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(bottom: 15),
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
-                            style: BorderStyle.none,
-                          )),
+                                style: BorderStyle.none,
+                              )),
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
-                            style: BorderStyle.none,
-                          ))),
+                                style: BorderStyle.none,
+                              ))),
                       iconEnabledColor: renkler.koyuuRenk,
                       value: selectedValue,
                       menuMaxHeight: 300,
@@ -801,7 +799,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     decoration: BoxDecoration(
                         color: renkler.sariRenk,
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(25))),
+                        const BorderRadius.all(Radius.circular(25))),
                     child: Text(
                       translation(context).deleteAll2,
                       style: TextStyle(
@@ -814,8 +812,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                 ),
                 InkWell(
                   onTap: () {
-                    faizHesapla(anaPara, faizYuzde,
-                        int.parse(selectedValue.toString()));
+                    faizHesapla(
+                        anaPara, faizYuzde, int.parse(selectedValue.toString()));
                     heseplamalarSonucu = GlobalKey();
                   },
                   child: Container(
@@ -825,7 +823,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     decoration: BoxDecoration(
                         color: renkler.sariRenk,
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(25))),
+                        const BorderRadius.all(Radius.circular(25))),
                     child: Text(
                       translation(context).calculate,
                       style: TextStyle(
@@ -851,30 +849,30 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     children: [
                       RichText(
                           text: TextSpan(children: [
-                        TextSpan(
-                          text: translation(context).monthlyEqualInstalments,
-                          style: TextStyle(
-                            color: renkler.yaziRenk,
-                            fontFamily: 'Nexa4',
-                            fontSize: 17,
-                          ),
-                        ),
-                        TextSpan(
-                            text: tutarList[0],
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontFamily: 'Nexa4',
-                              color: renkler.yaziRenk,
-                            )),
-                        TextSpan(
-                          text: ' ₺',
-                          style: TextStyle(
-                            fontFamily: 'TL',
-                            fontSize: 17,
-                            color: renkler.yaziRenk,
-                          ),
-                        ),
-                      ]))
+                            TextSpan(
+                              text: translation(context).monthlyEqualInstalments,
+                              style: TextStyle(
+                                color: renkler.yaziRenk,
+                                fontFamily: 'Nexa4',
+                                fontSize: 17,
+                              ),
+                            ),
+                            TextSpan(
+                                text: tutarList[0],
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontFamily: 'Nexa4',
+                                  color: renkler.yaziRenk,
+                                )),
+                            TextSpan(
+                              text: ' ₺',
+                              style: TextStyle(
+                                fontFamily: 'TL',
+                                fontSize: 17,
+                                color: renkler.yaziRenk,
+                              ),
+                            ),
+                          ]))
                     ],
                   ), // aylık eşit taksit
                   Row(
@@ -882,30 +880,30 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     children: [
                       RichText(
                           text: TextSpan(children: [
-                        TextSpan(
-                          text: translation(context).totalAmount,
-                          style: TextStyle(
-                            color: renkler.yaziRenk,
-                            fontFamily: 'Nexa4',
-                            fontSize: 17,
-                          ),
-                        ),
-                        TextSpan(
-                            text: tutarList[1],
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontFamily: 'Nexa4',
-                              color: renkler.yaziRenk,
-                            )),
-                        TextSpan(
-                          text: ' ₺',
-                          style: TextStyle(
-                            fontFamily: 'TL',
-                            fontSize: 17,
-                            color: renkler.yaziRenk,
-                          ),
-                        ),
-                      ]))
+                            TextSpan(
+                              text: translation(context).totalAmount,
+                              style: TextStyle(
+                                color: renkler.yaziRenk,
+                                fontFamily: 'Nexa4',
+                                fontSize: 17,
+                              ),
+                            ),
+                            TextSpan(
+                                text: tutarList[1],
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontFamily: 'Nexa4',
+                                  color: renkler.yaziRenk,
+                                )),
+                            TextSpan(
+                              text: ' ₺',
+                              style: TextStyle(
+                                fontFamily: 'TL',
+                                fontSize: 17,
+                                color: renkler.yaziRenk,
+                              ),
+                            ),
+                          ]))
                     ],
                   ), // toplam ana para
                   Row(
@@ -913,30 +911,30 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     children: [
                       RichText(
                           text: TextSpan(children: [
-                        TextSpan(
-                          text: translation(context).totalInterest,
-                          style: TextStyle(
-                            color: renkler.yaziRenk,
-                            fontFamily: 'Nexa4',
-                            fontSize: 17,
-                          ),
-                        ),
-                        TextSpan(
-                            text: tutarList[2],
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontFamily: 'Nexa4',
-                              color: renkler.yaziRenk,
-                            )),
-                        TextSpan(
-                          text: ' ₺',
-                          style: TextStyle(
-                            fontFamily: 'TL',
-                            fontSize: 17,
-                            color: renkler.yaziRenk,
-                          ),
-                        ),
-                      ]))
+                            TextSpan(
+                              text: translation(context).totalInterest,
+                              style: TextStyle(
+                                color: renkler.yaziRenk,
+                                fontFamily: 'Nexa4',
+                                fontSize: 17,
+                              ),
+                            ),
+                            TextSpan(
+                                text: tutarList[2],
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontFamily: 'Nexa4',
+                                  color: renkler.yaziRenk,
+                                )),
+                            TextSpan(
+                              text: ' ₺',
+                              style: TextStyle(
+                                fontFamily: 'TL',
+                                fontSize: 17,
+                                color: renkler.yaziRenk,
+                              ),
+                            ),
+                          ]))
                     ],
                   ), // toplam faiz
                   Row(
@@ -944,30 +942,30 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     children: [
                       RichText(
                           text: TextSpan(children: [
-                        TextSpan(
-                          text: translation(context).totalPayment,
-                          style: TextStyle(
-                            color: renkler.sariRenk,
-                            fontFamily: 'Nexa4',
-                            fontSize: 18,
-                          ),
-                        ),
-                        TextSpan(
-                            text: tutarList[3],
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Nexa4',
-                              color: renkler.sariRenk,
-                            )),
-                        TextSpan(
-                          text: ' ₺',
-                          style: TextStyle(
-                            fontFamily: 'TL',
-                            fontSize: 18,
-                            color: renkler.sariRenk,
-                          ),
-                        ),
-                      ]))
+                            TextSpan(
+                              text: translation(context).totalPayment,
+                              style: TextStyle(
+                                color: renkler.sariRenk,
+                                fontFamily: 'Nexa4',
+                                fontSize: 18,
+                              ),
+                            ),
+                            TextSpan(
+                                text: tutarList[3],
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Nexa4',
+                                  color: renkler.sariRenk,
+                                )),
+                            TextSpan(
+                              text: ' ₺',
+                              style: TextStyle(
+                                fontFamily: 'TL',
+                                fontSize: 18,
+                                color: renkler.sariRenk,
+                              ),
+                            ),
+                          ]))
                     ],
                   ), // toplam ödeme
                 ],
@@ -995,8 +993,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
   void switchCurrency(BuildContext context) {
     double kur = 16.5;
     double amount = 0.0;
-    double kurdolar = (double.tryParse(ref.read(currencyRiverpod).TRY!)! /
-        double.tryParse(ref.read(currencyRiverpod).USD!)!);
+    double kurdolar = (double.tryParse(ref.read(currencyRiverpod).TRY!)! / double.tryParse(ref.read(currencyRiverpod).USD!)!);
     double kureuro = 21.49;
     if (selectedCurrency == selectedCurrency2) {
       kur = 1;
@@ -1084,14 +1081,15 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     Container(
                       decoration: BoxDecoration(
                         color: renkler.yaziRenk,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(10)
+                        ),
                       ),
                       child: SizedBox(
                         height: 30,
                         width: 100,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 5, right: 5),
+                          padding: const EdgeInsets.only(left: 5,right: 5),
                           child: TextFormField(
                             maxLength: 12,
                             inputFormatters: [
@@ -1223,10 +1221,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 )
                               ),
                             ),
-                          )
-                        )
-                      )
-                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               )
@@ -1259,8 +1257,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     Container(
                       decoration: BoxDecoration(
                         color: renkler.yaziRenk,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(10)),
                       ),
                       child: SizedBox(
                         height: 30,
@@ -1279,32 +1277,27 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 fontSize: 16
                             ),
                             onChanged: (value) {
-                              if (sayi1Controller.text.isNotEmpty &&
-                                  yuzdeOranController.text.isNotEmpty) {
+                              if (sayi1Controller.text.isNotEmpty && yuzdeOranController.text.isNotEmpty) {
                                 // Virgülü noktaya dönüştür
-                                final sayi1 =
-                                    sayi1Controller.text.replaceAll(',', '.');
-                                final yuzdeOran = yuzdeOranController.text
-                                    .replaceAll(',', '.');
+                                final sayi1 = sayi1Controller.text.replaceAll(',', '.');
+                                final yuzdeOran = yuzdeOranController.text.replaceAll(',', '.');
 
-                                sonuc = double.parse(sayi1) *
-                                    (double.parse(yuzdeOran) / 100);
+                                sonuc = double.parse(sayi1) * (double.parse(yuzdeOran) / 100);
                                 sonucController.text = sonuc.toStringAsFixed(2);
                               }
                             },
                             controller: yuzdeOranController,
                             keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
+                            decoration:  InputDecoration(
                                 isDense: true,
                                 counterText: '',
-                                hintText: sayi2ishere
-                                    ? null
-                                    : translation(context).enteraPercentage,
+                                hintText: sayi2ishere ? null : translation(context).enteraPercentage,
                                 hintStyle: TextStyle(
-                                    fontSize: 14,
-                                    height: 1,
+                                  fontSize: 14,
+                                  height: 1,
                                     fontFamily: 'Nexa3',
-                                    color: renkler.koyuAraRenk),
+                                    color: renkler.koyuAraRenk
+                                ),
                                 enabledBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     style: BorderStyle.none,
@@ -1317,13 +1310,14 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 ),
                                 border: const OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                  BorderRadius.all(Radius.circular(10)),
                                 ),
                                 disabledBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(
                                     style: BorderStyle.none,
                                   ),
-                                )),
+                                )
+                            ),
                           ),
                         ),
                       ),
@@ -1347,61 +1341,60 @@ class _CalculatorState extends ConsumerState<Calculator> {
 
             ///divider koyduk
             Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 5),
+              padding:  const EdgeInsets.only(top: 20, bottom: 5),
               child: !sayi2ishere
                   ? Row(
-                      children: [
-                        SizedBox(
-                          width: 140,
-                          child: Text(
-                            translation(context).result,
-                            style: TextStyle(
-                                fontFamily: "Nexa4",
-                                fontSize: 17,
-                                color: renkler.yaziRenk),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: renkler.yaziRenk,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                          child: SizedBox(
-                            height: 30,
-                            width: 100,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 5, bottom: 2, right: 5),
-                              child: TextFormField(
-                                readOnly: true,
-                                style: TextStyle(
-                                    color: renkler.koyuuRenk,
-                                    fontFamily: 'Nexa4',
-                                    fontSize: 16),
-                                controller: sonucController,
-                                decoration: const InputDecoration(
-                                    isDense: true,
-                                    counterText: '',
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        style: BorderStyle.none,
-                                      ),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        style: BorderStyle.none,
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                    )),
+                children: [
+                  SizedBox(
+                    width : 140,
+                    child: Text(
+                      translation(context).result,
+                      style: TextStyle(
+                          fontFamily: "Nexa4",
+                          fontSize: 17,
+                          color: renkler.yaziRenk),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: renkler.yaziRenk,
+                        borderRadius: const BorderRadius.all(Radius.circular(10)
+                        )),
+                    child: SizedBox(
+                      height: 30,
+                      width: 100,
+                      child: Padding(
+                        padding:  const EdgeInsets.only(left: 5,bottom: 2,right: 5),
+                        child: TextFormField(
+                          readOnly: true,
+                          style: TextStyle(
+                              color: renkler.koyuuRenk,
+                              fontFamily: 'Nexa4',
+                              fontSize: 16),
+                          controller: sonucController,
+                          decoration: const InputDecoration(
+                              isDense: true,
+                              counterText: '',
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  style: BorderStyle.none,
+                                ),
                               ),
-                            ),
-                          ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10)),
+                              )),
                         ),
-                      ],
-                    )
+                      ),
+                    ),
+                  ),
+                ],
+              )
                   : const SizedBox(height: 1),
             ),
             Column(
@@ -1447,87 +1440,86 @@ class _CalculatorState extends ConsumerState<Calculator> {
                 ),
                 sayi2ishere
                     ? Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Checkbox(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                  color: renkler.sariRenk,
-                                  width: 4,
-                                ),
-                                borderRadius: BorderRadius.circular(4)),
-                            activeColor: renkler.sariRenk,
-                            value: firstselect,
-                            onChanged: (value) {
-                              if (secondselect) {
-                                setState(() {
-                                  firstselect = value!;
-                                  secondselect = false;
-                                });
-                              }
-                            },
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: renkler.sariRenk,
+                            width: 4,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4),
-                            child: Text(
-                              translation(context)
-                                  .secondNumberPercentageOfFirstNumber,
-                              style: TextStyle(
-                                color: renkler.arkaRenk,
-                                fontFamily: "Nexa4",
-                                fontSize: 16,
-                              ),
-                            ),
-                          )
-                        ],
-                      )
-                    : const SizedBox(
-                        width: 1,
+                          borderRadius: BorderRadius.circular(4)),
+                      activeColor: renkler.sariRenk,
+                      value: firstselect,
+                      onChanged: (value) {
+                        if (secondselect) {
+                          setState(() {
+                            firstselect = value!;
+                            secondselect = false;
+                          });
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        translation(context).secondNumberPercentageOfFirstNumber,
+                        style: TextStyle(
+                          color: renkler.arkaRenk,
+                          fontFamily: "Nexa4",
+                          fontSize: 16,
+                        ),
                       ),
+                    )
+                  ],
+                )
+                    : const SizedBox(
+                  width: 1,
+                ),
                 sayi2ishere
                     ? const SizedBox(
-                        height: 5,
-                      )
+                  height: 5,
+                )
                     : const SizedBox(
-                        width: 5,
-                      ),
+                  width: 5,
+                ),
                 sayi2ishere
                     ? Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Checkbox(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: renkler.sariRenk,
-                                    width: 4,
-                                    style: BorderStyle.solid),
-                                borderRadius: BorderRadius.circular(4)),
-                            activeColor: renkler.sariRenk,
-                            value: secondselect,
-                            onChanged: (value) {
-                              if (value != null) {
-                                if (firstselect) {
-                                  setState(() {
-                                    firstselect = false;
-                                    secondselect = value;
-                                  });
-                                }
-                              }
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4),
-                            child: Text(
-                              translation(context).rateOfChange,
-                              style: TextStyle(
-                                color: renkler.arkaRenk,
-                                fontFamily: "Nexa4",
-                                fontSize: 16,
-                              ),
-                            ),
-                          )
-                        ],
-                      )
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              color: renkler.sariRenk,
+                              width: 4,
+                              style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(4)),
+                      activeColor: renkler.sariRenk,
+                      value: secondselect,
+                      onChanged: (value) {
+                        if (value != null) {
+                          if (firstselect) {
+                            setState(() {
+                              firstselect = false;
+                              secondselect = value;
+                            });
+                          }
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        translation(context).rateOfChange,
+                        style: TextStyle(
+                          color: renkler.arkaRenk,
+                          fontFamily: "Nexa4",
+                          fontSize: 16,
+                        ),
+                      ),
+                    )
+                  ],
+                )
                     : const SizedBox(width: 1),
               ],
             ),
@@ -1543,24 +1535,14 @@ class _CalculatorState extends ConsumerState<Calculator> {
       pageCurrency.jumpToPage(pageCurrency2.page!.toInt());
       pageCurrency2.jumpToPage(currentPage1);
     }
-
     var rea = ref.read(currencyRiverpod);
     double? kurdolar;
-    double? kureuro;
-    double? kursterlin;
-    double? kursar;
     if(rea.BASE != null){
       kurdolar = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.USD!)!).toStringAsFixed(2)));
-      kureuro = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.EUR!)!).toStringAsFixed(2)));
-      kursterlin = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.GBP!)!).toStringAsFixed(2)));
-      kursar = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.SAR!)!).toStringAsFixed(2)));
     }else{
       kurdolar = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
-      kureuro = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
-      kursterlin = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
-      kursar = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
     }
-    List<String> listCurrency = ['TL', 'USD', 'EURO', 'SAR'];
+    List<String> listCurrency = ['TL', 'USD', 'EURO'];
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -1628,18 +1610,18 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       children: listCurrency
                           .map(
                             (value) => Center(
-                              child: Text(
-                                value,
-                                style: const TextStyle(
-                                  color: Color(0xFFF2CB05),
-                                  fontSize: 28,
-                                  fontFamily: 'Nexa4',
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.3,
-                                ),
-                              ),
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              color: Color(0xFFF2CB05),
+                              fontSize: 28,
+                              fontFamily: 'Nexa4',
+                              fontWeight: FontWeight.w600,
+                              height: 1.3,
                             ),
-                          )
+                          ),
+                        ),
+                      )
                           .toList(),
                     ),
                   ),
@@ -1700,18 +1682,18 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       children: listCurrency
                           .map(
                             (value) => Center(
-                              child: Text(
-                                value,
-                                style: const TextStyle(
-                                  color: Color(0xFFF2CB05),
-                                  fontSize: 28,
-                                  fontFamily: 'Nexa4',
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.3,
-                                ),
-                              ),
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              color: Color(0xFFF2CB05),
+                              fontSize: 28,
+                              fontFamily: 'Nexa4',
+                              fontWeight: FontWeight.w600,
+                              height: 1.3,
                             ),
-                          )
+                          ),
+                        ),
+                      )
                           .toList(),
                     ),
                   ),
@@ -1720,25 +1702,25 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     width: 100,
                     child: Center(
                         child: TextField(
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontFamily: 'Nexa4',
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        isDense: true,
-                        hintText: 'Sonuç',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Nexa4',
-                          fontSize: 24,
-                          color: Colors.white,
-                        ),
-                      ),
-                      enabled: false,
-                      controller: sonuc,
-                    )),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontFamily: 'Nexa4',
+                            fontSize: 24,
+                            color: Colors.white,
+                          ),
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            isDense: true,
+                            hintText: 'Sonuç',
+                            hintStyle: TextStyle(
+                              fontFamily: 'Nexa4',
+                              fontSize: 24,
+                              color: Colors.white,
+                            ),
+                          ),
+                          enabled: false,
+                          controller: sonuc,
+                        )),
                   ),
                 ],
               ),
@@ -1813,11 +1795,11 @@ class _CalculatorState extends ConsumerState<Calculator> {
         const SizedBox(
           height: 10,
         ),
-        Text(
-          rea.lastApiUpdateDate!,
-          style: const TextStyle(
+        const Text(
+          "14.04.2023 Verilerine Göre",
+          style: TextStyle(
             fontFamily: 'NEXA4',
-            fontSize: 17,
+            fontSize: 20,
             color: Colors.white,
           ),
         ),
@@ -1825,23 +1807,23 @@ class _CalculatorState extends ConsumerState<Calculator> {
           "Dolar Kuru : $kurdolar",
           style: const TextStyle(
             fontFamily: 'NEXA4',
-            fontSize: 17,
+            fontSize: 20,
             color: Colors.white,
           ),
         ),
         Text(
-          "Euro Kuru : $kureuro ",
+          "Euro Kuru : ",
           style: const TextStyle(
             fontFamily: 'NEXA4',
-            fontSize: 17,
+            fontSize: 20,
             color: Colors.white,
           ),
         ),
-        Text(
-          "Sterlin Kuru : $kursterlin ",
-          style: const TextStyle(
+        const Text(
+          "",
+          style: TextStyle(
             fontFamily: 'NEXA4',
-            fontSize: 17,
+            fontSize: 20,
             color: Colors.white,
           ),
         ),
