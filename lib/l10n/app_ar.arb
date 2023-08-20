@@ -1,10 +1,10 @@
 {
   "statisticsTitle": "الإحصائيات",
-  "activityCalendarTitle": "تقويم المعاملات",
+  "activityCalendarTitle": "تقويم العمليات",
   "calculatorTitle": "الآلة الحاسبة",
-  "otherActivitiesTitle": "معاملات أخرى",
+  "otherActivitiesTitle": "عمليات أخرى",
   "addIncomeExpensesTitle": "أضف الدخل / المصاريف",
-  "editTitle": "تنظيم المعاملة",
+  "editTitle": "تنظيم العملية",
   "settingsTitle": "إعدادات",
   "helpTitle": "المساعدة",
   "helpTitle2": "المساعدة<",
@@ -12,10 +12,10 @@
   "backupTitle": "النسخ الاحتياطي",
   "contactUsTitle": "تواصل معنا",
 
-  "savedActivities": "المعاملات المسجلة",
-  "savedActivitiesAmount": "مبلغ المعاملة",
-  "savedActivitiesCategory": "فئة المعاملة",
-  "numberOfSavedActivities": "عدد المعاملات المحفوظة:",
+  "savedActivities": "العمليات المسجلة",
+  "savedActivitiesAmount": "مبلغ العملية",
+  "savedActivitiesCategory": "فئة العملية",
+  "numberOfSavedActivities": "عدد العمليات المحفوظة:",
 
   "january": "كانون الثّاني",
   "february": "شباط",
@@ -38,7 +38,7 @@
   "saturday": "السبت",
   "sunday": "الأحد",
 
-  "todaysActivities": "معاملات اليوم",
+  "todaysActivities": "عمليات اليوم",
 
   "category": "الفئة",
   "payment": "كيفية الدفع",
@@ -85,8 +85,8 @@
   "dataForTheDayNotFound": "لم يتم العثور على بيانات اليوم!",
 
   "date": "التاريخ",
-  "missingEntry": "معاملة ناقصة",
-  "pleaseEnterAnAmount": "الرجاء إدخال المبلغ!",
+  "missingEntry": "عملية ناقصة",
+  "pleaseEnterAnAmount": "الرجاء أدخل المبلغ!",
   "ok": "حسنا",
 
   "food": "الطعام",
@@ -112,7 +112,7 @@
   "delete": "حذف",
   "deleteAll": "حذف الجميع",
   "done": "تم",
-  "activityAdded": "تم إضافة المعاملة",
+  "activityAdded": "تم إضافة العملية",
 
   "percentageCalculation": "الحساب بنسبة المئوية",
   "calculator": "الآلة الحاسبة",
@@ -197,7 +197,7 @@
   "no": "تراجع",
 
   "whatIsYourFavoriteAnimal": "ما هو حيوانك المفضل ؟",
-  "pleaseEnteraName": "الرجاء إدخال اسم",
+  "pleaseEnteraName": "الرجاء أدخل الاسم",
   "enter": "أدخل",
 
 
@@ -223,9 +223,9 @@
   "github": "جيت هاب:  ",
   "developers": "المطورون",
 
-  "activityDetails": "تفاصيل المعاملات",
+  "activityDetails": "تفاصيل العمليات",
 
-  "details": "تفاصيل المعاملة",
+  "details": "تفاصيل العملية",
   "dateDetails": "التاريخ",
   "timeDetails": "الوقت",
   "categoryDetails": "الفئة",
@@ -236,10 +236,10 @@
   "notSaved": "غير محفوظ",
   "noteDetails": "ملاحظة",
   "deleteDetails": "حذف",
-  "activityDeleted": "تم حذف  المعاملة",
+  "activityDeleted": "تم حذف  العملية",
   "edit": "تعديل",
 
   "updateDone": "حفظ",
-  "activityUpdated": "تم تحديث معلومات المعاملة",
+  "activityUpdated": "تم تحديث معلومات العملية",
   "clickToAddNote": "لإضافة ملاحظة انقر هنا"
 }
