@@ -53,15 +53,15 @@ class SettingsRiverpod extends ChangeNotifier{
       adCounter(Kalan Hak) : ${setting[setting.length - 1].adCounter}""");
     notifyListeners();
   }
-  Future controlSettings() async{ //settings Kayıt değerlendiriyoruz.
+  Future controlSettings() async{ //settings Kayıt değerlendiriyoruz.A
     List<SettingsInfo> ?settingsReglength = await SQLHelper.settingsControl();
     if(settingsReglength.length > 0) {
       prefixSymbol = settingsReglength[0].prefixSymbol;
-      readDb();
+      await readDb();
     }else{
       final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺") ;
       await SQLHelper.addItemSetting(info);
-      readDb();
+      await readDb();
     }
     notifyListeners();
   }
@@ -74,8 +74,8 @@ class SettingsRiverpod extends ChangeNotifier{
     isuseinsert = !isuseinsert ;
     notifyListeners();
   }
-  void Backup(){
-    writeToCvs();
+  void Backup(String fileName){
+    writeToCvs(fileName);
     setLastBackup();
   }
   void setSecurityQu(String securityQu){

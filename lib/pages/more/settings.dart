@@ -3,11 +3,9 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/constans/theme.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'password_splash.dart';
 import 'backup.dart';
@@ -31,6 +29,19 @@ class _SettingsState extends ConsumerState<Settings> {
     "IQD",
     "SAR"
   ];
+  List<String> getMoneyNameList(){
+  List<String> moneyNameList = <String>[
+    'TRY - Türkiye - ₺',
+    "USD - USA - \$",
+    "EUR - Europe - €",
+    "GBP - The United Kingdom - £",
+    "KWD - Kuwait - د.ك",
+    "JOD - Jordan - د.أ'",
+    "IQD - Iraq - د.ع",
+    "SAR - Saudi Arabia - ر.س",
+  ];
+  return moneyNameList;
+  }
   List<String> dilDestegi = <String>["Türkçe", "English", "العربية"];
   CustomColors renkler = CustomColors();
 
@@ -348,13 +359,23 @@ class _SettingsState extends ConsumerState<Settings> {
                                   height: 2,
                                   color: renkler.koyuuRenk,
                                 ),
-                                onChanged: (newValue) {
+                                onChanged: (newValue) async {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return Center(child: CircularProgressIndicator(
+                                        color: renkler.sariRenk,
+                                        backgroundColor: renkler.koyuuRenk,
+                                      ));
+                                    },
+                                  );
                                   if (readSetting.Prefix != newValue) {
                                     readSetting.setPrefix(newValue!);
-                                    currencyRiv.calculateAllSQLRealTime(ref); //Bütün kayıtları hocam değiştiriyor.
+                                    await currencyRiv.calculateAllSQLRealTime(ref);
                                     readSetting.setisuseinsert();
                                   }
-                                  print("");
+                                  Navigator.of(context).pop();
                                 },
                                 items: moneyPrefix
                                     .map<DropdownMenuItem<String>>(
@@ -362,7 +383,9 @@ class _SettingsState extends ConsumerState<Settings> {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
-                                    onTap: () {},
+                                    onTap: () {
+                                      print(value);
+                                    },
                                   );
                                 }).toList(),
                               ),

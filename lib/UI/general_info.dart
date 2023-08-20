@@ -120,7 +120,7 @@ class Generalinfo extends ConsumerWidget {
                                           Padding(
                                             padding: const EdgeInsets.only(left: 2),
                                             child: RotatedBox(
-                                              quarterTurns: 0,
+                                              quarterTurns: 1,
                                               child: InkWell(
                                                 //alignment: Alignment.topCenter,
                                                 //padding: EdgeInsets.zero,
@@ -144,7 +144,6 @@ class Generalinfo extends ConsumerWidget {
                                                   width: 20,
                                                   child: Image.asset(
                                                     "assets/icons/arrow.png",
-                                                    height: 18,
                                                     color: renkler.koyuuRenk,
                                                   ),
                                                 )
@@ -153,39 +152,45 @@ class Generalinfo extends ConsumerWidget {
                                           ),
                                           Directionality(
                                             textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
-                                            child: ClipRRect(
-                                              // yuvarlıyorum ay değişimi barını
-                                              borderRadius:
-                                              const BorderRadius.all(Radius.circular(50)),
-                                              child: Container(
-                                                height: 32,
-                                                width: 164,
-                                                color: Theme.of(context).highlightColor,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(top: 5),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Text(
-                                                        months[readhome.indexmounth],
-                                                        style: TextStyle(
-                                                          color: renkler.arkaRenk,
-                                                          fontSize: 17,
-                                                          fontFamily: 'Nexa3',
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                readhome.controllerPageMontly!.jumpToPage(DateTime.now().month);
+                                                readhome.changeindex(DateTime.now().month-1, DateTime.now().year-2020);
+                                                readdb.setMonthandYear(DateTime.now().month.toString(), DateTime.now().year.toString());
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                const BorderRadius.all(Radius.circular(50)),
+                                                child: Container(
+                                                  height: 32,
+                                                  width: 164,
+                                                  color: Theme.of(context).highlightColor,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(top: 5),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Text(
+                                                          months[readhome.indexmounth],
+                                                          style: TextStyle(
+                                                            color: renkler.arkaRenk,
+                                                            fontSize: 17,
+                                                            fontFamily: 'Nexa3',
+                                                          ),
                                                         ),
-                                                      ),
-                                                      // Ay gösterge
-                                                      const SizedBox(width: 4),
-                                                      Text(
-                                                        years[readhome.indexyear],
-                                                        style: TextStyle(
-                                                          color: renkler.arkaRenk,
-                                                          fontSize: 17,
-                                                          fontFamily: 'Nexa4',
+                                                        // Ay gösterge
+                                                        const SizedBox(width: 4),
+                                                        Text(
+                                                          years[readhome.indexyear],
+                                                          style: TextStyle(
+                                                            color: renkler.arkaRenk,
+                                                            fontSize: 17,
+                                                            fontFamily: 'Nexa4',
+                                                          ),
                                                         ),
-                                                      ),
-                                                      // Yıl gösterge
-                                                    ],
+                                                        // Yıl gösterge
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -194,7 +199,7 @@ class Generalinfo extends ConsumerWidget {
                                           Padding(
                                             padding: const EdgeInsets.only(right: 2),
                                             child: RotatedBox(
-                                              quarterTurns: 2,
+                                              quarterTurns: 3,
                                               child: InkWell(
                                                 //padding: EdgeInsets.zero,
                                                 //alignment: Alignment.topCenter,
@@ -215,7 +220,6 @@ class Generalinfo extends ConsumerWidget {
                                                   width: 20,
                                                   child: Image.asset(
                                                     "assets/icons/arrow.png",
-                                                    height: 18,
                                                     color: renkler.koyuuRenk,
                                                   ),
                                                 ),
@@ -241,90 +245,151 @@ class Generalinfo extends ConsumerWidget {
                             ),
                           ),
                           SizedBox(
+                            height: 18,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: RichText(
-                                        text: TextSpan(children: [
-                                      TextSpan(
-                                        text: readdb
-                                            .getTotalAmountPositive(items),
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'Nexa3',
-                                          color: renkler.yesilRenk,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: readSettings.prefixSymbol,
-                                        style: TextStyle(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Tooltip(
+                                      message: "${readdb.getTotalAmountPositive(items)[1]} ${readSettings.prefixSymbol}",
+                                      triggerMode: TooltipTriggerMode.tap,
+                                      showDuration: const Duration(seconds: 2),
+                                      textStyle: TextStyle(
+                                          fontSize: 18,
+                                          color: renkler.arkaRenk,
                                           fontFamily: 'TL',
-                                          height: 1,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: renkler.yesilRenk,
-                                        ),
+                                          fontWeight: FontWeight.bold,
+                                          height: 1),
+                                      textAlign: TextAlign.center,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          const BorderRadius.all(Radius.circular(10)),
+                                          color: renkler.yesilRenk),
+                                      child: FittedBox(
+                                        child: RichText(
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            text: TextSpan(children: [
+                                          TextSpan(
+                                            text: readdb
+                                                .getTotalAmountPositive(items)[0],
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontFamily: 'Nexa3',
+                                              color: renkler.yesilRenk,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: readSettings.prefixSymbol,
+                                            style: TextStyle(
+                                              fontFamily: 'TL',
+                                              height: 1,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: renkler.yesilRenk,
+                                            ),
+                                          ),
+                                        ])),
                                       ),
-                                    ])),
+                                    ),
                                   ),
                                 ),
                                 Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: Alignment.center,
-                                    child: RichText(
-                                        text: TextSpan(children: [
-                                      TextSpan(
-                                        text: readdb.getTotalAmount(items),
-                                        style: TextStyle(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Tooltip(
+                                      message: "${readdb.getTotalAmount(items)[1]} ${readSettings.prefixSymbol}",
+                                      triggerMode: TooltipTriggerMode.tap,
+                                      showDuration: const Duration(seconds: 2),
+                                      textStyle: TextStyle(
                                           fontSize: 18,
-                                          fontFamily: 'Nexa3',
-                                          color: Theme.of(context).canvasColor,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: readSettings.prefixSymbol,
-                                        style: TextStyle(
-                                          height: 1,
+                                          color: renkler.koyuuRenk,
                                           fontFamily: 'TL',
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                          color: Theme.of(context).canvasColor,
-                                        ),
+                                          fontWeight: FontWeight.bold,
+                                          height: 1),
+                                      textAlign: TextAlign.center,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          const BorderRadius.all(Radius.circular(10)),
+                                          color: renkler.sariRenk),
+                                      child: FittedBox(
+                                        child: RichText(
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            text: TextSpan(children: [
+                                          TextSpan(
+                                            text: readdb.getTotalAmount(items)[0],
+                                            style: TextStyle(
+                                              fontSize: 19,
+                                              fontFamily: 'Nexa3',
+                                              color: Theme.of(context).canvasColor,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: readSettings.prefixSymbol,
+                                            style: TextStyle(
+                                              height: 1,
+                                              fontFamily: 'TL',
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                              color: Theme.of(context).canvasColor,
+                                            ),
+                                          ),
+                                        ])),
                                       ),
-                                    ])),
+                                    ),
                                   ),
                                 ),
                                 Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: RichText(
-                                        text: TextSpan(children: [
-                                      TextSpan(
-                                        text: readdb
-                                            .getTotalAmountNegative(items),
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'Nexa3',
-                                          color: renkler.kirmiziRenk,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: readSettings.prefixSymbol,
-                                        style: TextStyle(
-                                          height: 1,
+                                    alignment: Alignment.bottomRight,
+                                    child: Tooltip(
+                                      message: "${readdb.getTotalAmountNegative(items)[1]} ${readSettings.prefixSymbol}",
+                                      triggerMode: TooltipTriggerMode.tap,
+                                      showDuration: const Duration(seconds: 2),
+                                      textStyle: TextStyle(
+                                          fontSize: 18,
+                                          color: renkler.arkaRenk,
                                           fontFamily: 'TL',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: renkler.kirmiziRenk,
-                                        ),
+                                          fontWeight: FontWeight.bold,
+                                          height: 1),
+                                      textAlign: TextAlign.center,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          const BorderRadius.all(Radius.circular(10)),
+                                          color: renkler.kirmiziRenk),
+                                      child: FittedBox(
+                                        child: RichText(
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            text: TextSpan(children: [
+                                          TextSpan(
+                                            text: readdb
+                                                .getTotalAmountNegative(items)[0],
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontFamily: 'Nexa3',
+                                              color: renkler.kirmiziRenk,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: readSettings.prefixSymbol,
+                                            style: TextStyle(
+                                              height: 1,
+                                              fontFamily: 'TL',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: renkler.kirmiziRenk,
+                                            ),
+                                          ),
+                                        ])),
                                       ),
-                                    ])),
+                                    ),
                                   ),
                                 ), // gider bilgisi
                               ],
