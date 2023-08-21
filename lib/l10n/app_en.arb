@@ -64,9 +64,17 @@
     "noBig": "NO",
     "categoryAppBar" : "Category",
 
+    "tapToFilter": "Tap to Filter",
 
-
-
+    "statisticsFiltering": "Statistics Filtering",
+    "activityType": "Activity Type",
+    "dateStatistics": "Date",
+    "period": "PERIOD",
+    "onlySavedActivities": "Only Saved Activities",
+    "paymentMethodStatistics": "Payment Method",
+    "all": "ALL",
+    "reset": "Reset",
+    "okStatistics": "OK",
 
 
 
@@ -86,20 +94,22 @@
     "date": "DATE",
     "missingEntry": "Missing entry",
     "pleaseEnterAnAmount": "Please enter an amount!",
+    "enterAmountAndCategory": "Please enter an amount and a category!",
+    "enterCategory": "Please enter a category!",
     "ok": "Ok",
 
-    "food": "Food",
-    "clothing": "Clothing",
-    "entertainment": "Entertainment",
-    "education": "Education",
-    "duesRent": "Dues/Rent",
-    "shopping": "Shopping",
-    "personel": "Personel",
-    "transport": "Transport",
-    "health": "Health",
+    "foodExpense": "Food",
+    "clothingExpense": "Clothing",
+    "entertainmentExpense": "Entertainment",
+    "educationExpense": "Education",
+    "duesRentExpense": "Dues/Rent",
+    "shoppingExpense": "Shopping",
+    "personelExpense": "Personel-",
+    "transportExpense": "Transport",
+    "healthExpense": "Health",
     "dailyExpenses": "Daily expenses",
-    "hobby": "Hobby",
-    "other": "Other",
+    "hobbyExpense": "Hobby",
+    "otherExpense": "Other-",
 
     "cash": "CASH",
     "card": "CARD",
@@ -228,7 +238,7 @@
     "dateDetails": "DATE",
     "timeDetails": "TIME",
     "categoryDetails": "CATEGORY",
-    "paymentTypeDetails": "PAYMENT TYPE",
+    "paymentMethodDetails": "PAYMENT METHOD",
     "amountDetails": "AMOUNT",
     "savingStatusDetails": "SAVING STATUS",
     "saved": "Saved",

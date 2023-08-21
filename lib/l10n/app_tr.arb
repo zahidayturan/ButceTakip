@@ -64,11 +64,17 @@
   "noBig": "HAYIR",
   "categoryAppBar" : "Kategorisi",
 
+  "tapToFilter": "Filtrelemek İçin Dokun",
 
-
-
-
-
+  "statisticsFiltering": "İstatistik Filtreleme",
+  "activityType": "İşlem Türü",
+  "dateStatistics": "Tarih",
+  "period": "PERİYOT",
+  "onlySavedActivities": "Sadece Kayıtlı İşlemler",
+  "paymentMethodStatistics": "Ödeme Şekli",
+  "all": "HEPSİ",
+  "reset": "Eski Haline Getir",
+  "okStatistics": "TAMAM",
 
 
 
@@ -89,20 +95,22 @@
   "date": "TARİH",
   "missingEntry": "Eksik İşlem",
   "pleaseEnterAnAmount": "Lütfen bir tutar giriniz!",
+  "enterAmountAndCategory": "Lütfen bir tutar ve bir kategori giriniz!",
+  "enterCategory": "Lütfen bir kategori giriniz!",
   "ok": "Tamam",
 
-  "food": "Yemek",
-  "clothing": "Giyim",
-  "entertainment": "Eğlence",
-  "education": "Eğitim",
-  "duesRent": "Aidat/Kira",
-  "shopping": "Alışveriş",
-  "personel": "Özel",
-  "transport": "Ulaşım",
-  "health": "Sağlık",
+  "foodExpense": "Yemek",
+  "clothingExpense": "Giyim",
+  "entertainmentExpense": "Eğlence",
+  "educationExpense": "Eğitim",
+  "duesRentExpense": "Aidat/Kira",
+  "shoppingExpense": "Alışveriş",
+  "personelExpense": "Özel-",
+  "transportExpense": "Ulaşım",
+  "healthExpense": "Sağlık",
   "dailyExpenses": "Günlük Yaşam",
-  "hobby": "Hobi",
-  "other": "Diğer",
+  "hobbyExpense": "Hobi",
+  "otherExpense": "Diğer-",
 
   "cash": "NAKİT",
   "card": "KART",
@@ -233,7 +241,7 @@
   "dateDetails": "TARİH",
   "timeDetails": "SAAT",
   "categoryDetails": "KATEGORİ",
-  "paymentTypeDetails": "ÖDEME TÜRÜ",
+  "paymentMethodDetails": "ÖDEME ŞEKLİ",
   "amountDetails": "TUTAR",
   "savingStatusDetails": "KAYIT DURUMU",
   "saved": "Kayıtlı",

@@ -1032,9 +1032,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                           (context) {
                                                                         return AlertDialog(
                                                                           backgroundColor: Theme.of(context).primaryColor,
-                                                                          title: Text("Eksik İşlem Yaptınız", style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3')),
+                                                                          title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3')),
                                                                           content: Text(
-                                                                            "Lütfen bir kategori giriniz!",
+                                                                            translation(context).enterCategory,
                                                                             style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
                                                                           ),
                                                                           shadowColor: renkler.koyuuRenk,
@@ -1565,9 +1565,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                         (context) {
                                                                                                       return AlertDialog(
                                                                                                         backgroundColor: Theme.of(context).primaryColor,
-                                                                                                        title: Text("Eksik İşlem Yaptınız", style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3')),
+                                                                                                        title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3', height: 1)),
                                                                                                         content: Text(
-                                                                                                          "Lütfen bir kategori giriniz!",
+                                                                                                          translation(context).enterCategory,
                                                                                                           style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
                                                                                                         ),
                                                                                                         shadowColor: renkler.koyuuRenk,
@@ -2258,9 +2258,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                             (context) {
                                                                                                           return AlertDialog(
                                                                                                             backgroundColor: Theme.of(context).primaryColor,
-                                                                                                            title: Text("Eksik İşlem Yaptınız", style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3')),
+                                                                                                            title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3', height: 1)),
                                                                                                             content: Text(
-                                                                                                              "Lütfen bir kategori giriniz!",
+                                                                                                              translation(context).enterCategory,
                                                                                                               style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
                                                                                                             ),
                                                                                                             shadowColor: renkler.koyuuRenk,
@@ -3722,13 +3722,13 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     double amount = double.tryParse(_amount.text) ?? 0.0;
     void setAlertContent(BuildContext context) {
       if (amount == 0 && _category.text.isEmpty) {
-        alertContent = "Lütfen bir tutar ve bir kategori giriniz!";
+        alertContent = translation(context).enterAmountAndCategory;
         alertOperator = 1;
       } else if (_category.text.isNotEmpty) {
         alertContent = translation(context).pleaseEnterAnAmount;
         alertOperator = 2;
       } else {
-        alertContent = "Lütfen bir kategori giriniz!";
+        alertContent = translation(context).enterCategory;
         alertOperator = 3;
       }
     }
@@ -3854,7 +3854,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                               return AlertDialog(
                                 backgroundColor:
                                 Theme.of(context).primaryColor,
-                                title: Text("Eksik İşlem Yaptınız",
+                                title: Text(translation(context).missingEntry,
                                     style: TextStyle(
                                         color: Theme.of(context)
                                             .secondaryHeaderColor,
