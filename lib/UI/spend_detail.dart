@@ -184,7 +184,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(translation(context).paymentTypeDetails,
+                    Text(translation(context).paymentMethodDetails,
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa4',

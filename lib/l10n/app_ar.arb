@@ -60,13 +60,21 @@
 
   "dataNotFound": "لم يتم العثور على بيانات",
   "totalAmountStatistics": "المبلغ الاجمالي",
-  "yesBig": "EVET",
-  "noBig": "HAYIR",
+  "yesBig": "نعم",
+  "noBig": "لا",
   "categoryAppBar" : "فئة",
 
+  "tapToFilter": "انقر للتصنيف",
 
-
-
+  "statisticsFiltering": "تصنيف الإحصائيات",
+  "activityType": "نوع العملية",
+  "dateStatistics": "التاريخ",
+  "period": "الدوري",
+  "onlySavedActivities": "العمليات المسجلة فقط",
+  "paymentMethodStatistics": "كيفية الدفع",
+  "all": "الجميع",
+  "reset": "رجوع",
+  "okStatistics": "تم",
 
 
 
@@ -87,20 +95,22 @@
   "date": "التاريخ",
   "missingEntry": "عملية ناقصة",
   "pleaseEnterAnAmount": "الرجاء أدخل المبلغ!",
+  "enterAmountAndCategory": "الرجاء أدخل المبلغ و الفئة!",
+  "enterCategory": "الرجاء أدخل الفئة!",
   "ok": "حسنا",
 
-  "food": "الطعام",
-  "clothing": "الملابس",
-  "entertainment": "الترفيه",
-  "education": "التعليم",
-  "duesRent": "الرسوم/الإيجار",
-  "shopping": "التسوق",
-  "personel": "خاص",
-  "transport": "المواصلات",
-  "health": "الصحة",
+  "foodExpense": "الطعام",
+  "clothingExpense": "الملابس",
+  "entertainmentExpense": "الترفيه",
+  "educationExpense": "التعليم",
+  "duesRentExpense": "الرسوم/الإيجار",
+  "shoppingExpense": "التسوق",
+  "personelExpense": "خاص-",
+  "transportExpense": "المواصلات",
+  "healthExpense": "الصحة",
   "dailyExpenses": "الاحتياجات اليومية",
-  "hobby": "الهوايات",
-  "other": "أخرى",
+  "hobbyExpense": "الهوايات",
+  "otherExpense": "أخرى-",
 
 
   "cash": "نقدا",
@@ -229,7 +239,7 @@
   "dateDetails": "التاريخ",
   "timeDetails": "الوقت",
   "categoryDetails": "الفئة",
-  "paymentTypeDetails": "طريقة الدفع",
+  "paymentMethodDetails": "كيفية الدفع",
   "amountDetails": "المبلغ",
   "savingStatusDetails": "وضع الحفظ",
   "saved": "محفوظ",

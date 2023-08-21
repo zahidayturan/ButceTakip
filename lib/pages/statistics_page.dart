@@ -121,7 +121,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       translation(context).monthly,
       translation(context).weekly,
       translation(context).daily,
-      'PERİYOT',
+      translation(context).period,
     ];
   }
 
@@ -150,9 +150,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         ),
         child: Center(
             child: Text(
-          "Filtrelemek için dokunun",
+          translation(context).tapToFilter,
           style: TextStyle(
-              color: renkler.arkaRenk, fontFamily: 'Nexa3', fontSize: 15),
+              color: renkler.arkaRenk, fontFamily: 'Nexa3', fontSize: 15, height: 1),
         )),
       ),
       onTap: () {
@@ -242,7 +242,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          "İşlem Türü",
+                                          translation(context).activityType,
                                           style: TextStyle(
                                               color: renkler.arkaRenk,
                                               fontSize: 15,
@@ -367,7 +367,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          "Tarih",
+                                          translation(context).dateStatistics,
                                           style: TextStyle(
                                               color: renkler.arkaRenk,
                                               fontSize: 15,
@@ -518,7 +518,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          "Sadece Kayıtlı İşlemler",
+                                          translation(context).onlySavedActivities,
                                           style: TextStyle(
                                               color: renkler.arkaRenk,
                                               fontSize: 15,
@@ -610,7 +610,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          "İşlem Aracı",
+                                          translation(context).paymentMethodStatistics,
                                           style: TextStyle(
                                               color: renkler.arkaRenk,
                                               fontSize: 15,
@@ -887,7 +887,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     ),
                                     child: Center(
                                         child: Text(
-                                      "Eski Haline Getir",
+                                          translation(context).reset,
                                       style: TextStyle(
                                           color: Theme.of(context).canvasColor,
                                           fontSize: 15,
@@ -993,7 +993,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     ),
                                     child: Center(
                                         child: Text(
-                                      "TAMAM",
+                                          translation(context).okStatistics,
                                       style: TextStyle(
                                           color: renkler.arkaRenk,
                                           fontSize: 15,
