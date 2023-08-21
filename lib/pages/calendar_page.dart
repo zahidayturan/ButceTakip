@@ -5,6 +5,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../riverpod_management.dart';
 import 'package:butcekontrol/classes/language.dart';
@@ -128,6 +129,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     final PageController pageController =  PageController(initialPage: 1);
 
 
+    String? selectedValueDay = read.startDay.toString();
     List monthName = read.getMonths(context);
     List yearName = read.getYears();
     return Center(
@@ -165,6 +167,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         print(read.getIndex());
                         customDate.text = "1";
                         selectedValueDay = "1";
+                        read.startDay = int.parse(customDate.text);
                       });
                     },
                   ),
@@ -274,10 +277,12 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                   child: Center(
                     child: TextButton(
                       onPressed: () {
-                        selectedValueDay = customDate.text;
+                        //selectedValueDay = customDate.text;
                         showDialog(
                           context: context,
                           builder: (context) {
+                            read.startDate = DateTime(read.yearIndex,read.monthIndex,int.parse(selectedValueDay!));
+                            read.endDate = DateTime(read.yearIndex,read.monthIndex+1,int.parse(selectedValueDay!)-1);
                             return StatefulBuilder(
                               builder: (context, setState) {
                                 return AlertDialog(
@@ -337,86 +342,94 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                           const SizedBox(
                                             height: 14.0,
                                           ),
-                                          SizedBox(
-                                            width : 60,
-                                            height : 36,
-                                            child: DropdownButtonHideUnderline(
-                                              child: DropdownButton2<String>(
-                                                isExpanded: true,
-                                                hint: Center(
-                                                  child: Text(
-                                                    customDate.text,
-                                                    style: TextStyle(
-                                                      fontSize: 13,
-                                                      fontFamily: 'Nexa4',
-                                                      color: renkler.koyuuRenk,
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              SizedBox(
+                                                width : 60,
+                                                height : 36,
+                                                child: DropdownButtonHideUnderline(
+                                                  child: DropdownButton2<String>(
+                                                    isExpanded: true,
+                                                    hint: Center(
+                                                      child: Text(
+                                                        read.startDay.toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 13,
+                                                          fontFamily: 'Nexa4',
+                                                          color: renkler.koyuuRenk,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    items: dayList
+                                                        .map((String item) =>
+                                                        DropdownMenuItem<String>(
+                                                          value: item,
+                                                          child: Center(
+                                                            child: Text(
+                                                              item,
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  height: 1,
+                                                                  fontFamily:
+                                                                  'Nexa4',
+                                                                  color: renkler
+                                                                      .koyuuRenk),
+                                                            ),
+                                                          ),
+                                                        ))
+                                                        .toList(),
+                                                    value: selectedValueDay,
+                                                    onChanged: (String? value) {
+                                                      setState(() {
+                                                        selectedValueDay = value;
+                                                        read.startDate = DateTime(read.yearIndex,read.monthIndex,int.parse(selectedValueDay!));
+                                                        read.endDate = DateTime(read.yearIndex,read.monthIndex+1,int.parse(selectedValueDay!)-1);
+                                                      });
+                                                    },
+                                                    iconStyleData: IconStyleData(
+                                                        iconSize: 18,
+                                                        iconDisabledColor: renkler.koyuuRenk,
+                                                        iconEnabledColor: renkler.koyuuRenk
+                                                    ),
+                                                    dropdownStyleData:
+                                                    DropdownStyleData(
+                                                      ///açılmış kutu
+                                                        decoration: BoxDecoration(
+                                                          color: renkler.arkaRenk,
+                                                          borderRadius:
+                                                          const BorderRadius.all(
+                                                              Radius.circular(10)),
+                                                        ),
+                                                        maxHeight: 160),
+                                                    buttonStyleData: ButtonStyleData(
+                                                        padding:
+                                                        const EdgeInsets.symmetric(
+                                                            horizontal: 10),
+                                                        height: 36,
+                                                        width: 60,
+                                                        decoration: BoxDecoration(
+                                                            color: renkler.sariRenk,
+                                                            borderRadius:
+                                                            const BorderRadius.all(
+                                                                Radius.circular(10))
+
+                                                          ///AÇILMAMIŞ KUTU
+                                                        )),
+                                                    menuItemStyleData:
+                                                    MenuItemStyleData(
+                                                      ///açılmış kutu
+                                                      height: 36,
+                                                      overlayColor:
+                                                      MaterialStatePropertyAll(
+                                                          renkler.sariRenk),
+                                                      padding: const EdgeInsets.all(8),
                                                     ),
                                                   ),
                                                 ),
-                                                items: dayList
-                                                    .map((String item) =>
-                                                    DropdownMenuItem<String>(
-                                                      value: item,
-                                                      child: Center(
-                                                        child: Text(
-                                                          item,
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              height: 1,
-                                                              fontFamily:
-                                                              'Nexa4',
-                                                              color: renkler
-                                                                  .koyuuRenk),
-                                                        ),
-                                                      ),
-                                                    ))
-                                                    .toList(),
-                                                value: selectedValueDay,
-                                                onChanged: (String? value) {
-                                                  setState(() {
-                                                    selectedValueDay = value;
-                                                  });
-                                                },
-                                                iconStyleData: IconStyleData(
-                                                    iconSize: 18,
-                                                    iconDisabledColor: renkler.koyuuRenk,
-                                                    iconEnabledColor: renkler.koyuuRenk
-                                                ),
-                                                dropdownStyleData:
-                                                DropdownStyleData(
-                                                  ///açılmış kutu
-                                                    decoration: BoxDecoration(
-                                                      color: renkler.arkaRenk,
-                                                      borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(10)),
-                                                    ),
-                                                    maxHeight: 120),
-                                                buttonStyleData: ButtonStyleData(
-                                                    padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 10),
-                                                    height: 36,
-                                                    width: 60,
-                                                    decoration: BoxDecoration(
-                                                        color: renkler.sariRenk,
-                                                        borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(10))
-
-                                                      ///AÇILMAMIŞ KUTU
-                                                    )),
-                                                menuItemStyleData:
-                                                MenuItemStyleData(
-                                                  ///açılmış kutu
-                                                  height: 36,
-                                                  overlayColor:
-                                                  MaterialStatePropertyAll(
-                                                      renkler.sariRenk),
-                                                  padding: const EdgeInsets.all(8),
-                                                ),
                                               ),
-                                            ),
+                                              Text("${read.startDate.day}.${read.startDate.month}.${read.startDate.year} / ${read.endDate.day}.${read.endDate.month}.${read.endDate.year} ")
+                                            ],
                                           ),
                                           const SizedBox(
                                             height: 14.0,
@@ -432,6 +445,9 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                                     setState((){
                                                       customDate.text = "1";
                                                       selectedValueDay = "1";
+                                                      read.startDay = int.parse(customDate.text);
+                                                      read.startDate = DateTime(read.yearIndex,read.monthIndex,int.parse(selectedValueDay!));
+                                                      read.endDate = DateTime(read.yearIndex,read.monthIndex+1,int.parse(selectedValueDay!)-1);
                                                     });
                                                     Navigator.of(context).pop();
                                                   },
@@ -461,6 +477,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                                   onTap: () {
                                                     setState((){
                                                       customDate.text = selectedValueDay.toString();
+                                                      read.startDay = int.parse(customDate.text);
                                                     });
                                                     Navigator.of(context).pop();
                                                   },
@@ -502,7 +519,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                       },
                       child: FittedBox(
                         child: Text(
-                          customDate.text,style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'Nexa4'),
+                            read.startDay.toString(),style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'Nexa4'),
                         ),
                       ),
                     ),
@@ -609,8 +626,8 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
 
   CustomColors renkler = CustomColors();
   int initialLabelIndex = 0;
-  List<String> dayList = ["1","15","31","24","7","2","3","4","5","6","8","9","10","11","12","13","14","16","17","18","19","20","21","22","23","25","26","27","28","29","30"];
-  String? selectedValueDay;
+  List<String> dayList = ["1","8","15","22","29"];
+
   final TextEditingController customDate = TextEditingController(text: "1");
 
 
@@ -786,7 +803,12 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             ),
           );
         } else {
-          return const CircularProgressIndicator();
+          return Center(
+            child: const CircularProgressIndicator(
+              color: Color(0xFFF2CB05),
+              backgroundColor: Color(0xFF0D1C26),
+            ),
+          );
         }
       },
     );
@@ -798,6 +820,37 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     return FutureBuilder<List>(
       future: read.getMonthAmountCount(read.monthIndex, read.yearIndex),
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Veri henüz gelmediğinde veya gecikme yaşandığında
+          return SizedBox(
+            width: size.width * 0.90,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "0 ${translation(context).incomeInfo}",
+                  style: TextStyle(
+                    color: Theme.of(context).canvasColor,
+                    fontSize: 17,
+                    fontFamily: 'Nexa3',
+                    fontWeight: FontWeight.w600,
+                    height: 1.4,
+                  ),
+                ),
+                Text(
+                  "0 ${translation(context).expenseInfo}",
+                  style: TextStyle(
+                    color: Theme.of(context).canvasColor,
+                    fontSize: 17,
+                    fontFamily: 'Nexa3',
+                    fontWeight: FontWeight.w600,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
         if (snapshot.hasData) {
           List data = snapshot.data!;
           return SizedBox(
@@ -830,7 +883,12 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
           );
         }
         else {
-          return const CircularProgressIndicator();
+          return Center(
+            child: const CircularProgressIndicator(
+              color: Color(0xFFF2CB05),
+              backgroundColor: Color(0xFF0D1C26),
+            ),
+          );
         }
       },
     );
@@ -853,8 +911,8 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             border: Border.all(color: Theme.of(context).focusColor,width: 1,strokeAlign: BorderSide.strokeAlignOutside),
           ),
           child: Stack(children:[
-          containerColorChange(context,total,months),
-          dateText(context, days,months, years,total)]),
+          containerColorChange(context,total,years,months,days),
+          dateText(context, days,months, days,years,total)]),
         ),
       ),
     );
@@ -887,10 +945,16 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     );
   }
 
-  Widget dateText(BuildContext context, int date, int month, int year, Future<double> total) {
+  Widget dateText(BuildContext context, int date, int month,int day, int year, Future<double> total) {
     var size = MediaQuery.of(context).size;
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     var read = ref.read(calendarRiverpod);
+
+    DateTime startDate = DateTime(read.yearIndex, read.monthIndex, read.startDay-1);
+    DateTime endDate = DateTime(read.yearIndex, read.monthIndex+1, read.startDay);
+
+    var controllerDate = DateTime(year,month,day);
+    bool isInRange = isDateInRange(controllerDate, startDate, endDate);
     return SizedBox(
       height: size.height * 0.065,
       width: size.height * 0.065,
@@ -929,7 +993,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               child: Text(
                 date > 0 ? date.toString() : "",
                 style: TextStyle(
-                  color: month == read.monthIndex
+                  color: isInRange
                       ? Theme.of(context).canvasColor
                       : Theme.of(context).indicatorColor,
                   fontSize: 20,
@@ -943,11 +1007,21 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     );
   }
 
+  bool isDateInRange(DateTime dateToCheck, DateTime startDate, DateTime endDate) {
+    return dateToCheck.isAfter(startDate) && dateToCheck.isBefore(endDate);
+  }
+
   Widget containerColorChange(
-      BuildContext context, Future<double> toplamFuture, int month) {
+      BuildContext context, Future<double> toplamFuture,int year ,int month, int day) {
     var size = MediaQuery.of(context).size;
     var read = ref.read(calendarRiverpod);
-    if (month == read.monthIndex) {
+
+    DateTime startDate = DateTime(read.yearIndex, read.monthIndex, read.startDay-1);
+    DateTime endDate = DateTime(read.yearIndex, read.monthIndex+1, read.startDay);
+
+    var controllerDate = DateTime(year,month,day);
+    bool isInRange = isDateInRange(controllerDate, startDate, endDate);
+    if (isInRange) {
       return FutureBuilder<double>(
         future: toplamFuture,
         builder: (context, snapshot) {

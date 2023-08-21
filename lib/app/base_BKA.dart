@@ -44,9 +44,10 @@ class _base_BKAState extends ConsumerState<base_BKA> {
         print("Password için emulator yavas kaldı.");
       }
       await readCurrency.controlCurrency(ref).then((value) {
+        var readHome = ref.read(homeRiverpod);
         var readUpdateData =  ref.read(updateDataRiverpod);
-        readUpdateData.customizeRepeatedOperation(ref);
-        readUpdateData.customizeInstallmentOperation(ref);
+        readUpdateData.customizeRepeatedOperation(ref).then((value) => readHome.setStatus());
+        readUpdateData.customizeInstallmentOperation(ref).then((value) => readHome.setStatus());
       }); // Güncel kur database sorgusunu gerçekleştirir
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
         print("Yedeklenme açık");

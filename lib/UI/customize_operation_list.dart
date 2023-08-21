@@ -209,13 +209,14 @@ class CustomizeList extends ConsumerWidget {
                                                   Radius.circular(10))),
                                           child: Padding(
                                             padding: const EdgeInsets.only(
-                                                top: 8.0,
+                                                top: 6,
                                                 left: 8,
-                                                right: 8),
+                                                right: 8,
+                                            bottom: 0),
                                             child: Column(
                                               mainAxisAlignment:
                                               MainAxisAlignment
-                                                  .spaceAround,
+                                                  .spaceBetween,
                                               children: [
                                                 Row(
                                                   mainAxisAlignment:
@@ -303,118 +304,72 @@ class CustomizeList extends ConsumerWidget {
                                                     ),
                                                   ],
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                                  children: [
-                                                    SizedBox(
-                                                    height : 18,
-                                                    child: TextButton(
-                                                      onPressed: () {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return AlertDialog(
-                                                                backgroundColor: Theme.of(context).primaryColor,
-                                                                title: Text("Tekrarı İptal Et",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
-                                                                titlePadding: EdgeInsets.all(10),
-                                                                content: Text("Bundan sonra bu işlem tekrarlanmayacak, onaylıyor musunuz?",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
-                                                                shadowColor: renkler.koyuuRenk,
-                                                                contentPadding: EdgeInsets.only(top: 2,left: 16,right: 16,bottom: 2),
-                                                                actionsPadding: EdgeInsets.all(0),
-                                                                actions: [
-                                                                  Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                    children: [
-                                                                      TextButton(
-                                                                        onPressed: () {
-                                                                          Navigator.of(context).pop();
-                                                                        },
-                                                                        child: Text("Vazgeç",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
-                                                                      ),
-                                                                      TextButton(
-                                                                        onPressed: () {
-                                                                          setState(() {
-                                                                            readUpdateData.removeProcessOnce(item[index].id!);
-                                                                          });
-                                                                          Navigator.of(context).pop();
-                                                                          ScaffoldMessenger.of(context).showSnackBar(
-                                                                            SnackBar(
-                                                                              backgroundColor: Theme.of(context).highlightColor,
-                                                                              duration: const Duration(seconds: 1),
-                                                                              content: const Text(
-                                                                                "Tekrar iptal edildi",
-                                                                                style: TextStyle(
-                                                                                  color: Colors.white,
-                                                                                  fontSize: 16,
-                                                                                  fontFamily: 'Nexa3',
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  height: 1.3,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                        child: Text("Evet",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
-                                                                      ),
-                                                                    ],
-
-                                                                  )
-                                                                ],
-                                                              );
-                                                            });
-                                                        },
-                                                      style: ButtonStyle(
-                                                          backgroundColor:MaterialStatePropertyAll(renkler.sariRenk),
-                                                          shape: MaterialStateProperty.all<
-                                                              RoundedRectangleBorder>(
-                                                              const RoundedRectangleBorder(
-                                                                  borderRadius: BorderRadius.only(
-                                                                      topRight: Radius.circular(5),
-                                                                      topLeft: Radius.circular(5)
-                                                                  )
-                                                              )),
-                                                          padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
-                                                      ),
-                                                      child: Text(
-                                                        "Tekrarı İptal Et",
-                                                        style: TextStyle(
-                                                            fontSize: 10,
-                                                            height : 1,
-                                                            color: renkler
-                                                                .koyuuRenk),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                    SizedBox(
+                                                Padding(
+                                                  padding: const EdgeInsets.only(left: 4,right: 4),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                    children: [
+                                                      SizedBox(
                                                       height : 18,
                                                       child: TextButton(
                                                         onPressed: () {
-                                                          readDailyInfo.setSpendDetail(
-                                                              item, index);
-                                                          showModalBottomSheet(
-                                                            context: context,
-                                                            shape:
-                                                            const RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                BorderRadius.vertical(
-                                                                    top: Radius
-                                                                        .circular(
-                                                                        15))),
-                                                            backgroundColor:
-                                                            const Color(0xff0D1C26),
-                                                            builder: (context) {
-                                                              // genel bilgi sekmesi açılıyor.
-                                                              ref
-                                                                  .watch(databaseRiverpod)
-                                                                  .deletst;
-                                                              return const SpendDetail();
-                                                            },
-                                                          );
-                                                        },
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) {
+                                                                return AlertDialog(
+                                                                  backgroundColor: Theme.of(context).primaryColor,
+                                                                  title: Text("Tekrarı İptal Et",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
+                                                                  titlePadding: EdgeInsets.all(10),
+                                                                  content: Text("Bundan sonra bu işlem tekrarlanmayacak, onaylıyor musunuz?",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
+                                                                  shadowColor: renkler.koyuuRenk,
+                                                                  contentPadding: EdgeInsets.only(top: 2,left: 16,right: 16,bottom: 2),
+                                                                  actionsPadding: EdgeInsets.all(0),
+                                                                  actions: [
+                                                                    Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                      children: [
+                                                                        TextButton(
+                                                                          onPressed: () {
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                          child: Text("Vazgeç",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                        ),
+                                                                        TextButton(
+                                                                          onPressed: () {
+                                                                            setState(() {
+                                                                              readUpdateData.removeProcessOnce(item[index].id!);
+                                                                            });
+                                                                            Navigator.of(context).pop();
+                                                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                                              SnackBar(
+                                                                                backgroundColor: Theme.of(context).highlightColor,
+                                                                                duration: const Duration(seconds: 1),
+                                                                                content: const Text(
+                                                                                  "Tekrar iptal edildi",
+                                                                                  style: TextStyle(
+                                                                                    color: Colors.white,
+                                                                                    fontSize: 16,
+                                                                                    fontFamily: 'Nexa3',
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    height: 1.3,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                          child: Text("Evet",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                        ),
+                                                                      ],
+
+                                                                    )
+                                                                  ],
+                                                                );
+                                                              });
+                                                          },
                                                         style: ButtonStyle(
-                                                            backgroundColor:MaterialStatePropertyAll(renkler.koyuuRenk),
+                                                            backgroundColor:MaterialStatePropertyAll(renkler.sariRenk),
                                                             shape: MaterialStateProperty.all<
                                                                 RoundedRectangleBorder>(
                                                                 const RoundedRectangleBorder(
@@ -426,16 +381,65 @@ class CustomizeList extends ConsumerWidget {
                                                             padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
                                                         ),
                                                         child: Text(
-                                                          "İşlem Detayları",
+                                                          "Tekrarı İptal Et",
                                                           style: TextStyle(
                                                               fontSize: 10,
                                                               height : 1,
                                                               color: renkler
-                                                                  .arkaRenk),
+                                                                  .koyuuRenk),
                                                         ),
                                                       ),
                                                     ),
-                                                  ],
+                                                      SizedBox(
+                                                        height : 18,
+                                                        child: TextButton(
+                                                          onPressed: () {
+                                                            readDailyInfo.setSpendDetail(
+                                                                item, index);
+                                                            showModalBottomSheet(
+                                                              context: context,
+                                                              shape:
+                                                              const RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                  BorderRadius.vertical(
+                                                                      top: Radius
+                                                                          .circular(
+                                                                          15))),
+                                                              backgroundColor:
+                                                              const Color(0xff0D1C26),
+                                                              builder: (context) {
+                                                                // genel bilgi sekmesi açılıyor.
+                                                                ref
+                                                                    .watch(databaseRiverpod)
+                                                                    .deletst;
+                                                                return const SpendDetail();
+                                                              },
+                                                            );
+                                                          },
+                                                          style: ButtonStyle(
+                                                              backgroundColor:MaterialStatePropertyAll(renkler.koyuuRenk),
+                                                              shape: MaterialStateProperty.all<
+                                                                  RoundedRectangleBorder>(
+                                                                  const RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.only(
+                                                                          topRight: Radius.circular(5),
+                                                                          topLeft: Radius.circular(5)
+                                                                      )
+                                                                  )),
+                                                              padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
+                                                          ),
+                                                          child: Text(
+                                                            "İşlem Detayları",
+                                                            style: TextStyle(
+                                                                fontSize: 10,
+                                                                height : 1,
+                                                                color: renkler
+                                                                    .arkaRenk),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ],
                                             ),
