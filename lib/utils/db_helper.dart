@@ -192,9 +192,9 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
-  static Future<List<SpendInfo>> getItemsByCurrency(String prefix) async {
+  static Future<List<SpendInfo>> getItemsByCurrency(String prefix) async { /// Sadece Gelir olan dövizleri listeler.
     final db = await SQLHelper.db();
-    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE moneyType != '${prefix}' ");
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (moneyType != '${prefix}' AND operationType != 'Gider' )");
     return List.generate(result.length, (index) {
       return SpendInfo.fromObject(result[index]);
     });

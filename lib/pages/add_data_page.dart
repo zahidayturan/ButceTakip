@@ -3016,27 +3016,28 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   double moneyTypeHeight = 38.0;
   bool openMoneyTypeMenu = false;
   Widget amountCustomButton() {
+    String moneyActivate = _operationType.text == "Gider" ? "" : "1";
     String getSymbolForMoneyType() {
       String controller = _moneyType.text;
-      if (controller == 'TRY') {
+      if (controller == 'TRY$moneyActivate') {
         return '₺';
-      } else if (controller == 'USD') {
+      } else if (controller == 'USD$moneyActivate') {
         return '\$';
-      } else if (controller == 'EUR') {
+      } else if (controller == 'EUR$moneyActivate') {
         return '€';
-      } else if (controller == 'GBP') {
+      } else if (controller == 'GBP$moneyActivate') {
         return '£';
-      } else if (controller == 'KWD') {
+      } else if (controller == 'KWD$moneyActivate') {
         return 'د.ك';
-      } else if (controller == 'JOD') {
+      } else if (controller == 'JOD$moneyActivate') {
         return 'د.أ';
-      } else if (controller == 'IQD') {
+      } else if (controller == 'IQD$moneyActivate') {
         return 'د.ع';
-      } else if (controller == 'SAR') {
+      } else if (controller == 'SAR$moneyActivate') {
         return 'ر.س';
       } else {
         setState(() {
-          _moneyType.text = ref.read(settingsRiverpod).Prefix.toString();
+          _moneyType.text = "${ref.read(settingsRiverpod).Prefix}$moneyActivate";
         });
         return ref
             .read(settingsRiverpod)
@@ -3200,7 +3201,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'TRY';
+                                          _moneyType.text = 'TRY$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3228,7 +3229,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'USD';
+                                          _moneyType.text = 'USD$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3256,7 +3257,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'EUR';
+                                          _moneyType.text = 'EUR$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3284,7 +3285,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'GBP';
+                                          _moneyType.text = 'GBP$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3321,7 +3322,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'KWD';
+                                          _moneyType.text = 'KWD$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3349,7 +3350,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'JOD';
+                                          _moneyType.text = 'JOD$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3377,7 +3378,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'IQD';
+                                          _moneyType.text = 'IQD$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3405,7 +3406,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'SAR';
+                                          _moneyType.text = 'SAR$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3514,7 +3515,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 width: 80,
                 child: Center(
                   child: Text(translation(context).save,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white,
                           height: 1,
                           fontSize: 13,
@@ -3809,7 +3810,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           ref.read(currencyRiverpod).calculateRealAmount(
                               amount,
                               _moneyType.text,
-                              ref.read(settingsRiverpod).Prefix!),
+                              ref.read(settingsRiverpod).Prefix!,
+                              date: _operationDate.text
+                          ),
                           _customize.text,
                           _category.text,
                           systemMessage,

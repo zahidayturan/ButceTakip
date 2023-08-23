@@ -372,7 +372,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                   );
                                   if (readSetting.Prefix != newValue) {
                                     readSetting.setPrefix(newValue!);
-                                    await currencyRiv.calculateAllSQLRealTime(ref);
+                                    await currencyRiv.calculateAllSQLHistoryTime();
                                     readSetting.setisuseinsert();
                                   }
                                   Navigator.of(context).pop();

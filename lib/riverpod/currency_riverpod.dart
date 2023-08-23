@@ -4,6 +4,7 @@ import 'package:butcekontrol/utils/firestore_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:ntp/ntp.dart';
 import '../models/spend_info.dart';
 import '../riverpod_management.dart';
@@ -28,20 +29,34 @@ class CurrencyRiverpod extends ChangeNotifier {
   List<currencyInfo> currrenciesFirestoreList = [];
   List<currencyInfo>  currencySqlList = [];
 
-  double calculateRealAmount(double Amount, String moneyType, String prefix){ // amount moneytype kaç Prefix ?
-    double realAmount;
-    try{
-      if(double.tryParse(currencySqlList![currencySqlList.length -1].toMap()[moneyType])! > 0.0){
-        realAmount = double.parse((Amount * (double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType])!)).toStringAsFixed(2))!;
+  Future<double> calculateRealAmount(double Amount, String moneyType, String prefix, {String mod = "Real", required String date})  async { // amount moneytype kaç Prefix ?
+    double ?realAmount;
+    try {
+      if(mod == "History")  {
+        currencyInfo ?foundHistoryCurrency ;
+        await firestoreHelper.getHistoryCurrency(date).then((value) {
+          foundHistoryCurrency = value!;
+          if(double.tryParse(foundHistoryCurrency!.toMap()[moneyType.substring(0,3)])! > 0.0){
+            realAmount = double.parse((Amount * (double.tryParse(foundHistoryCurrency!.toMap()[prefix])! / double.tryParse(foundHistoryCurrency!.toMap()[moneyType.substring(0,3)])!)).toStringAsFixed(2));
+          }else{
+            realAmount = Amount ;
+            }
+          });
+        print("devam");
       }else{
-        realAmount = Amount ;
+        if(double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType.substring(0,3)])! > 0.0){
+          realAmount = double.parse((Amount * (double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType.substring(0,3)])!)).toStringAsFixed(2))!;
+        }else{
+          realAmount = Amount ;
+        }
       }
     }catch(e){
+      print("hata çıktı $e");
       realAmount = Amount;
     }
     return realAmount ?? 0.0;
   }
-  double calculateRate(double Amount, String moneyType, String prefix){
+  double calculateRate(double Amount, String moneyType, String prefix){ //kur hesaplıyor.
     double ?rate;
     if(double.tryParse(currencySqlList![currencySqlList.length -1].toMap()[moneyType])! > 0.0){
       rate = double.parse(((double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType])!)).toStringAsFixed(5))!;
@@ -51,8 +66,41 @@ class CurrencyRiverpod extends ChangeNotifier {
     return rate ;
   }
 
+  Future<void> calculateAllSQLHistoryTime() async { ///bu fonksiyon sadece varsayılan para birimini değiştirdiğimizde çalışması gerekiyor.
+    List<SpendInfo> AllData = await SQLHelper.getItems();
+    List<SettingsInfo> settingsList = await SQLHelper.settingsControl();
+    for (var info in AllData) {
+      if (info.moneyType == "0") {
+        info.moneyType = "TRY";
+      }
 
-  Future<void> calculateAllSQLRealTime(WidgetRef ref) async {
+      if (info.moneyType == settingsList[0].prefix!) { //e pasif kayıtlar ve varsayılan birie aynı olan kayıtlar buraya girecek
+        info.realAmount = info.amount;
+      }else if(info.moneyType!.length == 3){ // farklı para birriminden ve  pasif kayıtlar buraya
+        info.realAmount = await calculateRealAmount(
+          info.amount!,
+          info.moneyType!,
+          settingsList[0].prefix!,
+          date: info.operationDate!,
+        );
+      } else {//aktif kayıtlar gelir ler buraday girecek. //sorgu eski tarihteki currency e göre alınacak.
+        info.realAmount = await calculateRealAmount(
+          info.amount!,
+          info.moneyType!,
+          settingsList[0].prefix!,
+          mod: "History",
+          date: info.operationDate!,
+        );
+      }
+
+      await SQLHelper.updateItem(info);
+
+      print("Kayıt güncellendi: ${info.category} - Eski miktar: ${info.amount} ${info.moneyType} - RealAmount miktar: ${info.realAmount} ${settingsList[0].prefix!} - ID: ${info.id}");
+      //ref.read(settingsRiverpod).setisuseinsert();
+    }
+  }
+
+  Future<void> calculateAllSQLRealTime() async {
     List<SpendInfo> AllData = await SQLHelper.getItems();
     List<SettingsInfo> settingsList = await SQLHelper.settingsControl();
 
@@ -61,20 +109,21 @@ class CurrencyRiverpod extends ChangeNotifier {
         info.moneyType = "TRY";
       }
 
-      if (info.moneyType == settingsList[0].prefix!) {
+      if (info.moneyType == settingsList[0].prefix!) { // v1.1.1 kayıtları ve pasif kayıtlar buraya girecek
         info.realAmount = info.amount;
-      } else {
-        info.realAmount = calculateRealAmount(
+      } else {//aktif kayıtlar gelir ler buraday girecek.
+        info.realAmount = awai  calculateRealAmount(
           info.amount!,
           info.moneyType!,
           settingsList[0].prefix!,
+          date: info.operationDate!,
         );
       }
 
       await SQLHelper.updateItem(info);
 
       print("Kayıt güncellendi: ${info.category} - Eski miktar: ${info.amount} ${info.moneyType} - RealAmount miktar: ${info.realAmount} ${settingsList[0].prefix!} - ID: ${info.id}");
-      ref.read(settingsRiverpod).setisuseinsert();
+      //ref.read(settingsRiverpod).setisuseinsert();
     }
   }
 
@@ -151,6 +200,8 @@ class CurrencyRiverpod extends ChangeNotifier {
   Future controlCurrency(WidgetRef ref) async{ //currency Kayıt değerlendiriyoruz.
     DateTime ?globalNow;
     currencySqlList = await SQLHelper.currencyControl();
+    DateTime dateLocal = DateTime.now();
+    String formattedDate = DateFormat('dd.MM.yyyy').format(dateLocal);
     try{
       currrenciesFirestoreList = await firestoreHelper.readCurrenciesFirestore();
       globalNow = await NTP.now();
@@ -162,13 +213,14 @@ class CurrencyRiverpod extends ChangeNotifier {
           await fetchExchangeRates().then((info) {
             if(info.BASE != 'noInternet'){
               firestoreHelper.createCurrencyFirestore(info);
+              firestoreHelper.searchHistoryRate(formattedDate, info);
               if(currencySqlList.isNotEmpty){
                 var dateSQL = DateTime.tryParse(currencySqlList[currencySqlList.length - 1].lastApiUpdateDate!);
                 if(dateSQL!.isBefore(globalNow!)){
                   print("yerel database ile firestore daki veriler arasında 3 saatten den fazla zaman gecikmiş");
                   firestoreHelper.readCurrenciesFirestore().then((currrenciesFirestoreList) {
                     SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
-                      calculateAllSQLRealTime(ref);
+                      calculateAllSQLRealTime();
                       readDb();
                     });
                   },);
@@ -180,12 +232,15 @@ class CurrencyRiverpod extends ChangeNotifier {
                 print("bulutta veri var sql de yoktu ekledik");
                 SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
                   SQLHelper.currencyControl().then((value) => currencySqlList = value);
-                  calculateAllSQLRealTime(ref);
+                  calculateAllSQLRealTime();
                   readDb();
                 });
               }
+            }else{
+
             }
-          });
+          }
+          );
         }else{
           print("Firestore DataBase zaten güncel");
           if(currencySqlList.isNotEmpty){
@@ -194,7 +249,7 @@ class CurrencyRiverpod extends ChangeNotifier {
               print("yerel database ile firestore daki veriler arasında 3 saatten den fazla zaman gecikmiş");
               firestoreHelper.readCurrenciesFirestore().then((currrenciesFirestoreList) {
                 SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
-                  calculateAllSQLRealTime(ref);
+                  calculateAllSQLRealTime();
                   readDb();
                 });
               },);
@@ -206,7 +261,7 @@ class CurrencyRiverpod extends ChangeNotifier {
             print("bulutta veri var sql de yoktu ekledik");
             SQLHelper.addItemCurrency(currrenciesFirestoreList![currrenciesFirestoreList!.length - 1]).then((value) {
               SQLHelper.currencyControl().then((value) => currencySqlList = value);
-              calculateAllSQLRealTime(ref);
+              calculateAllSQLRealTime();
               readDb();
             });
           }
@@ -214,6 +269,7 @@ class CurrencyRiverpod extends ChangeNotifier {
       }else{ //buraya düşmesiz imkansız gbi bir şey? //okuyamzasa düşer
         await fetchExchangeRates().then((info) {
           firestoreHelper.createCurrencyFirestore(info);
+          firestoreHelper.searchHistoryRate(formattedDate, info);
           //SQLHelper.addItemCurrency(info);
           readDb();
         });

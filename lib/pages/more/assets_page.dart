@@ -8,6 +8,7 @@ import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../UI/add_assets.dart';
+import '../../classes/language.dart';
 import '../../constans/material_color.dart';
 
 class assetsPage extends ConsumerStatefulWidget {
@@ -19,7 +20,6 @@ class assetsPage extends ConsumerStatefulWidget {
 
 class _assetsPage extends ConsumerState<assetsPage> {
   var icsclick = true;
-  List? yansanayidata;
   @override
   Widget build(BuildContext context) {
     List<double> getMeasure(double kart, double  nakit, double  diger){
@@ -334,9 +334,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                });
                               },
                               borderRadius: BorderRadius.circular(20),
-                              child: AnimatedContainer(
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.bounceIn,
+                              child: Container(
                                 width: 30,
                                 height: 30,
                                 decoration: BoxDecoration(
@@ -345,7 +343,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                 ),
                                 child: Transform.rotate(
                                   angle: 3.14 / 2,
-                                  child: Icon(Icons.swap_horiz)
+                                  child: Icon(Icons.swap_horiz),
                                 ),
                               ),
                             ),
@@ -380,18 +378,49 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     data.sort((a, b) {
                                       DateTime dateA = convertDate(a.operationDate);
                                       DateTime dateB = convertDate(b.operationDate);
-                                      return dateA!.compareTo(dateB!);
+                                      return dateB!.compareTo(dateA!);
                                     });
-                                    yansanayidata = data;
                                     break;
                                   case false:
-                                    data = snapshot.data! ;
-                                    yansanayidata = data;
+                                    data = List.from(snapshot.data!);
+                                    data.sort((a, b) {
+                                      DateTime dateA = convertDate(a.operationDate);
+                                      DateTime dateB = convertDate(b.operationDate);
+                                      return dateA!.compareTo(dateB!);
+                                    });
                                     break;
                                   default:
                                 }
                                 return data!.length == 0
-                                ?const Center(child: Text("Döviz Bulunamadı"))
+                                ? Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/image/origami_noinfo.png",
+                                        width: 45,
+                                        height: 45,
+                                        color: Theme.of(context).canvasColor,
+                                      ),
+                                      FittedBox(
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 9, vertical: 6),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: Theme.of(context).canvasColor,
+                                          ),
+                                          child: Center(
+                                            child: TextMod(
+                                              "Döviz Bulunamadı",
+                                              Theme.of(context).primaryColor,
+                                              14
+                                            )
+                                          )
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
                                 :GridView.builder(
                                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,

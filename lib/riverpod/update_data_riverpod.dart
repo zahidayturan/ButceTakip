@@ -234,7 +234,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               item.moneyType,
               i == daysBetween - 1 ? item.processOnce : "",
               //item.realAmount,
-              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
               item.userCategory,
               item.systemMessage
             );
@@ -280,7 +280,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               item.moneyType,
               i == daysBetween - 1 ? item.processOnce : "",
               //item.realAmount,
-              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
               item.userCategory,
               item.systemMessage
             );
@@ -327,7 +327,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               item.moneyType,
               i == daysBetween - 1 ? item.processOnce : "",
               //item.realAmount,
-              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
               item.userCategory,
               item.systemMessage
             );
@@ -414,7 +414,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                   item.moneyType,
                   i == monthsBetween - 1 ? item.processOnce : "",
                   //item.realAmount,
-                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
                   item.userCategory,
                   item.systemMessage
               );
@@ -500,7 +500,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                   item.moneyType,
                   i == monthsBetween - 1 ? item.processOnce : "",
                   //item.realAmount,
-                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
                   item.userCategory,
                   item.systemMessage
               );
@@ -586,7 +586,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                   item.moneyType,
                   i == monthsBetween - 1 ? item.processOnce : "",
                   //item.realAmount,
-                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
                   item.userCategory,
                   item.systemMessage
               );
@@ -672,7 +672,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                   item.moneyType,
                   i == monthsBetween - 1 ? item.processOnce : "",
                   //item.realAmount,
-                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
                   item.userCategory,
                   item.systemMessage
               );
@@ -758,7 +758,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                   item.moneyType,
                   i == monthsBetween - 1 ? item.processOnce : "",
                   //item.realAmount,
-                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
                   item.userCategory,
                   item.systemMessage
               );
@@ -866,7 +866,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                 "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
                 item.moneyType,
                 count < remainder ? i == count -1 ? "${finished + 1}/$total" : "" : remainder == 1 ? "" : "" ,
-                ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
+                ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
                 item.userCategory,
                 remainder == 1 ? "${total}/$total Taksit Bitti" : "${finished+1}/$total Taksit İşlendi"
             );

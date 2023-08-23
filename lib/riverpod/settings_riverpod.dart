@@ -1,4 +1,5 @@
 import 'package:butcekontrol/models/settings_info.dart';
+import 'package:butcekontrol/pages/bka_slider.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -53,12 +54,13 @@ class SettingsRiverpod extends ChangeNotifier{
       adCounter(Kalan Hak) : ${setting[setting.length - 1].adCounter}""");
     notifyListeners();
   }
-  Future controlSettings() async{ //settings Kayıt değerlendiriyoruz.A
+  Future controlSettings(BuildContext context) async{ //settings Kayıt değerlendiriyoruz.A
     List<SettingsInfo> ?settingsReglength = await SQLHelper.settingsControl();
     if(settingsReglength.length > 0) {
       prefixSymbol = settingsReglength[0].prefixSymbol;
       await readDb();
     }else{
+     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => bkaSlider()));
       final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺") ;
       await SQLHelper.addItemSetting(info);
       await readDb();

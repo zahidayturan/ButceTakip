@@ -16,7 +16,6 @@ class addAssets extends ConsumerStatefulWidget {
 
 class _addAssetsState extends ConsumerState<addAssets> {
   final TextEditingController _controller = TextEditingController();
-  List<String> moneyTypes = ["TRY", "USD", "EUR", "GBP", "KWD", "JOD", "IQD", "SAR"];
   var moneyType ;
   String BugFixText = "";
   @override
@@ -105,76 +104,39 @@ class _addAssetsState extends ConsumerState<addAssets> {
                       ),
                       SizedBox(height: size.height * .013),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
+                            padding:EdgeInsets.symmetric(horizontal: size.width * .02,vertical: size.width * .007) ,
                             width: size.width * .2010,
                             height: size.height * .032,
                             decoration: BoxDecoration(
                               color: const Color(0xff1C2B35),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: TextField(
-                              controller: _controller,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                              ),
-                              keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-
-                                  RegExp(r'^\d{0,6}(\.\d{0,2})?'),)
-                              ],
-                              decoration: InputDecoration(
-                                hintText: "Tutar",
-                                hintStyle: const TextStyle(
+                            child: Center(
+                              child: TextField(
+                                controller: _controller,
+                                style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 10,
+                                  fontSize: 13,
                                 ),
-                                contentPadding: EdgeInsets.symmetric(horizontal: size.width * .016,vertical: size.width * .028),
-                                border: InputBorder.none
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 30,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: const Color(0xff1C2B35),
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                hint: Text(
-                                    "Seçiniz",
-                                  style: TextStyle(
-                                    fontSize: 9,
-                                    color: renkler.sariRenk,
-                                  ),
-                                ),
+                                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
 
-                                dropdownColor: renkler.koyuuRenk,
-                                borderRadius: BorderRadius.circular(20),
-                                value: moneyType,
-                                elevation: 16,
-                                style: TextStyle(color: renkler.sariRenk),
-                                underline: Container(
-                                  height: 2,
-                                  color: renkler.koyuuRenk,
+                                    RegExp(r'^\d{0,6}(\.\d{0,2})?'),)
+                                ],
+                                decoration: const InputDecoration(
+                                  alignLabelWithHint: true,
+                                  hintText: "Tutar",
+                                  hintStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                  ),
+                                  //contentPadding: EdgeInsets.symmetric(horizontal: size.width * .02,vertical: size.width * .028),
+                                  border: InputBorder.none
                                 ),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    moneyType = newValue!;
-                                  });
-                                },
-                                items: moneyTypes.map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
                               ),
                             ),
                           ),
@@ -199,7 +161,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                 "null",
                                 moneyType,//moneytype
                                 "",
-                                ref.read(currencyRiverpod).calculateRealAmount(double.tryParse(_controller.text)!, moneyType, readSettings.Prefix!),
+                                await ref.read(currencyRiverpod).calculateRealAmount(double.tryParse(_controller.text)!, moneyType, readSettings.Prefix!,date: "00.00.0000"),
                                 "",
                                 "",
                             );

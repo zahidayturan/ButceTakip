@@ -3,8 +3,10 @@ import 'package:butcekontrol/utils/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../Pages/more/password_splash.dart';
+import '../models/currency_info.dart';
 import '../riverpod_management.dart';
 import '../utils/cvs_converter.dart';
+import '../utils/firestore_helper.dart';
 
 class base_BKA extends ConsumerStatefulWidget {
   const base_BKA({Key ? key}) :super(key :key);
@@ -18,12 +20,18 @@ class _base_BKAState extends ConsumerState<base_BKA> {
   Future<void> loadData()  async {
     // örnek gecikme
     DateTime date = DateTime.now();
+    //firestoreHelper.createHistoryRates(currencyInfo("Test", "1", "1", "1", "1", "1", "1", "1", "1", DateTime.now().toString()));
+/*
+    firestoreHelper.getHistoryCurrency("21.08.2023").then((value) {
+      print(value!.BASE);
+    });
+ */
     final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
     var readSetting =  ref.read(settingsRiverpod); //read okuma işlemleri gerçekleşti
     var readCurrency = ref.read(currencyRiverpod);
     var readGglAuth = ref.read(gglDriveRiverpod);
     await readGglAuth.checkAuthState(); //Google User açık mı sorgusu yapılıyor
-    var Query = readSetting.controlSettings();
+    var Query = readSetting.controlSettings(context);
     //Future.delayed(Duration(milliseconds: 100));// Settings tablosunu çekiyoruz. ve implemente ettik
     Query.then((value) async {
       if(readSetting.isPassword == 1 && readSetting.Password != "null") { // password controll
@@ -43,11 +51,13 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       }else if (readSetting.isPassword == null){
         print("Password için emulator yavas kaldı.");
       }
-      await readCurrency.controlCurrency(ref).then((value) {
+      
+      await readCurrency.controlCurrency(ref).then((value) { //currency control
         var readUpdateData =  ref.read(updateDataRiverpod);
         readUpdateData.customizeRepeatedOperation(ref);
         readUpdateData.customizeInstallmentOperation(ref);
       }); // Güncel kur database sorgusunu gerçekleştirir
+
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
         print("Yedeklenme açık");
         await Future.delayed(Duration(seconds: 4, milliseconds: 500));
