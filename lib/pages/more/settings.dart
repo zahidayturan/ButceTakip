@@ -186,7 +186,7 @@ class _SettingsState extends ConsumerState<Settings> {
                         children: [
                           Text(
                             translation(context).loginPassword,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Nexa3",
                                 fontSize: 15,
                                 height: 1
@@ -250,7 +250,7 @@ class _SettingsState extends ConsumerState<Settings> {
                         children: [
                           Text(
                             translation(context).backupStatus,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Nexa3",
                                 fontSize: 15,
                                 height: 1
@@ -295,17 +295,17 @@ class _SettingsState extends ConsumerState<Settings> {
                             type: AppSettingsType.notification);
                       },
                       child: Row(
-                        children: const [
+                        children: [
                           Text(
-                            "Bildirimler",
-                            style: TextStyle(
+                            translation(context).notifications,
+                            style: const TextStyle(
                               fontFamily: "Nexa3",
                                 fontSize: 15,
                                 height: 1
                             ),
                           ),
-                          Spacer(),
-                          Icon(
+                          const Spacer(),
+                          const Icon(
                             Icons.arrow_forward_ios,
                           ),
                         ],
@@ -332,9 +332,9 @@ class _SettingsState extends ConsumerState<Settings> {
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Row(
                         children: [
-                          const Text(
-                            "Varsayılan Para Birimi",
-                            style: TextStyle(
+                          Text(
+                            translation(context).defaultCurrency,
+                            style: const TextStyle(
                               fontFamily: "Nexa3",
                                 fontSize: 15,
                                 height: 1
@@ -415,7 +415,7 @@ class _SettingsState extends ConsumerState<Settings> {
                       children: [
                         Text(
                           translation(context).language,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: "Nexa3",
                               fontSize: 15,
                               height: 1

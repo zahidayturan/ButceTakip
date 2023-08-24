@@ -326,8 +326,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children: const [
-                        Text("NOT",
+                      children: [
+                        Text(translation(context).noteDetails,
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Nexa4',
@@ -341,7 +341,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       padding: const EdgeInsets.only(top: 5, left: 5),
                       child: SizedBox(
                         child: item[index].note == ''
-                            ? const Text("Not eklenmemiş",
+                            ? Text(translation(context).noNoteAdded,
                                 textAlign: TextAlign.justify,
                                 style: TextStyle(
                                   color: Colors.white,

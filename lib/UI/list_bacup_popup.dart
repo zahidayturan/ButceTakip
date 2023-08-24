@@ -1,6 +1,7 @@
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../classes/language.dart';
 import '../riverpod_management.dart';
 
 class listBackUpPopUp extends ConsumerStatefulWidget{
@@ -42,7 +43,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                 child: Container( //boyut
                   height: size.width * .7,
                   width: size.width * .65,
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     color: renkler.koyuuRenk,
                     borderRadius: BorderRadius.circular(20),
@@ -71,7 +72,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                               itemCount: data!.length,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: EdgeInsets.only(right: 10),
+                                  padding: const EdgeInsets.only(right: 10),
                                   child: Column(
                                     children: [
                                      InkWell(
@@ -87,13 +88,13 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                isclicked = false ;
                                              });
                                              ScaffoldMessenger.of(context).showSnackBar(
-                                               const SnackBar(
+                                               SnackBar(
                                                  backgroundColor:
-                                                 Color(0xff0D1C26),
-                                                 duration: Duration(seconds: 1),
+                                                 const Color(0xff0D1C26),
+                                                 duration: const Duration(seconds: 2),
                                                  content: Text(
-                                                   'Cloud üzerinden Verileriniz Çekildi',
-                                                   style: TextStyle(
+                                                   translation(context).dataRestoredFromGoogleDrive,
+                                                   style: const TextStyle(
                                                      color: Colors.white,
                                                      fontSize: 16,
                                                      fontFamily: 'Nexa3',
@@ -111,7 +112,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                        borderRadius: BorderRadius.circular(12),
                                        child: Container(
                                          height: 30,
-                                         padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
+                                         padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                          decoration: BoxDecoration(
                                            color: Colors.orangeAccent.withOpacity(0.8),
                                            borderRadius: BorderRadius.circular(6),
@@ -121,7 +122,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                              children: [
                                                Text(!isclicked ? "${data[index].name}" : "Yükleniyor ..."),
-                                               Icon(Icons.download_rounded),
+                                               const Icon(Icons.download_rounded),
                                              ],
                                            ),
                                          ),

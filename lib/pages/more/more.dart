@@ -239,7 +239,7 @@ class More extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Icon(Icons.wallet, color: renkler.yaziRenk, size: 35),
-                                  Text("Varlıklar",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                  Text(translation(context).assets,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                 ],
                               ),
                             ),

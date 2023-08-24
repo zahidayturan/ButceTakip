@@ -182,7 +182,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "İstatistik Filtreleme",
+                                    translation(context).statisticsFiltering,
                                     style: TextStyle(
                                         color: Theme.of(context).canvasColor,
                                         fontFamily: "Nexa4",
