@@ -294,7 +294,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          const Row(
                             children: [
                               Text("SİSTEM MESAJI",
                                   style: TextStyle(
@@ -328,13 +328,13 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     Row(
                       children: [
                         Text(translation(context).noteDetails,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'Nexa4',
                               height: 1,
                               fontSize: 18,
                             )),
-                        SizedBox()
+                        const SizedBox()
                       ],
                     ),
                     Padding(
@@ -343,7 +343,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         child: item[index].note == ''
                             ? Text(translation(context).noNoteAdded,
                                 textAlign: TextAlign.justify,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Nexa3',
                                   height: 1,

@@ -228,6 +228,7 @@ class CustomizeList extends ConsumerWidget {
                                                       const TextStyle(
                                                         fontFamily: "Nexa3",
                                                         fontSize: 16,
+                                                        height: 1
                                                       ),
                                                     ),
                                                     Expanded(
@@ -581,6 +582,7 @@ class CustomizeList extends ConsumerWidget {
                                                       const TextStyle(
                                                         fontFamily: "Nexa3",
                                                         fontSize: 16,
+                                                        height: 1
                                                       ),
                                                     ),
                                                     Expanded(

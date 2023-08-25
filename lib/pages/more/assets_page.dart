@@ -123,7 +123,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       color: Theme.of(context).indicatorColor.withOpacity(0.7),
                                       shape: BoxShape.circle,
                                     ),
-                                    child: Center(child: Text(translation(context).noAssetFound)),
+                                    child: Center(child: Text(translation(context).noAssetFound, textAlign: TextAlign.center,)),
                                   ),
                                 )
                                 :Stack(

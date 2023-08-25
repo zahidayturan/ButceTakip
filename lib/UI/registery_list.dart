@@ -87,9 +87,9 @@ class RegisteryList extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: 56),
+                            padding: readSettings.Language == "العربية" ? EdgeInsets.only(right: 56) : EdgeInsets.only(left: 56),
                             child: Text(
-                              "İşlem\nKategorisi",
+                              translation(context).category,
                               style: TextStyle(
                                 color: Theme.of(context).canvasColor,
                                 fontFamily: "Nexa4",
@@ -100,9 +100,9 @@ class RegisteryList extends ConsumerWidget {
                           ),
                           Spacer(),
                           Padding(
-                            padding: EdgeInsets.only(right: 30),
+                            padding:readSettings.Language == "العربية" ? EdgeInsets.only(left: 35) : EdgeInsets.only(right: 30),
                             child: Text(
-                              "İşlem\nTutarı",
+                              translation(context).amount,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Theme.of(context).canvasColor,

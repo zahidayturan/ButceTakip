@@ -9,6 +9,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../riverpod_management.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 
 class AddData extends StatefulWidget {
   const AddData({Key? key}) : super(key: key);
@@ -2400,6 +2401,16 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   Widget customizeBarCustom(BuildContext context, WidgetRef ref) {
     var size = MediaQuery.of(context).size;
     List<String> repetitiveList = [
+      "Günlük",
+      "Haftalık",
+      "İki Haftada Bir",
+      "Aylık",
+      "İki Ayda Bir",
+      "Üç Ayda Bir",
+      "Dört Ayda Bir",
+      "Altı Ayda Bir",
+      "Yıllık"
+      /*
       translation(context).dailyAddData,
       translation(context).weeklyAddData,
       translation(context).biweekly,
@@ -2409,6 +2420,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       translation(context).everyFourMonths,
       translation(context).everySixMonths,
       translation(context).yearlyAddData,
+       */
     ];
 
     return SizedBox(
