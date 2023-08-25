@@ -7,6 +7,7 @@ import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../UI/change_prefix_alert.dart';
 import 'password_splash.dart';
 import 'backup.dart';
 
@@ -52,7 +53,6 @@ class _SettingsState extends ConsumerState<Settings> {
     ref.watch(settingsRiverpod).isuseinsert;
     var size = MediaQuery.of(context).size;
     var readSetting = ref.read(settingsRiverpod);
-    var currencyRiv = ref.read(currencyRiverpod);
     //String? Language = readSetting.Language;
     bool darkthememode = readSetting.DarkMode == 1 ? true : false;
     bool isPassword = readSetting.isPassword == 1 ? true : false;
@@ -360,22 +360,25 @@ class _SettingsState extends ConsumerState<Settings> {
                                   color: renkler.koyuuRenk,
                                 ),
                                 onChanged: (newValue) async {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (context) {
-                                      return Center(child: CircularProgressIndicator(
-                                        color: renkler.sariRenk,
-                                        backgroundColor: renkler.koyuuRenk,
-                                      ));
-                                    },
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      opaque: false, //sayfa saydam olması için
+                                      transitionDuration: const Duration(milliseconds: 1),
+                                      pageBuilder: (context, animation, nextanim) => changePrefixAlert(newValue!),
+                                      reverseTransitionDuration: const Duration(milliseconds: 1),
+                                      transitionsBuilder: (context, animation, nexttanim, child) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: child,
+                                        );
+                                      },
+                                    ),
                                   );
-                                  if (readSetting.Prefix != newValue) {
-                                    readSetting.setPrefix(newValue!);
-                                    await currencyRiv.calculateAllSQLHistoryTime();
-                                    readSetting.setisuseinsert();
-                                  }
-                                  Navigator.of(context).pop();
+                                  /*
+
+
+                                   */
                                 },
                                 items: moneyPrefix
                                     .map<DropdownMenuItem<String>>(

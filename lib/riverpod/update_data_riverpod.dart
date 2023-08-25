@@ -197,10 +197,9 @@ class UpdateDataRiverpod extends ChangeNotifier {
   }
 
   Future customizeRepeatedOperation(WidgetRef ref) async {
-    List<SpendInfo> customizeItems =
-        await SQLHelper.getCustomizeOperationList();
+    List<SpendInfo> customizeItems = await SQLHelper.getCustomizeOperationList();
     customizeItems.forEach((item) {
-      if (item.processOnce == 'Günlük') {
+      if (item.processOnce == 'Günlük')  {
         DateTime currentDate = DateTime.now();
         DateTime operationDate = DateTime(int.parse(item.operationYear!),
             int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
@@ -234,7 +233,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               item.moneyType,
               i == daysBetween - 1 ? item.processOnce : "",
               //item.realAmount,
-              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
               item.userCategory,
               item.systemMessage
             );
@@ -280,7 +279,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               item.moneyType,
               i == daysBetween - 1 ? item.processOnce : "",
               //item.realAmount,
-              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
               item.userCategory,
               item.systemMessage
             );
@@ -327,7 +326,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               item.moneyType,
               i == daysBetween - 1 ? item.processOnce : "",
               //item.realAmount,
-              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
+              ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
               item.userCategory,
               item.systemMessage
             );
@@ -370,7 +369,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               DateTime.now().year, DateTime.now().month, DateTime.now().day);
           int monthsBetween = calculateMonthsBetween(date1, date2);
 
-          calculateInitialDate(DateTime date,int count){
+          calculateInitialDate(DateTime date,int count) {
             DateTime initialDate = DateTime(date.year, date.month, date.day);
             for(int i =0 ; i < count ; i++){
               print("\n Hesaplanan $date");
@@ -414,7 +413,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                   item.moneyType,
                   i == monthsBetween - 1 ? item.processOnce : "",
                   //item.realAmount,
-                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
                   item.userCategory,
                   item.systemMessage
               );
@@ -500,7 +499,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                   item.moneyType,
                   i == monthsBetween - 1 ? item.processOnce : "",
                   //item.realAmount,
-                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
                   item.userCategory,
                   item.systemMessage
               );
@@ -586,7 +585,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                   item.moneyType,
                   i == monthsBetween - 1 ? item.processOnce : "",
                   //item.realAmount,
-                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
                   item.userCategory,
                   item.systemMessage
               );
@@ -628,7 +627,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               DateTime.now().year, DateTime.now().month, DateTime.now().day);
           int monthsBetween = calculateMonthsBetween(date1, date2);
 
-          calculateInitialDate(DateTime date,int count){
+          calculateInitialDate(DateTime date,int count)  {
             DateTime initialDate = DateTime(date.year, date.month, date.day);
             for(int i =0 ; i < count ; i++){
               print("\n Hesaplanan $date");
@@ -672,7 +671,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                   item.moneyType,
                   i == monthsBetween - 1 ? item.processOnce : "",
                   //item.realAmount,
-                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
                   item.userCategory,
                   item.systemMessage
               );
@@ -714,7 +713,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               DateTime.now().year, DateTime.now().month, DateTime.now().day);
           int monthsBetween = calculateMonthsBetween(date1, date2);
 
-          calculateInitialDate(DateTime date,int count){
+          calculateInitialDate(DateTime date,int count)  {
             DateTime initialDate = DateTime(date.year, date.month, date.day);
             for(int i =0 ; i < count ; i++){
               print("\n Hesaplanan $date");
@@ -758,7 +757,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                   item.moneyType,
                   i == monthsBetween - 1 ? item.processOnce : "",
                   //item.realAmount,
-                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
+                  ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
                   item.userCategory,
                   item.systemMessage
               );
@@ -821,7 +820,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
           DateTime.now().year, DateTime.now().month, DateTime.now().day);
       int monthsBetween = calculateMonthsBetween(date1, date2);
 
-      calculateInitialDate(DateTime date,int count){
+      calculateInitialDate(DateTime date,int count) async {
         DateTime initialDate = DateTime(date.year, date.month, date.day);
         for(int i =0 ; i < count ; i++){
           if(remainder >0){
@@ -866,7 +865,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                 "${initialDate.day.toString()}.${initialDate.month.toString()}.${initialDate.year.toString()}", // item.operationDate güncellendi
                 item.moneyType,
                 count < remainder ? i == count -1 ? "${finished + 1}/$total" : "" : remainder == 1 ? "" : "" ,
-                ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!, date: _operationDate.text),
+                ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
                 item.userCategory,
                 remainder == 1 ? "${total}/$total Taksit Bitti" : "${finished+1}/$total Taksit İşlendi"
             );

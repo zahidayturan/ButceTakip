@@ -161,7 +161,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                 "null",
                                 moneyType,//moneytype
                                 "",
-                                await ref.read(currencyRiverpod).calculateRealAmount(double.tryParse(_controller.text)!, moneyType, readSettings.Prefix!,date: "00.00.0000"),
+                                ref.read(currencyRiverpod).calculateRealAmount(double.tryParse(_controller.text)!, moneyType, readSettings.Prefix!),
                                 "",
                                 "",
                             );

@@ -3,10 +3,8 @@ import 'package:butcekontrol/utils/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../Pages/more/password_splash.dart';
-import '../models/currency_info.dart';
 import '../riverpod_management.dart';
 import '../utils/cvs_converter.dart';
-import '../utils/firestore_helper.dart';
 
 class base_BKA extends ConsumerStatefulWidget {
   const base_BKA({Key ? key}) :super(key :key);

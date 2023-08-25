@@ -3782,10 +3782,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               child: Stack(
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: ()  {
                       setAlertContent(context);
                       double amount = double.tryParse(_amount.text) ?? 0.0;
-                      if (amount != 0.0 && _category.text.isNotEmpty) {
+                      if (amount != 0.0 && _category.text.isNotEmpty)  {
                         if (selectedCustomizeMenu == 1 &&
                             _customize.text != "") {
                           amount = double.parse(
@@ -3808,10 +3808,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           _operationDate.text,
                           _moneyType.text,
                           ref.read(currencyRiverpod).calculateRealAmount(
-                              amount,
-                              _moneyType.text,
-                              ref.read(settingsRiverpod).Prefix!,
-                              date: _operationDate.text
+                            amount,
+                            _moneyType.text,
+                            ref.read(settingsRiverpod).Prefix!,
                           ),
                           _customize.text,
                           _category.text,

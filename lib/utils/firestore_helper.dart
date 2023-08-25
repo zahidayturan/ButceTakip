@@ -11,18 +11,29 @@ class firestoreHelper {
     final json = info.toMap();
     await docCurrency.set(json);
   }
-  static Future<currencyInfo?> getHistoryCurrency(String formattedDate) async {
-    currencyInfo currency = currencyInfo("Merhaba", "1", "1", "1", "1", "1", "1", "1", "1", DateTime.now().toString()); //bir kişide olan bir sıkıntı milyonları etkileyebilir.
+  static Future<List<currencyInfo>> getHistoryCurrency() async {
+    currencyInfo currency ;//bir kişide olan bir sıkıntı milyonları etkileyebilir.
     final collectionReference = FirebaseFirestore.instance.collection("historyRates");
-    QuerySnapshot querySnapshot = await collectionReference.where(FieldPath.documentId, isEqualTo: formattedDate).get();
+    QuerySnapshot querySnapshot = await collectionReference.get();
+    List<currencyInfo> currenciesList = [];
+    if(querySnapshot.docs.isNotEmpty){
+      querySnapshot.docs.forEach((document) {
+        currency = currencyInfo.fromObject(document.data());
+        currenciesList.add(currency);
+      });
+    }
+    return currenciesList;
+    /*
     if (querySnapshot.docs.isNotEmpty) {
       querySnapshot.docs.forEach((document) {
         currency = currencyInfo.fromObject(document.data());
       });
-      print("Veri bulduk o da ?==>> ${currency.BASE}");
+      print("Veri bulduk o da ==>> ${currency.BASE}");
       return currency;
     } else { // eğer yoksa en yakın tarihe git.
       print("EN YAKIN TARİH ALINACAK");
+      String maxDate = "01.01.2030";
+      String minDate = "01.01.2020";
       QuerySnapshot querySnapshott = await collectionReference
           .where(FieldPath.documentId, isGreaterThan: formattedDate)
           .get();
@@ -33,6 +44,8 @@ class firestoreHelper {
         print("Bir şey bulamadım.");
       }
     }
+
+     */
   }
   static void searchHistoryRate(String formattedDatee, currencyInfo info) async {
     final collectionReference = FirebaseFirestore.instance.collection("historyRates");

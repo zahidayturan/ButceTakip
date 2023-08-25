@@ -153,7 +153,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                                 onChanged: (newValue) {
                                   setState(() {
                                     desiredUnit = newValue!;
-                                    ref.read(currencyRiverpod).calculateRealAmount(widget.data.amount!, widget.data.moneyType!, desiredUnit!,date: widget.data.operationDate!).then((value) => amount = value);
+                                    amount = ref.read(currencyRiverpod).calculateRealAmount(widget.data.amount!, widget.data.moneyType!, desiredUnit!);
                                     rate = ref.read(currencyRiverpod).calculateRate(widget.data.amount!, widget.data.moneyType!, desiredUnit!);
                                   });
                                 },
@@ -196,7 +196,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                       GestureDetector(
                         onTap: () async {
                           if(desiredUnit != null){
-                            double amount = ref.read(currencyRiverpod).calculateRealAmount(widget.data.amount!, widget.data.moneyType!, desiredUnit!,date: widget.data.operationDate!);
+                            double amount =  ref.read(currencyRiverpod).calculateRealAmount(widget.data.amount!, widget.data.moneyType!, desiredUnit!);
                             String moneyType = desiredUnit!;
                             Map<String, dynamic> changes = {
                               "amount" : amount ,
