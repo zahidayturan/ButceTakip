@@ -184,7 +184,7 @@ class CurrencyRiverpod extends ChangeNotifier {
         info.moneyType = "TRY";
       }
 
-     if(info.moneyType!.length == 4 ) {//aktif kayıtlarler buraya girecek.
+     if(info.moneyType!.length == 4 ) {//aktif kayıtlarler(Giderler) buraya girecek.
         info.realAmount = await calculateRealAmount(
           info.amount!,
           info.moneyType!,

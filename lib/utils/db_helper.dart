@@ -38,7 +38,7 @@ class SQLHelper {
       securityClaim INTEGER,
       adCounter INTEGER,
       createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      prefixSymbol TEXT
+      prefixSymbol TEXT DEFAULT ' ₺'
       )
       """);
   }
@@ -60,9 +60,9 @@ class SQLHelper {
         moneyType TEXT,
         processOnce TEXT,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        realAmount REAL,
-        userCategory TEXT,
-        systemMessage TEXT
+        realAmount REAL DEFAULT 0,
+        userCategory TEXT DEFAULT '',
+        systemMessage TEXT DEFAULT ''
       )
       """);
   }
@@ -192,9 +192,16 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
+  static Future<List<SpendInfo>> getItemsForIncomeCal(String prefix) async {
+    final db = await SQLHelper.db();
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (moneyType == '${prefix}1' AND operationType == 'Gelir' )");
+    return List.generate(result.length, (index) {
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
   static Future<List<SpendInfo>> getItemsByCurrency(String prefix) async { /// Sadece Gelir olan dövizleri listeler.
     final db = await SQLHelper.db();
-    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (moneyType != '${prefix}' AND operationType != 'Gider' )");
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (moneyType != '${prefix}' AND operationType == 'Gelir' )");
     return List.generate(result.length, (index) {
       return SpendInfo.fromObject(result[index]);
     });

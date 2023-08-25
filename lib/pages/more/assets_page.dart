@@ -482,7 +482,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                                     ],
                                                   ),
                                                   Text(
-                                                      "${data[index].amount} ${data[index].moneyType}",style: TextStyle(
+                                                      "${data[index].amount} ${data[index].moneyType.toString().substring(0,3)}",style: TextStyle(
                                                     height: 1,
                                                     color: Theme.of(context).canvasColor,
                                                   ),

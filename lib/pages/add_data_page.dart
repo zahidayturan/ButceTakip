@@ -1,5 +1,6 @@
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import '../models/spend_info.dart';
 import '../riverpod_management.dart';
 
 class AddData extends StatefulWidget {
@@ -3782,21 +3784,57 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               child: Stack(
                 children: [
                   GestureDetector(
-                    onTap: ()  {
+                    onTap: ()  async{
                       setAlertContent(context);
                       double amount = double.tryParse(_amount.text) ?? 0.0;
                       if (amount != 0.0 && _category.text.isNotEmpty)  {
-                        if (selectedCustomizeMenu == 1 &&
-                            _customize.text != "") {
-                          amount = double.parse(
-                              (amount / double.parse(_customize.text))
-                                  .toStringAsFixed(2));
-                          systemMessage =
-                          "1/${_customize.text} taksit işlendi";
+                        if (selectedCustomizeMenu == 1 && _customize.text != "") {
+                          amount = double.parse((amount / double.parse(_customize.text)).toStringAsFixed(2));
+                          systemMessage = "1/${_customize.text} taksit işlendi";
                           _customize.text = "1/${_customize.text}";
-                        } else if (selectedCustomizeMenu == 0 &&
-                            _customize.text != "") {
+                        } else if (selectedCustomizeMenu == 0 && _customize.text != "") {
                           systemMessage = "${_customize.text} tekrar işlendi";
+                        }
+
+                        if(_moneyType.text != readSettings.Prefix && _operationType.text == "Gider" ) {
+                          print("Kontrol sağlıyoruz. daha önceden gider olarak girilmiş döviz var mı aynı türde bakalım.");
+                          List<SpendInfo> liste = await SQLHelper.getItemsForIncomeCal(_moneyType.text);
+                          if(liste.isNotEmpty) {
+                            liste.sort((a, b) => a.amount!.compareTo(b.amount!)); // kücükten büyüğe
+                            print("***********************");
+                            liste.forEach((element) {
+                              print(element.amount);
+                            });
+                            print("***********************");
+                            double remaining = double.parse(_amount.text);
+                            liste.forEach((element) {
+                              if(remaining > 0){
+                                if(remaining >= element.amount!){
+                                  print("borcumuz boyumuzdan büyük.");
+                                  //elementi pasif yapacağız.
+                                  element.moneyType = element.moneyType!.substring(0,3); //pasifleştirme
+                                  SQLHelper.updateItem(element);
+                                  remaining -= element.amount!; //kalan miktar
+                                }else{ //daha kücük bir miktar harcama yaıldıysa
+                                  print("borcumuz azdı ödedik ");
+                                  double firstValue = element.amount!;
+                                  element.amount = element.amount! - remaining;
+                                  element.realAmount =ref.read(currencyRiverpod).calculateRealAmount(element.amount!, element.moneyType!, ref.read(settingsRiverpod).Prefix!);
+                                  remaining = 0 ;
+                                  SQLHelper.updateItem(element) ;
+                                  double result = firstValue - element.amount!;
+                                  read.insertDataBase(element.operationType, element.category, element.operationTool, element.registration!, result, element.note, element.operationDate!, element.moneyType!.substring(0,3), ref.read(currencyRiverpod).calculateRealAmount(
+                                    result,
+                                    element.moneyType!,
+                                    ref.read(settingsRiverpod).Prefix!,
+                                  ), element.processOnce!, element.userCategory!, element.systemMessage!);
+                                }
+                              }
+                            }
+                          );
+                          }else{ ///eğer eklenen dövizden daha önce gelir girişi olmamış kullanıcı hatası
+
+                          }
                         }
                         read.insertDataBase(
                           _operationType.text,
