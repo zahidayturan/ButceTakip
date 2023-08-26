@@ -2345,8 +2345,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               height: 40,
               width: size.width*0.4,
               child: TextButton(
-                onPressed: () {
+                onPressed: ()  {
                   setAlertContent();
+                  print(systemMessage.text);
                   double amount = double.tryParse(amount0.text) ?? 0.0;
                   if (amount != 0.0 && category.text.isNotEmpty) {
                     if (_isProcessOnceValidNumber(customize.text) == true &&
@@ -2354,11 +2355,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       List <String> parts = customize.text.split("/");
                       customize.text = parts.length == 2 ?  parts[1] : parts[0];
                       amount = double.parse((amount / double.parse(customize.text)).toStringAsFixed(2));
-                      systemMessage = "1/${customize.text} taksit işlendi";
+                      systemMessage.text = "1/${customize.text} taksit işlendi";
                       customize.text = "1/${customize.text}";
                     } else if (_isProcessOnceValidNumber(customize.text) == false &&
                         customize.text != "") {
-                      systemMessage = "${customize.text} tekrar işlendi";
                     }
                         if(menuController == 0){
                           readUpdateData.updateDataBase(
@@ -2371,10 +2371,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             note.text,
                             operationDate.text,
                             moneyType.text,
-                            customize.text,
-                            ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
+                            customize.text, ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
                             userCategory.text,
-                            customize.text != "" ? systemMessage.text.toString() : "");
+                            customize.text != "" ? systemMessage.text : "");
                         read.update();}
                         else{
                           read.insertDataBase(
@@ -2389,7 +2388,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
                             customize.text,
                             "",
-                            systemMessage.text.toString(),
+                            systemMessage.text,
                           );
                         }
                     Navigator.of(context).pop();

@@ -1,5 +1,6 @@
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import '../models/spend_info.dart';
 import '../riverpod_management.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 
@@ -3066,27 +3068,28 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   double moneyTypeHeight = 38.0;
   bool openMoneyTypeMenu = false;
   Widget amountCustomButton() {
+    String moneyActivate = _operationType.text == "Gider" ? "" : "1";
     String getSymbolForMoneyType() {
       String controller = _moneyType.text;
-      if (controller == 'TRY') {
+      if (controller == 'TRY$moneyActivate') {
         return '₺';
-      } else if (controller == 'USD') {
+      } else if (controller == 'USD$moneyActivate') {
         return '\$';
-      } else if (controller == 'EUR') {
+      } else if (controller == 'EUR$moneyActivate') {
         return '€';
-      } else if (controller == 'GBP') {
+      } else if (controller == 'GBP$moneyActivate') {
         return '£';
-      } else if (controller == 'KWD') {
+      } else if (controller == 'KWD$moneyActivate') {
         return 'د.ك';
-      } else if (controller == 'JOD') {
+      } else if (controller == 'JOD$moneyActivate') {
         return 'د.أ';
-      } else if (controller == 'IQD') {
+      } else if (controller == 'IQD$moneyActivate') {
         return 'د.ع';
-      } else if (controller == 'SAR') {
+      } else if (controller == 'SAR$moneyActivate') {
         return 'ر.س';
       } else {
         setState(() {
-          _moneyType.text = ref.read(settingsRiverpod).Prefix.toString();
+          _moneyType.text = "${ref.read(settingsRiverpod).Prefix}$moneyActivate";
         });
         return ref
             .read(settingsRiverpod)
@@ -3250,7 +3253,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'TRY';
+                                          _moneyType.text = 'TRY$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3278,7 +3281,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'USD';
+                                          _moneyType.text = 'USD$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3306,7 +3309,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'EUR';
+                                          _moneyType.text = 'EUR$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3334,7 +3337,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'GBP';
+                                          _moneyType.text = 'GBP$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3371,7 +3374,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'KWD';
+                                          _moneyType.text = 'KWD$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3399,7 +3402,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'JOD';
+                                          _moneyType.text = 'JOD$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3427,7 +3430,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'IQD';
+                                          _moneyType.text = 'IQD$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3455,7 +3458,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _moneyType.text = 'SAR';
+                                          _moneyType.text = 'SAR$moneyActivate';
                                           openMoneyTypeMenu = false;
                                           moneyTypeWidth = 38.0;
                                           moneyTypeHeight = 38.0;
@@ -3564,7 +3567,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 width: 80,
                 child: Center(
                   child: Text(translation(context).save,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white,
                           height: 1,
                           fontSize: 13,
@@ -3831,21 +3834,57 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               child: Stack(
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: ()  async{
                       setAlertContent(context);
                       double amount = double.tryParse(_amount.text) ?? 0.0;
-                      if (amount != 0.0 && _category.text.isNotEmpty) {
-                        if (selectedCustomizeMenu == 1 &&
-                            _customize.text != "") {
-                          amount = double.parse(
-                              (amount / double.parse(_customize.text))
-                                  .toStringAsFixed(2));
-                          systemMessage =
-                          "1/${_customize.text} taksit işlendi";
+                      if (amount != 0.0 && _category.text.isNotEmpty)  {
+                        if (selectedCustomizeMenu == 1 && _customize.text != "") {
+                          amount = double.parse((amount / double.parse(_customize.text)).toStringAsFixed(2));
+                          systemMessage = "1/${_customize.text} taksit işlendi";
                           _customize.text = "1/${_customize.text}";
-                        } else if (selectedCustomizeMenu == 0 &&
-                            _customize.text != "") {
+                        } else if (selectedCustomizeMenu == 0 && _customize.text != "") {
                           systemMessage = "${_customize.text} tekrar işlendi";
+                        }
+
+                        if(_moneyType.text != readSettings.Prefix && _operationType.text == "Gider" ) {
+                          print("Kontrol sağlıyoruz. daha önceden gider olarak girilmiş döviz var mı aynı türde bakalım.");
+                          List<SpendInfo> liste = await SQLHelper.getItemsForIncomeCal(_moneyType.text);
+                          if(liste.isNotEmpty) {
+                            liste.sort((a, b) => a.amount!.compareTo(b.amount!)); // kücükten büyüğe
+                            print("***********************");
+                            liste.forEach((element) {
+                              print(element.amount);
+                            });
+                            print("***********************");
+                            double remaining = double.parse(_amount.text);
+                            liste.forEach((element) {
+                              if(remaining > 0){
+                                if(remaining >= element.amount!){
+                                  print("borcumuz boyumuzdan büyük.");
+                                  //elementi pasif yapacağız.
+                                  element.moneyType = element.moneyType!.substring(0,3); //pasifleştirme
+                                  SQLHelper.updateItem(element);
+                                  remaining -= element.amount!; //kalan miktar
+                                }else{ //daha kücük bir miktar harcama yaıldıysa
+                                  print("borcumuz azdı ödedik ");
+                                  double firstValue = element.amount!;
+                                  element.amount = element.amount! - remaining;
+                                  element.realAmount =ref.read(currencyRiverpod).calculateRealAmount(element.amount!, element.moneyType!, ref.read(settingsRiverpod).Prefix!);
+                                  remaining = 0 ;
+                                  SQLHelper.updateItem(element) ;
+                                  double result = firstValue - element.amount!;
+                                  read.insertDataBase(element.operationType, element.category, element.operationTool, element.registration!, result, element.note, element.operationDate!, element.moneyType!.substring(0,3), ref.read(currencyRiverpod).calculateRealAmount(
+                                    result,
+                                    element.moneyType!,
+                                    ref.read(settingsRiverpod).Prefix!,
+                                  ), element.processOnce!, element.userCategory!, element.systemMessage!);
+                                }
+                              }
+                            }
+                          );
+                          }else{ ///eğer eklenen dövizden daha önce gelir girişi olmamış kullanıcı hatası
+
+                          }
                         }
                         read.insertDataBase(
                           _operationType.text,
@@ -3857,9 +3896,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           _operationDate.text,
                           _moneyType.text,
                           ref.read(currencyRiverpod).calculateRealAmount(
-                              amount,
-                              _moneyType.text,
-                              ref.read(settingsRiverpod).Prefix!),
+                            amount,
+                            _moneyType.text,
+                            ref.read(settingsRiverpod).Prefix!,
+                          ),
                           _customize.text,
                           _category.text,
                           systemMessage,

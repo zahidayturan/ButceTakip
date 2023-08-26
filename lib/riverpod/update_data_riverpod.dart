@@ -197,10 +197,9 @@ class UpdateDataRiverpod extends ChangeNotifier {
   }
 
   Future customizeRepeatedOperation(WidgetRef ref) async {
-    List<SpendInfo> customizeItems =
-        await SQLHelper.getCustomizeOperationList();
+    List<SpendInfo> customizeItems = await SQLHelper.getCustomizeOperationList();
     customizeItems.forEach((item) {
-      if (item.processOnce == 'Günlük') {
+      if (item.processOnce == 'Günlük')  {
         DateTime currentDate = DateTime.now();
         DateTime operationDate = DateTime(int.parse(item.operationYear!),
             int.parse(item.operationMonth!), int.parse(item.operationDay!),23,59,59);
@@ -370,7 +369,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               DateTime.now().year, DateTime.now().month, DateTime.now().day);
           int monthsBetween = calculateMonthsBetween(date1, date2);
 
-          calculateInitialDate(DateTime date,int count){
+          calculateInitialDate(DateTime date,int count) {
             DateTime initialDate = DateTime(date.year, date.month, date.day);
             for(int i =0 ; i < count ; i++){
               print("\n Hesaplanan $date");
@@ -628,7 +627,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               DateTime.now().year, DateTime.now().month, DateTime.now().day);
           int monthsBetween = calculateMonthsBetween(date1, date2);
 
-          calculateInitialDate(DateTime date,int count){
+          calculateInitialDate(DateTime date,int count)  {
             DateTime initialDate = DateTime(date.year, date.month, date.day);
             for(int i =0 ; i < count ; i++){
               print("\n Hesaplanan $date");
@@ -714,7 +713,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
               DateTime.now().year, DateTime.now().month, DateTime.now().day);
           int monthsBetween = calculateMonthsBetween(date1, date2);
 
-          calculateInitialDate(DateTime date,int count){
+          calculateInitialDate(DateTime date,int count)  {
             DateTime initialDate = DateTime(date.year, date.month, date.day);
             for(int i =0 ; i < count ; i++){
               print("\n Hesaplanan $date");
@@ -821,7 +820,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
           DateTime.now().year, DateTime.now().month, DateTime.now().day);
       int monthsBetween = calculateMonthsBetween(date1, date2);
 
-      calculateInitialDate(DateTime date,int count){
+      calculateInitialDate(DateTime date,int count) async {
         DateTime initialDate = DateTime(date.year, date.month, date.day);
         for(int i =0 ; i < count ; i++){
           if(remainder >0){

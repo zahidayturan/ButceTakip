@@ -76,8 +76,8 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             width: 30,
                             child: DecoratedBox(
                               decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle
+                                  color: Colors.white,
+                                  shape: BoxShape.circle
                               ),
                               child: IconButton(
                                 onPressed: () {
@@ -152,7 +152,6 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                 hint: Text(
                                   translation(context).select,
                                   style: TextStyle(
-                                    fontSize: 9,
                                     color: renkler.sariRenk,
                                   ),
                                 ),
@@ -188,27 +187,27 @@ class _addAssetsState extends ConsumerState<addAssets> {
                           double amount = double.tryParse(_controller.text) ?? 0.0;
                           if(moneyType != null && amount != 0.0){
                             final newinfo = SpendInfo(
-                                operationType,
-                                "null",
-                                operationTool,
-                                0,
-                                double.tryParse(_controller.text),
-                                "",
-                                "null",
-                                "null",
-                                "null",
-                                "null",
-                                "null",
-                                moneyType,//moneytype
-                                "",
-                                ref.read(currencyRiverpod).calculateRealAmount(double.tryParse(_controller.text)!, moneyType, readSettings.Prefix!),
-                                "",
-                                "",
+                              operationType,
+                              "null",
+                              operationTool,
+                              0,
+                              double.tryParse(_controller.text),
+                              "",
+                              "null",
+                              "null",
+                              "null",
+                              "null",
+                              "null",
+                              moneyType,//moneytype
+                              "",
+                              ref.read(currencyRiverpod).calculateRealAmount(double.tryParse(_controller.text)!, moneyType, readSettings.Prefix!),
+                              "",
+                              "",
                             );
                             await SQLHelper.createItem(newinfo).then((value) {
                               readSettings.setisuseinsert();
                               Navigator.of(context).pop();
-                              }
+                            }
                             );
                           }else{//geri mesaj ver.
                             setState(() {
@@ -234,11 +233,11 @@ class _addAssetsState extends ConsumerState<addAssets> {
                       SizedBox(height: size.height * .008),
                       Center(
                         child: Text(
-                            BugFixText,
+                          BugFixText,
                           style: TextStyle(
-                            fontFamily: "Nexa3",
-                            fontSize: 11,
-                            color: renkler.kirmiziRenk
+                              fontFamily: "Nexa3",
+                              fontSize: 11,
+                              color: renkler.kirmiziRenk
                           ),
                         ),
                       ),

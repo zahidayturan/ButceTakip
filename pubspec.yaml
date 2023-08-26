@@ -59,8 +59,7 @@ dependencies:
   http: any
   ntp: ^2.0.0
   pay: ^1.1.2
-  file_picker: any
-  flutter_secure_storage: ^8.0.0
+  shared_preferences: ^2.2.0
 
 
 flutter_native_splash:

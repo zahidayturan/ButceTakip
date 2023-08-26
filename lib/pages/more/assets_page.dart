@@ -20,7 +20,6 @@ class assetsPage extends ConsumerStatefulWidget {
 
 class _assetsPage extends ConsumerState<assetsPage> {
   var icsclick = true;
-  List? yansanayidata;
   @override
   Widget build(BuildContext context) {
     List<double> getMeasure(double kart, double  nakit, double  diger){
@@ -336,9 +335,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                });
                               },
                               borderRadius: BorderRadius.circular(20),
-                              child: AnimatedContainer(
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.bounceIn,
+                              child: Container(
                                 width: 30,
                                 height: 30,
                                 decoration: BoxDecoration(
@@ -347,7 +344,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                 ),
                                 child: Transform.rotate(
                                   angle: 3.14 / 2,
-                                  child: Icon(Icons.swap_horiz)
+                                  child: Icon(Icons.swap_horiz),
                                 ),
                               ),
                             ),
@@ -382,13 +379,16 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     data.sort((a, b) {
                                       DateTime dateA = convertDate(a.operationDate);
                                       DateTime dateB = convertDate(b.operationDate);
-                                      return dateA!.compareTo(dateB!);
+                                      return dateB!.compareTo(dateA!);
                                     });
-                                    yansanayidata = data;
                                     break;
                                   case false:
-                                    data = snapshot.data! ;
-                                    yansanayidata = data;
+                                    data = List.from(snapshot.data!);
+                                    data.sort((a, b) {
+                                      DateTime dateA = convertDate(a.operationDate);
+                                      DateTime dateB = convertDate(b.operationDate);
+                                      return dateA!.compareTo(dateB!);
+                                    });
                                     break;
                                   default:
                                 }
@@ -455,7 +455,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                                     ],
                                                   ),
                                                   Text(
-                                                      "${data[index].amount} ${data[index].moneyType}",style: TextStyle(
+                                                      "${data[index].amount} ${data[index].moneyType.toString().substring(0,3)}",style: TextStyle(
                                                     height: 1,
                                                     color: Theme.of(context).canvasColor,
                                                   ),

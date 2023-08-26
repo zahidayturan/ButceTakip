@@ -96,7 +96,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextMod(translation(context).amount, renkler.arkaPlanRenk, 15 ),
-                          TextMod("${widget.data.amount} ${widget.data.moneyType}", renkler.arkaPlanRenk, 15 ),
+                          TextMod("${widget.data.amount} ${widget.data.moneyType.toString().substring(0,3)}", renkler.arkaPlanRenk, 15 ),
                         ],
                       ),
                       Row(
@@ -156,8 +156,8 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                                 onChanged: (newValue) {
                                   setState(() {
                                     desiredUnit = newValue!;
-                                    amount = ref.read(currencyRiverpod).calculateRealAmount(widget.data.amount!, widget.data.moneyType!, desiredUnit!);
-                                    rate = ref.read(currencyRiverpod).calculateRate(widget.data.amount!, widget.data.moneyType!, desiredUnit!);
+                                    amount = ref.read(currencyRiverpod).calculateRealAmount(widget.data.amount!, widget.data.moneyType!.substring(0,3)!, desiredUnit!);
+                                    rate = ref.read(currencyRiverpod).calculateRate(widget.data.amount!, widget.data.moneyType!.substring(0,3)!, desiredUnit!);
                                   });
                                 },
                                 items: moneyTypes.map<DropdownMenuItem<String>>((String value) {
@@ -199,7 +199,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                       GestureDetector(
                         onTap: () async {
                           if(desiredUnit != null){
-                            double amount = ref.read(currencyRiverpod).calculateRealAmount(widget.data.amount!, widget.data.moneyType!, desiredUnit!);
+                            double amount =  ref.read(currencyRiverpod).calculateRealAmount(widget.data.amount!, widget.data.moneyType!.substring(0,3)!, desiredUnit!);
                             String moneyType = desiredUnit!;
                             Map<String, dynamic> changes = {
                               "amount" : amount ,
