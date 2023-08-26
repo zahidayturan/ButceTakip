@@ -111,7 +111,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       translation(context).cash,
       translation(context).card,
       translation(context).otherPaye,
-      translation(context).both,
+    translation(context).all,
     ];
   }
 
@@ -630,7 +630,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             isExpanded: true,
                                             hint: Center(
                                               child: Text(
-                                                translation(context).both,
+                                                translation(context).all,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   height: 1,
@@ -655,8 +655,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                     return InkWell(
                                                       onTap: () {
                                                         if (item ==
-                                                            translation(context)
-                                                                .both) {
+                                                            translation(context).all) {
                                                           isSelected
                                                               ? selectedItemsTool
                                                                   .remove(item)
@@ -674,12 +673,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                   .remove(item)
                                                               : selectedItemsTool
                                                                       .contains(
-                                                                          translation(context)
-                                                                              .both)
+                                                            translation(context).all)
                                                                   ? {
                                                                       (selectedItemsTool
                                                                         ..remove(
-                                                                            translation(context).both)
+                                                                          translation(context).all)
                                                                         ..add(
                                                                             item)),
                                                                       Navigator.of(
@@ -702,9 +700,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                     .otherPaye)) {
                                                           selectedItemsTool
                                                             ..clear()
-                                                            ..add(translation(
-                                                                    context)
-                                                                .both);
+                                                            ..add(translation(context).all);
                                                           Navigator.of(context)
                                                               .pop();
                                                         }
@@ -926,7 +922,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         i < selectedItemsTool.length;
                                         i++) {
                                       if (selectedItemsTool[i] ==
-                                          translation(context).both) {
+                                          translation(context).all) {
                                         selectedItemsToolToData.add('Hepsi');
                                         break;
                                       } else if (selectedItemsTool[i] ==
@@ -958,7 +954,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     } else if (selectedValueDate ==
                                         translation(context).daily) {
                                       dateType = 3;
-                                    } else if (selectedValueDate == 'PERİYOT') {
+                                    } else if (selectedValueDate == translation(context).period) {
                                       dateType = 4;
                                     } else {
                                       dateType = 1;
@@ -1040,7 +1036,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       dateController = 2;
     } else if (dateInfo == translation(context).daily) {
       dateController = 3;
-    } else if (dateInfo == 'PERİYOT') {
+    } else if (dateInfo == translation(context).period) {
       dateController = 4;
     } else {
       dateController = 1;
@@ -1993,7 +1989,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       typer = 2;
     } else if (dateType == translation(context).daily) {
       typer = 3;
-    } else if (dateType == 'PERİYOT') {
+    } else if (dateType == translation(context).period) {
       typer = 4;
     } else {
       typer = 1;

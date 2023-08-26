@@ -1,4 +1,5 @@
 import 'package:butcekontrol/UI/customize_operation_list.dart';
+import 'package:butcekontrol/UI/introduction_page.dart';
 import 'package:butcekontrol/UI/registery_list.dart';
 import 'package:butcekontrol/pages/more/Help/help_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
@@ -6,6 +7,7 @@ import 'package:butcekontrol/pages/search_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
@@ -89,8 +91,17 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             iconSize: 22.0,
           ),
           IconButton(
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              final SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.setBool("showBTA", false);
+              final bool? showBTA = prefs.getBool("showBTA");
+              print("aaaa");
+              print(showBTA);
+
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => IntroductionPage())
+              );
+              /*Navigator.push(
                 context,
                 PageRouteBuilder(
                   transitionDuration: const Duration(milliseconds: 1),
@@ -103,7 +114,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                     );
                   },
                 ),
-              );
+              );*/
             },
             icon: const Icon(
               Icons.help_outline_rounded,
@@ -136,6 +147,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                   ),
                 ).then((value) => ref.read(botomNavBarRiverpod).setCurrentindex(4));
               },
+              highlightColor: const Color(0xFF0D1C26),
               child: const Icon(
                 Icons.settings_rounded,
                 color: Color(0xFFF2CB05),
