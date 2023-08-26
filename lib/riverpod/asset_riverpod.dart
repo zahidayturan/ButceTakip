@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class assetRiverpod extends ChangeNotifier{
+class AssetRiverpod extends ChangeNotifier{
   List <String> categories = [
     "Nakit",
     "Kart",

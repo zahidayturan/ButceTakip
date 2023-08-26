@@ -11,6 +11,7 @@
     "loginPasswordTitle": "LOGIN PASSWORD",
     "backupTitle": "BACKUP",
     "contactUsTitle": "CONTACT US",
+    "myAssets": "MY ASSETS",
 
     "savedActivities": "Saved Activities",
     "savedActivitiesAmount": "Amount",
@@ -37,6 +38,8 @@
     "friday": "Friday",
     "saturday": "Saturday",
     "sunday": "Sunday",
+
+    "activityCount": "Activities",
 
     "todaysActivities": "Today’s Activities",
 
@@ -95,8 +98,19 @@
     "missingEntry": "Missing entry",
     "pleaseEnterAnAmount": "Please enter an amount!",
     "enterAmountAndCategory": "Please enter an amount and a category!",
-    "enterCategory": "Please enter a category!",
+    "enterCategoryWarning": "Please enter a category!",
     "ok": "Ok",
+
+    "somethingWentWrong": "Something went wrong: ",
+
+    "tapToSelect": "Tap to select",
+    "expenseCategories": "Expense Categories",
+    "incomeCategories": "Income Categories",
+    "addDeleteCategory": "Add / Delete Category",
+    "systemCategory": "System\nCategory",
+    "addExpenseCategory": "Add expense category",
+    "addIncomeCategory": "Add income category",
+    "doneCategory": "Done",
 
     "foodExpense": "Food",
     "clothingExpense": "Clothing",
@@ -111,6 +125,39 @@
     "hobbyExpense": "Hobby",
     "otherExpense": "Other-",
 
+    "pocketMoneyIncome": "Pocket Money",
+    "grantIncome": "Grant",
+    "salaryIncome": "Salary",
+    "creditIncome": "Credit",
+    "personalIncome": "Personal+",
+    "duesRentIncome": "Rent/Dues",
+    "overtimeIncome": "Overtime",
+    "freelanceIncome": "Freelance Income",
+    "incomeViaCurrencyIncome": "Income Via Currency",
+    "investmentIncome": "Investment Income",
+    "otherIncome": "Other+",
+
+    "deleteCategory": "Delete Category",
+    "categoryWithTwoDots": "Category:",
+    "numberOfActivities": "Number of Activities:",
+    "deleteAndKeep": "Delete and keep the categories from old records. (Suggested)",
+    "deleteAndReplace": "Delete and replace the categories in the old records with another category.",
+
+    "keepAndDelete": "Keep and delete",
+    "categoryWillBeDeletedOldRecordsWillNotBeChanged": "The category you selected will be deleted and the old records will not be changed.",
+
+    "replaceAndDelete": "Replace and delete",
+    "selectCategory": "Select category",
+    "doneSmall": "Done",
+
+    "editCategory": "Edit Category",
+    "editAndKeep": "Edit and keep categories from old records. (Suggested)",
+    "editAndReplace": "Edit and replace the categories in the old records with the edited category.",
+
+    "keepAndEdit": "Keep and edit",
+    "replaceAndEdit": "Replace and edit",
+    "enterCategory": "Enter a category",
+
     "cash": "CASH",
     "card": "CARD",
     "otherPaye": "OTHER",
@@ -118,6 +165,33 @@
 
     "addNote": "ADD NOTE",
     "delete": "Delete",
+
+    "customize": "CUSTOMIZE",
+    "tapToCustomize": "Tap to customize",
+    "repeat": "REPETITION",
+    "select": "Select",
+    "remove": "Remove",
+    "installment": "INSTALLMENT",
+    "enterMonths": "Enter number of months (1-144)",
+    "month": "Months",
+    "monthlyInstallment": "Monthly Installment",
+
+    "dailyAddData": "Daily",
+    "weeklyAddData": "Weekly",
+    "biweekly": "Biweekly",
+    "monthlyAddData": "Monthly",
+    "bimonthly": "Bimonthly",
+    "everyThreeMonths": "Every three months",
+    "everyFourMonths": "Every Four Months",
+    "everySixMonths": "Every Six Months",
+    "yearlyAddData": "Yearly",
+
+    "turkTekrarOnly": "",
+    "ayTaksitArapcaEpty": "Months Installment",
+    "tekrarTurkEmpty": "Repeats",
+    "taksitArabicOnly": "",
+    "taksitDevamArabicOnly": "",
+
     "deleteAll": "DELETE ALL",
     "done": "DONE",
     "activityAdded": "Activity added",
@@ -161,13 +235,15 @@
     "loginPassword": "Login Password",
     "downloadData": "Download Data",
     "contactUs": "Contact us",
+    "assets": "Assets",
     "version": "Version",
 
     "darkMode": "Dark Mode",
     "off": "Off",
     "on": "On",
     "backupStatus": "Backup Status",
-    "currency": "Currency",
+    "notifications": "Notifications",
+    "defaultCurrency": "Currency",
     "language": "Language",
 
     "helpCenter": "Help Center",
@@ -190,7 +266,7 @@
 
     "passwordStatus": "Password Status",
 
-    "newPasscode": "Enter the new passcode",
+    "newPasscode": "Enter the new password",
     "confirmPassword": "Confirm password",
     "passwordsDoNotMatch": "Passwords Do Not Match",
     "passwordCreated": "Your Password Has Been Created",
@@ -214,12 +290,13 @@
     "comeBack": "Come Back",
     "remainingTries": "Remaining Tries",
 
-    "backupViaGoogleCloud": "Backup via Google Cloud",
+    "backupViaGoogleDrive": "Backup via Google Drive",
     "signIn": "Sign In",
 
     "email": "E-mail:  ",
     "nameAndSurname": "Name and Surname:",
     "lastBackupDate": "Last Backup Date:",
+    "notBackedUp": "Not backed up",
 
     "backupFrequency": "Backup Frequency",
     "dailyBackup": "Daily",
@@ -227,10 +304,45 @@
     "yearlyBackup": "Yearly",
     "restoreData": "Restore Data",
     "backup": "Backup",
+    "uploadedToGoogleDrive": "Uploaded to Google Drive",
+    "dataRestoredFromGoogleDrive": "Your data has been restored from Google Drive",
     "logOut": "Log out",
 
     "github": "Github:  ",
     "developers": "DEVELOPERS",
+
+    "goodMorning": "Good morning! We hope you're doing well",
+    "goodDay": "Have a nice day! We hope you're doing well",
+    "goodEvening": "Good evening! We hope you're doing well",
+    "goodNight": "Goodnight! We hope you're doing well",
+
+    "total": "TOTAL",
+    "noAssetFound": "No Asset Found!",
+    "addRemoveAsset": "Add/Remove Asset",
+    "myCurrencies": "My Currencies",
+    "myCurrenciesSize": "0.39",
+    "currencyNotFound": "Currency Not Found",
+
+    "addAssetTitle": "Add Asset",
+    "removeAssetTitle": "Remove Asset",
+    "bank": "Bank",
+    "cashAsset": "Cash",
+    "cardAsset": "Card",
+    "other": "Other",
+    "removeAsset": "Remove",
+    "addAsset": "Add",
+    "doneAsset": "Done",
+    "pleaseSelectCurrency": "Please Select a Currency",
+    "enterAmount": "Please enter an amount",
+    "asset": "ASSET",
+
+    "currencyExchange": "Currency Exchange",
+    "note": "Note:",
+    "convertTo": "Convert To",
+    "selectCurrency": "Select Currency",
+    "doneExchange": "Done",
+    "currentRate": "Current Rate",
+    "receivedAmount": "Amount You Will Receive",
 
     "activityDetails": "ACTIVITY DETAILS",
 
@@ -244,6 +356,7 @@
     "saved": "Saved",
     "notSaved": "Not saved",
     "noteDetails": "NOTE",
+    "noNoteAdded": "No Note Added",
     "deleteDetails": "Delete",
     "activityDeleted": "Activity deleted",
     "edit": "Edit",

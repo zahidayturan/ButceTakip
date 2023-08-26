@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/models/spend_info.dart';
@@ -44,9 +45,9 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
 
                 },
                 child: Container( //boyut
-                  height: size.width * .63,
-                  width: size.width * .74,
-                  padding: EdgeInsets.all(15),
+                  height: size.width * .75,
+                  width: size.width * .80,
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     color: renkler.koyuuRenk,
                     borderRadius: BorderRadius.circular(20),
@@ -58,12 +59,13 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(width: size.width * .04),
-                          const Text(
-                            "Döviz Bürosu",
-                            style: TextStyle(
+                          Text(
+                            translation(context).currencyExchange,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontFamily: "Nexa2",
-                                fontSize: 18
+                                fontSize: 18,
+                              height: 1
                             ),
                           ),
                           SizedBox(
@@ -93,7 +95,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextMod("Miktar", renkler.arkaPlanRenk, 15 ),
+                          TextMod(translation(context).amount, renkler.arkaPlanRenk, 15 ),
                           TextMod("${widget.data.amount} ${widget.data.moneyType.toString().substring(0,3)}", renkler.arkaPlanRenk, 15 ),
                         ],
                       ),
@@ -101,11 +103,11 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            flex: 1,
-                              child: TextMod("Not:", renkler.arkaPlanRenk, 15 )
+                            flex: 2,
+                              child: TextMod(translation(context).note, renkler.arkaPlanRenk, 15 )
                           ),
                           Expanded(
-                            flex: 5,
+                            flex: 8,
                             child: Text(
                                 "${widget.data.note}",
                               textAlign: TextAlign.right,
@@ -123,21 +125,22 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextMod("Çevrilecek Birim", renkler.arkaPlanRenk, 15 ),
+                          TextMod(translation(context).convertTo, renkler.arkaPlanRenk, 15 ),
                           Container(
                             height: 30,
                             width: 80,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(9),
-                              color: Color(0xff1C2B35),
+                              color: const Color(0xff1C2B35),
                             ),
                             padding: const EdgeInsets.symmetric(horizontal: 5.0),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton(
                                 hint: Text(
-                                  "Seçiniz",
+                                  translation(context).select,
                                   style: TextStyle(
                                     color: renkler.sariRenk,
+                                    height: 1
                                   ),
                                 ),
 
@@ -169,24 +172,24 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                         ],
                       ),
                       desiredUnit == null
-                      ?TextMod("Birim Seçiniz.", renkler.arkaPlanRenk, 15 )
+                      ?TextMod("", renkler.arkaPlanRenk, 15 )
                       :Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextMod(
-                            "Güncel ${desiredUnit} Kuru",
+                            "${translation(context).currentRate} (${desiredUnit})",
                               renkler.arkaPlanRenk,
-                              15
+                              14
                           ),
                           TextMod("${rate}", renkler.arkaPlanRenk, 15 ),
                         ],
                       ),
                       desiredUnit == null
-                      ?Text("")
+                      ?const Text("")
                       :Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextMod("Alacağınız Miktar",
+                          TextMod(translation(context).receivedAmount,
                               renkler.arkaPlanRenk,
                               14
                           ),
@@ -210,15 +213,16 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
 
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
                           decoration: BoxDecoration(
                             color: renkler.sariRenk,
                             borderRadius: BorderRadius.circular(7),
                           ),
-                          child: const Text(
-                            "Onayla",
-                            style: TextStyle(
-                                fontFamily: "Nexa2"
+                          child: Text(
+                            translation(context).doneExchange,
+                            style: const TextStyle(
+                                fontFamily: "Nexa2",
+                                height: 1
                             ),
                           ),
                         ),

@@ -11,8 +11,9 @@
   "loginPasswordTitle": "كلمة المرور",
   "backupTitle": "النسخ الاحتياطي",
   "contactUsTitle": "تواصل معنا",
+  "myAssets": "موجوداتي",
 
-  "savedActivities": "العمليات المسجلة",
+  "savedActivities": "العمليات المحفوظة",
   "savedActivitiesAmount": "مبلغ العملية",
   "savedActivitiesCategory": "فئة العملية",
   "numberOfSavedActivities": "عدد العمليات المحفوظة:",
@@ -37,6 +38,8 @@
   "friday": "الجمعة",
   "saturday": "السبت",
   "sunday": "الأحد",
+
+  "activityCount": "عدد العمليات",
 
   "todaysActivities": "عمليات اليوم",
 
@@ -78,7 +81,6 @@
 
 
 
-
   "incomeInfo": "معلومات الدخل",
   "expenseInfo": "معلومات المصاريف",
 
@@ -96,8 +98,19 @@
   "missingEntry": "عملية ناقصة",
   "pleaseEnterAnAmount": "الرجاء أدخل المبلغ!",
   "enterAmountAndCategory": "الرجاء أدخل المبلغ و الفئة!",
-  "enterCategory": "الرجاء أدخل الفئة!",
+  "enterCategoryWarning": "الرجاء أدخل الفئة!",
   "ok": "حسنا",
+
+  "somethingWentWrong": "هناك خطأ ما: ",
+
+  "tapToSelect": "انقر للإختيار",
+  "expenseCategories": "فئات المصاريف",
+  "incomeCategories": "فئات الدخل",
+  "addDeleteCategory": "أضف / احذف الفئة",
+  "systemCategory": "فئة\nالنظام",
+  "addExpenseCategory": "أضف فئة  المصاريف",
+  "addIncomeCategory": "أضف فئة الدخل",
+  "doneCategory": "تم",
 
   "foodExpense": "الطعام",
   "clothingExpense": "الملابس",
@@ -112,6 +125,38 @@
   "hobbyExpense": "الهوايات",
   "otherExpense": "أخرى-",
 
+  "pocketMoneyIncome": "المصروف",
+  "grantIncome": "منحة دراسية",
+  "salaryIncome": "الراتب",
+  "creditIncome": "قرض",
+  "personalIncome": "خاص+",
+  "duesRentIncome": "الإيجار/الرسوم",
+  "overtimeIncome": "دوام إضافي",
+  "freelanceIncome": "دخل مستقل",
+  "incomeViaCurrencyIncome": "دخل بواسطة العملة",
+  "investmentIncome": "دخل الاستثمار",
+  "otherIncome": "أخرى+",
+
+  "deleteCategory": "حذف الفئة",
+  "categoryWithTwoDots": "الفئة:",
+  "numberOfActivities": "عدد العمليات:",
+  "deleteAndKeep": "احذف واحفظ الفئات الموجودة في السجلات السابقة. (المقترح)",
+  "deleteAndReplace": "احذف واستبدل الفئات الموجودة في السجلات السابقة بفئة أخرى.",
+
+  "keepAndDelete": "احفظ و احذف",
+  "categoryWillBeDeletedOldRecordsWillNotBeChanged": "سيتم حذف الفئة التي اخترتها ولن يتم أي تغيير في السجلات السابقة.",
+
+  "replaceAndDelete": "غير و احذف",
+  "selectCategory": "اختر فئة",
+  "doneSmall": "تم",
+
+  "editCategory": "تنظيم الفئة",
+  "editAndKeep": "نظم واحفظ الفئات الموجودة في السجلات السابقة. (المقترح)",
+  "editAndReplace": "نظم واستبدل الفئات الموجودة في السجلات السابقة بالفئة المنظمة.",
+
+  "keepAndEdit": "احفظ ونظم",
+  "replaceAndEdit": "غير ونظم",
+  "enterCategory": "أدخل الفئة",
 
   "cash": "نقدا",
   "card": "بطاقة",
@@ -120,6 +165,33 @@
 
   "addNote": "أضف ملاحظة",
   "delete": "حذف",
+
+  "customize": "خصّص",
+  "tapToCustomize": "انقر للتخصيص",
+  "repeat": "متكرّرات",
+  "select": "اختر",
+  "remove": "قم بإلغاء الاختيار",
+  "installment": "تقسيط",
+  "enterMonths": "اكتب عدد الأشهر (1-144)",
+  "month": "الشهر",
+  "monthlyInstallment": "القسط الشهري",
+
+  "dailyAddData": "يومي",
+  "weeklyAddData": "أسبوعي",
+  "biweekly": "كل أسبوعين",
+  "monthlyAddData": "شهري",
+  "bimonthly": "كل شهرين",
+  "everyThreeMonths": "مرة كل ثلاثة أشهر",
+  "everyFourMonths": "مرة كل أربعة أشهر",
+  "everySixMonths": "مرة كل ستة أشهر",
+  "yearlyAddData": "سنوي",
+
+  "turkTekrarOnly": "",
+  "ayTaksitArapcaEpty": "",
+  "tekrarTurkEmpty": "تكرار",
+  "taksitArabicOnly": "تقسيط",
+  "taksitDevamArabicOnly": "(شهر)",
+
   "deleteAll": "حذف الجميع",
   "done": "تم",
   "activityAdded": "تم إضافة العملية",
@@ -145,7 +217,7 @@
   "maturity": "الاستحقاق (الشهر)",
   "calculate": "احسب",
   "deleteAll2": "حذف الجميع",
-  "pleaseFillInTheRequiredFields": "يرجى تعبئة المناطق المطلوبة!",
+  "pleaseFillInTheRequiredFields": "الرجاء تعبئة الخانات المطلوبة!",
 
   "monthlyEqualInstalments": "أقساط شهرية متساوية:  ",
   "totalAmount": "المبلغ الإجمالي:  ",
@@ -163,13 +235,15 @@
   "loginPassword": "كلمة المرور",
   "downloadData": "تحميل البيانات",
   "contactUs": "تواصل معنا",
+  "assets": "الموجودات",
   "version": "الإصدار",
 
   "darkMode": "الوضع الداكن",
   "off": "غير مفعل",
   "on": "مفعل",
   "backupStatus": "وضع النسخ الاحتياطي",
-  "currency": "العملة",
+  "notifications": "الإشعارات",
+  "defaultCurrency": "العملة المستخدمة",
   "language": "اللغة",
 
   "helpCenter": "مركز المساعدة",
@@ -212,15 +286,17 @@
 
 
 
+
   "comeBack": "تراجع",
   "remainingTries": "المحاولات المتبقية",
 
-  "backupViaGoogleCloud": "النسخ الاحتياطي بواسطة جوجل كلاود",
+  "backupViaGoogleDrive": "النسخ الاحتياطي بواسطة جوجل درايف",
   "signIn": "تسجيل الدخول",
 
   "email": "البريد الكتروني:  ",
   "nameAndSurname": "الاسم واللقب:",
   "lastBackupDate": "تاريخ آخر نسخ احتياطي:",
+  "notBackedUp": "لم يتم النسخ الإحتياطي",
 
   "backupFrequency": "تكرر النسخ الاحتياطي",
   "dailyBackup": "يومي",
@@ -228,10 +304,45 @@
   "yearlyBackup": "سنوي",
   "restoreData": "استعادة البيانات",
   "backup": "نسخ البيانات",
+  "uploadedToGoogleDrive": "تم التحميل على نظام جوجل درايف",
+  "dataRestoredFromGoogleDrive": "تم استرجاع  بياناتك من نظام  جوجل درايف",
   "logOut": "تسجيل الخروج",
 
   "github": "جيت هاب:  ",
   "developers": "المطورون",
+
+  "goodMorning": "صباح الخير! نرجو أن تكون بخير",
+  "goodDay": "طاب يومك! نرجو أن تكون بخير",
+  "goodEvening": "طاب مساؤك! نرجو أن تكون بخير",
+  "goodNight": "ليلة سعيدة! نرجو أن تكون بخير",
+
+  "total": "المجموع",
+  "noAssetFound": "لم يتم العثور على صافي الموجودات!",
+  "addRemoveAsset": "أضف / احذف  الموجودات",
+  "myCurrencies": "عملاتي الاجنبية",
+  "myCurrenciesSize": "0.45",
+  "currencyNotFound": "لم يتم العثور على أية عملة أجنبية",
+
+  "addAssetTitle": "أضف موجوداً",
+  "removeAssetTitle": "احذف موجوداً",
+  "bank": "البنك",
+  "cashAsset": "نقداً",
+  "cardAsset": "بطاقة",
+  "other": "أخرى",
+  "removeAsset": "احذف",
+  "addAsset": "أضف",
+  "doneAsset": "تم",
+  "pleaseSelectCurrency": "الرجاء اختر العملة",
+  "enterAmount": "الرجاء أدخل المبلغ",
+  "asset": "الموجودات",
+
+  "currencyExchange": "تحويل العملات",
+  "note": "ملاحظة:",
+  "convertTo": "نوع العملة المراد تحويلها",
+  "selectCurrency": "حدد العملة",
+  "doneExchange": "موافقة",
+  "currentRate": "سعر الصرف الحالي",
+  "receivedAmount": "المبلغ المستلم",
 
   "activityDetails": "تفاصيل العمليات",
 
@@ -245,6 +356,7 @@
   "saved": "محفوظ",
   "notSaved": "غير محفوظ",
   "noteDetails": "ملاحظة",
+  "noNoteAdded": "لم يتم إضافة ملاحظة",
   "deleteDetails": "حذف",
   "activityDeleted": "تم حذف  العملية",
   "edit": "تعديل",

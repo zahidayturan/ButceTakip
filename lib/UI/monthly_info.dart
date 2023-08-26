@@ -314,7 +314,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  "${dayItemLength.toStringAsFixed(0)} Kayıt",
+                                                  "${dayItemLength.toStringAsFixed(0)} ${translation(context).activityCount}",
                                                   style: TextStyle(
                                                     height: 1,
                                                     color: Theme.of(

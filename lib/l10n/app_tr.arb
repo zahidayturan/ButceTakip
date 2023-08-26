@@ -11,11 +11,12 @@
   "loginPasswordTitle": "GİRİŞ ŞİFRESİ",
   "backupTitle": "YEDEKLEME",
   "contactUsTitle": "İLETİŞİM",
+  "myAssets": "VARLIKLARIM",
 
-  "savedActivities": "Kaydedilen İşlemler",
+  "savedActivities": "Kayıtlı İşlemler",
   "savedActivitiesAmount": "İşlem\nTutarı",
   "savedActivitiesCategory": "İşlem\nKategorisi",
-  "numberOfSavedActivities": "Kaydedilen İşlem Sayısı",
+  "numberOfSavedActivities": "Kayıtlı İşlem Sayısı:",
 
   "january": "Ocak",
   "february": "Şubat",
@@ -37,6 +38,8 @@
   "friday": "Cuma",
   "saturday": "Cumartesi",
   "sunday": "Pazar",
+
+  "activityCount": "Kayıt",
 
   "todaysActivities": "Bugünün Bilgileri",
 
@@ -78,7 +81,6 @@
 
 
 
-
   "incomeInfo": "Gelir Bilgisi",
   "expenseInfo": "Gider Bilgisi",
 
@@ -96,8 +98,19 @@
   "missingEntry": "Eksik İşlem",
   "pleaseEnterAnAmount": "Lütfen bir tutar giriniz!",
   "enterAmountAndCategory": "Lütfen bir tutar ve bir kategori giriniz!",
-  "enterCategory": "Lütfen bir kategori giriniz!",
+  "enterCategoryWarning": "Lütfen bir kategori giriniz!",
   "ok": "Tamam",
+
+  "somethingWentWrong": "Bir hata oluştu: ",
+
+  "tapToSelect": "Seçmek için dokunun",
+  "expenseCategories": "Gider Kategorileri",
+  "incomeCategories": "Gelir Kategorileri",
+  "addDeleteCategory": "Kategori Ekle / Sil",
+  "systemCategory": "Sistem\nKategorisi",
+  "addExpenseCategory": "Gider kategorisi ekleyin",
+  "addIncomeCategory": "Gelir kategorisi ekleyin",
+  "doneCategory": "Tamam",
 
   "foodExpense": "Yemek",
   "clothingExpense": "Giyim",
@@ -112,6 +125,39 @@
   "hobbyExpense": "Hobi",
   "otherExpense": "Diğer-",
 
+  "pocketMoneyIncome": "Harçlık",
+  "grantIncome": "Burs",
+  "salaryIncome": "Maaş",
+  "creditIncome": "Kredi",
+  "personalIncome": "Özel+",
+  "duesRentIncome": "Kira/Aidat",
+  "overtimeIncome": "Fazla Mesai",
+  "freelanceIncome": "İş Getirisi",
+  "incomeViaCurrencyIncome": "Döviz Getirisi",
+  "investmentIncome": "Yatırım Getirisi",
+  "otherIncome": "Diğer+",
+
+  "deleteCategory": "Kategori Silme",
+  "categoryWithTwoDots": "Kategori:",
+  "numberOfActivities": "Mevcut İşlem Sayısı:",
+  "deleteAndKeep": "Sil ve eski kayıtlarda yer alan kategorileri sakla. (Önerilen)",
+  "deleteAndReplace": "Sil ve eski kayıtlarda yer alan kategorileri başka bir kategori ile değiştir.",
+
+  "keepAndDelete": "Sakla ve sil",
+  "categoryWillBeDeletedOldRecordsWillNotBeChanged": "Seçtiğiniz kategori silinecek ve eski kayıtlarda bir değişiklik olmayacak",
+
+  "replaceAndDelete": "Değiştir ve sil",
+  "selectCategory": "Kategori seçiniz",
+  "doneSmall": "Tamam",
+
+  "editCategory": "Kategori Düzenleme",
+  "editAndKeep": "Düzenle ve eski kayıtlarda yer alan kategorileri sakla. (Önerilen)",
+  "editAndReplace": "Düzenle ve eski kayıtlarda yer alan kategorileri de düzenlenmiş kategori ile değiştir.",
+
+  "keepAndEdit": "Sakla ve düzenle",
+  "replaceAndEdit": "Değiştir ve düzenle",
+  "enterCategory": "Kategoriyi yazınız",
+
   "cash": "NAKİT",
   "card": "KART",
   "otherPaye": "DİĞER",
@@ -119,6 +165,33 @@
 
   "addNote": "NOT EKLE",
   "delete": "Temizle",
+
+  "customize": "ÖZELLEŞTİR",
+  "tapToCustomize": "Özelleştirmek için dokunun",
+  "repeat": "TEKRAR",
+  "select": "Seçiniz",
+  "remove": "Seçimi Kaldır",
+  "installment": "TAKSİT",
+  "enterMonths": "Ay sayısını yazınız (1-144)",
+  "month": "Ay",
+  "monthlyInstallment": "Aylık Taksit",
+
+  "dailyAddData": "Günlük",
+  "weeklyAddData": "Haftalık",
+  "biweekly": "İki Haftada Bir",
+  "monthlyAddData": "Aylık",
+  "bimonthly": "İki Ayda Bir",
+  "everyThreeMonths": "Üç Ayda Bir",
+  "everyFourMonths": "Dört Ayda Bir",
+  "everySixMonths": "Altı Ayda Bir",
+  "yearlyAddData": "Yıllık",
+
+  "turkTekrarOnly": "Tekrar",
+  "ayTaksitArapcaEpty": "Ay Taksit",
+  "tekrarTurkEmpty": "",
+  "taksitArabicOnly": "",
+  "taksitDevamArabicOnly": "",
+
   "deleteAll": "SIFIRLA",
   "done": "EKLE",
   "activityAdded": "İşlem verisi eklendi",
@@ -162,13 +235,15 @@
   "loginPassword": "Giriş Şifresi",
   "downloadData": "Verileri İndir",
   "contactUs": "İletişim",
+  "assets": "Varlıklar",
   "version": "Versiyon",
 
   "darkMode": "Koyu Tema",
   "off": "Kapalı",
   "on": "Açık",
   "backupStatus": "Yedeklenme Durumu",
-  "currency": "Para Birimi",
+  "notifications": "Bildirimler",
+  "defaultCurrency": "Varsayılan Para Birimi",
   "language": "Dil Desteği",
 
   "helpCenter": "Yardım Merkezi",
@@ -212,17 +287,16 @@
 
 
 
-
-
   "comeBack": "Vazgeç",
   "remainingTries": "Kalan Hak",
 
-  "backupViaGoogleCloud": "Google Cloud ile Yedekle",
+  "backupViaGoogleDrive": "Google Drive ile Yedekle",
   "signIn": "Oturum Aç",
 
   "email": "E-posta:",
   "nameAndSurname": "Ad ve Soyad:",
   "lastBackupDate": "Son Yedekleme Tarihi:",
+  "notBackedUp": "Yedeklenmedi",
 
   "backupFrequency": "Yedeklenme Sıklığı",
   "dailyBackup": "Günlük",
@@ -230,10 +304,45 @@
   "yearlyBackup": "Yıllık",
   "restoreData": "Geri Yükle",
   "backup": "Yedekle",
+  "uploadedToGoogleDrive": "Google Drive sistemine yüklendi",
+  "dataRestoredFromGoogleDrive": "Google Drive üzerinden verileriniz çekildi",
   "logOut": "Çıkış Yap",
 
   "github": "Github:  ",
   "developers": "GELİŞTİRİCİLER",
+
+  "goodMorning": "Günaydın! Umarız iyisinizdir",
+  "goodDay": "İyi günler! Umarız iyisinizdir",
+  "goodEvening": "İyi akşamlar! Umarız iyisinizdir",
+  "goodNight": "İyi geceler! Umarız iyisinizdir",
+
+  "total": "TOPLAM",
+  "noAssetFound": "Net Varlık Bulunamadı!",
+  "addRemoveAsset": "Varlık Ekle/Çıkart",
+  "myCurrencies": "Dövizlerim",
+  "myCurrenciesSize": "0.46",
+  "currencyNotFound": "Döviz Bulunamadı",
+
+  "addAssetTitle": "Varlık Ekle",
+  "removeAssetTitle": "Varlık Çıkart",
+  "bank": "Banka",
+  "cashAsset": "Nakit",
+  "cardAsset": "Kart",
+  "other": "Diğer",
+  "removeAsset": "Çıkart",
+  "addAsset": "Ekle",
+  "doneAsset": "Ekle",
+  "pleaseSelectCurrency": "Lütfen Bir Para Birimi Seçiniz",
+  "enterAmount": "Lütfen Bir Tutar Giriniz",
+  "asset": "VARLIK",
+
+  "currencyExchange": "Döviz Bürosu",
+  "note": "Not:",
+  "convertTo": "Çevrilecek Birim",
+  "selectCurrency": "Birim Seçiniz",
+  "doneExchange": "Onayla",
+  "currentRate": "Güncel Kur",
+  "receivedAmount": "Alacağınız Miktar",
 
   "activityDetails": "İŞLEM DETAYLARI",
 
@@ -247,6 +356,7 @@
   "saved": "Kayıtlı",
   "notSaved": "Kayıtlı değil",
   "noteDetails": "NOT",
+  "noNoteAdded": "Not Eklenmemiş",
   "deleteDetails": "Sil",
   "activityDeleted": "İşlem bilgisi silindi",
   "edit": "Düzenle",
