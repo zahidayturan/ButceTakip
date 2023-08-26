@@ -63,11 +63,11 @@ class _addAssetsState extends ConsumerState<addAssets> {
                         children: [
                           SizedBox(width: size.width * .04),
                           const Text(
-                              "Veri Ekle",
+                            "Veri Ekle",
                             style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: "Nexa2",
-                              fontSize: 18
+                                color: Colors.white,
+                                fontFamily: "Nexa2",
+                                fontSize: 18
                             ),
                           ),
                           SizedBox(
@@ -75,8 +75,8 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             width: 30,
                             child: DecoratedBox(
                               decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle
+                                  color: Colors.white,
+                                  shape: BoxShape.circle
                               ),
                               child: IconButton(
                                 onPressed: () {
@@ -127,13 +127,13 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                   RegExp(r'^\d{0,6}(\.\d{0,2})?'),)
                               ],
                               decoration: InputDecoration(
-                                hintText: "Tutar",
-                                hintStyle: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                ),
-                                contentPadding: EdgeInsets.symmetric(horizontal: size.width * .016,vertical: size.width * .028),
-                                border: InputBorder.none
+                                  hintText: "Tutar",
+                                  hintStyle: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(horizontal: size.width * .016,vertical: size.width * .028),
+                                  border: InputBorder.none
                               ),
                             ),
                           ),
@@ -148,9 +148,8 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton(
                                 hint: Text(
-                                    "Seçiniz",
+                                  "Seçiniz",
                                   style: TextStyle(
-                                    fontSize: 9,
                                     color: renkler.sariRenk,
                                   ),
                                 ),
@@ -186,27 +185,27 @@ class _addAssetsState extends ConsumerState<addAssets> {
                           double amount = double.tryParse(_controller.text) ?? 0.0;
                           if(moneyType != null && amount != 0.0){
                             final newinfo = SpendInfo(
-                                operationType,
-                                "null",
-                                operationTool,
-                                0,
-                                double.tryParse(_controller.text),
-                                "",
-                                "null",
-                                "null",
-                                "null",
-                                "null",
-                                "null",
-                                moneyType,//moneytype
-                                "",
-                                ref.read(currencyRiverpod).calculateRealAmount(double.tryParse(_controller.text)!, moneyType, readSettings.Prefix!),
-                                "",
-                                "",
+                              operationType,
+                              "null",
+                              operationTool,
+                              0,
+                              double.tryParse(_controller.text),
+                              "",
+                              "null",
+                              "null",
+                              "null",
+                              "null",
+                              "null",
+                              moneyType,//moneytype
+                              "",
+                              ref.read(currencyRiverpod).calculateRealAmount(double.tryParse(_controller.text)!, moneyType, readSettings.Prefix!),
+                              "",
+                              "",
                             );
                             await SQLHelper.createItem(newinfo).then((value) {
                               readSettings.setisuseinsert();
                               Navigator.of(context).pop();
-                              }
+                            }
                             );
                           }else{//geri mesaj ver.
                             setState(() {
@@ -221,9 +220,9 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             borderRadius: BorderRadius.circular(7),
                           ),
                           child: const Text(
-                              "Ekle",
+                            "Ekle",
                             style: TextStyle(
-                              fontFamily: "Nexa2"
+                                fontFamily: "Nexa2"
                             ),
                           ),
                         ),
@@ -231,11 +230,11 @@ class _addAssetsState extends ConsumerState<addAssets> {
                       SizedBox(height: size.height * .008),
                       Center(
                         child: Text(
-                            BugFixText,
+                          BugFixText,
                           style: TextStyle(
-                            fontFamily: "Nexa3",
-                            fontSize: 11,
-                            color: renkler.kirmiziRenk
+                              fontFamily: "Nexa3",
+                              fontSize: 11,
+                              color: renkler.kirmiziRenk
                           ),
                         ),
                       ),

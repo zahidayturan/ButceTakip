@@ -2345,7 +2345,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               height: 40,
               width: size.width*0.4,
               child: TextButton(
-                onPressed: () {
+                onPressed: ()  {
                   setAlertContent();
                   print(systemMessage.text);
                   double amount = double.tryParse(amount0.text) ?? 0.0;
@@ -2371,8 +2371,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             note.text,
                             operationDate.text,
                             moneyType.text,
-                            customize.text,
-                            ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
+                            customize.text, ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
                             userCategory.text,
                             customize.text != "" ? systemMessage.text : "");
                         read.update();}
