@@ -1,6 +1,7 @@
 import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -177,6 +178,7 @@ class CustomizeList extends ConsumerWidget {
                                         readDailyInfo.setSpendDetail(
                                             item, index);
                                         showModalBottomSheet(
+                                          isScrollControlled:true,
                                           context: context,
                                           shape:
                                           const RoundedRectangleBorder(
@@ -224,7 +226,7 @@ class CustomizeList extends ConsumerWidget {
                                                       .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      "${item[index].processOnce}",
+                                                      Converter().textConverterFromDB(item[index].processOnce!, context, 1),
                                                       style:
                                                       const TextStyle(
                                                         fontFamily: "Nexa3",
@@ -291,7 +293,7 @@ class CustomizeList extends ConsumerWidget {
                                                     ),
                                                     Expanded(
                                                       child: Text(
-                                                        "${item[index].category}",
+                                Converter().textConverterFromDB(item[index].category!, context, 0),
                                                         style: TextStyle(
                                                           color: Theme.of(
                                                               context)
@@ -398,6 +400,7 @@ class CustomizeList extends ConsumerWidget {
                                                             readDailyInfo.setSpendDetail(
                                                                 item, index);
                                                             showModalBottomSheet(
+                                                              isScrollControlled:true,
                                                               context: context,
                                                               shape:
                                                               const RoundedRectangleBorder(
@@ -549,6 +552,7 @@ class CustomizeList extends ConsumerWidget {
                                       onTap: () {
                                         readDailyInfo.setSpendDetail(item, index);
                                         showModalBottomSheet(
+                                          isScrollControlled:true,
                                           context: context,
                                           shape: const RoundedRectangleBorder(
                                               borderRadius: BorderRadius.vertical(
@@ -753,6 +757,7 @@ class CustomizeList extends ConsumerWidget {
                                                           readDailyInfo.setSpendDetail(
                                                               item, index);
                                                           showModalBottomSheet(
+                                                            isScrollControlled:true,
                                                             context: context,
                                                             shape:
                                                             const RoundedRectangleBorder(

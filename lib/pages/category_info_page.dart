@@ -3,6 +3,7 @@ import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -124,6 +125,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                           readDailyInfo.setSpendDetail(item, index);
                                           ref.watch(databaseRiverpod).delete;
                                           showModalBottomSheet(
+                                            isScrollControlled:true,
                                             context: context,
                                             shape: const RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.vertical(
@@ -392,7 +394,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${myCategory[0]} ${myCategory[1]}',
+                      '${Converter().textConverterFromDB(myCategory[0], context, 0)} ${myCategory[1]}',
                       style: const TextStyle(
                         color: Colors.white,
                         fontFamily: "NEXA3",

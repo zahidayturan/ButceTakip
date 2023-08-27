@@ -1,6 +1,7 @@
 import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
@@ -159,6 +160,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
         var readDailyInfo = ref.read(dailyInfoRiverpod);
         readDailyInfo.setSpendDetail([item], 0);
         showModalBottomSheet(
+          isScrollControlled:true,
           context: context,
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
           backgroundColor:
@@ -229,7 +231,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                       Expanded(
                                         flex: 2,
                                         child: Text(
-                                          '${item.category}',
+                                          Converter().textConverterFromDB(item.category!, context, 0),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Theme.of(context).canvasColor,
@@ -242,7 +244,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                       Expanded(
                                         flex: 1,
                                         child: Text(
-                                          '${item.operationTool}',
+                                          Converter().textConverterFromDB(item.operationTool!, context, 2),
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                             color: Theme.of(context).canvasColor,

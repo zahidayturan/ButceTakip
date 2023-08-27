@@ -2,6 +2,7 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/category_info_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -1847,7 +1848,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                           const SizedBox(width: 10),
                                           Expanded(
                                             child: Text(
-                                              item[index]['category'],
+                                              Converter().textConverterFromDB(item[index]["category"]!, context, 0),
                                               style: TextStyle(
                                                 height: 1,
                                                 fontFamily: 'NEXA3',

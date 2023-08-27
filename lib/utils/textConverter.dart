@@ -162,9 +162,95 @@ class Converter{
         return text;
       }
     }
+    else if(operetionType == 2) {
+      if (text == "Nakit") {
+        return translation(context).cashDetails;
+      } else if (text == "Kart") {
+        return translation(context).cardDetails;
+      } else if (text == "Diğer") {
+        return translation(context).other;
+      } else {
+        return text;
+      }
+    }
     else{
       return "";
     }
+  }
+
+  String textCategoryConverter(String text, BuildContext context){
+    /// Kategori çevirmesi
+      if (text == "Yemek" || text == "Food" || text == "الطعام") {
+        return "";
+      } else if (text == "Giyim" || text == "Clothing" || text == "الملابس") {
+        return "";
+      }
+      else if (text == "Eğlence" || text == "Entertainment" || text == "الترفيه") {
+        return "";
+      }
+      else if (text == "Eğitim" || text == "Education" || text == "التعليم") {
+        return "";
+      }
+      else if (text == "Aidat/Kira" || text == "Dues/Rent" || text == "الرسوم/الإيجار") {
+        return "";
+      }
+      else if (text == "Alışveriş" || text == "Shopping" || text == "التسوق") {
+        return "";
+      }
+      else if (text == "Özel-" || text == "Personel-" || text == "-خاص") {
+        return "";
+      }
+      else if (text == "Ulaşım" || text == "Transport" || text == "المواصلات") {
+        return "";
+      }
+      else if (text == "Sağlık" || text == "Health" || text == "الصحة") {
+        return "";
+      }
+      else if (text == "Günlük Yaşam" || text == "Daily Expenses" || text == "الاحتياجات اليومية") {
+        return "";
+      }
+      else if (text == "Hobi" || text == "Hobby" || text == "الهوايات") {
+        return "";
+      }
+      else if (text == "Diğer-" || text == "Other-" || text == "-أخرى") {
+        return "";
+      }///gelir
+      else if (text == "Harçlık" || text == "Pocket Money" || text == "المصروف") {
+        return "";
+      }
+      else if (text == "Burs" || text == "Grant" || text == "منحة دراسية") {
+        return "";
+      }
+      else if (text == "Maaş" || text == "Salary" || text == "الراتب") {
+        return "";
+      }
+      else if (text == "Kredi" || text == "Credit" || text == "قرض") {
+        return "";
+      }
+      else if (text == "Özel+" || text == "Personal+" || text == "+خاص") {
+        return "";
+      }
+      else if (text == "Kira/Aidat" || text == "Rent/Dues" || text == "الإيجار/الرسوم") {
+        return "";
+      }
+      else if (text == "Fazla Mesai" || text == "Overtime" || text == "دوام إضافي") {
+        return "";
+      }
+      else if (text == "İş Getirisi" || text == "Freelance Income" || text == "دخل مستقل") {
+        return "";
+      }
+      else if (text == "Döviz Getirisi" || text == "Income Via Currency" || text == "دخل بواسطة العملة") {
+        return "";
+      }
+      else if (text == "Yatırım Getirisi" || text == "Investment Income" || text == "دخل الاستثمار") {
+        return "";
+      }
+      else if (text == "Diğer+" || text == "Other+" || text == "+أخرى") {
+        return "";
+      }
+      else {
+        return text;
+      }
   }
 
 }

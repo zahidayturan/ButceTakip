@@ -17,6 +17,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readSetting = ref.read(settingsRiverpod);
+    var readHome = ref.read(homeRiverpod);
     return Directionality(
       textDirection: TextDirection.ltr,
       child: AppBar(
@@ -130,6 +131,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             child: InkWell(
               onLongPress: () {
                 readSetting.setDarkModeNotBool();
+                readHome.setStatus();
               },
               onTap:() {
                 Navigator.push(

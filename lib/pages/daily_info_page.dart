@@ -1,6 +1,7 @@
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../UI/spend_detail.dart';
@@ -128,6 +129,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                               readDailyInfo.regChange(item[index].registration);
                                               ref.watch(databaseRiverpod).delete;
                                               showModalBottomSheet(
+                                                isScrollControlled:true,
                                                 context: context,
                                                 shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
                                                 backgroundColor:
@@ -171,7 +173,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                     const SizedBox(width: 5),
                                                     Expanded(
                                                       child: Text(
-                                                        "${item[index].category}",
+                                                        Converter().textConverterFromDB(item[index].category!, context, 0),
                                                         style: TextStyle(
                                                           fontFamily: 'NEXA3',
                                                           fontSize: 17,

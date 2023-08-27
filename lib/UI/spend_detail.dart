@@ -1,5 +1,6 @@
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/date_time_manager.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -166,7 +167,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           fontSize: 18,
                         )),
                     Expanded(
-                      child: Text("${item[index].category} - ${item[index].userCategory}",
+                      child: Text("${Converter().textConverterFromDB(item[index].category!, context, 0)} - ${item[index].userCategory}",
                           style: const TextStyle(
                             color: Colors.white,
                             fontFamily: 'Nexa3',
@@ -191,7 +192,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           height: 1,
                           fontSize: 18,
                         )),
-                    Text("${item[index].operationTool}",
+                    Text(Converter().textConverterFromDB(item[index].operationTool!, context, 2),
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa3',
@@ -272,8 +273,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                   fontSize: 18,
                                 )),
                                Expanded(
-                                 child: Text("${item[index].processOnce}",
-                                      style: const TextStyle(
+                                 child: Text(Converter().textConverterFromDB(item[index].processOnce!, context, 1),
+                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Nexa3',
                                         height: 1,
@@ -308,7 +309,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 5, left: 5),
-                            child: Text("${item[index].systemMessage}",
+                            child: Text("İşlenen : ${Converter().textConverterFromDB(item[index].processOnce!, context, 1)}",
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Nexa3',
@@ -514,7 +515,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 readUpdateData.setItems(SpendInfo.withId(
                                     item[index].id!,
                                     item[index].operationType,
-                                    item[index].category,
+                                    Converter().textConverterFromDB(item[index].category!, context, 0),
                                     item[index].operationTool,
                                     item[index].registration,
                                     item[index].amount,
@@ -525,7 +526,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                     DateTimeManager.getCurrentTime(),
                                     time,
                                     item[index].moneyType,
-                                    item[index].processOnce,
+                                    Converter().textConverterFromDB(item[index].processOnce!, context, 1),
                                     item[index].realAmount,
                                     item[index].userCategory,
                                     item[index].systemMessage));
@@ -573,7 +574,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 readUpdateData.setItems(SpendInfo.withId(
                                     item[index].id!,
                                     item[index].operationType,
-                                    item[index].category,
+                                    Converter().textConverterFromDB(item[index].category!, context, 0),
                                     item[index].operationTool,
                                     item[index].registration,
                                     item[index].amount,
@@ -584,7 +585,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                     item[index].operationTime,
                                     item[index].operationDate,
                                     item[index].moneyType,
-                                    item[index].processOnce,
+                                    Converter().textConverterFromDB(item[index].processOnce!, context, 1),
                                     item[index].realAmount,
                                     item[index].userCategory,
                                     item[index].systemMessage));

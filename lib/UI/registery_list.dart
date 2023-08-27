@@ -2,6 +2,7 @@ import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -175,6 +176,7 @@ class RegisteryList extends ConsumerWidget {
                                                 readDailyInfo.setSpendDetail(
                                                     item, index);
                                                 showModalBottomSheet(
+                                                  isScrollControlled:true,
                                                   context: context,
                                                   shape: const RoundedRectangleBorder(
                                                       borderRadius:
@@ -216,7 +218,7 @@ class RegisteryList extends ConsumerWidget {
                                                                       110,
                                                                   child: Center(
                                                                     child: Text(
-                                                                      "${item[index].category}",
+                                                                      Converter().textConverterFromDB(item[index].category!, context, 0),
                                                                       overflow: TextOverflow.ellipsis,
                                                                       textAlign: TextAlign.center,
                                                                       maxLines: 2,
