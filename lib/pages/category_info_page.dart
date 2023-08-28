@@ -6,6 +6,7 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 
 class CategoryInfo extends ConsumerWidget {
@@ -114,6 +115,9 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                               child: ListView.builder(
                                 itemCount: item.length,
                                 itemBuilder: (context, index) {
+                                  var readSettings = ref.read(settingsRiverpod);
+                                  DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
+                                  String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
                                   return Padding(
                                     padding: const EdgeInsets.only(
                                         left: 15, right: 15, top: 5, bottom: 5),
@@ -165,7 +169,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                 ),
                                                 const SizedBox(width: 5),
                                                 Text(
-                                                  "${item[index].operationDate}",
+                                                  formattedDate,
                                                   style: TextStyle(
                                                     fontFamily: 'NEXA3',
                                                     fontSize: 17,

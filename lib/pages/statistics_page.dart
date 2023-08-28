@@ -2031,68 +2031,59 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             builder: (context, setState) {
               return Theme(
                 data: Theme.of(context).copyWith(
+                  dialogTheme: DialogTheme(
+                      shadowColor: Colors.black54,
+                      //backgroundColor: Theme.of(context).indicatorColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)))),
+                  textButtonTheme: TextButtonThemeData(
+                    style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(10))),
+                        //foregroundColor: Theme.of(context).canvasColor,
+                        textStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15)// button text color
+                    ),
+                  ),
+                  dividerTheme: DividerThemeData(
+                      color: Theme.of(context).canvasColor,
+                      thickness: 1.5
+                  ),
+                  datePickerTheme: DatePickerThemeData(
+                    dayStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15,color: renkler.koyuuRenk),
+                    //todayForegroundColor: MaterialStatePropertyAll(renkler.sariRenk),
+                    dayOverlayColor: MaterialStatePropertyAll(renkler.sariRenk),
+                    headerForegroundColor: renkler.yaziRenk,
+                    //weekdayStyle: TextStyle(fontFamily: "Nexa4",height: 1,fontSize: 15,color: Theme.of(context).secondaryHeaderColor),
+                    //headerBackgroundColor: renkler.koyuuRenk,
+                    rangePickerBackgroundColor: Theme.of(context).primaryColor,
+                    rangeSelectionBackgroundColor: renkler.sariRenk,
+                    rangePickerHeaderBackgroundColor: renkler.sariRenk,
+                    //dayForegroundColor: MaterialStatePropertyAll(renkler.koyuuRenk),
+                    rangePickerShape:  RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)))
+                  ),
                   textTheme: TextTheme(
-                      labelLarge: TextStyle(
+                    bodyMedium: TextStyle(
+                      color: Theme.of(context).canvasColor,
+                      fontSize: 16,
+                      height: 1,
+                      fontFamily: "Nexa3"
+                    )
 
-                          ///buton yazıları
-                          fontFamily: 'Nexa3',
-                          fontSize: 16,
-                          color: renkler.koyuuRenk),
-                      labelSmall: TextStyle(
-
-                          ///tarih seçiniz
-                          fontSize: 16,
-                          fontFamily: 'Nexa3',
-                          color: renkler.yesilRenk),
-                      titleSmall: TextStyle(
-
-                          ///ay ve yıl
-                          fontSize: 16,
-                          fontFamily: 'Nexa3',
-                          color: renkler.koyuuRenk),
-                      headlineMedium: TextStyle(
-
-                          ///gün ay gün
-                          fontSize: 26,
-                          fontFamily: 'Nexa3',
-                          color: renkler.koyuuRenk),
-                      bodySmall: TextStyle(
-
-                          ///ana tarihler
-                          fontSize: 16,
-                          fontFamily: 'Nexa3',
-                          color: renkler.kirmiziRenk),
-                      titleMedium: TextStyle(
-
-                          ///tarih yazma rengi
-                          fontSize: 16,
-                          fontFamily: 'Nexa3',
-                          color: renkler.kirmiziRenk),
-                      bodyLarge: TextStyle(
-
-                          ///alt YILLAR
-                          fontSize: 16,
-                          fontFamily: 'Nexa3',
-                          color: renkler.koyuuRenk),
-                      headlineLarge: TextStyle(
-                          fontFamily: 'Nexa4',
-                          fontSize: 18,
-                          color: renkler.yesilRenk,
-                          fontWeight: FontWeight.w900)),
+                  ),
                   colorScheme: ColorScheme(
                     brightness: Brightness.light,
-                    primary: renkler.arkaRenk, // üst taraf arkaplan rengi
-                    onPrimary: renkler.koyuuRenk, //üst taraf yazı rengi
+                    primary: renkler.koyuuRenk, // üst taraf arkaplan rengi
+                    onPrimary: renkler.arkaRenk, //üst taraf yazı rengi
                     secondary: renkler.kirmiziRenk,
-                    onSecondary: renkler.arkaRenk,
+                    onSecondary: renkler.koyuuRenk,
                     primaryContainer: renkler.kirmiziRenk,
                     error: const Color(0xFFD91A2A),
                     onError: const Color(0xFFD91A2A),
                     background: renkler.kirmiziRenk,
                     onBackground: renkler.yesilRenk,
-                    surface: renkler.koyuuRenk, //ÜST TARAF RENK
+                    surface: renkler.sariRenk, //ÜST TARAF RENK
                     onPrimaryContainer: renkler.yesilRenk,
-                    onSurface: renkler.koyuuRenk, //alt günlerin rengi
+                    onSurface: Theme.of(context).canvasColor, //alt günlerin rengi
                   ),
                 ),
                 child: child!,
@@ -2110,6 +2101,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         });
       }
     }
+
+    var readSettings = ref.read(settingsRiverpod);
+
+    String getFormattedDate(String date){
+      List <String> parts = date.split(".");
+      int parseDay = int.parse(parts[0]);
+      int parseMonth = int.parse(parts[1]);
+      int parseYear = int.parse(parts[2]);
+      String formattedDate = readSettings.localChanger() == const Locale("ar") ? "$parseYear.$parseMonth.$parseDay" : "$parseDay.$parseMonth.$parseYear";
+    return formattedDate;
+    }
+
 
     return StatefulBuilder(
       builder: (context, setState) {
@@ -2515,7 +2518,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             },
                             child: Center(
                                 child: Text(
-                              date1,
+                                  getFormattedDate(date1),
                               style: TextStyle(
                                   color: renkler.arkaRenk,
                                   height: 1,
@@ -2554,7 +2557,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           },
                           child: Center(
                               child: Text(
-                            date2,
+                                getFormattedDate(date2),
                             style: TextStyle(
                                 color: renkler.arkaRenk,
                                 height: 1,

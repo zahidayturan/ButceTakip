@@ -2362,7 +2362,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   DateTime? _selectedDate;
   Widget dateCustomButton(BuildContext context) {
     var readUpdateData = ref.read(updateDataRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     final operationDate = readUpdateData.getOperationDate();
+    List <String> parts = operationDate.text.split(".");
+    int parseDay = int.parse(parts[0]);
+    int parseMonth = int.parse(parts[1]);
+    int parseYear = int.parse(parts[2]);
+    DateTime itemDate = DateTime(parseYear,parseMonth,parseDay);
+    _selectedDate = itemDate;
     Future<void> selectDate(BuildContext context) async {
       final DateTime? picked = await showDatePicker(
         locale: const Locale("tr"),
@@ -2370,27 +2377,78 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
         initialDate: _selectedDate ?? DateTime.now(),
         firstDate: DateTime(2020),
         lastDate: DateTime(2030),
-        fieldLabelText: 'Tarih Girişi Aktif Değil',
+        initialEntryMode: DatePickerEntryMode.calendarOnly,
+        initialDatePickerMode: DatePickerMode.day,
         keyboardType: TextInputType.number,
         builder: (context, child) {
           FocusScope.of(context).unfocus();
           return Theme(
             data: Theme.of(context).copyWith(
-              textTheme: const TextTheme(
-                  headlineLarge: TextStyle(
-                      fontFamily: 'Nexa4', fontWeight: FontWeight.w900)),
-              colorScheme: const ColorScheme(
+              dialogTheme: DialogTheme(
+                  shadowColor: Colors.black54,
+                  backgroundColor: Theme.of(context).indicatorColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)))),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(10))),
+                    foregroundColor: Theme.of(context).canvasColor,
+                    textStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15)// button text color
+                ),
+              ),
+              dividerTheme: DividerThemeData(
+                  color: Theme.of(context).canvasColor,
+                  indent: 10,
+                  endIndent: 10,
+                  thickness: 1.5
+              ),
+              datePickerTheme: DatePickerThemeData(
+                dayStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15),
+                todayForegroundColor: MaterialStatePropertyAll(renkler.sariRenk),
+                dayOverlayColor: MaterialStatePropertyAll(renkler.sariRenk),
+                headerForegroundColor: renkler.yaziRenk,
+                weekdayStyle: TextStyle(fontFamily: "Nexa4",height: 1,fontSize: 15,color: Theme.of(context).secondaryHeaderColor),
+                yearForegroundColor: MaterialStatePropertyAll(Theme.of(context).canvasColor),
+                yearOverlayColor: MaterialStatePropertyAll(renkler.sariRenk),
+                yearBackgroundColor: MaterialStatePropertyAll(Theme.of(context).primaryColor),
+                headerBackgroundColor: renkler.koyuuRenk,
+              ),
+              textTheme: TextTheme(
+                labelSmall: const TextStyle(
+                  ///tarih seçiniz
+                    fontSize: 16,
+                    fontFamily: 'Nexa4'),
+                titleSmall: TextStyle(
+                  ///ay ve yıl
+                    fontSize: 16,
+                    fontFamily: 'Nexa3',
+                    color: renkler.koyuuRenk),
+                headlineMedium: TextStyle(
+                  ///gün ay gün
+                    fontSize: 26,
+                    fontFamily: 'Nexa3',
+                    color: renkler.koyuuRenk),
+                bodyLarge: TextStyle(
+                  ///alt YILLAR
+                    fontSize: 16,
+                    fontFamily: 'Nexa3',
+                    color: renkler.sariRenk),
+              ),
+              colorScheme: ColorScheme(
                 brightness: Brightness.light,
-                primary: Color(0xff0D1C26), // üst taraf arkaplan rengi
-                onPrimary: Colors.white,
-                secondary: Color(0xff0D1C26),
-                onSecondary: Color(0xFF1A8E58),
-                error: Color(0xFFD91A2A),
-                onError: Color(0xFFD91A2A),
-                background: Color(0xffF2CB05),
-                onBackground: Color(0xffF2CB05),
-                surface: Color(0xffF2CB05),
-                onSurface: Color(0xff0D1C26), //günlerin rengi
+                primary: renkler.koyuuRenk, // üst taraf arkaplan rengi
+                onPrimary: renkler.arkaRenk, //üst taraf yazı rengi
+                secondary: renkler.kirmiziRenk,
+                onSecondary: renkler.arkaRenk,
+                primaryContainer: renkler.kirmiziRenk,
+                error: const Color(0xFFD91A2A),
+                onError: const Color(0xFFD91A2A),
+                background: renkler.kirmiziRenk,
+                onBackground: renkler.yesilRenk,
+                surface: renkler.sariRenk, //ÜST TARAF RENK
+                onPrimaryContainer: renkler.yesilRenk,
+                onSurface: Theme.of(context).canvasColor, //alt günlerin rengi
               ),
             ),
             child: child!,
@@ -2404,6 +2462,16 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           operationDate.text = intl.DateFormat('dd.MM.yyyy').format(_selectedDate!);
         });
       }
+    }
+
+
+    String getFormattedDate(String date){
+      List <String> parts = date.split(".");
+      int parseDay = int.parse(parts[0]);
+      int parseMonth = int.parse(parts[1]);
+      int parseYear = int.parse(parts[2]);
+      String formattedDate = readSettings.localChanger() == const Locale("ar") ? "$parseYear.$parseMonth.$parseDay" : "$parseDay.$parseMonth.$parseYear";
+      return formattedDate;
     }
 
     return SizedBox(
@@ -2443,29 +2511,19 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 child: SizedBox(
                   height: 38,
                   width: 100,
-                  child: TextFormField(
-                    focusNode: dateFocusNode,
+                  child: InkWell(
                     onTap: () {
                       selectDate(context);
-                      FocusScope.of(context).unfocus();
                     },
-                    onEditingComplete: () {
-                      FocusScope.of(context).unfocus();
-                    },
-                    style: const TextStyle(
-                        color: Color(0xff0D1C26),
-                        fontSize: 14,
-                        fontFamily: 'Nexa4',
-                        fontWeight: FontWeight.w800),
-                    controller: operationDate,
-                    autofocus: false,
-                    keyboardType: TextInputType.datetime,
-                    textAlign: TextAlign.center,
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        isDense: true,
-                        contentPadding: EdgeInsets.only(top: 12)),
+                    child: Center(
+                        child: Text(
+                          getFormattedDate(operationDate.text),
+                          style: TextStyle(
+                              color: renkler.koyuuRenk,
+                              height: 1,
+                              fontSize: 13,
+                              fontFamily: 'Nexa4'),
+                        )),
                   ),
                 ),
               ),
@@ -3690,7 +3748,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       List <String> parts = customize.text.split("/");
                       customize.text = parts.length == 2 ?  parts[1] : parts[0];
                       amount = double.parse((amount / double.parse(customize.text)).toStringAsFixed(2));
-                      systemMessage.text = "1/${customize.text} taksit işlendi";
+                      systemMessage.text = "1/${customize.text}";
+                      convertedCustomize = "1/${customize.text}";
                       customize.text = "1/${customize.text}";
                     } else if (_isProcessOnceValidNumber(customize.text) == false &&
                         customize.text != "") {

@@ -57,14 +57,14 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                         color: Theme.of(context).highlightColor,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 6, bottom: 6),
+                        padding: const EdgeInsets.only(left: 10, right: 10, top: 6, bottom: 6),
                         child: Text(
                           translation(context).todaysActivities, /// dil destekli yazi
                           style: TextStyle(
                             color: renkler.arkaRenk,
                             height: 1,
                             fontFamily: 'Nexa3',
-                            fontSize: 17,
+                            fontSize: 16,
                           ),
                         ),
                       ),
@@ -85,7 +85,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                       },
                       child: Text(formattedDate,
                           style: TextStyle(
-                              fontSize: 17,
+                              fontSize: 16,
                               height: 1,
                               fontFamily: 'Nexa4',
                               fontWeight: FontWeight.w900,

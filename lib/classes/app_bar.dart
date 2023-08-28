@@ -26,7 +26,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           padding: const EdgeInsets.only(top: 5),
           child: Image.asset(
             "assets/image/icon_BKA/yatayYazi.png",
-            width: 130,
+            width: 120,
           ),
         ),
         actions: [

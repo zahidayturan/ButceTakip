@@ -3,6 +3,7 @@ import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../Pages/update_data_page.dart';
 import '../constans/material_color.dart';
@@ -40,6 +41,9 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     List<SpendInfo> item = readDailyInfo.getSpendDetailItem();
     int index = readDailyInfo.getSpendDetailIndex();
+    var readSettings = ref.read(settingsRiverpod);
+    DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
+    String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
     CustomColors renkler = CustomColors();
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
@@ -117,7 +121,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                             padding: const EdgeInsets.only(
                                 left: 15.0, right: 15.0, top: 2.0),
                             child: Text(
-                              "${item[index].operationDate}",
+    formattedDate,
                               style: TextStyle(
                                 color: renkler.koyuuRenk,
                                 height: 1,
