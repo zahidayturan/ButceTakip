@@ -11,7 +11,7 @@ class CustomizeList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool selectedOperationController = false;
+    var readHome= ref.read(homeRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     return StatefulBuilder(
@@ -28,7 +28,7 @@ class CustomizeList extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        selectedOperationController == false
+                        readHome.menuControllerForRepeated == false
                             ? "Tekrarlı İşlemler"
                             : "Taksitli İşlemler",
                         style: TextStyle(
@@ -52,12 +52,12 @@ class CustomizeList extends ConsumerWidget {
                                 icon: const Icon(Icons.swap_horiz_rounded),
                                 padding: EdgeInsets.zero,
                                 alignment: Alignment.center,
-                                color: selectedOperationController == false ? renkler.koyuuRenk : Colors.white,
+                                color: readHome.menuControllerForRepeated == false ? renkler.koyuuRenk : Colors.white,
                                 iconSize: 30,
                                 onPressed: () {
                                   setState(
                                           () {
-                                        selectedOperationController = !selectedOperationController;
+                                            readHome.menuControllerForRepeated = !readHome.menuControllerForRepeated;
                                       });
                                 },
                               ),
@@ -94,7 +94,7 @@ class CustomizeList extends ConsumerWidget {
                   const SizedBox(
                     height: 12.0,
                   ),
-                  selectedOperationController == false ? repeatedList(context, ref,setState) : installemntList(context, ref,setState),
+                  readHome.menuControllerForRepeated == false ? repeatedList(context, ref,setState) : installemntList(context, ref,setState),
                 ],
               )),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -174,7 +174,7 @@ class CustomizeList extends ConsumerWidget {
                               itemBuilder: (context, index) {
                                 var readSettings = ref.read(settingsRiverpod);
                                 DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
-                                String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
+                                String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
                                 return Column(
                                   children: [
                                     InkWell(
@@ -552,7 +552,7 @@ class CustomizeList extends ConsumerWidget {
                               itemBuilder: (context, index) {
                                 var readSettings = ref.read(settingsRiverpod);
                                 DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
-                                String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
+                                String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
                                 return Column(
                                   children: [
                                     InkWell(

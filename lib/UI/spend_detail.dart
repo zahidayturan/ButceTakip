@@ -43,7 +43,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
     int index = readDailyInfo.getSpendDetailIndex();
     var readSettings = ref.read(settingsRiverpod);
     DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
-    String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
+    String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
     CustomColors renkler = CustomColors();
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),

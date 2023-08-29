@@ -146,6 +146,12 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
     return items ;
   }
+  Future <List<SpendInfo>> lastOperationList(int itemLength) async {
+    List<SpendInfo> items = await SQLHelper.getLastOperation(itemLength);
+    registeryListTile = items ;
+    notifyListeners();
+    return items ;
+  }
   String getTotalAmountByKart(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationTool == 'Kart')

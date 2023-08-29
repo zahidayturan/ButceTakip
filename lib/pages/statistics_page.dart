@@ -2049,15 +2049,35 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   ),
                   datePickerTheme: DatePickerThemeData(
                     dayStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15,color: renkler.koyuuRenk),
-                    //todayForegroundColor: MaterialStatePropertyAll(renkler.sariRenk),
                     dayOverlayColor: MaterialStatePropertyAll(renkler.sariRenk),
                     headerForegroundColor: renkler.yaziRenk,
-                    //weekdayStyle: TextStyle(fontFamily: "Nexa4",height: 1,fontSize: 15,color: Theme.of(context).secondaryHeaderColor),
-                    //headerBackgroundColor: renkler.koyuuRenk,
                     rangePickerBackgroundColor: Theme.of(context).primaryColor,
                     rangeSelectionBackgroundColor: renkler.sariRenk,
                     rangePickerHeaderBackgroundColor: renkler.sariRenk,
-                    //dayForegroundColor: MaterialStatePropertyAll(renkler.koyuuRenk),
+                    rangePickerHeaderForegroundColor: renkler.arkaRenk,
+                    headerHeadlineStyle: const TextStyle(
+                        fontSize: 22,
+                        fontFamily: "Nexa4",
+                        height: 1
+                    ),
+                    headerHelpStyle: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: "Nexa4",
+                        height: 1
+                    ),
+                    headerBackgroundColor: renkler.koyuuRenk,
+                    backgroundColor: renkler.sariRenk,
+                    rangePickerHeaderHelpStyle: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: "Nexa4",
+                      height: 1
+                    ),
+                    rangePickerHeaderHeadlineStyle: TextStyle(
+                        fontSize: 22,
+                        fontFamily: "Nexa4",
+                        height: 1
+                    ),
+                    dayForegroundColor: MaterialStatePropertyAll(renkler.sariRenk),
                     rangePickerShape:  RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)))
                   ),
@@ -2080,9 +2100,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                     error: const Color(0xFFD91A2A),
                     onError: const Color(0xFFD91A2A),
                     background: renkler.kirmiziRenk,
-                    onBackground: renkler.yesilRenk,
+                    onBackground: renkler.koyuuRenk,
                     surface: renkler.sariRenk, //ÜST TARAF RENK
-                    onPrimaryContainer: renkler.yesilRenk,
+                    onPrimaryContainer: renkler.koyuuRenk,
                     onSurface: Theme.of(context).canvasColor, //alt günlerin rengi
                   ),
                 ),
@@ -2109,7 +2129,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       int parseDay = int.parse(parts[0]);
       int parseMonth = int.parse(parts[1]);
       int parseYear = int.parse(parts[2]);
-      String formattedDate = readSettings.localChanger() == const Locale("ar") ? "$parseYear.$parseMonth.$parseDay" : "$parseDay.$parseMonth.$parseYear";
+      String formattedDate = readSettings.localChanger() == const Locale("ar") ? "$parseYear.$parseMonth.$parseDay" : readSettings.localChanger() == const Locale("en") ? "$parseMonth.$parseDay.$parseYear" : "$parseDay.$parseMonth.$parseYear";
     return formattedDate;
     }
 

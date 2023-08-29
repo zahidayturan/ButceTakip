@@ -2372,7 +2372,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     _selectedDate = itemDate;
     Future<void> selectDate(BuildContext context) async {
       final DateTime? picked = await showDatePicker(
-        locale: const Locale("tr"),
         context: context,
         initialDate: _selectedDate ?? DateTime.now(),
         firstDate: DateTime(2020),
@@ -2470,7 +2469,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       int parseDay = int.parse(parts[0]);
       int parseMonth = int.parse(parts[1]);
       int parseYear = int.parse(parts[2]);
-      String formattedDate = readSettings.localChanger() == const Locale("ar") ? "$parseYear.$parseMonth.$parseDay" : "$parseDay.$parseMonth.$parseYear";
+      String formattedDate = readSettings.localChanger() == const Locale("ar") ? "$parseYear.$parseMonth.$parseDay" : readSettings.localChanger() == const Locale("en") ? "$parseMonth.$parseDay.$parseYear" : "$parseDay.$parseMonth.$parseYear";
       return formattedDate;
     }
 
