@@ -4,6 +4,7 @@ import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,7 +54,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
     Future<List<SpendInfo>> Total =  SQLHelper.getItems();
     return SafeArea(
         child: Scaffold(
-          appBar: const AppBarForPage(title: "VARLIKLARIM"),
+          appBar: AppBarForPage(title: translation(context).myAssets),
           body: FutureBuilder(
             future: Total,
             builder:
@@ -62,14 +63,14 @@ class _assetsPage extends ConsumerState<assetsPage> {
                 var myData = snapshot.data; //bütün kaytları içerir.
                 List<double> measureList = getMeasure(double.tryParse(dbRiv.getTotalAmountByKart(myData!))!, double.tryParse(dbRiv.getTotalAmountByNakit(myData!))!, double.tryParse(dbRiv.getTotalAmountByDiger(myData!))!);
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * .05,vertical: size.height * .02),
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .029,vertical: size.height * .02),
                   child: SizedBox(
                     height: size.height ,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: size.height * .05,
+                          height: size.height * .053,
                           width: double.infinity,
                           padding: EdgeInsets.all(12),
                           decoration: BoxDecoration(
@@ -93,14 +94,15 @@ class _assetsPage extends ConsumerState<assetsPage> {
                               SizedBox(width: size.width * .02),
                               Text(
                                 time > 5 && time < 12
-                                ? "Günaydın! Umarız iyisinizdir."
+                                ? translation(context).goodMorning
                                 : time >= 12 && time < 18
-                                  ? "İyi günler! Umarız iyisinizdir."
+                                  ? translation(context).goodDay
                                   : time >= 18 && time <= 23
-                                    ? "İyi akşamlar! Umarız iyisinizdir."
-                                    : "İyi geceler! Umarız iyisinizdir.",
+                                    ? translation(context).goodEvening
+                                    : translation(context).goodNight,
                                 style: const TextStyle(
-                                  fontWeight: FontWeight.bold
+                                  fontWeight: FontWeight.bold,
+                                  height: 1
                                 ),
                               ),
                             ],
@@ -121,7 +123,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       color: Theme.of(context).indicatorColor.withOpacity(0.7),
                                       shape: BoxShape.circle,
                                     ),
-                                    child: Center(child: Text("Net Varlık Bulunamadı!")),
+                                    child: Center(child: Text(translation(context).noAssetFound, textAlign: TextAlign.center,)),
                                   ),
                                 )
                                 :Stack(
@@ -141,9 +143,9 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       labelPosition: PieLabelPosition.outside,
                                       labelColor:  Theme.of(context).canvasColor,
                                       data: [
-                                        {'domain': 'Banka', 'measure': measureList[0]},
-                                        {'domain': 'Nakit', 'measure': measureList[1]},
-                                        {'domain': 'Diğer', 'measure': measureList[2]},
+                                        {'domain': translation(context).bank, 'measure': measureList[0]},
+                                        {'domain': translation(context).cashAsset, 'measure': measureList[1]},
+                                        {'domain': translation(context).other, 'measure': measureList[2]},
                                       ],
                                       fillColor: (pieData, index) {
                                         return colorsList[index!];
@@ -154,7 +156,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          TextMod("TOPLAM",Theme.of(context).canvasColor, 16),
+                                          TextMod(translation(context).total,Theme.of(context).canvasColor, 16),
                                           SizedBox(height: size.width * .016),
                                           RichText(
                                             text: TextSpan(
@@ -189,9 +191,9 @@ class _assetsPage extends ConsumerState<assetsPage> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  assetBox(context, ref, "Kart" , dbRiv.getTotalAmountByKart(myData!)),
-                                  assetBox(context, ref, "Nakit" , dbRiv.getTotalAmountByNakit(myData!)),
-                                  assetBox(context, ref, "Diğer" , dbRiv.getTotalAmountByDiger(myData!)),
+                                  assetBox(context, ref, translation(context).cardAsset , dbRiv.getTotalAmountByKart(myData!)),
+                                  assetBox(context, ref, translation(context).cashAsset , dbRiv.getTotalAmountByNakit(myData!)),
+                                  assetBox(context, ref, translation(context).other , dbRiv.getTotalAmountByDiger(myData!)),
                                 ],
                               ),
                             ),
@@ -212,7 +214,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                   ),
                                 ),
                                 SizedBox(width: size.width * .02),
-                                Text("Banka",style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                Text(translation(context).bank,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
                               ],
                             ),
                             Row(
@@ -227,7 +229,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                   ),
                                 ),
                                 SizedBox(width: size.width * .02),
-                                Text("Nakit",style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                Text(translation(context).cashAsset,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
                               ],
                             ),
                             Row(
@@ -242,7 +244,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                   ),
                                 ),
                                 SizedBox(width: size.width * .02),
-                                Text("Diğer",style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                Text(translation(context).other,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
                               ],
                             ),
                             SizedBox(width: size.width * .06),
@@ -279,10 +281,10 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       ]
                                   ),
                                   child:  Row(
-                                    children: const [
+                                    children: [
                                       Center(
                                         child: Text(
-                                          "Varlık Ekle/Çıkart",
+                                          translation(context).addRemoveAsset,
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 13,
@@ -302,7 +304,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                              Text(
-                                "Dövizlerim",
+                                translation(context).myCurrencies,
                               style: TextStyle(
                                 fontSize: 17,
                                 fontFamily: "Nexa3",
@@ -312,7 +314,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                               ),
                             ),
                             SizedBox(
-                              width: size.width * .46,
+                              width: size.width * double.parse(translation(context).myCurrenciesSize),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
                                 child: Container(
@@ -392,35 +394,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                   default:
                                 }
                                 return data!.length == 0
-                                ? Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        "assets/image/origami_noinfo.png",
-                                        width: 45,
-                                        height: 45,
-                                        color: Theme.of(context).canvasColor,
-                                      ),
-                                      FittedBox(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 9, vertical: 6),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(20),
-                                            color: Theme.of(context).canvasColor,
-                                          ),
-                                          child: Center(
-                                            child: TextMod(
-                                              "Döviz Bulunamadı",
-                                              Theme.of(context).primaryColor,
-                                              14
-                                            )
-                                          )
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                ? Center(child: Text(translation(context).currencyNotFound))
                                 :GridView.builder(
                                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
@@ -465,14 +439,14 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Text(
-                                                        "${data![index].operationTool}",
+                                                        Converter().textConverterFromDB(data![index].operationTool!, context, 2),
                                                         style: TextStyle(
                                                           height: 1,
                                                           color: Theme.of(context).canvasColor,
                                                         ),
                                                       ),
                                                       Text(
-                                                          data![index].operationDate.toString()  == "null" ? "VARLIK" : data![index].operationDate.toString() ,
+                                                          data![index].operationDay.toString()  == "null" ? translation(context).asset : data![index].operationDate.toString() ,
                                                         style: TextStyle(
                                                           fontSize: 14,
                                                           height: 1,
@@ -530,9 +504,9 @@ class _assetsPage extends ConsumerState<assetsPage> {
     var readSettings = ref.read(settingsRiverpod);
     var renkkler = CustomColors();
     IconData ?myIcon ;
-    if(title == "Kart") {
+    if(title == translation(context).cardAsset) {
       myIcon = Icons.credit_card;
-    }else if(title == "Nakit"){
+    }else if(title == translation(context).cashAsset){
       myIcon = Icons.wallet;
     }else{
       myIcon = Icons.animation_outlined;
@@ -561,13 +535,13 @@ class _assetsPage extends ConsumerState<assetsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                title == "Kart"
+                title == translation(context).cardAsset
                 ? Image.asset(
                   "assets/icons/bank.png",
                   height: 21,
                   color: Theme.of(context).canvasColor,
                   alignment: Alignment.centerLeft,
-                ) : title == "Nakit"
+                ) : title == translation(context).cashAsset
                   ? Image.asset(
                     "assets/icons/money.png",
                     height: 22,

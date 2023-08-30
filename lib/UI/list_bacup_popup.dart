@@ -1,6 +1,7 @@
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../classes/language.dart';
 import '../riverpod_management.dart';
 
 class listBackUpPopUp extends ConsumerStatefulWidget{
@@ -48,7 +49,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                   child: Container( //boyut
                     height: size.width * .7,
                     width: size.width * .65,
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: renkler.koyuuRenk,
                       borderRadius: BorderRadius.circular(20),
@@ -82,7 +83,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                       itemCount: isclicked ? 1 : data.length,
                                       itemBuilder: (context, index) {
                                         return Padding(
-                                          padding: EdgeInsets.only(right: 10),
+                                          padding: const EdgeInsets.only(right: 10),
                                           child: isclicked
                                           ?SizedBox(
                                             height: size.width *.5 ,
@@ -126,13 +127,13 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                  }
                                                  Navigator.of(context).pop();
                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                   const SnackBar(
+                                                   SnackBar(
                                                      backgroundColor:
-                                                     Color(0xff0D1C26),
-                                                     duration: Duration(seconds: 1),
+                                                     const Color(0xff0D1C26),
+                                                     duration: const Duration(seconds: 1),
                                                      content: Text(
-                                                       'Cloud üzerinden Verileriniz Çekildi',
-                                                       style: TextStyle(
+                                                       translation(context).dataRestoredFromGoogleDrive,
+                                                       style: const TextStyle(
                                                          color: Colors.white,
                                                          fontSize: 16,
                                                          fontFamily: 'Nexa3',
@@ -145,7 +146,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                },
                                                child: Container(
                                                  height: 30,
-                                                 padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
+                                                 padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                                  decoration: BoxDecoration(
                                                    color: Theme.of(context).indicatorColor,
                                                    borderRadius: BorderRadius.circular(6),
@@ -161,7 +162,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                          ),
                                                        ),
                                                        //Icon(Icons.download_rounded),
-                                                       Icon(Icons.cloud_download_outlined),
+                                                       const Icon(Icons.cloud_download_outlined),
                                                      ],
                                                    ),
                                                  ),
@@ -179,7 +180,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                 ),
                               ),
                               isclicked
-                              ?SizedBox(width: 1)
+                              ?const SizedBox(width: 1)
                               :Text(
                                   "${data.length} adet kayıt gösteriliyor.",
                                   style: TextStyle(

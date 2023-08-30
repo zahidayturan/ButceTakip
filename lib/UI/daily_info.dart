@@ -1,7 +1,7 @@
-import 'package:butcekontrol/Pages/calendar_page.dart';
 import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
@@ -31,7 +31,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     DateTime now = DateTime.now();
     //String formattedDate = intl.DateFormat('dd.MM.yyyy').format(now);
-    String formattedDate = readSettings.localChanger() == const Locale("ar") ? intl.DateFormat('yyyy.MM.dd').format(now) : intl.DateFormat('dd.MM.yyyy').format(now);
+    String formattedDate = readSettings.localChanger() == const Locale("ar") ? intl.DateFormat('yyyy.MM.dd').format(now) : readSettings.localChanger() == const Locale("en") ? intl.DateFormat('MM.dd.yyyy').format(now) : intl.DateFormat('dd.MM.yyyy').format(now);
     var size = MediaQuery.of(context).size;
     var readNavBar = ref.read(botomNavBarRiverpod);
     var readCalendar = ref.read(calendarRiverpod);
@@ -53,18 +53,18 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                     },
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius: const BorderRadius.all(Radius.circular(15)),
                         color: Theme.of(context).highlightColor,
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20, top: 6, bottom: 6),
+                        padding: const EdgeInsets.only(left: 10, right: 10, top: 6, bottom: 6),
                         child: Text(
                           translation(context).todaysActivities, /// dil destekli yazi
                           style: TextStyle(
                             color: renkler.arkaRenk,
                             height: 1,
                             fontFamily: 'Nexa3',
-                            fontSize: 17,
+                            fontSize: 16,
                           ),
                         ),
                       ),
@@ -85,7 +85,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                       },
                       child: Text(formattedDate,
                           style: TextStyle(
-                              fontSize: 17,
+                              fontSize: 16,
                               height: 1,
                               fontFamily: 'Nexa4',
                               fontWeight: FontWeight.w900,
@@ -160,6 +160,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
         var readDailyInfo = ref.read(dailyInfoRiverpod);
         readDailyInfo.setSpendDetail([item], 0);
         showModalBottomSheet(
+          isScrollControlled:true,
           context: context,
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
           backgroundColor:
@@ -183,7 +184,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Container(
-                      padding: EdgeInsets.only(top: 5.2, bottom:5.2 , right: 18),
+                      padding: const EdgeInsets.only(top: 5.2, bottom:5.2 , right: 18),
                       height:  40, // container boyu veriyoruz.
                       width: size.width * .93,
                       decoration: BoxDecoration(
@@ -197,11 +198,11 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                               width : size.width * .015,
                               decoration: BoxDecoration(
                                 color: item.operationType == "Gelir" ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                borderRadius: BorderRadius.horizontal(right: Radius.circular(4)),
+                                borderRadius: const BorderRadius.horizontal(right: Radius.circular(4)),
                               ),
 
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Expanded(
                               flex: 2,
                               child: Column(
@@ -230,7 +231,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                       Expanded(
                                         flex: 2,
                                         child: Text(
-                                          '${item.category}',
+                                          Converter().textConverterFromDB(item.category!, context, 0),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Theme.of(context).canvasColor,
@@ -243,7 +244,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                       Expanded(
                                         flex: 1,
                                         child: Text(
-                                          '${item.operationTool}',
+                                          Converter().textConverterFromDB(item.operationTool!, context, 2),
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                             color: Theme.of(context).canvasColor,
@@ -286,8 +287,8 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        item.note != "" ? "Not :${item.note}" : "Not Eklenmemiş",
-                                        style: TextStyle(
+                                        item.note != "" ? "${translation(context).note} ${item.note}" : translation(context).noNoteAdded,
+                                        style: const TextStyle(
                                           height: 1,
                                           fontSize: 14
                                         ),
@@ -314,8 +315,8 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                     color:  Theme.of(context).highlightColor,
                     shape: BoxShape.circle,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(3.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(3.0),
                     child: Icon(
                         Icons.remove_red_eye,
                       color: Colors.white,

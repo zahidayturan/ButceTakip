@@ -35,4 +35,7 @@ class HomeRiverpod extends ChangeNotifier {
     refrestst = !refrestst ;
     notifyListeners();
   }
+
+  bool menuControllerForRepeated = false;
+  bool menuControllerForRegistery = false;
 }

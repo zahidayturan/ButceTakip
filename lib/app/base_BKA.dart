@@ -1,3 +1,4 @@
+import 'package:butcekontrol/UI/introduction_page.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/utils/notification_service.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,8 @@ import '../riverpod_management.dart';
 import '../utils/cvs_converter.dart';
 
 class base_BKA extends ConsumerStatefulWidget {
-  const base_BKA({Key ? key}) :super(key :key);
+  final bool showBTA;
+  const base_BKA({Key ? key,required this.showBTA}) :super(key :key);
 
   @override
   ConsumerState<base_BKA> createState() => _base_BKAState();
@@ -51,9 +53,10 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       }
       
       await readCurrency.controlCurrency(ref).then((value) { //currency control
+        var readHome = ref.read(homeRiverpod);
         var readUpdateData =  ref.read(updateDataRiverpod);
-        readUpdateData.customizeRepeatedOperation(ref);
-        readUpdateData.customizeInstallmentOperation(ref);
+        readUpdateData.customizeRepeatedOperation(ref).then((value) => readHome.setStatus());
+        readUpdateData.customizeInstallmentOperation(ref).then((value) => readHome.setStatus());
       }); // Güncel kur database sorgusunu gerçekleştirir
 
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
@@ -119,7 +122,6 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       }
 
 
-
     }
     );
     //await Future.delayed(Duration(milliseconds: 100));
@@ -159,9 +161,9 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       ) ,
 
        */
-      body : watch.body(),
+      body : widget.showBTA == true ? watch.body() : IntroductionPage(),
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: NavBar(),
+      bottomNavigationBar: widget.showBTA == true ? NavBar() : null,
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/utils/notification_service.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized(); //Widgetlerin önceden yüklendiğine emin olmak için kullandık
@@ -21,8 +22,10 @@ void main() async{
   ));
 
   await Firebase.initializeApp();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final bool showBTA = prefs.getBool("showBTA") ?? false;
   //LocalNotificationService().initNotification();
   FirebaseMessaging.onBackgroundMessage(FirebaseNotificationService.backgroundMessage);
-  runApp( const ProviderScope(child: ButceKontrolApp()));
+  runApp( ProviderScope(child: ButceKontrolApp(showBTA: showBTA!)));
   print("Device Token: ${await FirebaseMessaging.instance.getToken()}  son");
 }

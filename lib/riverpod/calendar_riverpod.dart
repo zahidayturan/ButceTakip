@@ -14,6 +14,10 @@ class CalendarRiverpod extends ChangeNotifier {
   int monthIndex = (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))%12)+1;
   int yearIndex = (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))~/12)+2020;
 
+  int startDay = 1;
+  DateTime startDate = DateTime((((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))~/12)+2020, (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))%12)+1, 1);
+  DateTime endDate = DateTime((((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))~/12)+2020, (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))%12)+2, 1);
+
   late PageController pageMonthController;
   late PageController pageYearController;
   setIndex(int index,int operation) {
@@ -79,6 +83,7 @@ class CalendarRiverpod extends ChangeNotifier {
     DateTime date = DateTime(year, month);
     int startWeekday = date.weekday;
     int daysInMonth = _daysInMonth[month - 1];
+
     if (month == DateTime.february &&
         year % 4 == 0 &&
         (year % 100 != 0 || year % 400 == 0)) {
@@ -87,20 +92,25 @@ class CalendarRiverpod extends ChangeNotifier {
     int emptySlots = (startWeekday - DateTime.monday + 7) % 7;
     DateTime prevMonthDate = date.subtract(Duration(days: emptySlots));
     int daysInPrevMonth = _daysInMonth[prevMonthDate.month - 1];
+
     List<String> prevMonthDays = List.generate(
         emptySlots,
             (i) => DateFormat('dd.MM.yyyy').format(
-            DateTime(prevMonthDate.year, prevMonthDate.month, daysInPrevMonth - emptySlots + i + 1)));
+            DateTime(prevMonthDate.year, prevMonthDate.month, daysInPrevMonth - emptySlots + i + startDay)));
+
     List<String> currentMonthDays = List.generate(
         daysInMonth,
             (i) => DateFormat('dd.MM.yyyy')
-            .format(DateTime(year, month, i + 1)));
+            .format(DateTime(year, month, i + startDay)));
     int remainingSlots = 42 - currentMonthDays.length - prevMonthDays.length;
     DateTime nextMonthDate = DateTime(year, month + 1, 1);
+
+
     List<String> nextMonthDays = List.generate(
         remainingSlots,
             (i) => DateFormat('dd.MM.yyyy')
-            .format(DateTime(nextMonthDate.year, nextMonthDate.month, i + 1)));
+            .format(DateTime(nextMonthDate.year, nextMonthDate.month, i + startDay)));
+    print(prevMonthDays);
     List<String> allDays = [
       ...prevMonthDays,
       ...currentMonthDays,
@@ -126,13 +136,16 @@ class CalendarRiverpod extends ChangeNotifier {
 
   Future<List> getMonthAmount(int month, int year) async {
     List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month.toString(), year.toString());
-
+    DateTime startDate = DateTime(yearIndex, monthIndex, startDay-1);
+    DateTime endDate = DateTime(yearIndex, monthIndex+1, startDay);
+    List<SpendInfo> items2 = await SQLHelper.getItemsByOperationMonthAndYear((month+1).toString(), year.toString());
+    items.addAll(items2);
     double totalAmount = items
-        .where((element) => element.operationType == 'Gelir')
+        .where((element) => element.operationType == 'Gelir' && isDateInRange(DateTime(int.parse(element.operationYear!),int.parse(element.operationMonth!),int.parse(element.operationDay!)), startDate, endDate) == true)
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
 
     double totalAmount2 = items
-        .where((element) => element.operationType == 'Gider')
+        .where((element) => element.operationType == 'Gider' && isDateInRange(DateTime(int.parse(element.operationYear!),int.parse(element.operationMonth!),int.parse(element.operationDay!)), startDate, endDate) == true)
         .fold(0, (previousValue, element) => previousValue + element.realAmount!);
 
     double result = totalAmount - totalAmount2;
@@ -140,26 +153,27 @@ class CalendarRiverpod extends ChangeNotifier {
     List amountList = [totalAmount.toStringAsFixed(1),totalAmount2.toStringAsFixed(1),formattedResult];
     return Future.value(amountList);
   }
+  bool isDateInRange(DateTime dateToCheck, DateTime startDate, DateTime endDate) {
+    return dateToCheck.isAfter(startDate) && dateToCheck.isBefore(endDate);
+  }
 
   Future<List> getMonthAmountCount(int month, int year) async {
+    DateTime startDate = DateTime(yearIndex, monthIndex, startDay-1);
+    DateTime endDate = DateTime(yearIndex, monthIndex+1, startDay);
     List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month.toString(), year.toString());
+    List<SpendInfo> items2 = await SQLHelper.getItemsByOperationMonthAndYear((month+1).toString(), year.toString());
+    items.addAll(items2);
 
-    var totalCount = items.where((element) => element.operationType == 'Gelir');
+    var totalCount = items.where((element) => element.operationType == 'Gelir' && isDateInRange(DateTime(int.parse(element.operationYear!),int.parse(element.operationMonth!),int.parse(element.operationDay!)), startDate, endDate) == true);
     int count = totalCount.length;
 
-    var totalCount2 = items.where((element) => element.operationType == 'Gider');
+    var totalCount2 = items.where((element) => element.operationType == 'Gider'&& isDateInRange(DateTime(int.parse(element.operationYear!),int.parse(element.operationMonth!),int.parse(element.operationDay!)), startDate, endDate) == true);
     int count2 = totalCount2.length;
 
     List amountList = [count,count2];
     return Future.value(amountList);
   }
-/*
-  getDateColor(int day, int month, int year) {
-    ///DATABASE SORGUGU
-    double result = 0;
-    return result;
-  }
-*/
+
   String getMonthName(int monthIndex) {
     final months = [
       '',

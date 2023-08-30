@@ -277,7 +277,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                         overflow: TextOverflow.ellipsis,
                                                         text: TextSpan(children: [
                                                           TextSpan(
-                                                            text:  (totalAmount - totalAmount2).toString().length < 9 ? (totalAmount - totalAmount2).toStringAsFixed(2) : (totalAmount - totalAmount2).toStringAsFixed(0),
+                                                            text:  (totalAmount - totalAmount2).toStringAsFixed(2).length < 9 ? (totalAmount - totalAmount2).toStringAsFixed(2) : (totalAmount - totalAmount2).toStringAsFixed(0),
                                                             style: TextStyle(
                                                               height: 1,
                                                               color: double.parse(
@@ -314,7 +314,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  "${dayItemLength.toStringAsFixed(0)} Kayıt",
+                                                  "${dayItemLength.toStringAsFixed(0)} ${translation(context).activityCount}",
                                                   style: TextStyle(
                                                     height: 1,
                                                     color: Theme.of(
@@ -349,7 +349,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                         overflow: TextOverflow.ellipsis,
                                                         text: TextSpan(children: [
                                                           TextSpan(
-                                                            text:  totalAmount.toString().length < 9 ?  totalAmount.toStringAsFixed(2) : totalAmount.toStringAsFixed(0),
+                                                            text:  totalAmount.toStringAsFixed(2).length < 9 ?  totalAmount.toStringAsFixed(2) : totalAmount.toStringAsFixed(0),
                                                             style: TextStyle(
                                                               height: 1,
                                                               color: renkler
@@ -379,7 +379,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                       overflow: TextOverflow.ellipsis,
                                                     text: TextSpan(children: [
                                                       TextSpan(
-                                                        text:  totalAmount2.toString().length < 9 ?  totalAmount2.toStringAsFixed(2) : totalAmount2.toStringAsFixed(1),
+                                                        text:  totalAmount2.toStringAsFixed(2).length < 9 ?  totalAmount2.toStringAsFixed(2) : totalAmount2.toStringAsFixed(1),
                                                         style: TextStyle(
                                                           height: 1,
                                                           color: renkler

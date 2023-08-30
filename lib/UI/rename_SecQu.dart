@@ -65,12 +65,13 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(width: size.width * .05),
-                          const Text(
-                            "Güvenlik Sorusu",
-                            style: TextStyle(
+                          Text(
+                            translation(context).securityQuestion,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontFamily: "Nexa2",
-                                fontSize: 18
+                                fontSize: 16,
+                              height: 1
                             ),
                           ),
                           SizedBox(
@@ -103,10 +104,11 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                           SizedBox(height: size.height * .01),
                           Text(
                             translation(context).whatIsYourFavoriteAnimal,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Color(0xFFF2CB05),
                                 fontSize: 13,
-                                fontFamily: "Nexa4"
+                                fontFamily: "Nexa4",
+                              height: .7
                             ),
                           ),
                           SizedBox(height: size.height * .01),
@@ -120,10 +122,11 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
-                                    hintText: "Giriniz",
+                                    hintText: translation(context).enter,
                                     hintStyle: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
+                                      height: 1
                                     ),
                                     contentPadding: EdgeInsets.symmetric(horizontal: size.width * .016,vertical: size.width * .02),
                                     border: InputBorder.none
@@ -172,6 +175,7 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                             style: TextStyle(
                               color: renkler.kirmiziRenk,
                               fontSize: 12,
+                              height: 1.1
                             ),
                           ),
                         ],

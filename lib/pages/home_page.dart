@@ -18,6 +18,7 @@ class Home extends ConsumerWidget {
       //backgroundColor: Color(0xffF2F2F2),
       appBar: AppBarCustom(),
       bottomNavigationBar: null,
+      resizeToAvoidBottomInset: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         //mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -260,6 +260,19 @@ class SQLHelper {
     });
   }
 
+  static Future<List<SpendInfo>> getLastOperation(int itemCount) async {
+    final db = await SQLHelper.db();
+    var result = await db.query(
+      'spendinfo',
+      where: "operationDay != 'null'",
+      orderBy: "id DESC",
+      limit: itemCount,
+    );
+    return List.generate(result.length, (index) {
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
+
   static Future<List<SpendInfo>> getItemByMonth(int operationMonth) async {
     final db = await SQLHelper.db();
     var result = await db.query('spendinfo', where: "operationMonth = ?", whereArgs: [operationMonth], orderBy: "id");

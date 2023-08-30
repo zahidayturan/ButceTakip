@@ -72,7 +72,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                   || title == translation(context).contactUsTitle
                   || title == translation(context).backupTitle
                   || title == translation(context).loginPasswordTitle
-                  || title == "VARLIKLARIM"
+                  || title == translation(context).myAssets
               ?const Icon(
                 Icons.arrow_back,
                 color: Colors.white,
@@ -84,7 +84,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
               ),
               highlightColor: Theme.of(context).indicatorColor,
               onPressed: () async {
-                if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2 || title == "VARLIKLARIM"){
+                if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2 || title == translation(context).myAssets){
                   Navigator.of(context).pop();
                 }else if(title == translation(context).loginPasswordTitle) {
                   if(readsetting.isPassword == 1 && readsetting.Password == "null") {
@@ -102,10 +102,10 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                   size: 35,
                                 ),
                                 const SizedBox(width: 20),
-                                const TextMod("Uyarı", Colors.white, 18),
+                                TextMod(translation(context).warning, Colors.white, 18),
                               ],
                             ),
-                            content:  const TextMod("Herhangi bir şifre koymadınız\nŞifre koymaktan vaz mı geçiyorsunuz?", Colors.white, 15),
+                            content: TextMod(translation(context).youHaveNotCreatedAnyPasswordWarning, Colors.white, 15),
                             actions: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(20) ,
@@ -118,7 +118,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                       onTap: () => Navigator.pop(context, false),
                                       child: SizedBox(
                                           child: Center(
-                                              child: TextMod("Geri Dön", renkler.koyuuRenk, 16)
+                                              child: TextMod(translation(context).yes, renkler.koyuuRenk, 16)
                                           )
                                       )
                                   ) ,
@@ -139,7 +139,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                       },
                                       child: SizedBox(
                                           child: Center(
-                                              child: TextMod("Vazgeç", renkler.koyuuRenk, 16)
+                                              child: TextMod(translation(context).no, renkler.koyuuRenk, 16)
                                           )
                                       )
                                   ) ,

@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -72,16 +73,17 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
               Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children : [
-                    const Text(
-                      "En sevdiğiniz hayvan nedir ?",
-                      style: TextStyle(
+                    Text(
+                      translation(context).whatIsYourFavoriteAnimal,
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: "Nexa4"
+                          fontFamily: "Nexa4",
+                        height: 1
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -158,9 +160,10 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:  [
                   Text(
-                    "Kalan Hak : ${readSetting.securityClaim}",
+                    "${translation(context).remainingTries} : ${readSetting.securityClaim}",
                     style: const TextStyle(
                       color: Colors.white,
+                      height: 1
                     ),
                   ),
                   Text(

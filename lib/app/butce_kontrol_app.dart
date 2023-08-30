@@ -1,13 +1,12 @@
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../riverpod_management.dart';
 import 'base_BKA.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ButceKontrolApp extends ConsumerStatefulWidget {
-  const ButceKontrolApp({Key? key}) : super(key: key);
+  final bool showBTA;
+  const ButceKontrolApp({Key? key, required this.showBTA}) : super(key: key);
 
   @override
   ConsumerState<ButceKontrolApp> createState() => _ButceKontrolAppState();
@@ -29,7 +28,7 @@ class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
 
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: readSettings.localChanger(),
+      locale: readSettings.localChanger(), ///Dil ayarlama
 
       debugShowCheckedModeBanner: false,
       title: "Bütçe Takip",
@@ -72,7 +71,7 @@ class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
         fontFamily: "Nexa3",
       ),
       themeMode: readSettings.DarkMode == 0 ? ThemeMode.light : ThemeMode.dark,
-      home: const base_BKA(),
+      home: base_BKA(showBTA: widget.showBTA),
     );
   }
 }

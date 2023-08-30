@@ -99,7 +99,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              translation(context).backupViaGoogleCloud,
+                              translation(context).backupViaGoogleDrive,
                               style: TextStyle(
                                 height: 1,
                                 fontSize: 16,
@@ -158,7 +158,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextMod(translation(context).lastBackupDate, Theme.of(context).canvasColor, 15),
-                                  TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : "Yedeklenmedi", Theme.of(context).canvasColor, 15),
+                                  TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : translation(context).notBackedUp, Theme.of(context).canvasColor, 15),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.015),
@@ -209,7 +209,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     },
                                     child: Container(
                                       height: 32,
-                                      width: size.width * 0.26,
+                                      width: size.width * 0.32,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
@@ -217,7 +217,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         ),
                                         child: Center(
                                           child: Padding(
-                                            padding: EdgeInsets.all(8),
+                                            padding: const EdgeInsets.all(8),
                                             child: Text(
                                               translation(context).restoreData, // geri yükle
                                               style: TextStyle(
@@ -248,13 +248,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         readSetting.setLastBackup();
                                       });
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
+                                        SnackBar(
                                           backgroundColor:
-                                          Color(0xff0D1C26),
-                                          duration: Duration(seconds: 1),
+                                          const Color(0xff0D1C26),
+                                          duration: const Duration(seconds: 2),
                                           content: Text(
-                                            'Cloud sistemine yüklendi',
-                                            style: TextStyle(
+                                            translation(context).uploadedToGoogleDrive,
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
                                               fontFamily: 'Nexa3',
@@ -267,7 +267,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     },
                                     child: Container(
                                       height: 32,
-                                      width: size.width * 0.26,
+                                      width: size.width * 0.32,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
@@ -275,7 +275,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         ),
                                         child: Center(
                                           child: Padding(
-                                            padding: EdgeInsets.all(8),
+                                            padding: const EdgeInsets.all(8),
                                             child: Text(
                                               translation(context).backup,
                                               style: TextStyle(
@@ -309,7 +309,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     ),
                                     child: Center(
                                       child: Padding(
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         child: Text(
                                           translation(context).logOut,
                                           style: TextStyle(

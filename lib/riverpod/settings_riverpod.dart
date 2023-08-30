@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:butcekontrol/models/settings_info.dart';
 import 'package:butcekontrol/pages/bka_slider.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
@@ -179,7 +180,21 @@ class SettingsRiverpod extends ChangeNotifier{
     }else if(Language == "العربية"){
       return Locale("ar");
     }else{
-      return Locale("tr");
+      return Locale("en");
+    }
+  }
+  String getDeviceLocaleLanguage(){
+    var deviceLocaleFullLanguageCode  = Platform.localeName; /// 'en_US' şeklinde return'lüyor
+    var deviceLanguageCode = deviceLocaleFullLanguageCode.split('_')[0]; /// ayırıp sadece 'en' yi alıyoruz.
+
+    if(deviceLanguageCode == "tr"){
+      return "Turkce";
+    }else if(deviceLanguageCode == "en"){
+      return "English";
+    }else if(deviceLanguageCode == "ar"){
+      return "العربية";
+    }else{
+      return "English";
     }
   }
   Future Updating() async {

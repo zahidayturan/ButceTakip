@@ -12,6 +12,7 @@ import 'Riverpod/category_info_riverpod.dart';
 import 'Riverpod/daily_info_riverpod.dart';
 import 'Riverpod/home_riverpod.dart';
 import 'Riverpod/statistics_riverpod.dart';
+import 'Riverpod/asset_riverpod.dart';
 
 final botomNavBarRiverpod = ChangeNotifierProvider((ref) => BottomNavBarRiverpod());
 final databaseRiverpod = ChangeNotifierProvider((ref) => DbProvider());
@@ -26,3 +27,4 @@ final updateDataRiverpod = ChangeNotifierProvider((ref) => UpdateDataRiverpod())
 final gglDriveRiverpod = ChangeNotifierProvider((ref) => GglDriveRiverpod());
 final currencyRiverpod = ChangeNotifierProvider((ref) => CurrencyRiverpod());
 final montlyInfoRiverpod = ChangeNotifierProvider((ref) => MontlyInfoRiverpod());
+final assetRiverpod = ChangeNotifierProvider((ref) => AssetRiverpod());
