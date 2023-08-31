@@ -117,7 +117,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                 itemBuilder: (context, index) {
                                   var readSettings = ref.read(settingsRiverpod);
                                   DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
-                                  String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
+                                  String formattedDate = DateFormat(readSettings.dateFormat).format(itemDate);
                                   return Padding(
                                     padding: const EdgeInsets.only(
                                         left: 15, right: 15, top: 5, bottom: 5),

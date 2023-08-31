@@ -2982,7 +2982,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       int parseDay = int.parse(parts[0]);
       int parseMonth = int.parse(parts[1]);
       int parseYear = int.parse(parts[2]);
-      String formattedDate = readSettings.localChanger() == const Locale("ar") ? "$parseYear.$parseMonth.$parseDay" : readSettings.localChanger() == const Locale("en") ? "$parseMonth.$parseDay.$parseYear" : "$parseDay.$parseMonth.$parseYear";
+      String formattedDate = readSettings.dateFormat == "yyyy.MM.dd" ? "$parseYear.$parseMonth.$parseDay" : readSettings.dateFormat == "MM.dd.yyyy" ? "$parseMonth.$parseDay.$parseYear" : "$parseDay.$parseMonth.$parseYear";
       return formattedDate;
     }
 

@@ -530,7 +530,7 @@ class RegisteryList extends ConsumerWidget {
                             itemBuilder: (context, index) {
                               var readSettings = ref.read(settingsRiverpod);
                               DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
-                              String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
+                              String formattedDate = DateFormat(readSettings.dateFormat).format(itemDate);
                               return Column(
                                 children: [
                                   InkWell(

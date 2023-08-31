@@ -37,17 +37,18 @@ class Generalinfo extends ConsumerWidget {
       "2029",
       "2030"
     ];
+    var readSettings = ref.read(settingsRiverpod);
+    var monthStartDay = readSettings.monthStartDay;
     var readhome = ref.read(homeRiverpod);
     var watchhome = ref.watch(homeRiverpod);
     var readdb = ref.read(databaseRiverpod);
-    var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
     //watchhome.refrestst;
     int indexyear = watchhome.indexyear;
     int indexmounth = watchhome.indexmounth;
     return StreamBuilder<Map<String, dynamic>>(
-        stream: readdb.myMethod(),
+        stream: readdb.myMethod(ref),
         builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
