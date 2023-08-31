@@ -19,6 +19,7 @@ class _searchPageState extends ConsumerState<searchPage> {
   }
   @override
   Widget build(BuildContext context) {
+    var readSettings = ref.read(settingsRiverpod);
     var dbRiv = ref.watch(databaseRiverpod);
     var readDailyRiv = ref.read(dailyInfoRiverpod);
     var size = MediaQuery.of(context).size ;
@@ -28,6 +29,7 @@ class _searchPageState extends ConsumerState<searchPage> {
         backgroundColor: Colors.transparent,
         body: GestureDetector(
           onTap: () {
+            dbRiv.resetSearchListTile();
             Navigator.of(context).pop();
           },
           child: Directionality(
@@ -55,11 +57,18 @@ class _searchPageState extends ConsumerState<searchPage> {
                             child: Center(
                               child: TextField(
                                 onChanged: (value) {
-                                  dbRiv.searchItem(_controller.text);
+                                  if(value != ""){
+                                    dbRiv.searchItem(_controller.text);
+                                  }else{
+                                    dbRiv.resetSearchListTile();
+                                  }
                                 },
                                 controller: _controller,
                                 decoration: InputDecoration(
                                   hintText: "Aramak İstediğiniz Notu Giriniz.",
+                                  hintStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
                                   contentPadding: EdgeInsets.symmetric(horizontal: size.width * .01,vertical: 13),
                                   border: InputBorder.none,
                                 ),
@@ -68,8 +77,10 @@ class _searchPageState extends ConsumerState<searchPage> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              dbRiv.setSearcSort();
-                              dbRiv.searchItem(_controller.text);
+                              if(_controller.text != ""){
+                                dbRiv.setSearcSort();
+                                dbRiv.searchItem(_controller.text);
+                              }
                             },
                             child: Container(
                               width: size.width * .085,
@@ -86,6 +97,7 @@ class _searchPageState extends ConsumerState<searchPage> {
                           ),
                           GestureDetector(
                             onTap: () {
+                              dbRiv.resetSearchListTile();
                               Navigator.of(context).pop();
                             },
                             child: Container(
@@ -202,13 +214,32 @@ class _searchPageState extends ConsumerState<searchPage> {
                                                    width: size.width * .225,
                                                    child: Align(
                                                      alignment: Alignment.centerRight,
-                                                     child: Text(
-                                                       "${dbRiv.searchListTile![index].amount} ₺",
-                                                       style: TextStyle(
-                                                           color: renkler.arkaRenk,
-                                                           fontFamily: "Nexa",
-                                                           fontSize: 16
-                                                       ),
+                                                     child: RichText(
+                                                         maxLines: 1,
+                                                         overflow: TextOverflow.ellipsis,
+                                                         text: TextSpan(children: [
+                                                           TextSpan(
+                                                             text:  "${dbRiv.searchListTile![index].realAmount}",
+                                                             style: TextStyle(
+                                                               height: 1,
+                                                               color: renkler.arkaRenk,
+                                                               fontFamily:
+                                                               "Nexa3",
+                                                               fontSize: 15,
+                                                             ),
+                                                           ),
+                                                           TextSpan(
+                                                             text: readSettings.prefixSymbol,
+                                                             style: TextStyle(
+                                                               height: 1,
+                                                               color: renkler.arkaRenk,
+                                                               fontFamily:
+                                                               "TL",
+                                                               fontSize: 17,
+                                                             ),
+                                                           ),
+                                                         ]
+                                                       )
                                                      ),
                                                    ),
                                                  ),
@@ -281,19 +312,26 @@ class _searchPageState extends ConsumerState<searchPage> {
                     ),
 
                      */
-
-                    Padding(
+                    dbRiv.searchListTile?.length == 0 || dbRiv.searchListTile == null
+                    ? SizedBox(width : 1)
+                    : Padding(
                       padding: EdgeInsets.symmetric(horizontal:size.width * .07, vertical: size.height * 0.02),
-                      child: Column(
-                        children: [
-                          Text(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        width: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Theme.of(context).highlightColor,
+                        ),
+                        child: Center(
+                          child: Text(
                               "Gösterilen Kayıt Sayısı : ${dbRiv.searchListTile?.length ?? 0}",
                             style: TextStyle(
-                              color: Theme.of(context).secondaryHeaderColor,
+                              color: renkler.sariRenk,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      )
                     )
                   ],
                 ),

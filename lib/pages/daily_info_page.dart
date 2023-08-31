@@ -110,7 +110,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                         thumbColor: MaterialStateProperty.all(
                                           Theme.of(context).dialogBackgroundColor,))),
                                 child: Scrollbar(
-                                  isAlwaysShown: true,
+                                  thumbVisibility: true,
                                   scrollbarOrientation: readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.left :
                                   ScrollbarOrientation.right,
                                   interactive: true,

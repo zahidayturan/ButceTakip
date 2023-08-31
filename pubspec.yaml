@@ -60,7 +60,7 @@ dependencies:
   ntp: ^2.0.0
   pay: ^1.1.2
   shared_preferences: ^2.2.0
-
+  flutter_share: ^2.0.0
 
 flutter_native_splash:
   image: assets/image/icon_BKA/splash.png

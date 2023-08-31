@@ -70,9 +70,12 @@ class _base_BKAState extends ConsumerState<base_BKA> {
               print("gunluk guncellendi.");
               //readSetting.Backup();
               await writeToCvs(fileName).then((value) async {
-                  await readGglAuth.uploadFileToDrive(fileName);
-                  //readGglAuth.uploadFileToStorage();
-                  readSetting.setLastBackup();
+                await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                  if(value == 1){
+                    readSetting.setLastBackup();
+                  }
+                });
+                //readGglAuth.uploadFileToStorage();
               });
             }else{
               print("mevcut gün => ${DateTime.now().day}");
@@ -86,16 +89,22 @@ class _base_BKAState extends ConsumerState<base_BKA> {
                 print("ay bazında kayıt yapıyoruz.");
                 //readSetting.Backup();
                 await writeToCvs(fileName).then((value) async {
-                  await readGglAuth.uploadFileToDrive(fileName);
+                  await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                   if(value == 1){
+                     readSetting.setLastBackup();
+                   }
+                  });
                   //readGglAuth.uploadFileToStorage();
-                  readSetting.setLastBackup();
                 });
               }
             }else{
               await writeToCvs(fileName).then((value) async {
-                await readGglAuth.uploadFileToDrive(fileName);
+                await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                  if(value == 1){
+                    readSetting.setLastBackup();
+                  }
+                });
                 //readGglAuth.uploadFileToStorage();
-                readSetting.setLastBackup();
               });
               //readSetting.Backup();
             }
@@ -104,9 +113,12 @@ class _base_BKAState extends ConsumerState<base_BKA> {
             if(int.parse(datesplit[2]) != DateTime.now().year){
               //readSetting.Backup();
               await writeToCvs(fileName).then((value) async{
-                await readGglAuth.uploadFileToDrive(fileName);
+                await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                  if(value == 1){
+                    readSetting.setLastBackup();
+                  }
+                });
                 //readGglAuth.uploadFileToStorage();
-                readSetting.setLastBackup();
               });
             }
           }
