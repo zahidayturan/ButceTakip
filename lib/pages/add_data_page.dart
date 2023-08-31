@@ -1554,7 +1554,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                           child: Column(
                                                                                             mainAxisAlignment: MainAxisAlignment.center,
                                                                                             children: [
-                                                                                              Text('Mevcut kategori hangi kategori ile değiştirilsin',style: TextStyle(fontSize: 14,height: 1,color: Theme.of(context).canvasColor,),),
+                                                                                              Text(translation(context).replaceCategoryQuestion,style: TextStyle(fontSize: 14,height: 1,color: Theme.of(context).canvasColor,), textAlign: TextAlign.center,),
                                                                                               SizedBox(
                                                                                                 width : size.width*0.32,
                                                                                                 height: 24,
@@ -1638,7 +1638,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                 padding: const MaterialStatePropertyAll(EdgeInsets.only(left: 4,right: 4),)
                                                                                             ),
                                                                                             child: Text(
-                                                                                              _categoryEdit.text != '' ? "${_categoryEdit.text} ile değiştir" : translation(context).doneSmall,
+                                                                                              _categoryEdit.text != '' ? "${translation(context).replaceWithExceptTurkish} ${_categoryEdit.text} ${translation(context).replaceWithOnlyTurkish}" : translation(context).doneSmall,
                                                                                               style: TextStyle(
                                                                                                 color: renkler
                                                                                                     .koyuuRenk,
@@ -2179,7 +2179,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                   Column(
                                                                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                                     children: [
-                                                                                                      Text('Mevcut kategori hangi\nkategori ile değiştirilsin',style: TextStyle(fontSize: 14,height: 1,color: Theme.of(context).canvasColor,),),
+                                                                                                      Text(translation(context).replaceCategoryQuestion,style: TextStyle(fontSize: 14,height: 1,color: Theme.of(context).canvasColor,), textAlign: TextAlign.center,),
                                                                                                       DropdownButtonHideUnderline(
                                                                                                         child: DropdownButton2<String>(
                                                                                                           isExpanded: true,
@@ -2336,7 +2336,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                     padding: const MaterialStatePropertyAll(EdgeInsets.only(left: 4,right: 4),)
                                                                                                 ),
                                                                                                 child: Text(
-                                                                                                  _categoryEdit.text != '' ? "${_categoryEdit.text} ile değiştir" : translation(context).doneSmall,
+                                                                                                  _categoryEdit.text != '' ? "${translation(context).replaceWithExceptTurkish} ${_categoryEdit.text} ${translation(context).replaceWithOnlyTurkish}" : translation(context).doneSmall,
                                                                                                   style: TextStyle(
                                                                                                     color: renkler
                                                                                                         .koyuuRenk,

@@ -304,7 +304,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                                 MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text(
-                                                    "Ayın Başlangıç Günü",
+                                                    translation(context).firstDayOfTheMonth,
                                                     style: TextStyle(
                                                         color: Theme.of(context).canvasColor,
                                                         fontFamily: "Nexa4",
@@ -461,7 +461,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                                           child: Padding(
                                                             padding: const EdgeInsets.only(left: 10,right: 10,top: 2,bottom: 2),
                                                             child: Text(
-                                                              "Varsayılan (1)",
+                                                              translation(context).defaultOption,
                                                               style: TextStyle(
                                                                   color: renkler.arkaRenk,
                                                                   fontSize: 15,
@@ -492,7 +492,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                                           child: Padding(
                                                             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                                                             child: Text(
-                                                              "$selectedValueDay Olarak Ayarla",
+                                                              "${translation(context).setAsExceptTurkish} $selectedValueDay ${translation(context).setAsOnlyForTurkish}",
                                                               style: TextStyle(
                                                                   color: renkler.koyuuRenk,
                                                                   fontSize: 15,
@@ -615,7 +615,10 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             ),
           ),
           const SizedBox(height: 15),
-          monthDetailsGuide(context),
+          Directionality(
+            textDirection: TextDirection.ltr,
+              child: monthDetailsGuide(context)
+          ),
         ],
       ),
     );

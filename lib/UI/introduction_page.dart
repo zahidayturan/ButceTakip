@@ -305,7 +305,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         isExpanded: true,
                         hint: Center(
                           child: Text(
-                            selectedLanguage ?? "Lütfen Dil Seçiniz",
+                            selectedLanguage ?? translation(context).selectLanguage,
                             style: TextStyle(
                                 fontSize: 18,
                                 height: 1,
@@ -416,7 +416,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              backButton(context, "Dil Seçimi", 0),
+              backButton(context, translation(context).languageSelection, 0),
               lampMode(context),
             ],
           ),
@@ -426,7 +426,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Daha iyi bir deneyim için başlamadan önce kurulumu tamamlayınız.",
+                    translation(context).betterExperience,
                     style: TextStyle(
                         fontSize: 40,
                         height: 1,
@@ -459,14 +459,14 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   BorderRadius.all(Radius.circular(20)))),
                     ),
                     child: Text(
-                      "Kuruluma Başla",
-                      style: TextStyle(fontSize: 18, color: renkler.koyuuRenk),
+                      translation(context).startInstallation,
+                      style: TextStyle(fontSize: 18, color: renkler.koyuuRenk, height: 1),
                     ),
                   )),
             ),
           ),
           Align(
-            alignment: Alignment.centerLeft,
+            alignment: readSetting.Language == "العربية" ? Alignment.centerRight : Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.only(
                 bottom: 80,
@@ -484,7 +484,10 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       backgroundColor: MaterialStatePropertyAll(
                           Theme.of(context).canvasColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          const RoundedRectangleBorder(
+                          readSetting.Language == "العربية" ? const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(30),
+                                  topLeft: Radius.circular(30))) : const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(30),
                                   topRight: Radius.circular(30)))),
@@ -492,10 +495,12 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10.0, left: 4),
                       child: Text(
-                        "Kurulumu Atla",
+                        translation(context).skipInstallation,
                         style: TextStyle(
                             fontSize: 18,
-                            color: Theme.of(context).primaryColor),
+                            color: Theme.of(context).primaryColor,
+                            height: 1
+                        ),
                       ),
                     ),
                   )),
@@ -532,7 +537,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              backButton(context, "Kuruluma Geri Dön", 1),
+              backButton(context, translation(context).continueInstallation, 1),
               lampMode(context),
             ],
           ),
@@ -542,7 +547,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Kurulumu atlarsanız varsayılan ayarlar otomatik olarak seçilecektir.",
+                    translation(context).skipInstallationWarning,
                     style: TextStyle(
                         fontSize: 40,
                         height: 1,
@@ -577,7 +582,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   BorderRadius.all(Radius.circular(20)))),
                     ),
                     child: Text(
-                      "Tamam",
+                        translation(context).skip,
                       style: TextStyle(fontSize: 18, color: renkler.koyuuRenk),
                     ),
                   )),
@@ -661,7 +666,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Uygulamada kullanacağınız para birimini seçiniz.",
+                    translation(context).selectCurrencyForApplication,
                     style: TextStyle(
                         fontSize: 40,
                         height: 1,
@@ -762,7 +767,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             ),
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: readSetting.Language == "العربية" ? Alignment.centerLeft : Alignment.centerRight,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 80),
               child: SizedBox(
@@ -777,15 +782,19 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       backgroundColor: MaterialStatePropertyAll(
                           Theme.of(context).canvasColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          const RoundedRectangleBorder(
+                          readSetting.Language == "العربية" ? const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(30),
+                                  topRight: Radius.circular(30))) : const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(30),
-                                  topLeft: Radius.circular(30)))),
+                                  topLeft: Radius.circular(30)))
+                      ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10.0, left: 10),
                       child: Text(
-                        "Devam Et",
+                        translation(context).continueProcessing,
                         style: TextStyle(
                             fontSize: 18,
                             height: 1,
@@ -918,7 +927,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             ),
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: readSetting.Language == "العربية" ? Alignment.centerLeft : Alignment.centerRight,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 80),
               child: SizedBox(
@@ -933,7 +942,10 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       backgroundColor: MaterialStatePropertyAll(
                           Theme.of(context).canvasColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          const RoundedRectangleBorder(
+                          readSetting.Language == "العربية" ? const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(30),
+                                  topRight: Radius.circular(30))) : const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(30),
                                   topLeft: Radius.circular(30)))),
@@ -941,7 +953,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10.0, left: 10),
                       child: Text(
-                        "Devam Et",
+                        translation(context).continueProcessing,
                         style: TextStyle(
                             fontSize: 18,
                             height: 1,
@@ -1078,7 +1090,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             ),
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: readSetting.Language == "العربية" ? Alignment.centerLeft : Alignment.centerRight,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 80),
               child: SizedBox(
@@ -1093,7 +1105,10 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       backgroundColor: MaterialStatePropertyAll(
                           Theme.of(context).canvasColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          const RoundedRectangleBorder(
+                          readSetting.Language == "العربية" ? const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(30),
+                                  topRight: Radius.circular(30))) : const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(30),
                                   topLeft: Radius.circular(30)))),
@@ -1299,7 +1314,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             ],
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: readSetting.Language == "العربية" ? Alignment.centerLeft : Alignment.centerRight,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 80),
               child: SizedBox(
@@ -1314,7 +1329,10 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       backgroundColor: MaterialStatePropertyAll(
                           Theme.of(context).canvasColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          const RoundedRectangleBorder(
+                          readSetting.Language == "العربية" ? const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(30),
+                                  topRight: Radius.circular(30))) : const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(30),
                                   topLeft: Radius.circular(30)))),
@@ -1322,7 +1340,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10.0, left: 10),
                       child: Text(
-                        "Devam Et",
+                        translation(context).continueProcessing,
                         style: TextStyle(
                             fontSize: 18,
                             height: 1,
@@ -1508,7 +1526,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             maxLines: 2,
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: readSetting.Language == "العربية" ? Alignment.centerLeft : Alignment.centerRight,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 80),
               child: SizedBox(
@@ -1602,7 +1620,10 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       backgroundColor: MaterialStatePropertyAll(
                           Theme.of(context).canvasColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          const RoundedRectangleBorder(
+                          readSetting.Language == "العربية" ? const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(30),
+                                  topRight: Radius.circular(30))) : const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(30),
                                   topLeft: Radius.circular(30)))),

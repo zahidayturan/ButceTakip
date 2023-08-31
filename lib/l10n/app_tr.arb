@@ -13,10 +13,37 @@
   "contactUsTitle": "İLETİŞİM",
   "myAssets": "VARLIKLARIM",
 
+  "selectLanguage": "Lütfe dil seçiniz",
+
+  "languageSelection": "Dil Seçimi",
+  "betterExperience": "Daha iyi bir deneyim için başlamadan önce kurulumu tamamlayınız",
+  "startInstallation": "Kuruluma Başla",
+  "skipInstallation": "Kurulumu atla",
+
+  "continueInstallation": "Kuruluma Geri Dön",
+  "skipInstallationWarning": "Kurulumu atlarsanız varsayılan ayarlar otomatik olarak seçilecektir.",
+  "skip": "Atla",
+  "selectCurrencyForApplication": "Uygulamada kullanacağınız para birimini seçiniz",
+
   "savedActivities": "Kayıtlı İşlemler",
   "savedActivitiesAmount": "İşlem\nTutarı",
   "savedActivitiesCategory": "İşlem\nKategorisi",
   "numberOfSavedActivities": "Kayıtlı İşlem Sayısı:",
+
+  "repetitiveActivities": "Tekrarlı İşlemler",
+  "repetitiveActivitiesSize": "21",
+  "cancelRepetition": "Tekrarı İptal Et",
+  "yesCancel": "Evet",
+  "activityDetailsSmall": "İşlem Detayları",
+  "activeRepetitiveActivities": "Aktif Tekrarlı İşlem Sayısı:",
+
+  "installmentActivities": "Taksitli İşlemler",
+  "cancelInstallment": "Taksiti İptal Et",
+  "activeInstallmentActivities": "Aktif Taksitli İşlem Sayısı:",
+
+  "searchActivity": "İşlem Ara",
+  "noMatchData": "Eşleşen Veri Yok",
+  "numberOfActivitiesForSearchSection": "Kayıt Sayısı:",
 
   "january": "Ocak",
   "february": "Şubat",
@@ -79,7 +106,10 @@
   "reset": "Eski Haline Getir",
   "okStatistics": "TAMAM",
 
-
+  "firstDayOfTheMonth": "Ayın Başlangıç Günü",
+  "setAsOnlyForTurkish": "Olarak Ayarla",
+  "setAsExceptTurkish": "",
+  "defaultOption": "Varsayılan 1",
 
   "incomeInfo": "Gelir Bilgisi",
   "expenseInfo": "Gider Bilgisi",
@@ -147,6 +177,9 @@
   "categoryWillBeDeletedOldRecordsWillNotBeChanged": "Seçtiğiniz kategori silinecek ve eski kayıtlarda bir değişiklik olmayacak",
 
   "replaceAndDelete": "Değiştir ve sil",
+  "replaceCategoryQuestion": "Mevcut kategori hangi kategori ile değiştirilsin",
+  "replaceWithExceptTurkish": "",
+  "replaceWithOnlyTurkish": "ile değiştir",
   "selectCategory": "Kategori seçiniz",
   "doneSmall": "Tamam",
 
@@ -285,9 +318,11 @@
   "pleaseEnteraName": "Lütfen bir değer giriniz",
   "enter": "Giriniz",
 
+  "forgotPassword": "Şifremi Unuttum",
+  "disablePasswordParagraph": "Şifreyi devre dışı bırakmak için güvenlik sorusunu yanıtlamalısınız. Doğru yanıt için yalnızca 3 hakkınız vardır, bilemediğiniz takdirde verileriniz silinecektir. Eğer hazırsanız.",
+  "continueProcessing": "Devam Et",
 
-
-  "comeBack": "Vazgeç",
+  "goBack": "Vazgeç",
   "remainingTries": "Kalan Hak",
 
   "backupViaGoogleDrive": "Google Drive ile Yedekle",
@@ -298,7 +333,7 @@
   "lastBackupDate": "Son Yedekleme Tarihi:",
   "notBackedUp": "Yedeklenmedi",
 
-  "backupFrequency": "Yedeklenme Sıklığı",
+  "backupFrequency": "Yedekleme Sıklığı",
   "dailyBackup": "Günlük",
   "monthlyBackup": "Aylık",
   "yearlyBackup": "Yıllık",

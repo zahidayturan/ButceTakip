@@ -6,30 +6,57 @@
   "addIncomeExpensesTitle": "أضف الدخل / المصاريف",
   "editTitle": "تنظيم العملية",
   "settingsTitle": "إعدادات",
-  "helpTitle": "المساعدة",
-  "helpTitle2": "المساعدة<",
+  "helpTitle": "مساعدة",
+  "helpTitle2": "مساعدة<",
   "loginPasswordTitle": "كلمة المرور",
   "backupTitle": "النسخ الاحتياطي",
   "contactUsTitle": "تواصل معنا",
   "myAssets": "موجوداتي",
+
+  "selectLanguage": "الرجاء اختر اللغة",
+
+  "languageSelection": "اختيار اللغة",
+  "betterExperience": "للحصول على تجربة أفضل، أكمل التثبيت قبل البدء",
+  "startInstallation": "ابدأ التثبيت",
+  "skipInstallation": "تخطى التثبيت",
+
+  "continueInstallation": "عد إلى التثبيت",
+  "skipInstallationWarning": "إذا قمت بتخطي التثبيت، سيتم تعيين الإعدادات الافتراضية تلقائيًا.",
+  "skip": "تخطى",
+  "selectCurrencyForApplication": "اختر العملة التي ستستخدمها في التطبيق",
 
   "savedActivities": "العمليات المحفوظة",
   "savedActivitiesAmount": "مبلغ العملية",
   "savedActivitiesCategory": "فئة العملية",
   "numberOfSavedActivities": "عدد العمليات المحفوظة:",
 
-  "january": "كانون الثّاني",
-  "february": "شباط",
-  "march": "آذار",
-  "april": "نيسان",
-  "may": "أيّار",
-  "june": "حزيران",
-  "july": "تمّوز",
-  "august": "آب",
-  "september": "أيلول",
-  "october": "تشرين الأوّل",
-  "november": "تشرين الثّاني",
-  "december": "كانون الأوّل",
+  "repetitiveActivities": "العمليات المكررة",
+  "repetitiveActivitiesSize": "22",
+  "cancelRepetition": "إلغاء التكرار",
+  "yesCancel": "نعم",
+  "activityDetailsSmall": "تفاصيل العملية",
+  "activeRepetitiveActivities": "عدد  العمليات  المكررة النشطة:",
+
+  "installmentActivities": "عمليات التقسيط",
+  "cancelInstallment": "إلغاء التقسيط",
+  "activeInstallmentActivities": "عدد عمليات التقسيط النشطة:",
+
+  "searchActivity": "ابحث عن عملية",
+  "noMatchData": "لا توجد بيانات مطابقة",
+  "numberOfActivitiesForSearchSection": "عدد العمليات:",
+
+  "january": "يناير",
+  "february": "فبراير",
+  "march": "مارس",
+  "april": "أبريل",
+  "may": "مايو",
+  "june": "يونيو",
+  "july": "يوليو",
+  "august": "أغسطس",
+  "september": "سبتمبر",
+  "october": "أكتوبر",
+  "november": "نوفمبر",
+  "december": "ديسمبر",
 
   "monday": "الاثنين",
   "tuesday": "الثلاثاء",
@@ -79,7 +106,10 @@
   "reset": "رجوع",
   "okStatistics": "تم",
 
-
+  "firstDayOfTheMonth": "بداية الشهر",
+  "setAsOnlyForTurkish": "",
+  "setAsExceptTurkish": "اضبط",
+  "defaultOption": "الافتراضي (1)",
 
   "incomeInfo": "معلومات الدخل",
   "expenseInfo": "معلومات المصاريف",
@@ -147,6 +177,9 @@
   "categoryWillBeDeletedOldRecordsWillNotBeChanged": "سيتم حذف الفئة التي اخترتها ولن يتم أي تغيير في السجلات السابقة.",
 
   "replaceAndDelete": "غير و احذف",
+  "replaceCategoryQuestion": "اختر الفئة اللتي تريد استبدالها",
+  "replaceWithExceptTurkish": "استبدل ب ",
+  "replaceWithOnlyTurkish": "",
   "selectCategory": "اختر فئة",
   "doneSmall": "تم",
 
@@ -231,7 +264,7 @@
   "currencyConverterWarning": "لم يتم تفعيل محول العملات بعد.",
 
   "settings": "الإعدادات",
-  "help": "المساعدة",
+  "help": "مساعدة",
   "loginPassword": "كلمة المرور",
   "downloadData": "تحميل البيانات",
   "contactUs": "تواصل معنا",
@@ -284,10 +317,11 @@
   "pleaseEnteraName": "الرجاء أدخل الاسم",
   "enter": "أدخل",
 
+  "forgotPassword": "نسيت كلمة المرور",
+  "disablePasswordParagraph": "لإلغاء كلمة المرور يجب عليك الإجابة على سؤال الأمان. لديك 3 فرص فقط للإجابة الصحيحة، إذا لم تقم بالإجابة الصحيحة سيتم حذف بياناتك. إذا كنت مستعدا.",
+  "continueProcessing": "استمر",
 
-
-
-  "comeBack": "تراجع",
+  "goBack": "تراجع",
   "remainingTries": "المحاولات المتبقية",
 
   "backupViaGoogleDrive": "النسخ الاحتياطي بواسطة جوجل درايف",
