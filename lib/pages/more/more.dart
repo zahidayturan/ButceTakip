@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:pay/pay.dart';
 import '../../riverpod_management.dart';
 import '../../utils/payment_config.dart';
@@ -36,6 +37,14 @@ class More extends ConsumerWidget {
       child: CircularProgressIndicator(),
     ),
   );
+  Future<void> shareButceTakip() async {
+    await FlutterShare.share(
+        title: 'Bütçe Takip İndir',
+        text: 'Hey! Bütçeni kontrol altına almak için denemelisin.',
+        linkUrl: 'https://play.google.com/store/apps/details?id=com.fezaitech.butcetakip',
+        chooserTitle: 'Bütçe Takip',
+    );
+  }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readSetting = ref.read(settingsRiverpod);
@@ -319,6 +328,36 @@ class More extends ConsumerWidget {
                                 children: [
                                   Icon(Icons.message, color: renkler.arkaRenk, size: 35),
                                   Text(translation(context).contactUs,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: size.width / 15),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: ()  {
+                              shareButceTakip();
+                            },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                            child: Container(
+                              height: size.height / 9,
+                              width: size.height / 9,
+                              decoration: BoxDecoration(
+                                  color: renkler.koyuuRenk,
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).canvasColor
+                                  ),
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(Icons.share, color: renkler.yaziRenk, size: 35),
+                                  Text("Tavsiye Et",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                 ],
                               ),
                             ),

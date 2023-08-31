@@ -4,6 +4,7 @@ import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -438,14 +439,14 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Text(
-                                                        "${data![index].operationTool}",
+                                                        Converter().textConverterFromDB(data![index].operationTool!, context, 2),
                                                         style: TextStyle(
                                                           height: 1,
                                                           color: Theme.of(context).canvasColor,
                                                         ),
                                                       ),
                                                       Text(
-                                                          data![index].operationDate.toString()  == "null" ? translation(context).asset : data![index].operationDate.toString() ,
+                                                          data![index].operationDay.toString()  == "null" ? translation(context).asset : data![index].operationDate.toString() ,
                                                         style: TextStyle(
                                                           fontSize: 14,
                                                           height: 1,

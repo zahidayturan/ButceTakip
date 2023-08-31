@@ -30,7 +30,7 @@ class _BackUpState extends ConsumerState<BackUp> {
     var readSetting = ref.read(settingsRiverpod);
     var readGglAuth = ref.read(gglDriveRiverpod);
     ref.watch(gglDriveRiverpod).RfPageSt;
-    readGglAuth.checkAuthState();
+    //readGglAuth.checkAuthState();
     //bool isExpandGDrive = false ;
     //bool isExpandExcel = false ;
     bool isopen = readSetting.isBackUp == 1 ? true : false ; // databaseden alınacak
@@ -239,31 +239,33 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
                                       await writeToCvs(fileName).then((value) async  {
                                         try{
+                                          await Future.delayed(Duration(seconds: 1));
                                           await readGglAuth.uploadFileToDrive(fileName);
                                         }catch (e){
                                           print("HATAAAAAAAAAAA ===============>>>>>>>>>>${e.toString()}");
-
                                         }
                                         //await readGglAuth.uploadFileToStorage().then((value) => readGglAuth.refreshPage());
                                         readSetting.setLastBackup();
-                                      });
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          backgroundColor:
-                                          const Color(0xff0D1C26),
-                                          duration: const Duration(seconds: 2),
-                                          content: Text(
-                                            translation(context).uploadedToGoogleDrive,
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontFamily: 'Nexa3',
-                                              fontWeight: FontWeight.w600,
-                                              height: 1.3,
+                                      }).then((value) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            backgroundColor:
+                                            Color(0xff0D1C26),
+                                            duration: Duration(seconds: 1),
+                                            content: Text(
+                                              translation(context).uploadedToGoogleDrive,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontFamily: 'Nexa3',
+                                                fontWeight: FontWeight.w600,
+                                                height: 1.3,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
+                                        );
+                                      });
+                                      Future.delayed(Duration(seconds: 1, milliseconds: 500));
                                     },
                                     child: Container(
                                       height: 32,
@@ -332,7 +334,9 @@ class _BackUpState extends ConsumerState<BackUp> {
                               InkWell(
                                 onTap: () async {
                                   await readGglAuth.signInWithGoogle();
+                                  readGglAuth.checkAuthState();
                                   readGglAuth.setAccountStatus(true);
+                                  readGglAuth.refreshPage();
                                 },
                                 child: SizedBox(
                                   width: size.width * 0.56,

@@ -386,6 +386,8 @@
   "timeDetails": "SAAT",
   "categoryDetails": "KATEGORİ",
   "paymentMethodDetails": "ÖDEME ŞEKLİ",
+  "cashDetails": "Nakit",
+  "cardDetails": "Kart",
   "amountDetails": "TUTAR",
   "savingStatusDetails": "KAYIT DURUMU",
   "saved": "Kayıtlı",

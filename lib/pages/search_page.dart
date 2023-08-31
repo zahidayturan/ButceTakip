@@ -20,6 +20,7 @@ class _searchPageState extends ConsumerState<searchPage> {
   }
   @override
   Widget build(BuildContext context) {
+    var readSettings = ref.read(settingsRiverpod);
     var dbRiv = ref.watch(databaseRiverpod);
     var readDailyRiv = ref.read(dailyInfoRiverpod);
     var size = MediaQuery.of(context).size ;
@@ -29,54 +30,84 @@ class _searchPageState extends ConsumerState<searchPage> {
         backgroundColor: Colors.transparent,
         body: GestureDetector(
           onTap: () {
+            dbRiv.resetSearchListTile();
             Navigator.of(context).pop();
           },
-          child: Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: Colors.black.withOpacity(0.5),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    height : 60,
-                    color: renkler.koyuuRenk,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          height: size.height * .05,
-                          width : size.width * 0.65,
-                          decoration: BoxDecoration(
-                            color: renkler.arkaRenk,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Center(
-                            child: TextField(
-                              onChanged: (value) {
-                                dbRiv.searchItem(_controller.text);
-                              },
-                              controller: _controller,
-                              decoration: InputDecoration(
-                                hintText: translation(context).searchActivity,
-                                contentPadding: EdgeInsets.symmetric(horizontal: size.width * .01,vertical: 13),
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(height: 1),
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              color: Colors.black.withOpacity(0.5),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      height : 60,
+                      color: renkler.koyuuRenk,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            height: size.height * .05,
+                            width : size.width * 0.65,
+                            decoration: BoxDecoration(
+                              color: renkler.arkaRenk,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
+                              child: TextField(
+                                onChanged: (value) {
+                                  if(value != ""){
+                                    dbRiv.searchItem(_controller.text);
+                                  }else{
+                                    dbRiv.resetSearchListTile();
+                                  }
+                                },
+                                controller: _controller,
+                                decoration: InputDecoration(
+                                  hintText: "Aramak İstediğiniz Notu Giriniz.",
+                                  hintStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(horizontal: size.width * .01,vertical: 13),
+                                  border: InputBorder.none,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            dbRiv.setSearcSort();
-                            dbRiv.searchItem(_controller.text);
-                          },
-                          child: Container(
-                            width: size.width * .085,
-                            height: size.width * .085,
-                            decoration: BoxDecoration(
-                                color: dbRiv.searchSort ? Colors.orangeAccent : renkler.sariRenk ,
-                                shape: BoxShape.circle
+                          GestureDetector(
+                            onTap: () {
+                              if(_controller.text != ""){
+                                dbRiv.setSearcSort();
+                                dbRiv.searchItem(_controller.text);
+                              }
+                            },
+                            child: Container(
+                              width: size.width * .085,
+                              height: size.width * .085,
+                              decoration: BoxDecoration(
+                                  color: dbRiv.searchSort ? Colors.orangeAccent : renkler.sariRenk ,
+                                  shape: BoxShape.circle
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              dbRiv.resetSearchListTile();
+                              Navigator.of(context).pop();
+                            },
+                            child: Container(
+                              width: size.width * .085,
+                              height: size.width * .085,
+                              decoration: BoxDecoration(
+                                  color: renkler.sariRenk,
+                                  shape: BoxShape.circle
+                              ),
+                              child: const Icon(
+                                Icons.close_sharp,
+                                color: Colors.black,
+                              ),
                             ),
                             child: Transform.rotate(
                                 angle: 3.14 / 2,
@@ -197,11 +228,46 @@ class _searchPageState extends ConsumerState<searchPage> {
                                                        fontSize: 16
                                                    ),
                                                  ),
-                                               ),
-                                               SizedBox(
-                                                 width: size.width * .225,
-                                                 child: Align(
-                                                   alignment: Alignment.centerRight,
+                                                 SizedBox(
+                                                   width: size.width * .225,
+                                                   child: Align(
+                                                     alignment: Alignment.centerRight,
+                                                     child: RichText(
+                                                         maxLines: 1,
+                                                         overflow: TextOverflow.ellipsis,
+                                                         text: TextSpan(children: [
+                                                           TextSpan(
+                                                             text:  "${dbRiv.searchListTile![index].realAmount}",
+                                                             style: TextStyle(
+                                                               height: 1,
+                                                               color: renkler.arkaRenk,
+                                                               fontFamily:
+                                                               "Nexa3",
+                                                               fontSize: 15,
+                                                             ),
+                                                           ),
+                                                           TextSpan(
+                                                             text: readSettings.prefixSymbol,
+                                                             style: TextStyle(
+                                                               height: 1,
+                                                               color: renkler.arkaRenk,
+                                                               fontFamily:
+                                                               "TL",
+                                                               fontSize: 17,
+                                                             ),
+                                                           ),
+                                                         ]
+                                                       )
+                                                     ),
+                                                   ),
+                                                 ),
+                                               ],
+                                             ),
+                                             Row(
+                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                               children: [
+                                                 SizedBox(
+                                                   width : size.width * .7,
                                                    child: Text(
                                                      "${dbRiv.searchListTile![index].amount} ₺",
                                                      style: TextStyle(
@@ -280,23 +346,30 @@ class _searchPageState extends ConsumerState<searchPage> {
                     },
                   ),
 
-                   */
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal:size.width * .07, vertical: size.height * 0.02),
-                    child: Column(
-                      children: [
-                        Text(
-                            "${translation(context).numberOfActivitiesForSearchSection} ${dbRiv.searchListTile?.length ?? 0}",
-                          style: TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            height: 1
+                     */
+                    dbRiv.searchListTile?.length == 0 || dbRiv.searchListTile == null
+                    ? SizedBox(width : 1)
+                    : Padding(
+                      padding: EdgeInsets.symmetric(horizontal:size.width * .07, vertical: size.height * 0.02),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        width: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Theme.of(context).highlightColor,
+                        ),
+                        child: Center(
+                          child: Text(
+                              "Gösterilen Kayıt Sayısı : ${dbRiv.searchListTile?.length ?? 0}",
+                            style: TextStyle(
+                              color: renkler.sariRenk,
+                            ),
                           ),
                         ),
-                      ],
-                    ),
-                  )
-                ],
+                      )
+                    )
+                  ],
+                ),
               ),
             ),
           ),

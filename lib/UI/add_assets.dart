@@ -2,6 +2,7 @@ import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../classes/language.dart';
 import '../models/spend_info.dart';
@@ -185,6 +186,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                       GestureDetector(
                         onTap: () async {
                           double amount = double.tryParse(_controller.text) ?? 0.0;
+                          String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.now());
                           if(moneyType != null && amount != 0.0){
                             final newinfo = SpendInfo(
                               operationType,
@@ -197,7 +199,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                               "null",
                               "null",
                               "null",
-                              "null",
+                              formattedDate,
                               moneyType,//moneytype
                               "",
                               ref.read(currencyRiverpod).calculateRealAmount(double.tryParse(_controller.text)!, moneyType, readSettings.Prefix!),

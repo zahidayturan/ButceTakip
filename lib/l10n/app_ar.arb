@@ -385,6 +385,8 @@
   "timeDetails": "الوقت",
   "categoryDetails": "الفئة",
   "paymentMethodDetails": "كيفية الدفع",
+  "cashDetails": "نقداً",
+  "cardDetails": "بطاقة",
   "amountDetails": "المبلغ",
   "savingStatusDetails": "وضع الحفظ",
   "saved": "محفوظ",

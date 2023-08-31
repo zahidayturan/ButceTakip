@@ -1,7 +1,9 @@
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/date_time_manager.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../Pages/update_data_page.dart';
 import '../constans/material_color.dart';
@@ -39,6 +41,9 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     List<SpendInfo> item = readDailyInfo.getSpendDetailItem();
     int index = readDailyInfo.getSpendDetailIndex();
+    var readSettings = ref.read(settingsRiverpod);
+    DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
+    String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
     CustomColors renkler = CustomColors();
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
@@ -116,7 +121,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                             padding: const EdgeInsets.only(
                                 left: 15.0, right: 15.0, top: 2.0),
                             child: Text(
-                              "${item[index].operationDate}",
+    formattedDate,
                               style: TextStyle(
                                 color: renkler.koyuuRenk,
                                 height: 1,
@@ -166,7 +171,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           fontSize: 18,
                         )),
                     Expanded(
-                      child: Text("${item[index].category} - ${item[index].userCategory}",
+                      child: Text("${Converter().textConverterFromDB(item[index].category!, context, 0)} - ${item[index].userCategory}",
                           style: const TextStyle(
                             color: Colors.white,
                             fontFamily: 'Nexa3',
@@ -191,7 +196,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           height: 1,
                           fontSize: 18,
                         )),
-                    Text("${item[index].operationTool}",
+                    Text(Converter().textConverterFromDB(item[index].operationTool!, context, 2),
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa3',
@@ -272,8 +277,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                   fontSize: 18,
                                 )),
                                Expanded(
-                                 child: Text("${item[index].processOnce}",
-                                      style: const TextStyle(
+                                 child: Text(Converter().textConverterFromDB(item[index].processOnce!, context, 1),
+                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Nexa3',
                                         height: 1,
@@ -294,7 +299,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Text("SİSTEM MESAJI",
                                   style: TextStyle(
@@ -308,7 +313,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 5, left: 5),
-                            child: Text("${item[index].systemMessage}",
+                            child: Text("İşlenen : ${Converter().textConverterFromDB(item[index].processOnce!, context, 1)}",
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Nexa3',
@@ -514,7 +519,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 readUpdateData.setItems(SpendInfo.withId(
                                     item[index].id!,
                                     item[index].operationType,
-                                    item[index].category,
+                                    Converter().textConverterFromDB(item[index].category!, context, 0),
                                     item[index].operationTool,
                                     item[index].registration,
                                     item[index].amount,
@@ -525,7 +530,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                     DateTimeManager.getCurrentTime(),
                                     time,
                                     item[index].moneyType,
-                                    item[index].processOnce,
+                                    Converter().textConverterFromDB(item[index].processOnce!, context, 1),
                                     item[index].realAmount,
                                     item[index].userCategory,
                                     item[index].systemMessage));
@@ -573,7 +578,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 readUpdateData.setItems(SpendInfo.withId(
                                     item[index].id!,
                                     item[index].operationType,
-                                    item[index].category,
+                                    Converter().textConverterFromDB(item[index].category!, context, 0),
                                     item[index].operationTool,
                                     item[index].registration,
                                     item[index].amount,
@@ -584,7 +589,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                     item[index].operationTime,
                                     item[index].operationDate,
                                     item[index].moneyType,
-                                    item[index].processOnce,
+                                    Converter().textConverterFromDB(item[index].processOnce!, context, 1),
                                     item[index].realAmount,
                                     item[index].userCategory,
                                     item[index].systemMessage));

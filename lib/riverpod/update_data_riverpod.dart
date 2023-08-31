@@ -1,7 +1,6 @@
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:googleapis/driveactivity/v2.dart';
 
 import '../riverpod_management.dart';
 import '../utils/date_time_manager.dart';
@@ -150,14 +149,23 @@ class UpdateDataRiverpod extends ChangeNotifier {
     SQLHelper.updateCustomize(id, "");
   }
 
-  Future<Map<String, List<String>>> myCategoryLists() async {
+  Future<Map<String, List<String>>> myCategoryLists(BuildContext context) async {
     List<SpendInfo> spendInfoListExpense =
         await SQLHelper.getCategoryListByType('Gider');
     List<String> categoryListExpense = [];
-
+/*
+    List<String> oldCategoryListExpense = [
+      "الهوايات",
+      "Hobi",
+      "Hobby"
+    ];
+*/
     for (var spendInfo in spendInfoListExpense) {
       if (!categoryListExpense.contains(spendInfo.userCategory) && spendInfo.userCategory != '') {
-        categoryListExpense.add(spendInfo.userCategory!);
+        /*if(oldCategoryListExpense.contains(spendInfo.userCategory) == false){
+          categoryListExpense.add(spendInfo.userCategory!);
+        }*/
+          categoryListExpense.add(spendInfo.userCategory!);
       }
     }
 

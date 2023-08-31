@@ -12,12 +12,14 @@ class listBackUpPopUp extends ConsumerStatefulWidget{
 }
 
 class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
-  Future<List> ?backUpList  ;
   bool isclicked = false ;
+  var renkdeneme = Colors.white;
+  List selectedIndexList = [] ;
   @override
   Widget build(BuildContext context) {
-    var readGglAuth = ref.read(gglDriveRiverpod);
-    backUpList = readGglAuth.ListOfFolder(readGglAuth.folderID);
+    var readGglAuth = ref.watch(gglDriveRiverpod);
+    readGglAuth.RfPageSt;
+    Future<List> backUpList = readGglAuth.ListOfFolder(readGglAuth.folderID);
     var errormessage = "";
     var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
@@ -49,7 +51,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                   child: Container( //boyut
                     height: size.width * .7,
                     width: size.width * .65,
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: renkler.koyuuRenk,
                       borderRadius: BorderRadius.circular(20),
@@ -60,7 +62,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                         if(snapshot.hasData){
                           var data = snapshot.data!.toList();
                           if(data.length > 30){
-
+                            print("30 dan çok kaydınız var.");
                           }
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +85,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                       itemCount: isclicked ? 1 : data.length,
                                       itemBuilder: (context, index) {
                                         return Padding(
-                                          padding: EdgeInsets.only(right: 10),
+                                          padding: const EdgeInsets.only(right: 10),
                                           child: isclicked
                                           ?SizedBox(
                                             height: size.width *.5 ,
@@ -114,41 +116,61 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                             children: [
                                              GestureDetector(
                                                onTap:() async {
-                                                 setState(() {
-                                                   isclicked = true;
-                                                 });
-                                                 try {
-                                                  await readGglAuth.downloadGoogleDriveFile("${data[index].id}", "${data[index].name}");
-                                                  if(readSettings.Prefix != "TRY"){
-                                                    ref.read(currencyRiverpod).calculateAllSQLHistoryTime();
-                                                  }
-                                                 }catch(e){
-                                                   print("Veriler indirilirken hata meydana geldi $e");
-                                                 }
-                                                 Navigator.of(context).pop();
-                                                 ScaffoldMessenger.of(context).showSnackBar(
-                                                   const SnackBar(
-                                                     backgroundColor:
-                                                     Color(0xff0D1C26),
-                                                     duration: Duration(seconds: 1),
-                                                     content: Text(
-                                                       'Cloud üzerinden Verileriniz Çekildi',
-                                                       style: TextStyle(
-                                                         color: Colors.white,
-                                                         fontSize: 16,
-                                                         fontFamily: 'Nexa3',
-                                                         fontWeight: FontWeight.w600,
-                                                         height: 1.3,
+                                                 if(selectedIndexList.isNotEmpty){
+                                                   if(selectedIndexList.contains(index)){
+                                                     setState(() {
+                                                      selectedIndexList.remove(index);
+                                                     });
+                                                   }else{
+                                                     setState(() {
+                                                       renkdeneme = Colors.orange;
+                                                       selectedIndexList.add(index) ;
+                                                     });
+                                                   }
+                                                 }else{
+                                                   setState(() {
+                                                     isclicked = true;
+                                                   });
+                                                   try {
+                                                    await readGglAuth.downloadGoogleDriveFile("${data[index].id}", "${data[index].name}");
+                                                    if(readSettings.Prefix != "TRY"){
+                                                      ref.read(currencyRiverpod).calculateAllSQLHistoryTime();
+                                                    }
+                                                   }catch(e){
+                                                     print("Veriler indirilirken hata meydana geldi $e");
+                                                   }
+                                                   Navigator.of(context).pop();
+                                                   ScaffoldMessenger.of(context).showSnackBar(
+                                                     SnackBar(
+                                                       backgroundColor:
+                                                       const Color(0xff0D1C26),
+                                                       duration: const Duration(seconds: 1),
+                                                       content: Text(
+                                                         translation(context).dataRestoredFromGoogleDrive,
+                                                         style: const TextStyle(
+                                                           color: Colors.white,
+                                                           fontSize: 16,
+                                                           fontFamily: 'Nexa3',
+                                                           fontWeight: FontWeight.w600,
+                                                           height: 1.3,
+                                                         ),
                                                        ),
                                                      ),
-                                                   ),
-                                                 );
+                                                   );
+                                                 }
+                                               },
+                                               onLongPress: () {
+                                                 setState(() {
+                                                  renkdeneme = Colors.orange;
+                                                  selectedIndexList.add(index) ;
+                                                 });
                                                },
                                                child: Container(
                                                  height: 30,
-                                                 padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
+                                                 padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                                  decoration: BoxDecoration(
-                                                   color: Theme.of(context).indicatorColor,
+                                                   //color: Theme.of(context).indicatorColor,
+                                                   color: selectedIndexList.contains(index) ? renkler.sariRenk.withOpacity(0.9) : Theme.of(context).indicatorColor,
                                                    borderRadius: BorderRadius.circular(6),
                                                  ),
                                                  child: Center(
@@ -162,7 +184,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                          ),
                                                        ),
                                                        //Icon(Icons.download_rounded),
-                                                       Icon(Icons.cloud_download_outlined),
+                                                       const Icon(Icons.cloud_download_outlined),
                                                      ],
                                                    ),
                                                  ),
@@ -180,13 +202,61 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                 ),
                               ),
                               isclicked
-                              ?SizedBox(width: 1)
-                              :Text(
-                                  "${data.length} adet kayıt gösteriliyor.",
-                                  style: TextStyle(
-                                  fontSize: 13,
-                                  fontFamily: "Nexa3",
-                                  color: renkler.arkaRenk,
+                              ?const SizedBox(width: 1)
+                              :SizedBox(
+                                height: size.height *.02,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                        "${data.length} adet kayıt gösteriliyor.",
+                                        style: TextStyle(
+                                        fontSize: 13,
+                                        fontFamily: "Nexa3",
+                                        color: renkler.arkaRenk,
+                                      ),
+                                    ),
+                                    SizedBox(width: size.width * .04),
+                                    selectedIndexList.isNotEmpty
+                                      ?Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () async {
+                                              for (var element in selectedIndexList) {
+                                                readGglAuth.deleteFileWithId(data[element].id).then((value) => readGglAuth.refreshPage());
+                                              }
+                                              setState(() {
+                                                selectedIndexList.clear();
+                                              });
+                                            },
+                                            child: const Icon(
+                                                Icons.delete_forever,
+                                              color: Colors.white,
+                                              size: 21,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 5),
+                                          InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedIndexList.clear();
+                                              });
+                                            },
+                                            child: const Icon(
+                                              Icons.cancel_outlined,
+                                              color: Colors.white,
+                                              size: 21,
+
+                                            ),
+                                          ),
+
+                                        ],
+                                      )
+                                      :const SizedBox(width: 0)
+                                  ],
                                 ),
                               ),
                             ],

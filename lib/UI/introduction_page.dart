@@ -10,6 +10,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -1533,6 +1534,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   height: 44,
                   child: TextButton(
                     onPressed: () async {
+                      String formattedDate = intl.DateFormat('dd.MM.yyyy').format(DateTime.now());
                       for(int i = 0 ; i < cardAmountList.length; i++){
                         final newinfo = SpendInfo(
                           "Gelir",
@@ -1545,7 +1547,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           "null",
                           "null",
                           "null",
-                          "null",
+                          formattedDate,
                           cardAmountList[i]["currency"],
                           "",
                           readCurrency.calculateRealAmount(
@@ -1570,7 +1572,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           "null",
                           "null",
                           "null",
-                          "null",
+                          formattedDate,
                           cashAmountList[i]["currency"],
                           "",
                           readCurrency.calculateRealAmount(
@@ -1595,7 +1597,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           "null",
                           "null",
                           "null",
-                          "null",
+                          formattedDate,
                           otherAmountList[i]["currency"],
                           "",
                           readCurrency.calculateRealAmount(

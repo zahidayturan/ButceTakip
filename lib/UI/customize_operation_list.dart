@@ -2,15 +2,17 @@ import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class CustomizeList extends ConsumerWidget {
   const CustomizeList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool selectedOperationController = false;
+    var readHome= ref.read(homeRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     return StatefulBuilder(
@@ -27,9 +29,9 @@ class CustomizeList extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        selectedOperationController == false
-                            ? translation(context).repetitiveActivities
-                            : translation(context).installmentActivities,
+                        readHome.menuControllerForRepeated == false
+                            ? "Tekrarlı İşlemler"
+                            : "Taksitli İşlemler",
                         style: TextStyle(
                             color: Theme.of(context).canvasColor,
                             fontFamily: "Nexa4",
@@ -52,12 +54,12 @@ class CustomizeList extends ConsumerWidget {
                                 icon: const Icon(Icons.swap_horiz_rounded),
                                 padding: EdgeInsets.zero,
                                 alignment: Alignment.center,
-                                color: selectedOperationController == false ? renkler.koyuuRenk : Colors.white,
+                                color: readHome.menuControllerForRepeated == false ? renkler.koyuuRenk : Colors.white,
                                 iconSize: 30,
                                 onPressed: () {
                                   setState(
                                           () {
-                                        selectedOperationController = !selectedOperationController;
+                                            readHome.menuControllerForRepeated = !readHome.menuControllerForRepeated;
                                       });
                                 },
                               ),
@@ -94,7 +96,7 @@ class CustomizeList extends ConsumerWidget {
                   const SizedBox(
                     height: 12.0,
                   ),
-                  selectedOperationController == false ? repeatedList(context, ref,setState) : installemntList(context, ref,setState),
+                  readHome.menuControllerForRepeated == false ? repeatedList(context, ref,setState) : installemntList(context, ref,setState),
                 ],
               )),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -172,6 +174,9 @@ class CustomizeList extends ConsumerWidget {
                             child: ListView.builder(
                               itemCount: item.length,
                               itemBuilder: (context, index) {
+                                var readSettings = ref.read(settingsRiverpod);
+                                DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
+                                String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
                                 return Column(
                                   children: [
                                     InkWell(
@@ -179,6 +184,7 @@ class CustomizeList extends ConsumerWidget {
                                         readDailyInfo.setSpendDetail(
                                             item, index);
                                         showModalBottomSheet(
+                                          isScrollControlled:true,
                                           context: context,
                                           shape:
                                           const RoundedRectangleBorder(
@@ -226,7 +232,7 @@ class CustomizeList extends ConsumerWidget {
                                                       .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      "${item[index].processOnce}",
+                                                      Converter().textConverterFromDB(item[index].processOnce!, context, 1),
                                                       style:
                                                       const TextStyle(
                                                         fontFamily: "Nexa3",
@@ -284,7 +290,7 @@ class CustomizeList extends ConsumerWidget {
                                                       .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      "${item[index].operationDate}",
+                                                      formattedDate,
                                                       style:
                                                       const TextStyle(
                                                         fontFamily: "Nexa3",
@@ -293,7 +299,7 @@ class CustomizeList extends ConsumerWidget {
                                                     ),
                                                     Expanded(
                                                       child: Text(
-                                                        "${item[index].category}",
+                                Converter().textConverterFromDB(item[index].category!, context, 0),
                                                         style: TextStyle(
                                                           color: Theme.of(
                                                               context)
@@ -400,6 +406,7 @@ class CustomizeList extends ConsumerWidget {
                                                             readDailyInfo.setSpendDetail(
                                                                 item, index);
                                                             showModalBottomSheet(
+                                                              isScrollControlled:true,
                                                               context: context,
                                                               shape:
                                                               const RoundedRectangleBorder(
@@ -545,12 +552,16 @@ class CustomizeList extends ConsumerWidget {
                             child: ListView.builder(
                               itemCount: item.length,
                               itemBuilder: (context, index) {
+                                var readSettings = ref.read(settingsRiverpod);
+                                DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
+                                String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
                                 return Column(
                                   children: [
                                     InkWell(
                                       onTap: () {
                                         readDailyInfo.setSpendDetail(item, index);
                                         showModalBottomSheet(
+                                          isScrollControlled:true,
                                           context: context,
                                           shape: const RoundedRectangleBorder(
                                               borderRadius: BorderRadius.vertical(
@@ -573,7 +584,7 @@ class CustomizeList extends ConsumerWidget {
                                               borderRadius: const BorderRadius.all(Radius.circular(10))
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.only(top: 8.0,left: 8,right: 8),
+                                            padding: const EdgeInsets.only(top: 6.0,left: 8,right: 8),
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
@@ -641,7 +652,7 @@ class CustomizeList extends ConsumerWidget {
                                                       .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      "${item[index].operationDate}",
+                                                      formattedDate,
                                                       style:
                                                       const TextStyle(
                                                         fontFamily: "Nexa3",
@@ -664,139 +675,143 @@ class CustomizeList extends ConsumerWidget {
                                                     ),
                                                   ],
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                                  children: [
-                                                    SizedBox(
-                                                      height : 18,
-                                                      child: TextButton(
-                                                        onPressed: () {
-                                                          showDialog(
-                                                              context: context,
-                                                              builder: (context) {
-                                                                return AlertDialog(
-                                                                  backgroundColor: Theme.of(context).primaryColor,
-                                                                  title: Text(translation(context).cancelInstallment,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
-                                                                  titlePadding: EdgeInsets.all(10),
-                                                                  content: Text("Bundan sonra ki taksitler işleme alınmayacak, onaylıyor musunuz?",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
-                                                                  shadowColor: renkler.koyuuRenk,
-                                                                  contentPadding: EdgeInsets.only(top: 2,left: 16,right: 16,bottom: 2),
-                                                                  actionsPadding: EdgeInsets.all(0),
-                                                                  actions: [
-                                                                    Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                      children: [
-                                                                        TextButton(
-                                                                          onPressed: () {
-                                                                            Navigator.of(context).pop();
-                                                                          },
-                                                                          child: Text(translation(context).no,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
-                                                                        ),
-                                                                        TextButton(
-                                                                          onPressed: () {
-                                                                            setState(() {
-                                                                              readUpdateData.removeProcessOnce(item[index].id!);
-                                                                            });
-                                                                            Navigator.of(context).pop();
-                                                                            ScaffoldMessenger.of(context).showSnackBar(
-                                                                              SnackBar(
-                                                                                backgroundColor: Theme.of(context).highlightColor,
-                                                                                duration: const Duration(seconds: 1),
-                                                                                content: const Text(
-                                                                                  "Taksit iptal edildi",
-                                                                                  style: TextStyle(
-                                                                                    color: Colors.white,
-                                                                                    fontSize: 16,
-                                                                                    fontFamily: 'Nexa3',
-                                                                                    fontWeight: FontWeight.w600,
-                                                                                    height: 1.3,
+                                                Padding(
+                                                  padding: const EdgeInsets.only(left: 4,right: 4),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                    children: [
+                                                      SizedBox(
+                                                        height : 18,
+                                                        child: TextButton(
+                                                          onPressed: () {
+                                                            showDialog(
+                                                                context: context,
+                                                                builder: (context) {
+                                                                  return AlertDialog(
+                                                                    backgroundColor: Theme.of(context).primaryColor,
+                                                                    title: Text("Taksidi İptal Et",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
+                                                                    titlePadding: EdgeInsets.all(10),
+                                                                    content: Text("Bundan sonra ki taksitler işleme alınmayacak, onaylıyor musunuz?",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
+                                                                    shadowColor: renkler.koyuuRenk,
+                                                                    contentPadding: EdgeInsets.only(top: 2,left: 16,right: 16,bottom: 2),
+                                                                    actionsPadding: EdgeInsets.all(0),
+                                                                    actions: [
+                                                                      Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                        children: [
+                                                                          TextButton(
+                                                                            onPressed: () {
+                                                                              Navigator.of(context).pop();
+                                                                            },
+                                                                            child: Text("Vazgeç",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                          ),
+                                                                          TextButton(
+                                                                            onPressed: () {
+                                                                              setState(() {
+                                                                                readUpdateData.removeProcessOnce(item[index].id!);
+                                                                              });
+                                                                              Navigator.of(context).pop();
+                                                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                                                SnackBar(
+                                                                                  backgroundColor: Theme.of(context).highlightColor,
+                                                                                  duration: const Duration(seconds: 1),
+                                                                                  content: const Text(
+                                                                                    "Taksit iptal edildi",
+                                                                                    style: TextStyle(
+                                                                                      color: Colors.white,
+                                                                                      fontSize: 16,
+                                                                                      fontFamily: 'Nexa3',
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                      height: 1.3,
+                                                                                    ),
                                                                                   ),
                                                                                 ),
-                                                                              ),
-                                                                            );
-                                                                          },
-                                                                          child: Text(translation(context).yesCancel,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
-                                                                        ),
-                                                                      ],
+                                                                              );
+                                                                            },
+                                                                            child: Text("Evet",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                          ),
+                                                                        ],
 
-                                                                    )
-                                                                  ],
-                                                                );
-                                                              });
-                                                        },
-                                                        style: ButtonStyle(
-                                                            backgroundColor:MaterialStatePropertyAll(renkler.sariRenk),
-                                                            shape: MaterialStateProperty.all<
-                                                                RoundedRectangleBorder>(
-                                                                const RoundedRectangleBorder(
-                                                                    borderRadius: BorderRadius.only(
-                                                                        topRight: Radius.circular(5),
-                                                                        topLeft: Radius.circular(5)
-                                                                    )
-                                                                )),
-                                                            padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
-                                                        ),
-                                                        child: Text(
-                                                          translation(context).cancelInstallment,
-                                                          style: TextStyle(
-                                                              fontSize: 10,
-                                                              height : 1,
-                                                              color: renkler
-                                                                  .koyuuRenk),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height : 18,
-                                                      child: TextButton(
-                                                        onPressed: () {
-                                                          readDailyInfo.setSpendDetail(
-                                                              item, index);
-                                                          showModalBottomSheet(
-                                                            context: context,
-                                                            shape:
-                                                            const RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                BorderRadius.vertical(
-                                                                    top: Radius
-                                                                        .circular(
-                                                                        15))),
-                                                            backgroundColor:
-                                                            const Color(0xff0D1C26),
-                                                            builder: (context) {
-                                                              // genel bilgi sekmesi açılıyor.
-                                                              ref
-                                                                  .watch(databaseRiverpod)
-                                                                  .deletst;
-                                                              return const SpendDetail();
-                                                            },
-                                                          );
-                                                        },
-                                                        style: ButtonStyle(
-                                                            backgroundColor:MaterialStatePropertyAll(renkler.koyuuRenk),
-                                                            shape: MaterialStateProperty.all<
-                                                                RoundedRectangleBorder>(
-                                                                const RoundedRectangleBorder(
-                                                                    borderRadius: BorderRadius.only(
-                                                                        topRight: Radius.circular(5),
-                                                                        topLeft: Radius.circular(5)
-                                                                    )
-                                                                )),
-                                                            padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
-                                                        ),
-                                                        child: Text(
-                                                          translation(context).activityDetailsSmall,
-                                                          style: TextStyle(
-                                                              fontSize: 10,
-                                                              height : 1,
-                                                              color: renkler
-                                                                  .arkaRenk),
+                                                                      )
+                                                                    ],
+                                                                  );
+                                                                });
+                                                          },
+                                                          style: ButtonStyle(
+                                                              backgroundColor:MaterialStatePropertyAll(renkler.sariRenk),
+                                                              shape: MaterialStateProperty.all<
+                                                                  RoundedRectangleBorder>(
+                                                                  const RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.only(
+                                                                          topRight: Radius.circular(5),
+                                                                          topLeft: Radius.circular(5)
+                                                                      )
+                                                                  )),
+                                                              padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
+                                                          ),
+                                                          child: Text(
+                                                            "Taksidi İptal Et",
+                                                            style: TextStyle(
+                                                                fontSize: 10,
+                                                                height : 1,
+                                                                color: renkler
+                                                                    .koyuuRenk),
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                      SizedBox(
+                                                        height : 18,
+                                                        child: TextButton(
+                                                          onPressed: () {
+                                                            readDailyInfo.setSpendDetail(
+                                                                item, index);
+                                                            showModalBottomSheet(
+                                                              isScrollControlled:true,
+                                                              context: context,
+                                                              shape:
+                                                              const RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                  BorderRadius.vertical(
+                                                                      top: Radius
+                                                                          .circular(
+                                                                          15))),
+                                                              backgroundColor:
+                                                              const Color(0xff0D1C26),
+                                                              builder: (context) {
+                                                                // genel bilgi sekmesi açılıyor.
+                                                                ref
+                                                                    .watch(databaseRiverpod)
+                                                                    .deletst;
+                                                                return const SpendDetail();
+                                                              },
+                                                            );
+                                                          },
+                                                          style: ButtonStyle(
+                                                              backgroundColor:MaterialStatePropertyAll(renkler.koyuuRenk),
+                                                              shape: MaterialStateProperty.all<
+                                                                  RoundedRectangleBorder>(
+                                                                  const RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.only(
+                                                                          topRight: Radius.circular(5),
+                                                                          topLeft: Radius.circular(5)
+                                                                      )
+                                                                  )),
+                                                              padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
+                                                          ),
+                                                          child: Text(
+                                                            "İşlem Detayları",
+                                                            style: TextStyle(
+                                                                fontSize: 10,
+                                                                height : 1,
+                                                                color: renkler
+                                                                    .arkaRenk),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ],
                                             ),

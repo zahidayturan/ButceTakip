@@ -146,6 +146,12 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
     return items ;
   }
+  Future <List<SpendInfo>> lastOperationList(int itemLength) async {
+    List<SpendInfo> items = await SQLHelper.getLastOperation(itemLength);
+    registeryListTile = items ;
+    notifyListeners();
+    return items ;
+  }
   String getTotalAmountByKart(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationTool == 'Kart')
@@ -249,6 +255,10 @@ class DbProvider extends ChangeNotifier {
     searchSort = !searchSort;
     notifyListeners();
   }
+  void resetSearchListTile(){
+    searchListTile?.clear();
+    notifyListeners();
+  }
   void searchItem(searchText) async {
     searchListTile = await SQLHelper.searchItem(searchText);
     var sortedlist;
@@ -257,10 +267,10 @@ class DbProvider extends ChangeNotifier {
       DateTime dateB = convertDate(b.operationDate!);
       switch(searchSort){
         case true:
-          sortedlist = dateB.compareTo(dateA);
+          sortedlist = dateA.compareTo(dateB);
           break;
         case false:
-          sortedlist = dateA.compareTo(dateB);
+          sortedlist = dateB.compareTo(dateA);
           break;
       }
       return sortedlist;
