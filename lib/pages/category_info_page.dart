@@ -106,7 +106,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                     thumbColor: MaterialStateProperty.all(
                                         Theme.of(context).dialogBackgroundColor))),
                             child: Scrollbar(
-                              isAlwaysShown: true,
+                              thumbVisibility: true,
                               scrollbarOrientation: readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.left :
                               ScrollbarOrientation.right,
                               interactive: true,

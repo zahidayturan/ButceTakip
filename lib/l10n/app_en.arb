@@ -13,10 +13,37 @@
     "contactUsTitle": "CONTACT US",
     "myAssets": "MY ASSETS",
 
+    "selectLanguage": "Please select a language",
+
+    "languageSelection": "Languages",
+    "betterExperience": "For a better experience, complete the installation before starting",
+    "startInstallation": "Start Installation",
+    "skipInstallation": "Skip installation",
+
+    "continueInstallation": "Continue Installation",
+    "skipInstallationWarning": "If you skip the installation, the default settings will be selected automatically.",
+    "skip": "Skip",
+    "selectCurrencyForApplication": "Select the currency you will use in the application",
+
     "savedActivities": "Saved Activities",
     "savedActivitiesAmount": "Amount",
     "savedActivitiesCategory": "Category",
     "numberOfSavedActivities": "Number of Saved Activities:",
+
+    "repetitiveActivities": "Repetitive Activities",
+    "repetitiveActivitiesSize": "18",
+    "cancelRepetition": "Cancel The Repetition",
+    "yesCancel": "Yes",
+    "activityDetailsSmall": "Activity Details",
+    "activeRepetitiveActivities": "Number of Active Repeating Activities:",
+
+    "installmentActivities": "Installment Activities",
+    "cancelInstallment": "Cancel The Installment",
+    "activeInstallmentActivities": "Number of Active Installment Activities:",
+
+    "searchActivity": "Search for an Activity",
+    "noMatchData": "No Matching Data",
+    "numberOfActivitiesForSearchSection": "Number of Activities:",
 
     "january": "January",
     "february": "February",
@@ -79,7 +106,10 @@
     "reset": "Reset",
     "okStatistics": "OK",
 
-
+    "firstDayOfTheMonth": "First day of the Month",
+    "setAsOnlyForTurkish": "",
+    "setAsExceptTurkish": "set as",
+    "defaultOption": "Default 1",
 
     "incomeInfo": "Income Info",
     "expenseInfo": "Expense Info",
@@ -147,6 +177,9 @@
     "categoryWillBeDeletedOldRecordsWillNotBeChanged": "The category you selected will be deleted and the old records will not be changed.",
 
     "replaceAndDelete": "Replace and delete",
+    "replaceCategoryQuestion": "Replace the current category\nwith which category",
+    "replaceWithExceptTurkish": "replace with",
+    "replaceWithOnlyTurkish": "",
     "selectCategory": "Select category",
     "doneSmall": "Done",
 
@@ -284,10 +317,11 @@
     "pleaseEnteraName": "Please enter a name",
     "enter": "Enter",
 
+    "forgotPassword": "Forgot Password?",
+    "disablePasswordParagraph": "To disable the password, you must answer the security question. You only have 3 tries, in case you enter incorrectly, your data will be deleted. If you are ready.",
+    "continueProcessing": "Continue",
 
-
-
-    "comeBack": "Come Back",
+    "goBack": "Go Back",
     "remainingTries": "Remaining Tries",
 
     "backupViaGoogleDrive": "Backup via Google Drive",

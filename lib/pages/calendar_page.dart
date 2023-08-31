@@ -404,7 +404,10 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             ),
           ),
           const SizedBox(height: 15),
-          monthDetailsGuide(context),
+          Directionality(
+            textDirection: TextDirection.ltr,
+              child: monthDetailsGuide(context)
+          ),
         ],
       ),
     );

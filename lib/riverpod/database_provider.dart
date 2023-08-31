@@ -276,6 +276,10 @@ class DbProvider extends ChangeNotifier {
     searchSort = !searchSort;
     notifyListeners();
   }
+  void resetSearchListTile(){
+    searchListTile?.clear();
+    notifyListeners();
+  }
   void searchItem(searchText) async {
     searchListTile = await SQLHelper.searchItem(searchText);
     var sortedlist;
@@ -284,10 +288,10 @@ class DbProvider extends ChangeNotifier {
       DateTime dateB = convertDate(b.operationDate!);
       switch(searchSort){
         case true:
-          sortedlist = dateB.compareTo(dateA);
+          sortedlist = dateA.compareTo(dateB);
           break;
         case false:
-          sortedlist = dateA.compareTo(dateB);
+          sortedlist = dateB.compareTo(dateA);
           break;
       }
       return sortedlist;

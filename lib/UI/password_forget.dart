@@ -46,8 +46,8 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Şifremi Unuttum",
+                  Text(
+                    translation(context).forgotPassword,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -97,7 +97,7 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
                           controller: animalController,
                           keyboardType: TextInputType.text,
                           inputFormatters:  [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZğĞıİöÖüÜşŞçÇ ]"))],
-                          style: TextStyle(fontSize: 18,color: renkler.koyuuRenk),
+                          style: TextStyle(fontSize: 18,color: renkler.koyuuRenk,height: 1),
                           textAlign: TextAlign.center,
 
                         ),

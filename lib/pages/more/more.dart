@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:pay/pay.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../riverpod_management.dart';
@@ -38,6 +39,14 @@ class More extends ConsumerWidget {
       child: CircularProgressIndicator(),
     ),
   );
+  Future<void> shareButceTakip() async {
+    await FlutterShare.share(
+        title: 'Bütçe Takip İndir',
+        text: 'Hey! Bütçeni kontrol altına almak için denemelisin.',
+        linkUrl: 'https://play.google.com/store/apps/details?id=com.fezaitech.butcetakip',
+        chooserTitle: 'Bütçe Takip',
+    );
+  }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readSetting = ref.read(settingsRiverpod);
@@ -327,37 +336,7 @@ class More extends ConsumerWidget {
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Image.asset(
-                        "assets/image/icon_BKA/LOGOBKA-4.png",
-                        height: 70,
-                      ),
-                      const SizedBox(height: 8),
-                      TextMod("${translation(context).version}  ${informationApp.version}", Theme.of(context).canvasColor, 13),
-                      const SizedBox(height: 2),
-                      TextMod("FezaiTech", Theme.of(context).canvasColor, 13),
-                    ],
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-/*
-SizedBox(height: size.width / 15,),
-
+                      SizedBox(height: size.width / 15),
                       Row(
                         children: [
                           InkWell(
@@ -408,6 +387,59 @@ SizedBox(height: size.width / 15,),
                               ),
                             ),
                           ),
+                          SizedBox(width: size.width / 15),
+                          InkWell(
+                            onTap: ()  {
+                              shareButceTakip();
+                            },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                            child: Container(
+                              height: size.height / 9,
+                              width: size.height / 9,
+                              decoration: BoxDecoration(
+                                  color: renkler.koyuuRenk,
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).canvasColor
+                                  ),
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(Icons.share, color: renkler.yaziRenk, size: 35),
+                                  Text("Tavsiye Et",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
- */
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Image.asset(
+                        "assets/image/icon_BKA/LOGOBKA-4.png",
+                        height: 70,
+                      ),
+                      const SizedBox(height: 8),
+                      TextMod("${translation(context).version}  ${informationApp.version}", Theme.of(context).canvasColor, 13),
+                      const SizedBox(height: 2),
+                      TextMod("FezaiTech", Theme.of(context).canvasColor, 13),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

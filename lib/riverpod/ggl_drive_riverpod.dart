@@ -44,14 +44,17 @@ class GglDriveRiverpod extends ChangeNotifier{
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
+    /*
     if(googleUser != null){
       setAccountStatus(true);
     }
+
+     */
     refreshPage();
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }//+
   Future<String?> checkFolderID() async { // drive içerisinde BütçeTakip adlı dosya var mı kontrolu yapıyor.
-    var fileList = await  _driveApi!.files.list();
+    var fileList = await _driveApi!.files.list();
     if (fileList.files != null) {
       var A = await fileList.files?.where((element) => element.name == "BütçeTakip");
       if (A?.length == 0) {
@@ -70,7 +73,7 @@ class GglDriveRiverpod extends ChangeNotifier{
         ..name = 'BütçeTakip'
         ..mimeType = 'application/vnd.google-apps.folder';
       final createdFolder = await _driveApi!.files.create(folder);
-      print('Folder created with ID: ${createdFolder?.id}');
+      print('Folder created with ID: ${createdFolder.id}');
       return createdFolder.id ;
     }
   }//+
@@ -112,19 +115,18 @@ class GglDriveRiverpod extends ChangeNotifier{
   }
   Future<void> deleteFileWithId(String fileId) async {
     try{
-      await _driveApi!.files.get(fileId);
+      await _driveApi!.files.delete(fileId);
       print('File deleted successfully.');
     }catch(e) {
       print("Bir hata meydana geldi $e");
     }
   }
-  Future<void> uploadFileToDrive(String fileName) async {
+  Future<int> uploadFileToDrive(String fileName) async {
     Directory tempDir = await getTemporaryDirectory();
       final file = File("${tempDir.path}/$fileName");
 
       final driveFile = drive.File()
         ..name = file.uri.pathSegments.last
-        ..mimeType = "text/csv"
         ..parents = [folderID!];
 
       if(_driveApi != null)  {
@@ -134,11 +136,14 @@ class GglDriveRiverpod extends ChangeNotifier{
             uploadMedia: drive.Media(file.openRead(), file.lengthSync()),
           );
           print('File uploaded to user\'s Google Drive.');
+          return 1;
         } catch (e) {
           print('Error uploading file: $e');
+          return 0;
         }
       }else{
         print("ilk değer atnamadı :/");
+        return 0;
       }
   }//+
   Future<String?> uploadFileToStorage() async {
@@ -243,10 +248,10 @@ class GglDriveRiverpod extends ChangeNotifier{
     if(_auth.currentUser != null)  {
       accountStatus = true;
       _googleSignIn.signInSilently().then((value) async {
-        await _initializeDrive(_googleSignIn.currentUser!).then((value) => print("yükledim"));
+        await _initializeDrive(_googleSignIn.currentUser!).then((value) => print("Kullanıcı initalize oldu."));
         await checkFolderID().then((value) {
           folderID = value;
-          print("Yükledim 2");
+          print("dosya konumu bulundu.");
         });
       });
       //drive.DriveApi _driveApi = _initializeDrive(_googleSignIn.currentUser!) as drive.DriveApi;

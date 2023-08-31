@@ -32,7 +32,7 @@ class CurrencyRiverpod extends ChangeNotifier {
   double calculateRealAmount(double Amount, String moneyType, String prefix)  { // amount moneytype kaç Prefix ?
     double ?realAmount;
     if(double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType.substring(0,3)])! > 0.0){
-      realAmount = double.parse((Amount * (double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType.substring(0,3)])!)).toStringAsFixed(2))!;
+      realAmount = double.parse((Amount * (double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType.substring(0,3)])!)).toStringAsFixed(2));
     }else{
       realAmount = Amount ;
     }
@@ -52,8 +52,8 @@ class CurrencyRiverpod extends ChangeNotifier {
 
   double calculateRate(double Amount, String moneyType, String prefix){ //kur hesaplıyor.
     double ?rate;
-    if(double.tryParse(currencySqlList![currencySqlList.length -1].toMap()[moneyType])! > 0.0){
-      rate = double.parse(((double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType])!)).toStringAsFixed(5))!;
+    if(double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType])! > 0.0){
+      rate = double.parse(((double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType.substring(0,3)])!)).toStringAsFixed(5));
     }else{
       rate = 0.0 ;
     }
@@ -62,116 +62,121 @@ class CurrencyRiverpod extends ChangeNotifier {
 
   Future<void> calculateAllSQLHistoryTime() async { ///bu fonksiyon sadece varsayılan para birimini değiştirdiğimizde çalışması gerekiyor.
     List<SpendInfo> AllData = await SQLHelper.getItems();
-    List<SettingsInfo> settingsList = await SQLHelper.settingsControl();
+    if(AllData.isNotEmpty){
+      List<SettingsInfo> settingsList = await SQLHelper.settingsControl();
 
-    await firestoreHelper.getHistoryCurrency().then((value) {
-      ///küçükten büyüğe doğru sıraladık.
-      value.sort((a, b) => DateTime.tryParse(a.lastApiUpdateDate!)!.compareTo(DateTime.tryParse(b.lastApiUpdateDate!)!));
-      currenciesAllHistory = value ;
-    });
-    print("********************");
-    currenciesAllHistory.forEach((element) async {
-      print(element.lastApiUpdateDate);
-    });
-    print("********************");
+      await firestoreHelper.getHistoryCurrency().then((value) {
+        ///küçükten büyüğe doğru sıraladık.
+        value.sort((a, b) => DateTime.tryParse(a.lastApiUpdateDate!)!.compareTo(DateTime.tryParse(b.lastApiUpdateDate!)!));
+        currenciesAllHistory = value ;
+      });
+      print("********************");
+      currenciesAllHistory.forEach((element) async {
+        print(element.lastApiUpdateDate);
+      });
+      print("********************");
 
-    for (var info in AllData) {
-      if (info.moneyType == "0") {
-        info.moneyType = "TRY";
-      }
+      for (var info in AllData) {
+        if (info.moneyType == "0") {
+          info.moneyType = "TRY";
+        }
 
-      if (info.moneyType!.substring(0,3) == settingsList[0].prefix!) { //pasif ve varsayılan birimi ile aynı olan kayıtlar buraya girecek.
-        info.realAmount = info.amount;
-      }else {//aktif ve pasif olup prefixle aynı olmayan kayıtlar buraday girecek. sorgu eski tarihteki currency e göre alınacak.
-        if(currenciesAllHistory.isNotEmpty){
-          print("---------------------------------------");
-          print("\nBakalım  ${info.operationDate} tarihli kaydımız için en yakın ver bulalım.");
-          currencyInfo ?historyCurrency ;
+        if (info.moneyType!.substring(0,3) == settingsList[0].prefix!) { //pasif ve varsayılan birimi ile aynı olan kayıtlar buraya girecek.
+          info.realAmount = info.amount;
+        }else {//aktif ve pasif olup prefixle aynı olmayan kayıtlar buraday girecek. sorgu eski tarihteki currency e göre alınacak.
+          if(currenciesAllHistory.isNotEmpty){
+            print("---------------------------------------");
+            print("\nBakalım  ${info.operationDate} tarihli kaydımız için en yakın ver bulalım.");
+            currencyInfo ?historyCurrency ;
 
-          List a = currenciesAllHistory.where((element) {
-              var date = DateTime.tryParse(element.lastApiUpdateDate!);
-              String formattedDate = DateFormat('dd.MM.yyyy').format(date!);
-              return formattedDate == info.operationDate;
-            },
-          ).toList();
+            List a = currenciesAllHistory.where((element) {
+                var date = DateTime.tryParse(element.lastApiUpdateDate!);
+                String formattedDate = DateFormat('dd.MM.yyyy').format(date!);
+                return formattedDate == info.operationDate;
+              },
+            ).toList();
 
-          a.forEach((element) {
-            if(element != null) {
-              historyCurrency = element ;
-              print("Günü bulduk.");
-            }
-          });
-
-          if(historyCurrency == null){
-            print("En yakın gün bulacağız.");
-            List<String> Date = info.operationDate!.split(".") ; //"00.00.0000"
-            currencyInfo ?lastdays ;
-            currencyInfo  ?firstdays ;
-            if(DateTime.tryParse(currenciesAllHistory.first.lastApiUpdateDate!)!.isAfter(DateTime(int.parse(Date[2]),int.parse(Date[1]), int.parse(Date[0])))){
-              print("GERİ KAYIT");
-              firstdays = currenciesAllHistory.first ;
-            }else if(DateTime.tryParse(currenciesAllHistory.last.lastApiUpdateDate!)!.isBefore(DateTime(int.parse(Date[2]),int.parse(Date[1]), int.parse(Date[0])))){
-              print("ILERI KAYIT");
-              lastdays = currenciesAllHistory.last ;
-            }
-            if(firstdays == null && lastdays == null) {
-              print("ARA Kayıt bulunuyor.");
-              for(var element in currenciesAllHistory){
-                if(DateTime(int.parse(Date[2]),int.parse(Date[1]), int.parse(Date[0])).isBefore(DateTime.tryParse(element.lastApiUpdateDate!)!)){ // günü mevcut.
-                  lastdays = element;
-                }else{
-                  firstdays = element;
-                }
+            a.forEach((element) {
+              if(element != null) {
+                historyCurrency = element ;
+                print("Günü bulduk.");
               }
-              print("***");
-              if(lastdays != null && firstdays != null){
-                Duration fark1 = DateTime.tryParse(lastdays.lastApiUpdateDate!)!.difference(DateTime(int.parse(Date[2]),int.parse(Date[1]), int.parse(Date[0])));
-                Duration fark2 = DateTime.tryParse(firstdays.lastApiUpdateDate!)!.difference(DateTime(int.parse(Date[2]),int.parse(Date[1]), int.parse(Date[0])));
-                if(fark1 < fark2){
+            });
+
+            if(historyCurrency == null){
+              print("En yakın gün bulacağız.");
+              List<String> Date = info.operationDate!.split(".") ; //"00.00.0000"
+              currencyInfo ?lastdays ;
+              currencyInfo  ?firstdays ;
+              if(DateTime.tryParse(currenciesAllHistory.first.lastApiUpdateDate!)!.isAfter(DateTime(int.parse(Date[2]),int.parse(Date[1]), int.parse(Date[0])))){
+                print("GERİ KAYIT");
+                firstdays = currenciesAllHistory.first ;
+              }else if(DateTime.tryParse(currenciesAllHistory.last.lastApiUpdateDate!)!.isBefore(DateTime(int.parse(Date[2]),int.parse(Date[1]), int.parse(Date[0])))){
+                print("ILERI KAYIT");
+                lastdays = currenciesAllHistory.last ;
+              }
+              if(firstdays == null && lastdays == null) {
+                print("ARA Kayıt bulunuyor.");
+                for(var element in currenciesAllHistory){
+                  if(DateTime(int.parse(Date[2]),int.parse(Date[1]), int.parse(Date[0])).isBefore(DateTime.tryParse(element.lastApiUpdateDate!)!)){ // günü mevcut.
+                    lastdays = element;
+                  }else{
+                    firstdays = element;
+                  }
+                }
+                print("***");
+                if(lastdays != null && firstdays != null){
+                  Duration fark1 = DateTime.tryParse(lastdays.lastApiUpdateDate!)!.difference(DateTime(int.parse(Date[2]),int.parse(Date[1]), int.parse(Date[0])));
+                  Duration fark2 = DateTime.tryParse(firstdays.lastApiUpdateDate!)!.difference(DateTime(int.parse(Date[2]),int.parse(Date[1]), int.parse(Date[0])));
+                  if(fark1 < fark2){
+                    historyCurrency = lastdays;
+                    print("FİNALLL === > ${lastdays.lastApiUpdateDate}");
+                  }else{
+                    historyCurrency = firstdays;
+                    print("FİNALLL === > ${firstdays.lastApiUpdateDate}");
+                  }
+                }else if(lastdays != null) {
                   historyCurrency = lastdays;
                   print("FİNALLL === > ${lastdays.lastApiUpdateDate}");
                 }else{
                   historyCurrency = firstdays;
-                  print("FİNALLL === > ${firstdays.lastApiUpdateDate}");
+                  print("FİNALLL === > ${firstdays!.lastApiUpdateDate}");
                 }
-              }else if(lastdays != null) {
-                historyCurrency = lastdays;
-                print("FİNALLL === > ${lastdays.lastApiUpdateDate}");
               }else{
-                historyCurrency = firstdays;
-                print("FİNALLL === > ${firstdays!.lastApiUpdateDate}");
-              }
-            }else{
-              if(firstdays != null){
-                historyCurrency = firstdays;
-                print("FİNALLL === > ${firstdays!.lastApiUpdateDate}");
-              }else{
-                historyCurrency = lastdays;
-                print("FİNALLL === > ${lastdays!.lastApiUpdateDate}");
+                if(firstdays != null){
+                  historyCurrency = firstdays;
+                  print("FİNALLL === > ${firstdays!.lastApiUpdateDate}");
+                }else{
+                  historyCurrency = lastdays;
+                  print("FİNALLL === > ${lastdays!.lastApiUpdateDate}");
+                }
               }
             }
+            info.realAmount = await calculateHistoryAmount(
+              info.amount!,
+              info.moneyType!,
+              settingsList[0].prefix!,
+              info.operationDate!,
+              historyCurrency!
+            );
+            currenciesAllHistory.clear();
+          }else{
+            info.realAmount = await calculateRealAmount(
+              info.amount!,
+              info.moneyType!,
+              settingsList[0].prefix!,
+            );
           }
-          info.realAmount = await calculateHistoryAmount(
-            info.amount!,
-            info.moneyType!,
-            settingsList[0].prefix!,
-            info.operationDate!,
-            historyCurrency!
-          );
-        }else{
-          info.realAmount = await calculateRealAmount(
-            info.amount!,
-            info.moneyType!,
-            settingsList[0].prefix!,
-          );
+
         }
 
+        await SQLHelper.updateItem(info);
+
+        print("Kayıt güncellendi: ${info.category} - Eski miktar: ${info.amount} ${info.moneyType} - RealAmount miktar: ${info.realAmount} ${settingsList[0].prefix!} - ID: ${info.id}");
+        //ref.read(settingsRiverpod).setisuseinsert();
       }
-
-      await SQLHelper.updateItem(info);
-
-      print("Kayıt güncellendi: ${info.category} - Eski miktar: ${info.amount} ${info.moneyType} - RealAmount miktar: ${info.realAmount} ${settingsList[0].prefix!} - ID: ${info.id}");
-      //ref.read(settingsRiverpod).setisuseinsert();
+    }else{
+      //kayıt yok. işlem yapma.
     }
   }
 
