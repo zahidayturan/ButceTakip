@@ -23,7 +23,25 @@
   "continueInstallation": "Kuruluma Geri Dön",
   "skipInstallationWarning": "Kurulumu atlarsanız varsayılan ayarlar otomatik olarak seçilecektir.",
   "skip": "Atla",
+
   "selectCurrencyForApplication": "Uygulamada kullanacağınız para birimini seçiniz",
+
+  "currency": "Para Birimi",
+  "appNotifications": "Uygulama Bildirimleri",
+  "turnOnNotifications": "İşlemlerinizi hatırlatabilmemiz için\nbildirimleri açık bırakmanızı öneririz.",
+
+  "backupPreference": "Yedekleme Tercihi",
+  "backupYourDataSecurely": "Google Drive ile verilerinizi güvenle yedekleyin",
+  "signInGoogle": "Google Hesabı İle Oturum Aç",
+  "skipBackup": "Yedeklemeyi Geç",
+  "accountSelection": "Hesap Seçimi",
+
+  "yourAssetStatus": "Varlık Durumunuz",
+  "enterBankAssets": "Bankadaki varlığınızı giriniz",
+  "enterCashAssets": "Nakit varlığınızı giriniz",
+  "enterOtherAssets": "Diğer varlıklarınızı giriniz",
+  "startingAmount": "Başlangıç tutarınız:",
+  "complete": "Tamamla",
 
   "savedActivities": "Kayıtlı İşlemler",
   "savedActivitiesAmount": "İşlem\nTutarı",
@@ -34,16 +52,20 @@
   "repetitiveActivitiesSize": "21",
   "cancelRepetition": "Tekrarı İptal Et",
   "yesCancel": "Evet",
+  "confirmNoRepeat": "Bu işlem bundan sonra tekrarlanmayacak, onaylıyor musunuz?",
+  "repeatCancelled": "Tekrar iptal edildi",
   "activityDetailsSmall": "İşlem Detayları",
   "activeRepetitiveActivities": "Aktif Tekrarlı İşlem Sayısı:",
 
   "installmentActivities": "Taksitli İşlemler",
-  "cancelInstallment": "Taksiti İptal Et",
+  "cancelInstallment": "Taksidi İptal Et",
+  "confirmNoInstallments": "Bundan sonraki taksitler işleme alınmayacak, onaylıyor musunuz?",
+  "installmentCancelled": "Taksit iptal edildi",
   "activeInstallmentActivities": "Aktif Taksitli İşlem Sayısı:",
 
   "searchActivity": "İşlem Ara",
   "noMatchData": "Eşleşen Veri Yok",
-  "numberOfActivitiesForSearchSection": "Kayıt Sayısı:",
+  "numberOfActivitiesForSearchSection": "Gösterilen Kayıt Sayısı:",
 
   "january": "Ocak",
   "february": "Şubat",

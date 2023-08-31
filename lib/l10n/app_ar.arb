@@ -23,7 +23,25 @@
   "continueInstallation": "عد إلى التثبيت",
   "skipInstallationWarning": "إذا قمت بتخطي التثبيت، سيتم تعيين الإعدادات الافتراضية تلقائيًا.",
   "skip": "تخطى",
+
   "selectCurrencyForApplication": "اختر العملة التي ستستخدمها في التطبيق",
+
+  "currency": "العملة",
+  "appNotifications": "اشعارات التطبيق",
+  "turnOnNotifications": "",
+
+  "backupPreference": "النسخ الاحتياطي",
+  "backupYourDataSecurely": "انسخ بياناتك احتياطيًا بأمان باستخدام جوجل درايف",
+  "signInGoogle": "تسجيل الدخول عبر حساب جوجل",
+  "skipBackup": "تخطى النسخ الاحتياطي",
+  "accountSelection": "اختيار الحساب",
+
+  "yourAssetStatus": "موجوداتك الحالية",
+  "enterBankAssets": "أدخل موجوداتك في البنك",
+  "enterCashAssets": "أدخل موجوداتك النقدية",
+  "enterOtherAssets": "أدخل موجوداتك الأخرى",
+  "startingAmount": "المبلغ الذي ستبدأ به",
+  "complete": "أتم",
 
   "savedActivities": "العمليات المحفوظة",
   "savedActivitiesAmount": "مبلغ العملية",
@@ -34,11 +52,15 @@
   "repetitiveActivitiesSize": "22",
   "cancelRepetition": "إلغاء التكرار",
   "yesCancel": "نعم",
+  "confirmNoRepeat": "هذه العملية لن تتكرر مجددا، هل توافق؟",
+  "repeatCancelled": "تم إلغاء التكرار",
   "activityDetailsSmall": "تفاصيل العملية",
   "activeRepetitiveActivities": "عدد  العمليات  المكررة النشطة:",
 
   "installmentActivities": "عمليات التقسيط",
   "cancelInstallment": "إلغاء التقسيط",
+  "confirmNoInstallments": "لن يتم إجراء عمليات التقسيط لاحقا، هل توافق؟",
+  "installmentCancelled": "تم إلغاء التقسيط",
   "activeInstallmentActivities": "عدد عمليات التقسيط النشطة:",
 
   "searchActivity": "ابحث عن عملية",
