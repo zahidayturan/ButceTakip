@@ -247,7 +247,7 @@ class GglDriveRiverpod extends ChangeNotifier{
   Future<void> checkAuthState() async { // Base_BKA tarafından çalıştırılan bir dosyadır. giriş durumunu atar.
     if(_auth.currentUser != null)  {
       accountStatus = true;
-      _googleSignIn.signInSilently().then((value) async {
+      await _googleSignIn.signInSilently().then((value) async {
         await _initializeDrive(_googleSignIn.currentUser!).then((value) => print("Kullanıcı initalize oldu."));
         await checkFolderID().then((value) {
           folderID = value;

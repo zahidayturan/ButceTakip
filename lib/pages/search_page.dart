@@ -64,6 +64,9 @@ class _searchPageState extends ConsumerState<searchPage> {
                                   }
                                 },
                                 controller: _controller,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
                                 decoration: InputDecoration(
                                   hintText: "Aramak İstediğiniz Notu Giriniz.",
                                   hintStyle: TextStyle(

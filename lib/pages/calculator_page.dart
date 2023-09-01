@@ -1029,11 +1029,11 @@ class _CalculatorState extends ConsumerState<Calculator> {
     });
   }
 
+  TextEditingController sayi2Controller = TextEditingController();
+  TextEditingController sayi1Controller = TextEditingController();
+  TextEditingController yuzdeOranController = TextEditingController();
+  TextEditingController sonucController = TextEditingController();
   Widget yuzdePage() {
-    TextEditingController sayi2Controller = TextEditingController();
-    TextEditingController sayi1Controller = TextEditingController();
-    TextEditingController yuzdeOranController = TextEditingController();
-    TextEditingController sonucController = TextEditingController();
     double sonuc = 0;
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
@@ -1100,11 +1100,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5, right: 5),
                           child: TextFormField(
-
                             maxLength: 12,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
                             style: TextStyle(
                                 color: renkler.koyuuRenk,
                                 fontSize: 16,
@@ -1126,7 +1122,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 sonucController.text = sonuc.toString();
                               }
                             },
-                            keyboardType: TextInputType.number,
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                            ],
                             controller: sayi1Controller,
                             decoration: InputDecoration(
                               hintText: translation(context).enteraNumber,
@@ -1134,6 +1133,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               height: 1,
                               fontSize: 14,
                               fontFamily: 'Nexa3',
+                              color: Colors.black
                             ),
                             counterText: '',
                             isDense: true,
@@ -1185,9 +1185,6 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             padding: const EdgeInsets.only(left: 5,right: 5),
                             child: TextField(
                               maxLength: 12,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
                               style: TextStyle(
                                   color: renkler.koyuuRenk,
                                   fontSize: 16,
@@ -1206,14 +1203,18 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 }
                               },
                               controller: sayi2Controller,
-                              keyboardType: TextInputType.number,
+                              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                              ],
                               decoration: InputDecoration(
                                 counterText: '',
                                 hintText: translation(context).enteraNumber,
                                 hintStyle: const TextStyle(
                                   height: 1,
                                     fontSize: 14,
-                                    fontFamily: 'Nexa3'
+                                    fontFamily: 'Nexa3',
+                                  color : Colors.black
                                 ),
                                 isDense: true,
                                 enabledBorder: const UnderlineInputBorder(
@@ -1278,9 +1279,6 @@ class _CalculatorState extends ConsumerState<Calculator> {
                           child: TextField(
                             maxLength: sayi2ishere ? null : 10,
                             readOnly: sayi2ishere ? true : false,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
                             style: TextStyle(
                                 color: renkler.koyuuRenk,
                                 fontFamily: 'Nexa4',
@@ -1301,7 +1299,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               }
                             },
                             controller: yuzdeOranController,
-                            keyboardType: TextInputType.number,
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                            ],
                             decoration: InputDecoration(
                                 isDense: true,
                                 counterText: '',
@@ -1412,132 +1413,121 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     )
                   : const SizedBox(height: 1),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Checkbox(
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: renkler.sariRenk,
-                            width: 4,
+            SizedBox(height: 10),
+            SizedBox(
+              height: size.height * .14,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      fezaiCheckBox(
+                        value: sayi2ishere,
+                        size: 15,
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() {
+                              sayi2ishere = value;
+                              firstselect = true;
+                              secondselect = false;
+                            });
+                          }
+                        },
+                      ),
+                      const SizedBox(width: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          translation(context).processTheSecondNumber,
+                          style: TextStyle(
+                            color: renkler.arkaRenk,
+                            fontFamily: "Nexa4",
+                            fontSize: 16,
                           ),
-                          borderRadius: BorderRadius.circular(4)),
-                      activeColor: renkler.sariRenk,
-                      value: sayi2ishere,
-                      onChanged: (value) {
-                        if (value != null) {
-                          setState(() {
-                            sayi2ishere = value;
-                            firstselect = true;
-                            secondselect = false;
-                          });
-                        }
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Text(
-                        translation(context).processTheSecondNumber,
-                        style: TextStyle(
-                          color: renkler.arkaRenk,
-                          fontFamily: "Nexa4",
-                          fontSize: 16,
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                sayi2ishere
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Checkbox(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                  color: renkler.sariRenk,
-                                  width: 4,
-                                ),
-                                borderRadius: BorderRadius.circular(4)),
-                            activeColor: renkler.sariRenk,
-                            value: firstselect,
-                            onChanged: (value) {
-                              if (secondselect) {
-                                setState(() {
-                                  firstselect = value!;
-                                  secondselect = false;
-                                });
-                              }
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4),
-                            child: Text(
-                              translation(context)
-                                  .secondNumberPercentageOfFirstNumber,
-                              style: TextStyle(
-                                color: renkler.arkaRenk,
-                                fontFamily: "Nexa4",
-                                fontSize: 16,
-                              ),
-                            ),
-                          )
-                        ],
                       )
-                    : const SizedBox(
-                        width: 1,
-                      ),
-                sayi2ishere
-                    ? const SizedBox(
-                        height: 5,
-                      )
-                    : const SizedBox(
-                        width: 5,
-                      ),
-                sayi2ishere
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Checkbox(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: renkler.sariRenk,
-                                    width: 4,
-                                    style: BorderStyle.solid),
-                                borderRadius: BorderRadius.circular(4)),
-                            activeColor: renkler.sariRenk,
-                            value: secondselect,
-                            onChanged: (value) {
-                              if (value != null) {
-                                if (firstselect) {
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  sayi2ishere
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            fezaiCheckBox(
+                              value: firstselect,
+                              size: 15,
+                              onChanged: (value) {
+                                if (secondselect) {
                                   setState(() {
-                                    firstselect = false;
-                                    secondselect = value;
+                                    firstselect = value;
+                                    secondselect = false;
                                   });
                                 }
-                              }
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4),
-                            child: Text(
-                              translation(context).rateOfChange,
-                              style: TextStyle(
-                                color: renkler.arkaRenk,
-                                fontFamily: "Nexa4",
-                                fontSize: 16,
-                              ),
+                              },
                             ),
-                          )
-                        ],
-                      )
-                    : const SizedBox(width: 1),
-              ],
+                            const SizedBox(width: 10),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Text(
+                                translation(context)
+                                    .secondNumberPercentageOfFirstNumber,
+                                style: TextStyle(
+                                  color: renkler.arkaRenk,
+                                  fontFamily: "Nexa4",
+                                  fontSize: 16,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox(
+                          width: 1,
+                        ),
+                  sayi2ishere
+                      ? const SizedBox(
+                          height: 5,
+                        )
+                      : const SizedBox(
+                          width: 5,
+                        ),
+                  sayi2ishere
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            fezaiCheckBox(
+                              value: secondselect,
+                              size: 15,
+                              onChanged: (value) {
+                                if (value != null) {
+                                  if (firstselect) {
+                                    setState(() {
+                                      firstselect = false;
+                                      secondselect = value;
+                                    });
+                                  }
+                                }
+                              },
+                            ),
+                            const SizedBox(width: 10),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Text(
+                                translation(context).rateOfChange,
+                                style: TextStyle(
+                                  color: renkler.arkaRenk,
+                                  fontFamily: "Nexa4",
+                                  fontSize: 16,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox(width: 1),
+                ],
+              ),
             ),
           ],
         ),
@@ -1677,8 +1667,12 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 width: 85,
                                 height: 30,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xff1C2B35),
+                                  color: Theme.of(context).canvasColor,
                                   borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(
+                                    color: Color(0xffF2F2F2),
+                                    width: 1 ,
+                                  )
                                 ),
                                 child: Align(
                                   alignment: Alignment.topCenter,
@@ -1688,8 +1682,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                     },
                                     textAlign: TextAlign.center,
                                     controller: _controllerFirst,
-                                    style: const TextStyle(
-                                      color: Colors.white,
+                                    style: TextStyle(
+                                      color: Theme.of(context).scaffoldBackgroundColor,
                                       fontSize: 15,
                                     ),
                                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -1698,8 +1692,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                     ],
                                     decoration: InputDecoration(
                                         hintText: translation(context).amount,
-                                        hintStyle: const TextStyle(
-                                            color: Colors.white,
+                                        hintStyle: TextStyle(
+                                            color: Theme.of(context).scaffoldBackgroundColor,
                                             fontSize: 15,
                                         ),
                                         border: InputBorder.none
@@ -1747,7 +1741,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     children: [
                       Icon(
                         Icons.double_arrow,
-                        color: renkler.sariRenk,
+                        color: renkler.arkaRenk,
                         size: 28,
                       ),
                       InkWell(
@@ -1820,8 +1814,12 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 width: 85,
                                 height: 30,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xff1C2B35),
+                                  color: Theme.of(context).canvasColor,
                                   borderRadius: BorderRadius.circular(6),
+                                    border: Border.all(
+                                      color: Color(0xffF2F2F2),
+                                      width: 1 ,
+                                    )
                                 ),
                                 child: Align(
                                   alignment: Alignment.topCenter,
@@ -1829,8 +1827,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                     enabled: false,
                                     textAlign: TextAlign.center,
                                     controller: _controllerSecond,
-                                    style: const TextStyle(
-                                      color: Colors.white,
+                                    style: TextStyle(
+                                      color: Theme.of(context).scaffoldBackgroundColor,
                                       fontSize: 15,
                                     ),
                                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -1838,9 +1836,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                       FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
                                     ],
                                     decoration: InputDecoration(
-                                        hintText: translation(context).amount,
-                                        hintStyle: const TextStyle(
-                                          color: Colors.white,
+                                        hintText: translation(context).result,
+                                        hintStyle: TextStyle(
+                                          color: Theme.of(context).scaffoldBackgroundColor,
                                           fontSize: 15,
                                         ),
                                         border: InputBorder.none
@@ -1939,7 +1937,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             setState(() {
                               date = null;
                               currency = null;
-                              currentRates = !value;
+                              currentRates = value;
                               historyRates = false ;
                             });
                             calculateCurrencyConvert(readCurrency, _controllerFirst.text);
@@ -1978,7 +1976,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                           if(currentRates){
                             setState(() {
                               currentRates = false;
-                              historyRates = !value;
+                              historyRates = value;
                             });
                             calculateCurrencyConvert(readCurrency, _controllerFirst.text);
                           }

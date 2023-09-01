@@ -31,7 +31,7 @@ class _fezaiCheckBoxState extends State<fezaiCheckBox> {
     var renkler = CustomColors();
     return InkWell(
       onTap: () {
-        widget.onChanged(widget.value);
+        widget.onChanged(!widget.value);
       },
       child: Container(
         height: widget.size,
