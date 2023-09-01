@@ -125,6 +125,11 @@ class _searchPageState extends ConsumerState<searchPage> {
                         decoration: BoxDecoration(
                           color: renkler.sariRenk,
                           borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 1,
+                            strokeAlign: 1
+                          )
                         ),
                         child: const Text(
                             "Eşleşen Veri Yok",
@@ -316,18 +321,24 @@ class _searchPageState extends ConsumerState<searchPage> {
                     ? SizedBox(width : 1)
                     : Padding(
                       padding: EdgeInsets.symmetric(horizontal:size.width * .07, vertical: size.height * 0.02),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        width: 200,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Theme.of(context).highlightColor,
-                        ),
-                        child: Center(
-                          child: Text(
-                              "Gösterilen Kayıt Sayısı : ${dbRiv.searchListTile?.length ?? 0}",
-                            style: TextStyle(
-                              color: renkler.sariRenk,
+                      child: FittedBox(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Theme.of(context).highlightColor,
+                            border: Border.all(
+                              color: Colors.white,
+                              strokeAlign: 1,
+                              width: 1
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                                "Gösterilen Kayıt Sayısı : ${dbRiv.searchListTile?.length ?? 0}",
+                              style: TextStyle(
+                                color: renkler.sariRenk,
+                              ),
                             ),
                           ),
                         ),

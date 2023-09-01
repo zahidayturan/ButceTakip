@@ -158,19 +158,13 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                 highlightColor: Theme.of(context).dividerColor,
                                 borderRadius: BorderRadius.circular(12),
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8, right: 8),
+                                  padding: const EdgeInsets.only(left: 8, right: 8),
                                   child: Container(
                                     height: 45,
                                     decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .indicatorColor,
-                                        borderRadius:
-                                        const BorderRadius.all(
-                                            Radius.circular(
-                                                10))),
-                                    child: Padding(
-                                      padding:
+                                        color: Theme.of(context).indicatorColor,
+                                        borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                    child: Padding(padding:
                                       const EdgeInsets.all(3),
                                       child: Row(
                                         mainAxisAlignment:
