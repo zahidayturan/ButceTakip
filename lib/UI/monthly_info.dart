@@ -136,66 +136,65 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                   ),
                                 ],
                               ),
-                            )
-                          : ListView.builder(
-                              controller: scrolbarcontroller1,
-                              itemCount: dailyTotals.length,
-                              itemBuilder: (BuildContext context, index) {
-                                var keys = dailyTotals.keys.toList();
-                                var day = keys[index];
-                                var dayTotals = dailyTotals[day]!;
-                                var dayItemLength = dayTotals['itemsLength']!;
-                                var totalAmount = dayTotals['totalAmount']!;
-                                var totalAmount2 = dayTotals['totalAmount2']!;
-                                var itemMonths = dayTotals['itemsMonth']!;
-                                var itemYears = dayTotals['itemsYear']!;
-                                final formattedTotal =
-                                    (totalAmount - totalAmount2)
-                                        .toStringAsFixed(1);
-                                var dateTime = DateTime(itemYears.toInt(),
-                                    itemMonths.toInt(), int.parse(day));
-                                var dayOfWeekName = _getDayOfWeekName(
-                                    dateTime.weekday, context);
-                                return Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        readHome.setDailyStatus(
-                                            totalAmount.toString(),
-                                            totalAmount2.toString(),
-                                            formattedTotal.toString());
-                                        if (double.parse(formattedTotal) <= 0) {
-                                          read.setStatus("-");
-                                        } else {
-                                          read.setStatus("+");
-                                        }
-                                        read.setDay(day);
-                                        readDailyInfo.setDate(
-                                            int.parse(day),
-                                            itemMonths.toInt(),
-                                            itemYears.toInt());
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const DailyInfo()));
-                                      },
-                                      highlightColor:
-                                          Theme.of(context).dividerColor,
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8, right: 8),
-                                        child: Container(
-                                          height: 45,
-                                          decoration: BoxDecoration(
-                                              color: Theme.of(context)
-                                                  .indicatorColor,
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(10))),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(3),
-                                            child: Row(
+                            ),
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        controller: scrolbarcontroller1,
+                        itemCount: dailyTotals.length,
+                        itemBuilder: (BuildContext context, index) {
+                          var keys = dailyTotals.keys.toList();
+                          var day = keys[index];
+                          var month = read.month;
+                          var year = read.year;
+                          var dayTotals = dailyTotals[day]!;
+                          var dayItemLength =  dayTotals['itemsLength']!;
+                          var totalAmount = dayTotals['totalAmount']!;
+                          var totalAmount2 = dayTotals['totalAmount2']!;
+                          final formattedTotal = (totalAmount - totalAmount2).toStringAsFixed(1);
+                          var dateTime = DateTime(int.parse(year), int.parse(month), int.parse(day));
+                          var dayOfWeekName = _getDayOfWeekName(dateTime.weekday, context);
+                          return Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  readHome.setDailyStatus(
+                                      totalAmount.toString(),
+                                      totalAmount2.toString(),
+                                      formattedTotal.toString());
+                                  if (double.parse(formattedTotal) <= 0) {
+                                    read.setStatus("-");
+                                  } else {
+                                    read.setStatus("+");
+                                  }
+                                  read.setDay(day);
+                                  read.setDate(items[index].operationDate);
+                                  readDailyInfo.setDate(int.parse(day), int.parse(month), int.parse(year));
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
+                                },
+                                highlightColor: Theme.of(context).dividerColor,
+                                borderRadius: BorderRadius.circular(12),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8, right: 8),
+                                  child: Container(
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context).indicatorColor,
+                                        borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                    child: Padding(padding:
+                                      const EdgeInsets.all(3),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .start,
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,

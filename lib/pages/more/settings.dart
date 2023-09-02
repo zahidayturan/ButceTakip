@@ -363,8 +363,7 @@ class _SettingsState extends ConsumerState<Settings> {
                             child: Container(
                               height: 30,
                               width: 80,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
                               color: renkler.koyuuRenk,
                               child: DropdownButton(
                                 dropdownColor: renkler.koyuuRenk,

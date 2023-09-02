@@ -113,6 +113,28 @@ class SettingsRiverpod extends ChangeNotifier{
     Updating();
 
   }
+  String convertPrefix(String prefix){
+    switch(prefix){
+      case "TRY":
+        return " ₺";
+      case "EUR":
+        return  " €";
+      case "USD":
+        return  " \$";
+      case "GBP":
+        return " £";
+      case "KWD":
+        return " د.ك";
+      case "JOD":
+        return " JD";
+      case "IQD":
+        return " د.ع";
+      case "SAR":
+        return " ر.س";
+      default:
+        return  " ?";
+    }
+  }
   void setPrefix(String prefix){
     this.Prefix = prefix;
 

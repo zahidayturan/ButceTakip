@@ -51,7 +51,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                   child: Container( //boyut
                     height: size.width * .7,
                     width: size.width * .65,
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: renkler.koyuuRenk,
                       borderRadius: BorderRadius.circular(20),
@@ -114,7 +114,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                           )
                                           :Column(
                                             children: [
-                                             GestureDetector(
+                                             InkWell(
                                                onTap:() async {
                                                  if(selectedIndexList.isNotEmpty){
                                                    if(selectedIndexList.contains(index)){
@@ -203,62 +203,109 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                               ),
                               isclicked
                               ?const SizedBox(width: 1)
-                              :SizedBox(
-                                height: size.height *.02,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                              :selectedIndexList.isNotEmpty
+                                ?Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
+                                    Container(
+                                      height: size.height * .026,
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(7),
+                                        color: Color(0xFF1C2B35),
+                                        border: Border.all(
+                                            color: Colors.white,
+                                            width: 1
+                                        )
+                                      ),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          for (var element in selectedIndexList) {
+                                            readGglAuth.deleteFileWithId(data[element].id).then((value) => readGglAuth.refreshPage());
+                                          }
+                                          setState(() {
+                                            selectedIndexList.clear();
+                                          });
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Icon(
+                                              Icons.delete_forever,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                            const SizedBox(width: 5),
+                                            Text(
+                                              "Sil",
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                fontFamily: "Nexa3",
+                                                color: renkler.arkaRenk,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                     Text(
-                                        "${data.length} adet kayıt gösteriliyor.",
-                                        style: TextStyle(
+                                      "${selectedIndexList.length} kayıt Seçildi",
+                                      style: TextStyle(
                                         fontSize: 13,
                                         fontFamily: "Nexa3",
                                         color: renkler.arkaRenk,
                                       ),
                                     ),
-                                    SizedBox(width: size.width * .04),
-                                    selectedIndexList.isNotEmpty
-                                      ?Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          InkWell(
-                                            onTap: () async {
-                                              for (var element in selectedIndexList) {
-                                                readGglAuth.deleteFileWithId(data[element].id).then((value) => readGglAuth.refreshPage());
-                                              }
-                                              setState(() {
-                                                selectedIndexList.clear();
-                                              });
-                                            },
-                                            child: const Icon(
-                                                Icons.delete_forever,
-                                              color: Colors.white,
-                                              size: 21,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 5),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                selectedIndexList.clear();
-                                              });
-                                            },
-                                            child: const Icon(
+                                    Container(
+                                      height: size.height * .026,
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(7),
+                                          color: Color(0xFF1C2B35),
+                                        border: Border.all(
+                                          color: Colors.white,
+                                          width: 1
+                                        )
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedIndexList.clear();
+                                          });
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Icon(
                                               Icons.cancel_outlined,
                                               color: Colors.white,
                                               size: 21,
-
                                             ),
-                                          ),
-
-                                        ],
-                                      )
-                                      :const SizedBox(width: 0)
+                                            const SizedBox(width: 5),
+                                            Text(
+                                              "iptal",
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                fontFamily: "Nexa3",
+                                                color: renkler.arkaRenk,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ],
+                                )
+                                :Center(
+                                  child: Text(
+                                    "${data.length} adet kayıt gösteriliyor.",
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontFamily: "Nexa3",
+                                      color: renkler.arkaRenk,
+                                    ),
+                                  ),
                                 ),
-                              ),
                             ],
                           );
                         }else {

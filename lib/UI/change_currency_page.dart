@@ -157,7 +157,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                                   setState(() {
                                     desiredUnit = newValue!;
                                     amount = ref.read(currencyRiverpod).calculateRealAmount(widget.data.amount!, widget.data.moneyType!.substring(0,3)!, desiredUnit!);
-                                    rate = ref.read(currencyRiverpod).calculateRate(widget.data.amount!, widget.data.moneyType!.substring(0,3)!, desiredUnit!);
+                                    rate = ref.read(currencyRiverpod).calculateRate(widget.data.moneyType!.substring(0,3)!, desiredUnit!);
                                   });
                                 },
                                 items: moneyTypes.map<DropdownMenuItem<String>>((String value) {

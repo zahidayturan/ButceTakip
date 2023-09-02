@@ -29,10 +29,10 @@ class CurrencyRiverpod extends ChangeNotifier {
   List<currencyInfo>  currencySqlList = [];
   List<currencyInfo> currenciesAllHistory = [];
 
-  double calculateRealAmount(double Amount, String moneyType, String prefix)  { // amount moneytype kaç Prefix ?
+  double calculateRealAmount(double Amount, String moneyType, String prefix, {currencyInfo? currency})  { // amount moneytype kaç Prefix ?
     double ?realAmount;
-    if(double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType.substring(0,3)])! > 0.0){
-      realAmount = double.parse((Amount * (double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType.substring(0,3)])!)).toStringAsFixed(2));
+    if(double.tryParse((currency ?? currencySqlList[currencySqlList.length -1]).toMap()[moneyType.substring(0,3)])! > 0.0){
+      realAmount = double.parse((Amount * (double.tryParse((currency ?? currencySqlList[currencySqlList.length -1]).toMap()[prefix])! / double.tryParse((currency ?? currencySqlList[currencySqlList.length -1]).toMap()[moneyType.substring(0,3)])!)).toStringAsFixed(2));
     }else{
       realAmount = Amount ;
     }
@@ -50,10 +50,10 @@ class CurrencyRiverpod extends ChangeNotifier {
     return realAmount ?? 0.0;
   }
 
-  double calculateRate(double Amount, String moneyType, String prefix){ //kur hesaplıyor.
+  double calculateRate(String moneyType, String prefix, {currencyInfo? currency}){ //kur hesaplıyor.
     double ?rate;
-    if(double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType])! > 0.0){
-      rate = double.parse(((double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[prefix])! / double.tryParse(currencySqlList[currencySqlList.length -1].toMap()[moneyType.substring(0,3)])!)).toStringAsFixed(5));
+    if(double.tryParse((currency ?? currencySqlList[currencySqlList.length -1]).toMap()[moneyType])! > 0.0){
+      rate = double.parse(((double.tryParse((currency ?? currencySqlList[currencySqlList.length -1]).toMap()[prefix])! / double.tryParse((currency ?? currencySqlList[currencySqlList.length -1]).toMap()[moneyType.substring(0,3)])!)).toStringAsFixed(5));
     }else{
       rate = 0.0 ;
     }
