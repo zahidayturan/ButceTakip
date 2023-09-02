@@ -123,6 +123,7 @@ class RegisteryList extends ConsumerWidget {
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
+    var watchHome = ref.watch(homeRiverpod);
     return FutureBuilder(
       future: readDB.registeryList(),
       builder: (context, snapshot) {
@@ -399,6 +400,7 @@ class RegisteryList extends ConsumerWidget {
   var readDailyInfo = ref.read(dailyInfoRiverpod);
   CustomColors renkler = CustomColors();
   var size = MediaQuery.of(context).size;
+  var watchHome = ref.watch(homeRiverpod);
   return FutureBuilder(
     future: readDB.lastOperationList(selectedValueLastList != null ? int.tryParse(selectedValueLastList!)! : 10),
     builder: (context, snapshot) {

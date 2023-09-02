@@ -119,6 +119,7 @@ class CustomizeList extends ConsumerWidget {
     var readSettings = ref.read(settingsRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
+    var watchHome = ref.watch(homeRiverpod);
     return FutureBuilder(
       future: readUpdateData.getCustomizeRepeatedOperation(),
       builder: (context, snapshot) {
@@ -498,6 +499,7 @@ class CustomizeList extends ConsumerWidget {
     var readSettings = ref.read(settingsRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
+    var watchHome = ref.watch(homeRiverpod);
     return FutureBuilder(
       future: readUpdateData.getCustomizeInstallmentOperation(),
       builder: (context, snapshot) {

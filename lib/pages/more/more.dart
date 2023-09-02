@@ -117,7 +117,7 @@ class More extends ConsumerWidget {
                                 context,
                                 PageRouteBuilder(
                                   transitionDuration: const Duration(milliseconds: 1),
-                                  pageBuilder: (context, animation, nextanim) => const HelpCenter(),
+                                  pageBuilder: (context, animation, nextanim) => assetsPage(),
                                   reverseTransitionDuration: const Duration(milliseconds: 1),
                                   transitionsBuilder: (context, animation, nexttanim, child) {
                                     return FadeTransition(
@@ -131,25 +131,41 @@ class More extends ConsumerWidget {
                             borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
                             child: Container(
                               height: size.height / 9,
-                              width: size.height / 9,
+                              width: size.height / 4.5 + size.width/15,
                               decoration: BoxDecoration(
+                                  color: renkler.sariRenk,
                                   border: Border.all(
-                                    width: 2,
-                                    color: Theme.of(context).canvasColor
+                                      width: 2,
+                                      color: renkler.sariRenk
                                   ),
-                                  color: renkler.koyuuRenk,
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Icon(Icons.question_mark, color: renkler.arkaRenk, size: 35),
-                                  Text(translation(context).help,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1,),textAlign: TextAlign.center,),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(Icons.wallet_rounded, color: renkler.koyuuRenk, size: 35),
+                                        Expanded(child: Padding(
+                                          padding: const EdgeInsets.only(top:8.0),
+                                          child: Text(translation(context).assets,style: TextStyle(color: renkler.koyuuRenk,fontSize: 16,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                        )),
+                                      ],
+                                    ),
+                                  ),
+                                  Text("Net Varlık Durumunuz",style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,)
                                 ],
                               ),
                             ),
                           ),
-                          SizedBox(width: size.width / 15),
+                        ],
+                      ),
+                      SizedBox(height: size.width / 15,),
+                      Row(
+                        children: [
                           InkWell(
                             onTap: () {
                               if(readSetting.isPassword == 1 && readSetting.Password != "null"){
@@ -173,7 +189,7 @@ class More extends ConsumerWidget {
                                   PageRouteBuilder(
                                     transitionDuration: const Duration(milliseconds: 1),
                                     pageBuilder: (context, animation, nextanim) =>
-                                        const PasswordPage(),
+                                    const PasswordPage(),
                                     reverseTransitionDuration:
                                     const Duration(milliseconds: 1),
                                     transitionsBuilder:
@@ -206,51 +222,6 @@ class More extends ConsumerWidget {
                                       ? Icon(Icons.lock, color: renkler.arkaRenk, size: 35)
                                       : Icon(Icons.lock_open, color: renkler.arkaRenk, size: 35),
                                   Text(translation(context).loginPassword,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(height: size.width / 15,),
-
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration: const Duration(milliseconds: 1),
-                                  pageBuilder: (context, animation, nextanim) => assetsPage(),
-                                  reverseTransitionDuration: const Duration(milliseconds: 1),
-                                  transitionsBuilder: (context, animation, nexttanim, child) {
-                                    return FadeTransition(
-                                      opacity: animation,
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
-                            child: Container(
-                              height: size.height / 9,
-                              width: size.height / 9,
-                              decoration: BoxDecoration(
-                                  color: renkler.koyuuRenk,
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).canvasColor
-                                  ),
-                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Icon(Icons.wallet, color: renkler.yaziRenk, size: 35),
-                                  Text(translation(context).assets,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                 ],
                               ),
                             ),
@@ -340,6 +311,50 @@ class More extends ConsumerWidget {
                       Row(
                         children: [
                           InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: const Duration(milliseconds: 1),
+                                  pageBuilder: (context, animation, nextanim) => const HelpCenter(),
+                                  reverseTransitionDuration: const Duration(milliseconds: 1),
+                                  transitionsBuilder: (context, animation, nexttanim, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                            child: Container(
+                              height: size.height / 18,
+                              width: size.height / 6+size.width/30,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 2,
+                                      color: renkler.sariRenk
+                                  ),
+                                  color: renkler.sariRenk,
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15))
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 6),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.question_mark, color: renkler.koyuuRenk, size: 26),
+                                    Expanded(child: Padding(
+                                      padding: const EdgeInsets.only(top:6.0),
+                                      child: Text(translation(context).help,style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1,),textAlign: TextAlign.center,),
+                                    )),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: size.width / 15),
+                          InkWell(
                             onTap: () async {
 
                               DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -366,24 +381,65 @@ class More extends ConsumerWidget {
                                 print(e.toString());
                               }
                             },
-                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15)),
                             child: Container(
-                              height: size.height / 9,
-                              width: size.height / 9,
+                              height: size.height / 18,
+                              width: size.height / 6+size.width/30,
                               decoration: BoxDecoration(
                                   color: renkler.koyuuRenk,
                                   border: Border.all(
                                       width: 2,
                                       color: Theme.of(context).canvasColor
                                   ),
-                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15))
                               ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Icon(Icons.mail_outline_rounded, color: renkler.yaziRenk, size: 35),
-                                  Text("Öneri",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
-                                ],
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 6),
+                                child: Row(
+                                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.mail_outline_rounded, color: renkler.yaziRenk, size: 26),
+                                    Expanded(child: Padding(
+                                      padding: const EdgeInsets.only(top:6.0),
+                                      child: Text("Öneri",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                    )),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: size.width / 30),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                            },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                            child: Container(
+                              height: size.height / 18,
+                              width: size.height / 6+size.width/30,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).canvasColor
+                                  ),
+                                  color: renkler.koyuuRenk,
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15))
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 6),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.star_rate_rounded, color: renkler.arkaRenk, size: 26),
+                                    Expanded(child: Padding(
+                                      padding: const EdgeInsets.only(top:6.0),
+                                      child: Text("Değerlendir",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1,),textAlign: TextAlign.center,),
+                                    )),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -392,24 +448,30 @@ class More extends ConsumerWidget {
                             onTap: ()  {
                               shareButceTakip();
                             },
-                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15)),
                             child: Container(
-                              height: size.height / 9,
-                              width: size.height / 9,
+                              height: size.height / 18,
+                              width: size.height / 6+size.width/30,
                               decoration: BoxDecoration(
                                   color: renkler.koyuuRenk,
                                   border: Border.all(
                                       width: 2,
                                       color: Theme.of(context).canvasColor
                                   ),
-                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15))
                               ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Icon(Icons.share, color: renkler.yaziRenk, size: 35),
-                                  Text("Tavsiye Et",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
-                                ],
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 6),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.share, color: renkler.yaziRenk, size: 26),
+                                    Expanded(child: Padding(
+                                      padding: const EdgeInsets.only(top:6.0),
+                                      child: Text("Tavsiye Et",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                    )),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

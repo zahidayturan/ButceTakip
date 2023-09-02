@@ -45,6 +45,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
     DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
     String formattedDate = DateFormat(readSettings.dateFormat).format(itemDate);
     CustomColors renkler = CustomColors();
+    var watchDailyInfo = ref.watch(dailyInfoRiverpod);
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
           child: Column(
