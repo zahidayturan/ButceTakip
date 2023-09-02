@@ -321,7 +321,7 @@ class _searchPageState extends ConsumerState<searchPage> {
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                           decoration: BoxDecoration(
-                            border: Border.all(),
+                            //border: Border.all(),
                             borderRadius: BorderRadius.circular(8),
                             color: Theme.of(context).highlightColor,
                             border: Border.all(
