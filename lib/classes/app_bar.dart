@@ -1,7 +1,6 @@
 import 'package:butcekontrol/UI/customize_operation_list.dart';
 import 'package:butcekontrol/UI/introduction_page.dart';
 import 'package:butcekontrol/UI/registery_list.dart';
-import 'package:butcekontrol/pages/more/Help/help_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
 import 'package:butcekontrol/pages/search_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';

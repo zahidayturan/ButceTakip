@@ -1,4 +1,5 @@
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -2469,7 +2470,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       int parseDay = int.parse(parts[0]);
       int parseMonth = int.parse(parts[1]);
       int parseYear = int.parse(parts[2]);
-      String formattedDate = readSettings.localChanger() == const Locale("ar") ? "$parseYear.$parseMonth.$parseDay" : readSettings.localChanger() == const Locale("en") ? "$parseMonth.$parseDay.$parseYear" : "$parseDay.$parseMonth.$parseYear";
+      String formattedDate = readSettings.dateFormat == "yyyy.MM.dd" ? "$parseYear.$parseMonth.$parseDay" : readSettings.dateFormat == "MM.dd.yyyy" ? "$parseMonth.$parseDay.$parseYear" : "$parseDay.$parseMonth.$parseYear";
       return formattedDate;
     }
 
@@ -3693,6 +3694,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     var readUpdateData = ref.read(updateDataRiverpod);
     var read = ref.read(databaseRiverpod);
     var readHome = ref.read(homeRiverpod);
+    var readDailyInfo = ref.read(dailyInfoRiverpod);
     final id = readUpdateData.getId();
     final operationType = readUpdateData.getType();
     final note = readUpdateData.getNote();
@@ -3783,12 +3785,16 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
                             customize.text,
                             "",
-                            systemMessage.text,
+                            systemMessage.toString(),
                           );
                         }
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
                     readHome.setStatus();
+                    readDailyInfo.setSpendDetailItemWithId(int.parse(id));
+                    if(menuController == 1){
+                      Navigator.of(context).pop();
+                    }
+                    Navigator.of(context).pop();
+                    //Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         backgroundColor:

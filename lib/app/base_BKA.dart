@@ -20,17 +20,11 @@ class _base_BKAState extends ConsumerState<base_BKA> {
   Future<void> loadData()  async {
     // örnek gecikme
     DateTime date = DateTime.now();
-    //firestoreHelper.createHistoryRates(currencyInfo("Test", "1", "1", "1", "1", "1", "1", "1", "1", DateTime.now().toString()));
-/*
-    firestoreHelper.getHistoryCurrency("21.08.2023").then((value) {
-      print(value!.BASE);
-    });
- */
     final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
     var readSetting =  ref.read(settingsRiverpod); //read okuma işlemleri gerçekleşti
     var readCurrency = ref.read(currencyRiverpod);
     var readGglAuth = ref.read(gglDriveRiverpod);
-    await readGglAuth.checkAuthState(); //Google User açık mı sorgusu yapılıyor
+    var currencyTable = readGglAuth.checkAuthState(); //Google User açık mı sorgusu yapılıyor
     var Query = readSetting.controlSettings(context);
     //Future.delayed(Duration(milliseconds: 100));// Settings tablosunu çekiyoruz. ve implemente ettik
     Query.then((value) async {
@@ -47,7 +41,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
             );
           },
         ),
-        );
+      );
       }else if (readSetting.isPassword == null){
         print("Password için emulator yavas kaldı.");
       }
@@ -61,86 +55,83 @@ class _base_BKAState extends ConsumerState<base_BKA> {
 
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
         print("Yedeklenme açık");
-        await Future.delayed(Duration(seconds: 4, milliseconds: 500));
-        if(readGglAuth.accountStatus == true) {
-          List<String> datesplit = readSetting.lastBackup!.split(".");
-          if(readSetting.Backuptimes == "Günlük"){
-            print("günlük giriş var");
-            if(int.parse(datesplit[0]) != DateTime.now().day) {
-              print("gunluk guncellendi.");
-              //readSetting.Backup();
-              await writeToCvs(fileName).then((value) async {
-                await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                  if(value == 1){
-                    readSetting.setLastBackup();
-                  }
-                });
-                //readGglAuth.uploadFileToStorage();
-              });
-            }else{
-              print("mevcut gün => ${DateTime.now().day}");
-              print("son kayıt => ${datesplit[0]}");
-              print("bugün zaten yuklenmiş");
-            }
-          }else if(readSetting.Backuptimes == "Aylık"){
-            print("Aylık giriş var");
-            if(int.parse(datesplit[2]) == DateTime.now().year){
-              if(DateTime.now().month - int.parse(datesplit[1]) >= 1 ){
-                print("ay bazında kayıt yapıyoruz.");
+        currencyTable.then((value) async {
+          //await Future.delayed(Duration(seconds: 4, milliseconds: 500));
+          if(readGglAuth.accountStatus == true) {
+            List<String> datesplit = readSetting.lastBackup!.split(".");
+            if(readSetting.Backuptimes == "Günlük"){
+              print("günlük giriş var");
+              if(int.parse(datesplit[0]) != DateTime.now().day) {
+                print("gunluk guncellendi.");
                 //readSetting.Backup();
                 await writeToCvs(fileName).then((value) async {
                   await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                   if(value == 1){
-                     readSetting.setLastBackup();
-                   }
+                    if(value == 1){
+                      readSetting.setLastBackup();
+                    }
+                  });
+                  //readGglAuth.uploadFileToStorage();
+                });
+              }else{
+                print("mevcut gün => ${DateTime.now().day}");
+                print("son kayıt => ${datesplit[0]}");
+                print("bugün zaten yuklenmiş");
+              }
+            }else if(readSetting.Backuptimes == "Aylık"){
+              print("Aylık giriş var");
+              if(int.parse(datesplit[2]) == DateTime.now().year){
+                if(DateTime.now().month - int.parse(datesplit[1]) >= 1 ){
+                  print("ay bazında kayıt yapıyoruz.");
+                  //readSetting.Backup();
+                  await writeToCvs(fileName).then((value) async {
+                    await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                     if(value == 1){
+                       readSetting.setLastBackup();
+                     }else{
+                       print("Backup oluşmadı");
+                     }
+                    });
+                    //readGglAuth.uploadFileToStorage();
+                  });
+                }
+              }else{
+                await writeToCvs(fileName).then((value) async {
+                  await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                    if(value == 1){
+                      readSetting.setLastBackup();
+                    }
+                  });
+                  //readGglAuth.uploadFileToStorage();
+                });
+                //readSetting.Backup();
+              }
+            }else if(readSetting.Backuptimes == "Yıllık"){
+              print("Yıllık giriş var");
+              if(int.parse(datesplit[2]) != DateTime.now().year){
+                //readSetting.Backup();
+                await writeToCvs(fileName).then((value) async{
+                  await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                    if(value == 1){
+                      readSetting.setLastBackup();
+                    }
                   });
                   //readGglAuth.uploadFileToStorage();
                 });
               }
-            }else{
-              await writeToCvs(fileName).then((value) async {
-                await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                  if(value == 1){
-                    readSetting.setLastBackup();
-                  }
-                });
-                //readGglAuth.uploadFileToStorage();
-              });
-              //readSetting.Backup();
             }
-          }else if(readSetting.Backuptimes == "Yıllık"){
-            print("Yıllık giriş var");
-            if(int.parse(datesplit[2]) != DateTime.now().year){
-              //readSetting.Backup();
-              await writeToCvs(fileName).then((value) async{
-                await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                  if(value == 1){
-                    readSetting.setLastBackup();
-                  }
-                });
-                //readGglAuth.uploadFileToStorage();
-              });
-            }
+          }else{
+            readGglAuth.setBackupAlert(true); //aktif değil
+            readSetting.setBackup(false);
+            print("yedeklenmesi gerekiyor ama hesabın açık değil GAHPE");
           }
-        }else{
-          readGglAuth.setBackupAlert(true); //aktif değil
-          readSetting.setBackup(false);
-          print("yedeklenmesi gerekiyor ama hesabın açık değil GAHPE");
-        }
+        });
       }else if(readSetting.isBackUp == 0) {
         print("Yedekleme kapalı");
       }else{
         print("Sorgular için Emulator yavas kalıyor.");
       }
-
-
     }
     );
-    //await Future.delayed(Duration(milliseconds: 100));
-    /*
-    read.then((value) async {
-
-     */
   }
 
   @override
@@ -153,26 +144,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
   @override
   Widget build(BuildContext context) {
     var watch = ref.watch(botomNavBarRiverpod);
-    // Future<List<SettingsInfo>> setting =  SQLHelper.settingsControl() ;
     return Scaffold(
-      /*
-      body: FutureBuilder(
-        future: setting,
-        builder: (context, snapshot) {
-          if(snapshot.hasData){
-            var data = snapshot.data;
-            if(data![0].isPassword == 0){
-              return watch.body();
-            }else{
-              return PasswordSplash();
-            }
-          }else{
-            return CircularProgressIndicator();
-          }
-        },
-      ) ,
-
-       */
       body : widget.showBTA == true ? watch.body() : IntroductionPage(),
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: widget.showBTA == true ? NavBar() : null,

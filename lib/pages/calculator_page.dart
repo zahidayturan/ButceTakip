@@ -1,8 +1,14 @@
+import 'package:butcekontrol/Riverpod/settings_riverpod.dart';
+import 'package:butcekontrol/constans/fezai_checkbox.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/models/currency_info.dart';
+import 'package:butcekontrol/riverpod/currency_riverpod.dart';
+import 'package:butcekontrol/utils/firestore_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../classes/app_bar_for_page.dart';
 import '../riverpod_management.dart';
 
@@ -19,12 +25,15 @@ class _CalculatorState extends ConsumerState<Calculator> {
   bool secondselect = false;
   final PageController _pagecont = PageController(initialPage: 0);
   int _currentPageindex = 0;
+
   void changePage(int pageindex) {
-    setState(() {
-      _currentPageindex = pageindex;
-    });
-    _pagecont.animateToPage(pageindex,
-        duration: const Duration(milliseconds: 250), curve: Curves.linear);
+    _pagecont.animateToPage(pageindex, duration: const Duration(milliseconds: 250), curve: Curves.linear).then((value) {
+        setState(() {
+          _currentPageindex = pageindex;
+          }
+        );
+      },
+    );
   }
 
   String result = "0";
@@ -135,9 +144,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 setState(() => _currentPageindex = value),
                             children: [
                               //calculator(), //Page 1
-                              yuzdePage(), // Page 2
-                              krediPage(), //Page 3
-                              currencyConverter(context), //Page 4
+                              currencyConverter(context), //Page 2
+                              krediPage(), //Page 4
+                              yuzdePage(), // Page 3
                             ],
                           ),
                         ),
@@ -210,24 +219,23 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             borderRadius: BorderRadius.circular(20),
                             border: _currentPageindex == 0
                                 ? Border.all(
-                                    color: renkler.sariRenk,
-                                    width: 3,
-                                  )
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
                                 : null,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Icon(
-                                Icons.percent,
-                                size: 45,
+                                Icons.currency_exchange,
+                                size: 40,
                                 color: renkler.arkaRenk,
                               ),
                               Center(
                                 child: Text(
-                                  translation(context).calculatePercentage,
+                                  translation(context).currencyConverter,
                                   style: const TextStyle(
-                                    height: 1,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -292,23 +300,24 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             borderRadius: BorderRadius.circular(20),
                             border: _currentPageindex == 2
                                 ? Border.all(
-                                    color: renkler.sariRenk,
-                                    width: 3,
-                                  )
+                              color: renkler.sariRenk,
+                              width: 3,
+                            )
                                 : null,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Icon(
-                                Icons.currency_exchange,
-                                size: 40,
+                                Icons.percent,
+                                size: 45,
                                 color: renkler.arkaRenk,
                               ),
                               Center(
                                 child: Text(
-                                  translation(context).currencyConverter,
+                                  translation(context).calculatePercentage,
                                   style: const TextStyle(
+                                    height: 1,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -422,8 +431,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
   double aylikTaksit = 0;
   List<String> tutarList = ["0", "0", "0", "0"];
 
-  void faizHesapla(TextEditingController anaPara,
-      TextEditingController faizYuzde, int vadeSuresi) {
+  void faizHesapla(TextEditingController anaPara, TextEditingController faizYuzde, int vadeSuresi) {
     if (faizYuzde.text.isEmpty || anaPara.text.isEmpty) {
       showModalBottomSheet(
           context: context,
@@ -1021,11 +1029,11 @@ class _CalculatorState extends ConsumerState<Calculator> {
     });
   }
 
+  TextEditingController sayi2Controller = TextEditingController();
+  TextEditingController sayi1Controller = TextEditingController();
+  TextEditingController yuzdeOranController = TextEditingController();
+  TextEditingController sonucController = TextEditingController();
   Widget yuzdePage() {
-    TextEditingController sayi2Controller = TextEditingController();
-    TextEditingController sayi1Controller = TextEditingController();
-    TextEditingController yuzdeOranController = TextEditingController();
-    TextEditingController sonucController = TextEditingController();
     double sonuc = 0;
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
@@ -1052,7 +1060,6 @@ class _CalculatorState extends ConsumerState<Calculator> {
                 ),
               ],
             ),
-
             /// çıkış butonu
             SizedBox(
               height: size.height / 50,
@@ -1093,11 +1100,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5, right: 5),
                           child: TextFormField(
-
                             maxLength: 12,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
                             style: TextStyle(
                                 color: renkler.koyuuRenk,
                                 fontSize: 16,
@@ -1119,7 +1122,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 sonucController.text = sonuc.toString();
                               }
                             },
-                            keyboardType: TextInputType.number,
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                            ],
                             controller: sayi1Controller,
                             decoration: InputDecoration(
                               hintText: translation(context).enteraNumber,
@@ -1127,6 +1133,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               height: 1,
                               fontSize: 14,
                               fontFamily: 'Nexa3',
+                              color: Colors.black
                             ),
                             counterText: '',
                             isDense: true,
@@ -1178,9 +1185,6 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             padding: const EdgeInsets.only(left: 5,right: 5),
                             child: TextField(
                               maxLength: 12,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
                               style: TextStyle(
                                   color: renkler.koyuuRenk,
                                   fontSize: 16,
@@ -1199,14 +1203,18 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 }
                               },
                               controller: sayi2Controller,
-                              keyboardType: TextInputType.number,
+                              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                              ],
                               decoration: InputDecoration(
                                 counterText: '',
                                 hintText: translation(context).enteraNumber,
                                 hintStyle: const TextStyle(
                                   height: 1,
                                     fontSize: 14,
-                                    fontFamily: 'Nexa3'
+                                    fontFamily: 'Nexa3',
+                                  color : Colors.black
                                 ),
                                 isDense: true,
                                 enabledBorder: const UnderlineInputBorder(
@@ -1271,9 +1279,6 @@ class _CalculatorState extends ConsumerState<Calculator> {
                           child: TextField(
                             maxLength: sayi2ishere ? null : 10,
                             readOnly: sayi2ishere ? true : false,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
                             style: TextStyle(
                                 color: renkler.koyuuRenk,
                                 fontFamily: 'Nexa4',
@@ -1294,7 +1299,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               }
                             },
                             controller: yuzdeOranController,
-                            keyboardType: TextInputType.number,
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                            ],
                             decoration: InputDecoration(
                                 isDense: true,
                                 counterText: '',
@@ -1405,132 +1413,121 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     )
                   : const SizedBox(height: 1),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Checkbox(
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: renkler.sariRenk,
-                            width: 4,
+            SizedBox(height: 10),
+            SizedBox(
+              height: size.height * .14,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      fezaiCheckBox(
+                        value: sayi2ishere,
+                        size: 15,
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() {
+                              sayi2ishere = value;
+                              firstselect = true;
+                              secondselect = false;
+                            });
+                          }
+                        },
+                      ),
+                      const SizedBox(width: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          translation(context).processTheSecondNumber,
+                          style: TextStyle(
+                            color: renkler.arkaRenk,
+                            fontFamily: "Nexa4",
+                            fontSize: 16,
                           ),
-                          borderRadius: BorderRadius.circular(4)),
-                      activeColor: renkler.sariRenk,
-                      value: sayi2ishere,
-                      onChanged: (value) {
-                        if (value != null) {
-                          setState(() {
-                            sayi2ishere = value;
-                            firstselect = true;
-                            secondselect = false;
-                          });
-                        }
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Text(
-                        translation(context).processTheSecondNumber,
-                        style: TextStyle(
-                          color: renkler.arkaRenk,
-                          fontFamily: "Nexa4",
-                          fontSize: 16,
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                sayi2ishere
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Checkbox(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                  color: renkler.sariRenk,
-                                  width: 4,
-                                ),
-                                borderRadius: BorderRadius.circular(4)),
-                            activeColor: renkler.sariRenk,
-                            value: firstselect,
-                            onChanged: (value) {
-                              if (secondselect) {
-                                setState(() {
-                                  firstselect = value!;
-                                  secondselect = false;
-                                });
-                              }
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4),
-                            child: Text(
-                              translation(context)
-                                  .secondNumberPercentageOfFirstNumber,
-                              style: TextStyle(
-                                color: renkler.arkaRenk,
-                                fontFamily: "Nexa4",
-                                fontSize: 16,
-                              ),
-                            ),
-                          )
-                        ],
                       )
-                    : const SizedBox(
-                        width: 1,
-                      ),
-                sayi2ishere
-                    ? const SizedBox(
-                        height: 5,
-                      )
-                    : const SizedBox(
-                        width: 5,
-                      ),
-                sayi2ishere
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Checkbox(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: renkler.sariRenk,
-                                    width: 4,
-                                    style: BorderStyle.solid),
-                                borderRadius: BorderRadius.circular(4)),
-                            activeColor: renkler.sariRenk,
-                            value: secondselect,
-                            onChanged: (value) {
-                              if (value != null) {
-                                if (firstselect) {
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  sayi2ishere
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            fezaiCheckBox(
+                              value: firstselect,
+                              size: 15,
+                              onChanged: (value) {
+                                if (secondselect) {
                                   setState(() {
-                                    firstselect = false;
-                                    secondselect = value;
+                                    firstselect = value;
+                                    secondselect = false;
                                   });
                                 }
-                              }
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4),
-                            child: Text(
-                              translation(context).rateOfChange,
-                              style: TextStyle(
-                                color: renkler.arkaRenk,
-                                fontFamily: "Nexa4",
-                                fontSize: 16,
-                              ),
+                              },
                             ),
-                          )
-                        ],
-                      )
-                    : const SizedBox(width: 1),
-              ],
+                            const SizedBox(width: 10),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Text(
+                                translation(context)
+                                    .secondNumberPercentageOfFirstNumber,
+                                style: TextStyle(
+                                  color: renkler.arkaRenk,
+                                  fontFamily: "Nexa4",
+                                  fontSize: 16,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox(
+                          width: 1,
+                        ),
+                  sayi2ishere
+                      ? const SizedBox(
+                          height: 5,
+                        )
+                      : const SizedBox(
+                          width: 5,
+                        ),
+                  sayi2ishere
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            fezaiCheckBox(
+                              value: secondselect,
+                              size: 15,
+                              onChanged: (value) {
+                                if (value != null) {
+                                  if (firstselect) {
+                                    setState(() {
+                                      firstselect = false;
+                                      secondselect = value;
+                                    });
+                                  }
+                                }
+                              },
+                            ),
+                            const SizedBox(width: 10),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Text(
+                                translation(context).rateOfChange,
+                                style: TextStyle(
+                                  color: renkler.arkaRenk,
+                                  fontFamily: "Nexa4",
+                                  fontSize: 16,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox(width: 1),
+                ],
+              ),
             ),
           ],
         ),
@@ -1538,320 +1535,627 @@ class _CalculatorState extends ConsumerState<Calculator> {
     );
   }
 
-  Widget currencyConverter(BuildContext context) {
-    void switchPages() {
-      int currentPage1 = pageCurrency.page!.toInt();
-      pageCurrency.jumpToPage(pageCurrency2.page!.toInt());
-      pageCurrency2.jumpToPage(currentPage1);
-    }
+  String first = "TRY";
+  String second = "USD";
+  String ?date;
+  currencyInfo ?currency ;
+  bool currentRates = true;
+  bool historyRates = false;
+  final TextEditingController _controllerFirst = TextEditingController();
+  final TextEditingController _controllerSecond = TextEditingController();
 
-    var rea = ref.read(currencyRiverpod);
-    double? kurdolar;
-    double? kureuro;
-    double? kursterlin;
-    double? kursar;
-    if(rea.BASE != null){
-      kurdolar = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.USD!)!).toStringAsFixed(2)));
-      kureuro = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.EUR!)!).toStringAsFixed(2)));
-      kursterlin = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.GBP!)!).toStringAsFixed(2)));
-      kursar = double.tryParse(((double.tryParse(rea.TRY!)! / double.tryParse(rea.SAR!)!).toStringAsFixed(2)));
+  void calculateCurrencyConvert(var readCurrency, String value){
+    if(_controllerFirst.text != ""){
+      var result = readCurrency.calculateRealAmount(double.tryParse(_controllerFirst.text)!, first, second, currency: currency);
+      _controllerSecond.text = result.toString();
     }else{
-      kurdolar = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
-      kureuro = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
-      kursterlin = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
-      kursar = double.tryParse(((double.tryParse("1")! / double.tryParse("1")!).toStringAsFixed(2)));
+      _controllerSecond.text = "";
     }
-    List<String> listCurrency = ['TL', 'USD', 'EURO', 'SAR'];
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Text(
-                'DÖVİZ HESAPLAMA',
-                style: TextStyle(
-                  fontFamily: 'NEXA4',
-                  fontSize: 24,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.clear,
-                    size: 25,
-                  ),
-                  color: const Color(0xFF0D1C26),
-                  onPressed: () {
-                    changePage(0);
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        SizedBox(
-          height: 100,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+  }
+  Widget currencyConverter(BuildContext context) {
+    var renkler = CustomColors();
+    var size = MediaQuery.of(context).size;
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('dd.MM.yyyy').format(now);
+    var readCurrency = ref.read(currencyRiverpod);
+    Future<List<currencyInfo>> historyCurrency = firestoreHelper.getHistoryCurrency();
+
+    List<String> moneyPrefix = <String>[
+      'TRY',
+      "USD",
+      "EUR",
+      "GBP",
+      "KWD",
+      "JOD",
+      "IQD",
+      "SAR"
+    ];
+
+    var readSettings = ref.watch(settingsRiverpod);
+    return Padding(
+      padding: const EdgeInsets.only(top:  15, bottom: 20, left : 10, right: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SizedBox(
-                    height: 50,
-                    width: 100,
-                    child: PageView(
-                      onPageChanged: (value) {
-                        selectedCurrency = value;
-                        setState(() {
-                          switchCurrency(context);
-                        });
-                      },
-                      controller: pageCurrency,
-                      children: listCurrency
-                          .map(
-                            (value) => Center(
-                              child: Text(
-                                value,
-                                style: const TextStyle(
-                                  color: Color(0xFFF2CB05),
-                                  fontSize: 28,
-                                  fontFamily: 'Nexa4',
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.3,
-                                ),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                    width: 100,
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontFamily: 'Nexa4',
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        isDense: true,
-                        hintText: 'Tutar',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Nexa4',
-                          fontSize: 24,
-                          color: Colors.white,
-                        ),
-                      ),
-                      onChanged: (value) {
-                        switchCurrency(context);
-                      },
-                      keyboardType: TextInputType.number,
-                      controller: nums,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 100,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.loop_rounded,
-                    size: 50,
-                  ),
-                  color: const Color(0xFFF2CB05),
-                  onPressed: () {
-                    switchPages();
-                  },
+              Text(
+                "Döviz Çevirici",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Nexa4',
+                  color: renkler.sariRenk,
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SizedBox(
-                    height: 50,
-                    width: 100,
-                    child: PageView(
-                      onPageChanged: (value) {
-                        selectedCurrency2 = value;
-                        switchCurrency(context);
-                      },
-                      controller: pageCurrency2,
-                      children: listCurrency
-                          .map(
-                            (value) => Center(
-                              child: Text(
-                                value,
-                                style: const TextStyle(
-                                  color: Color(0xFFF2CB05),
-                                  fontSize: 28,
-                                  fontFamily: 'Nexa4',
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.3,
-                                ),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                    width: 100,
-                    child: Center(
-                        child: TextField(
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontFamily: 'Nexa4',
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        isDense: true,
-                        hintText: 'Sonuç',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Nexa4',
-                          fontSize: 24,
-                          color: Colors.white,
-                        ),
-                      ),
-                      enabled: false,
-                      controller: sonuc,
-                    )),
-                  ),
-                ],
+              const SizedBox(
+                height: 40,
+                width: 40,
               ),
             ],
           ),
-        ),
-        const SizedBox(
-          height: 50,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              width: 120,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(100)),
-                color: Color(0xFFF2CB05),
-              ),
-              child: TextButton(
-                  onPressed: () {
-                    nums.clear();
-                    sonuc.clear();
-                  },
-                  child: Text(
-                    translation(context).deleteAll2,
-                    style: const TextStyle(
-                      fontFamily: 'NEXA4',
-                      fontSize: 20,
-                      color: Color(0xFF0D1C26),
-                    ),
-                  )),
-            ),
-            Container(
-              width: 120,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(100)),
-                color: Color(0xFFF2CB05),
-              ),
-              child: TextButton(
-                  onPressed: () {
-                    if (double.parse(sonuc.text) > 0) {
-                      Clipboard.setData(ClipboardData(text: sonuc.text));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          backgroundColor: Color(0xff0D1C26),
-                          duration: Duration(seconds: 1),
-                          content: Text(
-                            'Metin panoya kopyalandı',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w600,
-                              height: 1.3,
+          SizedBox(
+            height: size.height * .16,
+            width: double.infinity,
+            child: Row(
+              children: [
+                Expanded(
+                  flex : 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 80,
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: renkler.sariRenk,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: DropdownButton(
+                            dropdownColor: renkler.sariRenk,
+                            borderRadius: BorderRadius.circular(20),
+                            value: first,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.black),
+                            underline: Container(
+                              height: 2,
+                              color: renkler.sariRenk,
                             ),
+                            onChanged: (newValue) {
+                              setState(() {
+                                first = newValue!;
+                              });
+                              calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                            },
+                            items: moneyPrefix.map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                  onTap: () {},
+                                );
+                              }
+                            ).toList(),
                           ),
                         ),
-                      );
-                    }
-                  },
-                  child: const Text(
-                    ' Kopyala ',
-                    style: TextStyle(
-                      fontFamily: 'NEXA4',
-                      fontSize: 20,
-                      color: Color(0xFF0D1C26),
-                    ),
-                  )),
+                      ),
+                      SizedBox(
+                        width: size.width * .33,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex :1,
+                              child: Text(
+                                readSettings.convertPrefix(first),
+                                style: TextStyle(
+                                  height: 1,
+                                  color: renkler.sariRenk,
+                                  fontFamily:
+                                  "TL",
+                                  fontSize: 24,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 2),
+                            Expanded(
+                              flex: 2,
+                              child: Container(
+                                width: 85,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).canvasColor,
+                                  borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(
+                                    color: Color(0xffF2F2F2),
+                                    width: 1 ,
+                                  )
+                                ),
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: TextField(
+                                    onChanged: (value) async {
+                                      calculateCurrencyConvert(readCurrency, value);
+                                    },
+                                    textAlign: TextAlign.center,
+                                    controller: _controllerFirst,
+                                    style: TextStyle(
+                                      color: Theme.of(context).scaffoldBackgroundColor,
+                                      fontSize: 15,
+                                    ),
+                                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                                    ],
+                                    decoration: InputDecoration(
+                                        hintText: translation(context).amount,
+                                        hintStyle: TextStyle(
+                                            color: Theme.of(context).scaffoldBackgroundColor,
+                                            fontSize: 15,
+                                        ),
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _controllerFirst.text = "";
+                          _controllerSecond.text = "";
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                                Icons.backspace,
+                              color: renkler.sariRenk,
+                              size: 17,
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              "Temizle",
+                              style: TextStyle(
+                                height: 1,
+                                color: renkler.arkaRenk,
+                                fontFamily:
+                                "Nexa3",
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Icon(
+                        Icons.double_arrow,
+                        color: renkler.arkaRenk,
+                        size: 28,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            var a = first;
+                            first = second;
+                            second = a ;
+                          });
+                          calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                        },
+                        child: Image.asset(
+                          "assets/icons/swap2.png",
+                          width: 30,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 80,
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: renkler.sariRenk,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: DropdownButton(
+                            dropdownColor: renkler.sariRenk,
+                            borderRadius: BorderRadius.circular(20),
+                            value: second,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.black),
+                            underline: Container(
+                              height: 2,
+                              color: renkler.sariRenk,
+                            ),
+                            onChanged: (newValue) {
+                              setState(() {
+                                second = newValue!;
+                              });
+                              calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                            },
+                            items: moneyPrefix.map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                                onTap: () {},
+                              );
+                            }
+                            ).toList(),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width * .33,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Container(
+                                width: 85,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).canvasColor,
+                                  borderRadius: BorderRadius.circular(6),
+                                    border: Border.all(
+                                      color: Color(0xffF2F2F2),
+                                      width: 1 ,
+                                    )
+                                ),
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: TextField(
+                                    enabled: false,
+                                    textAlign: TextAlign.center,
+                                    controller: _controllerSecond,
+                                    style: TextStyle(
+                                      color: Theme.of(context).scaffoldBackgroundColor,
+                                      fontSize: 15,
+                                    ),
+                                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                                    ],
+                                    decoration: InputDecoration(
+                                        hintText: translation(context).result,
+                                        hintStyle: TextStyle(
+                                          color: Theme.of(context).scaffoldBackgroundColor,
+                                          fontSize: 15,
+                                        ),
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 2),
+                            Expanded(
+                              flex :1,
+                              child: Align(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  readSettings.convertPrefix(second),
+                                  style: TextStyle(
+                                    height: 1,
+                                    color: renkler.sariRenk,
+                                    fontFamily:
+                                    "TL",
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (_controllerFirst.text != "") {
+                            Clipboard.setData(ClipboardData(
+                                text: "${_controllerFirst.text} $first => ${_controllerSecond.text} $second"
+                            ));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                backgroundColor: Color(0xff0D1C26),
+                                duration: Duration(seconds: 1),
+                                content: Text(
+                                  'Metin panoya kopyalandı',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontFamily: 'Nexa3',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.3,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        child: SizedBox(
+                          width: 70,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Panoya \nKopyala",
+                                style: TextStyle(
+                                  height: 1,
+                                  color: renkler.arkaRenk,
+                                  fontFamily:
+                                  "Nexa3",
+                                  fontSize: 11,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.copy,
+                                color: renkler.sariRenk,
+                                size: 19,
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          rea.lastApiUpdateDate!,
-          style: const TextStyle(
-            fontFamily: 'NEXA4',
-            fontSize: 17,
-            color: Colors.white,
           ),
-        ),
-        Text(
-          "Dolar Kuru : $kurdolar",
-          style: const TextStyle(
-            fontFamily: 'NEXA4',
-            fontSize: 17,
-            color: Colors.white,
+          SizedBox(
+            height: size.height * .12,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    fezaiCheckBox(
+                        value: currentRates ,
+                        onChanged: (value) {
+                          if(historyRates){
+                            setState(() {
+                              date = null;
+                              currency = null;
+                              currentRates = value;
+                              historyRates = false ;
+                            });
+                            calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                          }
+                        },
+                      ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      "Güncel Kurdan Hesapla",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Nexa 3",
+                          fontSize: 15
+                      ),
+                    ),
+                    const SizedBox(width: 7),
+                    Text(
+                      formattedDate,
+                      style: TextStyle(
+                          color: renkler.sariRenk,
+                          fontFamily: "Nexa2",
+                          fontSize: 13
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                  child: Row(
+                    children: [
+                      fezaiCheckBox(
+                        value: historyRates ,
+                        onChanged: (value) {
+                          if(currentRates){
+                            setState(() {
+                              currentRates = false;
+                              historyRates = value;
+                            });
+                            calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Text(
+                        "Eski Tarihli Kurdan Hesapla",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Nexa 3",
+                            fontSize: 15
+                        ),
+                      ),
+                      const SizedBox(width: 7),
+                      !historyRates
+                      ?Text(
+                        "...",
+                        style: TextStyle(
+                            color: renkler.sariRenk,
+                            fontFamily: "Nexa2",
+                            fontSize: 13
+                        ),
+                      )
+                      :FutureBuilder(
+                        future: historyCurrency,
+                        builder: (context, snapshot) {
+                          if(snapshot.hasData){
+                            List<String> Lista = [];
+                            for (var element in snapshot.data!) {
+                              Lista.add(element.lastApiUpdateDate!.split(" ")[0].replaceAll("-", "."));
+                            }
+                            return Container(
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: renkler.sariRenk,
+                                borderRadius: BorderRadius.circular(7)
+                              ),
+                              child: Center(
+                                child: DropdownButton(
+                                  dropdownColor: renkler.sariRenk,
+                                  borderRadius: BorderRadius.circular(16),
+                                  value: date,
+                                  hint: Text(
+                                    translation(context).select,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.black),
+                                  underline: Container(
+                                    height: 2,
+                                    color: renkler.sariRenk,
+                                  ),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      date = newValue!;
+                                      currency = snapshot.data![Lista.indexOf(newValue)];
+                                    });
+                                    calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                                  },
+                                  items: Lista.map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                          value,
+                                      ),
+                                    );
+                                  }
+                                  ).toList(),
+                                ),
+                              ),
+                            );
+                          }else{
+                            return Text(
+                              "Yükleniyor",
+                              style: TextStyle(
+                                  color: renkler.sariRenk,
+                                  fontFamily: "Nexa2",
+                                  fontSize: 13
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        Text(
-          "Euro Kuru : kureuro ",
-          style: const TextStyle(
-            fontFamily: 'NEXA4',
-            fontSize: 17,
-            color: Colors.white,
+          SizedBox(
+            height: size.height * .12,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      currency != null ? first: "Güncel $first",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: "Nexa3"
+                      ),
+                    ),
+                    const Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                    Text(
+                      "$second Kur : ${readCurrency.calculateRate(first, second, currency: currency)}",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: "Nexa3"
+                      ),
+                    )
+                 ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      currency != null ? second: "Güncel $second",
+
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: "Nexa3"
+                      ),
+                    ),
+                    const Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                    Text(
+                      "$first Kur : ${readCurrency.calculateRate(second, first,currency: currency)}",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: "Nexa3"
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  "Son Güncellenme : ${currency?.lastApiUpdateDate?.split(" ")[0].replaceAll("-", ".") ?? readCurrency.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".")} ",
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontFamily: "Nexa3"
+                  ),
+                ),
+                Text(
+                  "Saat ${currency?.lastApiUpdateDate?.split(" ")[1].split(".")[0].substring(0,5) ?? readCurrency.lastApiUpdateDate!.split(" ")[1].split(".")[0].substring(0,5)} ",
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontFamily: "Nexa3"
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        Text(
-          "Sterlin Kuru : kursterlin ",
-          style: const TextStyle(
-            fontFamily: 'NEXA4',
-            fontSize: 17,
-            color: Colors.white,
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-      ],
+          SizedBox(
+            height: size.height * .015,
+          )
+        ],
+      ),
     );
-  }
+  } ///page1
 
   Widget equalsBtnCreat(Size size) {
     return SizedBox(

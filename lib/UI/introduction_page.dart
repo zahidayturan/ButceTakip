@@ -739,6 +739,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                             }
                             readSetting.setisuseinsert();
                             selectedMoneyType = value!;
+                            calculateAmount(3,emptyList,ref);
                           });
                           //controller.nextPage(duration: Duration(milliseconds: 800), curve: Curves.easeInOut);
                         },
@@ -1368,6 +1369,49 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
   double emptyTotal = 0;
   var operationMoneyType ;
 
+  void calculateAmount(int menuType,List<Map<String, dynamic>> listName,WidgetRef ref){
+    var readCurrency = ref.read(currencyRiverpod);
+    var readSetting = ref.read(settingsRiverpod);
+    if(menuType ==0){
+      cardTotal =0;
+      for(int i=0; i<listName.length ; i++){
+        double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
+        cardTotal = cardTotal + calculated;
+      }
+    }else if(menuType == 1){
+      cashTotal = 0;
+      for(int i=0; i<listName.length ; i++){
+        double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
+        cashTotal = cashTotal + calculated;
+      }
+    }else if(menuType == 2){
+      otherTotal = 0;
+      for(int i=0; i<listName.length ; i++){
+        double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
+        otherTotal = otherTotal + calculated;
+      }
+    }else if(menuType == 3){
+      cardTotal =0;
+      cashTotal =0;
+      otherTotal =0;
+      for(int i=0; i<cardAmountList.length ; i++){
+        double calculated = readCurrency.calculateRealAmount(cardAmountList[i]["amount"], cardAmountList[i]["currency"], readSetting.Prefix.toString());
+        cardTotal = cardTotal + calculated;
+      }
+      for(int i=0; i<cashAmountList.length ; i++){
+        double calculated = readCurrency.calculateRealAmount(cardAmountList[i]["amount"], cardAmountList[i]["currency"], readSetting.Prefix.toString());
+        cashTotal = cashTotal + calculated;
+      }
+      for(int i=0; i<otherAmountList.length ; i++){
+        double calculated = readCurrency.calculateRealAmount(cardAmountList[i]["amount"], cardAmountList[i]["currency"], readSetting.Prefix.toString());
+        otherTotal = otherTotal + calculated;
+      }
+    }else{
+      emptyTotal =0;
+      print("boş");
+    }
+  }
+
 
   Widget assetsPage(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
@@ -1441,6 +1485,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         onPressed: () {
                           showDialog(
                             context: context,
+                            barrierDismissible: false,
                             builder: (context) {
                               return amountCalculate(context,translation(context).enterBankAssets,0,cardAmountList);
                             },
@@ -1469,6 +1514,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         onPressed: () {
                           showDialog(
                             context: context,
+                            barrierDismissible: false,
                             builder: (context) {
                              return amountCalculate(context,translation(context).enterCashAssets,1,cashAmountList);
                             },
@@ -1850,29 +1896,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                     });
                                     amount.clear();
                                     operationMoneyType = null;
-                                    if(menuType ==0){
-                                      cardTotal =0;
-                                      for(int i=0; i<listName.length ; i++){
-                                        double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
-                                        cardTotal = cardTotal + calculated;
-                                        print(cardTotal);
-                                      }
-                                    }else if(menuType == 1){
-                                      cashTotal = 0;
-                                      for(int i=0; i<listName.length ; i++){
-                                        double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
-                                        cashTotal = cashTotal + calculated;
-                                      }
-                                    }else if(menuType == 2){
-                                      otherTotal = 0;
-                                      for(int i=0; i<listName.length ; i++){
-                                        double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
-                                        otherTotal = otherTotal + calculated;
-                                      }
-                                    }else{
-                                      emptyTotal =0;
-                                      print("boş");
-                                    }
+                                    calculateAmount(menuType,listName,ref);
                                   });
                                   this.setState((){});
                                 },
@@ -1942,29 +1966,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                 ),
                                 onTap: () {
                                   listName.removeAt(index);
-                                  if(menuType ==0){
-                                    cardTotal =0;
-                                    for(int i=0; i<listName.length ; i++){
-                                      double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
-                                      cardTotal = cardTotal + calculated;
-                                      print(cardTotal);
-                                    }
-                                  }else if(menuType == 1){
-                                    cashTotal = 0;
-                                    for(int i=0; i<listName.length ; i++){
-                                      double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
-                                      cashTotal = cashTotal + calculated;
-                                    }
-                                  }else if(menuType == 2){
-                                    otherTotal = 0;
-                                    for(int i=0; i<listName.length ; i++){
-                                      double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
-                                      otherTotal = otherTotal + calculated;
-                                    }
-                                  }else{
-                                    emptyTotal =0;
-                                    print("boş");
-                                  }
+                                  calculateAmount(menuType,listName,ref);
                                   this.setState(() {
                                   });
                                   setState((){
@@ -2043,25 +2045,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                     emptyTotal =0;
                                   }
                                 });
-
-                                if(menuType ==0){
-                                  for(int i=0; i<listName.length ; i++){
-                                    double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
-                                    cardTotal = cardTotal + calculated;
-                                  }
-                                }else if(menuType == 1){
-                                  for(int i=0; i<listName.length ; i++){
-                                    double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
-                                    cashTotal = cashTotal + calculated;
-                                  }
-                                }else if(menuType == 2){
-                                  for(int i=0; i<listName.length ; i++){
-                                    double calculated = readCurrency.calculateRealAmount(listName[i]["amount"], listName[i]["currency"], readSetting.Prefix.toString());
-                                    otherTotal = otherTotal + calculated;
-                                  }
-                                }else{
-                                  emptyTotal =0;
-                                }
+                                calculateAmount(menuType,listName,ref);
                                 Navigator.of(context).pop();
                               },
                               child: Container(

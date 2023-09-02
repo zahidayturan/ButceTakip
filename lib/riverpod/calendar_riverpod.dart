@@ -14,7 +14,7 @@ class CalendarRiverpod extends ChangeNotifier {
   int monthIndex = (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))%12)+1;
   int yearIndex = (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))~/12)+2020;
 
-  int startDay = 1;
+
   DateTime startDate = DateTime((((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))~/12)+2020, (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))%12)+1, 1);
   DateTime endDate = DateTime((((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))~/12)+2020, (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))%12)+2, 1);
 
@@ -79,7 +79,7 @@ class CalendarRiverpod extends ChangeNotifier {
     31, // Aralık
   ];
 
-  List<String> getCalendarDays(int year, int month) {
+  List<String> getCalendarDays(int year, int month,int startDay) {
     DateTime date = DateTime(year, month);
     int startWeekday = date.weekday;
     int daysInMonth = _daysInMonth[month - 1];
@@ -134,7 +134,7 @@ class CalendarRiverpod extends ChangeNotifier {
     return Future.value(result);
   }
 
-  Future<List> getMonthAmount(int month, int year) async {
+  Future<List> getMonthAmount(int month, int year, int startDay) async {
     List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month.toString(), year.toString());
     DateTime startDate = DateTime(yearIndex, monthIndex, startDay-1);
     DateTime endDate = DateTime(yearIndex, monthIndex+1, startDay);
@@ -157,7 +157,7 @@ class CalendarRiverpod extends ChangeNotifier {
     return dateToCheck.isAfter(startDate) && dateToCheck.isBefore(endDate);
   }
 
-  Future<List> getMonthAmountCount(int month, int year) async {
+  Future<List> getMonthAmountCount(int month, int year, int startDay) async {
     DateTime startDate = DateTime(yearIndex, monthIndex, startDay-1);
     DateTime endDate = DateTime(yearIndex, monthIndex+1, startDay);
     List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month.toString(), year.toString());

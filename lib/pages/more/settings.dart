@@ -5,6 +5,7 @@ import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../UI/change_prefix_alert.dart';
@@ -30,20 +31,23 @@ class _SettingsState extends ConsumerState<Settings> {
     "IQD",
     "SAR"
   ];
-  List<String> getMoneyNameList(){
-  List<String> moneyNameList = <String>[
-    'TRY - Türkiye - ₺',
-    "USD - USA - \$",
-    "EUR - Europe - €",
-    "GBP - The United Kingdom - £",
-    "KWD - Kuwait - د.ك",
-    "JOD - Jordan - د.أ'",
-    "IQD - Iraq - د.ع",
-    "SAR - Saudi Arabia - ر.س",
-  ];
-  return moneyNameList;
+  List<String> getMoneyNameList() {
+    List<String> moneyNameList = <String>[
+      'TRY - Türkiye - ₺',
+      "USD - USA - \$",
+      "EUR - Europe - €",
+      "GBP - The United Kingdom - £",
+      "KWD - Kuwait - د.ك",
+      "JOD - Jordan - د.أ'",
+      "IQD - Iraq - د.ع",
+      "SAR - Saudi Arabia - ر.س",
+    ];
+    return moneyNameList;
   }
+
   List<String> dilDestegi = <String>["Türkçe", "English", "العربية"];
+  List<String> monthStartDays = <String>["1", "8", "15", "22", "29"];
+  List<String> dateFormats = <String>["Gün.Ay.Yıl", "Ay.Gün.Yıl", "Yıl.Ay.Gün"];
   CustomColors renkler = CustomColors();
 
   @override
@@ -53,12 +57,19 @@ class _SettingsState extends ConsumerState<Settings> {
     ref.watch(settingsRiverpod).isuseinsert;
     var size = MediaQuery.of(context).size;
     var readSetting = ref.read(settingsRiverpod);
+    var readDb = ref.read(databaseRiverpod);
     //String? Language = readSetting.Language;
     bool darkthememode = readSetting.DarkMode == 1 ? true : false;
     bool isPassword = readSetting.isPassword == 1 ? true : false;
     bool isBackup = readSetting.isBackUp == 1 ? true : false;
     String language =
         readSetting.Language! == "Turkce" ? "Türkçe" : readSetting.Language!;
+    int monthStartDay = readSetting.monthStartDay!;
+    String dateFormat = readSetting.dateFormat == "dd.MM.yyyy"
+        ? "Gün.Ay.Yıl"
+        : readSetting.dateFormat == "MM.dd.yyyy"
+            ? "Ay.Gün.Yıl"
+            : "Yıl.Ay.Gün";
 
     /// dilDestegi ile database çakışmasından dolayı böyle bir koşullu atama ekledik
     String dropdownshowitem = 'TRY';
@@ -95,20 +106,23 @@ class _SettingsState extends ConsumerState<Settings> {
                         Text(
                           translation(context).darkMode,
                           style: const TextStyle(
-                            fontFamily: "Nexa3",
-                            fontSize: 15,
-                            height: 1
-                          ),
+                              fontFamily: "Nexa3", fontSize: 15, height: 1),
                         ),
                         const Spacer(),
                         darkthememode
                             ? Text(
                                 translation(context).on,
-                                style: const TextStyle(fontFamily: "Nexa3",fontSize: 15,),
+                                style: const TextStyle(
+                                  fontFamily: "Nexa3",
+                                  fontSize: 15,
+                                ),
                               )
                             : Text(
                                 translation(context).off,
-                                style: const TextStyle(fontFamily: "Nexa3",fontSize: 15,),
+                                style: const TextStyle(
+                                  fontFamily: "Nexa3",
+                                  fontSize: 15,
+                                ),
                               ),
                         Switch(
                           activeColor: renkler.sariRenk,
@@ -187,20 +201,25 @@ class _SettingsState extends ConsumerState<Settings> {
                           Text(
                             translation(context).loginPassword,
                             style: const TextStyle(
-                              fontFamily: "Nexa3",
-                                fontSize: 15,
-                                height: 1
-                            ),
+                                fontFamily: "Nexa3", fontSize: 15, height: 1),
                           ),
                           const Spacer(),
                           isPassword
                               ? Text(
                                   translation(context).on,
-                                  style: const TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15,),
+                                  style: const TextStyle(
+                                    fontFamily: "Nexa3",
+                                    height: 1,
+                                    fontSize: 15,
+                                  ),
                                 )
                               : Text(
                                   translation(context).off,
-                                  style: const TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15,),
+                                  style: const TextStyle(
+                                    fontFamily: "Nexa3",
+                                    height: 1,
+                                    fontSize: 15,
+                                  ),
                                 ),
                           const Icon(
                             Icons.arrow_forward_ios,
@@ -230,8 +249,7 @@ class _SettingsState extends ConsumerState<Settings> {
                         Navigator.push(
                           context,
                           PageRouteBuilder(
-                            transitionDuration:
-                                const Duration(milliseconds: 1),
+                            transitionDuration: const Duration(milliseconds: 1),
                             pageBuilder: (context, animation, nextanim) =>
                                 const BackUp(),
                             reverseTransitionDuration:
@@ -251,21 +269,26 @@ class _SettingsState extends ConsumerState<Settings> {
                           Text(
                             translation(context).backupStatus,
                             style: const TextStyle(
-                              fontFamily: "Nexa3",
-                                fontSize: 15,
-                                height: 1
-                            ),
+                                fontFamily: "Nexa3", fontSize: 15, height: 1),
                           ),
                           const Spacer(),
                           isBackup
                               ? Text(
-                            translation(context).on,
-                            style: const TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15,),
-                          )
+                                  translation(context).on,
+                                  style: const TextStyle(
+                                    fontFamily: "Nexa3",
+                                    height: 1,
+                                    fontSize: 15,
+                                  ),
+                                )
                               : Text(
-                            translation(context).off,
-                            style: const TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15,),
-                          ),
+                                  translation(context).off,
+                                  style: const TextStyle(
+                                    fontFamily: "Nexa3",
+                                    height: 1,
+                                    fontSize: 15,
+                                  ),
+                                ),
                           const Icon(
                             Icons.arrow_forward_ios,
                           )
@@ -299,10 +322,7 @@ class _SettingsState extends ConsumerState<Settings> {
                           Text(
                             translation(context).notifications,
                             style: const TextStyle(
-                              fontFamily: "Nexa3",
-                                fontSize: 15,
-                                height: 1
-                            ),
+                                fontFamily: "Nexa3", fontSize: 15, height: 1),
                           ),
                           const Spacer(),
                           const Icon(
@@ -335,10 +355,7 @@ class _SettingsState extends ConsumerState<Settings> {
                           Text(
                             translation(context).defaultCurrency,
                             style: const TextStyle(
-                              fontFamily: "Nexa3",
-                                fontSize: 15,
-                                height: 1
-                            ),
+                                fontFamily: "Nexa3", fontSize: 15, height: 1),
                           ),
                           const Spacer(),
                           ClipRRect(
@@ -346,8 +363,7 @@ class _SettingsState extends ConsumerState<Settings> {
                             child: Container(
                               height: 30,
                               width: 80,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
                               color: renkler.koyuuRenk,
                               child: DropdownButton(
                                 dropdownColor: renkler.koyuuRenk,
@@ -364,10 +380,15 @@ class _SettingsState extends ConsumerState<Settings> {
                                     context,
                                     PageRouteBuilder(
                                       opaque: false, //sayfa saydam olması için
-                                      transitionDuration: const Duration(milliseconds: 1),
-                                      pageBuilder: (context, animation, nextanim) => changePrefixAlert(newValue!),
-                                      reverseTransitionDuration: const Duration(milliseconds: 1),
-                                      transitionsBuilder: (context, animation, nexttanim, child) {
+                                      transitionDuration:
+                                          const Duration(milliseconds: 1),
+                                      pageBuilder:
+                                          (context, animation, nextanim) =>
+                                              changePrefixAlert(newValue!),
+                                      reverseTransitionDuration:
+                                          const Duration(milliseconds: 1),
+                                      transitionsBuilder: (context, animation,
+                                          nexttanim, child) {
                                         return FadeTransition(
                                           opacity: animation,
                                           child: child,
@@ -419,10 +440,7 @@ class _SettingsState extends ConsumerState<Settings> {
                         Text(
                           translation(context).language,
                           style: const TextStyle(
-                            fontFamily: "Nexa3",
-                              fontSize: 15,
-                              height: 1
-                          ),
+                              fontFamily: "Nexa3", fontSize: 15, height: 1),
                         ),
                         const Spacer(),
                         ClipRRect(
@@ -447,8 +465,16 @@ class _SettingsState extends ConsumerState<Settings> {
                                 if (newValue == "Türkçe") {
                                   /// database te Turkce yazılı olduğu için if koşulu kullandık.
                                   readSetting.setLanguage("Turkce");
-                                } else {
+                                  readSetting.setDateFormat("dd.MM.yyyy");
+                                } else if(newValue == dilDestegi[1]) {
                                   readSetting.setLanguage(newValue!);
+                                  readSetting.setDateFormat("MM.dd.yyyy");
+                                } else if (newValue == dilDestegi[2]) {
+                                  readSetting.setLanguage(newValue!);
+                                  readSetting.setDateFormat("yyyy.MM.dd");
+                                } else{
+                                  readSetting.setLanguage(newValue!);
+                                  readSetting.setDateFormat("MM.dd.yyyy");
                                 }
                                 readSetting.setisuseinsert();
                               },
@@ -466,6 +492,263 @@ class _SettingsState extends ConsumerState<Settings> {
                       ],
                     ),
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8,left: 8),
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).highlightColor,
+                            border: Border.all(width: 1,color: renkler.arkaRenk,strokeAlign: BorderSide.strokeAlignOutside)
+                        ),
+                        child: Icon(
+                          Icons.timelapse_rounded,
+                          color: renkler.arkaRenk,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          const Text(
+                            "Ayın Başlangıç Günü",
+                            style: TextStyle(
+                                fontFamily: "Nexa3", fontSize: 15, height: 1),
+                          ),
+                          const Spacer(),
+                          Container(
+                            height: 28,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).highlightColor,
+                                borderRadius: BorderRadius.all(Radius.circular(10))
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                isExpanded: true,
+                                hint: Center(
+                                  child: Text(
+                                    translation(context).select,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Nexa3',
+                                      color: renkler.arkaRenk,
+                                    ),
+                                  ),
+                                ),
+                                items: monthStartDays
+                                    .map((item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 2),
+                                      child: Text(
+                                        item,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: 'Nexa3',
+                                            color: renkler.arkaRenk),
+                                      ),
+                                    ),
+                                  ),
+                                ))
+                                    .toList(),
+                                value: monthStartDay.toString(),
+                                onChanged: (newValue) {
+                                  setState(
+                                        () {
+                                          readSetting
+                                              .setMonthStartDay(int.parse(newValue!));
+                                          readSetting.setisuseinsert();
+                                    },
+                                  );
+                                },
+                                barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
+                                buttonStyleData: ButtonStyleData(
+                                  overlayColor: MaterialStatePropertyAll(renkler
+                                      .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                                  height: 34,
+                                  width: 60,
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                    maxHeight: 250,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context).highlightColor,
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(5))),
+                                    scrollbarTheme: ScrollbarThemeData(
+                                        radius: const Radius.circular(15),
+                                        thumbColor: MaterialStatePropertyAll(
+                                            renkler.sariRenk))),
+                                menuItemStyleData: MenuItemStyleData(
+                                  overlayColor: MaterialStatePropertyAll(
+                                      renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                  height: 34,
+                                ),
+                                iconStyleData: IconStyleData(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down,
+                                  ),
+                                  iconSize: 24,
+                                  iconEnabledColor:
+                                  renkler.arkaRenk,
+                                  iconDisabledColor:
+                                  Theme.of(context).secondaryHeaderColor,
+                                  openMenuIcon: Icon(
+                                    Icons.arrow_right,
+                                    color: Theme.of(context).canvasColor,
+                                    size: 24,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8,left: 8),
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).highlightColor,
+                            border: Border.all(width: 1,color: renkler.arkaRenk,strokeAlign: BorderSide.strokeAlignOutside)
+                        ),
+                        child: Icon(
+                          Icons.calendar_month_rounded,
+                          color: renkler.arkaRenk,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          const Text(
+                            "Tarih Formatı",
+                            style: TextStyle(
+                                fontFamily: "Nexa3", fontSize: 15, height: 1),
+                          ),
+                          const Spacer(),
+                          Container(
+                            height: 28,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).highlightColor,
+                                borderRadius: BorderRadius.all(Radius.circular(10))
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                isExpanded: true,
+                                hint: Center(
+                                  child: Text(
+                                    translation(context).select,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Nexa3',
+                                      color: renkler.arkaRenk,
+                                    ),
+                                  ),
+                                ),
+                                items: dateFormats
+                                    .map((item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 2),
+                                      child: Text(
+                                        item,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: 'Nexa3',
+                                            color: renkler.arkaRenk),
+                                      ),
+                                    ),
+                                  ),
+                                ))
+                                    .toList(),
+                                value: dateFormat,
+                                onChanged: (newValue) {
+                                  setState(
+                                        () {
+                                      if (newValue == "Gün.Ay.Yıl") {
+                                        readSetting.setDateFormat("dd.MM.yyyy");
+                                      } else if (newValue == "Ay.Gün.Yıl") {
+                                        readSetting.setDateFormat("MM.dd.yyyy");
+                                      } else if (newValue == "Yıl.Ay.Gün") {
+                                        readSetting.setDateFormat("yyyy.MM.dd");
+                                      } else {
+                                        readSetting.setDateFormat("dd.MM.yyyy");
+                                      }
+                                      readSetting.setisuseinsert();
+                                    },
+                                  );
+                                },
+                                barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
+                                buttonStyleData: ButtonStyleData(
+                                  overlayColor: MaterialStatePropertyAll(renkler
+                                      .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                                  height: 34,
+                                  width: 120,
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                    maxHeight: 250,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context).highlightColor,
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(5))),
+                                    scrollbarTheme: ScrollbarThemeData(
+                                        radius: const Radius.circular(15),
+                                        thumbColor: MaterialStatePropertyAll(
+                                            renkler.sariRenk))),
+                                menuItemStyleData: MenuItemStyleData(
+                                  overlayColor: MaterialStatePropertyAll(
+                                      renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                  height: 34,
+                                ),
+                                iconStyleData: IconStyleData(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down,
+                                  ),
+                                  iconSize: 24,
+                                  iconEnabledColor:
+                                  renkler.arkaRenk,
+                                  iconDisabledColor:
+                                  Theme.of(context).secondaryHeaderColor,
+                                  openMenuIcon: Icon(
+                                    Icons.arrow_right,
+                                    color: Theme.of(context).canvasColor,
+                                    size: 24,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ]),
