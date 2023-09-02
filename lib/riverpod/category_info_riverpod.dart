@@ -249,9 +249,21 @@ class CategoryInfoRiverpod extends ChangeNotifier {
       List <String> dateName = [];
       dateName.add(getMonthName(month,context));
       dateName.add('$year');
-      dateName.add('$week.');
-      dateName.add('Hafta');
-
+      if(week == 1){
+        dateName.add(translation(context).firstWeek);
+      }
+      else if(week == 2){
+        dateName.add(translation(context).secondWeek);
+      }
+      else if(week == 3){
+        dateName.add(translation(context).thirdWeek);
+      }
+      else if(week == 4){
+        dateName.add(translation(context).fourthWeek);
+      }
+      else if(week == 5){
+        dateName.add(translation(context).fifthWeek);
+      }
       dateNameBase = dateName;
     }
     else if(validDateMenu == 3 ){

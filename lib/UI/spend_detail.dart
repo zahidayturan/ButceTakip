@@ -269,8 +269,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text("TEKRAR / TAKSİT",
-                                style: TextStyle(
+                            Text(translation(context).repetitionInstallment,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Nexa4',
                                   height: 1,
@@ -301,14 +301,14 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         children: [
                           Row(
                             children: [
-                              Text("SİSTEM MESAJI",
-                                  style: TextStyle(
+                              Text(translation(context).systemMessage,
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Nexa4',
                                     height: 1,
                                     fontSize: 18,
                                   )),
-                              SizedBox()
+                              const SizedBox()
                             ],
                           ),
                           Padding(
@@ -541,11 +541,11 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                             ),
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 6.0),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 6.0),
                           child: Text(
-                            "Tekrar Ekle",
-                            style: TextStyle(
+                            translation(context).addAgain,
+                            style: const TextStyle(
                               color: Color(0xFFF2CB05),
                               fontFamily: 'Nexa3',
                               height: 1,

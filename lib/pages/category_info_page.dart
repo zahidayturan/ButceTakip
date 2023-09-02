@@ -6,7 +6,8 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as intl;
+
 
 
 class CategoryInfo extends ConsumerWidget {
@@ -117,7 +118,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                 itemBuilder: (context, index) {
                                   var readSettings = ref.read(settingsRiverpod);
                                   DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
-                                  String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
+                                  String formattedDate = readSettings.localChanger() == const Locale("ar") ? intl.DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? intl.DateFormat('MM.dd.yyyy').format(itemDate) : intl.DateFormat('dd.MM.yyyy').format(itemDate);
                                   return Padding(
                                     padding: const EdgeInsets.only(
                                         left: 15, right: 15, top: 5, bottom: 5),
@@ -397,17 +398,37 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      '${Converter().textConverterFromDB(myCategory[0], context, 0)} ${myCategory[1]}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: "NEXA3",
-                        height: 1,
-                        fontSize: 20,
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${Converter().textConverterFromDB(myCategory[0], context, 0)} ',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: "NEXA3",
+                              height: 1,
+                              fontSize: 20,
+                            ),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            ' ${myCategory[1]}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: "NEXA3",
+                              height: 1,
+                              fontSize: 20,
+                            ),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
                       height: 4,

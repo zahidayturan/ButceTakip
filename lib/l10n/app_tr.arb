@@ -13,7 +13,7 @@
   "contactUsTitle": "İLETİŞİM",
   "myAssets": "VARLIKLARIM",
 
-  "selectLanguage": "Lütfe dil seçiniz",
+  "selectLanguage": "Lütfen dil seçiniz",
 
   "languageSelection": "Dil Seçimi",
   "betterExperience": "Daha iyi bir deneyim için başlamadan önce kurulumu tamamlayınız",
@@ -42,6 +42,11 @@
   "enterOtherAssets": "Diğer varlıklarınızı giriniz",
   "startingAmount": "Başlangıç tutarınız:",
   "complete": "Tamamla",
+
+  "budgetTrackOnlyTurkish": "Bütçe Takip",
+  "budgetTrack": "Bütçe Takip",
+  "thankYouMessage": "kullandığınız için teşekkür ederiz",
+  "appPreparationMessage": "Uygulamanız Hazırlanıyor",
 
   "savedActivities": "Kayıtlı İşlemler",
   "savedActivitiesAmount": "İşlem\nTutarı",
@@ -299,6 +304,9 @@
   "backupStatus": "Yedeklenme Durumu",
   "notifications": "Bildirimler",
   "defaultCurrency": "Varsayılan Para Birimi",
+  "changeCurrencyWarning": "Bütün kayıtların para birimi, işlem tarihinin döviz kuruna göre şu para birimi ile çevrilecek:",
+  "convert": "Çevir",
+  "convertMessage": "Para birimi çevriliyor lütfen bekleyiniz",
   "language": "Dil Desteği",
 
   "helpCenter": "Yardım Merkezi",
@@ -414,6 +422,9 @@
   "savingStatusDetails": "KAYIT DURUMU",
   "saved": "Kayıtlı",
   "notSaved": "Kayıtlı değil",
+  "systemMessage": "SİSTEM MESAJI",
+  "repetitionInstallment": "TEKRAR / TAKSİT",
+  "addAgain": "Tekrar Ekle",
   "noteDetails": "NOT",
   "noNoteAdded": "Not Eklenmemiş",
   "deleteDetails": "Sil",
@@ -422,7 +433,12 @@
 
   "updateDone": "GÜNCELLE",
   "activityUpdated": "İşlem bilgisi güncellendi",
-  "clickToAddNote": "Not eklemek için tıklayınız"
+  "clickToAddNote": "Not eklemek için tıklayınız",
 
+  "firstWeek": "1.Hafta",
+  "secondWeek": "2.Hafta",
+  "thirdWeek": "3.Hafta",
+  "fourthWeek": "4.Hafta",
+  "fifthWeek": "5.Hafta"
 }
 

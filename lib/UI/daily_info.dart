@@ -155,6 +155,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
   }
   Widget RowStyleCreateBox(BuildContext context, item){
     var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
     return GestureDetector(
       onTap: () {
         var readDailyInfo = ref.read(dailyInfoRiverpod);
@@ -240,7 +241,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                      ),
+                                      ),///category
                                       Expanded(
                                         flex: 1,
                                         child: Text(
@@ -252,37 +253,40 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                           ),
                                         ),
                                       ),///operation
-                                      Expanded(
-                                        flex: 2,
-                                        child: SizedBox(
-                                          child: Align(
-                                            alignment: Alignment.centerRight,
-                                            child: RichText(
-                                                text: TextSpan(children: [
-                                                  TextSpan(
-                                                    text:  "${item.realAmount}",
-                                                    style: TextStyle(
-                                                      height: 1,
-                                                      color: item.operationType == "Gelir" ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                                      fontFamily:
-                                                      "Nexa3",
-                                                      fontSize: 14,
+                                      Directionality(
+                                        textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
+                                        child: Expanded(
+                                          flex: 2,
+                                          child: SizedBox(
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: RichText(
+                                                  text: TextSpan(children: [
+                                                    TextSpan(
+                                                      text:  "${item.realAmount}",
+                                                      style: TextStyle(
+                                                        height: 1,
+                                                        color: item.operationType == "Gelir" ? renkler.yesilRenk : renkler.kirmiziRenk,
+                                                        fontFamily:
+                                                        "Nexa3",
+                                                        fontSize: 14,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: ref.read(settingsRiverpod).prefixSymbol,
-                                                    style: TextStyle(
-                                                      height: 1,
-                                                      color: item.operationType == "Gelir" ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                                      fontFamily:
-                                                      "TL",
-                                                      fontSize: 14,
+                                                    TextSpan(
+                                                      text: ref.read(settingsRiverpod).prefixSymbol,
+                                                      style: TextStyle(
+                                                        height: 1,
+                                                        color: item.operationType == "Gelir" ? renkler.yesilRenk : renkler.kirmiziRenk,
+                                                        fontFamily:
+                                                        "TL",
+                                                        fontSize: 14,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ])),
+                                                  ])),
+                                              ),
                                             ),
                                           ),
-                                        ),///amount
+                                      ),///amount
                                       ],
                                     ),
                                     Expanded(

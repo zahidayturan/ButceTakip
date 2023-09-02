@@ -2146,7 +2146,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   child: Column(
                     children: [
                       Text(
-                        "Bütçe Takip",
+                        translation(context).budgetTrackOnlyTurkish,
                         style: TextStyle(
                             fontSize: 32,
                             height: 1,
@@ -2156,7 +2156,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        "kullandığınız için teşekkür ederiz.",
+                        translation(context).thankYouMessage,
                         style: TextStyle(
                             fontSize: 32,
                             height: 1,
@@ -2171,7 +2171,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             ],
           ),
           Text(
-            "Uygulamanız Hazırlanıyor",
+            translation(context).appPreparationMessage,
             style: TextStyle(
                 fontSize: 20, height: 1, color: Theme.of(context).canvasColor),
             textDirection: TextDirection.ltr,
