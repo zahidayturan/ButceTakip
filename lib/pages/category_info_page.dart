@@ -6,7 +6,8 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as intl;
+
 
 
 class CategoryInfo extends ConsumerWidget {
@@ -397,17 +398,37 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      '${Converter().textConverterFromDB(myCategory[0], context, 0)} ${myCategory[1]}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: "NEXA3",
-                        height: 1,
-                        fontSize: 20,
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${Converter().textConverterFromDB(myCategory[0], context, 0)} ',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: "NEXA3",
+                              height: 1,
+                              fontSize: 20,
+                            ),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            ' ${myCategory[1]}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: "NEXA3",
+                              height: 1,
+                              fontSize: 20,
+                            ),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
                       height: 4,

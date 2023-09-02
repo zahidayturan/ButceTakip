@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,7 +85,7 @@ class _changePrefixAlert extends ConsumerState<changePrefixAlert> {
                            )
                           ),
                          Text(
-                             "Para birimi değiştiriliyor lütfen bekleyiniz.",
+                             translation(context).convertMessage,
                            style: TextStyle(
                              fontFamily: "Nexa3",
                              fontSize: 18,
@@ -101,7 +102,7 @@ class _changePrefixAlert extends ConsumerState<changePrefixAlert> {
                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                          children: [
                            Text(
-                             "Veri Ekle",
+                             translation(context).warning,
                              style: TextStyle(
                                  color: Theme.of(context).secondaryHeaderColor,
                                  fontFamily: "Nexa2",
@@ -133,9 +134,9 @@ class _changePrefixAlert extends ConsumerState<changePrefixAlert> {
                            ),
                          ],
                        ),
-                       const Center(
+                       Center(
                            child: Text(
-                               """Bütün kayıtların para birimi, işlem tarihinin döviz kuruna göre şu para birimi ile değiştirilecek:""",
+                               translation(context).changeCurrencyWarning,
                              textAlign: TextAlign.center,
                            )
                        ),
@@ -161,12 +162,12 @@ class _changePrefixAlert extends ConsumerState<changePrefixAlert> {
                          },
                          child: Container(
                            height: 32,
-                           child: const Center(
-                               child: Text("Değiştir")
-                           ),
                            decoration: BoxDecoration(
                              borderRadius: BorderRadius.circular(12),
                              color: renkler.sariRenk,
+                           ),
+                           child: Center(
+                               child: Text(translation(context).convert)
                            ),
                          ),
                        ),

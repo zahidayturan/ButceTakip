@@ -824,7 +824,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
   int notificationsController = 0;
   Widget notificationsPage(BuildContext context) {
     CustomColors renkler = CustomColors();
-    String notificationStatus = isNotificationGranted ? 'Açık' : 'Kapalı';
+    String notificationStatus = isNotificationGranted ? translation(context).on : translation(context).off;
 
     var readSetting = ref.read(settingsRiverpod);
     var darkMode = readSetting.DarkMode;
@@ -851,7 +851,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              backButton(context, "Para Birimi", 2),
+              backButton(context, translation(context).currency, 2),
               lampMode(context),
             ],
           ),
@@ -861,7 +861,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Uygulama Bildirimleri",
+                    translation(context).appNotifications,
                     style: TextStyle(
                         fontSize: 40,
                         height: 1,
@@ -916,7 +916,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "İşlemlerinizi hatırlatabilmemiz için bildirimleri açık bırakmanızı öneririz.",
+                    translation(context).turnOnNotifications,
                     style: TextStyle(
                         fontSize: 20,
                         height: 1,
@@ -998,7 +998,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              backButton(context, "Bildirimler", 2),
+              backButton(context, translation(context).notifications, 2),
               lampMode(context),
             ],
           ),
@@ -1008,7 +1008,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Yedekleme Tercihi",
+                    translation(context).backupPreference,
                     style: TextStyle(
                         fontSize: 40,
                         height: 1,
@@ -1026,7 +1026,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Google Drive ile verilerinizi güvenli bir şekilde yedekleyebilirsiniz. Bunun için önce oturum açmalısınız.",
+                    translation(context).backupYourDataSecurely,
                     style: TextStyle(
                         fontSize: 20,
                         height: 1,
@@ -1065,14 +1065,14 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 },
                 child: SizedBox(
                     height: 44,
-                    width: size.width * 0.7,
+                    width: size.width * 0.74,
                     child: Container(
                       decoration: BoxDecoration(
                           color: renkler.sariRenk,
                           borderRadius: const BorderRadius.all(Radius.circular(20))),
                       child: Center(
                           child: Text(
-                        "Google Hesabı İle Oturum Aç",
+                            translation(context).signInGoogle,
                         style: TextStyle(
                             height: 1, fontSize: 18, color: renkler.koyuuRenk),
                       )),
@@ -1118,7 +1118,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10.0, left: 10),
                       child: Text(
-                        "Yedeklemeyi Geç",
+                        translation(context).skipBackup,
                         style: TextStyle(
                             fontSize: 18,
                             height: 1,
@@ -1167,7 +1167,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              backButton(context, "Hesap Seçimi", 3),
+              backButton(context, translation(context).accountSelection, 3),
               lampMode(context),
             ],
           ),
@@ -1177,7 +1177,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Yedekleme Tercihi",
+                    translation(context).backupPreference,
                     style: TextStyle(
                         fontSize: 40,
                         height: 1,
@@ -1217,7 +1217,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Yedekleme Sıklığı",
+                    translation(context).backupFrequency,
                     style: TextStyle(
                         fontSize: 40,
                         height: 1,
@@ -1441,7 +1441,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              backButton(context, "Hesap Seçimi", 2),
+              backButton(context, translation(context).accountSelection, 2),
               lampMode(context),
             ],
           ),
@@ -1449,7 +1449,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                "Varlık Durumunuz",
+                translation(context).yourAssetStatus,
                 style: TextStyle(
                     fontSize: 40,
                     height: 1,
@@ -1487,7 +1487,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                             context: context,
                             barrierDismissible: false,
                             builder: (context) {
-                              return amountCalculate(context,"Banka Varlık Ekleme",0,cardAmountList);
+                              return amountCalculate(context,translation(context).enterBankAssets,0,cardAmountList);
                             },
                           ).then((_) => setState(() {}));
                         },
@@ -1499,8 +1499,8 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   borderRadius:
                                   BorderRadius.all(Radius.circular(20)))),
                         ),
-                        child: Text(cardTotal != 0 ? "Banka ${cardTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
-                            :"Bankada ki varlığınızı ekleyin",style: TextStyle(color: renkler.koyuuRenk),)
+                        child: Text(cardTotal != 0 ? "${translation(context).bank} ${cardTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
+                            :translation(context).enterBankAssets,style: TextStyle(color: renkler.koyuuRenk),)
                       )),
                 ),
               ),
@@ -1516,7 +1516,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                             context: context,
                             barrierDismissible: false,
                             builder: (context) {
-                             return amountCalculate(context,"Nakit Varlık Ekleme",1,cashAmountList);
+                             return amountCalculate(context,translation(context).enterCashAssets,1,cashAmountList);
                             },
                           ).then((_) => setState(() {}));
                         },
@@ -1528,8 +1528,8 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   borderRadius:
                                   BorderRadius.all(Radius.circular(20)))),
                         ),
-                        child: Text(cashTotal != 0 ? "Nakit ${cashTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
-                              :"Nakit varlığınızı ekleyin",style: TextStyle(color: renkler.koyuuRenk),)
+                        child: Text(cashTotal != 0 ? "${translation(context).cashAsset} ${cashTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
+                              :translation(context).enterCashAssets,style: TextStyle(color: renkler.koyuuRenk),)
                       )),
                 ),
               ),
@@ -1545,7 +1545,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                               context: context,
                               barrierDismissible: false,
                               builder: (context) {
-                                return amountCalculate(context,"Diğer Varlık Ekleme",2,otherAmountList);
+                                return amountCalculate(context,translation(context).enterOtherAssets,2,otherAmountList);
                               },
                             ).then((_) => setState(() {}));
                         },
@@ -1557,18 +1557,17 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   borderRadius:
                                   BorderRadius.all(Radius.circular(20)))),
                         ),
-                        child: Text(otherTotal != 0 ? "Diğer ${otherTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
-                            :"Diğer varlıklarınızı ekleyin",style: TextStyle(color: renkler.koyuuRenk),)
+                        child: Text(otherTotal != 0 ? "${translation(context).other} ${otherTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
+                            :translation(context).enterOtherAssets,style: TextStyle(color: renkler.koyuuRenk),)
                       )),
                 ),
               ),
             ],
           ),
           Text(
-            "${(cardTotal+cashTotal+otherTotal).toStringAsFixed(1)} ${readSetting.Prefix} ile başlayacaksınız.",
+            "${translation(context).startingAmount} ${(cardTotal+cashTotal+otherTotal).toStringAsFixed(1)} ${readSetting.Prefix} ",
             style: TextStyle(
                 fontSize: 20, height: 1, color: Theme.of(context).canvasColor),
-            textDirection: TextDirection.ltr,
             textAlign: TextAlign.center,
             maxLines: 2,
           ),
@@ -1679,7 +1678,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10.0, left: 10),
                       child: Text(
-                        "Tamamla",
+                        translation(context).complete,
                         style: TextStyle(
                             fontSize: 18,
                             height: 1,
@@ -1717,7 +1716,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   Padding(
                     padding: const EdgeInsets.only(left: 8, right: 8),
                     child: SizedBox(
-                      width: size.width * 0.8,
+                      width: size.width * 0.9,
                       child: Row(
                         mainAxisAlignment:
                         MainAxisAlignment.spaceBetween,
@@ -1778,7 +1777,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                               children: [
                                 Column(
                                   children: [
-                                    Text("Miktar",style: TextStyle(color: Theme.of(context).canvasColor,fontFamily: "Nexa4",height: 1),),
+                                    Text(translation(context).amount,style: TextStyle(color: Theme.of(context).canvasColor,fontFamily: "Nexa4",height: 1),),
                                     SizedBox(
                                       height: 30,
                                       width: 130,
@@ -1819,7 +1818,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                 ),
                                 Column(
                                   children: [
-                                    Text("Para Birimi",style: TextStyle(color: Theme.of(context).canvasColor,fontFamily: "Nexa4",height: 1)),
+                                    Text(translation(context).currency,style: TextStyle(color: Theme.of(context).canvasColor,fontFamily: "Nexa4",height: 1)),
                                     SizedBox(
                                       height: 30,
                                       width: 80,
@@ -1828,7 +1827,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                           isExpanded: true,
                                           hint: Center(
                                             child: Text(
-                                              operationMoneyType ?? "Seçiniz",
+                                              operationMoneyType ?? translation(context).select,
                                               style: TextStyle(
                                                   fontSize: 17,
                                                   height: 1,
@@ -2022,7 +2021,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                 ),
                                 child: Center(
                                     child: Text(
-                                      "Sıfırla",
+                                      translation(context).deleteAll2,
                                       style: TextStyle(
                                           color: Theme.of(context).canvasColor,
                                           fontSize: 15,
@@ -2131,7 +2130,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   child: Column(
                     children: [
                       Text(
-                        "Bütçe Takip",
+                        translation(context).budgetTrackOnlyTurkish,
                         style: TextStyle(
                             fontSize: 32,
                             height: 1,
@@ -2141,7 +2140,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        "kullandığınız için teşekkür ederiz.",
+                        translation(context).thankYouMessage,
                         style: TextStyle(
                             fontSize: 32,
                             height: 1,
@@ -2156,7 +2155,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             ],
           ),
           Text(
-            "Uygulamanız Hazırlanıyor",
+            translation(context).appPreparationMessage,
             style: TextStyle(
                 fontSize: 20, height: 1, color: Theme.of(context).canvasColor),
             textDirection: TextDirection.ltr,

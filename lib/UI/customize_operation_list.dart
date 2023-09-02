@@ -31,8 +31,8 @@ class CustomizeList extends ConsumerWidget {
                     children: [
                       Text(
                         readHome.menuControllerForRepeated == false
-                            ? "Tekrarlı İşlemler"
-                            : "Taksitli İşlemler",
+                            ? translation(context).repetitiveActivities
+                            : translation(context).installmentActivities,
                         style: TextStyle(
                             color: Theme.of(context).canvasColor,
                             fontFamily: "Nexa4",
@@ -333,7 +333,7 @@ class CustomizeList extends ConsumerWidget {
                                                                   backgroundColor: Theme.of(context).primaryColor,
                                                                   title: Text(translation(context).cancelRepetition,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
                                                                   titlePadding: EdgeInsets.all(10),
-                                                                  content: Text("Bundan sonra bu işlem tekrarlanmayacak, onaylıyor musunuz?",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
+                                                                  content: Text(translation(context).confirmNoRepeat,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
                                                                   shadowColor: renkler.koyuuRenk,
                                                                   contentPadding: EdgeInsets.only(top: 2,left: 16,right: 16,bottom: 2),
                                                                   actionsPadding: EdgeInsets.all(0),
@@ -357,9 +357,9 @@ class CustomizeList extends ConsumerWidget {
                                                                               SnackBar(
                                                                                 backgroundColor: Theme.of(context).highlightColor,
                                                                                 duration: const Duration(seconds: 1),
-                                                                                content: const Text(
-                                                                                  "Tekrar iptal edildi",
-                                                                                  style: TextStyle(
+                                                                                content: Text(
+                                                                                  translation(context).repeatCancelled,
+                                                                                  style: const TextStyle(
                                                                                     color: Colors.white,
                                                                                     fontSize: 16,
                                                                                     fontFamily: 'Nexa3',
@@ -694,9 +694,9 @@ class CustomizeList extends ConsumerWidget {
                                                                 builder: (context) {
                                                                   return AlertDialog(
                                                                     backgroundColor: Theme.of(context).primaryColor,
-                                                                    title: Text("Taksidi İptal Et",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
+                                                                    title: Text(translation(context).cancelInstallment,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
                                                                     titlePadding: EdgeInsets.all(10),
-                                                                    content: Text("Bundan sonra ki taksitler işleme alınmayacak, onaylıyor musunuz?",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
+                                                                    content: Text(translation(context).confirmNoInstallments,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
                                                                     shadowColor: renkler.koyuuRenk,
                                                                     contentPadding: EdgeInsets.only(top: 2,left: 16,right: 16,bottom: 2),
                                                                     actionsPadding: EdgeInsets.all(0),
@@ -708,7 +708,7 @@ class CustomizeList extends ConsumerWidget {
                                                                             onPressed: () {
                                                                               Navigator.of(context).pop();
                                                                             },
-                                                                            child: Text("Vazgeç",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                            child: Text(translation(context).no,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
                                                                           ),
                                                                           TextButton(
                                                                             onPressed: () {
@@ -720,9 +720,9 @@ class CustomizeList extends ConsumerWidget {
                                                                                 SnackBar(
                                                                                   backgroundColor: Theme.of(context).highlightColor,
                                                                                   duration: const Duration(seconds: 1),
-                                                                                  content: const Text(
-                                                                                    "Taksit iptal edildi",
-                                                                                    style: TextStyle(
+                                                                                  content: Text(
+                                                                                    translation(context).installmentCancelled,
+                                                                                    style: const TextStyle(
                                                                                       color: Colors.white,
                                                                                       fontSize: 16,
                                                                                       fontFamily: 'Nexa3',
@@ -733,7 +733,7 @@ class CustomizeList extends ConsumerWidget {
                                                                                 ),
                                                                               );
                                                                             },
-                                                                            child: Text("Evet",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                            child: Text(translation(context).yesCancel,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
                                                                           ),
                                                                         ],
 
@@ -755,7 +755,7 @@ class CustomizeList extends ConsumerWidget {
                                                               padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
                                                           ),
                                                           child: Text(
-                                                            "Taksidi İptal Et",
+                                                            translation(context).cancelInstallment,
                                                             style: TextStyle(
                                                                 fontSize: 10,
                                                                 height : 1,
@@ -804,7 +804,7 @@ class CustomizeList extends ConsumerWidget {
                                                               padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
                                                           ),
                                                           child: Text(
-                                                            "İşlem Detayları",
+                                                            translation(context).activityDetailsSmall,
                                                             style: TextStyle(
                                                                 fontSize: 10,
                                                                 height : 1,

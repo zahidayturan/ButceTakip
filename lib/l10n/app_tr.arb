@@ -13,7 +13,7 @@
   "contactUsTitle": "İLETİŞİM",
   "myAssets": "VARLIKLARIM",
 
-  "selectLanguage": "Lütfe dil seçiniz",
+  "selectLanguage": "Lütfen dil seçiniz",
 
   "languageSelection": "Dil Seçimi",
   "betterExperience": "Daha iyi bir deneyim için başlamadan önce kurulumu tamamlayınız",
@@ -23,7 +23,30 @@
   "continueInstallation": "Kuruluma Geri Dön",
   "skipInstallationWarning": "Kurulumu atlarsanız varsayılan ayarlar otomatik olarak seçilecektir.",
   "skip": "Atla",
+
   "selectCurrencyForApplication": "Uygulamada kullanacağınız para birimini seçiniz",
+
+  "currency": "Para Birimi",
+  "appNotifications": "Uygulama Bildirimleri",
+  "turnOnNotifications": "İşlemlerinizi hatırlatabilmemiz için\nbildirimleri açık bırakmanızı öneririz.",
+
+  "backupPreference": "Yedekleme Tercihi",
+  "backupYourDataSecurely": "Google Drive ile verilerinizi güvenle yedekleyin",
+  "signInGoogle": "Google Hesabı İle Oturum Aç",
+  "skipBackup": "Yedeklemeyi Geç",
+  "accountSelection": "Hesap Seçimi",
+
+  "yourAssetStatus": "Varlık Durumunuz",
+  "enterBankAssets": "Bankadaki varlığınızı giriniz",
+  "enterCashAssets": "Nakit varlığınızı giriniz",
+  "enterOtherAssets": "Diğer varlıklarınızı giriniz",
+  "startingAmount": "Başlangıç tutarınız:",
+  "complete": "Tamamla",
+
+  "budgetTrackOnlyTurkish": "Bütçe Takip",
+  "budgetTrack": "Bütçe Takip",
+  "thankYouMessage": "kullandığınız için teşekkür ederiz",
+  "appPreparationMessage": "Uygulamanız Hazırlanıyor",
 
   "savedActivities": "Kayıtlı İşlemler",
   "savedActivitiesAmount": "İşlem\nTutarı",
@@ -34,16 +57,20 @@
   "repetitiveActivitiesSize": "21",
   "cancelRepetition": "Tekrarı İptal Et",
   "yesCancel": "Evet",
+  "confirmNoRepeat": "Bu işlem bundan sonra tekrarlanmayacak, onaylıyor musunuz?",
+  "repeatCancelled": "Tekrar iptal edildi",
   "activityDetailsSmall": "İşlem Detayları",
   "activeRepetitiveActivities": "Aktif Tekrarlı İşlem Sayısı:",
 
   "installmentActivities": "Taksitli İşlemler",
-  "cancelInstallment": "Taksiti İptal Et",
+  "cancelInstallment": "Taksidi İptal Et",
+  "confirmNoInstallments": "Bundan sonraki taksitler işleme alınmayacak, onaylıyor musunuz?",
+  "installmentCancelled": "Taksit iptal edildi",
   "activeInstallmentActivities": "Aktif Taksitli İşlem Sayısı:",
 
   "searchActivity": "İşlem Ara",
   "noMatchData": "Eşleşen Veri Yok",
-  "numberOfActivitiesForSearchSection": "Kayıt Sayısı:",
+  "numberOfActivitiesForSearchSection": "Gösterilen Kayıt Sayısı:",
 
   "january": "Ocak",
   "february": "Şubat",
@@ -277,6 +304,9 @@
   "backupStatus": "Yedeklenme Durumu",
   "notifications": "Bildirimler",
   "defaultCurrency": "Varsayılan Para Birimi",
+  "changeCurrencyWarning": "Bütün kayıtların para birimi, işlem tarihinin döviz kuruna göre şu para birimi ile çevrilecek:",
+  "convert": "Çevir",
+  "convertMessage": "Para birimi çevriliyor lütfen bekleyiniz",
   "language": "Dil Desteği",
 
   "helpCenter": "Yardım Merkezi",
@@ -392,6 +422,9 @@
   "savingStatusDetails": "KAYIT DURUMU",
   "saved": "Kayıtlı",
   "notSaved": "Kayıtlı değil",
+  "systemMessage": "SİSTEM MESAJI",
+  "repetitionInstallment": "TEKRAR / TAKSİT",
+  "addAgain": "Tekrar Ekle",
   "noteDetails": "NOT",
   "noNoteAdded": "Not Eklenmemiş",
   "deleteDetails": "Sil",
@@ -400,7 +433,12 @@
 
   "updateDone": "GÜNCELLE",
   "activityUpdated": "İşlem bilgisi güncellendi",
-  "clickToAddNote": "Not eklemek için tıklayınız"
+  "clickToAddNote": "Not eklemek için tıklayınız",
 
+  "firstWeek": "1.Hafta",
+  "secondWeek": "2.Hafta",
+  "thirdWeek": "3.Hafta",
+  "fourthWeek": "4.Hafta",
+  "fifthWeek": "5.Hafta"
 }
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constans/text_pref.dart';
 import 'package:butcekontrol/classes/language.dart';
+import 'package:intl/intl.dart' as intl;
 
 class Aylikinfo extends ConsumerStatefulWidget {
   const Aylikinfo({Key? key}) : super(key: key);
@@ -199,21 +200,99 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Stack(
+                                                Stack(
+                                                  children: [
+                                                    Container(
+                                                      decoration:
+                                                      BoxDecoration(
+                                                        color: double.parse(formattedTotal) <
+                                                            0
+                                                            ? renkler
+                                                            .kirmiziRenk
+                                                            : renkler
+                                                            .yesilRenk,
+                                                        borderRadius:
+                                                        const BorderRadius
+                                                            .only(
+                                                          bottomRight:
+                                                          Radius.circular(
+                                                              90),
+                                                          bottomLeft:
+                                                          Radius.circular(
+                                                              20),
+                                                          topLeft: Radius
+                                                              .circular(
+                                                              50),
+                                                          topRight:
+                                                          Radius.circular(
+                                                              20),
+                                                        ),
+                                                      ),
+                                                      height: 18,
+                                                      width: 18,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          left: 9,
+                                                          top: 5),
+                                                      child: Text(
+                                                        day,
+                                                        style:
+                                                        const TextStyle(
+                                                          height: 1,
+                                                          fontFamily:
+                                                          "Nexa4",
+                                                          fontSize:
+                                                          19,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets
+                                                      .only(
+                                                      left: 8),
+                                                  child: Text(
+                                                    dayOfWeekName,
+                                                    style:
+                                                    const TextStyle(
+                                                      height: 1,
+                                                      fontFamily:
+                                                      "Nexa3",
+                                                      fontSize: 13,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ), /// sol taraftaki gün sayısı ve gün adı
+                                          Expanded(
+                                            flex: 1,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .center,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceAround,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets
+                                                      .only(
+                                                      top: 5),
+                                                  child: FittedBox(
+                                                    child: Directionality(
+                                                      textDirection: readSettings.Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
+                                                      child: Row(
                                                         children: [
-                                                          Container(
-                                                            decoration:
-                                                                BoxDecoration(
+                                                          Text(
+                                                            (totalAmount - totalAmount2).toStringAsFixed(2).length < 9 ? (totalAmount - totalAmount2).toStringAsFixed(2) : (totalAmount - totalAmount2).toStringAsFixed(0),
+                                                            style: TextStyle(
+                                                              height: 1,
                                                               color: double.parse(
                                                                           formattedTotal) <
                                                                       0
@@ -239,44 +318,25 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                                         20),
                                                               ),
                                                             ),
-                                                            height: 18,
-                                                            width: 18,
+                                                            maxLines: 1,
+                                                            overflow: TextOverflow.ellipsis,
+                                                            textDirection: TextDirection.ltr,
                                                           ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 9,
-                                                                    top: 5),
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text: day,
-                                                                    style:
-                                                                        TextStyle(
-                                                                      height: 1,
-                                                                      fontFamily:
-                                                                          "Nexa4",
-                                                                      color: Theme.of(context).canvasColor,
-                                                                      fontSize:
-                                                                          19,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    text: readSettings.monthStartDay! != 1 ?".${itemMonths.toStringAsFixed(0)}" : "",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      height: 1,
-                                                                      fontFamily:
-                                                                          "Nexa4",
-                                                                          color: Theme.of(context).canvasColor,
-                                                                      fontSize:
-                                                                          12,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                          Text(
+                                                            readSettings.prefixSymbol!,
+                                                            style: TextStyle(
+                                                              height: 1,
+                                                              color: double.parse(
+                                                                  formattedTotal) <
+                                                                  0
+                                                                  ? renkler
+                                                                  .kirmiziRenk
+                                                                  : Theme.of(
+                                                                  context)
+                                                                  .canvasColor,
+                                                              fontFamily:
+                                                              "TL",
+                                                              fontSize: 17,
                                                             ),
                                                           )
                                                         ],
@@ -293,86 +353,147 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                             fontFamily: "Nexa3",
                                                             fontSize: 13,
                                                           ),
-                                                        ),
+                                                          /*
+                                                          RichText(
+                                                            maxLines: 1,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              text: TextSpan(children: [
+                                                                TextSpan(
+                                                                  text:  (totalAmount - totalAmount2).toStringAsFixed(2).length < 9 ? (totalAmount - totalAmount2).toStringAsFixed(2) : (totalAmount - totalAmount2).toStringAsFixed(0),
+                                                                  style: TextStyle(
+                                                                    height: 1,
+                                                                    color: double.parse(
+                                                                        formattedTotal) <
+                                                                        0
+                                                                        ? renkler
+                                                                        .kirmiziRenk
+                                                                        : Theme.of(
+                                                                        context)
+                                                                        .canvasColor,
+                                                                    fontFamily:
+                                                                    "Nexa4",
+                                                                    fontSize: 17,
+                                                                  ),
+                                                                ),
+                                                                TextSpan(
+                                                                  text: readSettings.prefixSymbol,
+                                                                  style: TextStyle(
+                                                                    height: 1,
+                                                                    color: double.parse(
+                                                                        formattedTotal) <
+                                                                        0
+                                                                        ? renkler
+                                                                        .kirmiziRenk
+                                                                        : Theme.of(
+                                                                        context)
+                                                                        .canvasColor,
+                                                                    fontFamily:
+                                                                    "TL",
+                                                                    fontSize: 17,
+                                                                  ),
+                                                                ),
+                                                              ])),
+                                                           */
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 5),
-                                                        child: FittedBox(
-                                                          child: RichText(
-                                                              maxLines: 1,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              text: TextSpan(
-                                                                  children: [
-                                                                    TextSpan(
-                                                                      text: (totalAmount - totalAmount2).toStringAsFixed(2).length <
-                                                                              9
-                                                                          ? (totalAmount - totalAmount2).toStringAsFixed(
-                                                                              2)
-                                                                          : (totalAmount - totalAmount2)
-                                                                              .toStringAsFixed(0),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        height:
-                                                                            1,
-                                                                        color: double.parse(formattedTotal) <
-                                                                                0
-                                                                            ? renkler.kirmiziRenk
-                                                                            : Theme.of(context).canvasColor,
-                                                                        fontFamily:
-                                                                            "Nexa4",
-                                                                        fontSize:
-                                                                            17,
-                                                                      ),
-                                                                    ),
-                                                                    TextSpan(
-                                                                      text: readSettings
-                                                                          .prefixSymbol,
-                                                                      style:
-                                                                          TextStyle(
-                                                                        height:
-                                                                            1,
-                                                                        color: double.parse(formattedTotal) <
-                                                                                0
-                                                                            ? renkler.kirmiziRenk
-                                                                            : Theme.of(context).canvasColor,
-                                                                        fontFamily:
-                                                                            "TL",
-                                                                        fontSize:
-                                                                            17,
-                                                                      ),
-                                                                    ),
-                                                                  ])),
+                                                Text(
+                                                  "${dayItemLength.toStringAsFixed(0)} ${translation(context).activityCount}",
+                                                  style: TextStyle(
+                                                    height: 1,
+                                                    color: Theme.of(
+                                                        context)
+                                                        .canvasColor,
+                                                    fontFamily:
+                                                    "Nexa3",
+                                                    fontSize: 11,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ), /// ortadaki toplam tutar
+                                          Expanded(
+                                            flex: 1,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .end,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceAround,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets
+                                                      .only(
+                                                      top: 5),
+                                                  child:  FittedBox(
+                                                    child: Directionality(
+                                                      textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
+                                                      child: RichText(
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          text: TextSpan(children: [
+                                                            TextSpan(
+                                                              text:  totalAmount.toStringAsFixed(2).length < 9 ?  totalAmount.toStringAsFixed(2) : totalAmount.toStringAsFixed(0),
+                                                              style: TextStyle(
+                                                                height: 1,
+                                                                color: renkler
+                                                                    .yesilRenk,
+                                                                fontFamily:
+                                                                "Nexa3",
+                                                                fontSize: 14,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text: readSettings.prefixSymbol,
+                                                              style: TextStyle(
+                                                                height: 1,
+                                                                color: renkler
+                                                                    .yesilRenk,
+                                                                fontFamily:
+                                                                "TL",
+                                                                fontSize: 14,
+                                                              ),
+                                                            ),
+                                                          ])),
+                                                    ),
+                                                  ),
+                                                ),
+                                                FittedBox(
+                                                  child: Directionality(
+                                                    textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
+                                                    child: RichText(
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      text: TextSpan(children: [
+                                                        TextSpan(
+                                                          text:  totalAmount2.toStringAsFixed(2).length < 9 ?  totalAmount2.toStringAsFixed(2) : totalAmount2.toStringAsFixed(1),
+                                                          style: TextStyle(
+                                                            height: 1,
+                                                            color: renkler
+                                                                .kirmiziRenk,
+                                                            fontFamily:
+                                                            "Nexa3",
+                                                            fontSize: 14,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Text(
-                                                        "${dayItemLength.toStringAsFixed(0)} ${translation(context).activityCount}",
-                                                        style: TextStyle(
-                                                          height: 1,
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .canvasColor,
-                                                          fontFamily: "Nexa3",
-                                                          fontSize: 11,
+                                                        TextSpan(
+                                                          text: readSettings.prefixSymbol,
+                                                          style: TextStyle(
+                                                            height: 1,
+                                                            color: renkler
+                                                                .kirmiziRenk,
+                                                            fontFamily:
+                                                            "TL",
+                                                            fontSize: 14,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ]
+                                                    )
+                                              ),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -485,16 +606,23 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(height: 6)
-                                  ],
-                                );
-                              }),
-                    ),
-                  ),
-                );
-              },
-            );
-          }),
+                                  ), /// sağ taraftaki gelir ve gider tutarları
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 6)
+                    ],
+                    );
+                      }),
+              ),
+            ),
+          );
+        },
+      );
+    }),
     );
   }
 
