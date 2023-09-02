@@ -1,9 +1,11 @@
 import 'package:butcekontrol/UI/spend_detail.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
 class CustomizeList extends ConsumerWidget {
@@ -34,7 +36,8 @@ class CustomizeList extends ConsumerWidget {
                         style: TextStyle(
                             color: Theme.of(context).canvasColor,
                             fontFamily: "Nexa4",
-                            fontSize: 21),
+                            fontSize: double.parse(translation(context).repetitiveActivitiesSize),
+                        height: 1),
                       ),
                       Row(
                         children: [
@@ -174,7 +177,7 @@ class CustomizeList extends ConsumerWidget {
                               itemBuilder: (context, index) {
                                 var readSettings = ref.read(settingsRiverpod);
                                 DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
-                                String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
+                                String formattedDate = DateFormat(readSettings.dateFormat).format(itemDate);
                                 return Column(
                                   children: [
                                     InkWell(
@@ -327,7 +330,7 @@ class CustomizeList extends ConsumerWidget {
                                                               builder: (context) {
                                                                 return AlertDialog(
                                                                   backgroundColor: Theme.of(context).primaryColor,
-                                                                  title: Text("Tekrarı İptal Et",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
+                                                                  title: Text(translation(context).cancelRepetition,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
                                                                   titlePadding: EdgeInsets.all(10),
                                                                   content: Text("Bundan sonra bu işlem tekrarlanmayacak, onaylıyor musunuz?",style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
                                                                   shadowColor: renkler.koyuuRenk,
@@ -341,7 +344,7 @@ class CustomizeList extends ConsumerWidget {
                                                                           onPressed: () {
                                                                             Navigator.of(context).pop();
                                                                           },
-                                                                          child: Text("Vazgeç",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                          child: Text(translation(context).no,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
                                                                         ),
                                                                         TextButton(
                                                                           onPressed: () {
@@ -366,7 +369,7 @@ class CustomizeList extends ConsumerWidget {
                                                                               ),
                                                                             );
                                                                           },
-                                                                          child: Text("Evet",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                          child: Text(translation(context).yesCancel,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
                                                                         ),
                                                                       ],
 
@@ -388,7 +391,7 @@ class CustomizeList extends ConsumerWidget {
                                                             padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
                                                         ),
                                                         child: Text(
-                                                          "Tekrarı İptal Et",
+                                                          translation(context).cancelRepetition,
                                                           style: TextStyle(
                                                               fontSize: 10,
                                                               height : 1,
@@ -437,7 +440,7 @@ class CustomizeList extends ConsumerWidget {
                                                               padding: const MaterialStatePropertyAll(EdgeInsets.only(top: 2,left: 6,right: 6))
                                                           ),
                                                           child: Text(
-                                                            "İşlem Detayları",
+                                                            translation(context).activityDetailsSmall,
                                                             style: TextStyle(
                                                                 fontSize: 10,
                                                                 height : 1,
@@ -476,9 +479,9 @@ class CustomizeList extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
                   child: Text(
-                    "Aktif Tekrarlı İşlem Sayısı : ${item.length}",
+                    "${translation(context).activeRepetitiveActivities} ${item.length}",
                     style: TextStyle(
-                        color: Theme.of(context).canvasColor, fontSize: 13),
+                        color: Theme.of(context).canvasColor, fontSize: 13, height: 1),
                   ),
                 ),
               ],
@@ -552,7 +555,7 @@ class CustomizeList extends ConsumerWidget {
                               itemBuilder: (context, index) {
                                 var readSettings = ref.read(settingsRiverpod);
                                 DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
-                                String formattedDate = readSettings.localChanger() == const Locale("ar") ? DateFormat('yyyy.MM.dd').format(itemDate) : readSettings.localChanger() == const Locale("en") ? DateFormat('MM.dd.yyyy').format(itemDate) : DateFormat('dd.MM.yyyy').format(itemDate);
+                                String formattedDate = DateFormat(readSettings.dateFormat).format(itemDate);
                                 return Column(
                                   children: [
                                     InkWell(
@@ -836,9 +839,9 @@ class CustomizeList extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
                   child: Text(
-                    "Aktif Taksitli İşlem Sayısı : ${item.length}",
+                    "${translation(context).activeInstallmentActivities} ${item.length}",
                     style: TextStyle(
-                        color: Theme.of(context).canvasColor, fontSize: 13),
+                        color: Theme.of(context).canvasColor, fontSize: 13, height: 1),
                   ),
                 ),
               ],

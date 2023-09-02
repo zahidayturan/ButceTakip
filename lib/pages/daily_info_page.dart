@@ -303,89 +303,92 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List data = snapshot.data!;
-          return SizedBox(
-            width: size.width * 0.90,
-            height: size.height * 0.05,
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 3,
-                  child: SizedBox(
-                    height: size.height * 0.04,
-                    width: size.width * 0.90,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Theme.of(context).hintColor, Theme.of(context).hoverColor],
-                          stops: [0.5, 0.5],
+          return Directionality(
+            textDirection: TextDirection.ltr,
+            child: SizedBox(
+              width: size.width * 0.90,
+              height: size.height * 0.05,
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 3,
+                    child: SizedBox(
+                      height: size.height * 0.04,
+                      width: size.width * 0.90,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Theme.of(context).hintColor, Theme.of(context).hoverColor],
+                            stops: [0.5, 0.5],
+                          ),
+                          borderRadius:
+                              const BorderRadius.vertical(bottom: Radius.circular(10)),
                         ),
-                        borderRadius:
-                            const BorderRadius.vertical(bottom: Radius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            FittedBox(
+                              child: Text(
+                                " +${data[0]}",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: 'Nexa3',
+                                  fontWeight: FontWeight.w900,
+                                  height: 1.4,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.15,
+                            ),
+                            FittedBox(
+                              child: Text(
+                                "-${data[1]} ",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: 'Nexa3',
+                                  fontWeight: FontWeight.w900,
+                                  height: 1.4,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          FittedBox(
+                    ),
+                  ),
+                  //gelir bilgisi
+                  Center(
+                    child: SizedBox(
+                      height: size.height * 0.05,
+                      width: size.width / 3.5,
+                      child: DecoratedBox(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: Color(0xffF2CB05),
+                        ),
+                        child: Center(
+                          child: FittedBox(
                             child: Text(
-                              " +${data[0]}",
+                              "${data[2]}",
                               style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
+                                color: Color(0xff0D1C26),
+                                fontSize: 17,
                                 fontFamily: 'Nexa3',
                                 fontWeight: FontWeight.w900,
                                 height: 1.4,
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: size.width * 0.15,
-                          ),
-                          FittedBox(
-                            child: Text(
-                              "-${data[1]} ",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontFamily: 'Nexa3',
-                                fontWeight: FontWeight.w900,
-                                height: 1.4,
-                              ),
-                            ),
-                          )
-                        ],
+                        ), //Toplam değişim.
                       ),
                     ),
                   ),
-                ),
-                //gelir bilgisi
-                Center(
-                  child: SizedBox(
-                    height: size.height * 0.05,
-                    width: size.width / 3.5,
-                    child: DecoratedBox(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: Color(0xffF2CB05),
-                      ),
-                      child: Center(
-                        child: FittedBox(
-                          child: Text(
-                            "${data[2]}",
-                            style: const TextStyle(
-                              color: Color(0xff0D1C26),
-                              fontSize: 17,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w900,
-                              height: 1.4,
-                            ),
-                          ),
-                        ),
-                      ), //Toplam değişim.
-                    ),
-                  ),
-                ),
-                //Gider bilgisi
-              ],
+                  //Gider bilgisi
+                ],
+              ),
             ),
           );
         } else {

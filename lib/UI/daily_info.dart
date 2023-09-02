@@ -21,17 +21,19 @@ class GunlukInfo extends ConsumerStatefulWidget {
 class _GunlukInfoState extends ConsumerState<GunlukInfo> {
   final ScrollController scroolBarController2 = ScrollController();
   var renkler = CustomColors();
+
   @override
+
   Widget build(BuildContext context) {
     ref.listen(databaseRiverpod, (previous, next) {
       return ref.watch(databaseRiverpod);
     });
     var readSettings = ref.read(settingsRiverpod);
+    String dateFormat = readSettings.dateFormat ?? "dd.MM.yyyy";
+    DateTime now = DateTime.now();
+    String formattedDate = intl.DateFormat(dateFormat).format(now)  ;
     var readDB = ref.read(databaseRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
-    DateTime now = DateTime.now();
-    //String formattedDate = intl.DateFormat('dd.MM.yyyy').format(now);
-    String formattedDate = readSettings.localChanger() == const Locale("ar") ? intl.DateFormat('yyyy.MM.dd').format(now) : readSettings.localChanger() == const Locale("en") ? intl.DateFormat('MM.dd.yyyy').format(now) : intl.DateFormat('dd.MM.yyyy').format(now);
     var size = MediaQuery.of(context).size;
     var readNavBar = ref.read(botomNavBarRiverpod);
     var readCalendar = ref.read(calendarRiverpod);

@@ -5,12 +5,14 @@ import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/pages/more/assets_page.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:pay/pay.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../riverpod_management.dart';
 import '../../utils/payment_config.dart';
 import 'Help/help_page.dart';
@@ -337,6 +339,55 @@ class More extends ConsumerWidget {
                       SizedBox(height: size.width / 15),
                       Row(
                         children: [
+                          InkWell(
+                            onTap: () async {
+
+                              DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+                              AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+                              print('Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Local: TrArEn \nVersion: V1.1.1');
+                              String? encodeQueryParameters(Map<String, String> params) {
+                                return params.entries
+                                    .map((MapEntry<String, String> e) =>
+                                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                                    .join('&');
+                              }
+                              final Uri emailLaunchUri = Uri(
+                                scheme: 'mailto',
+                                path: 'fezaitech@gmail.com',
+                                query: encodeQueryParameters(<String, String>{
+                                  'subject': 'Bütçe Takip Öneri/Hata Bildirimi',
+                                  'body' : 'Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Local: TrArEn \nVersion: V1.1.1'
+
+                                }),
+                              );
+                              try{
+                                await launchUrl(emailLaunchUri);
+                              }catch(e){
+                                print(e.toString());
+                              }
+                            },
+                            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                            child: Container(
+                              height: size.height / 9,
+                              width: size.height / 9,
+                              decoration: BoxDecoration(
+                                  color: renkler.koyuuRenk,
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).canvasColor
+                                  ),
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(Icons.mail_outline_rounded, color: renkler.yaziRenk, size: 35),
+                                  Text("Öneri",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: size.width / 15),
                           InkWell(
                             onTap: ()  {
                               shareButceTakip();

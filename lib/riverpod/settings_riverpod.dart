@@ -22,6 +22,8 @@ class SettingsRiverpod extends ChangeNotifier{
   int ?adCounter;
   bool ?Status; // şifre girildi mi ?
   String ?prefixSymbol = "₺";
+  int ?monthStartDay;
+  String ?dateFormat;
 
   Future readDb() async{
     List<SettingsInfo> setting = await SQLHelper.settingsControl() ;
@@ -38,6 +40,8 @@ class SettingsRiverpod extends ChangeNotifier{
     securityClaim = setting[setting.length - 1].securityClaim;
     adCounter = setting[setting.length - 1].adCounter;
     prefixSymbol = setting[setting.length - 1].prefixSymbol;
+    monthStartDay = setting[setting.length - 1].monthStartDay;
+    dateFormat = setting[setting.length - 1].dateFormat;
 
     print("""
       id : ${setting[setting.length - 1].id}
@@ -52,17 +56,20 @@ class SettingsRiverpod extends ChangeNotifier{
       Password : ${setting[setting.length - 1].password}
       securityQu : ${setting[setting.length - 1].securityQu}
       securityClaimK(Kalan Hak) : ${setting[setting.length - 1].securityClaim}
-      adCounter(Kalan Hak) : ${setting[setting.length - 1].adCounter}""");
+      adCounter(Kalan Hak) : ${setting[setting.length - 1].adCounter}
+      tarih ve gün : ${setting[setting.length - 1].dateFormat}${setting[setting.length - 1].monthStartDay}""");
     notifyListeners();
   }
   Future controlSettings(BuildContext context) async{ //settings Kayıt değerlendiriyoruz.A
     List<SettingsInfo> ?settingsReglength = await SQLHelper.settingsControl();
     if(settingsReglength.length > 0) {
       prefixSymbol = settingsReglength[0].prefixSymbol;
+      monthStartDay = settingsReglength[0].monthStartDay;
+      dateFormat = settingsReglength[0].dateFormat;
       await readDb();
     }else{
      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => bkaSlider()));
-      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺") ;
+      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy") ;
       await SQLHelper.addItemSetting(info);
       await readDb();
     }
@@ -194,6 +201,14 @@ class SettingsRiverpod extends ChangeNotifier{
     Language = language;
     Updating();
   }
+  void setMonthStartDay(int monthStartDay){
+    this.monthStartDay = monthStartDay;
+    Updating();
+  }
+  void setDateFormat(String dateFormat){
+    this.dateFormat = dateFormat;
+    Updating();
+  }
   Locale localChanger(){
     if(Language == "Turkce"){
       return Locale("tr");
@@ -234,6 +249,8 @@ class SettingsRiverpod extends ChangeNotifier{
         securityClaim,
         adCounter,
         prefixSymbol,
+        monthStartDay,
+        dateFormat
     );
     await SQLHelper.updateSetting(info);
     notifyListeners();

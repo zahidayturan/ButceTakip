@@ -63,7 +63,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                       ),
                       const SizedBox(width: 20),
                       Text(
-                        translation(context).comeBack,
+                        translation(context).goBack,
                         style: TextStyle(
                           color: renkler.koyuuRenk,
                           fontSize: 20,
@@ -223,15 +223,15 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                                       child: SizedBox(
-                                        height: 240,
+                                        height: 220,
                                         child: Column(
                                           children: [
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                const Text(
-                                                  "Şifremi Unuttum",
-                                                  style: TextStyle(
+                                                Text(
+                                                  translation(context).forgotPassword,
+                                                  style: const TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20,
                                                       fontFamily: "Nexa2"
@@ -263,7 +263,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                    "Merhabalar, sizin için Şifremi Unuttum seçeneği oluşturduk ilk şifrenizi oluştururken size sorduğumuz güvenlik sorusu sayesinde işlemlerimizi gerçekleştireceğiz. Unutmayınız doğru seçenek için yalnızca 3 hakkınız var bilemediğiniz takdirde verileriniz silinecektir . Eğer hazırsanız ;",
+                                                  translation(context).disablePasswordParagraph,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: renkler.arkaRenk,
@@ -286,7 +286,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                                           backgroundColor:
                                                           const Color(0xff0D1C26),
                                                           builder: (context) {
-                                                            return PasswordForget();
+                                                            return const PasswordForget();
                                                           },
                                                       );
                                                     },
@@ -296,7 +296,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                                       color: renkler.arkaRenk,
                                                       child: Center(
                                                         child: Text(
-                                                            "Devam Et",
+                                                          translation(context).continueProcessing,
                                                           style: TextStyle(
                                                             fontSize: 15,
                                                             fontWeight: FontWeight.bold,
@@ -316,9 +316,9 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                   },
                                 );
                               },
-                              child: const Text(
-                                "Şifremi Unuttum ?",
-                                style: TextStyle(
+                              child: Text(
+                                translation(context).forgotPassword,
+                                style: const TextStyle(
                                   fontFamily: "Nexa4"
                                 ),
                               )

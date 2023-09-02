@@ -1,6 +1,8 @@
+import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/spend_info.dart';
 import 'package:collection/collection.dart';
 
@@ -15,13 +17,8 @@ class DbProvider extends ChangeNotifier {
   List<SpendInfo> ?searchListTile ;
   String ?status ;
   String ?day ;
-  String ?date ;
   String ?operationType;
 
-  void setDate(String date) {
-    this.date = date ;
-    notifyListeners();
-  }
 
   void setStatus(String status){
     this.status = status ;
@@ -106,12 +103,27 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Stream <Map<String, Object>> myMethod() async* {
-    List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month ,year);
-    var groupedItems = groupBy(items, (item) => item.operationDay);
+  Stream <Map<String, Object>> myMethod(WidgetRef ref) async* {
+    int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
+    DateTime startDate = DateTime(int.parse(year), int.parse(month), startDay);
+    DateTime endDate = DateTime(int.parse(year), int.parse(month)+1, startDay-1);
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(startDate.month.toString() ,startDate.year.toString());
+    items = items.where((element) => int.tryParse(element.operationDay!)! > startDay-1).toList();
+    List<SpendInfo> itemsNext = await SQLHelper.getItemsByOperationMonthAndYear(endDate.month.toString() ,endDate.year.toString());
+    itemsNext = itemsNext.where((element) => int.tryParse(element.operationDay!)! < startDay).toList();
+    items.addAll(itemsNext);
+    var groupedItems = groupBy(
+        items.where((item) => int.tryParse(item.operationDay!)! > startDay-1),
+        (item) => item.operationDay);
+    var groupedItems2 = groupBy(
+        itemsNext.where((item) => int.tryParse(item.operationDay!)! < startDay),
+            (item) => item.operationDay);
     var dailyTotals = <String, Map<String, double>>{};
+    groupedItems.addAll(groupedItems2);
     groupedItems.forEach((day, dayItems) {
       int itemLength = dayItems.length;
+      double itemsMonth = double.tryParse(dayItems.first.operationMonth!)!;
+      double itemsYear = double.tryParse(dayItems.first.operationYear!)!;
       double totalAmount = dayItems
           .where((element) => element.operationType == 'Gelir')
           .fold(
@@ -124,10 +136,19 @@ class DbProvider extends ChangeNotifier {
       dailyTotals[day!] = {
         'totalAmount': totalAmount,
         'totalAmount2': totalAmount2,
-        'itemsLength' : itemLength.toDouble()
+        'itemsLength' : itemLength.toDouble(),
+        'itemsMonth' : itemsMonth,
+        'itemsYear' : itemsYear
       };
     });
     dailyTotals = Map.fromEntries(dailyTotals.entries.toList()..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
+    List<MapEntry<String, Map<String, double>>> sortedEntries = dailyTotals.entries.toList();
+    sortedEntries.sort((e1, e2) {
+      double month1 = e1.value['itemsMonth']!;
+      double month2 = e2.value['itemsMonth']!;
+      return month1 == 12 ?  month1.compareTo(month2) : month2.compareTo(month1);
+    });
+    dailyTotals = Map.fromEntries(sortedEntries);
     notifyListeners();
     yield {"items" : items, "dailyTotals" : dailyTotals};
   }
