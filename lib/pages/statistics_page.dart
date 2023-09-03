@@ -254,7 +254,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         height: 36,
                                         //width: 100,
                                         decoration: BoxDecoration(
-                                          color: renkler.sariRenk,
+                                          color: Theme.of(context).disabledColor,
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
                                         ),
@@ -316,7 +316,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 height: 36,
                                                 width: 100,
                                                 decoration: BoxDecoration(
-                                                    color: renkler.sariRenk,
+                                                    color: Theme.of(context).disabledColor,
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(10))
@@ -329,7 +329,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                               height: 32,
                                               overlayColor:
                                                   MaterialStatePropertyAll(
-                                                      renkler.sariRenk),
+                                                      Theme.of(context).disabledColor),
                                               padding: const EdgeInsets.all(8),
                                             ),
                                           ),
@@ -383,7 +383,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             height: 36,
                                             //width: 100,
                                             decoration: BoxDecoration(
-                                              color: renkler.sariRenk,
+                                              color: Theme.of(context).disabledColor,
                                               borderRadius:
                                                   const BorderRadius.all(
                                                       Radius.circular(10)),
@@ -473,7 +473,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                   height: 32,
                                                   overlayColor:
                                                       MaterialStatePropertyAll(
-                                                          renkler.sariRenk),
+                                                          Theme.of(context).disabledColor),
                                                   padding:
                                                       const EdgeInsets.all(8),
                                                 ),
@@ -530,7 +530,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         height: 36,
                                         width: 86,
                                         decoration: BoxDecoration(
-                                            color: renkler.sariRenk,
+                                            color: Theme.of(context).disabledColor,
                                             borderRadius:
                                                 const BorderRadius.all(
                                                     Radius.circular(10))),
@@ -622,7 +622,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         height: 36,
                                         //width: 100,
                                         decoration: BoxDecoration(
-                                            color: renkler.sariRenk,
+                                            color: Theme.of(context).disabledColor,
                                             borderRadius:
                                                 const BorderRadius.all(
                                                     Radius.circular(10))),
@@ -815,7 +815,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 height: 36,
                                                 width: 120,
                                                 decoration: BoxDecoration(
-                                                    color: renkler.sariRenk,
+                                                    color: Theme.of(context).disabledColor,
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(10))
@@ -829,7 +829,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                               padding: EdgeInsets.zero,
                                               overlayColor:
                                                   MaterialStatePropertyAll(
-                                                      renkler.sariRenk),
+                                                      Theme.of(context).disabledColor),
                                               //padding: EdgeInsets.all(8),
                                             ),
                                           ),
@@ -1085,7 +1085,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   width: 36,
                   decoration: BoxDecoration(
                     color: dateController == 4
-                        ? renkler.sariRenk
+                        ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
                   child: Icon(Icons.linear_scale_sharp,
@@ -1127,7 +1127,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   width: 36,
                   decoration: BoxDecoration(
                     color: dateController == 3
-                        ? renkler.sariRenk
+                        ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
                   child: Center(
@@ -1174,7 +1174,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   width: 36,
                   decoration: BoxDecoration(
                     color: dateController == 2
-                        ? renkler.sariRenk
+                        ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
                   child: Center(
@@ -1222,7 +1222,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   width: 36,
                   decoration: BoxDecoration(
                     color: dateController == 1
-                        ? renkler.sariRenk
+                        ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
                   child: Center(
@@ -1270,7 +1270,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   width: 36,
                   decoration: BoxDecoration(
                     color: dateController != 4
-                        ? renkler.sariRenk
+                        ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
                   child: Center(
@@ -1395,7 +1395,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   width: 36,
                   decoration: BoxDecoration(
                     color: registration == 1
-                        ? renkler.sariRenk
+                        ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
                   child: Icon(
@@ -1447,7 +1447,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             typeInfoController == 3 ||
                             typeInfoController == 5 ||
                             typeInfoController == 6
-                        ? renkler.sariRenk
+                        ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
                   child: Icon(
@@ -1500,7 +1500,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             typeInfoController == 2 ||
                             typeInfoController == 4 ||
                             typeInfoController == 6
-                        ? renkler.sariRenk
+                        ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
                   child: Icon(
@@ -1553,7 +1553,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             typeInfoController == 1 ||
                             typeInfoController == 4 ||
                             typeInfoController == 5
-                        ? renkler.sariRenk
+                        ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
                   child: Icon(
@@ -1601,7 +1601,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   decoration: BoxDecoration(
                     color: typeInfo == translation(context).both ||
                             typeInfo == translation(context).expenses
-                        ? renkler.sariRenk
+                        ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
                   child: Icon(
@@ -1645,7 +1645,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 decoration: BoxDecoration(
                   color: typeInfo == translation(context).both ||
                           typeInfo == translation(context).income
-                      ? renkler.sariRenk
+                      ? Theme.of(context).disabledColor
                       : Theme.of(context).focusColor,
                 ),
                 child: Icon(
@@ -2049,11 +2049,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                   ),
                   datePickerTheme: DatePickerThemeData(
                     dayStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15,color: renkler.koyuuRenk),
-                    dayOverlayColor: MaterialStatePropertyAll(renkler.sariRenk),
+                    dayOverlayColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                     headerForegroundColor: renkler.yaziRenk,
                     rangePickerBackgroundColor: Theme.of(context).primaryColor,
-                    rangeSelectionBackgroundColor: renkler.sariRenk,
-                    rangePickerHeaderBackgroundColor: renkler.sariRenk,
+                    rangeSelectionBackgroundColor: Theme.of(context).disabledColor,
+                    rangePickerHeaderBackgroundColor: Theme.of(context).disabledColor,
                     rangePickerHeaderForegroundColor: renkler.arkaRenk,
                     headerHeadlineStyle: const TextStyle(
                         fontSize: 22,
@@ -2066,7 +2066,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         height: 1
                     ),
                     headerBackgroundColor: renkler.koyuuRenk,
-                    backgroundColor: renkler.sariRenk,
+                    backgroundColor: Theme.of(context).disabledColor,
                     rangePickerHeaderHelpStyle: const TextStyle(
                       fontSize: 16,
                       fontFamily: "Nexa4",
@@ -2077,7 +2077,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         fontFamily: "Nexa4",
                         height: 1
                     ),
-                    dayForegroundColor: MaterialStatePropertyAll(renkler.sariRenk),
+                    dayForegroundColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                     rangePickerShape:  RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)))
                   ),
@@ -2101,7 +2101,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                     onError: const Color(0xFFD91A2A),
                     background: renkler.kirmiziRenk,
                     onBackground: renkler.koyuuRenk,
-                    surface: renkler.sariRenk, //ÜST TARAF RENK
+                    surface: Theme.of(context).disabledColor, //ÜST TARAF RENK
                     onPrimaryContainer: renkler.koyuuRenk,
                     onSurface: Theme.of(context).canvasColor, //alt günlerin rengi
                   ),
@@ -2200,7 +2200,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           ///açılmış kutu
                           height: 32,
                           overlayColor:
-                              MaterialStatePropertyAll(renkler.sariRenk),
+                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
                           padding: const EdgeInsets.all(8),
                         ),
                       ),
@@ -2211,11 +2211,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                     child: Container(
                       height: 5,
                       width: 38,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15),
                             topLeft: Radius.circular(15)),
-                        color: Color(0xffF2CB05),
+                        color: Theme.of(context).disabledColor,
                       ),
                     ),
                   ),
@@ -2288,7 +2288,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           ///açılmış kutu
                           height: 32,
                           overlayColor:
-                              MaterialStatePropertyAll(renkler.sariRenk),
+                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
                           padding: const EdgeInsets.all(8),
                         ),
                       ),
@@ -2299,11 +2299,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                     child: Container(
                       height: 5,
                       width: 34,
-                      decoration: const BoxDecoration(
+                      decoration:BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15),
                             topLeft: Radius.circular(15)),
-                        color: Color(0xffF2CB05),
+                        color: Theme.of(context).disabledColor,
                       ),
                     ),
                   ),
@@ -2395,7 +2395,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           ///açılmış kutu
                           height: 32,
                           overlayColor:
-                              MaterialStatePropertyAll(renkler.sariRenk),
+                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
                           padding: const EdgeInsets.all(8),
                         ),
                       ),
@@ -2406,11 +2406,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                     child: Container(
                       height: 5,
                       width: 84,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15),
                             topLeft: Radius.circular(15)),
-                        color: Color(0xffF2CB05),
+                        color: Theme.of(context).disabledColor,
                       ),
                     ),
                   ),
@@ -2500,7 +2500,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           ///açılmış kutu
                           height: 32,
                           overlayColor:
-                              MaterialStatePropertyAll(renkler.sariRenk),
+                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
                           padding: const EdgeInsets.all(8),
                         ),
                       ),
@@ -2511,11 +2511,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                     child: Container(
                       height: 5,
                       width: 54,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15),
                             topLeft: Radius.circular(15)),
-                        color: Color(0xffF2CB05),
+                        color: Theme.of(context).disabledColor,
                       ),
                     ),
                   ),
@@ -2551,11 +2551,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         child: Container(
                           height: 5,
                           width: 80,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(15),
                                 topLeft: Radius.circular(15)),
-                            color: Color(0xffF2CB05),
+                            color: Theme.of(context).disabledColor,
                           ),
                         ),
                       ),
@@ -2591,11 +2591,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         child: Container(
                           height: 5,
                           width: 80,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(15),
                                 topLeft: Radius.circular(15)),
-                            color: Color(0xffF2CB05),
+                            color: Theme.of(context).disabledColor,
                           ),
                         ),
                       ),

@@ -86,7 +86,7 @@ class _searchPageState extends ConsumerState<searchPage> {
                             width: size.width * .085,
                             height: size.width * .085,
                             decoration: BoxDecoration(
-                                color: dbRiv.searchSort ? Colors.orangeAccent : renkler.sariRenk ,
+                                color: dbRiv.searchSort ? Colors.orangeAccent : Theme.of(context).disabledColor ,
                                 shape: BoxShape.circle
                             ),
                             child: Transform.rotate(
@@ -104,7 +104,7 @@ class _searchPageState extends ConsumerState<searchPage> {
                             width: size.width * .085,
                             height: size.width * .085,
                             decoration: BoxDecoration(
-                                color: renkler.sariRenk,
+                                color: Theme.of(context).disabledColor,
                                 shape: BoxShape.circle
                             ),
                             child: const Icon(
@@ -123,7 +123,7 @@ class _searchPageState extends ConsumerState<searchPage> {
                     child: Container(
                       padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: renkler.sariRenk,
+                        color: Theme.of(context).disabledColor,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -265,7 +265,7 @@ class _searchPageState extends ConsumerState<searchPage> {
                                                 ),
                                                 Icon(
                                                   Icons.arrow_forward_ios,
-                                                  color: renkler.sariRenk,
+                                                  color: Theme.of(context).disabledColor,
                                                 )
                                               ],
                                             ),
@@ -334,7 +334,7 @@ class _searchPageState extends ConsumerState<searchPage> {
                             child: Text(
                               "${translation(context).numberOfActivitiesForSearchSection} ${dbRiv.searchListTile?.length ?? 0}",
                               style: TextStyle(
-                                color: renkler.sariRenk,
+                                color: Theme.of(context).disabledColor,
                                 height: 1
                               ),
                             ),

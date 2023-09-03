@@ -46,7 +46,7 @@ class CustomizeList extends ConsumerWidget {
                             width: 32,
                             child: DecoratedBox(
                               decoration: BoxDecoration(
-                                color: renkler.sariRenk,
+                                color: Theme.of(context).disabledColor,
                                 borderRadius:
                                 const BorderRadius.all(Radius.circular(20)
                                 ),
@@ -158,7 +158,7 @@ class CustomizeList extends ConsumerWidget {
                     child: Theme(
                       data: Theme.of(context).copyWith(
                           colorScheme: ColorScheme.fromSwatch(
-                            accentColor: const Color(0xFFF2CB05),
+                            accentColor: Theme.of(context).disabledColor,
                           ),
                           scrollbarTheme: ScrollbarThemeData(
                               thumbColor: MaterialStateProperty.all(
@@ -380,7 +380,7 @@ class CustomizeList extends ConsumerWidget {
                                                               });
                                                           },
                                                         style: ButtonStyle(
-                                                            backgroundColor:MaterialStatePropertyAll(renkler.sariRenk),
+                                                            backgroundColor:MaterialStatePropertyAll(Theme.of(context).disabledColor),
                                                             shape: MaterialStateProperty.all<
                                                                 RoundedRectangleBorder>(
                                                                 const RoundedRectangleBorder(
@@ -538,7 +538,7 @@ class CustomizeList extends ConsumerWidget {
                     child: Theme(
                       data: Theme.of(context).copyWith(
                           colorScheme: ColorScheme.fromSwatch(
-                            accentColor: const Color(0xFFF2CB05),
+                            accentColor: Theme.of(context).disabledColor,
                           ),
                           scrollbarTheme: ScrollbarThemeData(
                               thumbColor:
@@ -743,7 +743,7 @@ class CustomizeList extends ConsumerWidget {
                                                                 });
                                                           },
                                                           style: ButtonStyle(
-                                                              backgroundColor:MaterialStatePropertyAll(renkler.sariRenk),
+                                                              backgroundColor:MaterialStatePropertyAll(Theme.of(context).disabledColor),
                                                               shape: MaterialStateProperty.all<
                                                                   RoundedRectangleBorder>(
                                                                   const RoundedRectangleBorder(

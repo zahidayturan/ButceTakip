@@ -79,7 +79,7 @@ class _changePrefixAlert extends ConsumerState<changePrefixAlert> {
                              height: size.width * .17,
                              width: size.width * .17,
                              child: CircularProgressIndicator(
-                              color: renkler.sariRenk,
+                              color: Theme.of(context).disabledColor,
                               backgroundColor: renkler.koyuuRenk,
                               ),
                            )
@@ -164,7 +164,7 @@ class _changePrefixAlert extends ConsumerState<changePrefixAlert> {
                            height: 32,
                            decoration: BoxDecoration(
                              borderRadius: BorderRadius.circular(12),
-                             color: renkler.sariRenk,
+                             color: Theme.of(context).disabledColor,
                            ),
                            child: Center(
                                child: Text(translation(context).convert)

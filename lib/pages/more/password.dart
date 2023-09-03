@@ -70,7 +70,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                   children: [
                     Icon(
                         Icons.warning_amber,
-                      color: renkler.sariRenk,
+                      color: Theme.of(context).disabledColor,
                        size: 35,
                     ),
                     const SizedBox(width: 20),
@@ -84,7 +84,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                     child: Container(
                       height: 30,
                       width: 80,
-                      color: renkler.sariRenk,
+                      color: Theme.of(context).disabledColor,
                       margin: const EdgeInsets.all(5),
                       child:  InkWell(
                         onTap: () => Navigator.pop(context, false),
@@ -101,7 +101,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                     child: Container(
                       height: 30,
                       width: 80,
-                      color: renkler.sariRenk,
+                      color: Theme.of(context).disabledColor,
                       margin: const EdgeInsets.all(5),
                       child:  InkWell(
                           onTap: () {
@@ -167,7 +167,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 isopen ? Text(translation(context).on, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor),)
                                     : Text(translation(context).off, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor),),
                                 Switch(
-                                  activeColor: renkler.sariRenk,
+                                  activeColor: Theme.of(context).disabledColor,
                                   value: isopen ,
                                   onChanged: (bool value) {
                                     setState(() {
@@ -234,7 +234,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 child: Container(
                                   height: 40,
                                   width: 40,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                   child: const Center(
                                     child: Icon(
                                       Icons.check_circle_outline,
@@ -279,7 +279,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                                   child: Container(
-                                    color: num1 ? renkler.sariRenk : const Color(0xffE2E1E1),
+                                    color: num1 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
                                   ),
                                 )
                               ),
@@ -290,7 +290,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                   child: ClipRRect(
                                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                                     child: Container(
-                                      color: num2 ? renkler.sariRenk : const Color(0xffE2E1E1),
+                                      color: num2 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
                                     ),
                                   )
                               ),
@@ -301,7 +301,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                   child: ClipRRect(
                                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                                     child: Container(
-                                      color: num3 ? renkler.sariRenk : const Color(0xffE2E1E1),
+                                      color: num3 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
                                     ),
                                   )
                               ),
@@ -312,7 +312,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                   child: ClipRRect(
                                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                                     child: Container(
-                                      color: num4 ? renkler.sariRenk : const Color(0xffE2E1E1),
+                                      color: num4 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
                                     ),
                                   )
                               ),

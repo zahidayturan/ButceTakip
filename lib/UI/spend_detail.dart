@@ -68,9 +68,9 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         ),
                       ),
                     ),
-                    const Icon(
+                    Icon(
                       Icons.remove_red_eye,
-                      color: Color(0xffF2CB05),
+                      color: Theme.of(context).disabledColor,
                       size: 34,
                     ),
                     const Spacer(),
@@ -380,7 +380,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       children: [
                         DecoratedBox(
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF2CB05),
+                            color: Theme.of(context).disabledColor,
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: IconButton(
@@ -430,7 +430,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           child: Text(
                             "İşaretle",
                             style: TextStyle(
-                              color: Color(0xFFF2CB05),
+                              color: Theme.of(context).disabledColor,
                               fontFamily: 'Nexa3',
                               fontSize: 15,
                             ),
@@ -500,7 +500,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           width: 42,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF2CB05),
+                              color: Theme.of(context).disabledColor,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: IconButton(
@@ -546,8 +546,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           padding: const EdgeInsets.only(top: 6.0),
                           child: Text(
                             translation(context).addAgain,
-                            style: const TextStyle(
-                              color: Color(0xFFF2CB05),
+                            style: TextStyle(
+                              color: Theme.of(context).disabledColor,
                               fontFamily: 'Nexa3',
                               height: 1,
                               fontSize: 16,
@@ -564,7 +564,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           width: 42,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF2CB05),
+                              color: Theme.of(context).disabledColor,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: IconButton(
@@ -605,8 +605,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           padding: const EdgeInsets.only(top: 6.0),
                           child: Text(
                             translation(context).edit,
-                            style: const TextStyle(
-                              color: Color(0xFFF2CB05),
+                            style: TextStyle(
+                              color: Theme.of(context).disabledColor,
                               fontFamily: 'Nexa3',
                               height: 1,
                               fontSize: 16,

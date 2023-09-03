@@ -125,7 +125,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                 ),
                               ),
                         Switch(
-                          activeColor: renkler.sariRenk,
+                          activeColor: Theme.of(context).disabledColor,
                           value: darkthememode,
                           onChanged: (bool value) {
                             setState(() {
@@ -370,7 +370,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                 borderRadius: BorderRadius.circular(20),
                                 value: Prefix,
                                 elevation: 16,
-                                style: TextStyle(color: renkler.sariRenk),
+                                style: TextStyle(color: Theme.of(context).disabledColor),
                                 underline: Container(
                                   height: 2,
                                   color: renkler.koyuuRenk,
@@ -456,7 +456,7 @@ class _SettingsState extends ConsumerState<Settings> {
                               borderRadius: BorderRadius.circular(20),
                               value: language,
                               elevation: 16,
-                              style: TextStyle(color: renkler.sariRenk),
+                              style: TextStyle(color: Theme.of(context).disabledColor),
                               underline: Container(
                                 height: 2,
                                 color: renkler.koyuuRenk,
@@ -589,7 +589,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                     scrollbarTheme: ScrollbarThemeData(
                                         radius: const Radius.circular(15),
                                         thumbColor: MaterialStatePropertyAll(
-                                            renkler.sariRenk))),
+                                            Theme.of(context).disabledColor))),
                                 menuItemStyleData: MenuItemStyleData(
                                   overlayColor: MaterialStatePropertyAll(
                                       renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
@@ -721,7 +721,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                     scrollbarTheme: ScrollbarThemeData(
                                         radius: const Radius.circular(15),
                                         thumbColor: MaterialStatePropertyAll(
-                                            renkler.sariRenk))),
+                                            Theme.of(context).disabledColor))),
                                 menuItemStyleData: MenuItemStyleData(
                                   overlayColor: MaterialStatePropertyAll(
                                       renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
@@ -830,7 +830,7 @@ ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   value: Prefix,
                                   elevation: 16,
-                                  style: TextStyle(color: renkler.sariRenk),
+                                  style: TextStyle(color: Theme.of(context).disabledColor),
                                   underline: Container(
                                     height: 2,
                                     color: renkler.koyuuRenk,
@@ -897,7 +897,7 @@ ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 value: dropdownshowitem,
                                 elevation: 16,
-                                style: TextStyle(color: renkler.sariRenk),
+                                style: TextStyle(color: Theme.of(context).disabledColor),
                                 underline: Container(
                                   height: 2,
                                   color: renkler.koyuuRenk,

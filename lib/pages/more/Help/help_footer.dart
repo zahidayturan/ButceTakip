@@ -15,7 +15,7 @@ Widget helpFooter(BuildContext context) {
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Divider(
             thickness: 2.5,
-            color: renkler.sariRenk,
+            color: Theme.of(context).disabledColor,
           ),
         ), // Dividerin bulundugu kisim
         Padding(

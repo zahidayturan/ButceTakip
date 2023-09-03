@@ -70,7 +70,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                           isopen ? Text(translation(context).on, style: TextStyle(fontFamily: "Nexa3",color:  Theme.of(context).canvasColor,),)
                               : Text(translation(context).off, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor,),),
                           Switch(
-                            activeColor: renkler.sariRenk,
+                            activeColor: Theme.of(context).disabledColor,
                             value: isopen ,
                             onChanged: (bool value) {
                               setState(() {
@@ -114,7 +114,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                             )
                           ],
                         ),
-                        Divider(thickness: 2.0,color: renkler.sariRenk),
+                        Divider(thickness: 2.0,color: Theme.of(context).disabledColor),
                         readGglAuth.accountStatus == true || readGglAuth.isSignedIn
                           ?Column(
                             children: [
@@ -162,7 +162,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 ],
                               ),
                               SizedBox(height: size.height * 0.015),
-                              Divider(thickness: 2.0,color: renkler.sariRenk),
+                              Divider(thickness: 2.0,color: Theme.of(context).disabledColor),
                               SizedBox(height: size.height * 0.01),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -388,7 +388,7 @@ class _BackUpState extends ConsumerState<BackUp> {
           initialLabelIndex: initialLabelIndex,
           totalSwitches: 3,
           labels: [translation(context).dailyBackup, translation(context).monthlyBackup, translation(context).yearlyBackup],
-          activeBgColor: const [Color(0xffF2CB05)],
+          activeBgColor: [Theme.of(context).disabledColor],
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: const Color(0xff0D1C26),
           inactiveFgColor: const Color(0xFFE9E9E9),
