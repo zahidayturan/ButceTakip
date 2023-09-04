@@ -24,7 +24,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     var readSetting =  ref.read(settingsRiverpod); //read okuma işlemleri gerçekleşti
     var readCurrency = ref.read(currencyRiverpod);
     var readGglAuth = ref.read(gglDriveRiverpod);
-    var currencyTable = readGglAuth.checkAuthState(); //Google User açık mı sorgusu yapılıyor
+    var checkAuth = readGglAuth.checkAuthState(ref); //Google User açık mı sorgusu yapılıyor
     var Query = readSetting.controlSettings(context);
     //Future.delayed(Duration(milliseconds: 100));// Settings tablosunu çekiyoruz. ve implemente ettik
     Query.then((value) async {
@@ -55,21 +55,23 @@ class _base_BKAState extends ConsumerState<base_BKA> {
 
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
         print("Yedeklenme açık");
-        currencyTable.then((value) async {
+        checkAuth.then((value) async {
           //await Future.delayed(Duration(seconds: 4, milliseconds: 500));
           if(readGglAuth.accountStatus == true) {
             List<String> datesplit = readSetting.lastBackup!.split(".");
             if(readSetting.Backuptimes == "Günlük"){
               print("günlük giriş var");
               if(int.parse(datesplit[0]) != DateTime.now().day) {
-                print("gunluk guncellendi.");
-                //readSetting.Backup();
+                print("gunluk guncelleniyor.");
                 await writeToCvs(fileName).then((value) async {
-                  await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                    if(value == 1){
+                  try{
+                    await readGglAuth.uploadFileToDrive(fileName).then((value) {
                       readSetting.setLastBackup();
-                    }
-                  });
+                    });
+                  }catch(e){
+                    print("Yedeklenme sırasında hata saptandı = $e");
+                    readSetting.setbackUpAlert();
+                  }
                   //readGglAuth.uploadFileToStorage();
                 });
               }else{
@@ -82,40 +84,42 @@ class _base_BKAState extends ConsumerState<base_BKA> {
               if(int.parse(datesplit[2]) == DateTime.now().year){
                 if(DateTime.now().month - int.parse(datesplit[1]) >= 1 ){
                   print("ay bazında kayıt yapıyoruz.");
-                  //readSetting.Backup();
                   await writeToCvs(fileName).then((value) async {
-                    await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                     if(value == 1){
-                       readSetting.setLastBackup();
-                     }else{
-                       print("Backup oluşmadı");
-                     }
-                    });
-                    //readGglAuth.uploadFileToStorage();
+                    try{
+                      await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                        readSetting.setLastBackup();
+                      });
+                    }catch(e){
+                      print("Yedeklenme sırasında hata saptandı = $e");
+                      readSetting.setbackUpAlert();
+                    }
                   });
                 }
               }else{
                 await writeToCvs(fileName).then((value) async {
-                  await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                    if(value == 1){
+                  try{
+                    await readGglAuth.uploadFileToDrive(fileName).then((value) {
                       readSetting.setLastBackup();
-                    }
-                  });
-                  //readGglAuth.uploadFileToStorage();
+                    });
+                  }catch(e){
+                    print("Yedeklenme sırasında hata saptandı = $e");
+                    readSetting.setbackUpAlert();
+                  }
                 });
-                //readSetting.Backup();
               }
             }else if(readSetting.Backuptimes == "Yıllık"){
               print("Yıllık giriş var");
               if(int.parse(datesplit[2]) != DateTime.now().year){
                 //readSetting.Backup();
                 await writeToCvs(fileName).then((value) async{
-                  await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                    if(value == 1){
+                  try{
+                    await readGglAuth.uploadFileToDrive(fileName).then((value) {
                       readSetting.setLastBackup();
-                    }
-                  });
-                  //readGglAuth.uploadFileToStorage();
+                    });
+                  }catch(e){
+                    print("Yedeklenme sırasında hata saptandı = $e");
+                    readSetting.setbackUpAlert();
+                  }
                 });
               }
             }

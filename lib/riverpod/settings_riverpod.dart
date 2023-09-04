@@ -13,7 +13,7 @@ class SettingsRiverpod extends ChangeNotifier{
   int ?DarkMode;
   int ?isPassword;
   String ?Language;
-  int ?isBackUp;
+  int ?isBackUp; //yedeklenme açık mı
   String ?Backuptimes ;
   String ?lastBackup;
   String ?Password ;
@@ -24,6 +24,7 @@ class SettingsRiverpod extends ChangeNotifier{
   String ?prefixSymbol = "₺";
   int ?monthStartDay;
   String ?dateFormat;
+  bool backUpAlert = false ;
 
   Future readDb() async{
     List<SettingsInfo> setting = await SQLHelper.settingsControl() ;
@@ -79,6 +80,10 @@ class SettingsRiverpod extends ChangeNotifier{
   void reset(){
     this.securityQu = "null";
     Updating();
+  }
+  void setbackUpAlert(){
+    backUpAlert = true;
+    setisuseinsert();
   }
   void setisuseinsert(){
     isuseinsert = !isuseinsert ;
@@ -191,12 +196,16 @@ class SettingsRiverpod extends ChangeNotifier{
     this.Password = Password ;
     Updating();
   }
-  void setLastBackup(){
+  void setLastBackup({bool? a}){
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd.MM.yyyy').format(now);
-    lastBackup = formattedDate ;
+    if(a ?? false){
+      lastBackup = DateFormat('dd.MM.yyyy').format(now.subtract(const Duration(days: 1)));
+    }else{
+      lastBackup =  DateFormat('dd.MM.yyyy').format(now) ;
+    }
     Updating();
   }
+
   void setLanguage(String language){
     Language = language;
     Updating();

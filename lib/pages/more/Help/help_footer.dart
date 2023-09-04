@@ -8,11 +8,11 @@ Widget helpFooter(BuildContext context) {
   var size = MediaQuery.of(context).size;
   return Container(
     color: renkler.koyuuRenk,
-    height: size.height / 5.44,
+    height: size.height / 8,
     child: Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 4),
           child: Divider(
             thickness: 2.5,
             color: renkler.sariRenk,
@@ -41,7 +41,7 @@ Widget helpFooter(BuildContext context) {
           ),
         ), // fezai tech help center ve logo
         Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding: const EdgeInsets.only(top: 4),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

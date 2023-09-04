@@ -237,24 +237,41 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     onTap: () async { // Yedekle.
                                       DateTime date = DateTime.now();
                                       final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
-                                      await writeToCvs(fileName).then((value) async  {
-                                        try{
+                                      try{
+                                        await writeToCvs(fileName).then((value) async  {
                                           await Future.delayed(Duration(seconds: 1));
-                                          await readGglAuth.uploadFileToDrive(fileName);
-                                        }catch (e){
-                                          print("HATAAAAAAAAAAA ===============>>>>>>>>>>${e.toString()}");
-                                        }
-                                        //await readGglAuth.uploadFileToStorage().then((value) => readGglAuth.refreshPage());
-                                        readSetting.setLastBackup();
-                                      }).then((value) {
+                                          await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                backgroundColor:
+                                                Color(0xff0D1C26),
+                                                duration: Duration(seconds: 1),
+                                                content: Text(
+                                                  translation(context).uploadedToGoogleDrive,
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                    fontFamily: 'Nexa3',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 1.3,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                            readSetting.setLastBackup();
+                                            readGglAuth.refreshPage();
+                                          });
+                                        });
+                                      }catch (e){
+                                        print("HATAAAAAAAAAAA ===============>>>>>>>>>>${e.toString()}");
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
+                                          const SnackBar(
                                             backgroundColor:
                                             Color(0xff0D1C26),
                                             duration: Duration(seconds: 1),
                                             content: Text(
-                                              translation(context).uploadedToGoogleDrive,
-                                              style: const TextStyle(
+                                              "Yedeklenirken hata meydana geldi",
+                                              style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
                                                 fontFamily: 'Nexa3',
@@ -264,7 +281,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                             ),
                                           ),
                                         );
-                                      });
+                                      }
                                       Future.delayed(Duration(seconds: 1, milliseconds: 500));
                                     },
                                     child: Container(
@@ -296,35 +313,63 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
-                              InkWell(
-                                onTap: () async {
-                                  await readGglAuth.signOutWithGoogle();
-                                  readGglAuth.setAccountStatus(false);
-                                },
-                                child: SizedBox(
-                                  width: size.width * 0.56,
-                                  height: 32,
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: const Color(0xffB72E2E),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: (){
+                                      readSetting.setLastBackup(a : true);
+                                      readGglAuth.refreshPage();
+                                      print("çektim geriye.");
+                                    },
+                                    child: Container(
+                                      width : 25,
+                                      height : 25,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: renkler.sariRenk,
+                                        border: Border.all(
+                                          color: renkler.koyuuRenk,
+                                          width: 1
+                                        ),
+                                      ),
+                                      child: const Icon(
+                                          Icons.question_mark,
+                                        size: 18,
+                                      ),
                                     ),
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Text(
-                                          translation(context).logOut,
-                                          style: TextStyle(
-                                            height: 1,
-                                              color: renkler.arkaRenk,
-                                              fontSize: 15,
-                                              fontFamily: "Nexa3"
+                                  ),
+                                  SizedBox(width: size.width * .08),
+                                  InkWell(
+                                    onTap: () async {
+                                      await readGglAuth.signOutWithGoogle();
+                                      readGglAuth.setAccountStatus(false);
+                                    },
+                                    child: SizedBox(
+                                      width: size.width * 0.56,
+                                      height: 32,
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: const Color(0xffB72E2E),
+                                        ),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Text(
+                                              translation(context).logOut,
+                                              style: TextStyle(
+                                                height: 1,
+                                                  color: renkler.arkaRenk,
+                                                  fontSize: 15,
+                                                  fontFamily: "Nexa3"
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
+                                ],
                               ),
                             ],
                           )
@@ -334,7 +379,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                               InkWell(
                                 onTap: () async {
                                   await readGglAuth.signInWithGoogle();
-                                  readGglAuth.checkAuthState();
+                                  readGglAuth.checkAuthState(ref);
                                   readGglAuth.setAccountStatus(true);
                                   readGglAuth.refreshPage();
                                 },
@@ -383,46 +428,47 @@ class _BackUpState extends ConsumerState<BackUp> {
     var readSetting = ref.read(settingsRiverpod);
     int  initialLabelIndex = readSetting.Backuptimes == "Günlük" ? 0 : readSetting.Backuptimes == "Aylık" ? 1 : 2;
     return SizedBox(
-        height: 32,
-        child: ToggleSwitch(
-          initialLabelIndex: initialLabelIndex,
-          totalSwitches: 3,
-          labels: [translation(context).dailyBackup, translation(context).monthlyBackup, translation(context).yearlyBackup],
-          activeBgColor: const [Color(0xffF2CB05)],
-          activeFgColor: const Color(0xff0D1C26),
-          inactiveBgColor: const Color(0xff0D1C26),
-          inactiveFgColor: const Color(0xFFE9E9E9),
-          minWidth: 60,
-          cornerRadius: 20,
-          radiusStyle: true,
-          animate: true,
-          curve: Curves.linearToEaseOut,
-          customTextStyles: const [
-            TextStyle(
-                fontSize: 12, fontFamily: 'Nexa3', fontWeight: FontWeight.w800)
-          ],
-          onToggle: (index) {
-            if (index == 0) {
-              setState(() {
-                readSetting.setBackuptimes("Günlük");
-                initialLabelIndex = 0;
-              });
-            } else if (index == 1) {
-              setState(() {
-                readSetting.setBackuptimes("Aylık");
-              });
-            }
-            else if (index == 2){
-              setState(() {
-                readSetting.setBackuptimes("Yıllık");
-              });
-            }
-            else{
+      height: 32,
+      child: ToggleSwitch(
+        initialLabelIndex: initialLabelIndex,
+        totalSwitches: 3,
+        labels: [translation(context).dailyBackup, translation(context).monthlyBackup, translation(context).yearlyBackup],
+        activeBgColor: const [Color(0xffF2CB05)],
+        activeFgColor: const Color(0xff0D1C26),
+        inactiveBgColor: const Color(0xff0D1C26),
+        inactiveFgColor: const Color(0xFFE9E9E9),
+        minWidth: 60,
+        cornerRadius: 20,
+        radiusStyle: true,
+        animate: true,
+        curve: Curves.linearToEaseOut,
+        customTextStyles: const [
+          TextStyle(
+              fontSize: 12, fontFamily: 'Nexa3', fontWeight: FontWeight.w800)
+        ],
+        onToggle: (index) {
+          if (index == 0) {
+            setState(() {
+              readSetting.setBackuptimes("Günlük");
+              initialLabelIndex = 0;
+            });
+          } else if (index == 1) {
+            setState(() {
+              readSetting.setBackuptimes("Aylık");
+            });
+          }
+          else if (index == 2){
+            setState(() {
+              readSetting.setBackuptimes("Yıllık");
+            });
+          }
+          else{
 
-            }
-            initialLabelIndex = index!;
-          },
-        ));
+          }
+          initialLabelIndex = index!;
+        },
+      )
+    );
   }
 }
 

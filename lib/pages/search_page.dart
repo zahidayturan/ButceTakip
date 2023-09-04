@@ -64,12 +64,12 @@ class _searchPageState extends ConsumerState<searchPage> {
                                   }
                                 },
                                 controller: _controller,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
                                   hintText: "Aramak İstediğiniz Notu Giriniz.",
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                     color: Colors.black,
                                   ),
                                   contentPadding: EdgeInsets.symmetric(horizontal: size.width * .01,vertical: 13),
@@ -122,174 +122,174 @@ class _searchPageState extends ConsumerState<searchPage> {
                     SizedBox(height: size.height * .01),
                     dbRiv.searchListTile?.length == 0 || dbRiv.searchListTile == null
                         ?Padding(
-                      padding:  EdgeInsets.only(top: size.height * .01),
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: renkler.sariRenk,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 1,
-                            strokeAlign: 1
+                            padding:  EdgeInsets.only(top: size.height * .01),
+                            child: Container(
+                              padding: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: renkler.sariRenk,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1,
+                                  strokeAlign: 1
+                                )
+                              ),
+                              child: const Text(
+                                "Eşleşen Veri Yok",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "Nexa3"
+                                ),
+                              ),
+                            ),
                           )
-                        ),
-                        child: const Text(
-                          "Eşleşen Veri Yok",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "Nexa3"
-                          ),
-                        ),
-                      ),
-                    )
                         :Padding(
-                      padding: EdgeInsets.symmetric(horizontal: size.width * .04),
-                      child: SizedBox(
-                        height: size.height * .75,
-                        child: ListView.builder(
-                          itemCount: dbRiv.searchListTile!.length,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    readDailyRiv.setSpendDetail(dbRiv.searchListTile!, index);
-                                    showModalBottomSheet(
-                                      context: context,
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(25))),
-                                      backgroundColor:
-                                      const Color(0xff0D1C26),
-                                      builder: (context) {
-                                        // genel bilgi sekmesi açılıyor.
-                                        return SpendDetail();
+                          padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+                          child: SizedBox(
+                            height: size.height * .75,
+                            child: ListView.builder(
+                              itemCount: dbRiv.searchListTile!.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        readDailyRiv.setSpendDetail(dbRiv.searchListTile!, index);
+                                        showModalBottomSheet(
+                                          context: context,
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                  top: Radius.circular(25))),
+                                          backgroundColor:
+                                          const Color(0xff0D1C26),
+                                          builder: (context) {
+                                            // genel bilgi sekmesi açılıyor.
+                                            return SpendDetail();
+                                          },
+                                        );
                                       },
-                                    );
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.only(right: size.width * .04),
-                                    height: size.height * .088,
-                                    decoration: BoxDecoration(
-                                      color: renkler.koyuuRenk,
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          width: 6,
-                                          height: size.height * .055 ,
-                                          decoration: BoxDecoration(
-                                              color: dbRiv.searchListTile![index].operationType == "Gelir"
-                                                  ?renkler.yesilRenk
-                                                  :renkler.kirmiziRenk,
-                                              borderRadius: BorderRadius.horizontal(right: Radius.circular(12))
-                                          ),
+                                      child: Container(
+                                        padding: EdgeInsets.only(right: size.width * .04),
+                                        height: size.height * .088,
+                                        decoration: BoxDecoration(
+                                          color: renkler.koyuuRenk,
+                                          borderRadius: BorderRadius.circular(12),
                                         ),
-                                        SizedBox(
-                                          width: size.width * .82,
-                                          height: size.height * .072,
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              width: 6,
+                                              height: size.height * .055 ,
+                                              decoration: BoxDecoration(
+                                                  color: dbRiv.searchListTile![index].operationType == "Gelir"
+                                                      ?renkler.yesilRenk
+                                                      :renkler.kirmiziRenk,
+                                                  borderRadius: BorderRadius.horizontal(right: Radius.circular(12))
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: size.width * .82,
+                                              height: size.height * .072,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 children: [
-                                                  SizedBox(
-                                                    width: size.width * .30,
-                                                    child: Text(
-                                                      "${dbRiv.searchListTile![index].category}",
-                                                      //"aaaaaaaaaaaaaaaaaaaa",
-                                                      style: TextStyle(
-                                                          color: renkler.arkaRenk,
-                                                          fontSize: 16
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: size.width * .30,
+                                                        child: Text(
+                                                          "${dbRiv.searchListTile![index].category}",
+                                                          //"aaaaaaaaaaaaaaaaaaaa",
+                                                          style: TextStyle(
+                                                              color: renkler.arkaRenk,
+                                                              fontSize: 16
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: size.width * .28,
-                                                    child: Text(
-                                                      "${dbRiv.searchListTile![index].operationDate}",
-                                                      style: TextStyle(
-                                                          color: renkler.arkaRenk,
-                                                          fontSize: 16
+                                                      SizedBox(
+                                                        width: size.width * .28,
+                                                        child: Text(
+                                                          "${dbRiv.searchListTile![index].operationDate}",
+                                                          style: TextStyle(
+                                                              color: renkler.arkaRenk,
+                                                              fontSize: 16
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
+                                                      SizedBox(
+                                                        width: size.width * .225,
+                                                        child: Align(
+                                                          alignment: Alignment.centerRight,
+                                                          child: RichText(
+                                                              maxLines: 1,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              text: TextSpan(children: [
+                                                                TextSpan(
+                                                                  text:  "${dbRiv.searchListTile![index].realAmount}",
+                                                                  style: TextStyle(
+                                                                    height: 1,
+                                                                    color: renkler.arkaRenk,
+                                                                    fontFamily:
+                                                                    "Nexa3",
+                                                                    fontSize: 15,
+                                                                  ),
+                                                                ),
+                                                                TextSpan(
+                                                                  text: readSettings.prefixSymbol,
+                                                                  style: TextStyle(
+                                                                    height: 1,
+                                                                    color: renkler.arkaRenk,
+                                                                    fontFamily:
+                                                                    "TL",
+                                                                    fontSize: 17,
+                                                                  ),
+                                                                ),
+                                                              ]
+                                                              )
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  SizedBox(
-                                                    width: size.width * .225,
-                                                    child: Align(
-                                                      alignment: Alignment.centerRight,
-                                                      child: RichText(
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      SizedBox(
+                                                        width : size.width * .7,
+                                                        child: Text(
+                                                          dbRiv.searchListTile![index].note != ""
+                                                              ?"${dbRiv.searchListTile![index].note}"
+                                                              :"Not Eklenmemiş.",
+                                                          style: TextStyle(
+                                                              color: renkler.arkaRenk,
+                                                              fontSize: 16
+                                                          ),
                                                           maxLines: 1,
                                                           overflow: TextOverflow.ellipsis,
-                                                          text: TextSpan(children: [
-                                                            TextSpan(
-                                                              text:  "${dbRiv.searchListTile![index].realAmount}",
-                                                              style: TextStyle(
-                                                                height: 1,
-                                                                color: renkler.arkaRenk,
-                                                                fontFamily:
-                                                                "Nexa3",
-                                                                fontSize: 15,
-                                                              ),
-                                                            ),
-                                                            TextSpan(
-                                                              text: readSettings.prefixSymbol,
-                                                              style: TextStyle(
-                                                                height: 1,
-                                                                color: renkler.arkaRenk,
-                                                                fontFamily:
-                                                                "TL",
-                                                                fontSize: 17,
-                                                              ),
-                                                            ),
-                                                          ]
-                                                          )
+                                                        ),
                                                       ),
-                                                    ),
+                                                      Icon(
+                                                        Icons.arrow_forward_ios,
+                                                        color: renkler.sariRenk,
+                                                      )
+                                                    ],
                                                   ),
                                                 ],
                                               ),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  SizedBox(
-                                                    width : size.width * .7,
-                                                    child: Text(
-                                                      dbRiv.searchListTile![index].note != ""
-                                                          ?"${dbRiv.searchListTile![index].note}"
-                                                          :"Not Eklenmemiş.",
-                                                      style: TextStyle(
-                                                          color: renkler.arkaRenk,
-                                                          fontSize: 16
-                                                      ),
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.arrow_forward_ios,
-                                                    color: renkler.sariRenk,
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        /*
-                                       SizedBox(
-                                         width: size.width * .9,
-                                           child: Text(
-                                               "${dbRiv.searchListTile![index].operationDate}",
-                                             style: TextStyle(
-                                               color: renkler.arkaRenk,
-                                               fontSize: 16
-                                             ),
+                                            ),
+                                            /*
+                                           SizedBox(
+                                             width: size.width * .9,
+                                               child: Text(
+                                                   "${dbRiv.searchListTile![index].operationDate}",
+                                                 style: TextStyle(
+                                                   color: renkler.arkaRenk,
+                                                   fontSize: 16
+                                                 ),
+                                               )
                                            )
-                                       )
                                         */
                                       ],
                                     ),
