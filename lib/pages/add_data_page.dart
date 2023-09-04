@@ -997,6 +997,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                     (value) {
                                                                   setState(
                                                                           () {
+                                                                            convertedCategory = _category.text;
+                                                                            userCategoryController = _category.text;
                                                                         this.setState(
                                                                                 () {});
                                                                       });
@@ -3938,6 +3940,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                         color: Theme.of(context)
                                             .secondaryHeaderColor,
                                         fontSize: 22,
+                                        height: 1,
                                         fontFamily: 'Nexa3')),
                                 content: Text(
                                   alertContent,

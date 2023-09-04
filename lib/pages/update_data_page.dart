@@ -209,7 +209,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               amountCustomButton(),
               SizedBox(
                   width: size.width*0.95,
-                  child: Text('DEBUG: ${operationType.text} -${operationDate.text} - ${category.text} - ${operationTool.text} - ${int.parse(registration.text)} - ${note.text} - ${customize.text} - $convertedCustomize - ${amount.text} - ${moneyType.text} - ${realAmount0.text} - ${userCategory.text} - ${systemMessage.text} - ${moneyTypeSymbol.text}',style: const TextStyle(color: Colors.red,fontFamily: 'TL'))),
+                  child: Text('DEBUG: ${operationType.text} -${operationDate.text} - ${category.text} - ${operationTool.text} - ${int.parse(registration.text)} - ${note.text} - ${customize.text} - $convertedCustomize - ${amount.text} - ${moneyType.text} - ${realAmount0.text} - ${userCategoryController != "" ? userCategoryController : category.text == userCategory.text ? userCategory.text : ""} - ${systemMessage.text} - ${moneyTypeSymbol.text}',style: const TextStyle(color: Colors.red,fontFamily: 'TL'))),
               const SizedBox(
                 height: 5,
               ),
@@ -549,8 +549,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                               BorderRadius
                                                                   .circular(
                                                                   10)),
-                                                          child: editChanger == 0
-                                                              ? Center(
+                                                          child:  Center(
                                                             child:
                                                             FittedBox(
                                                               child: Text(
@@ -564,77 +563,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                     fontSize:
                                                                     15),
                                                                 //overflow: TextOverflow.visible,
-                                                              ),
-                                                            ),
-                                                          )
-                                                              : Center(
-                                                            child: SizedBox(
-                                                              height: 30,
-                                                              child:
-                                                              TextField(
-                                                                onTap: () {
-                                                                  setState((){
-                                                                    if (categoryColorChanger != 999) {
-                                                                      categoryColorChanger = 999;
-                                                                      category.clear();
-                                                                    }
-                                                                  });
-                                                                },
-                                                                enabled:
-                                                                true,
-                                                                maxLength:
-                                                                20,
-                                                                maxLines: 1,
-                                                                style: TextStyle(
-                                                                    color: renkler
-                                                                        .arkaRenk,
-                                                                    fontSize:
-                                                                    15,
-                                                                    height:
-                                                                    1,
-                                                                    fontFamily:
-                                                                    'Nexa3'),
-                                                                decoration: InputDecoration(
-                                                                    isDense:
-                                                                    true,
-                                                                    hintText: selectedCategory == 0
-                                                                        ? "Gider kategorisi ekleyin"
-                                                                        : "Gelir kategorisi ekleyin",
-                                                                    hintStyle: TextStyle(
-                                                                        color: renkler
-                                                                            .arkaRenk,
-                                                                        height:
-                                                                        1,
-                                                                        fontSize:
-                                                                        15,
-                                                                        fontFamily:
-                                                                        'Nexa3'),
-                                                                    counterText:
-                                                                    '',
-                                                                    border:
-                                                                    InputBorder.none),
-                                                                cursorRadius:
-                                                                const Radius.circular(
-                                                                    10),
-                                                                keyboardType:
-                                                                TextInputType
-                                                                    .text,
-                                                                textCapitalization:
-                                                                TextCapitalization
-                                                                    .words,
-                                                                textAlign:
-                                                                TextAlign
-                                                                    .center,
-                                                                controller:
-                                                                category,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  setState(
-                                                                          () {
-                                                                        this.setState(
-                                                                                () {});
-                                                                      });
-                                                                },
                                                               ),
                                                             ),
                                                           ),
@@ -975,6 +903,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                     (value) {
                                                                   setState(
                                                                           () {
+                                                                            convertedCategory = category.text;
+                                                                            userCategoryController = category.text;
                                                                         this.setState(
                                                                                 () {});
                                                                       });
@@ -3713,15 +3643,15 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     String alertContent = '';
     int alertOperator = 0;
     double amount = double.tryParse(amount0.text) ?? 0.0;
-    void setAlertContent() {
+    void setAlertContent(BuildContext context) {
       if (amount == 0 && category.text.isEmpty) {
-        alertContent = "Lütfen bir tutar ve bir kategori giriniz!";
+        alertContent = translation(context).enterAmountAndCategory;
         alertOperator = 1;
       } else if (category.text.isNotEmpty) {
-        alertContent = "Lütfen bir tutar giriniz!";
+        alertContent = translation(context).pleaseEnterAnAmount;
         alertOperator = 2;
       } else {
-        alertContent = "Lütfen bir kategori giriniz!";
+        alertContent = translation(context).enterCategoryWarning;
         alertOperator = 3;
       }
     }
@@ -3740,8 +3670,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               width: size.width*0.4,
               child: TextButton(
                 onPressed: ()  {
-                  setAlertContent();
-                  print(systemMessage.text);
+                  setAlertContent(context);
                   double amount = double.tryParse(amount0.text) ?? 0.0;
                   if (amount != 0.0 && category.text.isNotEmpty) {
                     if (_isProcessOnceValidNumber(customize.text) == true &&
@@ -3760,7 +3689,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           readUpdateData.updateDataBase(
                             int.parse(id),
                             operationType.text,
-                            category.text,
+                            convertedCategory,
                             operationTool.text,
                             int.parse(registration.text),
                             amount,
@@ -3769,13 +3698,13 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             moneyType.text,
                             convertedCustomize != "" ? convertedCustomize : Converter().textConverterToDB(customize.text,context,1),
                             ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
-                            userCategory.text,
+                            userCategoryController != "" ? userCategoryController : category.text == userCategory.text ? userCategory.text : "",
                             customize.text != "" ? systemMessage.toString() : "");
                         read.update();}
                         else{
                           read.insertDataBase(
                             operationType.text,
-                            category.text,
+                            convertedCategory,
                             operationTool.text,
                             int.parse(registration.text),
                             amount,
@@ -3783,9 +3712,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             operationDate.text,
                             moneyType.text,
                             ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
-                            customize.text,
-                            "",
-                            systemMessage.toString(),
+                            convertedCustomize != "" ? convertedCustomize : Converter().textConverterToDB(customize.text,context,1),
+                            userCategoryController != "" ? userCategoryController : category.text == userCategory.text ? userCategory.text : "",
+                            customize.text != "" ? systemMessage.toString() : "",
                           );
                         }
                     readHome.setStatus();
@@ -3818,8 +3747,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         builder: (context) {
                           return AlertDialog(
                             backgroundColor: Theme.of(context).primaryColor,
-                            title: Text("Eksik İşlem Yaptınız",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 22,fontFamily: 'Nexa3')),
-                            content: Text(alertContent,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 16,fontFamily: 'Nexa3'),),
+                            title: Text(translation(context).missingEntry,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 22,height: 1,fontFamily: 'Nexa3')),
+                            content: Text(alertContent,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 16,height: 1,fontFamily: 'Nexa3'),),
                             shadowColor: renkler.koyuuRenk,
                             actions: [
                               TextButton(
@@ -3849,7 +3778,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         });
                   }
                 },
-                child: Text(menuController == 0 ? translation(context).updateDone : "EKLE",
+                child: Text(menuController == 0 ? translation(context).updateDone : translation(context).done,
                     style: const TextStyle(
                         color: Color(0xff0D1C26),
                         fontSize: 17,

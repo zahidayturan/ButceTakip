@@ -174,7 +174,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               Stack(
                 children: [
                   SizedBox(
-                    width: size.width * 0.53,
+                    width: size.width * 0.58,
                     height: size.height * 0.074,
                     child: Stack(
                       children: [
@@ -182,7 +182,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           top: size.height * 0.007,
                           child: Container(
                             height: size.height * 0.060,
-                            width: size.width * 0.52,
+                            width: size.width * 0.56,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(50)),
                               color: Theme.of(context).disabledColor,
@@ -194,14 +194,11 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           children: [
                             SizedBox(
                               height: size.height * 0.060,
-                              width: size.width * 0.3,
+                              width: size.width * 0.35,
                               child: PageView(
                                 controller: read.pageMonthController,
                                 onPageChanged: (index) {
                                   setState(() {
-                                    print(index);
-                                    print(read.pageMonthController.page);
-                                    print(read.pageYearController.page);
                                     read.setIndex(index,0);
                                   });
                                 },
@@ -226,7 +223,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             ),
                             Container(
                               height: size.height * 0.074,
-                              width: size.width * 0.2,
+                              width: size.width * 0.23,
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(Radius.circular(30)),
                                 color: Theme.of(context).highlightColor,
