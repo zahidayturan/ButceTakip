@@ -143,9 +143,9 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       labelPosition: PieLabelPosition.outside,
                                       labelColor:  Theme.of(context).canvasColor,
                                       data: [
-                                        {'domain': translation(context).bank, 'measure': measureList[0]},
-                                        {'domain': translation(context).cashAsset, 'measure': measureList[1]},
-                                        {'domain': translation(context).other, 'measure': measureList[2]},
+                                        {'domain': 'Banka', 'measure': measureList[0]},
+                                        {'domain': 'Nakit', 'measure': measureList[1]},
+                                        {'domain': 'Diğer', 'measure': measureList[2]},
                                       ],
                                       fillColor: (pieData, index) {
                                         return colorsList[index!];

@@ -47,11 +47,11 @@ class _SettingsState extends ConsumerState<Settings> {
 
   List<String> dilDestegi = <String>["Türkçe", "English", "العربية"];
   List<String> monthStartDays = <String>["1", "8", "15", "22", "29"];
-  List<String> dateFormats = <String>["Gün.Ay.Yıl", "Ay.Gün.Yıl", "Yıl.Ay.Gün"];
   CustomColors renkler = CustomColors();
 
   @override
   Widget build(BuildContext context) {
+    List<String> dateFormats = <String>[translation(context).dayMonthYear, translation(context).monthDayYear, translation(context).yearMonthDay];
     var readNavBar = ref.read(botomNavBarRiverpod);
     readNavBar.currentColor = Theme.of(context).primaryColor;
     ref.watch(settingsRiverpod).isuseinsert;
@@ -66,10 +66,10 @@ class _SettingsState extends ConsumerState<Settings> {
         readSetting.Language! == "Turkce" ? "Türkçe" : readSetting.Language!;
     int monthStartDay = readSetting.monthStartDay!;
     String dateFormat = readSetting.dateFormat == "dd.MM.yyyy"
-        ? "Gün.Ay.Yıl"
+        ? translation(context).dayMonthYear
         : readSetting.dateFormat == "MM.dd.yyyy"
-            ? "Ay.Gün.Yıl"
-            : "Yıl.Ay.Gün";
+            ? translation(context).monthDayYear
+            : translation(context).yearMonthDay;
 
     /// dilDestegi ile database çakışmasından dolayı böyle bir koşullu atama ekledik
     String dropdownshowitem = 'TRY';
@@ -518,9 +518,9 @@ class _SettingsState extends ConsumerState<Settings> {
                     Expanded(
                       child: Row(
                         children: [
-                          const Text(
-                            "Ayın Başlangıç Günü",
-                            style: TextStyle(
+                          Text(
+                            translation(context).firstDayOfTheMonth,
+                            style: const TextStyle(
                                 fontFamily: "Nexa3", fontSize: 15, height: 1),
                           ),
                           const Spacer(),
@@ -643,9 +643,9 @@ class _SettingsState extends ConsumerState<Settings> {
                     Expanded(
                       child: Row(
                         children: [
-                          const Text(
-                            "Tarih Formatı",
-                            style: TextStyle(
+                          Text(
+                            translation(context).dateFormat,
+                            style: const TextStyle(
                                 fontFamily: "Nexa3", fontSize: 15, height: 1),
                           ),
                           const Spacer(),
@@ -689,11 +689,11 @@ class _SettingsState extends ConsumerState<Settings> {
                                 onChanged: (newValue) {
                                   setState(
                                         () {
-                                      if (newValue == "Gün.Ay.Yıl") {
+                                      if (newValue == translation(context).dayMonthYear) {
                                         readSetting.setDateFormat("dd.MM.yyyy");
-                                      } else if (newValue == "Ay.Gün.Yıl") {
+                                      } else if (newValue == translation(context).monthDayYear) {
                                         readSetting.setDateFormat("MM.dd.yyyy");
-                                      } else if (newValue == "Yıl.Ay.Gün") {
+                                      } else if (newValue == translation(context).yearMonthDay) {
                                         readSetting.setDateFormat("yyyy.MM.dd");
                                       } else {
                                         readSetting.setDateFormat("dd.MM.yyyy");
@@ -709,11 +709,11 @@ class _SettingsState extends ConsumerState<Settings> {
                                   padding:
                                   const EdgeInsets.symmetric(horizontal: 4),
                                   height: 34,
-                                  width: 120,
+                                  width: double.parse(translation(context).dateFormatSize),
                                 ),
                                 dropdownStyleData: DropdownStyleData(
                                     maxHeight: 250,
-                                    width: 120,
+                                    width: double.parse(translation(context).dateFormatSize),
                                     decoration: BoxDecoration(
                                         color: Theme.of(context).highlightColor,
                                         borderRadius:
