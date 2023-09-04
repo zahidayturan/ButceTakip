@@ -51,8 +51,8 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
               height: 60,
               child: Container(
                 width: 60,
-                decoration: const BoxDecoration(
-                    color: Color(0xffF2CB05),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).disabledColor,
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(100),
                       topRight: Radius.circular(100),
@@ -73,9 +73,12 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                   || title == translation(context).backupTitle
                   || title == translation(context).loginPasswordTitle
                   || title == translation(context).myAssets
-              ?const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
+              ?const Directionality(
+                textDirection: TextDirection.ltr,
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
               )
                   :const Icon(
                 Icons.home_outlined,
@@ -98,7 +101,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                               children: [
                                 Icon(
                                   Icons.warning_amber,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                   size: 35,
                                 ),
                                 const SizedBox(width: 20),
@@ -112,7 +115,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                 child: Container(
                                   height: 30,
                                   width: 80,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                   margin: const EdgeInsets.all(5),
                                   child:  InkWell(
                                       onTap: () => Navigator.pop(context, false),
@@ -129,7 +132,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                 child: Container(
                                   height: 30,
                                   width: 80,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                   margin: const EdgeInsets.all(5),
                                   child:  InkWell(
                                       onTap: () {

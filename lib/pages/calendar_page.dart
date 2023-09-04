@@ -174,7 +174,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               Stack(
                 children: [
                   SizedBox(
-                    width: size.width * 0.53,
+                    width: size.width * 0.58,
                     height: size.height * 0.074,
                     child: Stack(
                       children: [
@@ -182,10 +182,10 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           top: size.height * 0.007,
                           child: Container(
                             height: size.height * 0.060,
-                            width: size.width * 0.52,
-                            decoration: const BoxDecoration(
+                            width: size.width * 0.56,
+                            decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(50)),
-                              color: Color(0xFFF2CB05),
+                              color: Theme.of(context).disabledColor,
                             ),
                           ),
                         ),
@@ -194,14 +194,11 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           children: [
                             SizedBox(
                               height: size.height * 0.060,
-                              width: size.width * 0.3,
+                              width: size.width * 0.35,
                               child: PageView(
                                 controller: read.pageMonthController,
                                 onPageChanged: (index) {
                                   setState(() {
-                                    print(index);
-                                    print(read.pageMonthController.page);
-                                    print(read.pageYearController.page);
                                     read.setIndex(index,0);
                                   });
                                 },
@@ -226,7 +223,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             ),
                             Container(
                               height: size.height * 0.074,
-                              width: size.width * 0.2,
+                              width: size.width * 0.23,
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(Radius.circular(30)),
                                 color: Theme.of(context).highlightColor,
@@ -284,7 +281,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                 child: Container(
                   height: size.height * 0.05,
                   decoration: BoxDecoration(
-                    color: renkler.sariRenk,
+                    color: Theme.of(context).disabledColor,
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: AspectRatio(
@@ -486,10 +483,10 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                   child: SizedBox(
                     height: size.height * 0.05,
                     width: size.width / 3.5,
-                    child: const DecoratedBox(
+                    child: DecoratedBox(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: Color(0xffF2CB05),
+                        color: Theme.of(context).disabledColor,
                       ),
                       child: Center(
                         child: Text(
@@ -569,9 +566,9 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     height: size.height * 0.05,
                     width: size.width / 3.5,
                     child: DecoratedBox(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: Color(0xffF2CB05),
+                        color: Theme.of(context).disabledColor,
                       ),
                       child: Center(
                         child: FittedBox(
@@ -596,8 +593,8 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
           );
         } else {
           return Center(
-            child: const CircularProgressIndicator(
-              color: Color(0xFFF2CB05),
+            child: CircularProgressIndicator(
+              color: Theme.of(context).disabledColor,
               backgroundColor: Color(0xFF0D1C26),
             ),
           );
@@ -678,8 +675,8 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
         }
         else {
           return Center(
-            child: const CircularProgressIndicator(
-              color: Color(0xFFF2CB05),
+            child:  CircularProgressIndicator(
+              color: Theme.of(context).disabledColor,
               backgroundColor: Color(0xFF0D1C26),
             ),
           );

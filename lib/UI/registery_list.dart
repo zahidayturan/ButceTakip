@@ -52,7 +52,7 @@ class RegisteryList extends ConsumerWidget {
                         width: 32,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            color: renkler.sariRenk,
+                            color: Theme.of(context).disabledColor,
                             borderRadius:
                             const BorderRadius.all(Radius.circular(20)
                             ),
@@ -123,6 +123,7 @@ class RegisteryList extends ConsumerWidget {
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
+    var watchHome = ref.watch(homeRiverpod);
     return FutureBuilder(
       future: readDB.registeryList(),
       builder: (context, snapshot) {
@@ -198,7 +199,7 @@ class RegisteryList extends ConsumerWidget {
                     child: Theme(
                       data: Theme.of(context).copyWith(
                           colorScheme: ColorScheme.fromSwatch(
-                            accentColor: const Color(0xFFF2CB05),
+                            accentColor: Theme.of(context).disabledColor,
                           ),
                           scrollbarTheme: ScrollbarThemeData(
                               thumbColor: MaterialStateProperty.all(
@@ -399,6 +400,7 @@ class RegisteryList extends ConsumerWidget {
   var readDailyInfo = ref.read(dailyInfoRiverpod);
   CustomColors renkler = CustomColors();
   var size = MediaQuery.of(context).size;
+  var watchHome = ref.watch(homeRiverpod);
   return FutureBuilder(
     future: readDB.lastOperationList(selectedValueLastList != null ? int.tryParse(selectedValueLastList!)! : 10),
     builder: (context, snapshot) {
@@ -474,7 +476,7 @@ class RegisteryList extends ConsumerWidget {
                       menuItemStyleData: MenuItemStyleData(
                         height: 32,
                         overlayColor:
-                        MaterialStatePropertyAll(renkler.sariRenk),
+                        MaterialStatePropertyAll(Theme.of(context).disabledColor),
                         padding: const EdgeInsets.all(8),
                       ),
                     ),
@@ -510,7 +512,7 @@ class RegisteryList extends ConsumerWidget {
                   child: Theme(
                     data: Theme.of(context).copyWith(
                         colorScheme: ColorScheme.fromSwatch(
-                          accentColor: const Color(0xFFF2CB05),
+                          accentColor: Theme.of(context).disabledColor,
                         ),
                         scrollbarTheme: ScrollbarThemeData(
                             thumbColor: MaterialStateProperty.all(

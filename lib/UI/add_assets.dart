@@ -153,7 +153,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                 hint: Text(
                                   translation(context).select,
                                   style: TextStyle(
-                                    color: renkler.sariRenk,
+                                    color: Theme.of(context).disabledColor,
                                   ),
                                 ),
 
@@ -161,7 +161,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                 borderRadius: BorderRadius.circular(20),
                                 value: moneyType,
                                 elevation: 16,
-                                style: TextStyle(color: renkler.sariRenk),
+                                style: TextStyle(color: Theme.of(context).disabledColor),
                                 underline: Container(
                                   height: 2,
                                   color: renkler.koyuuRenk,
@@ -220,7 +220,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
                           decoration: BoxDecoration(
-                            color: renkler.sariRenk,
+                            color: Theme.of(context).disabledColor,
                             borderRadius: BorderRadius.circular(7),
                           ),
                           child: Text(
@@ -266,7 +266,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
           initialLabelIndex: initialLabelIndexTool,
           totalSwitches: 3,
           labels: [translation(context).cashAsset, translation(context).cardAsset, translation(context).other],
-          activeBgColor: const [Color(0xffF2CB05)],
+          activeBgColor: [Theme.of(context).disabledColor],
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),
@@ -299,7 +299,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
           initialLabelIndex: initialLabelIndexType,
           totalSwitches: 2,
           labels: [translation(context).addAsset, translation(context).removeAsset],
-          activeBgColor: const [Color(0xffF2CB05)],
+          activeBgColor: [Theme.of(context).disabledColor],
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),

@@ -139,7 +139,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                                 hint: Text(
                                   translation(context).select,
                                   style: TextStyle(
-                                    color: renkler.sariRenk,
+                                    color: Theme.of(context).disabledColor,
                                     height: 1
                                   ),
                                 ),
@@ -148,7 +148,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                                 borderRadius: BorderRadius.circular(20),
                                 value: desiredUnit,
                                 elevation: 16,
-                                style: TextStyle(color: renkler.sariRenk),
+                                style: TextStyle(color: Theme.of(context).disabledColor),
                                 underline: Container(
                                   height: 2,
                                   color: renkler.arkaRenk,
@@ -215,7 +215,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
                           decoration: BoxDecoration(
-                            color: renkler.sariRenk,
+                            color: Theme.of(context).disabledColor,
                             borderRadius: BorderRadius.circular(7),
                           ),
                           child: Text(

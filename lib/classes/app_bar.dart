@@ -172,9 +172,9 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                 ).then((value) => ref.read(botomNavBarRiverpod).setCurrentindex(4));
               },
               highlightColor: const Color(0xFF0D1C26),
-              child: const Icon(
+              child: Icon(
                 Icons.settings_rounded,
-                color: Color(0xFFF2CB05),
+                color: Theme.of(context).disabledColor,
                 size: 30,
               ),
              // constraints: const BoxConstraints(minWidth: 36),
@@ -203,7 +203,7 @@ borderRadius: BorderRadius.all(Radius.circular(40)),
 child: Center(
 child: Icon(
 Icons.remove_red_eye,
-color: renkler.sariRenk,
+color: Theme.of(context).disabledColor,
 ),
 ),
 ),

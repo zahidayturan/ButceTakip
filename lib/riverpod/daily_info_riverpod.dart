@@ -98,6 +98,8 @@ class DailyInfoRiverpod extends ChangeNotifier {
     await SQLHelper.updateRegistration(id, newRegistrationValue);
   }
 
+  bool refrestst = false ;
+
   late List<SpendInfo> item;
   late  int index;
   setSpendDetail(List<SpendInfo> item, int index){
@@ -106,6 +108,13 @@ class DailyInfoRiverpod extends ChangeNotifier {
   }
   getSpendDetailItem(){
     return item;
+  }
+  setSpendDetailItemWithId(int id) async{
+    List<SpendInfo> item = await SQLHelper.getItemsWithId(id);
+    this.item = item;
+    index =0;
+    refrestst = !refrestst;
+    notifyListeners();
   }
   getSpendDetailIndex(){
     return index;

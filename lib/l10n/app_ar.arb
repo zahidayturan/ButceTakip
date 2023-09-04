@@ -23,7 +23,30 @@
   "continueInstallation": "عد إلى التثبيت",
   "skipInstallationWarning": "إذا قمت بتخطي التثبيت، سيتم تعيين الإعدادات الافتراضية تلقائيًا.",
   "skip": "تخطى",
+
   "selectCurrencyForApplication": "اختر العملة التي ستستخدمها في التطبيق",
+
+  "currency": "العملة",
+  "appNotifications": "اشعارات التطبيق",
+  "turnOnNotifications": "",
+
+  "backupPreference": "النسخ الاحتياطي",
+  "backupYourDataSecurely": "انسخ بياناتك احتياطيًا بأمان باستخدام جوجل درايف",
+  "signInGoogle": "تسجيل الدخول عبر حساب جوجل",
+  "skipBackup": "تخطى النسخ الاحتياطي",
+  "accountSelection": "اختيار الحساب",
+
+  "yourAssetStatus": "موجوداتك الحالية",
+  "enterBankAssets": "أدخل موجوداتك في البنك",
+  "enterCashAssets": "أدخل موجوداتك النقدية",
+  "enterOtherAssets": "أدخل موجوداتك الأخرى",
+  "startingAmount": "المبلغ الذي ستبدأ به",
+  "complete": "أتم",
+
+  "budgetTrackOnlyTurkish": "",
+  "budgetTrack": "متابعة الميزانية",
+  "appPreparationMessage": "يتم إعداد تطبيقك",
+  "thankYouMessage": "شكرًا لك على استخدام برنامجنا",
 
   "savedActivities": "العمليات المحفوظة",
   "savedActivitiesAmount": "مبلغ العملية",
@@ -34,11 +57,15 @@
   "repetitiveActivitiesSize": "22",
   "cancelRepetition": "إلغاء التكرار",
   "yesCancel": "نعم",
+  "confirmNoRepeat": "هذه العملية لن تتكرر مجددا، هل توافق؟",
+  "repeatCancelled": "تم إلغاء التكرار",
   "activityDetailsSmall": "تفاصيل العملية",
   "activeRepetitiveActivities": "عدد  العمليات  المكررة النشطة:",
 
   "installmentActivities": "عمليات التقسيط",
   "cancelInstallment": "إلغاء التقسيط",
+  "confirmNoInstallments": "لن يتم إجراء عمليات التقسيط لاحقا، هل توافق؟",
+  "installmentCancelled": "تم إلغاء التقسيط",
   "activeInstallmentActivities": "عدد عمليات التقسيط النشطة:",
 
   "searchActivity": "ابحث عن عملية",
@@ -148,24 +175,24 @@
   "educationExpense": "التعليم",
   "duesRentExpense": "الرسوم/الإيجار",
   "shoppingExpense": "التسوق",
-  "personelExpense": "خاص-",
+  "personelExpense": "-خاص",
   "transportExpense": "المواصلات",
   "healthExpense": "الصحة",
   "dailyExpenses": "الاحتياجات اليومية",
   "hobbyExpense": "الهوايات",
-  "otherExpense": "أخرى-",
+  "otherExpense": "-أخرى",
 
   "pocketMoneyIncome": "المصروف",
   "grantIncome": "منحة دراسية",
   "salaryIncome": "الراتب",
   "creditIncome": "قرض",
-  "personalIncome": "خاص+",
+  "personalIncome": "+خاص",
   "duesRentIncome": "الإيجار/الرسوم",
   "overtimeIncome": "دوام إضافي",
   "freelanceIncome": "دخل مستقل",
   "incomeViaCurrencyIncome": "دخل بواسطة العملة",
   "investmentIncome": "دخل الاستثمار",
-  "otherIncome": "أخرى+",
+  "otherIncome": "+أخرى",
 
   "deleteCategory": "حذف الفئة",
   "categoryWithTwoDots": "الفئة:",
@@ -277,6 +304,9 @@
   "backupStatus": "وضع النسخ الاحتياطي",
   "notifications": "الإشعارات",
   "defaultCurrency": "العملة المستخدمة",
+  "changeCurrencyWarning": "سيتم تحويل عملة جميع السجلات إلى العملة التالية وفقًا لسعر الصرف في تاريخ العملية:",
+  "convert": "حول",
+  "convertMessage": "انتظر من فضلك يتم تحويل العملة",
   "language": "اللغة",
 
   "helpCenter": "مركز المساعدة",
@@ -391,6 +421,9 @@
   "savingStatusDetails": "وضع الحفظ",
   "saved": "محفوظ",
   "notSaved": "غير محفوظ",
+  "systemMessage": "رسالة النظام",
+  "repetitionInstallment": "تكرار / تقسيط",
+  "addAgain": "أضف مجددًا",
   "noteDetails": "ملاحظة",
   "noNoteAdded": "لم يتم إضافة ملاحظة",
   "deleteDetails": "حذف",
@@ -399,5 +432,11 @@
 
   "updateDone": "حفظ",
   "activityUpdated": "تم تحديث معلومات العملية",
-  "clickToAddNote": "لإضافة ملاحظة انقر هنا"
+  "clickToAddNote": "لإضافة ملاحظة انقر هنا",
+
+  "firstWeek": "الأسبوع الأول",
+  "secondWeek": "الأسبوع الثاني",
+  "thirdWeek": "الاسبوع الثالث",
+  "fourthWeek": "الأسبوع الرابع",
+  "fifthWeek": "الأسبوع الخامس"
 }

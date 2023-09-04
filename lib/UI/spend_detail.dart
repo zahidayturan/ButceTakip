@@ -45,6 +45,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
     DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
     String formattedDate = DateFormat(readSettings.dateFormat).format(itemDate);
     CustomColors renkler = CustomColors();
+    var watchDailyInfo = ref.watch(dailyInfoRiverpod);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
       child: Column(
@@ -67,38 +68,38 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     ),
                   ),
                 ),
-                const Icon(
+                Icon(
                   Icons.remove_red_eye,
-                  color: Color(0xffF2CB05),
+                  color: Theme.of(context).disabledColor,
                   size: 34,
                 ),
                 const Spacer(),
                 (item[index].moneyType! != readSettings.Prefix) && (item[index].operationType == "Gelir") &&  item[index].moneyType!.length == 3
-                ?const SizedBox(
-                  width: 90,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(
-                        Icons.circle,
-                        size: 14,
-                        color: Colors.grey,
+                    ?const SizedBox(
+                      width: 90,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(
+                            Icons.circle,
+                            size: 14,
+                            color: Colors.grey,
+                          ),
+                          Text(
+                              "Pasif Döviz",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Nexa4',
+                                height: 1,
+                                fontSize: 13,
+                              )
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Pasif Döviz",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Nexa4',
-                          height: 1,
-                          fontSize: 13,
-                        )
-                      ),
-                    ],
-                  ),
-                )
-                :SizedBox(),
+                    )
+                    :SizedBox(),
                 item[index].moneyType!.length == 4 && item[index].moneyType!.substring(0,3) != readSettings.Prefix
-                ?SizedBox(
+                    ?SizedBox(
                   width: 90,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,7 +123,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 )
                 :SizedBox(width: 1),
                 Spacer(),
-                SizedBox(
+                Container(
                   width: 32,
                   height: 32,
                   child: DecoratedBox(
@@ -227,8 +228,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         height: 1,
                         fontSize: 18,
                       ),
-                  textAlign: TextAlign.end,
-                  overflow: TextOverflow.ellipsis),
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis),
                 ),
               ],
             ),
@@ -295,92 +296,91 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     )),
                 item[index].registration == 0
                     ? Text(translation(context).notSaved,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Nexa3',
+                      height: 1,
+                      fontSize: 18,
+                    ))
+                    : Text(translation(context).saved,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Nexa3',
+                      height: 1,
+                      fontSize: 18,
+                    )),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: item[index].processOnce != '' && item[index].processOnce != '0',
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 9),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(translation(context).repetitionInstallment,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Nexa4',
+                        height: 1,
+                        fontSize: 18,
+                      )),
+                  Expanded(
+                    child: Text(Converter().textConverterFromDB(item[index].processOnce!, context, 1),
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa3',
                           height: 1,
                           fontSize: 18,
-                        ))
-                    : Text(translation(context).saved,
+                        ),
+                        textAlign: TextAlign.end,
+                        overflow: TextOverflow.ellipsis
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Visibility(
+            visible: item[index].systemMessage != '',
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 9),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(translation(context).systemMessage,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Nexa4',
+                            height: 1,
+                            fontSize: 18,
+                          )),
+                      const SizedBox()
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5, left: 5),
+                    child: Text("İşlenen : ${Converter().textConverterFromDB(item[index].processOnce!, context, 1)}",
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Nexa3',
                           height: 1,
                           fontSize: 18,
                         )),
-              ],
+                  )
+                ],
+              ),
             ),
           ),
-          Visibility(
-            visible: item[index].processOnce != '' && item[index].processOnce != '0',
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 9),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("TEKRAR / TAKSİT",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Nexa4',
-                              height: 1,
-                              fontSize: 18,
-                            )),
-                           Expanded(
-                             child: Text(Converter().textConverterFromDB(item[index].processOnce!, context, 1),
-                                 style: const TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Nexa3',
-                                    height: 1,
-                                    fontSize: 18,
-                                  ),
-                                 textAlign: TextAlign.end,
-                                 overflow: TextOverflow.ellipsis
-                             ),
-                           ),
-                      ],
-                    ),
-                ),
-              ),
-          Visibility(
-            visible: item[index].systemMessage != '',
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 9),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Row(
-                        children: [
-                          Text("SİSTEM MESAJI",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Nexa4',
-                                height: 1,
-                                fontSize: 18,
-                              )),
-                          SizedBox()
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5, left: 5),
-                        child: Text("İşlenen : ${Converter().textConverterFromDB(item[index].processOnce!, context, 1)}",
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Nexa3',
-                              height: 1,
-                              fontSize: 18,
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-              ),
           Padding(
             padding: const EdgeInsets.only(bottom: 9),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(translation(context).noteDetails,
                         style: const TextStyle(
@@ -389,8 +389,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           height: 1,
                           fontSize: 18,
                         )),
-                    const SizedBox(),
-
+                    const SizedBox()
                   ],
                 ),
                 Padding(
@@ -398,23 +397,23 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                   child: SizedBox(
                     child: item[index].note == ''
                         ? Text(translation(context).noNoteAdded,
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Nexa3',
-                              height: 1,
-                              fontSize: 18,
-                            ))
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa3',
+                          height: 1,
+                          fontSize: 18,
+                        ))
                         : Text("${item[index].note}",
-                            textAlign: TextAlign.justify,
+                        textAlign: TextAlign.justify,
                         overflow: TextOverflow.ellipsis,
-                            maxLines: 6,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Nexa3',
-                              height: 1,
-                              fontSize: 18,
-                            )),
+                        maxLines: 6,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Nexa3',
+                          height: 1,
+                          fontSize: 18,
+                        )),
                   ),
                 ),
               ],
@@ -427,67 +426,67 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 /*Column(
-                  children: [
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF2CB05),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            readDailyInfo.regChange(item[index].registration);
-                            readDailyInfo.updateRegistration(item[index].id);
-                            //readDailyInfo.regChange(item[index].registration = item[index].registration == 0 ? 1 : 0);
-                            //Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: const Color(0xff0D1C26),
-                                duration: const Duration(seconds: 1),
-                                content: item[index].registration == 1
-                                    ? const Text(
-                                  'İşaret Kaldırıldı',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
+                      children: [
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).disabledColor,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                readDailyInfo.regChange(item[index].registration);
+                                readDailyInfo.updateRegistration(item[index].id);
+                                //readDailyInfo.regChange(item[index].registration = item[index].registration == 0 ? 1 : 0);
+                                //Navigator.of(context).pop();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: const Color(0xff0D1C26),
+                                    duration: const Duration(seconds: 1),
+                                    content: item[index].registration == 1
+                                        ? const Text(
+                                      'İşaret Kaldırıldı',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontFamily: 'Nexa3',
+                                        fontWeight: FontWeight.w600,
+                                        height: 1.3,
+                                      ),
+                                    )
+                                        : const Text(
+                                      'İşaret Eklendi',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontFamily: 'Nexa3',
+                                        fontWeight: FontWeight.w600,
+                                        height: 1.3,
+                                      ),
+                                    ),
                                   ),
-                                )
-                                    : const Text(
-                                  'İşaret Eklendi',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontFamily: 'Nexa3',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
-                                  ),
-                                ),
-                              ),
-                            );
-                          });
-                        },
-                        iconSize: 30,
-                        icon: item[index].registration == 0
-                            ? const Icon(Icons.bookmark_outline)
-                            : const Icon(Icons.bookmark_outlined),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 4.0),
-                      child: Text(
-                        "İşaretle",
-                        style: TextStyle(
-                          color: Color(0xFFF2CB05),
-                          fontFamily: 'Nexa3',
-                          fontSize: 15,
+                                );
+                              });
+                            },
+                            iconSize: 30,
+                            icon: item[index].registration == 0
+                                ? const Icon(Icons.bookmark_outline)
+                                : const Icon(Icons.bookmark_outlined),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),*/
+                        const Padding(
+                          padding: EdgeInsets.only(top: 4.0),
+                          child: Text(
+                            "İşaretle",
+                            style: TextStyle(
+                              color: Theme.of(context).disabledColor,
+                              fontFamily: 'Nexa3',
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),*/
                 Column(
                   children: [
                     Container(
@@ -545,12 +544,12 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
+                    Container(
                       height: 42,
                       width: 42,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF2CB05),
+                          color: Theme.of(context).disabledColor,
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: IconButton(
@@ -592,12 +591,12 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 6.0),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6.0),
                       child: Text(
-                        "Tekrar Ekle",
+                        translation(context).addAgain,
                         style: TextStyle(
-                          color: Color(0xFFF2CB05),
+                          color: Theme.of(context).disabledColor,
                           fontFamily: 'Nexa3',
                           height: 1,
                           fontSize: 16,
@@ -609,12 +608,12 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
+                    Container(
                       height: 42,
                       width: 42,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF2CB05),
+                          color: Theme.of(context).disabledColor,
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: IconButton(
@@ -655,8 +654,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       padding: const EdgeInsets.only(top: 6.0),
                       child: Text(
                         translation(context).edit,
-                        style: const TextStyle(
-                          color: Color(0xFFF2CB05),
+                        style: TextStyle(
+                          color: Theme.of(context).disabledColor,
                           fontFamily: 'Nexa3',
                           height: 1,
                           fontSize: 16,
@@ -670,6 +669,34 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget widget01(var item, var index) {
+    //not uzunluğuna karşın taşmayı önlemek için kurulmuştur.
+    String longText = item[index].note;
+    List<String> parts = [];
+
+    while (longText.isNotEmpty) {
+      if (longText.length > 25) {
+        parts.add(longText.substring(0, 30));
+        longText = longText.substring(30);
+      } else {
+        parts.add(longText);
+        longText = '';
+      }
+    }
+
+    List<Text> textWidgets = parts
+        .map((line) => Text(
+      line,
+      style: const TextStyle(
+          color: Colors.white, fontFamily: "Nexa3",height: 1, fontSize: 18),
+    ))
+        .toList();
+
+    return Column(
+      children: textWidgets,
     );
   }
 }

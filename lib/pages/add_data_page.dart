@@ -89,8 +89,8 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 height: 60,
                 child: Container(
                   width: 60,
-                  decoration: const BoxDecoration(
-                      color: Color(0xffF2CB05),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).disabledColor,
                       borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(100),
                         bottomLeft: Radius.circular(100),
@@ -267,7 +267,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           initialLabelIndex: initialLabelIndex,
           totalSwitches: 2,
           labels: [translation(context).expenses, translation(context).income],
-          activeBgColor: const [Color(0xffF2CB05)],
+          activeBgColor: [Theme.of(context).disabledColor],
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),
@@ -324,11 +324,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 2, left: 2, right: 2),
+            padding: EdgeInsets.only(top: 2, left: 2, right: 2),
             child: Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Color(0xFFF2CB05),
+                color: Theme.of(context).disabledColor,
               ),
               height: 34,
               width: (size.width * 0.95),
@@ -666,7 +666,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                           height: 30,
                                                           child: Container(
                                                             decoration: BoxDecoration(
-                                                                color: sortChanger == 0 ? Theme.of(context).highlightColor : renkler.sariRenk,
+                                                                color: sortChanger == 0 ? Theme.of(context).highlightColor : Theme.of(context).disabledColor,
                                                                 borderRadius:
                                                                 BorderRadius.all(
                                                                     Radius.circular(5))),
@@ -927,7 +927,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                           width: size.width * 0.7,
                                                           height: 30,
                                                           decoration: BoxDecoration(
-                                                              color: renkler.sariRenk,
+                                                              color: Theme.of(context).disabledColor,
                                                               borderRadius:
                                                               BorderRadius
                                                                   .circular(
@@ -997,6 +997,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                     (value) {
                                                                   setState(
                                                                           () {
+                                                                            convertedCategory = _category.text;
+                                                                            userCategoryController = _category.text;
                                                                         this.setState(
                                                                                 () {});
                                                                       });
@@ -1519,7 +1521,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                               width: size.width * 0.65,
                                                                                               height: 26,
                                                                                               decoration: BoxDecoration(
-                                                                                                  color: renkler.sariRenk,
+                                                                                                  color: Theme.of(context).disabledColor,
                                                                                                   borderRadius:
                                                                                                   BorderRadius
                                                                                                       .circular(
@@ -1616,7 +1618,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                               }
                                                                                             },
                                                                                             style: ButtonStyle(
-                                                                                                backgroundColor: MaterialStatePropertyAll(renkler.sariRenk),
+                                                                                                backgroundColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                                                                                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                                                                     const RoundedRectangleBorder(
                                                                                                       borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -2028,7 +2030,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                   width: size.width * 0.65,
                                                                                                   height: 26,
                                                                                                   decoration: BoxDecoration(
-                                                                                                      color: renkler.sariRenk,
+                                                                                                      color: Theme.of(context).disabledColor,
                                                                                                       borderRadius:
                                                                                                       BorderRadius
                                                                                                           .circular(
@@ -2047,7 +2049,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                 width: 90,
                                                                                                 height: 26,
                                                                                                 decoration: BoxDecoration(
-                                                                                                    color: renkler.sariRenk,
+                                                                                                    color: Theme.of(context).disabledColor,
                                                                                                     borderRadius: BorderRadius.all(Radius.circular(5))
                                                                                                 ),
                                                                                                 child: Center(
@@ -2141,7 +2143,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                   width: size.width * 0.65,
                                                                                                   height: 26,
                                                                                                   decoration: BoxDecoration(
-                                                                                                      color: renkler.sariRenk,
+                                                                                                      color: Theme.of(context).disabledColor,
                                                                                                       borderRadius:
                                                                                                       BorderRadius
                                                                                                           .circular(
@@ -2244,7 +2246,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                                   const Radius.circular(15),
                                                                                                                   thumbColor:
                                                                                                                   MaterialStatePropertyAll(
-                                                                                                                      renkler.sariRenk))),
+                                                                                                                      Theme.of(context).disabledColor))),
                                                                                                           menuItemStyleData: MenuItemStyleData(
                                                                                                             overlayColor:
                                                                                                             MaterialStatePropertyAll(renkler
@@ -2314,7 +2316,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                   }
                                                                                                 },
                                                                                                 style: ButtonStyle(
-                                                                                                    backgroundColor: MaterialStatePropertyAll(renkler.sariRenk),
+                                                                                                    backgroundColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                                                                                                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                                                                         const RoundedRectangleBorder(
                                                                                                           borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -2407,11 +2409,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 2, left: 2, right: 2),
+            padding: EdgeInsets.only(top: 2, left: 2, right: 2),
             child: Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Color(0xFFF2CB05),
+                color: Theme.of(context).disabledColor,
               ),
               height: 34,
               width: size.width * 0.95,
@@ -2514,8 +2516,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                 translation(context).repeat,
                                                 translation(context).installment
                                               ],
-                                              activeBgColor: const [
-                                                Color(0xffF2CB05)
+                                              activeBgColor: [
+                                                Theme.of(context).disabledColor
                                               ],
                                               activeFgColor:
                                                   const Color(0xff0D1C26),
@@ -2639,7 +2641,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                 15),
                                                                         thumbColor:
                                                                             MaterialStatePropertyAll(
-                                                                                renkler.sariRenk))),
+                                                                                Theme.of(context).disabledColor))),
                                                             menuItemStyleData:
                                                                 MenuItemStyleData(
                                                               overlayColor:
@@ -2835,7 +2837,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                   style: ButtonStyle(
                                                       backgroundColor:
                                                           MaterialStatePropertyAll(
-                                                              renkler.sariRenk),
+                                                              Theme.of(context).disabledColor),
                                                       shape: MaterialStateProperty.all<
                                                               RoundedRectangleBorder>(
                                                           RoundedRectangleBorder(
@@ -2916,12 +2918,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               ),
             datePickerTheme: DatePickerThemeData(
                 dayStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15),
-                todayForegroundColor: MaterialStatePropertyAll(renkler.sariRenk),
-                dayOverlayColor: MaterialStatePropertyAll(renkler.sariRenk),
+                todayForegroundColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
+                dayOverlayColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                 headerForegroundColor: renkler.yaziRenk,
                 weekdayStyle: TextStyle(fontFamily: "Nexa4",height: 1,fontSize: 15,color: Theme.of(context).secondaryHeaderColor),
                 yearForegroundColor: MaterialStatePropertyAll(Theme.of(context).canvasColor),
-                yearOverlayColor: MaterialStatePropertyAll(renkler.sariRenk),
+                yearOverlayColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                 yearBackgroundColor: MaterialStatePropertyAll(Theme.of(context).primaryColor),
                 headerBackgroundColor: renkler.koyuuRenk,
               ),
@@ -2944,7 +2946,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       ///alt YILLAR
                       fontSize: 16,
                       fontFamily: 'Nexa3',
-                      color: renkler.sariRenk),
+                      color: Theme.of(context).disabledColor),
                ),
             colorScheme: ColorScheme(
                 brightness: Brightness.light,
@@ -2957,7 +2959,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 onError: const Color(0xFFD91A2A),
                 background: renkler.kirmiziRenk,
                 onBackground: renkler.yesilRenk,
-                surface: renkler.sariRenk, //ÜST TARAF RENK
+                surface: Theme.of(context).disabledColor, //ÜST TARAF RENK
                 onPrimaryContainer: renkler.yesilRenk,
                 onSurface: Theme.of(context).canvasColor, //alt günlerin rengi
               ),
@@ -3016,9 +3018,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 ),
               ),
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(40)),
-                  color: Color(0xffF2CB05),
+                  color: Theme.of(context).disabledColor,
                 ),
                 child: SizedBox(
                   height: 38,
@@ -3134,10 +3136,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     ),
                                   ),
                                   Container(
-                                    decoration: const BoxDecoration(
+                                    decoration:  BoxDecoration(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(15)),
-                                      color: Color(0xffF2CB05),
+                                      color: Theme.of(context).disabledColor,
                                     ),
                                     child: SizedBox(
                                       height: 38,
@@ -3206,9 +3208,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     child: Container(
                       height: moneyTypeHeight,
                       width: moneyTypeWidth,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: Color(0xffF2CB05),
+                        color: Theme.of(context).disabledColor,
                       ),
                       child: openMoneyTypeMenu == false
                           ? Center(
@@ -3494,7 +3496,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             translation(context).card,
             translation(context).otherPaye
           ],
-          activeBgColor: const [Color(0xffF2CB05)],
+          activeBgColor: [Theme.of(context).disabledColor],
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),
@@ -3557,9 +3559,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 ),
               ),
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Color(0xffF2CB05),
+                  color: Theme.of(context).disabledColor,
                 ),
                 child: SizedBox(
                   height: 38,
@@ -3664,7 +3666,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       '${_note.text.length}/${maxLength.toString()}',
                       style: TextStyle(
                         backgroundColor: Theme.of(context).splashColor,
-                        color: const Color(0xffF2CB05),
+                        color: Theme.of(context).disabledColor,
                         fontSize: 13,
                         fontFamily: 'Nexa4',
                         fontWeight: FontWeight.w800,
@@ -3938,6 +3940,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                         color: Theme.of(context)
                                             .secondaryHeaderColor,
                                         fontSize: 22,
+                                        height: 1,
                                         fontFamily: 'Nexa3')),
                                 content: Text(
                                   alertContent,
@@ -3982,7 +3985,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: renkler.sariRenk,
+                        color: Theme.of(context).disabledColor,
                       ),
                       height: 34,
                       width: size.width > 392 ? size.width * 0.39 : 150,

@@ -148,6 +148,13 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
+  static Future<List<SpendInfo>> getItemsWithId(int id) async { //Bütün kayıtları çekiyor spendinfo
+    final db = await SQLHelper.db();
+    var result = await db.query("spendinfo", where: "id = ?", whereArgs: [id]);
+    return  List.generate(result.length, (index){
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
 
   static Future<int> updateItem(SpendInfo info) async {
     final db = await SQLHelper.db();

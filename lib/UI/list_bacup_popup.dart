@@ -72,7 +72,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                 child: Theme (
                                   data: Theme.of(context).copyWith(
                                       colorScheme: ColorScheme.fromSwatch(
-                                        accentColor: const Color(0xFFF2CB05),
+                                        accentColor: Theme.of(context).disabledColor,
                                       ),
                                       scrollbarTheme: ScrollbarThemeData(
                                         thumbColor:
@@ -96,7 +96,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                   height: size.width * .14,
                                                   width: size.width * .14,
                                                   child: CircularProgressIndicator(
-                                                    color: renkler.sariRenk,
+                                                    color: Theme.of(context).disabledColor,
                                                     backgroundColor: renkler.koyuuRenk,
                                                   ),
                                                 ),
@@ -105,7 +105,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                   style: TextStyle(
                                                     fontFamily: "Nexa3",
                                                     fontSize: 18,
-                                                    color: renkler.sariRenk,
+                                                    color: Theme.of(context).disabledColor,
                                                   ),
                                                   textAlign: TextAlign.center,
                                                 ),
@@ -170,7 +170,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                                  decoration: BoxDecoration(
                                                    //color: Theme.of(context).indicatorColor,
-                                                   color: selectedIndexList.contains(index) ? renkler.sariRenk.withOpacity(0.9) : Theme.of(context).indicatorColor,
+                                                   color: selectedIndexList.contains(index) ? Theme.of(context).disabledColor.withOpacity(0.9) : Theme.of(context).indicatorColor,
                                                    borderRadius: BorderRadius.circular(6),
                                                  ),
                                                  child: Center(

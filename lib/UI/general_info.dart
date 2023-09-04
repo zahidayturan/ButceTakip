@@ -109,7 +109,7 @@ class Generalinfo extends ConsumerWidget {
                                         child: Container(
                                           decoration: BoxDecoration(
                                               borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                              color: renkler.sariRenk
+                                              color: Theme.of(context).disabledColor
                                           ),
                                           width: 208,
                                           height: 26,
@@ -250,145 +250,154 @@ class Generalinfo extends ConsumerWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Tooltip(
-                                      message: "${readdb.getTotalAmountPositive(items)[1]} ${readSettings.prefixSymbol}",
-                                      triggerMode: TooltipTriggerMode.tap,
-                                      showDuration: const Duration(seconds: 2),
-                                      textStyle: TextStyle(
-                                          fontSize: 18,
-                                          color: renkler.arkaRenk,
-                                          fontFamily: 'TL',
-                                          fontWeight: FontWeight.bold,
-                                          height: 1),
-                                      textAlign: TextAlign.center,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          const BorderRadius.all(Radius.circular(10)),
-                                          color: renkler.yesilRenk),
-                                      child: FittedBox(
-                                        child: RichText(
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            text: TextSpan(children: [
-                                          TextSpan(
-                                            text: readdb
-                                                .getTotalAmountPositive(items)[0],
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontFamily: 'Nexa3',
-                                              color: renkler.yesilRenk,
+                                Directionality(
+                                  textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
+                                  child: Expanded(
+                                    flex: 1,
+                                    child: Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Tooltip(
+                                        message: "${readdb.getTotalAmountPositive(items)[1]} ${readSettings.prefixSymbol}",
+                                        triggerMode: TooltipTriggerMode.tap,
+                                        showDuration: const Duration(seconds: 2),
+                                        textStyle: TextStyle(
+                                            fontSize: 18,
+                                            color: renkler.arkaRenk,
+                                            fontFamily: 'TL',
+                                            fontWeight: FontWeight.bold,
+                                            height: 1),
+                                        textAlign: TextAlign.center,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            const BorderRadius.all(Radius.circular(10)),
+                                            color: renkler.yesilRenk),
+                                        child: FittedBox(
+                                          child: RichText(
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              text: TextSpan(children: [
+                                            TextSpan(
+                                              text: readdb
+                                                  .getTotalAmountPositive(items)[0],
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: 'Nexa3',
+                                                color: renkler.yesilRenk,
+                                              ),
                                             ),
-                                          ),
-                                          TextSpan(
-                                            text: readSettings.prefixSymbol,
-                                            style: TextStyle(
-                                              fontFamily: 'TL',
-                                              height: 1,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
-                                              color: renkler.yesilRenk,
+                                            TextSpan(
+                                              text: readSettings.prefixSymbol,
+                                              style: TextStyle(
+                                                fontFamily: 'TL',
+                                                height: 1,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: renkler.yesilRenk,
+                                              ),
                                             ),
-                                          ),
-                                        ])),
+                                          ])),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Tooltip(
-                                      message: "${readdb.getTotalAmount(items)[1]} ${readSettings.prefixSymbol}",
-                                      triggerMode: TooltipTriggerMode.tap,
-                                      showDuration: const Duration(seconds: 2),
-                                      textStyle: TextStyle(
-                                          fontSize: 18,
-                                          color: renkler.koyuuRenk,
-                                          fontFamily: 'TL',
-                                          fontWeight: FontWeight.bold,
-                                          height: 1),
-                                      textAlign: TextAlign.center,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          const BorderRadius.all(Radius.circular(10)),
-                                          color: renkler.sariRenk),
-                                      child: FittedBox(
-                                        child: RichText(
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            text: TextSpan(children: [
-                                          TextSpan(
-                                            text: readdb.getTotalAmount(items)[0],
-                                            style: TextStyle(
-                                              fontSize: 19,
-                                              fontFamily: 'Nexa3',
-                                              color: Theme.of(context).canvasColor,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: readSettings.prefixSymbol,
-                                            style: TextStyle(
-                                              height: 1,
-                                              fontFamily: 'TL',
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600,
-                                              color: Theme.of(context).canvasColor,
-                                            ),
-                                          ),
-                                        ])),
+                                ), // gelir bilgisi
+                                Directionality(
+                                  textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
+                                  child: Expanded(
+                                    flex: 1,
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Tooltip(
+                                        message: "${readdb.getTotalAmount(items)[1]} ${readSettings.prefixSymbol}",
+                                        triggerMode: TooltipTriggerMode.tap,
+                                        showDuration: const Duration(seconds: 2),
+                                        textStyle: TextStyle(
+                                            fontSize: 18,
+                                            color: renkler.koyuuRenk,
+                                            fontFamily: 'TL',
+                                            fontWeight: FontWeight.bold,
+                                            height: 1),
+                                        textAlign: TextAlign.center,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            const BorderRadius.all(Radius.circular(10)),
+                                            color: Theme.of(context).disabledColor),
+                                        child: FittedBox(
+                                          child: RichText(
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              text: TextSpan(children: [
+                                                TextSpan(
+                                                  text: readdb.getTotalAmount(items)[0],
+                                                  style: TextStyle(
+                                                    fontSize: 19,
+                                                    fontFamily: 'Nexa3',
+                                                    color: Theme.of(context).canvasColor,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: readSettings.prefixSymbol,
+                                                  style: TextStyle(
+                                                    height: 1,
+                                                    fontFamily: 'TL',
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Theme.of(context).canvasColor,
+                                                  ),
+                                                ),
+                                              ])),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Tooltip(
-                                      message: "${readdb.getTotalAmountNegative(items)[1]} ${readSettings.prefixSymbol}",
-                                      triggerMode: TooltipTriggerMode.tap,
-                                      showDuration: const Duration(seconds: 2),
-                                      textStyle: TextStyle(
-                                          fontSize: 18,
-                                          color: renkler.arkaRenk,
-                                          fontFamily: 'TL',
-                                          fontWeight: FontWeight.bold,
-                                          height: 1),
-                                      textAlign: TextAlign.center,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          const BorderRadius.all(Radius.circular(10)),
-                                          color: renkler.kirmiziRenk),
-                                      child: FittedBox(
-                                        child: RichText(
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            text: TextSpan(children: [
-                                          TextSpan(
-                                            text: readdb
-                                                .getTotalAmountNegative(items)[0],
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontFamily: 'Nexa3',
-                                              color: renkler.kirmiziRenk,
+                                ), // toplam bilgisi
+                                Directionality(
+                                  textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
+                                  child: Expanded(
+                                    flex: 1,
+                                    child: Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Tooltip(
+                                        message: "${readdb.getTotalAmountNegative(items)[1]} ${readSettings.prefixSymbol}",
+                                        triggerMode: TooltipTriggerMode.tap,
+                                        showDuration: const Duration(seconds: 2),
+                                        textStyle: TextStyle(
+                                            fontSize: 18,
+                                            color: renkler.arkaRenk,
+                                            fontFamily: 'TL',
+                                            fontWeight: FontWeight.bold,
+                                            height: 1),
+                                        textAlign: TextAlign.center,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            const BorderRadius.all(Radius.circular(10)),
+                                            color: renkler.kirmiziRenk),
+                                        child: FittedBox(
+                                          child: RichText(
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              text: TextSpan(children: [
+                                            TextSpan(
+                                              text: readdb
+                                                  .getTotalAmountNegative(items)[0],
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: 'Nexa3',
+                                                color: renkler.kirmiziRenk,
+                                              ),
                                             ),
-                                          ),
-                                          TextSpan(
-                                            text: readSettings.prefixSymbol,
-                                            style: TextStyle(
-                                              height: 1,
-                                              fontFamily: 'TL',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
-                                              color: renkler.kirmiziRenk,
+                                            TextSpan(
+                                              text: readSettings.prefixSymbol,
+                                              style: TextStyle(
+                                                height: 1,
+                                                fontFamily: 'TL',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: renkler.kirmiziRenk,
+                                              ),
                                             ),
-                                          ),
-                                        ])),
+                                          ])),
+                                        ),
                                       ),
                                     ),
                                   ),

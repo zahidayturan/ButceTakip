@@ -23,7 +23,30 @@
     "continueInstallation": "Continue Installation",
     "skipInstallationWarning": "If you skip the installation, the default settings will be selected automatically.",
     "skip": "Skip",
+
     "selectCurrencyForApplication": "Select the currency you will use in the application",
+
+    "currency": "Currency",
+    "appNotifications": "App Notifications",
+    "turnOnNotifications": "",
+
+    "backupPreference": "Backup Data",
+    "backupYourDataSecurely": "Back up your data securely with Google Drive",
+    "signInGoogle": "Sign In With Google Account",
+    "skipBackup": "Skip Backup",
+    "accountSelection": "Account Selection",
+
+    "yourAssetStatus": "Your Asset Status",
+    "enterBankAssets": "Enter your bank assets",
+    "enterCashAssets": "Enter your cash assets",
+    "enterOtherAssets": "Enter your other assets",
+    "startingAmount": "Your starting amount:",
+    "complete": "Complete",
+
+    "budgetTrackOnlyTurkish": "",
+    "budgetTrack": "Budget Track",
+    "appPreparationMessage": "Your App is Getting Ready",
+    "thankYouMessage": "Thank you for using our app",
 
     "savedActivities": "Saved Activities",
     "savedActivitiesAmount": "Amount",
@@ -34,11 +57,15 @@
     "repetitiveActivitiesSize": "18",
     "cancelRepetition": "Cancel The Repetition",
     "yesCancel": "Yes",
+    "confirmNoRepeat": "This activity will not be repeated again, do you confirm?",
+    "repeatCancelled": "Repeat canceled",
     "activityDetailsSmall": "Activity Details",
     "activeRepetitiveActivities": "Number of Active Repeating Activities:",
 
     "installmentActivities": "Installment Activities",
     "cancelInstallment": "Cancel The Installment",
+    "confirmNoInstallments": "Subsequent installments will not be processed, do you confirm?",
+    "installmentCancelled": "Installment canceled",
     "activeInstallmentActivities": "Number of Active Installment Activities:",
 
     "searchActivity": "Search for an Activity",
@@ -277,6 +304,9 @@
     "backupStatus": "Backup Status",
     "notifications": "Notifications",
     "defaultCurrency": "Currency",
+    "changeCurrencyWarning": "The currency of all records will be changed to the following currency according to the exchange rate of the activity date:",
+    "convert": "Convert",
+    "convertMessage": "Converting\nplease wait",
     "language": "Language",
 
     "helpCenter": "Help Center",
@@ -391,6 +421,9 @@
     "savingStatusDetails": "SAVING STATUS",
     "saved": "Saved",
     "notSaved": "Not saved",
+    "systemMessage": "SYSTEM MESSAGE",
+    "repetitionInstallment": "REP / INS",
+    "addAgain": "Add Again",
     "noteDetails": "NOTE",
     "noNoteAdded": "No Note Added",
     "deleteDetails": "Delete",
@@ -399,6 +432,11 @@
 
     "updateDone": "DONE",
     "activityUpdated": "Activity updated",
-    "clickToAddNote": "Click to add note"
+    "clickToAddNote": "Click to add note",
 
+    "firstWeek": "1st week",
+    "secondWeek": "2nd week",
+    "thirdWeek": "3rd week",
+    "fourthWeek": "4th week",
+    "fifthWeek": "5th week"
 }

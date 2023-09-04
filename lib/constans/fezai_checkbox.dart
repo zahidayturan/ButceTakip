@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'material_color.dart';
 
 class fezaiCheckBox extends StatefulWidget {
   final Function(bool value) onChanged;
@@ -28,7 +27,6 @@ class _fezaiCheckBoxState extends State<fezaiCheckBox> {
 
   @override
   Widget build(BuildContext context) {
-    var renkler = CustomColors();
     return InkWell(
       onTap: () {
         widget.onChanged(!widget.value);
