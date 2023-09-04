@@ -96,7 +96,7 @@ class CustomizeInstallmentList extends ConsumerWidget {
                         child: Theme(
                           data: Theme.of(context).copyWith(
                               colorScheme: ColorScheme.fromSwatch(
-                                accentColor: Color(0xFFF2CB05),
+                                accentColor: Theme.of(context).disabledColor,
                               ),
                               scrollbarTheme: ScrollbarThemeData(
                                   thumbColor:
@@ -213,7 +213,7 @@ class CustomizeInstallmentList extends ConsumerWidget {
                                                           height: 15,
                                                           decoration: BoxDecoration(
                                                               borderRadius: BorderRadius.only(topLeft: Radius.circular(6),topRight: Radius.circular(6)),
-                                                              color: renkler.sariRenk
+                                                              color: Theme.of(context).disabledColor
                                                           ),
                                                           child: Center(child: Padding(
                                                             padding: const EdgeInsets.only(top: 2),

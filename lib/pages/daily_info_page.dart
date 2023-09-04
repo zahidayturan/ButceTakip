@@ -104,7 +104,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                               child: Theme(
                                 data: Theme.of(context).copyWith(
                                     colorScheme: ColorScheme.fromSwatch(
-                                      accentColor: const Color(0xFFF2CB05),
+                                      accentColor: Theme.of(context).disabledColor,
                                     ),
                                     scrollbarTheme: ScrollbarThemeData(
                                         thumbColor: MaterialStateProperty.all(
@@ -365,9 +365,9 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                       height: size.height * 0.05,
                       width: size.width / 3.5,
                       child: DecoratedBox(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: Color(0xffF2CB05),
+                          color: Theme.of(context).disabledColor,
                         ),
                         child: Center(
                           child: FittedBox(

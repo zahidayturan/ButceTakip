@@ -97,7 +97,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                                 child: Container(
-                                  color: num1 ? renkler.sariRenk : const Color(0xffE2E1E1),
+                                  color: num1 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
                                 ),
                               )
                           ),
@@ -108,7 +108,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                                 child: Container(
-                                  color: num2 ? renkler.sariRenk : const Color(0xffE2E1E1),
+                                  color: num2 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
                                 ),
                               )
                           ),
@@ -119,7 +119,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                                 child: Container(
-                                  color: num3 ? renkler.sariRenk : const Color(0xffE2E1E1),
+                                  color: num3 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
                                 ),
                               )
                           ),
@@ -130,7 +130,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                                 child: Container(
-                                  color: num4 ? renkler.sariRenk : const Color(0xffE2E1E1),
+                                  color: num4 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
                                 ),
                               )
                           ),

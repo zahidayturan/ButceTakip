@@ -6,7 +6,9 @@ import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
+import 'package:butcekontrol/utils/notification_service.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -243,7 +245,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           color: darkMode == 0
                               ? renkler.koyuuRenk
                               : language == 'Türkçe'
-                                  ? renkler.sariRenk
+                                  ? Theme.of(context).disabledColor
                                   : renkler.arkaRenk),
                       textDirection: TextDirection.ltr,
                     ),
@@ -258,7 +260,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           color: darkMode == 0
                               ? renkler.koyuuRenk
                               : language == 'English'
-                                  ? renkler.sariRenk
+                                  ? Theme.of(context).disabledColor
                                   : renkler.arkaRenk),
                       textDirection: TextDirection.ltr,
                     ),
@@ -273,7 +275,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           color: darkMode == 0
                               ? renkler.koyuuRenk
                               : language == 'العربية'
-                                  ? renkler.sariRenk
+                                  ? Theme.of(context).disabledColor
                                   : renkler.arkaRenk),
                       textDirection: TextDirection.ltr,
                     ),
@@ -366,7 +368,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         ),
                         menuItemStyleData: MenuItemStyleData(
                           overlayColor:
-                              MaterialStatePropertyAll(renkler.sariRenk),
+                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
                           padding: const EdgeInsets.all(8),
                         ),
                       ),
@@ -453,7 +455,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                     },
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStatePropertyAll(renkler.sariRenk),
+                          MaterialStatePropertyAll(Theme.of(context).disabledColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           const RoundedRectangleBorder(
                               borderRadius:
@@ -576,7 +578,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       },
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStatePropertyAll(renkler.sariRenk),
+                          MaterialStatePropertyAll(Theme.of(context).disabledColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           const RoundedRectangleBorder(
                               borderRadius:
@@ -687,7 +689,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   width: size.width * 0.7,
                   child: Container(
                     decoration: BoxDecoration(
-                        color: renkler.sariRenk,
+                        color: Theme.of(context).disabledColor,
                         borderRadius: const BorderRadius.all(Radius.circular(20))),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton2<String>(
@@ -760,7 +762,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         ),
                         menuItemStyleData: MenuItemStyleData(
                           overlayColor:
-                              MaterialStatePropertyAll(renkler.sariRenk),
+                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
                           padding: const EdgeInsets.all(8),
                         ),
                       ),
@@ -891,7 +893,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         width: size.width * 0.7,
                         child: Container(
                           decoration: BoxDecoration(
-                              color: renkler.sariRenk,
+                              color: Theme.of(context).disabledColor,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20))),
                           child: Center(
@@ -1049,7 +1051,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                     builder: (context) {
                       return Center(
                           child: CircularProgressIndicator(
-                            color: renkler.sariRenk,
+                            color: Theme.of(context).disabledColor,
                             backgroundColor: renkler.koyuuRenk,
                           ));
                     },
@@ -1068,7 +1070,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                     width: size.width * 0.74,
                     child: Container(
                       decoration: BoxDecoration(
-                          color: renkler.sariRenk,
+                          color: Theme.of(context).disabledColor,
                           borderRadius: const BorderRadius.all(Radius.circular(20))),
                       child: Center(
                           child: Text(
@@ -1237,7 +1239,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         width: size.width * 0.7,
                         child: Container(
                           decoration: BoxDecoration(
-                              color: renkler.sariRenk,
+                              color: Theme.of(context).disabledColor,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20))),
                           child: Center(
@@ -1304,7 +1306,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   ),
                                   menuItemStyleData: MenuItemStyleData(
                                     overlayColor:
-                                    MaterialStatePropertyAll(renkler.sariRenk),
+                                    MaterialStatePropertyAll(Theme.of(context).disabledColor),
                                     padding: const EdgeInsets.all(8),
                                   ),
                                 ),
@@ -1493,7 +1495,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         },
                         style: ButtonStyle(
                           backgroundColor:
-                          MaterialStatePropertyAll(renkler.sariRenk),
+                          MaterialStatePropertyAll(Theme.of(context).disabledColor),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               const RoundedRectangleBorder(
                                   borderRadius:
@@ -1522,7 +1524,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         },
                         style: ButtonStyle(
                           backgroundColor:
-                          MaterialStatePropertyAll(renkler.sariRenk),
+                          MaterialStatePropertyAll(Theme.of(context).disabledColor),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               const RoundedRectangleBorder(
                                   borderRadius:
@@ -1551,7 +1553,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         },
                         style: ButtonStyle(
                           backgroundColor:
-                          MaterialStatePropertyAll(renkler.sariRenk),
+                          MaterialStatePropertyAll(Theme.of(context).disabledColor),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               const RoundedRectangleBorder(
                                   borderRadius:
@@ -1874,7 +1876,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                           ),
                                           menuItemStyleData: MenuItemStyleData(
                                             overlayColor:
-                                            MaterialStatePropertyAll(renkler.sariRenk),
+                                            MaterialStatePropertyAll(Theme.of(context).disabledColor),
                                             padding: const EdgeInsets.all(8),
                                           ),
                                         ),
@@ -2166,7 +2168,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             width: 40,
             child: _isLoading == true
                 ? CircularProgressIndicator(
-                    color: renkler.sariRenk,
+                    color: Theme.of(context).disabledColor,
                     backgroundColor: renkler.koyuuRenk,
                   )
                 : null,
@@ -2242,7 +2244,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       color: pageCount == 1
-                          ? renkler.sariRenk
+                          ? Theme.of(context).disabledColor
                           : Theme.of(context).canvasColor),
                 ),
               ),
@@ -2258,7 +2260,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       color: pageCount == 2
-                          ? renkler.sariRenk
+                          ? Theme.of(context).disabledColor
                           : Theme.of(context).canvasColor),
                 ),
               ),
@@ -2274,7 +2276,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       color: pageCount == 3
-                          ? renkler.sariRenk
+                          ? Theme.of(context).disabledColor
                           : Theme.of(context).canvasColor),
                 ),
               ),
@@ -2290,7 +2292,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       color: pageCount == 4
-                          ? renkler.sariRenk
+                          ? Theme.of(context).disabledColor
                           : Theme.of(context).canvasColor),
                 ),
               ),
@@ -2306,7 +2308,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       color: pageCount == 5
-                          ? renkler.sariRenk
+                          ? Theme.of(context).disabledColor
                           : Theme.of(context).canvasColor),
                 ),
               ),
@@ -2335,7 +2337,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       height: 14,
                       decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(Radius.circular(20)),
-                          color: renkler.sariRenk),
+                          color: Theme.of(context).disabledColor),
                     ),
                   ],
                 ),

@@ -79,7 +79,7 @@ class NavBar extends ConsumerWidget {
                                   padding: const EdgeInsets.only(left: 10),
                                   height : 7,
                                   width : 25 ,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                 ),
                               )
                                   :const SizedBox(width: 1,)
@@ -112,7 +112,7 @@ class NavBar extends ConsumerWidget {
                                   padding: const EdgeInsets.only(left: 10),
                                   height : 7,
                                   width : 25 ,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                 ),
                               )
                                   :const SizedBox(width: 1,)
@@ -147,7 +147,7 @@ class NavBar extends ConsumerWidget {
                                   padding: const EdgeInsets.only(left: 10),
                                   height : 7,
                                   width : 25 ,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                 ),
                               )
                                   :const SizedBox(width: 1,)
@@ -179,7 +179,7 @@ class NavBar extends ConsumerWidget {
                                   padding: const EdgeInsets.only(left: 10),
                                   height : 7,
                                   width : 25 ,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                 ),
                               )
                                   :const SizedBox(width: 1)
@@ -208,7 +208,7 @@ class NavBar extends ConsumerWidget {
                       read.setcur();  /// arastırılacak
                     },
                     splashColor: Theme.of(context).primaryColor,
-                    backgroundColor: const Color(0xffF2CB05),
+                    backgroundColor: Theme.of(context).disabledColor,
                     elevation: 0,
                     child: Image.asset(
                       "assets/icons/add.png",

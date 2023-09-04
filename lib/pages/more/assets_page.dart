@@ -109,196 +109,231 @@ class _assetsPage extends ConsumerState<assetsPage> {
                           ),
                         ), ///Karşılama
                         SizedBox(height: size.height *.01),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              height: size.width * .52,
-                              width: size.width * .52,
-                              child: measureList[3] <= 0
-                                ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).indicatorColor.withOpacity(0.7),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Center(child: Text(translation(context).noAssetFound, textAlign: TextAlign.center,)),
-                                  ),
-                                )
-                                :Stack(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(11.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).indicatorColor.withOpacity(0.7),
-                                          shape: BoxShape.circle,
-                                        ),
-                                      ),
-                                    ),
-                                    DChartPie(
-                                      strokeWidth: 1,
-                                      showLabelLine: false,
-                                      labelPosition: PieLabelPosition.outside,
-                                      labelColor:  Theme.of(context).canvasColor,
-                                      data: [
-                                        {'domain': 'Banka', 'measure': measureList[0]},
-                                        {'domain': 'Nakit', 'measure': measureList[1]},
-                                        {'domain': 'Diğer', 'measure': measureList[2]},
-                                      ],
-                                      fillColor: (pieData, index) {
-                                        return colorsList[index!];
-                                      },
-                                      donutWidth: 16,
-                                    ),
-                                    Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          TextMod(translation(context).total,Theme.of(context).canvasColor, 16),
-                                          SizedBox(height: size.width * .016),
-                                          RichText(
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: "${measureList[3]}" ,style: TextStyle(
-                                                    fontFamily: 'NEXA3',
-                                                    fontSize: 19,
-                                                    color: Theme.of(context).canvasColor
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: readSettingsRiv.prefixSymbol,
-                                                  style: TextStyle(
-                                                      fontFamily: 'TL',
-                                                      fontSize: 18,
-                                                      fontWeight: FontWeight.w600,
-                                                      color: Theme.of(context).canvasColor
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ]
-                                ),
+                        Container(
+                          padding:  EdgeInsets.only(bottom : size.height * .007,top:size.height * .007, right: size.width * .025),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Theme.of(context).indicatorColor ,Theme.of(context).scaffoldBackgroundColor ],
                             ),
-                            SizedBox(
-                              height: size.height * .19,
-                              child: Column(
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  assetBox(context, ref, translation(context).cardAsset , dbRiv.getTotalAmountByKart(myData!)),
-                                  assetBox(context, ref, translation(context).cashAsset , dbRiv.getTotalAmountByNakit(myData!)),
-                                  assetBox(context, ref, translation(context).other , dbRiv.getTotalAmountByDiger(myData!)),
+                                  SizedBox(
+                                    height: size.width * .52,
+                                    width: size.width * .52,
+                                    child: measureList[3] <= 0
+                                      ? Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context).indicatorColor.withOpacity(0.7),
+                                            shape: BoxShape.circle,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: Colors.black12,
+                                                blurRadius: 1,
+                                                offset: Offset(0, 1),
+                                                spreadRadius: 1,
+                                              )
+                                            ],
+                                          ),
+                                          child: Center(child: Text(translation(context).noAssetFound, textAlign: TextAlign.center,)),
+                                        ),
+                                      )
+                                      :Stack(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(11.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context).indicatorColor,
+                                                shape: BoxShape.circle,
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                    color: Colors.black12,
+                                                    blurRadius: 1,
+                                                    offset: Offset(0, 1),
+                                                    spreadRadius: 1,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          DChartPie(
+                                            strokeWidth: 1,
+                                            showLabelLine: false,
+                                            animationDuration: const Duration(milliseconds: 500),
+                                            labelPosition: PieLabelPosition.outside,
+                                            labelColor:  Colors.transparent,
+                                            data: [
+                                              {'domain': translation(context).bank, 'measure': measureList[0]},
+                                              {'domain': translation(context).cashAsset, 'measure': measureList[1]},
+                                              {'domain': translation(context).other, 'measure': measureList[2]},
+                                            ],
+                                            fillColor: (pieData, index) {
+                                              return colorsList[index!];
+                                            },
+                                            donutWidth: 16,
+                                          ),
+                                          Center(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                TextMod(translation(context).total,Theme.of(context).canvasColor, 16),
+                                                SizedBox(height: size.width * .016),
+                                                RichText(
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: "${measureList[3]}" ,style: TextStyle(
+                                                          fontFamily: 'NEXA3',
+                                                          fontSize: 19,
+                                                          color: Theme.of(context).canvasColor
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text: readSettingsRiv.prefixSymbol,
+                                                        style: TextStyle(
+                                                            fontFamily: 'TL',
+                                                            fontSize: 18,
+                                                            fontWeight: FontWeight.w600,
+                                                            color: Theme.of(context).canvasColor
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ]
+                                      ),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * .19,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        assetBox(context, ref, translation(context).cardAsset , dbRiv.getTotalAmountByKart(myData!)),
+                                        assetBox(context, ref, translation(context).cashAsset , dbRiv.getTotalAmountByNakit(myData!)),
+                                        assetBox(context, ref, translation(context).other , dbRiv.getTotalAmountByDiger(myData!)),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),///pasta satırı
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(bottom: size.width * .01),
-                                  height: size.width * .02,
-                                  width: size.width * .02,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFFF5ECB9),
-                                    shape: BoxShape.circle
-                                  ),
-                                ),
-                                SizedBox(width: size.width * .02),
-                                Text(translation(context).bank,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(bottom: size.width * .01),
-                                  height: size.width * .02,
-                                  width: size.width * .02,
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF9D1AC),
-                                      shape: BoxShape.circle
-                                  ),
-                                ),
-                                SizedBox(width: size.width * .02),
-                                Text(translation(context).cashAsset,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(bottom: size.width * .01),
-                                  height: size.width * .02,
-                                  width: size.width * .02,
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFF9ACAC),
-                                      shape: BoxShape.circle
-                                  ),
-                                ),
-                                SizedBox(width: size.width * .02),
-                                Text(translation(context).other,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
-                              ],
-                            ),
-                            SizedBox(width: size.width * .06),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    opaque: false, //sayfa saydam olması için
-                                    transitionDuration: const Duration(milliseconds: 1),
-                                    pageBuilder: (context, animation, nextanim) => const addAssets(),
-                                    reverseTransitionDuration: const Duration(milliseconds: 1),
-                                    transitionsBuilder: (context, animation, nexttanim, child) {
-                                      return FadeTransition(
-                                        opacity: animation,
-                                        child: child,
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                              child: FittedBox(
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.03),
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context).highlightColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            color: Colors.black12,
-                                            blurRadius: 3,
-                                            spreadRadius: 1
-                                        )
-                                      ]
-                                  ),
-                                  child:  Row(
-                                    children: [
-                                      Center(
-                                        child: Text(
-                                          translation(context).addRemoveAsset,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 13,
-                                            height: 1
+                              Padding(
+                                padding: const EdgeInsets.only(left : 11.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(bottom: size.width * .01),
+                                          height: size.width * .02,
+                                          width: size.width * .02,
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xFFF5ECB9),
+                                            shape: BoxShape.circle
+                                          ),
+                                        ),
+                                        SizedBox(width: size.width * .02),
+                                        Text(translation(context).bank,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(bottom: size.width * .01),
+                                          height: size.width * .02,
+                                          width: size.width * .02,
+                                          decoration: const BoxDecoration(
+                                              color: Color(0xFFF9D1AC),
+                                              shape: BoxShape.circle
+                                          ),
+                                        ),
+                                        SizedBox(width: size.width * .02),
+                                        Text(translation(context).cashAsset,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(bottom: size.width * .01),
+                                          height: size.width * .02,
+                                          width: size.width * .02,
+                                          decoration: const BoxDecoration(
+                                              color: Color(0xFFF9ACAC),
+                                              shape: BoxShape.circle
+                                          ),
+                                        ),
+                                        SizedBox(width: size.width * .02),
+                                        Text(translation(context).other,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            opaque: false, //sayfa saydam olması için
+                                            transitionDuration: const Duration(milliseconds: 1),
+                                            pageBuilder: (context, animation, nextanim) => const addAssets(),
+                                            reverseTransitionDuration: const Duration(milliseconds: 1),
+                                            transitionsBuilder: (context, animation, nexttanim, child) {
+                                              return FadeTransition(
+                                                opacity: animation,
+                                                child: child,
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      child: FittedBox(
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.03),
+                                          decoration: BoxDecoration(
+                                              color: Theme.of(context).highlightColor,
+                                              borderRadius: BorderRadius.circular(8),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                    color: Colors.black12,
+                                                    blurRadius: 3,
+                                                    spreadRadius: 1
+                                                )
+                                              ]
+                                          ),
+                                          child:  Row(
+                                            children: [
+                                              Center(
+                                                child: Text(
+                                                  translation(context).addRemoveAsset,
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 13,
+                                                    height: 1
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                        ),///pasta satırı
                         SizedBox(height: size.height *.01),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -380,7 +415,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     data.sort((a, b) {
                                       DateTime dateA = convertDate(a.operationDate);
                                       DateTime dateB = convertDate(b.operationDate);
-                                      return dateB!.compareTo(dateA!);
+                                      return dateB.compareTo(dateA);
                                     });
                                     break;
                                   case false:
@@ -388,13 +423,38 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     data.sort((a, b) {
                                       DateTime dateA = convertDate(a.operationDate);
                                       DateTime dateB = convertDate(b.operationDate);
-                                      return dateA!.compareTo(dateB!);
+                                      return dateA.compareTo(dateB);
                                     });
                                     break;
                                   default:
                                 }
                                 return data!.length == 0
-                                ? Center(child: Text(translation(context).currencyNotFound))
+                                ? SizedBox(
+                                  height: 150,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/image/origami_noinfo.png",
+                                        width: 45,
+                                        height: 45,
+                                        color: Theme.of(context).canvasColor,
+                                      ),
+                                      SizedBox(
+                                        height: 25,
+                                        width: 140,
+                                        child: DecoratedBox(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(20),
+                                              color: Theme.of(context).canvasColor,
+                                            ),
+                                            child: Center(child: TextMod(
+                                                translation(context).currencyNotFound, Theme.of(context).primaryColor, 14))
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
                                 :GridView.builder(
                                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
@@ -464,7 +524,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                                 ],
                                               ),
                                             ),
-                                            Expanded(
+                                            const Expanded(
                                               flex: 1,
                                               child: Icon(Icons.swap_horiz_rounded)
                                             ),
@@ -522,6 +582,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
             color: Colors.black12,
             blurRadius: 1,
             spreadRadius: 1,
+            offset: Offset(0, 1),
           )
         ],
         color: Theme.of(context).indicatorColor,
@@ -550,7 +611,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                   )
                   : Icon(
                     myIcon,
-                  color: Theme.of(context).canvasColor,
+                    color: Theme.of(context).canvasColor,
                     size: 22,
                   ),
                 Text(

@@ -4,13 +4,39 @@ import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 
-import '../../../classes/nav_bar.dart';
 
 class HelpCalender extends StatelessWidget {
   const HelpCalender({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<String> monthList = [
+      translation(context).january,
+      translation(context).february,
+      translation(context).march,
+      translation(context).april,
+      translation(context).may,
+      translation(context).june,
+      translation(context).july,
+      translation(context).august,
+      translation(context).september,
+      translation(context).october,
+      translation(context).november,
+      translation(context).december,
+    ];
+    List<String> yearList = [
+      '2020',
+      '2021',
+      '2022',
+      '2023',
+      '2024',
+      '2025',
+      '2026',
+      '2027',
+      '2028',
+      '2029',
+      '2030',
+    ];
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size ;
     return SafeArea(
@@ -23,65 +49,391 @@ class HelpCalender extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
-                  child: Container(
-                    color: Theme.of(context).highlightColor,
-                    height: 65,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: size.width/10,),
-                        Image.asset(
-                          "assets/image/LogoBkaShort.png",
-                          height: 60,
-                          width: 60,
-                        ),
-                        const Text(
-                          "Yardım Merkezi",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: "Nexa3",
-                              fontSize: 25
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
+                    horizontal: 16.0,
+                    vertical: 16
                   ),
                   child: Column(
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Takvim Sayfası",
-                          style: TextStyle(
-                            fontFamily: "Nexa3",
-                            fontSize: 30,
-                            color: Theme.of(context).canvasColor,
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).secondaryHeaderColor,
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.8),
+                                        spreadRadius: 0.5,
+                                        blurRadius: 2,
+                                        offset: Offset(0, 2)
+                                    )
+                                  ]
+                              ),
+                              child: Icon(
+                                size: 20,
+                                Icons.calendar_month_rounded,
+                                color: Theme.of(context).scaffoldBackgroundColor,
+                              ),
+                            ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              "TAKVİM SAYFASI",
+                              style: TextStyle(
+                                fontFamily: "Nexa4",
+                                fontSize: 24,
+                                height: 1,
+                                color: Theme.of(context).secondaryHeaderColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 14,),
+                      Text(
+                          "Eklediğiniz işlemlere özelleştirilmiş bir takvim ile bu sayfadan ulaşabilirsiniz."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                      ),
+                      const SizedBox(height: 14,),
+                      Text(
+                        "Bu sayfada yapabileceğiniz işlemler"
+                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                      ),
+                      const SizedBox(height: 14,),
+                      SizedBox(
+                        width: size.width * 0.46,
+                        height: size.height * 0.06,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: size.height * 0.005,
+                              child: Container(
+                                height: size.height * 0.05,
+                                width: size.width * 0.45,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                                  color: Theme.of(context).disabledColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.5),
+                                          spreadRadius: 0.5,
+                                          blurRadius: 2,
+                                          offset: Offset(0, 2)
+                                      )
+                                    ]
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  height: size.height * 0.05,
+                                  width: size.width * 0.27,
+                                  child: PageView(
+                                    //controller: read.pageMonthController,
+                                    onPageChanged: (index) {
+                                    },
+                                    children: monthList
+                                        .map(
+                                          (month) => Center(
+                                        widthFactor: 1.5,
+                                        child: Text(
+                                          month,
+                                          style: const TextStyle(
+                                            color: Color(0xff0D1C26),
+                                            fontSize: 16,
+                                            fontFamily: 'Nexa4',
+                                            fontWeight: FontWeight.w600,
+                                            height: 1.3,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                        .toList(),
+                                  ),
+                                ),
+                                Container(
+                                  height: size.height * 0.06,
+                                  width: size.width * 0.18,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(25)),
+                                    color: Theme.of(context).highlightColor,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black.withOpacity(0.5),
+                                            spreadRadius: 0.5,
+                                            blurRadius: 2,
+                                            offset: Offset(0, 2)
+                                        )
+                                      ]
+                                  ),
+                                  child: PageView(
+                                    //controller: read.pageYearController,
+                                    onPageChanged: (index) {
+                                    },
+                                    children: yearList
+                                        .map(
+                                          (year) => Center(
+                                        child: Text(
+                                          year,
+                                          style: TextStyle(
+                                            color: Theme.of(context).dialogBackgroundColor,
+                                            fontSize: 16,
+                                            fontFamily: 'Nexa4',
+                                            fontWeight: FontWeight.w600,
+                                            height: 1.3,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                        .toList(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 7,),
                       Text(
-                          "Kullanıcıların girdilerini esas alarak takvimsel olarak gereklilik olduğunu fark ettik bunun üzerine Kendi tasarımımız olan takvimi uygulattık. \n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "Burada ayı ve yılı sağa veya sola kaydırarak değiştirebilirsiniz."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      Image.asset(
-                          "assets/image/helpcalender1.png"
+                      const SizedBox(height: 14,),
+                      Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).highlightColor,
+                                shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.8),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 2)
+                                )
+                              ]
+                            ),
+                            child: Icon(
+                              size: 20,
+                              Icons.refresh_rounded,
+                              color: renkler.arkaRenk,
+                            ),
+                          ),
+                          const SizedBox(width: 14,),
+                          Expanded(
+                            child: Text(
+                              "Bu buton ile içinde bulunduğunuz ay’a hızlıca geçiş yapabilirsiniz."
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ],
                       ),
+                      const SizedBox(height: 14,),
+                      Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).disabledColor,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.8),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 2,
+                                      offset: Offset(0, 2)
+                                  )
+                                ]
+                            ),
+                            child: Center(
+                              child: Text(
+                                "1",style:TextStyle(
+                                color: renkler.koyuuRenk,
+                                fontFamily: "Nexa4",
+                                fontSize: 17
+                              ) ,
+                              ),
+                            )
+                          ),
+                          const SizedBox(width: 14,),
+                          Expanded(
+                            child: Text(
+                              "Bu buton ayın başlangıç gününü göstermektedir. Değiştirmek için uzun basarak  ayarlara gidebilirsiniz. (Örnek: 15 seçili ise takvim sonraki ayın 14’üne kadar işlenecektir."
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 14,),
+                      Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                color: Theme.of(context).dividerColor,
+                                border: Border.all(color: Theme.of(context).focusColor,width: 1,strokeAlign: BorderSide.strokeAlignOutside),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.8),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 2,
+                                      offset: Offset(0, 2)
+                                  )
+                                ]
+                            ),
+                            child: Stack(
+                              children: [
+                              Positioned(
+                              right: 3,
+                              top: 3,
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(90),
+                                      topRight: Radius.circular(50)),
+                                  color: Color(0xffD91A2A),
+                                ),
+                              ),
+                            ),
+                                Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 4),
+                                    child: Text(
+                                      "16",style:TextStyle(
+                                        color: Theme.of(context).canvasColor,
+                                        fontFamily: "Nexa3",
+                                        fontSize: 17
+                                    ) ,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ),
+                          const SizedBox(width: 14,),
+                          Expanded(
+                            child: Text(
+                              "Günler aslında birer butondur. Kırmızı veya yeşil olmaları o gün için işlemlerinizin ekside veya artıda olduğunu gösterir. Bastığınızda ise o güne ait işlemlerin tümü karşınıza çıkacaktır."
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 18,),
                       Text(
-                          "\n\nKayan butonlar ile uygulamamızın bir çok yerinde karşılaşabilirsiniz. Kullanımı son derece kolay olan bu butonları aktif etmek için yapmanız gereken sağ veya sola kaydırmak olacaktır. Hem ay hem de yıl değişimini sağlayan bu yapı takvim kategorimizin güncellenmesini sağlamaktadır.\n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "Seçili ayı ve başlangıç gününü hesaba katarak bütün işlemleri sizin için hesaplar. Gelir toplamınız net durumunuz ve gider toplamınız  gösterilmektedir."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      Image.asset(
-                          "assets/image/helpcalender2.png"
+                      const SizedBox(height: 7,),
+                      SizedBox(
+                        width: size.width * 0.90,
+                        height: size.height * 0.046,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 3,
+                              child: SizedBox(
+                                height: size.height * 0.036,
+                                width: size.width * 0.90,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black.withOpacity(0.5),
+                                            spreadRadius: 0.5,
+                                            blurRadius: 2,
+                                            offset: Offset(0, 2)
+                                        )
+                                      ],
+                                    gradient: LinearGradient(
+                                      colors: [Theme.of(context).hintColor, Theme.of(context).hoverColor],
+                                      stops: [0.5, 0.5],
+                                    ),
+                                    borderRadius:
+                                    const BorderRadius.vertical(bottom: Radius.circular(10)),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        "  +337,75",
+                                        style: TextStyle(
+                                          color:  Colors.white,
+                                          fontSize: 15,
+                                          fontFamily: 'Nexa3',
+                                          fontWeight: FontWeight.w900,
+                                          height: 1.4,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: size.width * 0.15,
+                                      ),
+                                      const Text(
+                                        "-840.75  ",
+                                        style: TextStyle(
+                                          color:  Colors.white,
+                                          fontSize: 15,
+                                          fontFamily: 'Nexa3',
+                                          fontWeight: FontWeight.w900,
+                                          height: 1.4,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Center(
+                              child: SizedBox(
+                                height: size.height * 0.046,
+                                width: size.width / 3.5,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                                    color: Theme.of(context).disabledColor,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black.withOpacity(0.5),
+                                            spreadRadius: 0.5,
+                                            blurRadius: 2,
+                                            offset: Offset(0, 2)
+                                        )
+                                      ]
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "503.0",
+                                      style: TextStyle(
+                                        color: Color(0xff0D1C26),
+                                        fontSize: 15,
+                                        fontFamily: 'Nexa3',
+                                        fontWeight: FontWeight.w900,
+                                        height: 1.4,
+                                      ),
+                                    ),
+                                  ), //Toplam değişim.
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: 10,),
-                      Text("Günlük bazda verileri sıralıyor.",style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
                     ],
                   ),
                 ),

@@ -104,8 +104,8 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                           SizedBox(height: size.height * .01),
                           Text(
                             translation(context).whatIsYourFavoriteAnimal,
-                            style: const TextStyle(
-                                color: Color(0xFFF2CB05),
+                            style: TextStyle(
+                                color: Theme.of(context).disabledColor,
                                 fontSize: 13,
                                 fontFamily: "Nexa4",
                               height: .7
@@ -158,7 +158,7 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                               child: Container(
                                 height: 40,
                                 width: 40,
-                                color: renkler.sariRenk,
+                                color: Theme.of(context).disabledColor,
                                 child: const Center(
                                   child: Icon(
                                     Icons.check_circle_outline,

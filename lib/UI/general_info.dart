@@ -109,7 +109,7 @@ class Generalinfo extends ConsumerWidget {
                                         child: Container(
                                           decoration: BoxDecoration(
                                               borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                              color: renkler.sariRenk
+                                              color: Theme.of(context).disabledColor
                                           ),
                                           width: 208,
                                           height: 26,
@@ -321,7 +321,7 @@ class Generalinfo extends ConsumerWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                             const BorderRadius.all(Radius.circular(10)),
-                                            color: renkler.sariRenk),
+                                            color: Theme.of(context).disabledColor),
                                         child: FittedBox(
                                           child: RichText(
                                               maxLines: 1,

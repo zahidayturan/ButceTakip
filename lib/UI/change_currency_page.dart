@@ -45,7 +45,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
 
                 },
                 child: Container( //boyut
-                  height: size.width * .75,
+                  height: size.width * .65,
                   width: size.width * .80,
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
@@ -109,7 +109,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                           Expanded(
                             flex: 8,
                             child: Text(
-                                "${widget.data.note}",
+                              widget.data.note == "" ? translation(context).noNoteAdded : "${widget.data.note}",
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: renkler.arkaPlanRenk,
@@ -139,7 +139,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                                 hint: Text(
                                   translation(context).select,
                                   style: TextStyle(
-                                    color: renkler.sariRenk,
+                                    color: Theme.of(context).disabledColor,
                                     height: 1
                                   ),
                                 ),
@@ -148,7 +148,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                                 borderRadius: BorderRadius.circular(20),
                                 value: desiredUnit,
                                 elevation: 16,
-                                style: TextStyle(color: renkler.sariRenk),
+                                style: TextStyle(color: Theme.of(context).disabledColor),
                                 underline: Container(
                                   height: 2,
                                   color: renkler.arkaRenk,
@@ -200,7 +200,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                         onTap: () async {
                           if(desiredUnit != null){
                             double amount =  ref.read(currencyRiverpod).calculateRealAmount(widget.data.amount!, widget.data.moneyType!.substring(0,3)!, desiredUnit!);
-                            String moneyType = desiredUnit!;
+                            String moneyType = "${desiredUnit!}1";
                             Map<String, dynamic> changes = {
                               "amount" : amount ,
                               "moneyType" : moneyType
@@ -215,7 +215,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
                           decoration: BoxDecoration(
-                            color: renkler.sariRenk,
+                            color: Theme.of(context).disabledColor,
                             borderRadius: BorderRadius.circular(7),
                           ),
                           child: Text(

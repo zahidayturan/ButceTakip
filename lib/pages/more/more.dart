@@ -133,10 +133,10 @@ class More extends ConsumerWidget {
                               height: size.height / 9,
                               width: size.height / 4.5 + size.width/15,
                               decoration: BoxDecoration(
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                   border: Border.all(
                                       width: 2,
-                                      color: renkler.sariRenk
+                                      color: Theme.of(context).disabledColor
                                   ),
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
@@ -334,9 +334,9 @@ class More extends ConsumerWidget {
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       width: 2,
-                                      color: renkler.sariRenk
+                                      color: Theme.of(context).disabledColor
                                   ),
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15))
                               ),
                               child: Padding(
