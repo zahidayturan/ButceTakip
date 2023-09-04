@@ -1,103 +1,298 @@
-import 'package:butcekontrol/classes/language.dart';
 import 'package:flutter/material.dart';
-
+import 'package:toggle_switch/toggle_switch.dart';
 import '../../../classes/app_bar_for_page.dart';
+import '../../../classes/language.dart';
 import '../../../constans/material_color.dart';
+import '../../../utils/textConverter.dart';
 import 'help_footer.dart';
 
-class HelpBacup extends StatelessWidget {
-  const HelpBacup({Key? key}) : super(key: key);
+class HelpBackup extends StatelessWidget {
+  const HelpBackup({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     CustomColors renkler = CustomColors();
-    var size = MediaQuery.of(context).size;
+    int initialLabelIndex = 1 ;
+    var size = MediaQuery.of(context).size ;
     return SafeArea(
-        child:Scaffold(
-            //backgroundColor: const Color(0xffF2F2F2),
-            appBar: AppBarForPage(title: translation(context).helpTitle2),
+        child: Scaffold(
+          appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
-                  child: Container(
-                    color: Theme.of(context).highlightColor,
-                    height: 65,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: size.width/10,),
-                        Image.asset(
-                          "assets/image/LogoBkaShort.png",
-                          height: 60,
-                          width: 60,
-                        ),
-                        const Text(
-                          "Yardım Merkezi",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: "Nexa3",
-                              fontSize: 25
-                          ),
-                        ),
-                      ],
-                    ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 16
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Yedekleme Sistemi",
-                          style: TextStyle(
-                            fontFamily: "Nexa3",
-                            fontSize: 30,
-                            color: Theme.of(context).canvasColor,
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.8),
+                                        spreadRadius: 0.5,
+                                        blurRadius: 2,
+                                        offset: Offset(0, 2)
+                                    )
+                                  ]
+                              ),
+                              child: Icon(
+                                size: 20,
+                                Icons.wallet,
+                                color: Theme.of(context).scaffoldBackgroundColor,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              "YEDEKLEME SİSTEMİ",
+                              style: TextStyle(
+                                fontFamily: "Nexa4",
+                                fontSize: 24,
+                                height: 1,
+                                color: Theme.of(context).secondaryHeaderColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 14,),
+                      Text(
+                        "Bütün verileriniz kendi Google Drive’ınız üzerinden yedeklemeleri gerçekleşmektedir. bunun için Google hesabınız ile giriş yapmanız gerekmektedir."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                      ),
+                      const SizedBox(height: 14,),
+                      FittedBox(
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: const Color(0xff2A2895),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 35),
+                              child: Text(
+                                translation(context).signIn,
+                                style: TextStyle(
+                                    color: renkler.arkaRenk,
+                                    height: 1,
+                                    fontSize: 15,
+                                    fontFamily: "Nexa3"
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 14,),
                       Text(
-                        "Kullanıcıların en çok ihtiyacı olduğu en önemli özelliklerden biri olan yedeklenme sistemine uygulamamız üzerinde yer verdik. Verilerimizin kaybolmasını hiç istemeyiz, değil mi? 😁\n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "Bu sayfada yapabileceğiniz işlemler"
+                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                       ),
+                      const SizedBox(height: 14,),
                       Text(
-                          "Şu an da Google Cloud üzerinden yedeklenmeleri gerçekleştiriyoruz. Bu yüzden 1 defaya mahsus olarak Google hesabı üzerinden giriş gerçekleştirmeniz gerekmektedir.\n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "varsayılan olarak oto yedekleme aktif olmaktadır ve varsayılan olarak aylık  yedeklenmesini yapmaktadır."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      Image.asset(
-                        "assets/image/helpbackup1.png",
-                        height: 80,
+                      const SizedBox(height: 14,),
+                      SizedBox(
+                        height: 25,
+                        child: ToggleSwitch(
+                          initialLabelIndex: initialLabelIndex,
+                          totalSwitches: 3,
+                          labels: [translation(context).dailyBackup, translation(context).monthlyBackup, translation(context).yearlyBackup],
+                          activeBgColor: const [Color(0xffF2CB05)],
+                          activeFgColor: const Color(0xff0D1C26),
+                          inactiveBgColor: const Color(0xff0D1C26),
+                          inactiveFgColor: const Color(0xFFE9E9E9),
+                          minWidth: 50,
+                          cornerRadius: 20,
+                          radiusStyle: true,
+                          animate: true,
+                          curve: Curves.linearToEaseOut,
+                          customTextStyles: const [
+                            TextStyle(
+                                fontSize: 9, fontFamily: 'Nexa3', fontWeight: FontWeight.w800)
+                          ],
+                          onToggle: (index) {
+
+                          },
+                        )
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 14,),
+                      Row(
+                        children: [
+                          Container(
+                            height: 26,
+                            width: size.width * 0.2,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: renkler.koyuuRenk,
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    translation(context).restoreData, // geri yükle
+                                    style: TextStyle(
+                                        height: 1,
+                                        color: renkler.arkaRenk,
+                                        fontSize: 11,
+                                        fontFamily: "Nexa3"
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Text(
+                              "Yedekle Butonuna tıklandığı zaman bütün kayıtlarınız .csv dosyasına çevirilerek yedeklenmektedir."
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 14,),
+
+                      Row(
+                        children: [
+                          Container(
+                            height: 26,
+                            width: size.width * 0.2,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: renkler.koyuuRenk,
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    translation(context).restoreData, // geri yükle
+                                    style: TextStyle(
+                                        height: 1,
+                                        color: renkler.arkaRenk,
+                                        fontSize: 11,
+                                        fontFamily: "Nexa3"
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Text(
+                              "Geri Yükle butonuna tıklandığında ise Google Drive‘ınızdaki BütçeTakip adlı dosyanın içindeki kayıtları listeleyerek sizden bir seçim yapmanızı istemektedir."
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 14),
+                      Container( //boyut
+                        height: size.width * .4,
+                        width: size.width * .73,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: renkler.koyuuRenk,
+                          border: Border.all(
+                            color: Theme.of(context).canvasColor
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: size.width * .3,
+                              child: ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: 2,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: 30,
+                                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
+                                          decoration: BoxDecoration(
+                                            //color: Theme.of(context).indicatorColor,
+                                            color: Theme.of(context).indicatorColor,
+                                            borderRadius: BorderRadius.circular(6),
+                                          ),
+                                          child: const Center(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "BT_Data*16_08_2002",
+                                                  style: TextStyle(
+                                                      fontSize: 13
+                                                  ),
+                                                ),
+                                                //Icon(Icons.download_rounded),
+                                                const Icon(Icons.cloud_download_outlined),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                      ],
+                                    ),
+                                  ) ;
+                                },
+                              ),
+                            ),
+                            Center(
+                              child: Text(
+                                "2 adet kayıt gösteriliyor.",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontFamily: "Nexa3",
+                                  color: renkler.arkaRenk,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 14),
                       Text(
-                        "Sonraki adımlarda ise hesabınız otomatik olarak giriş yapacaktır\n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "Kayıdınız üzerine uzun basarsanız da istediğiniz kayıtları silebileceğiniz bir arayüz çıkmaktadır."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
+                      const SizedBox(height: 14),
+                      Icon(
+                        Icons.warning,
+                        color: Theme.of(context).secondaryHeaderColor,
+                        size: 40,
+                      ),
+                      const SizedBox(height: 14),
                       Text(
-                        "Ön tanımlı olarak Yedeklenme sıklığı Günlük olarak ayarlanmıştır tabii isteğinize göre ayarlayabilirsiniz. Son yedeklenme tarihi üzerinden uygulamaya her giriş sağladığınızda tercihinize gere otomatik yedeklenme gerçekleşecektir. Lakin  önemli olan daha öncesinde uygulamaya Google hesabınızın giriş yapılı olması gerekiyor aksi halde otomatik yedekleme gerçekleştirilemez.\n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "Kayıtlarınız geri yüklendiği zaman mevcut verileriniz silinmektedir. Seçtiğiniz kayıtlarınız yüklenmektedir. 100 kayıt sonrası  Google Drive üzerinde dosya kapanır ve yeni dosyaya geçilir. verilerinize uygulama üzerinde görememeniz normal tekrardan dosyalarınız görmek için google Drive üzerinden yeni açılan dosyaya istediğiniz verileri manuel olarak taşımanız gerekmektedir."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      Image.asset(
-                        "assets/image/helpbackup2.jpg",
-                        height: 300,
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        "hesap girişi sonrası ekranlarınız da Emailiniz , Ad ve Soyadınız son olarak da Son yedeklenme tarihiniz gösterilmektedir.\n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
-                      ),
-                      Text(
-                        "Yedekle butonu sayesinde kayıtlarınızı .cvs dosyası şeklinde Cloud sistemine yedekleyebiliyorsunuz. Aynı şekilde Geri Yükle butonu sayesinde de Cloud üzerinden verilerinizi çekebiliyorsunuz. Endişelenmeyin her kayıt sonrası kayıtlarınız cihazınızdan silinerek yeni gelecek kayıtları temiz bir sayfa ile karşılıyoruz  \n\n Herhangi bir sorununuz da bize ulaşmayı ihmal etmeyiniz."
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
-                      ),
-                      SizedBox(height: 20),
+
                     ],
                   ),
                 ),
@@ -105,7 +300,7 @@ class HelpBacup extends StatelessWidget {
               ],
             ),
           ),
-        ),
+        )
     );
   }
 }

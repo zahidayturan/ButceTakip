@@ -2,11 +2,14 @@ import 'dart:io';
 import 'package:butcekontrol/utils/cvs_converter.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+
+import '../riverpod_management.dart';
 
 class GoogleAuthClient extends http.BaseClient {
   final Map<String, String> _headers;
@@ -121,30 +124,23 @@ class GglDriveRiverpod extends ChangeNotifier{
       print("Bir hata meydana geldi $e");
     }
   }
-  Future<int> uploadFileToDrive(String fileName) async {
+  Future<void> uploadFileToDrive(String fileName) async {
     Directory tempDir = await getTemporaryDirectory();
-      final file = File("${tempDir.path}/$fileName");
+    final file = File("${tempDir.path}/$fileName");
 
-      final driveFile = drive.File()
-        ..name = file.uri.pathSegments.last
-        ..parents = [folderID!];
+    final driveFile = drive.File()
+      ..name = file.uri.pathSegments.last
+      ..parents = [folderID!];
 
-      if(_driveApi != null)  {
-        try {
-          _driveApi!.files.create(
-            driveFile,
-            uploadMedia: drive.Media(file.openRead(), file.lengthSync()),
-          );
-          print('File uploaded to user\'s Google Drive.');
-          return 1;
-        } catch (e) {
-          print('Error uploading file: $e');
-          return 0;
-        }
-      }else{
-        print("ilk değer atnamadı :/");
-        return 0;
-      }
+    if(_driveApi != null) {
+      await _driveApi!.files.create(
+        driveFile,
+        uploadMedia: drive.Media(file.openRead(), file.lengthSync()),
+      );
+      print('File uploaded to user\'s Google Drive.');
+    }else{
+      print("ilk değer atnamadı :/");
+    }
   }//+
   Future<String?> uploadFileToStorage() async {
     //bu çalışıyor A planı
@@ -244,23 +240,28 @@ class GglDriveRiverpod extends ChangeNotifier{
     final User? user = _auth.currentUser;
     return user != null;
   }
-  Future<void> checkAuthState() async { // Base_BKA tarafından çalıştırılan bir dosyadır. giriş durumunu atar.
+  Future<void> checkAuthState(WidgetRef ref) async { // Base_BKA tarafından çalıştırılan bir dosyadır. giriş durumunu atar.
+    var read = ref.read(settingsRiverpod);
     if(_auth.currentUser != null)  {
-      accountStatus = true;
-      await _googleSignIn.signInSilently().then((value) async {
-        await _initializeDrive(_googleSignIn.currentUser!).then((value) => print("Kullanıcı initalize oldu."));
-        await checkFolderID().then((value) {
-          folderID = value;
-          print("dosya konumu bulundu.");
+      try{
+        accountStatus = true;
+        await _googleSignIn.signInSilently().then((value) async {
+          await _initializeDrive(_googleSignIn.currentUser!).then((value) => print("Kullanıcı initalize oldu."));
+          await checkFolderID().then((value) {
+            folderID = value;
+            print("dosya konumu bulundu.");
+          });
         });
-      });
-      //drive.DriveApi _driveApi = _initializeDrive(_googleSignIn.currentUser!) as drive.DriveApi;
-      /*
-      _googleSignIn.signIn().then((value) {
-        _initializeDrive(_googleSignIn.currentUser!);
-      });
-      folderID = await checkFolderID();
-       */
+      }catch(e){
+        print("INTERNET NOT FOUND FOR USER $e"); ///internetin yokluğu veya oturum süresi dolmasında buraya geliyor.
+        setAccountStatus(false); ///debug sırasında silebilirsin.
+        /*
+        var now = DateTime.now();
+        //ref.read(settingsRiverpod).setbackUpAlert("Internet");
+        //accountStatus = false;
+        //signOutWithGoogle();
+         */
+      }
     }else{
       accountStatus = false;
     }

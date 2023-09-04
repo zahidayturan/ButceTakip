@@ -15,15 +15,52 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(60);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var readSetting = ref.read(settingsRiverpod);
+    var readSetting = ref.watch(settingsRiverpod);
+    var readGglAuth = ref.read(gglDriveRiverpod);
     var readHome = ref.read(homeRiverpod);
     return Directionality(
       textDirection: TextDirection.ltr,
       child: AppBar(
         backgroundColor: const Color(0xFF0D1C26),
         title: Padding(
-          padding: const EdgeInsets.only(top: 5),
-          child: Image.asset(
+          padding: EdgeInsets.only(top: 5),
+          child: readSetting.backUpAlert
+          ?InkWell(
+            onTap: () {
+              print("abu");
+            },
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                        "Yedekleme\nYapılamadı",
+                      style: TextStyle(
+                        color: Colors.yellow,
+                          fontSize: 16
+                      ),
+                    ),
+                    Icon(
+                      Icons.warning,
+                      size: 30,
+                    ),
+                    SizedBox(width: 7),
+                  ],
+                ),
+                Text(
+                  "Kontrol Etmek için tıklayınız",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 11
+                  ),
+                ),
+              ],
+            ),
+          )
+              :Image.asset(
             "assets/image/icon_BKA/yatayYazi.png",
             width: 120,
           ),
@@ -101,20 +138,6 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => IntroductionPage())
               );
-              /*Navigator.push(
-                context,
-                PageRouteBuilder(
-                  transitionDuration: const Duration(milliseconds: 1),
-                  pageBuilder: (context, animation, nextanim) =>  const HelpCenter(),
-                  reverseTransitionDuration: const Duration(milliseconds: 1),
-                  transitionsBuilder: (context, animation, nexttanim, child) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
-                ),
-              );*/
             },
             icon: const Icon(
               Icons.help_outline_rounded,

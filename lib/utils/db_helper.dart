@@ -195,10 +195,10 @@ class SQLHelper {
       debugPrint("Something went wrong when deleting an item: $err");
     }
   }
-  static Future<List<SpendInfo>> searchItem(String searchText) async {
+  static Future<List<SpendInfo>> searchItem(String searchText) async { // arama sayfası için filitreme özelliğide görür.
     final db = await SQLHelper.db();
     //var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (note LIKE '%${searchText}%' OR category LIKE '%${searchText}%') AND note != '' AND category != ''");
-    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE ((note LIKE '%${searchText}%'  AND note != ''  )OR category LIKE '%${searchText}%') AND category != 'null' ");
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE ((note LIKE '%${searchText}%'  AND note != ''  )OR category LIKE '%${searchText}%' OR operationType LIKE '%${searchText}%' OR operationDate LIKE '%${searchText}%') AND category != 'null' ");
     return List.generate(result.length, (index){
       return SpendInfo.fromObject(result[index]);
     });
@@ -210,9 +210,9 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
-  static Future<List<SpendInfo>> getItemsByCurrency(String prefix) async { /// Sadece Gelir olan dövizleri listeler.
+  static Future<List<SpendInfo>> getItemsByCurrency(String prefix) async { /// Sadece Gelir ve Aktif olan dövizleri listeler.
     final db = await SQLHelper.db();
-    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (moneyType != '${prefix}' AND operationType == 'Gelir' )");
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (length(moneyType) == 4 AND moneyType != '${prefix}1' AND operationType == 'Gelir')");
     return List.generate(result.length, (index) {
       return SpendInfo.fromObject(result[index]);
     });

@@ -5,6 +5,7 @@
   "otherActivitiesTitle": "عمليات أخرى",
   "addIncomeExpensesTitle": "أضف الدخل / المصاريف",
   "editTitle": "تنظيم العملية",
+  "addAgainTitle": "أضف مجددًا",
   "settingsTitle": "إعدادات",
   "helpTitle": "مساعدة",
   "helpTitle2": "مساعدة<",
@@ -52,6 +53,8 @@
   "savedActivitiesAmount": "مبلغ العملية",
   "savedActivitiesCategory": "فئة العملية",
   "numberOfSavedActivities": "عدد العمليات المحفوظة:",
+  "lastActivities": "العمليات الأخيرة",
+  "numberOfShowingActivities": "عدد العمليات اللتي ستظهر",
 
   "repetitiveActivities": "العمليات المكررة",
   "repetitiveActivitiesSize": "22",
@@ -165,8 +168,8 @@
   "incomeCategories": "فئات الدخل",
   "addDeleteCategory": "أضف / احذف الفئة",
   "systemCategory": "فئة\nالنظام",
-  "addExpenseCategory": "أضف فئة  المصاريف",
-  "addIncomeCategory": "أضف فئة الدخل",
+  "addExpenseCategory": "أضف فئة  المصاريف...",
+  "addIncomeCategory": "أضف فئة الدخل...",
   "doneCategory": "تم",
 
   "foodExpense": "الطعام",
@@ -204,7 +207,8 @@
   "categoryWillBeDeletedOldRecordsWillNotBeChanged": "سيتم حذف الفئة التي اخترتها ولن يتم أي تغيير في السجلات السابقة.",
 
   "replaceAndDelete": "غير و احذف",
-  "replaceCategoryQuestion": "اختر الفئة اللتي تريد استبدالها",
+  "replaceCategoryQuestion": "اكتب الفئة المنظمة",
+  "replaceCategoryOldRecords": "ما الفئة التي يجب أن تحل محل الفئات\nالموجودة في السجلات القديمة؟",
   "replaceWithExceptTurkish": "استبدل ب ",
   "replaceWithOnlyTurkish": "",
   "selectCategory": "اختر فئة",
@@ -216,7 +220,7 @@
 
   "keepAndEdit": "احفظ ونظم",
   "replaceAndEdit": "غير ونظم",
-  "enterCategory": "أدخل الفئة",
+  "enterCategory": "اكتب الفئة",
 
   "cash": "نقدا",
   "card": "بطاقة",
@@ -296,6 +300,12 @@
   "downloadData": "تحميل البيانات",
   "contactUs": "تواصل معنا",
   "assets": "الموجودات",
+  "feedback": "اقتراح",
+  "write": "اكتب => ",
+  "evaluate": "قيّم",
+  "recommend": "دعوة",
+  "heyDoYouWantManage": "مرحبًا! هل تريد متابعة ميزانيتك؟",
+  "download": "تحميل متابعة الميزانية",
   "version": "الإصدار",
 
   "darkMode": "الوضع الداكن",
@@ -308,6 +318,11 @@
   "convert": "حول",
   "convertMessage": "انتظر من فضلك يتم تحويل العملة",
   "language": "اللغة",
+  "dateFormat": "تنسيق التاريخ",
+  "dateFormatSize": "105",
+  "dayMonthYear": "سنة.شهر.يوم",
+  "monthDayYear": "سنة.يوم.شهر",
+  "yearMonthDay": "يوم.شهر.سنة",
 
   "helpCenter": "مركز المساعدة",
   "whatsNew": "الجديد",

@@ -50,7 +50,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                   },
                   child: Container( //boyut
                     height: size.width * .7,
-                    width: size.width * .65,
+                    width: size.width * .73,
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: renkler.koyuuRenk,
@@ -101,7 +101,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  "Verileriniz indiriliyor. Lütfen bekleyiniz.",
+                                                  "Verileriniz indiriliyor.\n   Lütfen bekleyiniz.",
                                                   style: TextStyle(
                                                     fontFamily: "Nexa3",
                                                     fontSize: 18,
