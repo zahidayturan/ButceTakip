@@ -3161,7 +3161,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                               .numberWithOptions(decimal: true),
                                           inputFormatters: [
                                             FilteringTextInputFormatter.allow(
-                                              RegExp(r'^\d{0,6}(\.\d{0,2})?'),
+                                              RegExp(r'^\d{0,7}(\.\d{0,2})?'),
                                             )
                                           ],
                                           textAlign: TextAlign.center,
