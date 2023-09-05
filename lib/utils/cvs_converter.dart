@@ -39,7 +39,7 @@ Future <void> writeToCvs(String fileName) async {
     final File f = File(directory);
     final String cvs = ListToCsvConverter().convert(rows);
     f.writeAsString(cvs);
-    print("Yüklendi");
+    print("Dosya yazıldı.");
   } else {
     print("Erişim reddediliyor.");
     // İzin reddedildi, bir hata mesajı gösterin veya başka bir işlem yapın

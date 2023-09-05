@@ -156,7 +156,6 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                     color: Theme.of(context).disabledColor,
                                   ),
                                 ),
-
                                 dropdownColor: renkler.koyuuRenk,
                                 borderRadius: BorderRadius.circular(20),
                                 value: moneyType,
@@ -168,7 +167,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                 ),
                                 onChanged: (newValue) {
                                   setState(() {
-                                    moneyType = newValue!;
+                                    moneyType = newValue;
                                   });
                                 },
                                 items: moneyTypes.map<DropdownMenuItem<String>>((String value) {
@@ -200,7 +199,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                               "null",
                               "null",
                               formattedDate,
-                              moneyType,//moneytype
+                              operationType == "Gelir" ? moneyType + "1" : moneyType,//moneytype
                               "",
                               ref.read(currencyRiverpod).calculateRealAmount(double.tryParse(_controller.text)!, moneyType, readSettings.Prefix!),
                               "",
@@ -225,9 +224,10 @@ class _addAssetsState extends ConsumerState<addAssets> {
                           ),
                           child: Text(
                             translation(context).doneAsset,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: "Nexa2",
-                              height: 1
+                              height: 1,
+                              color: Theme.of(context).primaryColor
                             ),
                           ),
                         ),

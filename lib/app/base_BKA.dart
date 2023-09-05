@@ -70,7 +70,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
                     });
                   }catch(e){
                     print("Yedeklenme sırasında hata saptandı = $e");
-                    readSetting.setbackUpAlert();
+                    readSetting.setbackUpAlert(true);
                   }
                   //readGglAuth.uploadFileToStorage();
                 });
@@ -91,7 +91,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
                       });
                     }catch(e){
                       print("Yedeklenme sırasında hata saptandı = $e");
-                      readSetting.setbackUpAlert();
+                      readSetting.setbackUpAlert(true);
                     }
                   });
                 }
@@ -103,7 +103,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
                     });
                   }catch(e){
                     print("Yedeklenme sırasında hata saptandı = $e");
-                    readSetting.setbackUpAlert();
+                    readSetting.setbackUpAlert(true);
                   }
                 });
               }
@@ -118,7 +118,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
                     });
                   }catch(e){
                     print("Yedeklenme sırasında hata saptandı = $e");
-                    readSetting.setbackUpAlert();
+                    readSetting.setbackUpAlert(true);
                   }
                 });
               }

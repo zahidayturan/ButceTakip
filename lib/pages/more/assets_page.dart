@@ -154,6 +154,9 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                               decoration: BoxDecoration(
                                                 color: Theme.of(context).indicatorColor,
                                                 shape: BoxShape.circle,
+                                                border: Border.all(
+                                                    color : renkler.arkaRenk.withOpacity(0.3)
+                                                ),
                                                 boxShadow: const [
                                                   BoxShadow(
                                                     color: Colors.black12,
@@ -303,6 +306,9 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                           decoration: BoxDecoration(
                                               color: Theme.of(context).highlightColor,
                                               borderRadius: BorderRadius.circular(8),
+                                              border: Border.all(
+                                                color: Colors.white
+                                              ),
                                               boxShadow: const [
                                                 BoxShadow(
                                                     color: Colors.black12,
@@ -577,6 +583,9 @@ class _assetsPage extends ConsumerState<assetsPage> {
       padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),
+        border: Border.all(
+          color : renkkler.arkaRenk.withOpacity(0.3)
+        ),
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,

@@ -226,6 +226,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                           setState(() {
                                             selectedIndexList.clear();
                                           });
+                                          Navigator.of(context).pop();
                                         },
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

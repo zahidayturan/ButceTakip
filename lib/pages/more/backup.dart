@@ -332,9 +332,10 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           width: 1
                                         ),
                                       ),
-                                      child: const Icon(
+                                      child: Icon(
                                           Icons.question_mark,
                                         size: 18,
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                     ),
                                   ),
@@ -350,7 +351,16 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
-                                          color: const Color(0xffB72E2E),
+                                          border: Border.all(
+                                            color: renkler.arkaRenk,
+                                            width: 0.6,
+                                            strokeAlign: 6
+                                          ),
+                                          gradient: LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [renkler.kirmiziRenk, renkler.koyuuRenk],
+                                          ),
                                         ),
                                         child: Center(
                                           child: Padding(
@@ -375,7 +385,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                           )
                           :Column(
                             children: [
-                              SizedBox(height: size.height * 0.005),
+                              SizedBox(height: size.height * 0.02),
                               InkWell(
                                 onTap: () async {
                                   await readGglAuth.signInWithGoogle();
@@ -389,7 +399,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: const Color(0xff2A2895),
+                                      border: Border.all(
+                                        color: renkler.arkaRenk,
+                                        width: 1,
+                                      ),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [Color(0xff2A2895), renkler.koyuuRenk],
+                                      ),
                                     ),
                                     child: Center(
                                       child: Padding(

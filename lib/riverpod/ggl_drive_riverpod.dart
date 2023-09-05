@@ -141,6 +141,12 @@ class GglDriveRiverpod extends ChangeNotifier{
     }else{
       print("ilk değer atnamadı :/");
     }
+    if (file.existsSync()) {
+      file.deleteSync();
+      print('Dosya silindi.');
+    } else {
+      print('Dosya bulunamadı.');
+    }
   }//+
   Future<String?> uploadFileToStorage() async {
     //bu çalışıyor A planı
