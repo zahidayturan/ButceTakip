@@ -62,10 +62,13 @@ class _searchPageState extends ConsumerState<searchPage> {
                                   dbRiv.resetSearchListTile();
                                 }
                               },
+                              style: const TextStyle(
+                                color: Colors.black,
+                              ),
                               controller: _controller,
                               decoration: InputDecoration(
                                 hintText: translation(context).searchActivity,
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                   color: Colors.black,
                                   height: 1
                                 ),

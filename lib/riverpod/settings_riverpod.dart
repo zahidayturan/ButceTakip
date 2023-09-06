@@ -81,8 +81,8 @@ class SettingsRiverpod extends ChangeNotifier{
     this.securityQu = "null";
     Updating();
   }
-  void setbackUpAlert(){
-    backUpAlert = true;
+  void setbackUpAlert(bool status){
+    backUpAlert = status;
     setisuseinsert();
   }
   void setisuseinsert(){
@@ -97,8 +97,12 @@ class SettingsRiverpod extends ChangeNotifier{
     this.securityQu = securityQu ;
     Updating();
   }
-  void useSecurityClaim(){
-    securityClaim = (securityClaim! - 1);
+  void useSecurityClaim(bool status){
+    if(status){
+      securityClaim = (securityClaim! - 1);
+    }else{
+      securityClaim = 3 ;
+    }
     Updating();
   }
   void useAdCounter(){

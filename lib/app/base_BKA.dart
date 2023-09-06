@@ -56,6 +56,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
         print("Yedeklenme açık");
         checkAuth.then((value) async {
+          await readGglAuth.controlListCount();
           //await Future.delayed(Duration(seconds: 4, milliseconds: 500));
           if(readGglAuth.accountStatus == true) {
             List<String> datesplit = readSetting.lastBackup!.split(".");
@@ -70,7 +71,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
                     });
                   }catch(e){
                     print("Yedeklenme sırasında hata saptandı = $e");
-                    readSetting.setbackUpAlert();
+                    readSetting.setbackUpAlert(true);
                   }
                   //readGglAuth.uploadFileToStorage();
                 });
@@ -91,7 +92,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
                       });
                     }catch(e){
                       print("Yedeklenme sırasında hata saptandı = $e");
-                      readSetting.setbackUpAlert();
+                      readSetting.setbackUpAlert(true);
                     }
                   });
                 }
@@ -103,7 +104,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
                     });
                   }catch(e){
                     print("Yedeklenme sırasında hata saptandı = $e");
-                    readSetting.setbackUpAlert();
+                    readSetting.setbackUpAlert(true);
                   }
                 });
               }
@@ -118,7 +119,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
                     });
                   }catch(e){
                     print("Yedeklenme sırasında hata saptandı = $e");
-                    readSetting.setbackUpAlert();
+                    readSetting.setbackUpAlert(true);
                   }
                 });
               }

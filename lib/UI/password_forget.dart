@@ -112,7 +112,7 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
                             readSetting.setisuseinsert();
                             Navigator.popUntil(context, (route) => route.isFirst);
                           }else{
-                            readSetting.useSecurityClaim();
+                            readSetting.useSecurityClaim(true);
                             if(readSetting.securityClaim == 0){
                               //DB silinmesi gerekiyor.
                               SQLHelper.deleteTable("spendinfo");
