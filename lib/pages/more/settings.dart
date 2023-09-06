@@ -31,19 +31,17 @@ class _SettingsState extends ConsumerState<Settings> {
     "IQD",
     "SAR"
   ];
-  List<String> getMoneyNameList() {
-    List<String> moneyNameList = <String>[
-      'TRY - Türkiye - ₺',
-      "USD - USA - \$",
-      "EUR - Europe - €",
-      "GBP - The United Kingdom - £",
-      "KWD - Kuwait - د.ك",
-      "JOD - Jordan - د.أ'",
-      "IQD - Iraq - د.ع",
-      "SAR - Saudi Arabia - ر.س",
-    ];
-    return moneyNameList;
-  }
+
+  List<String> moneyNameList = <String>[
+    'TRY - Türkiye - ₺',
+    "USD - USA - \$",
+    "EUR - Europe - €",
+    "GBP - UK - £",
+    "KWD - Kuwait - د.ك",
+    "JOD - Jordan - د.أ'",
+    "IQD - Iraq - د.ع",
+    "SAR - Suudi Ar. - ر.س",
+  ];
 
   List<String> dilDestegi = <String>["Türkçe", "English", "العربية"];
   List<String> monthStartDays = <String>["1", "8", "15", "22", "29"];
@@ -51,109 +49,416 @@ class _SettingsState extends ConsumerState<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> dateFormats = <String>[translation(context).dayMonthYear, translation(context).monthDayYear, translation(context).yearMonthDay];
+    List<String> dateFormats = <String>[
+      translation(context).dayMonthYear,
+      translation(context).monthDayYear,
+      translation(context).yearMonthDay
+    ];
     var readNavBar = ref.read(botomNavBarRiverpod);
-    readNavBar.currentColor = Theme.of(context).primaryColor;
-    ref.watch(settingsRiverpod).isuseinsert;
-    var size = MediaQuery.of(context).size;
+    readNavBar.currentColor = Theme
+        .of(context)
+        .primaryColor;
+    ref
+        .watch(settingsRiverpod)
+        .isuseinsert;
+    var size = MediaQuery
+        .of(context)
+        .size;
     var readSetting = ref.read(settingsRiverpod);
-    var readDb = ref.read(databaseRiverpod);
-    //String? Language = readSetting.Language;
-    bool darkthememode = readSetting.DarkMode == 1 ? true : false;
+    var darkMode = readSetting.DarkMode;
     bool isPassword = readSetting.isPassword == 1 ? true : false;
     bool isBackup = readSetting.isBackUp == 1 ? true : false;
     String language =
-        readSetting.Language! == "Turkce" ? "Türkçe" : readSetting.Language!;
+    readSetting.Language! == "Turkce" ? "Türkçe" : readSetting.Language!;
     int monthStartDay = readSetting.monthStartDay!;
     String dateFormat = readSetting.dateFormat == "dd.MM.yyyy"
         ? translation(context).dayMonthYear
         : readSetting.dateFormat == "MM.dd.yyyy"
-            ? translation(context).monthDayYear
-            : translation(context).yearMonthDay;
+        ? translation(context).monthDayYear
+        : translation(context).yearMonthDay;
 
     /// dilDestegi ile database çakışmasından dolayı böyle bir koşullu atama ekledik
-    String dropdownshowitem = 'TRY';
     String? Prefix = readSetting.Prefix;
-    ref.watch(settingsRiverpod).isuseinsert;
+    String? listIndexPrefix;
+    String getListIndexInPrefix() {
+      moneyNameList.forEach((element) {
+        if (element.contains(Prefix!)) {
+          listIndexPrefix = element.toString();
+        }
+      });
+      return listIndexPrefix ?? "";
+    }
+    ref
+        .watch(settingsRiverpod)
+        .isuseinsert;
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
         bottom: false,
         child: Scaffold(
-          //backgroundColor: ThemeData().scaffoldBackgroundColor,
           bottomNavigationBar: const NavBar(),
           appBar: AppBarForPage(title: translation(context).settingsTitle),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
             child:
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Container(
-                  height: 40,
-                  width: size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(
-                        color: renkler.arkaRenk, // Set border color
-                        width: 1.0),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          translation(context).darkMode,
-                          style: const TextStyle(
-                              fontFamily: "Nexa3", fontSize: 15, height: 1),
-                        ),
-                        const Spacer(),
-                        darkthememode
-                            ? Text(
-                                translation(context).on,
-                                style: const TextStyle(
-                                  fontFamily: "Nexa3",
-                                  fontSize: 15,
-                                ),
+            Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      const SizedBox(height: 12,),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Container(
+                          height: 40,
+                          width: size.width * 0.75,
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .primaryColor,
+                            boxShadow: darkMode == 1 ? [
+                              BoxShadow(
+                                color: Colors.black54.withOpacity(0.8),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(-1, 2),
                               )
-                            : Text(
-                                translation(context).off,
-                                style: const TextStyle(
-                                  fontFamily: "Nexa3",
-                                  fontSize: 15,
+                            ] : [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 0.5,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2)
+                              )
+                            ],
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(
+                                color: Theme
+                                    .of(context)
+                                    .indicatorColor, // Set border color
+                                width: 1.0),
+                            //color: Theme.of(context).primaryColor,
+                          ),
+                          child: Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 7.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 26,
+                                  height: 26,
+                                  decoration: BoxDecoration(
+                                    color: Theme
+                                        .of(context)
+                                        .scaffoldBackgroundColor,
+                                    shape: BoxShape.circle,
+                                    /*boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 1,
+                                            blurRadius: 2,
+                                            offset: const Offset(-1, 1),
+                                        ),
+                                      ]*/
+                                  ),
+                                  child: Icon(
+                                    Icons.language_rounded,
+                                    color: Theme
+                                        .of(context)
+                                        .secondaryHeaderColor,
+                                    size: 18,
+                                  ),
                                 ),
-                              ),
-                        Switch(
-                          activeColor: Theme.of(context).disabledColor,
-                          value: darkthememode,
-                          onChanged: (bool value) {
-                            setState(() {
-                              readSetting.setDarkMode(value);
-                            });
-                          },
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 4, left: 8, right: 8),
+                                  child: Text(
+                                    "Dil",
+                                    style: const TextStyle(
+                                        fontFamily: "Nexa3",
+                                        fontSize: 14,
+                                        height: 1),
+                                  ),
+                                ),
+                                const Spacer(),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Container(
+                                    height: 26,
+                                    width: 100,
+                                    color: Theme
+                                        .of(context)
+                                        .highlightColor,
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton2<String>(
+                                        isExpanded: true,
+                                        hint: Center(
+                                          child: Text(
+                                            translation(context).select,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'Nexa3',
+                                              color: renkler.arkaRenk,
+                                            ),
+                                          ),
+                                        ),
+                                        items: dilDestegi
+                                            .map((item) =>
+                                            DropdownMenuItem(
+                                              value: item,
+                                              child: Center(
+                                                child: Padding(
+                                                  padding:
+                                                  const EdgeInsets.only(top: 2),
+                                                  child: Text(
+                                                    item,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontFamily: 'Nexa3',
+                                                        color: renkler
+                                                            .arkaRenk),
+                                                  ),
+                                                ),
+                                              ),
+                                            ))
+                                            .toList(),
+                                        value: language,
+                                        onChanged: (newValue) {
+                                          if (newValue == "Türkçe") {
+                                            /// database te Turkce yazılı olduğu için if koşulu kullandık.
+                                            readSetting.setLanguage("Turkce");
+                                            readSetting
+                                                .setDateFormat("dd.MM.yyyy");
+                                          } else
+                                          if (newValue == dilDestegi[1]) {
+                                            readSetting.setLanguage(newValue!);
+                                            readSetting
+                                                .setDateFormat("MM.dd.yyyy");
+                                          } else
+                                          if (newValue == dilDestegi[2]) {
+                                            readSetting.setLanguage(newValue!);
+                                            readSetting
+                                                .setDateFormat("yyyy.MM.dd");
+                                          } else {
+                                            readSetting.setLanguage(newValue!);
+                                            readSetting
+                                                .setDateFormat("MM.dd.yyyy");
+                                          }
+                                          readSetting.setisuseinsert();
+                                        },
+                                        barrierColor:
+                                        renkler.koyuAraRenk.withOpacity(0.4),
+                                        buttonStyleData: ButtonStyleData(
+                                          overlayColor: MaterialStatePropertyAll(
+                                              renkler
+                                                  .koyuAraRenk),
+                                          // BAŞLANGIÇ BASILMA RENGİ
+                                          padding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 4),
+                                          height: 30,
+                                          width: 100,
+                                        ),
+                                        dropdownStyleData: DropdownStyleData(
+                                            maxHeight: 250,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                color: Theme
+                                                    .of(context)
+                                                    .highlightColor,
+                                                borderRadius: const BorderRadius
+                                                    .all(
+                                                    Radius.circular(5))),
+                                            scrollbarTheme: ScrollbarThemeData(
+                                                radius: const Radius.circular(
+                                                    15),
+                                                thumbColor: MaterialStatePropertyAll(
+                                                    Theme
+                                                        .of(context)
+                                                        .disabledColor))),
+                                        menuItemStyleData: MenuItemStyleData(
+                                          overlayColor: MaterialStatePropertyAll(
+                                              renkler
+                                                  .sariRenk),
+                                          // MENÜ BASILMA RENGİ
+                                          height: 30,
+                                        ),
+                                        iconStyleData: IconStyleData(
+                                          icon: const Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                          ),
+                                          iconSize: 24,
+                                          iconEnabledColor: renkler.arkaRenk,
+                                          iconDisabledColor: renkler.arkaRenk,
+                                          openMenuIcon: Icon(
+                                            Icons.keyboard_arrow_up_rounded,
+                                            color: renkler.arkaRenk,
+                                            size: 24,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Container(
+                          height: 40,
+                          width: size.width * 0.75,
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .primaryColor,
+                            boxShadow: darkMode == 1 ? [
+                              BoxShadow(
+                                color: Colors.black54.withOpacity(0.8),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(-1, 2),
+                              )
+                            ] : [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 0.5,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2)
+                              )
+                            ],
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(
+                                color: Theme
+                                    .of(context)
+                                    .indicatorColor, // Set border color
+                                width: 1.0),
+                            //color: Theme.of(context).primaryColor,
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              AppSettings.openAppSettings(
+                                  type: AppSettingsType.notification);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 7.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 26,
+                                    height: 26,
+                                    decoration: BoxDecoration(
+                                      color: Theme
+                                          .of(context)
+                                          .scaffoldBackgroundColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      Icons.notifications_rounded,
+                                      color: Theme
+                                          .of(context)
+                                          .secondaryHeaderColor,
+                                      size: 18,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 4, left: 8, right: 8),
+                                    child: Text(
+                                      translation(context).notifications,
+                                      style: const TextStyle(
+                                          fontFamily: "Nexa3",
+                                          fontSize: 14,
+                                          height: 1),
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Container(
+                                    height: 26,
+                                    width: 26,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).splashColor,
+                                      shape: BoxShape.circle
+                                    ),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right_rounded,
+                                      color: Theme
+                                          .of(context)
+                                          .canvasColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ),
+                  GestureDetector(
+                      onTap: () {
+                        readSetting.setDarkModeNotBool();
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.linear,
+                        width: darkMode == 0 ? 50 : 40,
+                        height: darkMode == 0 ? 100 : 80,
+                        //padding: darkMode == 0 ?  EdgeInsets.zero : EdgeInsets.only(bottom: 20),
+                        child: Image.asset(
+                          darkMode == 0
+                              ? "assets/icons/lightTheme.png"
+                              : "assets/icons/darkTheme.png",
+                        ),
 
-              ///Koyu tema
+                      )
+
+                  ),
+                  const SizedBox(width: 0.1,)
+                ],
+              ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
+                padding: const EdgeInsets.only(bottom: 12.0),
                 child: Container(
                   height: 40,
                   width: size.width,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
+                    boxShadow: darkMode == 1 ? [
+                      BoxShadow(
+                        color: Colors.black54.withOpacity(0.8),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: const Offset(-1, 2),
+                      )
+                    ] : [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 0.5,
+                          blurRadius: 2,
+                          offset: const Offset(0, 2)
+                      )
+                    ],
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(10)),
                     border: Border.all(
-                        color: renkler.arkaRenk, // Set border color
+                        color: Theme
+                            .of(context)
+                            .indicatorColor, // Set border color
                         width: 1.0),
-                    color: Theme.of(context).primaryColor,
+                    //color: Theme.of(context).primaryColor,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 7.0),
                     child: InkWell(
                       onTap: () {
                         if (isPassword && readSetting.Password != "null") {
@@ -161,11 +466,11 @@ class _SettingsState extends ConsumerState<Settings> {
                             context,
                             PageRouteBuilder(
                               transitionDuration:
-                                  const Duration(milliseconds: 1),
+                              const Duration(milliseconds: 1),
                               pageBuilder: (context, animation, nextanim) =>
-                                  const PasswordSplash(mode: "admin"),
+                              const PasswordSplash(mode: "admin"),
                               reverseTransitionDuration:
-                                  const Duration(milliseconds: 1),
+                              const Duration(milliseconds: 1),
                               transitionsBuilder:
                                   (context, animation, nexttanim, child) {
                                 return FadeTransition(
@@ -180,11 +485,11 @@ class _SettingsState extends ConsumerState<Settings> {
                             context,
                             PageRouteBuilder(
                               transitionDuration:
-                                  const Duration(milliseconds: 1),
+                              const Duration(milliseconds: 1),
                               pageBuilder: (context, animation, nextanim) =>
-                                  const PasswordPage(),
+                              const PasswordPage(),
                               reverseTransitionDuration:
-                                  const Duration(milliseconds: 1),
+                              const Duration(milliseconds: 1),
                               transitionsBuilder:
                                   (context, animation, nexttanim, child) {
                                 return FadeTransition(
@@ -198,31 +503,84 @@ class _SettingsState extends ConsumerState<Settings> {
                       },
                       child: Row(
                         children: [
-                          Text(
-                            translation(context).loginPassword,
-                            style: const TextStyle(
-                                fontFamily: "Nexa3", fontSize: 15, height: 1),
+                          Container(
+                            width: 26,
+                            height: 26,
+                            decoration: BoxDecoration(
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
+                              shape: BoxShape.circle,
+                              /*boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 1,
+                                            blurRadius: 2,
+                                            offset: const Offset(-1, 1),
+                                        ),
+                                      ]*/
+                            ),
+                            child: Icon(
+                              isPassword ? Icons.lock_rounded : Icons
+                                  .lock_open_rounded,
+                              color: Theme
+                                  .of(context)
+                                  .secondaryHeaderColor,
+                              size: 18,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 4, left: 8, right: 8),
+                            child: Text(
+                              translation(context).loginPassword,
+                              style: const TextStyle(
+                                  fontFamily: "Nexa3", fontSize: 14, height: 1),
+                            ),
                           ),
                           const Spacer(),
                           isPassword
-                              ? Text(
-                                  translation(context).on,
-                                  style: const TextStyle(
-                                    fontFamily: "Nexa3",
-                                    height: 1,
-                                    fontSize: 15,
-                                  ),
-                                )
-                              : Text(
-                                  translation(context).off,
-                                  style: const TextStyle(
-                                    fontFamily: "Nexa3",
-                                    height: 1,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                          const Icon(
-                            Icons.arrow_forward_ios,
+                              ? Padding(
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Text(
+                              translation(context).on,
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
+                                color: Theme
+                                    .of(context)
+                                    .secondaryHeaderColor,
+                                height: 1,
+                                fontSize: 14,
+                              ),
+                            ),
+                          )
+                              : Padding(
+                            padding: const EdgeInsets.only(top: 2,left: 8,right: 8),
+                            child: Text(
+                              translation(context).off,
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
+                                color: Theme
+                                    .of(context)
+                                    .canvasColor,
+                                height: 1,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 26,
+                            width: 26,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).splashColor,
+                                shape: BoxShape.circle
+                            ),
+                            child: Icon(
+                              Icons.keyboard_arrow_right_rounded,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
+                            ),
                           ),
                         ],
                       ),
@@ -231,19 +589,40 @@ class _SettingsState extends ConsumerState<Settings> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
+                padding: const EdgeInsets.only(bottom: 12.0),
                 child: Container(
                   height: 40,
                   width: size.width,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
+                    boxShadow: darkMode == 1 ? [
+                      BoxShadow(
+                        color: Colors.black54.withOpacity(0.8),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: const Offset(-1, 2),
+                      )
+                    ] : [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 0.5,
+                          blurRadius: 2,
+                          offset: const Offset(0, 2)
+                      )
+                    ],
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(10)),
                     border: Border.all(
-                        color: renkler.arkaRenk, // Set border color
+                        color: Theme
+                            .of(context)
+                            .indicatorColor, // Set border color
                         width: 1.0),
-                    color: Theme.of(context).primaryColor,
+                    //color: Theme.of(context).primaryColor,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 7.0),
                     child: InkWell(
                       onTap: () {
                         Navigator.push(
@@ -251,9 +630,9 @@ class _SettingsState extends ConsumerState<Settings> {
                           PageRouteBuilder(
                             transitionDuration: const Duration(milliseconds: 1),
                             pageBuilder: (context, animation, nextanim) =>
-                                const BackUp(),
+                            const BackUp(),
                             reverseTransitionDuration:
-                                const Duration(milliseconds: 1),
+                            const Duration(milliseconds: 1),
                             transitionsBuilder:
                                 (context, animation, nexttanim, child) {
                               return FadeTransition(
@@ -266,31 +645,84 @@ class _SettingsState extends ConsumerState<Settings> {
                       },
                       child: Row(
                         children: [
-                          Text(
-                            translation(context).backupStatus,
-                            style: const TextStyle(
-                                fontFamily: "Nexa3", fontSize: 15, height: 1),
+                          Container(
+                            width: 26,
+                            height: 26,
+                            decoration: BoxDecoration(
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
+                              shape: BoxShape.circle,
+                              /*boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 1,
+                                            blurRadius: 2,
+                                            offset: const Offset(-1, 1),
+                                        ),
+                                      ]*/
+                            ),
+                            child: Icon(
+                              isBackup ? Icons.backup_rounded : Icons
+                                  .backup_outlined,
+                              color: Theme
+                                  .of(context)
+                                  .secondaryHeaderColor,
+                              size: 18,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 4, left: 8, right: 8),
+                            child: Text(
+                              translation(context).backupStatus,
+                              style: const TextStyle(
+                                  fontFamily: "Nexa3", fontSize: 14, height: 1),
+                            ),
                           ),
                           const Spacer(),
                           isBackup
-                              ? Text(
-                                  translation(context).on,
-                                  style: const TextStyle(
-                                    fontFamily: "Nexa3",
-                                    height: 1,
-                                    fontSize: 15,
-                                  ),
-                                )
-                              : Text(
-                                  translation(context).off,
-                                  style: const TextStyle(
-                                    fontFamily: "Nexa3",
-                                    height: 1,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                          const Icon(
-                            Icons.arrow_forward_ios,
+                              ? Padding(
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Text(
+                              translation(context).on,
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
+                                color: Theme
+                                    .of(context)
+                                    .secondaryHeaderColor,
+                                height: 1,
+                                fontSize: 14,
+                              ),
+                            ),
+                          )
+                              : Padding(
+                            padding: const EdgeInsets.only(top: 2,left: 8,right: 8),
+                            child: Text(
+                              translation(context).off,
+                              style: TextStyle(
+                                fontFamily: "Nexa3",
+                                color: Theme
+                                    .of(context)
+                                    .canvasColor,
+                                height: 1,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 26,
+                            width: 26,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).splashColor,
+                                shape: BoxShape.circle
+                            ),
+                            child: Icon(
+                              Icons.keyboard_arrow_right_rounded,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
+                            ),
                           )
                         ],
                       ),
@@ -299,94 +731,132 @@ class _SettingsState extends ConsumerState<Settings> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
+                padding: const EdgeInsets.only(bottom: 12.0),
                 child: Container(
                   height: 40,
                   width: size.width,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
+                    boxShadow: darkMode == 1 ? [
+                      BoxShadow(
+                        color: Colors.black54.withOpacity(0.8),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: const Offset(-1, 2),
+                      )
+                    ] : [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 0.5,
+                          blurRadius: 2,
+                          offset: const Offset(0, 2)
+                      )
+                    ],
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(10)),
                     border: Border.all(
-                        color: renkler.arkaRenk, // Set border color
+                        color: Theme
+                            .of(context)
+                            .indicatorColor, // Set border color
                         width: 1.0),
-                    color: Theme.of(context).primaryColor,
+                    //color: Theme.of(context).primaryColor,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: InkWell(
-                      onTap: () {
-                        AppSettings.openAppSettings(
-                            type: AppSettingsType.notification);
-                      },
-                      child: Row(
-                        children: [
-                          Text(
-                            translation(context).notifications,
+                    padding: const EdgeInsets.symmetric(horizontal: 7.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
+                            shape: BoxShape.circle,
+                            /*boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 2,
+                                          offset: const Offset(-1, 1),
+                                      ),
+                                    ]*/
+                          ),
+                          child: Icon(
+                            Icons.currency_lira_rounded,
+                            color: Theme
+                                .of(context)
+                                .secondaryHeaderColor,
+                            size: 18,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 4, left: 8, right: 8),
+                          child: Text(
+                            "Para Birimi",
                             style: const TextStyle(
-                                fontFamily: "Nexa3", fontSize: 15, height: 1),
+                                fontFamily: "Nexa3", fontSize: 14, height: 1),
                           ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(11)),
-                  child: Container(
-                    height: 40,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(
-                          color: renkler.arkaRenk, // Set border color
-                          width: 1.0),
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            translation(context).defaultCurrency,
-                            style: const TextStyle(
-                                fontFamily: "Nexa3", fontSize: 15, height: 1),
-                          ),
-                          const Spacer(),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              height: 30,
-                              width: 80,
-                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                              color: renkler.koyuuRenk,
-                              child: DropdownButton(
-                                dropdownColor: renkler.koyuuRenk,
-                                borderRadius: BorderRadius.circular(20),
-                                value: Prefix,
-                                elevation: 16,
-                                style: TextStyle(color: Theme.of(context).disabledColor),
-                                underline: Container(
-                                  height: 2,
-                                  color: renkler.koyuuRenk,
+                        ),
+                        const Spacer(),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            height: 26,
+                            width: 150,
+                            color: Theme
+                                .of(context)
+                                .highlightColor,
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                isExpanded: true,
+                                hint: Center(
+                                  child: Text(
+                                    translation(context).select,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Nexa3',
+                                      color: renkler.arkaRenk,
+                                    ),
+                                  ),
                                 ),
-                                onChanged: (newValue) async {
+                                items: moneyNameList.map((item) =>
+                                    DropdownMenuItem(
+                                      value: item,
+                                      child: Center(
+                                        child: Padding(
+                                          padding: EdgeInsets.zero,
+                                          child: FittedBox(
+                                            child: Text(item,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontFamily: "TL",
+                                                  color: renkler.arkaRenk),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ))
+                                    .toList(),
+                                value: getListIndexInPrefix(),
+                                onChanged: (newValue) {
                                   Navigator.push(
                                     context,
                                     PageRouteBuilder(
-                                      opaque: false, //sayfa saydam olması için
+                                      opaque: false,
+                                      //sayfa saydam olması için
                                       transitionDuration:
-                                          const Duration(milliseconds: 1),
+                                      const Duration(milliseconds: 1),
                                       pageBuilder:
                                           (context, animation, nextanim) =>
-                                              changePrefixAlert(newValue!),
+                                          changePrefixAlert(
+                                              newValue.toString().substring(
+                                                  0, 3)),
                                       reverseTransitionDuration:
-                                          const Duration(milliseconds: 1),
+                                      const Duration(milliseconds: 1),
                                       transitionsBuilder: (context, animation,
                                           nexttanim, child) {
                                         return FadeTransition(
@@ -396,96 +866,50 @@ class _SettingsState extends ConsumerState<Settings> {
                                       },
                                     ),
                                   );
-                                  /*
-
-
-                                   */
                                 },
-                                items: moneyPrefix
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                    onTap: () {
-                                      print(value);
-                                    },
-                                  );
-                                }).toList(),
+                                barrierColor: renkler.koyuAraRenk.withOpacity(
+                                    0.4),
+                                buttonStyleData: ButtonStyleData(
+                                  overlayColor: MaterialStatePropertyAll(renkler
+                                      .sariRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 4),
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                    maxHeight: 280,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                        color: Theme
+                                            .of(context)
+                                            .highlightColor,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(5))),
+                                    scrollbarTheme: ScrollbarThemeData(
+                                        radius: const Radius.circular(15),
+                                        thumbColor: MaterialStatePropertyAll(
+                                            Theme
+                                                .of(context)
+                                                .disabledColor))),
+                                menuItemStyleData: MenuItemStyleData(
+                                  overlayColor: MaterialStatePropertyAll(Theme
+                                      .of(context)
+                                      .disabledColor), // MENÜ BASILMA RENGİ
+                                  height: 32,
+                                ),
+                                iconStyleData: IconStyleData(
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                  ),
+                                  iconSize: 24,
+                                  iconEnabledColor: renkler.arkaRenk,
+                                  iconDisabledColor: renkler.arkaRenk,
+                                  openMenuIcon: Icon(
+                                    Icons.keyboard_arrow_up_rounded,
+                                    color: renkler.arkaRenk,
+                                    size: 24,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Container(
-                  height: 40,
-                  width: size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(
-                        color: renkler.arkaRenk, // Set border color
-                        width: 1.0),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          translation(context).language,
-                          style: const TextStyle(
-                              fontFamily: "Nexa3", fontSize: 15, height: 1),
-                        ),
-                        const Spacer(),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Container(
-                            height: 30,
-                            width: 80,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 5.0),
-                            color: renkler.koyuuRenk,
-                            child: DropdownButton(
-                              dropdownColor: renkler.koyuuRenk,
-                              borderRadius: BorderRadius.circular(20),
-                              value: language,
-                              elevation: 16,
-                              style: TextStyle(color: Theme.of(context).disabledColor),
-                              underline: Container(
-                                height: 2,
-                                color: renkler.koyuuRenk,
-                              ),
-                              onChanged: (newValue) {
-                                if (newValue == "Türkçe") {
-                                  /// database te Turkce yazılı olduğu için if koşulu kullandık.
-                                  readSetting.setLanguage("Turkce");
-                                  readSetting.setDateFormat("dd.MM.yyyy");
-                                } else if(newValue == dilDestegi[1]) {
-                                  readSetting.setLanguage(newValue!);
-                                  readSetting.setDateFormat("MM.dd.yyyy");
-                                } else if (newValue == dilDestegi[2]) {
-                                  readSetting.setLanguage(newValue!);
-                                  readSetting.setDateFormat("yyyy.MM.dd");
-                                } else{
-                                  readSetting.setLanguage(newValue!);
-                                  readSetting.setDateFormat("MM.dd.yyyy");
-                                }
-                                readSetting.setisuseinsert();
-                              },
-                              items: dilDestegi.map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                  onTap: () {},
-                                );
-                              }).toList(),
                             ),
                           ),
                         ),
@@ -495,260 +919,395 @@ class _SettingsState extends ConsumerState<Settings> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8,left: 8),
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: Container(
+                  height: 40,
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
+                    boxShadow: darkMode == 1 ? [
+                      BoxShadow(
+                        color: Colors.black54.withOpacity(0.8),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: const Offset(-1, 2),
+                      )
+                    ] : [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 0.5,
+                          blurRadius: 2,
+                          offset: const Offset(0, 2)
+                      )
+                    ],
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(
+                        color: Theme
+                            .of(context)
+                            .indicatorColor, // Set border color
+                        width: 1.0),
+                    //color: Theme.of(context).primaryColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 7),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             shape: BoxShape.circle,
-                            color: Theme.of(context).highlightColor,
-                            border: Border.all(width: 1,color: renkler.arkaRenk,strokeAlign: BorderSide.strokeAlignOutside)
+                            /*boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 2,
+                                          offset: const Offset(-1, 1),
+                                      ),
+                                    ]*/
+                          ),
+                          child: Icon(
+                            Icons.timelapse_rounded,
+                            color: Theme
+                                .of(context)
+                                .secondaryHeaderColor,
+                            size: 18,
+                          ),
                         ),
-                        child: Icon(
-                          Icons.timelapse_rounded,
-                          color: renkler.arkaRenk,
-                          size: 18,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Text(
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 4, left: 8, right: 8),
+                          child: Text(
                             translation(context).firstDayOfTheMonth,
                             style: const TextStyle(
-                                fontFamily: "Nexa3", fontSize: 15, height: 1),
+                                fontFamily: "Nexa3", fontSize: 14, height: 1),
                           ),
-                          const Spacer(),
-                          Container(
-                            height: 28,
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Container(
+                            height: 26,
+                            width: 26,
                             decoration: BoxDecoration(
-                                color: Theme.of(context).highlightColor,
-                                borderRadius: BorderRadius.all(Radius.circular(10))
+                                color: Theme.of(context).splashColor,
+                                shape: BoxShape.circle
                             ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2<String>(
-                                isExpanded: true,
-                                hint: Center(
-                                  child: Text(
-                                    translation(context).select,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Nexa3',
-                                      color: renkler.arkaRenk,
-                                    ),
+                            child: Icon(
+                              Icons.info_outline_rounded,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 26,
+                          decoration: BoxDecoration(
+                              color: Theme
+                                  .of(context)
+                                  .highlightColor,
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(10))),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2<String>(
+                              isExpanded: true,
+                              hint: Center(
+                                child: Text(
+                                  translation(context).select,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa3',
+                                    color: renkler.arkaRenk,
                                   ),
                                 ),
-                                items: monthStartDays
-                                    .map((item) => DropdownMenuItem(
-                                  value: item,
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 2),
-                                      child: Text(
-                                        item,
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontFamily: 'Nexa3',
-                                            color: renkler.arkaRenk),
+                              ),
+                              items: monthStartDays
+                                  .map((item) =>
+                                  DropdownMenuItem(
+                                    value: item,
+                                    child: Center(
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.only(top: 2),
+                                        child: Text(
+                                          item,
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'Nexa3',
+                                              color: renkler.arkaRenk),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ))
-                                    .toList(),
-                                value: monthStartDay.toString(),
-                                onChanged: (newValue) {
-                                  setState(
-                                        () {
-                                          readSetting
-                                              .setMonthStartDay(int.parse(newValue!));
-                                          readSetting.setisuseinsert();
-                                    },
-                                  );
-                                },
-                                barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
-                                buttonStyleData: ButtonStyleData(
-                                  overlayColor: MaterialStatePropertyAll(renkler
-                                      .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                                  height: 34,
+                                  ))
+                                  .toList(),
+                              value: monthStartDay.toString(),
+                              onChanged: (newValue) {
+                                setState(
+                                      () {
+                                    readSetting.setMonthStartDay(
+                                        int.parse(newValue!));
+                                    readSetting.setisuseinsert();
+                                  },
+                                );
+                              },
+                              barrierColor: renkler.koyuAraRenk.withOpacity(
+                                  0.4),
+                              buttonStyleData: ButtonStyleData(
+                                overlayColor: MaterialStatePropertyAll(renkler
+                                    .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 4),
+                                height: 34,
+                                width: 60,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                  maxHeight: 250,
                                   width: 60,
+                                  decoration: BoxDecoration(
+                                      color: Theme
+                                          .of(context)
+                                          .highlightColor,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(5))),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                      radius: const Radius.circular(15),
+                                      thumbColor: MaterialStatePropertyAll(
+                                          Theme
+                                              .of(context)
+                                              .disabledColor))),
+                              menuItemStyleData: MenuItemStyleData(
+                                overlayColor: MaterialStatePropertyAll(renkler
+                                    .sariRenk), // MENÜ BASILMA RENGİ
+                                height: 34,
+                              ),
+                              iconStyleData: IconStyleData(
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down_rounded,
                                 ),
-                                dropdownStyleData: DropdownStyleData(
-                                    maxHeight: 250,
-                                    width: 60,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).highlightColor,
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(5))),
-                                    scrollbarTheme: ScrollbarThemeData(
-                                        radius: const Radius.circular(15),
-                                        thumbColor: MaterialStatePropertyAll(
-                                            Theme.of(context).disabledColor))),
-                                menuItemStyleData: MenuItemStyleData(
-                                  overlayColor: MaterialStatePropertyAll(
-                                      renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
-                                  height: 34,
-                                ),
-                                iconStyleData: IconStyleData(
-                                  icon: const Icon(
-                                    Icons.arrow_drop_down,
-                                  ),
-                                  iconSize: 24,
-                                  iconEnabledColor:
-                                  renkler.arkaRenk,
-                                  iconDisabledColor:
-                                  Theme.of(context).secondaryHeaderColor,
-                                  openMenuIcon: Icon(
-                                    Icons.arrow_right,
-                                    color: Theme.of(context).canvasColor,
-                                    size: 24,
-                                  ),
+                                iconSize: 24,
+                                iconEnabledColor: renkler.arkaRenk,
+                                iconDisabledColor: renkler.arkaRenk,
+                                openMenuIcon: Icon(
+                                  Icons.keyboard_arrow_up_rounded,
+                                  color: renkler.arkaRenk,
+                                  size: 24,
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8,left: 8),
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: Container(
+                  height: 40,
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
+                    boxShadow: darkMode == 1 ? [
+                      BoxShadow(
+                        color: Colors.black54.withOpacity(0.8),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: const Offset(-1, 2),
+                      )
+                    ] : [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 0.5,
+                          blurRadius: 2,
+                          offset: const Offset(0, 2)
+                      )
+                    ],
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(
+                        color: Theme
+                            .of(context)
+                            .indicatorColor, // Set border color
+                        width: 1.0),
+                    //color: Theme.of(context).primaryColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 7),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             shape: BoxShape.circle,
-                            color: Theme.of(context).highlightColor,
-                            border: Border.all(width: 1,color: renkler.arkaRenk,strokeAlign: BorderSide.strokeAlignOutside)
+                            /*boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.black.withOpacity(0.2),
+                                              spreadRadius: 1,
+                                              blurRadius: 2,
+                                              offset: const Offset(-1, 1),
+                                          ),
+                                        ]*/
+                          ),
+                          child: Icon(
+                            Icons.calendar_month_rounded,
+                            color: Theme
+                                .of(context)
+                                .secondaryHeaderColor,
+                            size: 18,
+                          ),
                         ),
-                        child: Icon(
-                          Icons.calendar_month_rounded,
-                          color: renkler.arkaRenk,
-                          size: 18,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Text(
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 4, left: 8, right: 8),
+                          child: Text(
                             translation(context).dateFormat,
                             style: const TextStyle(
-                                fontFamily: "Nexa3", fontSize: 15, height: 1),
+                                fontFamily: "Nexa3", fontSize: 14, height: 1),
                           ),
-                          const Spacer(),
-                          Container(
-                            height: 28,
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Container(
+                            height: 26,
+                            width: 26,
                             decoration: BoxDecoration(
-                                color: Theme.of(context).highlightColor,
-                                borderRadius: BorderRadius.all(Radius.circular(10))
+                                color: Theme.of(context).splashColor,
+                                shape: BoxShape.circle
                             ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2<String>(
-                                isExpanded: true,
-                                hint: Center(
-                                  child: Text(
-                                    translation(context).select,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Nexa3',
-                                      color: renkler.arkaRenk,
-                                    ),
+                            child: Icon(
+                              Icons.info_outline_rounded,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 26,
+                          decoration: BoxDecoration(
+                              color: Theme
+                                  .of(context)
+                                  .highlightColor,
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(10))),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2<String>(
+                              isExpanded: true,
+                              hint: Center(
+                                child: Text(
+                                  translation(context).select,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Nexa3',
+                                    color: renkler.arkaRenk,
                                   ),
                                 ),
-                                items: dateFormats
-                                    .map((item) => DropdownMenuItem(
-                                  value: item,
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 2),
-                                      child: Text(
-                                        item,
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontFamily: 'Nexa3',
-                                            color: renkler.arkaRenk),
+                              ),
+                              items: dateFormats
+                                  .map((item) =>
+                                  DropdownMenuItem(
+                                    value: item,
+                                    child: Center(
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.only(top: 2),
+                                        child: Text(
+                                          item,
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'Nexa3',
+                                              color: renkler.arkaRenk),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ))
-                                    .toList(),
-                                value: dateFormat,
-                                onChanged: (newValue) {
-                                  setState(
-                                        () {
-                                      if (newValue == translation(context).dayMonthYear) {
-                                        readSetting.setDateFormat("dd.MM.yyyy");
-                                      } else if (newValue == translation(context).monthDayYear) {
-                                        readSetting.setDateFormat("MM.dd.yyyy");
-                                      } else if (newValue == translation(context).yearMonthDay) {
-                                        readSetting.setDateFormat("yyyy.MM.dd");
-                                      } else {
-                                        readSetting.setDateFormat("dd.MM.yyyy");
-                                      }
-                                      readSetting.setisuseinsert();
-                                    },
-                                  );
-                                },
-                                barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
-                                buttonStyleData: ButtonStyleData(
-                                  overlayColor: MaterialStatePropertyAll(renkler
-                                      .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                                  height: 34,
-                                  width: double.parse(translation(context).dateFormatSize),
+                                  ))
+                                  .toList(),
+                              value: dateFormat,
+                              onChanged: (newValue) {
+                                setState(
+                                      () {
+                                    if (newValue ==
+                                        translation(context).dayMonthYear) {
+                                      readSetting.setDateFormat("dd.MM.yyyy");
+                                    } else if (newValue ==
+                                        translation(context).monthDayYear) {
+                                      readSetting.setDateFormat("MM.dd.yyyy");
+                                    } else if (newValue ==
+                                        translation(context).yearMonthDay) {
+                                      readSetting.setDateFormat("yyyy.MM.dd");
+                                    } else {
+                                      readSetting.setDateFormat("dd.MM.yyyy");
+                                    }
+                                    readSetting.setisuseinsert();
+                                  },
+                                );
+                              },
+                              barrierColor: renkler.koyuAraRenk.withOpacity(
+                                  0.4),
+                              buttonStyleData: ButtonStyleData(
+                                overlayColor: MaterialStatePropertyAll(renkler
+                                    .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 4),
+                                height: 34,
+                                width: double.parse(
+                                    translation(context).dateFormatSize),
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                  maxHeight: 250,
+                                  width: double.parse(
+                                      translation(context).dateFormatSize),
+                                  decoration: BoxDecoration(
+                                      color: Theme
+                                          .of(context)
+                                          .highlightColor,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(5))),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                      radius: const Radius.circular(15),
+                                      thumbColor: MaterialStatePropertyAll(
+                                          Theme
+                                              .of(context)
+                                              .disabledColor))),
+                              menuItemStyleData: MenuItemStyleData(
+                                overlayColor: MaterialStatePropertyAll(renkler
+                                    .sariRenk), // MENÜ BASILMA RENGİ
+                                height: 34,
+                              ),
+                              iconStyleData: IconStyleData(
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down_rounded,
                                 ),
-                                dropdownStyleData: DropdownStyleData(
-                                    maxHeight: 250,
-                                    width: double.parse(translation(context).dateFormatSize),
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).highlightColor,
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(5))),
-                                    scrollbarTheme: ScrollbarThemeData(
-                                        radius: const Radius.circular(15),
-                                        thumbColor: MaterialStatePropertyAll(
-                                            Theme.of(context).disabledColor))),
-                                menuItemStyleData: MenuItemStyleData(
-                                  overlayColor: MaterialStatePropertyAll(
-                                      renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
-                                  height: 34,
-                                ),
-                                iconStyleData: IconStyleData(
-                                  icon: const Icon(
-                                    Icons.arrow_drop_down,
-                                  ),
-                                  iconSize: 24,
-                                  iconEnabledColor:
-                                  renkler.arkaRenk,
-                                  iconDisabledColor:
-                                  Theme.of(context).secondaryHeaderColor,
-                                  openMenuIcon: Icon(
-                                    Icons.arrow_right,
-                                    color: Theme.of(context).canvasColor,
-                                    size: 24,
-                                  ),
+                                iconSize: 24,
+                                iconEnabledColor: renkler.arkaRenk,
+                                iconDisabledColor: renkler.arkaRenk,
+                                openMenuIcon: Icon(
+                                  Icons.keyboard_arrow_up_rounded,
+                                  color: renkler.arkaRenk,
+                                  size: 24,
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ]),
@@ -756,170 +1315,5 @@ class _SettingsState extends ConsumerState<Settings> {
         ),
       ),
     );
-
-    /// Yedekleme durumu
-    ///Dil seçeneği
   }
-  /*
-  Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(11)),
-                    child: Container(
-                      height: 40,
-                      width: size.width,
-                      color: renkler.arkaRenk,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Container(
-                    height: 40,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(10)
-                      ),
-                      border: Border.all(
-                          color: renkler.arkaRenk, // Set border color
-                          width: 1.0),
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              transitionDuration: const Duration(milliseconds: 1),
-                              pageBuilder: (context, animation, nextanim) => const BackUp(),
-                              reverseTransitionDuration: const Duration(milliseconds: 1),
-                              transitionsBuilder: (context, animation, nexttanim, child) {
-                                return FadeTransition(
-                                  opacity: animation,
-                                  child: child,
-                                );
-                              },
-                            ),
-                          );
-                        },
-                        child: Row(
-                          children:  [
-                            Text(
-    translation(context).backupStatus,
-    style: TextStyle(
-    fontFamily: "Nexa3",
-    ),
-    ),
-    const Spacer(),
-   */
-
-  /*
-
-
-   */
-/*
-ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Container(
-                                height: 30,
-                                width: 80,
-                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                                color: renkler.koyuuRenk,
-                                child: DropdownButton(
-                                  dropdownColor: renkler.koyuuRenk,
-                                  borderRadius: BorderRadius.circular(20),
-                                  value: Prefix,
-                                  elevation: 16,
-                                  style: TextStyle(color: Theme.of(context).disabledColor),
-                                  underline: Container(
-                                    height: 2,
-                                    color: renkler.koyuuRenk,
-                                  ),
-                                  onChanged: (newValue) {
-                                    if(readSetting.Prefix != newValue){
-                                      readSetting.setPrefix(newValue!);
-                                      currencyRiv.calculateAllSQLRealTime();//Bütün kayıtları hocam değiştiriyor.
-                                      readSetting.setisuseinsert();
-                                    }
-                                    print("");
-                                  },
-                                  items: moneyPrefix.map<DropdownMenuItem<String>>((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                      onTap: () {
-                                      },
-                                    );
-                                  }).toList(),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                            ),
-                              isBackup  ? Text(translation(context).on, style: const TextStyle(fontFamily: "Nexa3"),)
-                                : Text(translation(context).off, style: const TextStyle(fontFamily: "Nexa3"),),
-
-
- */
-} /*
- Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Container(
-                    height: 40,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(10)
-                      ),
-                      border: Border.all(
-                          color: renkler.arkaRenk, // Set border color
-                          width: 1.0),
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            translation(context).currency,
-                            style: TextStyle(
-                              fontFamily: "Nexa3",
-                            ),
-                          ),
-                          const Spacer(),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              height: 30,
-                              width: 61,
-                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                              color: renkler.koyuuRenk,
-                              child: DropdownButton(
-                                dropdownColor: renkler.koyuuRenk,
-                                borderRadius: BorderRadius.circular(20),
-                                value: dropdownshowitem,
-                                elevation: 16,
-                                style: TextStyle(color: Theme.of(context).disabledColor),
-                                underline: Container(
-                                  height: 2,
-                                  color: renkler.koyuuRenk,
-                                ),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    dropdownshowitem = newValue!;
-                                  });
-                                },
-                                items: moneyPrefix
-                                    .map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),///Para Birimi
-*/
+}

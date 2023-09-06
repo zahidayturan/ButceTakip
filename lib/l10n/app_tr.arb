@@ -311,7 +311,7 @@
   "darkMode": "Koyu Tema",
   "off": "Kapalı",
   "on": "Açık",
-  "backupStatus": "Yedeklenme Durumu",
+  "backupStatus": "Yedekleme Durumu",
   "notifications": "Bildirimler",
   "defaultCurrency": "Varsayılan Para Birimi",
   "changeCurrencyWarning": "Bütün kayıtların para birimi, işlem tarihinin döviz kuruna göre şu para birimi ile çevrilecek:",

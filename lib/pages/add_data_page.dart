@@ -3801,11 +3801,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: Theme.of(context).shadowColor,
                       ),
-                      height: 32,
-                      width: size.width > 392 ? size.width * 0.34 : 130,
+                      height: 28,
+                      width: size.width > 392 ? size.width * 0.26 : 100,
                       child: Center(
                         child: Text(translation(context).deleteAll,
                             style: TextStyle(
