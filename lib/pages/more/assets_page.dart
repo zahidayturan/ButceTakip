@@ -1,5 +1,6 @@
 import 'package:butcekontrol/UI/change_currency_page.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
+import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/riverpod_management.dart';
@@ -53,8 +54,10 @@ class _assetsPage extends ConsumerState<assetsPage> {
     var time = DateTime.now().hour;
     Future<List<SpendInfo>> Total =  SQLHelper.getItems();
     return SafeArea(
+        bottom: false,
         child: Scaffold(
           appBar: AppBarForPage(title: translation(context).myAssets),
+          bottomNavigationBar: const NavBar(),
           body: FutureBuilder(
             future: Total,
             builder:
@@ -63,7 +66,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                 var myData = snapshot.data; //bütün kaytları içerir.
                 List<double> measureList = getMeasure(double.tryParse(dbRiv.getTotalAmountByKart(myData!))!, double.tryParse(dbRiv.getTotalAmountByNakit(myData!))!, double.tryParse(dbRiv.getTotalAmountByDiger(myData!))!);
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * .029,vertical: size.height * .02),
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .029,vertical: 8),
                   child: SizedBox(
                     height: size.height ,
                     child: Column(

@@ -80,7 +80,18 @@ class GglDriveRiverpod extends ChangeNotifier{
       return createdFolder.id ;
     }
   }//+
-  Future<List> ListOfFolder(String ?folderID) async { // klasör içindeki dosyaları listeliyor.
+  Future <void> controlListCount({List ?items}) async {
+    List a = items ?? await ListOfFolder();
+    if(a.length > 30){
+      for(int index = a.length -1 ; index >= 15 ; index--){
+        await deleteFileWithId(a[index].id);
+      }
+    }else{
+      return ;
+    }
+  }
+
+  Future<List> ListOfFolder() async { // klasör içindeki dosyaları listeliyor.
     drive.FileList fileList = await _driveApi!.files.list(q: "'$folderID' in parents");
     List listem = fileList.files!;
     List filteredFile = await listem.where((file) {
@@ -121,7 +132,7 @@ class GglDriveRiverpod extends ChangeNotifier{
       await _driveApi!.files.delete(fileId);
       print('File deleted successfully.');
     }catch(e) {
-      print("Bir hata meydana geldi $e");
+      print("silinirken hata meydana geldi $e");
     }
   }
   Future<void> uploadFileToDrive(String fileName) async {
@@ -140,12 +151,6 @@ class GglDriveRiverpod extends ChangeNotifier{
       print('File uploaded to user\'s Google Drive.');
     }else{
       print("ilk değer atnamadı :/");
-    }
-    if (file.existsSync()) {
-      file.deleteSync();
-      print('Dosya silindi.');
-    } else {
-      print('Dosya bulunamadı.');
     }
   }//+
   Future<String?> uploadFileToStorage() async {

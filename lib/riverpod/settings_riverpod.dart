@@ -97,8 +97,12 @@ class SettingsRiverpod extends ChangeNotifier{
     this.securityQu = securityQu ;
     Updating();
   }
-  void useSecurityClaim(){
-    securityClaim = (securityClaim! - 1);
+  void useSecurityClaim(bool status){
+    if(status){
+      securityClaim = (securityClaim! - 1);
+    }else{
+      securityClaim = 3 ;
+    }
     Updating();
   }
   void useAdCounter(){

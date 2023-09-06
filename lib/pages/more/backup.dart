@@ -1,6 +1,7 @@
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
+import 'package:butcekontrol/pages/more/Help/help_backup.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class BackUp extends ConsumerStatefulWidget {
 
 class _BackUpState extends ConsumerState<BackUp> {
   Future <ListResult> ?futureFiles ;
+  int  backupPushCount = 5 ;
   @override
   void initState(){
     super.initState();
@@ -30,9 +32,6 @@ class _BackUpState extends ConsumerState<BackUp> {
     var readSetting = ref.read(settingsRiverpod);
     var readGglAuth = ref.read(gglDriveRiverpod);
     ref.watch(gglDriveRiverpod).RfPageSt;
-    //readGglAuth.checkAuthState();
-    //bool isExpandGDrive = false ;
-    //bool isExpandExcel = false ;
     bool isopen = readSetting.isBackUp == 1 ? true : false ; // databaseden alınacak
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
@@ -141,9 +140,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           child: SizedBox(
                                             height : 20,
                                             width: 20,
-                                            child: Container(
-                                                child: Image.network("${readGglAuth.getUserPhotoUrl()}")
-                                            ),
+                                            child: Image.network("${readGglAuth.getUserPhotoUrl()}"),
                                           ),
                                         ),
                                       ),
@@ -207,13 +204,19 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         ),
                                       );
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                       height: 32,
                                       width: size.width * 0.32,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
                                           color: renkler.koyuuRenk,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.white,
+                                                blurRadius: 1
+                                            )
+                                          ]
                                         ),
                                         child: Center(
                                           child: Padding(
@@ -237,15 +240,19 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     onTap: () async { // Yedekle.
                                       DateTime date = DateTime.now();
                                       final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
+                                      if(backupPushCount == 0)  {
+                                        await readGglAuth.controlListCount();
+                                      }else{
+                                        backupPushCount -= 1 ;
+                                      }
                                       try{
                                         await writeToCvs(fileName).then((value) async  {
-                                          await Future.delayed(Duration(seconds: 1));
+                                          await Future.delayed(const Duration(seconds: 1));
                                           await readGglAuth.uploadFileToDrive(fileName).then((value) {
                                             ScaffoldMessenger.of(context).showSnackBar(
                                               SnackBar(
-                                                backgroundColor:
-                                                Color(0xff0D1C26),
-                                                duration: Duration(seconds: 1),
+                                                backgroundColor: const Color(0xff0D1C26),
+                                                duration: const Duration(seconds: 1),
                                                 content: Text(
                                                   translation(context).uploadedToGoogleDrive,
                                                   style: const TextStyle(
@@ -284,13 +291,19 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       }
                                       Future.delayed(Duration(seconds: 1, milliseconds: 500));
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                       height: 32,
                                       width: size.width * 0.32,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
                                           color: renkler.koyuuRenk,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              color: Colors.white,
+                                              blurRadius: 1
+                                            )
+                                          ]
                                         ),
                                         child: Center(
                                           child: Padding(
@@ -318,6 +331,20 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   GestureDetector(
                                     onTap: (){
                                       readSetting.setLastBackup(a : true);
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          transitionDuration: const Duration(milliseconds: 1),
+                                          pageBuilder: (context, animation, nextanim) => const HelpBackup(),
+                                          reverseTransitionDuration: const Duration(milliseconds: 1),
+                                          transitionsBuilder: (context, animation, nexttanim, child) {
+                                            return FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                      );
                                       readGglAuth.refreshPage();
                                       print("çektim geriye.");
                                     },
@@ -326,16 +353,16 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       height : 25,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: renkler.sariRenk,
+                                        color: Theme.of(context).scaffoldBackgroundColor,
                                         border: Border.all(
-                                          color: renkler.koyuuRenk,
+                                          color: Theme.of(context).canvasColor,
                                           width: 1
                                         ),
                                       ),
                                       child: Icon(
                                           Icons.question_mark,
                                         size: 18,
-                                        color: Theme.of(context).primaryColor,
+                                        color: Theme.of(context).canvasColor,
                                       ),
                                     ),
                                   ),
@@ -347,15 +374,16 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     },
                                     child: SizedBox(
                                       width: size.width * 0.56,
-                                      height: 32,
+                                      height: 30,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
-                                          border: Border.all(
-                                            color: renkler.arkaRenk,
-                                            width: 0.6,
-                                            strokeAlign: 6
-                                          ),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.white,
+                                                blurRadius: 1
+                                            )
+                                          ],
                                           gradient: LinearGradient(
                                             begin: Alignment.centerLeft,
                                             end: Alignment.centerRight,
@@ -395,31 +423,42 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 },
                                 child: SizedBox(
                                   width: size.width * 0.56,
-                                  height: 32,
+                                  height: 30,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: renkler.arkaRenk,
-                                        width: 1,
-                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Colors.white,
+                                            blurRadius: 1
+                                        )
+                                      ],
                                       gradient: LinearGradient(
                                         begin: Alignment.centerLeft,
                                         end: Alignment.centerRight,
-                                        colors: [Color(0xff2A2895), renkler.koyuuRenk],
+                                        colors: [const Color(0xff2A2895), renkler.koyuuRenk],
                                       ),
                                     ),
                                     child: Center(
                                       child: Padding(
                                         padding: const EdgeInsets.all(8),
-                                        child: Text(
-                                          translation(context).signIn,
-                                          style: TextStyle(
-                                              color: renkler.arkaRenk,
-                                            height: 1,
-                                              fontSize: 15,
-                                              fontFamily: "Nexa3"
-                                          ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              "assets/icons/google.png"
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Text(
+                                              translation(context).signIn,
+                                              style: TextStyle(
+                                                  color: renkler.arkaRenk,
+                                                height: 1,
+                                                  fontSize: 15,
+                                                  fontFamily: "Nexa3"
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),

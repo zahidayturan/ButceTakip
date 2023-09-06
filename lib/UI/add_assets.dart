@@ -208,8 +208,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             await SQLHelper.createItem(newinfo).then((value) {
                               readSettings.setisuseinsert();
                               Navigator.of(context).pop();
-                            }
-                            );
+                            });
                           }else{//geri mesaj ver.
                             setState(() {
                               BugFixText = moneyType ==null ? translation(context).pleaseSelectCurrency : translation(context).enterAmount;

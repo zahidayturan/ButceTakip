@@ -3842,21 +3842,27 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           print("Kontrol sağlıyoruz. daha önceden gider olarak girilmiş döviz var mı aynı türde bakalım.");
                           List<SpendInfo> liste = await SQLHelper.getItemsForIncomeCal(_moneyType.text);
                           if(liste.isNotEmpty) {
-                            liste.sort((a, b) => a.amount!.compareTo(b.amount!)); // kücükten büyüğe
+                            liste.sort((a, b) => convertDateTime(a.operationDate!).compareTo(convertDateTime(b.operationDate!))); // eskieden yeniye
                             print("***********************");
                             liste.forEach((element) {
-                              print(element.amount);
+                              print("${element.amount}   ${element.operationDate}");
                             });
                             print("***********************");
                             double remaining = double.parse(_amount.text);
-                            liste.forEach((element) {
+                            liste.forEach((element) async {
                               if(remaining > 0){
+                                List<SpendInfo> listem = await SQLHelper.getItemsForPassive(element);
                                 if(remaining >= element.amount!){
-                                  print("borcumuz boyumuzdan büyük.");
+                                  print("borcumuz boyumuza TAM");
                                   //elementi pasif yapacağız.
                                   element.moneyType = element.moneyType!.substring(0,3); //pasifleştirme
+                                  if(listem.isNotEmpty){
+                                    print(listem[0].amount);
+                                    element.amount = element.amount! + listem[0].amount! ;
+                                    await SQLHelper.deleteItem(listem[0].id!);
+                                  }
                                   SQLHelper.updateItem(element);
-                                  remaining -= element.amount!; //kalan miktar
+                                  remaining -= element.amount!; //kalan miktar 0
                                 }else{ //daha kücük bir miktar harcama yaıldıysa
                                   print("borcumuz azdı ödedik ");
                                   double firstValue = element.amount!;
@@ -3865,11 +3871,42 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   remaining = 0 ;
                                   SQLHelper.updateItem(element) ;
                                   double result = firstValue - element.amount!;
-                                  read.insertDataBase(element.operationType, element.category, element.operationTool, element.registration!, result, element.note, element.operationDate!, element.moneyType!.substring(0,3), ref.read(currencyRiverpod).calculateRealAmount(
-                                    result,
-                                    element.moneyType!,
-                                    ref.read(settingsRiverpod).Prefix!,
-                                  ), element.processOnce!, element.userCategory!, element.systemMessage!);
+                                  if(element.category == "null" && element.operationDay == "null"){
+                                    final newinfo = SpendInfo(
+                                      element.operationType,
+                                      element.category,
+                                      element.operationTool,
+                                      element.registration,
+                                      result,
+                                      element.note,
+                                      element.operationDay,
+                                      element.operationMonth,
+                                      element.operationYear,
+                                      element.operationTime,
+                                      element.operationDate,
+                                      element.moneyType!.substring(0,3),
+                                      element.processOnce,
+                                      ref.read(currencyRiverpod).calculateRealAmount(result, element.moneyType!, readSettings.Prefix!),
+                                      element.userCategory,
+                                      element.systemMessage,
+                                    );
+                                    await SQLHelper.createItem(newinfo).then((value) {
+                                      readSettings.setisuseinsert();
+                                      Navigator.of(context).pop();
+                                    });
+                                  }else{
+                                    double newRealAmount = ref.read(currencyRiverpod).calculateRealAmount(
+                                      result,
+                                      element.moneyType!,
+                                      ref.read(settingsRiverpod).Prefix!,
+                                    );
+                                    if(listem.isNotEmpty){
+                                      double newAmount =  listem[0].amount! + result ;
+                                      SQLHelper.updateDB(listem[0].id, "spendinfo", {"amount" : newAmount , "realAmount" : newRealAmount});
+                                    }else{
+                                      read.insertDataBase(element.operationType, element.category, element.operationTool, element.registration!, result, element.note, element.operationDate!, element.moneyType!.substring(0,3), newRealAmount , element.processOnce!, element.userCategory!, element.systemMessage!);
+                                    }
+                                  }
                                 }
                               }
                             }
@@ -4007,5 +4044,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
         ),
       ),
     );
+  }
+  DateTime convertDateTime(String Date){
+    var date = Date.split(".");
+    return DateTime(int.parse(date[2]), int.parse(date[1]), int.parse(date[0]));
   }
 }
