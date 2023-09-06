@@ -1,6 +1,7 @@
 import 'package:butcekontrol/UI/customize_operation_list.dart';
 import 'package:butcekontrol/UI/introduction_page.dart';
 import 'package:butcekontrol/UI/registery_list.dart';
+import 'package:butcekontrol/UI/warning_backup.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
 import 'package:butcekontrol/pages/search_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
@@ -16,7 +17,6 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readSetting = ref.watch(settingsRiverpod);
-    var readGglAuth = ref.read(gglDriveRiverpod);
     var readHome = ref.read(homeRiverpod);
     return Directionality(
       textDirection: TextDirection.ltr,
@@ -27,7 +27,21 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           child: readSetting.backUpAlert
           ?InkWell(
             onTap: () {
-              print("abu");
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  opaque: false, //sayfa saydam olması için
+                  transitionDuration: const Duration(milliseconds: 1),
+                  pageBuilder: (context, animation, nextanim) => warningBackUp(),
+                  reverseTransitionDuration: const Duration(milliseconds: 1),
+                  transitionsBuilder: (context, animation, nexttanim, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
             },
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,7 +74,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
               ],
             ),
           )
-              :Image.asset(
+          :Image.asset(
             "assets/image/icon_BKA/yatayYazi.png",
             width: 120,
           ),

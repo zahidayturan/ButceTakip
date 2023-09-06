@@ -198,7 +198,7 @@ class SQLHelper {
   static Future<List<SpendInfo>> searchItem(String searchText) async { // arama sayfası için filitreme özelliğide görür.
     final db = await SQLHelper.db();
     //var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (note LIKE '%${searchText}%' OR category LIKE '%${searchText}%') AND note != '' AND category != ''");
-    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE ((note LIKE '%${searchText}%'  AND note != ''  )OR category LIKE '%${searchText}%' OR operationType LIKE '%${searchText}%' OR operationDate LIKE '%${searchText}%') AND category != 'null' ");
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE ((note LIKE '%${searchText}%'  AND note != ''  )OR category LIKE '%${searchText}%' OR operationType LIKE '%${searchText}%' OR operationDate LIKE '%${searchText}%' OR operationTool LIKE '%${searchText}%') AND category != 'null' ");
     return List.generate(result.length, (index){
       return SpendInfo.fromObject(result[index]);
     });
@@ -206,6 +206,20 @@ class SQLHelper {
   static Future<List<SpendInfo>> getItemsForIncomeCal(String prefix) async {
     final db = await SQLHelper.db();
     var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (moneyType == '${prefix}1' AND operationType == 'Gelir' )");
+    return List.generate(result.length, (index) {
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
+  static Future<List<SpendInfo>> getItemsForPassive(SpendInfo item) async { ///
+    final db = await SQLHelper.db();
+    var result = await db.rawQuery("""SELECT * FROM spendinfo WHERE (
+      moneyType == '${item.moneyType!.substring(0,3)}' AND 
+      operationType == '${item.operationType}' AND 
+      category == '${item.category}' AND 
+      operationDate == '${item.operationDate}'
+      )
+      """
+    );
     return List.generate(result.length, (index) {
       return SpendInfo.fromObject(result[index]);
     });

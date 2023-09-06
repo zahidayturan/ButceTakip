@@ -17,11 +17,10 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
   List selectedIndexList = [] ;
   @override
   Widget build(BuildContext context) {
-    var readGglAuth = ref.watch(gglDriveRiverpod);
-    readGglAuth.RfPageSt;
-    Future<List> backUpList = readGglAuth.ListOfFolder(readGglAuth.folderID);
-    var errormessage = "";
-    var readSettings = ref.read(settingsRiverpod);
+    var readGglAuth = ref.read(gglDriveRiverpod);
+    Future<List> backUpList = readGglAuth.ListOfFolder();
+    var readSettings = ref.watch(settingsRiverpod);
+    readSettings.isuseinsert;
     var size = MediaQuery.of(context).size;
     var renkler = CustomColors();
     return WillPopScope(
@@ -61,9 +60,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                       builder:(context, snapshot) {
                         if(snapshot.hasData){
                           var data = snapshot.data!.toList();
-                          if(data.length > 30){
-                            print("30 dan çok kaydınız var.");
-                          }
+                          readGglAuth.controlListCount(items: data);
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -220,8 +217,9 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                       ),
                                       child: InkWell(
                                         onTap: () async {
+                                          Navigator.of(context).pop();
                                           for (var element in selectedIndexList) {
-                                            readGglAuth.deleteFileWithId(data[element].id).then((value) => readGglAuth.refreshPage());
+                                            readGglAuth.deleteFileWithId(data[element].id).then((value) => readSettings.setisuseinsert());
                                           }
                                           setState(() {
                                             selectedIndexList.clear();

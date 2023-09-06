@@ -13,7 +13,6 @@ class HelpHomePage extends StatelessWidget {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
         child: Scaffold(
-          //backgroundColor: const Color(0xffF2F2F2),
           appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,

@@ -143,7 +143,6 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(height: size.height/80),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 1.0),
                       child: ClipRRect(
@@ -408,48 +407,57 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                             ),
                           ),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                            "${translation(context).securityQuestion} ${readSetting.securityQu}",
-                              style: TextStyle(color: Theme.of(context).canvasColor),
+                        FittedBox(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).indicatorColor,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            SizedBox(
-                              width: size.width * .03,
-                            ),
-                            InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                  PageRouteBuilder(
-                                    opaque: false, //sayfa saydam olması için
-                                    transitionDuration: const Duration(milliseconds: 1),
-                                    pageBuilder: (context, animation, nextanim) => const renameSecQu(),
-                                    reverseTransitionDuration: const Duration(milliseconds: 1),
-                                    transitionsBuilder: (context, animation, nexttanim, child) {
-                                      return FadeTransition(
-                                        opacity: animation,
-                                        child: child,
-                                      );
-                                    },
+                            child: Row(
+                              children: [
+                                Text(
+                                "${translation(context).securityQuestion}    ${readSetting.securityQu}",
+                                  style: TextStyle(color: Theme.of(context).canvasColor),
+                                ),
+                                SizedBox(
+                                  width: size.width * .03,
+                                ),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(15),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                      PageRouteBuilder(
+                                        opaque: false, //sayfa saydam olması için
+                                        transitionDuration: const Duration(milliseconds: 1),
+                                        pageBuilder: (context, animation, nextanim) => const renameSecQu(),
+                                        reverseTransitionDuration: const Duration(milliseconds: 1),
+                                        transitionsBuilder: (context, animation, nexttanim, child) {
+                                          return FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).shadowColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: Theme.of(context).secondaryHeaderColor,
+                                      size: 18,
+                                    ),
                                   ),
-                                );
-                              },
-                              child: Container(
-                                padding: EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).shadowColor,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.edit,
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                  size: 18,
-                                ),
-                              ),
-                            )
-                          ],
+                                )
+                              ],
+                            ),
+                          ),
                         )//
                       ],
                     ),
@@ -546,7 +554,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 duration: const Duration(seconds: 1),
                                 content: Text(
                                   translation(context).passwordCreated,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
                                     fontFamily: 'Nexa3',

@@ -73,7 +73,6 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                     ],
                   )
                   :const SizedBox(),
-                  SizedBox(height: size.height/60),
                   Column(
                     mainAxisAlignment:  MainAxisAlignment.spaceBetween,
                     children: [
@@ -389,6 +388,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                           password1list.clear();
                           ref.read(settingsRiverpod).setStatus(true);
                           Navigator.of(context).pop();
+                          ref.read(settingsRiverpod).useSecurityClaim(false);
                           /*
                           if(widget.mode == "admin"){
                             Navigator.of(context).pop();

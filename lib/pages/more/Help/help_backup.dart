@@ -289,7 +289,7 @@ class HelpBackup extends StatelessWidget {
                       ),
                       const SizedBox(height: 14),
                       Text(
-                        "Kayıtlarınız geri yüklendiği zaman mevcut verileriniz silinmektedir. Seçtiğiniz kayıtlarınız yüklenmektedir. 100 kayıt sonrası  Google Drive üzerinde dosya kapanır ve yeni dosyaya geçilir. verilerinize uygulama üzerinde görememeniz normal tekrardan dosyalarınız görmek için google Drive üzerinden yeni açılan dosyaya istediğiniz verileri manuel olarak taşımanız gerekmektedir."
+                        "Kayıtlarınız geri yüklendiği zaman mevcut verileriniz silinmektedir. Seçtiğiniz kayıtlarınız yüklenmektedir. Google Drive üzerindeki kayıtlarınızın sayısı 30’ u geçerse en eski 15 kaydınız silinmektedir. "
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
 
