@@ -32,12 +32,11 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
 
     PageController controller = PageController(initialPage: watchHome.indexmounth + 1 );
     readHome.setControllerPageMontly(controller);
-    //int indexYear = readHome.indexyear;
     var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(databaseRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
     ref.listen(databaseRiverpod, (previous, next) {
-      ///buna bir bakılacak ? bunun sayesinde çlaışıyor bakıcam
+      ///buna bir bakılacak ? bunun sayesinde çalışıyor bakacağım
       ref.watch(databaseRiverpod).month;
       ref.watch(databaseRiverpod).isuseinsert;
       return ref.watch(databaseRiverpod);
@@ -53,7 +52,6 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
               );
             }
             var dailyTotals = snapshot.data!['dailyTotals'];
-            var items = snapshot.data!["items"];
             return PageView.builder(
               controller: watchHome.controllerPageMontly,
               itemCount: 14,
@@ -129,14 +127,14 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                           itemBuilder: (BuildContext context, index) {
                             var keys = dailyTotals.keys.toList();
                             var day = keys[index];
-                            var month = read.month;
-                            var year = read.year;
                             var dayTotals = dailyTotals[day]!;
                             var dayItemLength =  dayTotals['itemsLength']!;
                             var totalAmount = dayTotals['totalAmount']!;
                             var totalAmount2 = dayTotals['totalAmount2']!;
+                            var itemMonths = dayTotals['itemsMonth']!;
+                            var itemYears = dayTotals['itemsYear']!;
                             final formattedTotal = (totalAmount - totalAmount2).toStringAsFixed(1);
-                            var dateTime = DateTime(int.parse(year), int.parse(month), int.parse(day));
+                            var dateTime = DateTime(itemYears.toInt(), itemMonths.toInt(), int.parse(day));
                             var dayOfWeekName = _getDayOfWeekName(dateTime.weekday, context);
                             return Column(
                               children: [
@@ -152,8 +150,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                       read.setStatus("+");
                                     }
                                     read.setDay(day);
-                                    //read.setDate(items[index].operationDate);
-                                    readDailyInfo.setDate(int.parse(day), int.parse(month), int.parse(year));
+                                    readDailyInfo.setDate(int.parse(day), itemMonths.toInt(), itemYears.toInt());
                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
                                   },
                                   highlightColor: Theme.of(context).dividerColor,
@@ -164,75 +161,62 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                     child: Container(
                                       height: 45,
                                       decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .indicatorColor,
-                                          borderRadius:
-                                          const BorderRadius.all(
-                                              Radius.circular(
-                                                  10))),
+                                          color: Theme.of(context).indicatorColor,
+                                          borderRadius: const BorderRadius.all(Radius.circular(10))),
                                       child: Padding(
-                                        padding:
-                                        const EdgeInsets.all(3),
+                                        padding: const EdgeInsets.all(3),
                                         child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Expanded(
                                               flex: 1,
                                               child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .start,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceAround,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                 children: [
                                                   Stack(
                                                     children: [
                                                       Container(
                                                         decoration:
                                                         BoxDecoration(
-                                                          color: double.parse(formattedTotal) <
-                                                              0
-                                                              ? renkler
-                                                              .kirmiziRenk
-                                                              : renkler
-                                                              .yesilRenk,
-                                                          borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                            bottomRight:
-                                                            Radius.circular(
-                                                                90),
-                                                            bottomLeft:
-                                                            Radius.circular(
-                                                                20),
-                                                            topLeft: Radius
-                                                                .circular(
-                                                                50),
-                                                            topRight:
-                                                            Radius.circular(
-                                                                20),
+                                                          color: double.parse(formattedTotal) < 0
+                                                              ? renkler.kirmiziRenk
+                                                              : renkler.yesilRenk,
+                                                          borderRadius: const BorderRadius.only(
+                                                            bottomRight: Radius.circular(90),
+                                                            bottomLeft: Radius.circular(20),
+                                                            topLeft: Radius.circular(50),
+                                                            topRight: Radius.circular(20),
                                                           ),
                                                         ),
                                                         height: 18,
                                                         width: 18,
                                                       ),
                                                       Padding(
-                                                        padding: const EdgeInsets
-                                                            .only(
-                                                            left: 9,
-                                                            top: 5),
-                                                        child: Text(
-                                                          day,
-                                                          style:
-                                                          const TextStyle(
-                                                            height: 1,
-                                                            fontFamily:
-                                                            "Nexa4",
-                                                            fontSize:
-                                                            19,
+                                                        padding: const EdgeInsets.only(left: 9, top: 5),
+                                                        child: RichText(
+                                                          text: TextSpan(
+                                                            children: [
+                                                              TextSpan(
+                                                                text: day,
+                                                                style: TextStyle(
+                                                                  height: 1,
+                                                                  fontFamily: "Nexa4",
+                                                                  color: Theme.of(context).canvasColor,
+                                                                  fontSize: 19,
+                                                                ),
+                                                              ),
+                                                              TextSpan(
+                                                                text: readSettings.monthStartDay! != 1 ?".${itemMonths.toStringAsFixed(0)}" : "",
+                                                                style:
+                                                                TextStyle(
+                                                                  height: 1,
+                                                                  fontFamily: "Nexa4",
+                                                                  color: Theme.of(context).canvasColor,
+                                                                  fontSize: 12,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ),
@@ -240,16 +224,12 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                    const EdgeInsets
-                                                        .only(
-                                                        left: 8),
+                                                    const EdgeInsets.only(left: 8),
                                                     child: Text(
                                                       dayOfWeekName,
-                                                      style:
-                                                      const TextStyle(
+                                                      style: const TextStyle(
                                                         height: 1,
-                                                        fontFamily:
-                                                        "Nexa3",
+                                                        fontFamily: "Nexa3",
                                                         fontSize: 13,
                                                       ),
                                                     ),
@@ -260,18 +240,11 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                             Expanded(
                                               flex: 1,
                                               child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .center,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceAround,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                 children: [
                                                   Padding(
-                                                    padding:
-                                                    const EdgeInsets
-                                                        .only(
-                                                        top: 5),
+                                                    padding: const EdgeInsets.only(top: 5),
                                                     child: FittedBox(
                                                       child: Directionality(
                                                         textDirection: readSettings.Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
@@ -281,16 +254,10 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                               (totalAmount - totalAmount2).toStringAsFixed(2).length < 9 ? (totalAmount - totalAmount2).toStringAsFixed(2) : (totalAmount - totalAmount2).toStringAsFixed(0),
                                                               style: TextStyle(
                                                                 height: 1,
-                                                                color: double.parse(
-                                                                    formattedTotal) <
-                                                                    0
-                                                                    ? renkler
-                                                                    .kirmiziRenk
-                                                                    : Theme.of(
-                                                                    context)
-                                                                    .canvasColor,
-                                                                fontFamily:
-                                                                "Nexa4",
+                                                                color: double.parse(formattedTotal) < 0
+                                                                    ? renkler.kirmiziRenk
+                                                                    : Theme.of(context).canvasColor,
+                                                                fontFamily: "Nexa4",
                                                                 fontSize: 17,
                                                               ),
                                                               maxLines: 1,
@@ -301,60 +268,13 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                               readSettings.prefixSymbol!,
                                                               style: TextStyle(
                                                                 height: 1,
-                                                                color: double.parse(
-                                                                    formattedTotal) <
-                                                                    0
-                                                                    ? renkler
-                                                                    .kirmiziRenk
-                                                                    : Theme.of(
-                                                                    context)
-                                                                    .canvasColor,
-                                                                fontFamily:
-                                                                "TL",
+                                                                color: double.parse(formattedTotal) < 0
+                                                                    ? renkler.kirmiziRenk
+                                                                    : Theme.of(context).canvasColor,
+                                                                fontFamily: "TL",
                                                                 fontSize: 17,
                                                               ),
                                                             ),
-                                                            /*
-                                                          RichText(
-                                                            maxLines: 1,
-                                                              overflow: TextOverflow.ellipsis,
-                                                              text: TextSpan(children: [
-                                                                TextSpan(
-                                                                  text:  (totalAmount - totalAmount2).toStringAsFixed(2).length < 9 ? (totalAmount - totalAmount2).toStringAsFixed(2) : (totalAmount - totalAmount2).toStringAsFixed(0),
-                                                                  style: TextStyle(
-                                                                    height: 1,
-                                                                    color: double.parse(
-                                                                        formattedTotal) <
-                                                                        0
-                                                                        ? renkler
-                                                                        .kirmiziRenk
-                                                                        : Theme.of(
-                                                                        context)
-                                                                        .canvasColor,
-                                                                    fontFamily:
-                                                                    "Nexa4",
-                                                                    fontSize: 17,
-                                                                  ),
-                                                                ),
-                                                                TextSpan(
-                                                                  text: readSettings.prefixSymbol,
-                                                                  style: TextStyle(
-                                                                    height: 1,
-                                                                    color: double.parse(
-                                                                        formattedTotal) <
-                                                                        0
-                                                                        ? renkler
-                                                                        .kirmiziRenk
-                                                                        : Theme.of(
-                                                                        context)
-                                                                        .canvasColor,
-                                                                    fontFamily:
-                                                                    "TL",
-                                                                    fontSize: 17,
-                                                                  ),
-                                                                ),
-                                                              ])),
-                                                           */
                                                           ],
                                                         ),
                                                       ),
@@ -364,11 +284,8 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                     "${dayItemLength.toStringAsFixed(0)} ${translation(context).activityCount}",
                                                     style: TextStyle(
                                                       height: 1,
-                                                      color: Theme.of(
-                                                          context)
-                                                          .canvasColor,
-                                                      fontFamily:
-                                                      "Nexa3",
+                                                      color: Theme.of(context).canvasColor,
+                                                      fontFamily: "Nexa3",
                                                       fontSize: 11,
                                                     ),
                                                   ),
@@ -378,18 +295,12 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                             Expanded(
                                               flex: 1,
                                               child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .end,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceAround,
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                    const EdgeInsets
-                                                        .only(
-                                                        top: 5),
+                                                    const EdgeInsets.only(top: 5),
                                                     child:  FittedBox(
                                                       child: Directionality(
                                                         textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
@@ -401,10 +312,8 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                                 text:  totalAmount.toStringAsFixed(2).length < 9 ?  totalAmount.toStringAsFixed(2) : totalAmount.toStringAsFixed(0),
                                                                 style: TextStyle(
                                                                   height: 1,
-                                                                  color: renkler
-                                                                      .yesilRenk,
-                                                                  fontFamily:
-                                                                  "Nexa3",
+                                                                  color: renkler.yesilRenk,
+                                                                  fontFamily: "Nexa3",
                                                                   fontSize: 14,
                                                                 ),
                                                               ),
@@ -412,10 +321,8 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                                 text: readSettings.prefixSymbol,
                                                                 style: TextStyle(
                                                                   height: 1,
-                                                                  color: renkler
-                                                                      .yesilRenk,
-                                                                  fontFamily:
-                                                                  "TL",
+                                                                  color: renkler.yesilRenk,
+                                                                  fontFamily: "TL",
                                                                   fontSize: 14,
                                                                 ),
                                                               ),
@@ -434,10 +341,8 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                               text:  totalAmount2.toStringAsFixed(2).length < 9 ?  totalAmount2.toStringAsFixed(2) : totalAmount2.toStringAsFixed(1),
                                                               style: TextStyle(
                                                                 height: 1,
-                                                                color: renkler
-                                                                    .kirmiziRenk,
-                                                                fontFamily:
-                                                                "Nexa3",
+                                                                color: renkler.kirmiziRenk,
+                                                                fontFamily: "Nexa3",
                                                                 fontSize: 14,
                                                               ),
                                                             ),
@@ -445,10 +350,8 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                               text: readSettings.prefixSymbol,
                                                               style: TextStyle(
                                                                 height: 1,
-                                                                color: renkler
-                                                                    .kirmiziRenk,
-                                                                fontFamily:
-                                                                "TL",
+                                                                color: renkler.kirmiziRenk,
+                                                                fontFamily: "TL",
                                                                 fontSize: 14,
                                                               ),
                                                             ),
