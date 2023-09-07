@@ -39,10 +39,10 @@ class More extends ConsumerWidget {
       child: CircularProgressIndicator(),
     ),
   );
-  Future<void> shareButceTakip() async {
+  Future<void> shareButceTakip(BuildContext context) async {
     await FlutterShare.share(
-        title: 'Bütçe Takip İndir',
-        text: 'Hey! Bütçeni kontrol altına almak için denemelisin.',
+        title: translation(context).download,
+        text: translation(context).heyDoYouWantManage,
         linkUrl: 'https://play.google.com/store/apps/details?id=com.fezaitech.butcetakip',
         chooserTitle: 'Bütçe Takip',
     );
@@ -360,7 +360,7 @@ class More extends ConsumerWidget {
 
                               DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
                               AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-                              print('Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Local: TrArEn \nVersion: V1.1.1');
+                              print('Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Local: TrArEn \nVersion: V1.1.1\n\n${translation(context).write}');
                               String? encodeQueryParameters(Map<String, String> params) {
                                 return params.entries
                                     .map((MapEntry<String, String> e) =>
@@ -372,7 +372,7 @@ class More extends ConsumerWidget {
                                 path: 'fezaitech@gmail.com',
                                 query: encodeQueryParameters(<String, String>{
                                   'subject': 'Bütçe Takip Öneri/Hata Bildirimi',
-                                  'body' : 'Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Local: TrArEn \nVersion: V1.1.1'
+                                  'body' : 'Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Local: TrArEn \nVersion: V1.1.1\n\n${translation(context).write}'
 
                                 }),
                               );
@@ -402,7 +402,7 @@ class More extends ConsumerWidget {
                                     Icon(Icons.mail_outline_rounded, color: renkler.yaziRenk, size: 26),
                                     Expanded(child: Padding(
                                       padding: const EdgeInsets.only(top:6.0),
-                                      child: Text("Öneri",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                      child: Text(translation(context).feedback,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                     )),
                                   ],
                                 ),
@@ -437,7 +437,7 @@ class More extends ConsumerWidget {
                                     Icon(Icons.star_rate_rounded, color: renkler.arkaRenk, size: 26),
                                     Expanded(child: Padding(
                                       padding: const EdgeInsets.only(top:6.0),
-                                      child: Text("Değerlendir",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1,),textAlign: TextAlign.center,),
+                                      child: Text(translation(context).evaluate,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1,),textAlign: TextAlign.center,),
                                     )),
                                   ],
                                 ),
@@ -447,7 +447,7 @@ class More extends ConsumerWidget {
                           SizedBox(width: size.width / 15),
                           InkWell(
                             onTap: ()  {
-                              shareButceTakip();
+                              shareButceTakip(context);
                             },
                             borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15)),
                             child: Container(
@@ -469,7 +469,7 @@ class More extends ConsumerWidget {
                                     Icon(Icons.share, color: renkler.yaziRenk, size: 26),
                                     Expanded(child: Padding(
                                       padding: const EdgeInsets.only(top:6.0),
-                                      child: Text("Tavsiye Et",style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                      child: Text(translation(context).recommend,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                     )),
                                   ],
                                 ),

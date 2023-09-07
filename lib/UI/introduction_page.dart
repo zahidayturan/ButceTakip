@@ -1595,7 +1595,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           "null",
                           "null",
                           formattedDate,
-                          cardAmountList[i]["currency"],
+                          cardAmountList[i]["currency"]+"1",
                           "",
                           readCurrency.calculateRealAmount(
                               cardAmountList[i]["amount"],
@@ -1620,7 +1620,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           "null",
                           "null",
                           formattedDate,
-                          cashAmountList[i]["currency"],
+                          cashAmountList[i]["currency"]+"1",
                           "",
                           readCurrency.calculateRealAmount(
                               cashAmountList[i]["amount"],
@@ -1645,7 +1645,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           "null",
                           "null",
                           formattedDate,
-                          otherAmountList[i]["currency"],
+                          otherAmountList[i]["currency"]+"1",
                           "",
                           readCurrency.calculateRealAmount(
                               otherAmountList[i]["amount"],

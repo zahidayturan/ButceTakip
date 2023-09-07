@@ -1551,7 +1551,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                   maxLength: 20,
                                                                                                   maxLines: 1,
                                                                                                   style:
-                                                                                                  TextStyle(color: Theme.of(context).canvasColor,fontSize: 13,fontFamily: 'Nexa3'),
+                                                                                                  TextStyle(color: Theme.of(context).canvasColor,fontSize: 13,fontFamily: 'Nexa3',height: 1),
                                                                                                   decoration: InputDecoration(
                                                                                                       hintText: translation(context).enterCategory,
                                                                                                       hintStyle: TextStyle(
@@ -2168,7 +2168,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                   Column(
                                                                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                                     children: [
-                                                                                                      Text(translation(context).replaceCategoryQuestion,style: TextStyle(fontSize: 14,height: 1,color: Theme.of(context).canvasColor,), textAlign: TextAlign.center,),
+                                                                                                      Text(translation(context).replaceCategoryOldRecords,style: TextStyle(fontSize: 14,height: 1,color: Theme.of(context).canvasColor,), textAlign: TextAlign.center,),
                                                                                                       DropdownButtonHideUnderline(
                                                                                                         child: DropdownButton2<String>(
                                                                                                           isExpanded: true,
@@ -2179,6 +2179,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                               fontFamily: 'Nexa3',
                                                                                                               color:
                                                                                                               Theme.of(context).canvasColor,
+                                                                                                              height: 1
                                                                                                             ),
                                                                                                             //textAlign: TextAlign.center,
                                                                                                           ),
@@ -3160,7 +3161,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                               .numberWithOptions(decimal: true),
                                           inputFormatters: [
                                             FilteringTextInputFormatter.allow(
-                                              RegExp(r'^\d{0,6}(\.\d{0,2})?'),
+                                              RegExp(r'^\d{0,7}(\.\d{0,2})?'),
                                             )
                                           ],
                                           textAlign: TextAlign.center,
@@ -3800,11 +3801,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: Theme.of(context).shadowColor,
                       ),
-                      height: 32,
-                      width: size.width > 392 ? size.width * 0.34 : 130,
+                      height: 28,
+                      width: size.width > 392 ? size.width * 0.26 : 100,
                       child: Center(
                         child: Text(translation(context).deleteAll,
                             style: TextStyle(

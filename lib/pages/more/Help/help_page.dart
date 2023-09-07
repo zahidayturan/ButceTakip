@@ -1,3 +1,4 @@
+import 'package:butcekontrol/pages/more/Help/add_update_help.dart';
 import 'package:butcekontrol/pages/more/Help/help_assets.dart';
 import 'package:butcekontrol/pages/more/Help/help_backup.dart';
 import 'package:butcekontrol/pages/more/communicate.dart';
@@ -144,7 +145,6 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal:10, vertical:  7.0),
                       child: SizedBox(
-                        height: 110,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -344,6 +344,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 ),
                               ],
                             ),
+                            SizedBox(height: 16,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -528,6 +529,140 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                 translation(context).backupSystem,
                                                 style: const TextStyle(
                                                   height: 1,
+                                                    color: Color(0xffF2F2F2),
+                                                    fontSize: 11
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 16,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration: const Duration(milliseconds: 1),
+                                        pageBuilder: (context, animation, nextanim) => const HelpAddUpdate(),
+                                        reverseTransitionDuration: const Duration(milliseconds: 1),
+                                        transitionsBuilder: (context, animation, nexttanim, child) {
+                                          return FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: SizedBox(
+                                    height: 45,
+                                    width: size.width * .27,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: renkler.koyuuRenk,
+                                          borderRadius: BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Theme.of(context).indicatorColor,
+                                                spreadRadius: 3,
+                                                blurRadius: 7,
+                                                offset: const Offset(3, 3)
+                                            ),
+                                          ]
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.only(bottom: 8.0),
+                                              child: Icon(
+                                                Icons.add_rounded,
+                                                color: Color(0xffF2F2F2),
+                                                size: 22,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 7),
+                                            FittedBox(
+                                              child: Text(
+                                                "Ekle\nDüzenle",
+                                                style: const TextStyle(
+                                                    height: 1,
+                                                    color: Color(0xffF2F2F2),
+                                                    fontSize: 11
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration: const Duration(milliseconds: 1),
+                                        pageBuilder: (context, animation, nextanim) => const HelpCalculator(),
+                                        reverseTransitionDuration: const Duration(milliseconds: 1),
+                                        transitionsBuilder: (context, animation, nexttanim, child) {
+                                          return FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: SizedBox(
+                                    height: 45,
+                                    width: size.width * .27,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: renkler.koyuuRenk,
+                                          borderRadius: BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Theme.of(context).indicatorColor,
+                                                spreadRadius: 3,
+                                                blurRadius: 7,
+                                                offset: const Offset(3, 3)
+                                            ),
+                                          ]
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.only(bottom: 8.0),
+                                              child: Icon(
+                                                Icons.monetization_on_rounded,
+                                                color: Color(0xffF2F2F2),
+                                                size: 22,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 7),
+                                            FittedBox(
+                                              child: Text(
+                                                "Döviz\nSistemi",
+                                                style: const TextStyle(
+                                                    height: 1,
                                                     color: Color(0xffF2F2F2),
                                                     fontSize: 11
                                                 ),

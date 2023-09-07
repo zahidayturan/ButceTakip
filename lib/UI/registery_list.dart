@@ -39,11 +39,13 @@ class RegisteryList extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    readHome.menuControllerForRegistery == false ? translation(context).savedActivities : "Son İşlemler",
+                    readHome.menuControllerForRegistery == false ? translation(context).savedActivities : translation(context).lastActivities,
                     style: TextStyle(
                         color: Theme.of(context).canvasColor,
                         fontFamily: "Nexa4",
-                        fontSize: 21),
+                        fontSize: 21,
+                        height: 1
+                    ),
                   ),
                   Row(
                     children: [
@@ -147,7 +149,8 @@ class RegisteryList extends ConsumerWidget {
                       style: TextStyle(
                           color: Theme.of(context).canvasColor,
                           fontFamily: "Nexa4",
-                          fontSize: 15
+                          fontSize: 15,
+                        height: 1
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -161,7 +164,8 @@ class RegisteryList extends ConsumerWidget {
                       style: TextStyle(
                           color: Theme.of(context).canvasColor,
                           fontFamily: "Nexa4",
-                          fontSize: 15
+                          fontSize: 15,
+                        height: 1
                       ),
                     ),
                   ),
@@ -418,7 +422,7 @@ class RegisteryList extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Gösterilecek İşlem Sayısı",
+                  translation(context).numberOfShowingActivities,
                   style: TextStyle(
                       color: Theme.of(context).canvasColor, fontSize: 15,height: 1,fontFamily: "Nexa4"),overflow: TextOverflow.ellipsis,
                 ),
@@ -696,9 +700,9 @@ class RegisteryList extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: Text(
-                  "Gösterilen İşlem Sayısı : ${item.length}",
+                  "${translation(context).numberOfActivitiesForSearchSection} ${item.length}",
                   style: TextStyle(
-                      color: Theme.of(context).canvasColor, fontSize: 13),
+                      color: Theme.of(context).canvasColor, fontSize: 13, height: 1),
                 ),
               ),
             ],
