@@ -359,7 +359,7 @@ class More extends ConsumerWidget {
 
                               DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
                               AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-                              print('Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Local: TrArEn \nVersion: V1.1.1\n\n${translation(context).write}');
+                              print('Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Language: ${readSetting.Language} \nVersion: ${informationApp.version}\n\n${translation(context).write}');
                               String? encodeQueryParameters(Map<String, String> params) {
                                 return params.entries
                                     .map((MapEntry<String, String> e) =>
@@ -371,7 +371,7 @@ class More extends ConsumerWidget {
                                 path: 'fezaitech@gmail.com',
                                 query: encodeQueryParameters(<String, String>{
                                   'subject': 'Bütçe Takip Öneri/Hata Bildirimi',
-                                  'body' : 'Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Local: TrArEn \nVersion: V1.1.1\n\n${translation(context).write}'
+                                  'body' : 'Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Language: ${readSetting.Language} \nVersion: ${informationApp.version}\n\n${translation(context).write}'
 
                                 }),
                               );

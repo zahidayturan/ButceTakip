@@ -541,7 +541,7 @@ class _SettingsState extends ConsumerState<Settings> {
                           const Spacer(),
                           isPassword
                               ? Padding(
-                            padding: const EdgeInsets.only(top: 2),
+                            padding: const EdgeInsets.only(top: 2,left: 8,right: 8),
                             child: Text(
                               translation(context).on,
                               style: TextStyle(
@@ -683,7 +683,7 @@ class _SettingsState extends ConsumerState<Settings> {
                           const Spacer(),
                           isBackup
                               ? Padding(
-                            padding: const EdgeInsets.only(top: 2),
+                            padding: const EdgeInsets.only(top: 2,left: 8,right: 8),
                             child: Text(
                               translation(context).on,
                               style: TextStyle(
