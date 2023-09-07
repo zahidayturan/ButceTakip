@@ -240,36 +240,30 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     onTap: () async { // Yedekle.
                                       DateTime date = DateTime.now();
                                       final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
-                                      if(backupPushCount == 0)  {
-                                        await readGglAuth.controlListCount();
-                                      }else{
-                                        backupPushCount -= 1 ;
-                                      }
                                       try{
-                                        await writeToCvs(fileName).then((value) async  {
-                                          await Future.delayed(const Duration(seconds: 1));
-                                          await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                backgroundColor: const Color(0xff0D1C26),
-                                                duration: const Duration(seconds: 1),
-                                                content: Text(
-                                                  translation(context).uploadedToGoogleDrive,
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16,
-                                                    fontFamily: 'Nexa3',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 1.3,
-                                                  ),
+                                        await writeToCvs(fileName);
+                                        await Future.delayed(const Duration(milliseconds: 400));
+                                        await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              backgroundColor: const Color(0xff0D1C26),
+                                              duration: const Duration(seconds: 1),
+                                              content: Text(
+                                                translation(context).uploadedToGoogleDrive,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontFamily: 'Nexa3',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 1.3,
                                                 ),
                                               ),
-                                            );
-                                            readSetting.setLastBackup();
-                                            readGglAuth.refreshPage();
-                                          });
+                                            ),
+                                          );
+                                          readSetting.setLastBackup();
+                                          readGglAuth.refreshPage();
                                         });
-                                      }catch (e){
+                                      }catch(e){
                                         print("HATAAAAAAAAAAA ===============>>>>>>>>>>${e.toString()}");
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           const SnackBar(
@@ -289,7 +283,11 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           ),
                                         );
                                       }
-                                      Future.delayed(Duration(seconds: 1, milliseconds: 500));
+                                      if(backupPushCount == 0)  {
+                                        readGglAuth.controlListCount();
+                                      }else{
+                                        backupPushCount -= 1 ;
+                                      }
                                     },
                                     child: SizedBox(
                                       height: 32,
@@ -416,7 +414,11 @@ class _BackUpState extends ConsumerState<BackUp> {
                               SizedBox(height: size.height * 0.02),
                               InkWell(
                                 onTap: () async {
-                                  await readGglAuth.signInWithGoogle();
+                                  try{
+                                    await readGglAuth.signInWithGoogle();
+                                  }catch(e){
+                                    await readGglAuth.signOutWithGoogle();
+                                  }
                                   readGglAuth.checkAuthState(ref);
                                   readGglAuth.setAccountStatus(true);
                                   readGglAuth.refreshPage();
