@@ -50,6 +50,7 @@ class More extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readSetting = ref.read(settingsRiverpod);
+    var readGglAuth = ref.read(gglDriveRiverpod);
     var size = MediaQuery.of(context).size;
     //var readNavBar = ref.read(botomNavBarRiverpod);
     ref.watch(settingsRiverpod).isuseinsert;
@@ -228,7 +229,7 @@ class More extends ConsumerWidget {
                           ),
                           SizedBox(width: size.width / 15),
                           InkWell(
-                            onTap: () {
+                            onTap: () async{
                               Navigator.push(
                                 context,
                                 PageRouteBuilder(

@@ -47,12 +47,9 @@ class GglDriveRiverpod extends ChangeNotifier{
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    /*
     if(googleUser != null){
       setAccountStatus(true);
     }
-
-     */
     refreshPage();
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }//+
@@ -86,6 +83,7 @@ class GglDriveRiverpod extends ChangeNotifier{
       for(int index = a.length -1 ; index >= 15 ; index--){
         await deleteFileWithId(a[index].id);
       }
+      return ;
     }else{
       return ;
     }
@@ -274,6 +272,7 @@ class GglDriveRiverpod extends ChangeNotifier{
          */
       }
     }else{
+      print("nE?");
       accountStatus = false;
     }
   }

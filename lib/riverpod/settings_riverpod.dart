@@ -4,6 +4,7 @@ import 'package:butcekontrol/pages/bka_slider.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
 import '../utils/cvs_converter.dart';
 
 class SettingsRiverpod extends ChangeNotifier{
@@ -25,6 +26,7 @@ class SettingsRiverpod extends ChangeNotifier{
   int ?monthStartDay;
   String ?dateFormat;
   bool backUpAlert = false ;
+  String ?errorStatusBackup ;
 
   Future readDb() async{
     List<SettingsInfo> setting = await SQLHelper.settingsControl() ;
@@ -76,13 +78,18 @@ class SettingsRiverpod extends ChangeNotifier{
     }
     notifyListeners();
   }
+  void setErrorStatusBackup(String ?Error){
+    errorStatusBackup = Error ;
+    notifyListeners();
+  }
 
   void reset(){
     this.securityQu = "null";
     Updating();
   }
-  void setbackUpAlert(bool status){
+  void setbackUpAlert(bool status, {String ?errorStatusBackup}){
     backUpAlert = status;
+    this.errorStatusBackup = errorStatusBackup ;
     setisuseinsert();
   }
   void setisuseinsert(){

@@ -21,12 +21,20 @@ Future <void> writeToCvs(String fileName) async {
     print("10 ve altı Sürüm geldii YIUPİİİ");
   }
   if (permissionStatus == PermissionStatus.granted || avalibility) {
+    Directory tempDir = await getTemporaryDirectory(); //uygulamanın kendi deplaması
+    final directory = "${tempDir.path}/$fileName";
+    final File f = File(directory);
+    if (f.existsSync()) {
+      f.deleteSync();
+      print('Dosya silindi.');
+    } else {
+      print('Dosya bulunamadı.');
+    }// Dosyayı silmek için await
     final Database db = await SQLHelper.db();
     //final List<Map<String, dynamic>> allData = await db.query("spendinfo", orderBy: "id", );
     final List<Map<String, dynamic>> allData = await db.rawQuery("SELECT id, operationType, category, operationTool, registration, amount, note, operationDay, operationMonth, operationYear, operationTime, operationDate, moneyType , processOnce, realAmount, userCategory, systemMessage FROM spendinfo");
     final List<List<dynamic>> rows = <List<dynamic>>[];
     //var path = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
-    Directory tempDir = await getTemporaryDirectory(); //uygulamanın kendi deplaması
     print("dir $tempDir");
 
     for (final Map<String, dynamic> map in allData) {
@@ -35,8 +43,6 @@ Future <void> writeToCvs(String fileName) async {
       rows.add(row);
     }
     DateTime date = DateTime.now();
-    final directory = "${tempDir.path}/$fileName";
-    final File f = File(directory);
     final String cvs = ListToCsvConverter().convert(rows);
     f.writeAsString(cvs);
     print("Dosya yazıldı.");

@@ -16,7 +16,32 @@ class base_BKA extends ConsumerStatefulWidget {
 }
 
 class _base_BKAState extends ConsumerState<base_BKA> {
-  bool ?yuklemeTamam ;
+  Future<void> backup(String fileName, ref) async {
+    var readGglAuth = ref.read(gglDriveRiverpod);
+    var readSetting =  ref.read(settingsRiverpod);
+
+    await writeToCvs(fileName);
+    await Future.delayed(const Duration(milliseconds: 500));
+    try{
+      await readGglAuth.uploadFileToDrive(fileName).then((value) {
+        readSetting.setLastBackup();
+      });
+    }catch(e){
+      print("Yedeklenme sırasında hata saptandı = $e");
+      try{
+       backup(fileName, ref);
+      }catch(b){
+        if(e == b){
+          readSetting.setbackUpAlert(true);
+          return ;
+        }else{
+          print("farklı hata");
+        }
+      }
+    }
+    readGglAuth.controlListCount(); //30 kayıt kontrolu sağlanıyor.
+  }
+
   Future<void> loadData()  async {
     // örnek gecikme
     DateTime date = DateTime.now();
@@ -54,27 +79,16 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       }); // Güncel kur database sorgusunu gerçekleştirir
 
       if(readSetting.isBackUp == 1){ //yedekleme açık mı?
+        int counter = 2 ;
         print("Yedeklenme açık");
         checkAuth.then((value) async {
-          await readGglAuth.controlListCount();
-          //await Future.delayed(Duration(seconds: 4, milliseconds: 500));
           if(readGglAuth.accountStatus == true) {
             List<String> datesplit = readSetting.lastBackup!.split(".");
             if(readSetting.Backuptimes == "Günlük"){
               print("günlük giriş var");
               if(int.parse(datesplit[0]) != DateTime.now().day) {
                 print("gunluk guncelleniyor.");
-                await writeToCvs(fileName).then((value) async {
-                  try{
-                    await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                      readSetting.setLastBackup();
-                    });
-                  }catch(e){
-                    print("Yedeklenme sırasında hata saptandı = $e");
-                    readSetting.setbackUpAlert(true);
-                  }
-                  //readGglAuth.uploadFileToStorage();
-                });
+                await backup(fileName, ref);
               }else{
                 print("mevcut gün => ${DateTime.now().day}");
                 print("son kayıt => ${datesplit[0]}");
@@ -85,47 +99,19 @@ class _base_BKAState extends ConsumerState<base_BKA> {
               if(int.parse(datesplit[2]) == DateTime.now().year){
                 if(DateTime.now().month - int.parse(datesplit[1]) >= 1 ){
                   print("ay bazında kayıt yapıyoruz.");
-                  await writeToCvs(fileName).then((value) async {
-                    try{
-                      await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                        readSetting.setLastBackup();
-                      });
-                    }catch(e){
-                      print("Yedeklenme sırasında hata saptandı = $e");
-                      readSetting.setbackUpAlert(true);
-                    }
-                  });
+                  await backup(fileName, ref);
                 }
               }else{
-                await writeToCvs(fileName).then((value) async {
-                  try{
-                    await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                      readSetting.setLastBackup();
-                    });
-                  }catch(e){
-                    print("Yedeklenme sırasında hata saptandı = $e");
-                    readSetting.setbackUpAlert(true);
-                  }
-                });
+                await backup(fileName, ref);
               }
             }else if(readSetting.Backuptimes == "Yıllık"){
               print("Yıllık giriş var");
               if(int.parse(datesplit[2]) != DateTime.now().year){
                 //readSetting.Backup();
-                await writeToCvs(fileName).then((value) async{
-                  try{
-                    await readGglAuth.uploadFileToDrive(fileName).then((value) {
-                      readSetting.setLastBackup();
-                    });
-                  }catch(e){
-                    print("Yedeklenme sırasında hata saptandı = $e");
-                    readSetting.setbackUpAlert(true);
-                  }
-                });
+                await backup(fileName, ref);
               }
             }
           }else{
-            readGglAuth.setBackupAlert(true); //aktif değil
             readSetting.setBackup(false);
             print("yedeklenmesi gerekiyor ama hesabın açık değil GAHPE");
           }
