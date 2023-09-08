@@ -87,9 +87,8 @@ class SettingsRiverpod extends ChangeNotifier{
     this.securityQu = "null";
     Updating();
   }
-  void setbackUpAlert(bool status, {String ?errorStatusBackup}){
+  void setbackUpAlert(bool status){
     backUpAlert = status;
-    this.errorStatusBackup = errorStatusBackup ;
     setisuseinsert();
   }
   void setisuseinsert(){
