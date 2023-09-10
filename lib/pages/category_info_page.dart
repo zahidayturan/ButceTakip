@@ -73,28 +73,24 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                   Expanded(
                     child: Stack(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: 11.5, right: 11.5),
-                              child: SizedBox(
-                                width: 4,
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 11.5,top: 4),
+                                child: Container(
+                                  width: 4,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(30)),
+                                      color: snapshot.data!.length <= 12
+                                          ? Theme.of(context).indicatorColor
+                                          : Theme.of(context).canvasColor),
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 11.5, left: 11.5),
-                              child: Container(
-                                width: 4,
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(30)),
-                                    color: snapshot.data!.length <= 12
-                                        ? Theme.of(context).indicatorColor
-                                        : Theme.of(context).canvasColor),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -121,7 +117,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                   String formattedDate = intl.DateFormat(readSettings.dateFormat).format(itemDate);
                                   return Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 15, right: 15, top: 5, bottom: 5),
+                                         right: 15, top: 5, bottom: 5),
                                     child: InkWell(
                                       highlightColor: Theme.of(context).primaryColor,
                                       borderRadius: BorderRadius.circular(20),
@@ -181,7 +177,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                 const Spacer(),
                                                 Padding(
                                                   padding: const EdgeInsets.only(
-                                                      right: 8.0),
+                                                      right: 8.0,left: 8),
                                                   child: item[index].operationType ==
                                                           "Gelir"
                                                       ? RichText(
@@ -247,34 +243,27 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: SizedBox(
-                      width: size.width*0.98,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            height: 15,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: Text(
-                                "${item.length}",
-                                style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor,fontSize: 18,fontFamily: 'NEXA3'),
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: SizedBox(
+                        width: size.width*0.98,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: 15,
+                              child: Padding(
+                                padding: const EdgeInsets.only( right: 5),
+                                child: Text(
+                                  "${item.length}",
+                                  style: TextStyle(color: Theme.of(context).dialogBackgroundColor,fontSize: 18,fontFamily: 'NEXA3'),
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                            child: Padding(
-                              padding: const EdgeInsets.only( right: 5),
-                              child: Text(
-                                "${item.length}",
-                                style: TextStyle(color: Theme.of(context).dialogBackgroundColor,fontSize: 18,fontFamily: 'NEXA3'),
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -365,6 +354,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
     var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(categoryInfoRiverpod);
     var size = MediaQuery.of(context).size;
+    CustomColors renkler = CustomColors();
     List myCategory = read.getCategory(context);
     List myDate = read.getDate(context);
     print(myDate);
@@ -405,8 +395,8 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                         children: [
                           Text(
                             '${Converter().textConverterFromDB(myCategory[0], context, 0)} ',
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: renkler.yaziRenk,
                               fontFamily: "NEXA3",
                               height: 1,
                               fontSize: 20,
@@ -417,8 +407,8 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                           ),
                           Text(
                             ' ${myCategory[1]}',
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: renkler.yaziRenk,
                               fontFamily: "NEXA3",
                               height: 1,
                               fontSize: 20,
@@ -435,8 +425,8 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                     ),
                     Text(
                       textConverter(),
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: renkler.yaziRenk,
                         height: 1,
                         fontFamily: "NEXA3",
                         fontSize: 13,
@@ -453,7 +443,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                 height: 40,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: const Color(0xff0D1C26),
+                    color: Theme.of(context).highlightColor,
                     borderRadius: BorderRadius.circular(40),
                   ),
                   child: IconButton(

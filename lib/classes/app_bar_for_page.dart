@@ -73,16 +73,17 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                   || title == translation(context).backupTitle
                   || title == translation(context).loginPasswordTitle
                   || title == translation(context).myAssets
-              ?const Directionality(
+              ?Directionality(
                 textDirection: TextDirection.ltr,
                 child: Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
+                  Icons.arrow_circle_left_outlined,
+                  color: renkler.yaziRenk,
+                  size: 40,
                 ),
               )
-                  :const Icon(
-                Icons.home_outlined,
-                color : Colors.white,
+                  :Icon(
+                Icons.home_rounded,
+                color : renkler.yaziRenk,
                 size: 40,
               ),
               highlightColor: Theme.of(context).indicatorColor,

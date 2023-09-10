@@ -131,9 +131,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     height: size.height * 0.56,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(40),
-                        topLeft: Radius.circular(40),
-                        bottomLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
                       ),
                       child: Container(
                         color: Theme.of(context).highlightColor,
@@ -225,24 +225,31 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             )
                                 : null,
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(
-                                Icons.currency_exchange,
-                                size: 40,
-                                color: renkler.arkaRenk,
-                              ),
-                              Center(
-                                child: Text(
-                                  translation(context).currencyConverter,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    height: 1
-                                  ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.currency_exchange_rounded,
+                                  size: 36,
+                                  color: renkler.arkaRenk,
                                 ),
-                              )
-                            ],
+                                Center(
+                                  child: Text(
+                                    translation(context).currencyConverter,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      height: 1,
+                                        fontSize: 15,
+                                      overflow: TextOverflow.ellipsis
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -266,24 +273,31 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   )
                                 : null,
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(
-                                Icons.credit_card,
-                                size: 45,
-                                color: renkler.arkaRenk,
-                              ),
-                              Center(
-                                child: Text(
-                                  translation(context).calculateInterestCredit,
-                                  style: const TextStyle(
-                                    height: 1,
-                                    color: Colors.white,
-                                  ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.credit_card_rounded,
+                                  size: 40,
+                                  color: renkler.arkaRenk,
                                 ),
-                              )
-                            ],
+                                Center(
+                                  child: Text(
+                                    translation(context).calculateInterestCredit,
+                                    style: const TextStyle(
+                                      height: 1,
+                                      color: Colors.white,
+                                        fontSize: 15,
+                                        overflow: TextOverflow.ellipsis
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -307,24 +321,31 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             )
                                 : null,
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(
-                                Icons.percent,
-                                size: 45,
-                                color: renkler.arkaRenk,
-                              ),
-                              Center(
-                                child: Text(
-                                  translation(context).calculatePercentage,
-                                  style: const TextStyle(
-                                    height: 1,
-                                    color: Colors.white,
-                                  ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.percent_rounded,
+                                  size: 40,
+                                  color: renkler.arkaRenk,
                                 ),
-                              )
-                            ],
+                                Center(
+                                  child: Text(
+                                    translation(context).calculatePercentage,
+                                    style: const TextStyle(
+                                      height: 1,
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                        overflow: TextOverflow.ellipsis
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -1564,7 +1585,6 @@ class _CalculatorState extends ConsumerState<Calculator> {
     String formattedDate = intl.DateFormat('dd.MM.yyyy').format(now);
     var readCurrency = ref.read(currencyRiverpod);
     Future<List<currencyInfo>> historyCurrency = firestoreHelper.getHistoryCurrency();
-    var readSettingss = ref.read(settingsRiverpod);
 
     List<String> moneyPrefix = <String>[
       'TRY',
@@ -1944,7 +1964,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               SizedBox(
                                 width : size.width*0.33-39,
                                 child: TextField(
-                                  //enabled: false,
+                                  enabled: false,
                                   maxLines: 1,
                                   textAlign: TextAlign.center,
                                   controller: _controllerSecond,
@@ -2001,17 +2021,17 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         onTap: () {
                           if (_controllerFirst.text != "") {
                             Clipboard.setData(ClipboardData(
-                                text: "${_controllerFirst.text} $first => ${_controllerSecond.text} $second"
+                                text: _controllerSecond.text
                             ));
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
+                              SnackBar(
                                 backgroundColor: Color(0xff0D1C26),
-                                duration: Duration(seconds: 1),
+                                duration: const Duration(seconds: 1),
                                 content: Text(
-                                  'Metin panoya kopyalandı',
-                                  style: TextStyle(
+                                  'Panoya kopyalandı: ${_controllerSecond.text}',
+                                  style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 15,
                                     fontFamily: 'Nexa3',
                                     fontWeight: FontWeight.w600,
                                     height: 1.3,
