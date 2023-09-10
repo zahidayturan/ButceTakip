@@ -288,9 +288,9 @@
     "totalInterest": "Total Interest:  ",
     "totalPayment": "Total Payment:  ",
 
-    "currencyConverter": " Currency\nConverter",
-    "calculatePercentage": " Calculate\nPercentage",
-    "calculateInterestCredit": "     Calculate\nInterest-Credit",
+    "currencyConverter": "Currency Converter",
+    "calculatePercentage": "Calculate Percentage",
+    "calculateInterestCredit": "Calculate Interest-Credit",
 
     "currencyConverterWarning": "Currency converter is not active yet.",
 

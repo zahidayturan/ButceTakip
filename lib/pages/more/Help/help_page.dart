@@ -781,25 +781,6 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                             TextButton(
                               onPressed: () {
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 2),
-                                child: Text(
-                                    "Android 1.2.0v Sürüm Notu (15.09.2023)"
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                            ),
-                            TextButton(
-                              onPressed: () {
                                 Navigator.push(
                                   context,
                                   PageRouteBuilder(
@@ -818,7 +799,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 2),
                                 child: Text(
-                                    "Android 1.1.1v Sürüm Notu (3.06.2023)"
+                                    "Android 2.0.0v Sürüm Notu (15.09.2023)"
                                 ),
                               ),
                             ),
@@ -1234,7 +1215,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
-                                      "Seçtiğiniz başlangıç gününe göre hesap kesim aralığınız ana sayfa ve takvim gibi sayfalarda değişecektir. Örnek olarak 15 seçildiyse, aylık veriler bir sonraki ayın 14 üne kadar hesaplanacaktır.",
+                                      "Seçtiğiniz başlangıç gününe göre hesap kesim aralığınız ana sayfa ve takvim gibi sayfalarda değişecektir. Örnek olarak; 15 seçildiyse, aylık veriler bir sonraki ayın 14 üne kadar hesaplanacaktır.",
                                       style: TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                     ),
                                   ),

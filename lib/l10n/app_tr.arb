@@ -288,9 +288,9 @@
   "totalInterest": "Toplam Faiz:  ",
   "totalPayment": "Toplam Ödeme:  ",
 
-  "currencyConverter": " Döviz\nÇevirici",
-  "calculatePercentage": "  Yüzde\nHesapla",
-  "calculateInterestCredit": "Faiz-Kredi\n  Hesapla",
+  "currencyConverter": "Döviz Çevirici",
+  "calculatePercentage": "Yüzde Hesapla",
+  "calculateInterestCredit": "Faiz-Kredi Hesapla",
 
   "currencyConverterWarning": "Döviz çevirici henüz aktif değildir.",
 
