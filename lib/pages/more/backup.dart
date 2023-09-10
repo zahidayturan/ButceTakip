@@ -416,12 +416,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 onTap: () async {
                                   try{
                                     await readGglAuth.signInWithGoogle();
+                                    await readGglAuth.checkAuthState(ref);
+                                    readGglAuth.setAccountStatus(true);
+                                    readGglAuth.refreshPage();
                                   }catch(e){
+                                    print("Hata var = $e");
                                     await readGglAuth.signOutWithGoogle();
                                   }
-                                  readGglAuth.checkAuthState(ref);
-                                  readGglAuth.setAccountStatus(true);
-                                  readGglAuth.refreshPage();
                                 },
                                 child: SizedBox(
                                   width: size.width * 0.56,

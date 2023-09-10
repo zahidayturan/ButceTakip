@@ -3845,34 +3845,34 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           if(liste.isNotEmpty) {
                             liste.sort((a, b) => convertDateTime(a.operationDate!).compareTo(convertDateTime(b.operationDate!))); // eskieden yeniye
                             print("***********************");
-                            liste.forEach((element) {
+                            for (var element in liste) {
                               print("${element.amount}   ${element.operationDate}");
-                            });
+                            }
                             print("***********************");
                             double remaining = double.parse(_amount.text);
-                            liste.forEach((element) async {
+                            for (var element in liste){
                               if(remaining > 0){
-                                List<SpendInfo> listem = await SQLHelper.getItemsForPassive(element);
+                                List<SpendInfo> listPassive = await SQLHelper.getItemsForPassive(element);
                                 if(remaining >= element.amount!){
                                   print("borcumuz boyumuza TAM");
                                   //elementi pasif yapacağız.
                                   element.moneyType = element.moneyType!.substring(0,3); //pasifleştirme
-                                  if(listem.isNotEmpty){
-                                    print(listem[0].amount);
-                                    element.amount = element.amount! + listem[0].amount! ;
-                                    await SQLHelper.deleteItem(listem[0].id!);
+                                  remaining -= element.amount!; //kalan miktar 0
+                                  if(listPassive.isNotEmpty){
+                                    print(listPassive[0].amount);
+                                    element.amount = element.amount! + listPassive[0].amount! ;
+                                    await SQLHelper.deleteItem(listPassive[0].id!);
                                   }
                                   SQLHelper.updateItem(element);
-                                  remaining -= element.amount!; //kalan miktar 0
                                 }else{ //daha kücük bir miktar harcama yaıldıysa
                                   print("borcumuz azdı ödedik ");
                                   double firstValue = element.amount!;
                                   element.amount = element.amount! - remaining;
                                   element.realAmount =ref.read(currencyRiverpod).calculateRealAmount(element.amount!, element.moneyType!, ref.read(settingsRiverpod).Prefix!);
                                   remaining = 0 ;
-                                  SQLHelper.updateItem(element) ;
+                                  await SQLHelper.updateItem(element) ;
                                   double result = firstValue - element.amount!;
-                                  if(element.category == "null" && element.operationDay == "null"){
+                                  if(element.category == "null" && element.operationDay == "null"){//varlık kaydı.
                                     final newinfo = SpendInfo(
                                       element.operationType,
                                       element.category,
@@ -3895,23 +3895,35 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                       readSettings.setisuseinsert();
                                       Navigator.of(context).pop();
                                     });
-                                  }else{
-                                    double newRealAmount = ref.read(currencyRiverpod).calculateRealAmount(
-                                      result,
-                                      element.moneyType!,
-                                      ref.read(settingsRiverpod).Prefix!,
-                                    );
-                                    if(listem.isNotEmpty){
-                                      double newAmount =  listem[0].amount! + result ;
-                                      SQLHelper.updateDB(listem[0].id, "spendinfo", {"amount" : newAmount , "realAmount" : newRealAmount});
+                                    remaining = 0 ;
+                                  }else{//normal kayıt
+                                    print("normal kayıd");
+                                    if(listPassive.isNotEmpty){
+                                      double newAmount =  listPassive[0].amount! + result ;
+                                      double newRealAmount = ref.read(currencyRiverpod).calculateRealAmount(
+                                        result,
+                                        element.moneyType!,
+                                        ref.read(settingsRiverpod).Prefix!,
+                                      );
+                                      remaining = 0 ;
+                                      SQLHelper.updateDB(listPassive[0].id, "spendinfo", {"amount" : newAmount , "realAmount" : newRealAmount});
                                     }else{
+                                      double newRealAmount = ref.read(currencyRiverpod).calculateRealAmount(
+                                        result,
+                                        element.moneyType!,
+                                        ref.read(settingsRiverpod).Prefix!,
+                                      );
                                       read.insertDataBase(element.operationType, element.category, element.operationTool, element.registration!, result, element.note, element.operationDate!, element.moneyType!.substring(0,3), newRealAmount , element.processOnce!, element.userCategory!, element.systemMessage!);
                                     }
+                                    remaining = 0 ;
                                   }
                                 }
+                              }else{
+                                print("pas geçiyohk");
                               }
+
                             }
-                          );
+
                           }else{ ///eğer eklenen dövizden daha önce gelir girişi olmamış kullanıcı hatası
 
                           }

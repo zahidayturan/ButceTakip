@@ -364,7 +364,7 @@ class CurrencyRiverpod extends ChangeNotifier {
         await SQLHelper.addItemCurrency(currencyInfo("noInternet", "1", "1", "1", "1", "1", "1", "1", "1", "00.00.0000"));
         readDb();
       }
-      //varsayılan değerleri aldırsana abi tekrar kontrol gerekiyor.
+      ///internet yokken girildiğinde eski verileri kullanır yoksa tüm kurları 1 yapar.
       //fetchExchangeRates().then((value) => readDb()); =>
       ///zaten internet yok tekrar Api çekmeye gerek yok
     }

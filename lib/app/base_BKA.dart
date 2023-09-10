@@ -19,27 +19,31 @@ class _base_BKAState extends ConsumerState<base_BKA> {
   Future<void> backup(String fileName, ref) async {
     var readGglAuth = ref.read(gglDriveRiverpod);
     var readSetting =  ref.read(settingsRiverpod);
-
-    await writeToCvs(fileName);
-    await Future.delayed(const Duration(milliseconds: 500));
-    try{
-      await readGglAuth.uploadFileToDrive(fileName).then((value) {
-        readSetting.setLastBackup();
-      });
-    }catch(e){
-      print("Yedeklenme sırasında hata saptandı = $e");
+    if(readSetting.errorStatusBackup == "internet"){
+      readSetting.setbackUpAlert(true);
+      readGglAuth.setAccountStatus(false);
+    }else{
+      await writeToCvs(fileName);
+      await Future.delayed(const Duration(milliseconds: 500));
       try{
-       backup(fileName, ref);
-      }catch(b){
-        if(e == b){
-          readSetting.setbackUpAlert(true);
-          return ;
-        }else{
-          print("farklı hata");
+        await readGglAuth.uploadFileToDrive(fileName).then((value) {
+          readSetting.setLastBackup();
+        });
+      }catch(e){
+        print("Yedeklenme sırasında hata saptandı = $e");
+        try{
+          backup(fileName, ref);
+        }catch(b){
+          if(e == b){
+            readSetting.setbackUpAlert(true);
+            return ;
+          }else{
+            print("farklı hata");
+          }
         }
       }
+      readGglAuth.controlListCount(); //30 kayıt kontrolu sağlanıyor.
     }
-    readGglAuth.controlListCount(); //30 kayıt kontrolu sağlanıyor.
   }
 
   Future<void> loadData()  async {

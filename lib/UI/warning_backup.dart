@@ -105,7 +105,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
 
                   },
                   child: Container( //boyut
-                    height: size.height * .46,
+                    height: readSettings.errorStatusBackup == "internet" ? size.height * .23 : size.height * .46,
                     width: size.width * .94,
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
@@ -116,7 +116,63 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                         width: 1
                       )
                     ),
-                    child: isClicked
+                    child: readSettings.errorStatusBackup == "internet"
+                    ?Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(
+                            Icons.warning_rounded,
+                            color: Theme.of(context).disabledColor,
+                            size: 35,
+                          ),
+                          Text(
+                            "İnternet bağlantısı bulunamadı Yedekleme Yapılamıyor.",
+                            style: TextStyle(
+                              fontFamily: "Nexa3",
+                              fontSize: 18,
+                              color: Theme.of(context).secondaryHeaderColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              readSettings.setbackUpAlert(false);
+                              Navigator.of(context).pop();
+                            },
+                            child: Container(
+                              height: 40,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * .02
+                              ),
+                              width :double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(
+                                  color: renkler.arkaRenk,
+                                  width: 1,
+                                ),
+                                gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [Theme.of(context).disabledColor, renkler.koyuuRenk],
+                                ),
+                              ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Anladım",
+                                    style: TextStyle(color: Colors.white,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                    :isClicked
                     ?SizedBox(
                       height: size.width *.5 ,
                       child: Column(
