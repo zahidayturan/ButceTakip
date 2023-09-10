@@ -2298,7 +2298,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                   ),
                 ),
                 Text(
-                  "Saat ${currency?.lastApiUpdateDate?.split(" ")[1].split(".")[0].substring(0,5) ?? readCurrency.lastApiUpdateDate!.split(" ")[1].split(".")[0].substring(0,5)} ",
+                  "Saat ${currency != null  ? convertHourAndMinute(currency!.lastApiUpdateDate) : convertHourAndMinute(readCurrency.lastApiUpdateDate)} ",
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -2315,6 +2315,11 @@ class _CalculatorState extends ConsumerState<Calculator> {
       ),
     );
   } ///page1
+
+  String convertHourAndMinute(String? date){
+    DateTime? dateFormat = DateTime.tryParse(date.toString())?.subtract(Duration(hours: 3));
+    return "${dateFormat?.hour}:${dateFormat?.minute}";
+  }
 
   Widget equalsBtnCreat(Size size) {
     return SizedBox(
