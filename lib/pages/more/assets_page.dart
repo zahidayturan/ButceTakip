@@ -616,7 +616,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                   alignment: Alignment.centerLeft,
                 ) : title == translation(context).cashAsset
                   ? Image.asset(
-                    "assets/icons/money.png",
+                    "assets/icons/cash.png",
                     height: 22,
                   color: Theme.of(context).canvasColor,
                     alignment: Alignment.centerLeft,

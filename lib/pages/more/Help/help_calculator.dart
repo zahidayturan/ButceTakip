@@ -1,7 +1,9 @@
 import 'package:butcekontrol/Pages/more/Help/help_footer.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/language.dart';
+import 'package:butcekontrol/constans/fezai_checkbox.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 class HelpCalculator extends StatelessWidget {
@@ -11,9 +13,19 @@ class HelpCalculator extends StatelessWidget {
   Widget build(BuildContext context) {
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size ;
+    List<String> moneyPrefix = <String>[
+      'TRY',
+      "USD",
+      "EUR",
+      "GBP",
+      "KWD",
+      "JOD",
+      "IQD",
+      "SAR"
+    ];
+    String first = "TRY";
     return SafeArea(
         child: Scaffold(
-          //backgroundColor: const Color(0xffF2F2F2),
           appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -21,86 +33,355 @@ class HelpCalculator extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom:  8.0),
-                  child: Container(
-                    color: Theme.of(context).highlightColor,
-                    height: 65,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: size.width/10,),
-                        Image.asset(
-                          "assets/image/LogoBkaShort.png",
-                          height: 60,
-                          width: 60,
-                        ),
-                        const Text(
-                          "Yardım Merkezi",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: "Nexa3",
-                              fontSize: 25
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
+                      horizontal: 16.0,
+                      vertical: 16
                   ),
                   child: Column(
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Hesap Makinesi",
-                          style: TextStyle(
-                            fontFamily: "Nexa3",
-                            fontSize: 30,
-                            color: Theme.of(context).canvasColor,
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.8),
+                                        spreadRadius: 0.5,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ]
+                              ),
+                              child: Icon(
+                                size: 20,
+                                Icons.calculate_rounded,
+                                color: Theme.of(context).scaffoldBackgroundColor,
+                              ),
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              translation(context).calculatorTitle,
+                              style: TextStyle(
+                                fontFamily: "Nexa4",
+                                fontSize: 24,
+                                height: 1,
+                                color: Theme.of(context).secondaryHeaderColor,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 14,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            translation(context).currencyConverter
+                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                          ),
+                          const Spacer(),
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).disabledColor,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.8),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 2)
+                                  )
+                                ]
+                            ),
+                            child: Icon(
+                              size: 20,
+                              Icons.currency_exchange_rounded,
+                              color: renkler.koyuuRenk,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10,),
+                      Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 70,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).secondaryHeaderColor,
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                isExpanded: true,
+                                items: moneyPrefix
+                                    .map((item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 2),
+                                      child: Text(
+                                        item,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            height: 1,
+                                            fontFamily: 'Nexa3',
+                                            color: renkler.koyuuRenk),
+                                      ),
+                                    ),
+                                  ),
+                                ))
+                                    .toList(),
+                                value: first.toString(),
+                                onChanged: (newValue) {
+                                },
+                                //barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
+                                buttonStyleData: ButtonStyleData(
+                                  overlayColor: MaterialStatePropertyAll(renkler
+                                      .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                                  height: 30,
+                                  width: 70,
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                  maxHeight: 150,
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                      color: renkler.sariRenk,
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                                ),
+                                iconStyleData: IconStyleData(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down,
+                                  ),
+                                  iconSize: 24,
+                                  iconEnabledColor:
+                                  renkler.koyuAraRenk,
+                                  openMenuIcon: Icon(
+                                    Icons.arrow_drop_up,
+                                    color: Theme.of(context).canvasColor,
+                                    size: 24,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 14,),
+                          Expanded(
+                            child: Text(
+                              "Açılır menülerde yalnızca uygulamada kullanabileceğiniz para birimleri yer almaktadır. Tek yapmanız gereken çevireceğiniz birimleri seçip tutarı girmektir."
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 14,),
+                      Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.8),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 2)
+                                  )
+                                ]
+                            ),
+                            child: Icon(
+                              Icons.double_arrow_rounded,
+                              size: 20,
+                              color: renkler.koyuuRenk,
+                            ),
+                          ),
+                          const SizedBox(width: 14,),
+                          Expanded(
+                            child: Text(
+                              "Döviz çevirme işleminin yönünü göstermektedir."
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 14,),
+                      Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 30,
+                            child: Image.asset(
+                              "assets/icons/swap2.png",
+                              width: 24,
+                            ),
+                          ),
+                          const SizedBox(width: 14,),
+                          Expanded(
+                            child: Text(
+                              "Bu buton ile para birimlerinin yerlerini değiştirebilirsiniz."
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 14,),
                       Text(
-                          "Mevzu bahis cüzdan ve para yönetimi ise hesap ve basit matematik işlemleri olmadan olmaz dedik dolayısıyla uygulamamızda pratik işlemleri yapabileceğiniz küçük bir hesap makinesi oluşturduk.\n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "Temizle butonu ile tutarı sıfırlayabilir, kopyala butonu ile sonucu kopyalayabilirsiniz."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      Image.asset(
-                        "assets/image/helpcalculator1.png",
-                      ),
-                      Text("\nYüzde hesabını kullanmak için bazı özelliklerin bilinmesi gerekmektedir varsayılan olarak sayı girdisi ve yüzdesel oran alınarak sonuç gösterilir lakin bazı durumlarda bir adet sayı yetmeyebilir bu yüzden 2. bir sayıya ihtiyaç duyulur.\n"
-                      ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
-                      Image.asset(
-                        "assets/image/helpcalculator2.png",
-                      ),
+                      const SizedBox(height: 14,),
                       Text(
-                        "\nSayı 2 ‘yi ekle seçeneği işaretlendiğinde varsayılı olarak 1. seçenek yani Sayı 2 Sayı 1’in Yüzde kaçıdır tarzındaki problemler için yazılmış mod seçilmiş oluyor burada program yüzdesel oran çıktısını veriyor .\n\n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "Eski kurdan hesaplamayı seçerseniz, sistemimizde bu zamana dek kayıtlı olan bütün kur tarihleri çıkacaktır. Şu an da listede olmayan bir tarihe ulaşamazsınız."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
+                      const SizedBox(height: 14,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            translation(context).calculateInterestCredit
+                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                          ),
+                          const Spacer(),
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).disabledColor,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.8),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 2)
+                                  )
+                                ]
+                            ),
+                            child: Icon(
+                              size: 20,
+                              Icons.credit_card,
+                              color: renkler.koyuuRenk,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10,),
                       Text(
-                          "2. seçenek yani Sayı 1’den Sayı 2’ ye Değişim oranı kaçtır bu probleme genel olarak finans alanında çokça karşılaşılır. Bu seçeneğimizde yine yüzdesel bir çıktı verilir.\n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "Ana para ve faiz değerlerini girdikten sonra vade seçimi yapmanız gerekmektedir. Hesapla butonuna basarak sonuçları görebilir, sıfırla butonu ile girdiğiniz değerleri silebilirsiniz. Sonuçlar listelenecektir."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      Image.asset(
-                        "assets/image/helpcalculator3.png",
+                      const SizedBox(height: 14,),
+                      Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).secondaryHeaderColor,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.8),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 2)
+                                  )
+                                ]
+                            ),
+                            child: Icon(
+                              size: 20,
+                              Icons.warning_amber_rounded,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                          const SizedBox(width: 14,),
+                          Expanded(
+                            child: Text(
+                              "En fazla 7 haneli ana para girebilirsiniz. Vade listesinde yer alanların dışında vade giremezsiniz."
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text("\nDöviz dönüştürücü bölümünde internetin varlığında anlık olarak API üzerinden güncellenen kurlarca hesaplama amaçlanmaktadır lakin şuanlık sabitlenen veriler den hesaplama gösterilmektedir API işlemleri sonraki versiyon güncellenmesinde gelmesi beklenmektedir.\n"
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,),
+                      const SizedBox(height: 14,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            translation(context).percentageCalculation
+                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                          ),
+                          const Spacer(),
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).disabledColor,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.8),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 2)
+                                  )
+                                ]
+                            ),
+                            child: Icon(
+                              size: 20,
+                              Icons.percent_rounded,
+                              color: renkler.koyuuRenk,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10,),
                       Text(
-                        "TL ve USD gibi değişkenleri yana kaydırarak kullanım sağlayabailirsiniz şuanda 3 adet Döviz çeşiti vardır ; TRY, USD, EUR\n"
-                          ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "Tek sayılı işlemlerde bir sayı ve bir yüzde girmeniz gerekmektedir. Girilen sayının yüzdesini verecektir."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      Image.asset(
-                        "assets/image/helpcalculator4.png",
-                        width: size.width,
+                      const SizedBox(height: 14,),
+                      Row(
+                        children: [
+                          fezaiCheckBox(
+                            value: true,
+                            clickedColor: Theme.of(context).disabledColor,
+                            size: 18,
+                            onChanged: (value) {
+                            },
+                          ),
+                          const SizedBox(width: 14,),
+                          Expanded(
+                            child: Text(
+                              "İkinci sayı için kutucuğu işaretlemelisiniz."
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ],
                       ),
+                      const SizedBox(height: 14,),
                       Text(
-                        "\nGirilen yüzde , Ana para ve Vade ile Kredi hesaplaması yapılmaktadır. Kullanıcılarımıza en basit şekli ile sade bir tasarım sunarak hesaplama sonucunda Aylık taksit miktarı, Toplam faiz ve Toplam ödeme gibi başlıklar gösterilmektedir. \n"
-                          ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.2),textAlign: TextAlign.justify,
+                        "İki sayılı işlemlerde; ikinci sayı birinci sayının yüzde kaçıdır ve birinci sayıdan ikinci sayıya değişim oranı kaçtır işlemlerini yapabilirsiniz."
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
+                      const SizedBox(height: 18,),
                     ],
                   ),
                 ),

@@ -541,7 +541,7 @@ class _SettingsState extends ConsumerState<Settings> {
                           const Spacer(),
                           isPassword
                               ? Padding(
-                            padding: const EdgeInsets.only(top: 2),
+                            padding: const EdgeInsets.only(top: 2,left: 8,right: 8),
                             child: Text(
                               translation(context).on,
                               style: TextStyle(
@@ -683,7 +683,7 @@ class _SettingsState extends ConsumerState<Settings> {
                           const Spacer(),
                           isBackup
                               ? Padding(
-                            padding: const EdgeInsets.only(top: 2),
+                            padding: const EdgeInsets.only(top: 2,left: 8,right: 8),
                             child: Text(
                               translation(context).on,
                               style: TextStyle(
@@ -990,20 +990,56 @@ class _SettingsState extends ConsumerState<Settings> {
                           ),
                         ),
                         const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Container(
-                            height: 26,
-                            width: 26,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).splashColor,
-                                shape: BoxShape.circle
-                            ),
-                            child: Icon(
-                              Icons.info_outline_rounded,
-                              color: Theme
-                                  .of(context)
-                                  .canvasColor,
+                        Tooltip(
+                          message:  "Seçtiğiniz başlangıç gününe göre hesap kesim aralığınız ana sayfa ve takvim gibi sayfalarda değişecektir. Örnek olarak; 15 seçildiyse, aylık veriler bir sonraki ayın 14 üne kadar hesaplanacaktır.",
+                          triggerMode: TooltipTriggerMode.tap,
+                          showDuration: const Duration(seconds: 10),
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          textStyle: TextStyle(
+                              fontSize: 14,
+                              color: renkler.arkaRenk,
+                              height: 1),
+                          textAlign: TextAlign.justify,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                            color: Theme.of(context).highlightColor,
+                            boxShadow: darkMode == 1 ? [
+                              BoxShadow(
+                                color: Colors.black54.withOpacity(0.8),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(-1, 2),
+                              )
+                            ] : [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 0.5,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2)
+                              )
+                            ],
+                            border: Border.all(
+                                color: Theme
+                                    .of(context)
+                                    .indicatorColor, // Set border color
+                                width: 1.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Container(
+                              height: 26,
+                              width: 26,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).splashColor,
+                                  shape: BoxShape.circle
+                              ),
+                              child: Icon(
+                                Icons.info_outline_rounded,
+                                color: Theme
+                                    .of(context)
+                                    .canvasColor,
+                              ),
                             ),
                           ),
                         ),
@@ -1180,20 +1216,56 @@ class _SettingsState extends ConsumerState<Settings> {
                           ),
                         ),
                         const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Container(
-                            height: 26,
-                            width: 26,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).splashColor,
-                                shape: BoxShape.circle
-                            ),
-                            child: Icon(
-                              Icons.info_outline_rounded,
-                              color: Theme
-                                  .of(context)
-                                  .canvasColor,
+                        Tooltip(
+                          message:  "Seçtiğiniz tarih formatı sadece görünümü değiştirir. İşlemler üzerinde bir etkisi yoktur. Size uygun formatı seçebilirsiniz.",
+                          triggerMode: TooltipTriggerMode.tap,
+                          showDuration: const Duration(seconds: 10),
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          textStyle: TextStyle(
+                              fontSize: 14,
+                              color: renkler.arkaRenk,
+                              height: 1),
+                          textAlign: TextAlign.justify,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                              color: Theme.of(context).highlightColor,
+                            boxShadow: darkMode == 1 ? [
+                              BoxShadow(
+                                color: Colors.black54.withOpacity(0.8),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(-1, 2),
+                              )
+                            ] : [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 0.5,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2)
+                              )
+                            ],
+                            border: Border.all(
+                                color: Theme
+                                    .of(context)
+                                    .indicatorColor, // Set border color
+                                width: 1.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Container(
+                              height: 26,
+                              width: 26,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).splashColor,
+                                  shape: BoxShape.circle
+                              ),
+                              child: Icon(
+                                Icons.info_outline_rounded,
+                                color: Theme
+                                    .of(context)
+                                    .canvasColor,
+                              ),
                             ),
                           ),
                         ),

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:butcekontrol/models/settings_info.dart';
-import 'package:butcekontrol/pages/bka_slider.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

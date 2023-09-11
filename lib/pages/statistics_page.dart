@@ -1598,19 +1598,28 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 child: Container(
                   height: 36,
                   width: 36,
+                  padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: typeInfo == translation(context).both ||
                             typeInfo == translation(context).expenses
                         ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
-                  child: Icon(
+                  child: Image.asset(
+                    "assets/icons/expense.png",
+                      filterQuality: FilterQuality.medium,
+                      color: typeInfo == translation(context).both ||
+                          typeInfo == translation(context).expenses
+                          ? null
+                          : Theme.of(context).primaryColor
+                  ),
+                  /*child: Icon(
                     Icons.south_west_rounded,
                     color: typeInfo == translation(context).both ||
                             typeInfo == translation(context).expenses
                         ? renkler.koyuuRenk
                         : Theme.of(context).primaryColor,
-                  ),
+                  ),*/
                 ),
               ),
             ),
@@ -1642,19 +1651,28 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               child: Container(
                 height: 36,
                 width: 36,
+                padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: typeInfo == translation(context).both ||
                           typeInfo == translation(context).income
                       ? Theme.of(context).disabledColor
                       : Theme.of(context).focusColor,
                 ),
-                child: Icon(
+                child: Image.asset(
+                    "assets/icons/income.png",
+                    filterQuality: FilterQuality.medium,
+                    color: typeInfo == translation(context).both ||
+                        typeInfo == translation(context).income
+                        ? null
+                        : Theme.of(context).primaryColor
+                ),
+               /* child: Icon(
                   Icons.north_east_rounded,
                   color: typeInfo == translation(context).both ||
                           typeInfo == translation(context).income
                       ? renkler.koyuuRenk
                       : Theme.of(context).primaryColor,
-                ),
+                ),*/
               ),
             ),
           ),
