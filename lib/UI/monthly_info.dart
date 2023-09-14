@@ -23,18 +23,14 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
     super.dispose();
   }
   int indexYear = 0;
-  var years = ["2020","2021","2022","2023","2024","2025", "2026", "2027", "2028", "2029", "2030"];
   @override
   Widget build(BuildContext context) {
     var readHome = ref.read(homeRiverpod);
-    var watchHome = ref.watch(homeRiverpod);
-    indexYear = watchHome.indexyear;
-
-    PageController controller = PageController(initialPage: watchHome.indexmounth + 1 );
-    readHome.setControllerPageMontly(controller);
     var readSettings = ref.read(settingsRiverpod);
     var read = ref.read(databaseRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
+    PageController pageController =  PageController(initialPage: readSettings.currentIndex);
+    readSettings.setControllerPage(pageController);
     ref.listen(databaseRiverpod, (previous, next) {
       ///buna bir bakılacak ? bunun sayesinde çalışıyor bakacağım
       ref.watch(databaseRiverpod).month;
@@ -53,35 +49,23 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
             }
             var dailyTotals = snapshot.data!['dailyTotals'];
             return PageView.builder(
-              controller: watchHome.controllerPageMontly,
-              itemCount: 14,
+              controller: readSettings.pageControllerR,
+              itemCount: 132,
               pageSnapping: true,
               onPageChanged: (index) {
-                if(controller.page!.toInt() < index){
-                  if(index == 13){
-                    if( indexYear < years.length - 1 ){
-                      indexYear += 1;
-                      controller.jumpToPage(1);
-                    }else{
-                      controller.jumpToPage(12);
-                    }
-                  }else{
-                    readHome.changeindex(index - 1 , indexYear);
-                    read.setMonthandYear((index ).toString(), years[indexYear]);
+                setState(() {
+                  print(pageController.page!.toInt());
+                  if(pageController.page!.toInt() < index){///arttırma
+                      readSettings.setIndex(index, 2, ref);
+                  }else if(pageController.page!.toInt() == index){ ///azaltma
+                      readSettings.setIndex(index, 2, ref);
                   }
-                }else if(controller.page!.toInt() == index){ // what böyle çalıştı anlamadım.
-                  if(index == 0) {
-                    if( indexYear != 0){
-                      indexYear -= 1 ;
-                      controller.jumpToPage(12);
-                    }else{
-                      controller.jumpToPage(1);
-                    }
-                  }else{
-                    readHome.changeindex(index - 1  , indexYear);
-                    read.setMonthandYear((index).toString(), years[indexYear]);
-                  }
-                }
+                  print(index);
+                  print(readSettings.yearIndex);
+                  print(readSettings.monthIndex);
+                  read.setMonthandYear(readSettings.monthIndex.toString(), readSettings.yearIndex.toString());
+                  readHome.setStatus();
+                });
               },
               itemBuilder: (context, index) {
                 return Directionality(

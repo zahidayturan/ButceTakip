@@ -9,27 +9,16 @@ class CalenderBka {
 
 class HomeRiverpod extends ChangeNotifier {
 
-  int indexyear = CalenderBka().years.indexOf(DateTime.now().year.toString());
-  int indexmounth = DateTime.now().month - 1  ;
-  PageController ? controllerPageMontly ;
   String ?income  ;
   String ?expense ;
   String ?totally ;
   bool refrestst = false ; //veri eklemede general_infonun yenilenmesi için
 
-  void setControllerPageMontly(PageController  controllerPageMontly){
-    this.controllerPageMontly = controllerPageMontly;
-  }
   void setDailyStatus(String income, String expense, String totally){ //gelir gider ve toplam verilerini güncellliyor.
      this.income = income;
      this.expense = expense ;
      this.totally = totally ;
      notifyListeners();
-  }
-  void changeindex(indexmounthh, indexyearr){ //ay ve yıl index değişikliği yapıyor
-    indexmounth = indexmounthh;
-    indexyear = indexyearr ;
-    notifyListeners();
   }
   void setStatus(){ // sayfayı yenilettirmek için kullandık
     refrestst = !refrestst ;

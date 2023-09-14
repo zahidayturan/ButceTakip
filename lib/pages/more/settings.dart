@@ -1089,6 +1089,10 @@ class _SettingsState extends ConsumerState<Settings> {
                                       () {
                                     readSetting.setMonthStartDay(
                                         int.parse(newValue!));
+                                    ref.read(calendarRiverpod).setMonthStartDay(int.parse(newValue!));
+                                    readSetting.setMonthStarDayForHomePage(int.parse(newValue!));
+                                    ref.read(databaseRiverpod).setMonthandYear(readSetting.monthIndex.toString(), readSetting.yearIndex.toString());
+                                    ref.read(homeRiverpod).setStatus();
                                     readSetting.setisuseinsert();
                                   },
                                 );
