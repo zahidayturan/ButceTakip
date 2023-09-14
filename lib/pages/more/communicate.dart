@@ -88,68 +88,49 @@ class Communicate extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Icon(Icons.account_circle_outlined,color: Theme.of(context).canvasColor),
-                      ),
-                      const SizedBox(width: 5),
-                      InkWell(
-                        onTap: () {
-                          launchURL('https://github.com/ibrahimeth');
-                        },
-                        child: RichText(
-                            text: TextSpan(children: [
-                          TextSpan(
-                            text: translation(context).github,
-                            style: TextStyle(
-                              height: 1,
-                              fontSize: 16,
-                              fontFamily: 'Nexa3',
-                              color: Theme.of(context).canvasColor,
-                            ),
-                          ),
-                          const TextSpan(
-                            text: 'github.com/ibrahimeth/\nButceTakip',
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 16,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ])),
-                      ),
-                    ],
-                  ),
-                ),
                 const SizedBox(height: 25),
                 Column(
                   children: [
-                    FittedBox(
-                      // Title
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).highlightColor,
-                          borderRadius: BorderRadius.circular(20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: size.width * .22,
+                          child: const Divider(
+                            color: Colors.black,
+                            thickness: 2,
+                          ),
                         ),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 9),
-                            child: Text(
-                              translation(context).developers,
-                              style: TextStyle(
-                                  fontFamily: "Nexa4",
-                                  fontSize: 18,
-                                  color: renkler.arkaRenk),
+                        FittedBox(
+                          // Title
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).highlightColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 9),
+                                child: Text(
+                                  translation(context).developers,
+                                  style: TextStyle(
+                                      fontFamily: "Nexa4",
+                                      fontSize: 18,
+                                      color: renkler.arkaRenk),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        SizedBox(
+                          width: size.width * .22,
+                          child: const Divider(
+                            color: Colors.black,
+                            thickness: 2,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 5),
                     Padding(
@@ -169,11 +150,10 @@ class Communicate extends StatelessWidget {
                                         const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Theme.of(context).indicatorColor,
+                                        color: Theme.of(context).highlightColor.withOpacity(0.4),
                                         spreadRadius: 3,
                                         blurRadius: 7,
-                                        offset: const Offset(
-                                            3, 3), // x,y offset değerleri
+                                        offset: const Offset(3, 3), // x,y offset değerleri
                                       )
                                     ]),
                                 child: Stack(children: [
@@ -288,7 +268,7 @@ class Communicate extends StatelessWidget {
                                         const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Theme.of(context).indicatorColor,
+                                        color: Theme.of(context).highlightColor.withOpacity(0.4),
                                         spreadRadius: 3,
                                         blurRadius: 7,
                                         offset: const Offset(
@@ -407,7 +387,7 @@ class Communicate extends StatelessWidget {
                                         const BorderRadius.all(Radius.circular(25)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Theme.of(context).indicatorColor,
+                                        color: Theme.of(context).highlightColor.withOpacity(0.4),
                                         spreadRadius: 3,
                                         blurRadius: 7,
                                         offset: const Offset(

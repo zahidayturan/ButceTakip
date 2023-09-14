@@ -314,6 +314,5 @@ class GglDriveRiverpod extends ChangeNotifier{
   void setAccountStatus(bool status) {
     print("Hesap Durumu Güncellendi. = > ${status}") ;
     accountStatus = status ;
-    notifyListeners();
   }
 }
