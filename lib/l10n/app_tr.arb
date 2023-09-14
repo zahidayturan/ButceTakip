@@ -288,9 +288,9 @@
   "totalInterest": "Toplam Faiz:  ",
   "totalPayment": "Toplam Ödeme:  ",
 
-  "currencyConverter": " Döviz\nÇevirici",
-  "calculatePercentage": "  Yüzde\nHesapla",
-  "calculateInterestCredit": "Faiz-Kredi\n  Hesapla",
+  "currencyConverter": "Döviz Çevirici",
+  "calculatePercentage": "Yüzde Hesapla",
+  "calculateInterestCredit": "Faiz-Kredi Hesapla",
 
   "currencyConverterWarning": "Döviz çevirici henüz aktif değildir.",
 
@@ -311,7 +311,7 @@
   "darkMode": "Koyu Tema",
   "off": "Kapalı",
   "on": "Açık",
-  "backupStatus": "Yedeklenme Durumu",
+  "backupStatus": "Yedekleme Durumu",
   "notifications": "Bildirimler",
   "defaultCurrency": "Varsayılan Para Birimi",
   "changeCurrencyWarning": "Bütün kayıtların para birimi, işlem tarihinin döviz kuruna göre şu para birimi ile çevrilecek:",

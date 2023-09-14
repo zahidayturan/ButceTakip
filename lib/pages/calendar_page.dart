@@ -2,7 +2,6 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -163,7 +162,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     iconSize: 30,
                     onPressed: () {
                       setState(() {
-                        read.setIndex(0, 3);
+                        read.setIndex(0, 3,ref);
                         read.pageMonthController.jumpToPage(read.monthIndex-1);
                         read.pageYearController.jumpToPage(read.yearIndex-2020);
                       });
@@ -199,7 +198,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                 controller: read.pageMonthController,
                                 onPageChanged: (index) {
                                   setState(() {
-                                    read.setIndex(index,0);
+                                    read.setIndex(index,0,ref);
                                   });
                                 },
                                 children: monthName
@@ -233,7 +232,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                 onPageChanged: (index) {
                                   setState(() {
                                     print(index);
-                                    read.setIndex(index,1);
+                                    read.setIndex(index,1,ref);
                                   });
                                 },
                                 children: yearName
@@ -339,7 +338,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               onPageChanged: (index) {
                 setState(() {
                   print(index);
-                  read.setIndex(index, 2);
+                  read.setIndex(index, 2,ref);
                   pageController.jumpToPage(1);
                   read.pageMonthController.jumpToPage(read.monthIndex-1);
                   read.pageYearController.jumpToPage(read.yearIndex-2020);

@@ -1,8 +1,9 @@
 import 'dart:io';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/models/settings_info.dart';
-import 'package:butcekontrol/pages/bka_slider.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../utils/cvs_converter.dart';
 
@@ -25,6 +26,7 @@ class SettingsRiverpod extends ChangeNotifier{
   int ?monthStartDay;
   String ?dateFormat;
   bool backUpAlert = false ;
+  String ?errorStatusBackup ;
 
   Future readDb() async{
     List<SettingsInfo> setting = await SQLHelper.settingsControl() ;
@@ -74,6 +76,10 @@ class SettingsRiverpod extends ChangeNotifier{
       await SQLHelper.addItemSetting(info);
       await readDb();
     }
+    notifyListeners();
+  }
+  void setErrorStatusBackup(String ?Error){
+    errorStatusBackup = Error ;
     notifyListeners();
   }
 
@@ -224,13 +230,13 @@ class SettingsRiverpod extends ChangeNotifier{
   }
   Locale localChanger(){
     if(Language == "Turkce"){
-      return Locale("tr");
+      return const Locale("tr");
     }else if(Language == "English"){
-      return Locale("en");
+      return const Locale("en");
     }else if(Language == "العربية"){
-      return Locale("ar");
+      return const Locale("ar");
     }else{
-      return Locale("en");
+      return const Locale("en");
     }
   }
   String getDeviceLocaleLanguage(){
@@ -272,4 +278,109 @@ class SettingsRiverpod extends ChangeNotifier{
     Status = value ;
     notifyListeners();
   }
+
+
+  int currentIndex = (DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12); ///44
+  int monthIndex = (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))%12)+1; ///9
+  int yearIndex = (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))~/12)+2020; ///2023
+  PageController ?pageControllerR ;
+
+  Future<void> setMonthStarDayForHomePage(int monthStartDay) async{
+    if(monthStartDay > DateTime.now().day){
+      currentIndex = (DateTime.now().month - 2) + ((DateTime.now().year - 2020) * 12);
+      indexCalculator(currentIndex);
+    }
+    else if(monthStartDay <= DateTime.now().day){
+      currentIndex = (DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12);
+      indexCalculator(currentIndex);
+    }
+
+  }
+
+  void setControllerPage(PageController controllerPage){
+    pageControllerR = controllerPage;
+  }
+
+  setIndex(int index,int operation,WidgetRef ref) {
+    if(operation == 0){///generalinfo arttırma
+      print("bbbb ${index}");
+      if(index != 131){
+        currentIndex = index+1;
+        pageControllerR!.nextPage(duration: const Duration(milliseconds: 200), curve: Curves.linear);
+        indexCalculator(currentIndex);
+      }
+    }
+    else if(operation == 1){///generalinfo azaltma
+      print("aaaa ${index}");
+      if(index != 0){
+        currentIndex = index-1;
+        pageControllerR!.previousPage(duration: const Duration(milliseconds: 200), curve: Curves.linear);
+        indexCalculator(currentIndex);
+      }
+    }
+    else if(operation == 2){///page değiştirme
+        currentIndex = index;
+        indexCalculator(currentIndex);
+    }
+    else if(operation == 3){///resetleme
+      setMonthStarDayForHomePage(monthStartDay!);
+      pageControllerR!.animateToPage(currentIndex, duration: Duration(milliseconds: 500), curve: Curves.linear);
+      indexCalculator(currentIndex);
+    }
+    else if(operation == 4){///generalinfo 1 yıl azaltma
+      print("aaaa ${index}");
+      if(index > 11){
+        currentIndex = index-12;
+        pageControllerR!.animateToPage(currentIndex, duration: Duration(milliseconds: 1000), curve: Curves.linear);
+        indexCalculator(currentIndex);
+      }
+    }
+    else if(operation == 5){///generalinfo 1 yıl arttırma
+      print("aaaa ${index}");
+      if(index < 120){
+        currentIndex = index+12;
+        pageControllerR!.animateToPage(currentIndex, duration: Duration(milliseconds: 1000), curve: Curves.linear);
+        indexCalculator(currentIndex);
+      }
+    }
+  }
+
+  List<int> indexCalculator(int index){
+    int monthIndexCalc = (index % 12)+1;
+    monthIndex = monthIndexCalc;
+    int yearIndexCalc = (index~/12)+2020;
+    yearIndex = yearIndexCalc;
+    return[monthIndexCalc,yearIndexCalc];
+  }
+String getMonthInList(BuildContext context){
+  List<String> months = [
+    "",
+    translation(context).january,
+    translation(context).february,
+    translation(context).march,
+    translation(context).april,
+    translation(context).may,
+    translation(context).june,
+    translation(context).july,
+    translation(context).august,
+    translation(context).september,
+    translation(context).october,
+    translation(context).november,
+    translation(context).december,
+  ];
+  return months[monthIndex];
+  }
+  List<String> years = [
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026",
+    "2027",
+    "2028",
+    "2029",
+    "2030"
+  ];
 }

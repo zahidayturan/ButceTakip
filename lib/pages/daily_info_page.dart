@@ -76,28 +76,24 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                       Expanded(
                         child: Stack(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 11.5),
-                                  child: SizedBox(
-                                    width: 4,
+                            Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 11.5,top: 4),
+                                    child: Container(
+                                      width: 4,
+                                      decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(30)),
+                                          color: snapshot.data!.length <= 12
+                                              ? Theme.of(context).indicatorColor
+                                              : Theme.of(context).canvasColor),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 11.5, left: 11.5),
-                                  child: Container(
-                                    width: 4,
-                                    decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(30)),
-                                        color: snapshot.data!.length <= 12
-                                            ? Theme.of(context).indicatorColor
-                                            : Theme.of(context).canvasColor),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -121,7 +117,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                     itemBuilder: (context, index) {
                                       return Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 15, right: 15, top: 5),
+                                             right: 15, top: 5),
                                         child: InkWell(
                                           onTap: () {
                                             {
@@ -252,41 +248,26 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: SizedBox(
-                          width: size.width * 0.98,
-                          height: 15,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                height: 15,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 5),
-                                  child: Text(
-                                    "${item.length}",
-                                    style: TextStyle(
-                                        color: Theme.of(context).scaffoldBackgroundColor,
-                                        fontSize: 18,
-                                        fontFamily: 'NEXA4'),
-                                  ),
+                      Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: SizedBox(
+                            width: size.width * 0.98,
+                            height: 15,
+                            child: SizedBox(
+                              height: 15,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Text(
+                                  "${item.length}",
+                                  style: TextStyle(
+                                      color: Theme.of(context).dialogBackgroundColor,
+                                      fontSize: 18,
+                                      fontFamily: 'NEXA4'),
                                 ),
                               ),
-                              SizedBox(
-                                height: 15,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 5),
-                                  child: Text(
-                                    "${item.length}",
-                                    style: TextStyle(
-                                        color: Theme.of(context).dialogBackgroundColor,
-                                        fontSize: 18,
-                                        fontFamily: 'NEXA4'),
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
@@ -298,6 +279,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
   Widget dayDetailsGuide(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var read = ref.read(dailyInfoRiverpod);
+    CustomColors renkler = CustomColors();
     return FutureBuilder<List>(
       future: read.getMonthDaily(read.day, read.month, read.year),
       builder: (context, snapshot) {
@@ -330,8 +312,8 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                             FittedBox(
                               child: Text(
                                 " +${data[0]}",
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: renkler.yaziRenk,
                                   fontSize: 15,
                                   fontFamily: 'Nexa3',
                                   fontWeight: FontWeight.w900,
@@ -345,8 +327,8 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                             FittedBox(
                               child: Text(
                                 "-${data[1]} ",
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: renkler.yaziRenk,
                                   fontSize: 15,
                                   fontFamily: 'Nexa3',
                                   fontWeight: FontWeight.w900,
@@ -458,6 +440,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
     List myDate = ref.read(dailyInfoRiverpod).getDate(context);
     var size = MediaQuery.of(context).size;
     var readSettings = ref.read(settingsRiverpod);
+    CustomColors renkler = CustomColors();
     return FutureBuilder<double>(
       future: ref.read(dailyInfoRiverpod).getResult(),
       builder: (context, snapshot) {
@@ -488,8 +471,8 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                         children: [
                           Text(
                             "${myDate[0]} ${myDate[1]} ${myDate[2]}",
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: renkler.yaziRenk,
                               fontFamily: "Nexa3",
                               height: 1,
                               fontSize: 24,
@@ -497,8 +480,8 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                           ),
                            Text(
                             translation(context).activityDetails,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: renkler.yaziRenk,
                               fontFamily: "Nexa3",
                               fontWeight: FontWeight.w400,
                               height: 1,
@@ -516,13 +499,13 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                       height: 40,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          color: const Color(0xff0D1C26),
+                          color: Theme.of(context).highlightColor,
                           borderRadius: BorderRadius.circular(40),
                         ),
                         child: IconButton(
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.clear,
-                            color: Colors.white,
+                            color: renkler.yaziRenk,
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -565,18 +548,18 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                         children: [
                           Text(
                             "${myDate[0]} ${myDate[1]} ${myDate[2]}",
-                            style: const TextStyle(
+                            style: TextStyle(
                               height: 1,
-                              color: Colors.white,
+                              color: renkler.yaziRenk,
                               fontFamily: "NEXA3",
                               fontSize: 24,
                             ),
                           ),
                            Text(
                             translation(context).activityDetails,
-                            style: const TextStyle(
+                            style: TextStyle(
                               height: 1,
-                              color: Colors.white,
+                              color: renkler.yaziRenk,
                               fontFamily: "NEXA3",
                               fontSize: 13,
                             ),
@@ -592,7 +575,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                       height: 40,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          color: const Color(0xff0D1C26),
+                          color: Theme.of(context).highlightColor,
                           borderRadius: BorderRadius.circular(40),
                         ),
                         child: IconButton(
@@ -600,7 +583,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                             "assets/icons/remove.png",
                             height: 16,
                             width: 16,
-                            color: Colors.white,
+                            color: renkler.yaziRenk
                           ),
                           highlightColor: Theme.of(context).primaryColor,
                           splashColor:Theme.of(context).primaryColor,

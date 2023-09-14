@@ -1,4 +1,5 @@
 import 'package:butcekontrol/UI/change_currency_page.dart';
+import 'package:butcekontrol/UI/history_asset.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
@@ -240,50 +241,58 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(bottom: size.width * .01),
-                                          height: size.width * .02,
-                                          width: size.width * .02,
-                                          decoration: const BoxDecoration(
-                                            color: Color(0xFFF5ECB9),
-                                            shape: BoxShape.circle
+                                    SizedBox(
+                                      width: size.width * .5,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.only(bottom: size.width * .01),
+                                                height: size.width * .02,
+                                                width: size.width * .02,
+                                                decoration: const BoxDecoration(
+                                                  color: Color(0xFFF5ECB9),
+                                                  shape: BoxShape.circle
+                                                ),
+                                              ),
+                                              SizedBox(width: size.width * .02),
+                                              Text(translation(context).bank,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                            ],
                                           ),
-                                        ),
-                                        SizedBox(width: size.width * .02),
-                                        Text(translation(context).bank,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(bottom: size.width * .01),
-                                          height: size.width * .02,
-                                          width: size.width * .02,
-                                          decoration: const BoxDecoration(
-                                              color: Color(0xFFF9D1AC),
-                                              shape: BoxShape.circle
+                                          Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.only(bottom: size.width * .01),
+                                                height: size.width * .02,
+                                                width: size.width * .02,
+                                                decoration: const BoxDecoration(
+                                                    color: Color(0xFFF9D1AC),
+                                                    shape: BoxShape.circle
+                                                ),
+                                              ),
+                                              SizedBox(width: size.width * .02),
+                                              Text(translation(context).cashAsset,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                            ],
                                           ),
-                                        ),
-                                        SizedBox(width: size.width * .02),
-                                        Text(translation(context).cashAsset,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(bottom: size.width * .01),
-                                          height: size.width * .02,
-                                          width: size.width * .02,
-                                          decoration: const BoxDecoration(
-                                              color: Color(0xFFF9ACAC),
-                                              shape: BoxShape.circle
+                                          Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.only(bottom: size.width * .01),
+                                                height: size.width * .02,
+                                                width: size.width * .02,
+                                                decoration: const BoxDecoration(
+                                                    color: Color(0xFFF9ACAC),
+                                                    shape: BoxShape.circle
+                                                ),
+                                              ),
+                                              SizedBox(width: size.width * .02),
+                                              Text(translation(context).other,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
+                                            ],
                                           ),
-                                        ),
-                                        SizedBox(width: size.width * .02),
-                                        Text(translation(context).other,style: TextStyle(color: Theme.of(context).canvasColor,height: 1),)
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -292,7 +301,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                           PageRouteBuilder(
                                             opaque: false, //sayfa saydam olması için
                                             transitionDuration: const Duration(milliseconds: 1),
-                                            pageBuilder: (context, animation, nextanim) => const addAssets(),
+                                            pageBuilder: (context, animation, nextanim) => const historyAsset(),
                                             reverseTransitionDuration: const Duration(milliseconds: 1),
                                             transitionsBuilder: (context, animation, nexttanim, child) {
                                               return FadeTransition(
@@ -303,46 +312,104 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                           ),
                                         );
                                       },
-                                      child: FittedBox(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.03),
-                                          decoration: BoxDecoration(
-                                              color: Theme.of(context).highlightColor,
-                                              borderRadius: BorderRadius.circular(8),
-                                              border: Border.all(
-                                                color: Colors.white
+                                      child: Container(
+                                        width: size.width * .26,
+                                        padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.02),
+                                        decoration: BoxDecoration(
+                                            color: Theme.of(context).highlightColor,
+                                            borderRadius: BorderRadius.circular(8),
+                                            border: Border.all(
+                                              color: Theme.of(context).canvasColor.withOpacity(0.5),
+                                            ),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  color: Colors.black12,
+                                                  blurRadius: 3,
+                                                  spreadRadius: 1
+                                              )
+                                            ]
+                                        ),
+                                        child: const Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Geçmiş",
+                                              style: TextStyle(
+                                                color: Color(0xFFE9E9E9),
+                                                fontSize: 13,
+                                                height: 1
                                               ),
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                    color: Colors.black12,
-                                                    blurRadius: 3,
-                                                    spreadRadius: 1
-                                                )
-                                              ]
-                                          ),
-                                          child:  Row(
-                                            children: [
-                                              Center(
-                                                child: Text(
-                                                  translation(context).addRemoveAsset,
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 13,
-                                                    height: 1
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                            SizedBox(width: 5),
+                                            Icon(
+                                              Icons.history,
+                                              size: 16,
+                                              color: Color(0xFFE9E9E9),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ),
+                                    )
                                   ],
                                 ),
                               ),
                             ],
                           ),
                         ),///pasta satırı
+                        SizedBox(height: size.height *.006),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                opaque: false, //sayfa saydam olması için
+                                transitionDuration: const Duration(milliseconds: 1),
+                                pageBuilder: (context, animation, nextanim) => const addAssets(),
+                                reverseTransitionDuration: const Duration(milliseconds: 1),
+                                transitionsBuilder: (context, animation, nexttanim, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.02),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Theme.of(context).secondaryHeaderColor.withOpacity(0.7), Theme.of(context).shadowColor.withOpacity(0.6)],
+                              ),
+                              //color: Theme.of(context).highlightColor,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: Theme.of(context).canvasColor.withOpacity(0.5),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Theme.of(context).indicatorColor,
+                                    blurRadius: 3,
+                                    spreadRadius: 1
+                                )
+                              ]
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  translation(context).addRemoveAsset,
+                                  style: const TextStyle(
+                                      color: Color(0xFFE9E9E9),
+                                      fontSize: 13,
+                                      height: 1
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         SizedBox(height: size.height *.01),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -616,7 +683,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                   alignment: Alignment.centerLeft,
                 ) : title == translation(context).cashAsset
                   ? Image.asset(
-                    "assets/icons/money.png",
+                    "assets/icons/cash.png",
                     height: 22,
                   color: Theme.of(context).canvasColor,
                     alignment: Alignment.centerLeft,

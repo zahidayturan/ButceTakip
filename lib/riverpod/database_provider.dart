@@ -30,7 +30,7 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setMonthandYear(month, year) {
+  Future<void> setMonthandYear(month, year) async{
     this.month = month;
     this.year = year;
     notifyListeners();

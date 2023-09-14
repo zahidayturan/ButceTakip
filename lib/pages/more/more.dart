@@ -50,8 +50,8 @@ class More extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var readSetting = ref.read(settingsRiverpod);
+    var darkMode = readSetting.DarkMode;
     var size = MediaQuery.of(context).size;
-    //var readNavBar = ref.read(botomNavBarRiverpod);
     ref.watch(settingsRiverpod).isuseinsert;
     return Container(
       color: renkler.koyuuRenk,
@@ -93,11 +93,23 @@ class More extends ConsumerWidget {
                               height: size.height / 9,
                               width: size.height / 9,
                               decoration: BoxDecoration(
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.6),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.2,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ],
                                   color: renkler.koyuuRenk,
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).canvasColor
-                                  ),
+                                  border: Border.all(color: renkler.koyuAraRenk),
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Column(
@@ -133,6 +145,21 @@ class More extends ConsumerWidget {
                               height: size.height / 9,
                               width: size.height / 4.5 + size.width/15,
                               decoration: BoxDecoration(
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.6),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.2,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ],
                                   color: Theme.of(context).disabledColor,
                                   border: Border.all(
                                       width: 2,
@@ -208,11 +235,23 @@ class More extends ConsumerWidget {
                               height: size.height / 9,
                               width: size.height / 9,
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).canvasColor
-                                  ),
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.6),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.2,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ],
                                   color: renkler.koyuuRenk,
+                                  border: Border.all(color: renkler.koyuAraRenk),
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Column(
@@ -228,7 +267,7 @@ class More extends ConsumerWidget {
                           ),
                           SizedBox(width: size.width / 15),
                           InkWell(
-                            onTap: () {
+                            onTap: () async{
                               Navigator.push(
                                 context,
                                 PageRouteBuilder(
@@ -249,11 +288,23 @@ class More extends ConsumerWidget {
                               height: size.height / 9,
                               width: size.height / 9,
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).canvasColor
-                                  ),
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.6),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.2,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ],
                                   color: renkler.koyuuRenk,
+                                  border: Border.all(color: renkler.koyuAraRenk),
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Column(
@@ -289,11 +340,23 @@ class More extends ConsumerWidget {
                               height: size.height / 9,
                               width: size.height / 9,
                               decoration: BoxDecoration(
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.6),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.2,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ],
                                   color: renkler.koyuuRenk,
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).canvasColor
-                                  ),
+                                  border: Border.all(color: renkler.koyuAraRenk),
                                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Column(
@@ -332,6 +395,21 @@ class More extends ConsumerWidget {
                               height: size.height / 18,
                               width: size.height / 6+size.width/30,
                               decoration: BoxDecoration(
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.6),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.2,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ],
                                   border: Border.all(
                                       width: 2,
                                       color: Theme.of(context).disabledColor
@@ -359,7 +437,7 @@ class More extends ConsumerWidget {
 
                               DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
                               AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-                              print('Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Local: TrArEn \nVersion: V1.1.1\n\n${translation(context).write}');
+                              print('Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Language: ${readSetting.Language} \nVersion: ${informationApp.version}\n\n${translation(context).write}');
                               String? encodeQueryParameters(Map<String, String> params) {
                                 return params.entries
                                     .map((MapEntry<String, String> e) =>
@@ -371,7 +449,7 @@ class More extends ConsumerWidget {
                                 path: 'fezaitech@gmail.com',
                                 query: encodeQueryParameters(<String, String>{
                                   'subject': 'Bütçe Takip Öneri/Hata Bildirimi',
-                                  'body' : 'Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Local: TrArEn \nVersion: V1.1.1\n\n${translation(context).write}'
+                                  'body' : 'Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Language: ${readSetting.Language} \nVersion: ${informationApp.version}\n\n${translation(context).write}'
 
                                 }),
                               );
@@ -386,12 +464,24 @@ class More extends ConsumerWidget {
                               height: size.height / 18,
                               width: size.height / 6+size.width/30,
                               decoration: BoxDecoration(
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.6),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.2,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ],
                                   color: renkler.koyuuRenk,
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).canvasColor
-                                  ),
-                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15))
+                                  border: Border.all(color: renkler.koyuAraRenk),
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -421,12 +511,24 @@ class More extends ConsumerWidget {
                               height: size.height / 18,
                               width: size.height / 6+size.width/30,
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).canvasColor
-                                  ),
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.6),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.2,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ],
                                   color: renkler.koyuuRenk,
-                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15))
+                                  border: Border.all(color: renkler.koyuAraRenk),
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -453,12 +555,24 @@ class More extends ConsumerWidget {
                               height: size.height / 18,
                               width: size.height / 6+size.width/30,
                               decoration: BoxDecoration(
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.6),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.2,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ],
                                   color: renkler.koyuuRenk,
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).canvasColor
-                                  ),
-                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15))
+                                  border: Border.all(color: renkler.koyuAraRenk),
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topRight: Radius.circular(20))
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 6),

@@ -51,7 +51,6 @@ class GglDriveRiverpod extends ChangeNotifier{
     if(googleUser != null){
       setAccountStatus(true);
     }
-
      */
     refreshPage();
     return await FirebaseAuth.instance.signInWithCredential(credential);
@@ -86,6 +85,7 @@ class GglDriveRiverpod extends ChangeNotifier{
       for(int index = a.length -1 ; index >= 15 ; index--){
         await deleteFileWithId(a[index].id);
       }
+      return ;
     }else{
       return ;
     }
@@ -252,7 +252,7 @@ class GglDriveRiverpod extends ChangeNotifier{
     return user != null;
   }
   Future<void> checkAuthState(WidgetRef ref) async { // Base_BKA tarafından çalıştırılan bir dosyadır. giriş durumunu atar.
-    var read = ref.read(settingsRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     if(_auth.currentUser != null)  {
       try{
         accountStatus = true;
@@ -265,16 +265,10 @@ class GglDriveRiverpod extends ChangeNotifier{
         });
       }catch(e){
         print("INTERNET NOT FOUND FOR USER $e"); ///internetin yokluğu veya oturum süresi dolmasında buraya geliyor.
-        setAccountStatus(false); ///debug sırasında silebilirsin.
-        /*
-        var now = DateTime.now();
-        //ref.read(settingsRiverpod).setbackUpAlert("Internet");
-        //accountStatus = false;
-        //signOutWithGoogle();
-         */
+        readSettings.setErrorStatusBackup("internet");
       }
     }else{
-      accountStatus = false;
+      setAccountStatus(false);
     }
   }
   String? getUserPhotoUrl(){
@@ -320,6 +314,5 @@ class GglDriveRiverpod extends ChangeNotifier{
   void setAccountStatus(bool status) {
     print("Hesap Durumu Güncellendi. = > ${status}") ;
     accountStatus = status ;
-    notifyListeners();
   }
 }

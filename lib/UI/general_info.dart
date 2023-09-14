@@ -4,49 +4,23 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Generalinfo extends ConsumerWidget {
-  //statelesswidget
+class Generalinfo extends ConsumerStatefulWidget {
   const Generalinfo({Key? key}) : super(key: key);
+  @override
+  ConsumerState<Generalinfo> createState() => _Generalinfo();
+}
+
+class _Generalinfo extends ConsumerState<Generalinfo> {
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    List<String> months = [
-      translation(context).january,
-      translation(context).february,
-      translation(context).march,
-      translation(context).april,
-      translation(context).may,
-      translation(context).june,
-      translation(context).july,
-      translation(context).august,
-      translation(context).september,
-      translation(context).october,
-      translation(context).november,
-      translation(context).december,
-    ];
-    List<String> years = [
-      "2020",
-      "2021",
-      "2022",
-      "2023",
-      "2024",
-      "2025",
-      "2026",
-      "2027",
-      "2028",
-      "2029",
-      "2030"
-    ];
+  Widget build(BuildContext context) {
     var readSettings = ref.read(settingsRiverpod);
-    var monthStartDay = readSettings.monthStartDay;
-    var readhome = ref.read(homeRiverpod);
     var watchhome = ref.watch(homeRiverpod);
+    var watchSettings = ref.watch(settingsRiverpod);
     var readdb = ref.read(databaseRiverpod);
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
-    //watchhome.refrestst;
-    int indexyear = watchhome.indexyear;
-    int indexmounth = watchhome.indexmounth;
+    var read = ref.read(databaseRiverpod);
     return StreamBuilder<Map<String, dynamic>>(
         stream: readdb.myMethod(ref),
         builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
@@ -116,55 +90,56 @@ class Generalinfo extends ConsumerWidget {
                                         ),
                                       ),
                                       Row(
-                                        //Tarih bilgisini değiştirebilme
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 2),
-                                            child: RotatedBox(
-                                              quarterTurns: 1,
-                                              child: InkWell(
-                                                //alignment: Alignment.topCenter,
-                                                //padding: EdgeInsets.zero,
-                                                onTap: () {
-                                                  if (indexmounth > 0) {
-                                                    indexmounth -= 1;
-                                                  } else {
-                                                    if (indexyear != 0) {
-                                                      indexyear -= 1;
-                                                      indexmounth = 11;
-                                                    }
-                                                  }
-                                                  readhome.controllerPageMontly!.jumpToPage(indexmounth + 1);
-                                                  //readhome.controllerPageMontly!.animateToPage(indexmounth, duration: Duration(milliseconds: 100), curve: Curves.linear);
-                                                  readhome.changeindex(indexmounth, indexyear);
-                                                  readdb.setMonthandYear((indexmounth + 1).toString(), years[indexyear]);
-                                                },
-                                                  highlightColor: Theme.of(context).indicatorColor,
-                                                child: SizedBox(
-                                                  height: 20,
-                                                  width: 20,
-                                                  child: Image.asset(
-                                                    "assets/icons/arrow.png",
-                                                    color: renkler.koyuuRenk,
-                                                  ),
-                                                )
+                                          Visibility(
+                                            visible: readSettings.currentIndex !=0,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 2),
+                                              child: RotatedBox(
+                                                quarterTurns: 1,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      readSettings.setIndex(readSettings.currentIndex,1,ref);
+                                                      read.setMonthandYear(readSettings.monthIndex.toString(), readSettings.yearIndex.toString());
+                                                    });
+                                                  },
+                                                    onLongPress: () {
+                                                      setState(() {
+                                                        readSettings.setIndex(readSettings.currentIndex,4,ref);
+                                                        read.setMonthandYear(readSettings.monthIndex.toString(), readSettings.yearIndex.toString());
+                                                      });
+                                                    },
+                                                    highlightColor: Theme.of(context).indicatorColor,
+                                                  child: SizedBox(
+                                                    height: 20,
+                                                    width: 20,
+                                                    child: Image.asset(
+                                                      "assets/icons/arrow.png",
+                                                      color: renkler.koyuuRenk,
+                                                    ),
+                                                  )
+                                                ),
                                               ),
                                             ),
                                           ),
                                           Directionality(
                                             textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
                                             child: GestureDetector(
-                                              onTap: () {
-                                                readhome.controllerPageMontly!.jumpToPage(DateTime.now().month);
-                                                readhome.changeindex(DateTime.now().month-1, DateTime.now().year-2020);
-                                                readdb.setMonthandYear(DateTime.now().month.toString(), DateTime.now().year.toString());
-                                              },
+                                              onLongPress: () {
+                                                setState(() {
+                                                  readSettings.setIndex(readSettings.currentIndex,3,ref);
+                                                  read.setMonthandYear(readSettings.monthIndex.toString(), readSettings.yearIndex.toString());
+                                                });
+                                                },
                                               child: ClipRRect(
                                                 borderRadius:
                                                 const BorderRadius.all(Radius.circular(50)),
-                                                child: Container(
+                                                child: AnimatedContainer(
+                                                  duration: Duration(milliseconds: 500),
+                                                  curve: Curves.linearToEaseOut,
                                                   height: 32,
-                                                  width: 164,
+                                                  width: (readSettings.currentIndex == 0 || readSettings.currentIndex == 131) ? 186 : 164,
                                                   color: Theme.of(context).highlightColor,
                                                   child: Padding(
                                                     padding: const EdgeInsets.only(top: 5),
@@ -172,7 +147,7 @@ class Generalinfo extends ConsumerWidget {
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Text(
-                                                          months[readhome.indexmounth],
+                                                          readSettings.getMonthInList(context),
                                                           style: TextStyle(
                                                             color: renkler.arkaRenk,
                                                             fontSize: 17,
@@ -182,7 +157,7 @@ class Generalinfo extends ConsumerWidget {
                                                         // Ay gösterge
                                                         const SizedBox(width: 4),
                                                         Text(
-                                                          years[readhome.indexyear],
+                                                          readSettings.years[readSettings.yearIndex-2020],
                                                           style: TextStyle(
                                                             color: renkler.arkaRenk,
                                                             fontSize: 17,
@@ -197,31 +172,32 @@ class Generalinfo extends ConsumerWidget {
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(right: 2),
-                                            child: RotatedBox(
-                                              quarterTurns: 3,
-                                              child: InkWell(
-                                                //padding: EdgeInsets.zero,
-                                                //alignment: Alignment.topCenter,
-                                                onTap: () {
-                                                  if (indexmounth < months.length - 1) {
-                                                    indexmounth += 1;
-                                                  } else if (indexyear < years.length - 1) {
-                                                    indexmounth = 0;
-                                                    indexyear += 1;
-                                                  }
-                                                  readhome.controllerPageMontly!.jumpToPage(indexmounth + 1);
-                                                  readhome.changeindex(indexmounth, indexyear);
-                                                  readdb.setMonthandYear((indexmounth + 1).toString(), years[indexyear]);
-                                                },
-                                                highlightColor: Theme.of(context).indicatorColor,
-                                                child: SizedBox(
-                                                  height: 20,
-                                                  width: 20,
-                                                  child: Image.asset(
-                                                    "assets/icons/arrow.png",
-                                                    color: renkler.koyuuRenk,
+                                          Visibility(
+                                            visible: readSettings.currentIndex !=131,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(right: 2),
+                                              child: RotatedBox(
+                                                quarterTurns: 3,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      readSettings.setIndex(readSettings.currentIndex,0,ref);
+                                                      read.setMonthandYear(readSettings.monthIndex.toString(), readSettings.yearIndex.toString());
+                                                    });
+                                                  },
+                                                  onLongPress: () {
+                                                    setState(() {
+                                                      readSettings.setIndex(readSettings.currentIndex,5,ref);
+                                                      read.setMonthandYear(readSettings.monthIndex.toString(), readSettings.yearIndex.toString());
+                                                    });
+                                                  },
+                                                  child: SizedBox(
+                                                    height: 20,
+                                                    width: 20,
+                                                    child: Image.asset(
+                                                      "assets/icons/arrow.png",
+                                                      color: renkler.koyuuRenk,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -429,9 +405,4 @@ class Generalinfo extends ConsumerWidget {
         });
   }
 
-  InlineSpan textChange(String text, String value, amount) {
-    return amount <= 99999
-        ? TextSpan(text: '$text ')
-        : TextSpan(text: '$value ');
-  }
 }

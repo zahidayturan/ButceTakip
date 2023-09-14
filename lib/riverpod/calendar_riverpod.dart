@@ -1,9 +1,9 @@
+import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:core';
-
 import 'package:intl/intl.dart';
-
 import '../models/spend_info.dart';
 import '../utils/db_helper.dart';
 import 'package:butcekontrol/classes/language.dart';
@@ -20,7 +20,21 @@ class CalendarRiverpod extends ChangeNotifier {
 
   late PageController pageMonthController;
   late PageController pageYearController;
-  setIndex(int index,int operation) {
+
+  Future<void> setMonthStartDay(int monthStartDay) async{
+    if(monthStartDay > DateTime.now().day){
+      currentIndex = (DateTime.now().month - 2) + ((DateTime.now().year - 2020) * 12);
+      monthIndex = (((DateTime.now().month - 2) + ((DateTime.now().year - 2020) * 12))%12)+1;
+      yearIndex = (((DateTime.now().month - 2) + ((DateTime.now().year - 2020) * 12))~/12)+2020;
+    }
+    else if(monthStartDay <= DateTime.now().day){
+      currentIndex = (DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12);
+      monthIndex = (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))%12)+1;
+      yearIndex = (((DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12))~/12)+2020;
+    }
+  }
+
+  setIndex(int index,int operation,WidgetRef ref) {
     if(operation == 0){///ay arttırma
       monthIndex = index+1;
       currentIndex = (monthIndex-1)+((yearIndex-2020)*12);
@@ -46,7 +60,12 @@ class CalendarRiverpod extends ChangeNotifier {
       }
     }
     else if(operation == 3){///resetleme
-      currentIndex = (DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12);
+      if(ref.read(settingsRiverpod).monthStartDay! > DateTime.now().day){
+        currentIndex = (DateTime.now().month - 2) + ((DateTime.now().year - 2020) * 12);
+      }
+      else if(ref.read(settingsRiverpod).monthStartDay! <= DateTime.now().day){
+        currentIndex = (DateTime.now().month - 1) + ((DateTime.now().year - 2020) * 12);
+      }
       monthIndex = (currentIndex % 12)+1;
       yearIndex = (currentIndex~/12)+2020;
     }

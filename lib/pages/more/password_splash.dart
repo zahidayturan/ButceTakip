@@ -72,7 +72,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                       )
                     ],
                   )
-                  :const SizedBox(),
+                  :SizedBox(height : size.height * .04),
                   Column(
                     mainAxisAlignment:  MainAxisAlignment.spaceBetween,
                     children: [

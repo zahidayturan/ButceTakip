@@ -54,7 +54,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                   width: size.width * .62,
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: renkler.koyuuRenk,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(
@@ -66,8 +66,8 @@ class _addAssetsState extends ConsumerState<addAssets> {
                           SizedBox(width: size.width * .04),
                           Text(
                             initialLabelIndexType == 0 ? translation(context).addAssetTitle : translation(context).removeAssetTitle,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: Theme.of(context).dialogBackgroundColor,
                               fontFamily: "Nexa2",
                               fontSize: 18
                             ),
@@ -76,8 +76,8 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             height: 30,
                             width: 30,
                             child: DecoratedBox(
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).canvasColor,
                                   shape: BoxShape.circle
                               ),
                               child: IconButton(
@@ -90,6 +90,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                   "assets/icons/remove.png",
                                   height: 20,
                                   width: 20,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                               ),
                             ),
@@ -113,26 +114,31 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             width: size.width * .2010,
                             height: size.height * .032,
                             decoration: BoxDecoration(
-                              color: const Color(0xff1C2B35),
+                              color:Theme.of(context).indicatorColor,
                               borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context).canvasColor,
+                                  blurRadius: 1
+                                ),
+                              ]
                             ),
                             child: TextField(
                               controller: _controller,
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: Theme.of(context).secondaryHeaderColor,
                                 fontSize: 13,
                               ),
                               keyboardType: const TextInputType.numberWithOptions(decimal: true),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
-
                                   RegExp(r'^\d{0,6}(\.\d{0,2})?'),)
                               ],
                               decoration: InputDecoration(
                                 hintText: translation(context).amount,
-                                hintStyle: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
+                                hintStyle: TextStyle(
+                                    color: Theme.of(context).secondaryHeaderColor,
+                                    fontSize: 10,
                                   height: 1.3
                                 ),
                                 contentPadding: EdgeInsets.symmetric(horizontal: size.width * .016,vertical: size.width * .028),
@@ -141,11 +147,17 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             ),
                           ),
                           Container(
-                            height: 30,
-                            width: 80,
+                            height: size.height * .032,
+                            width: 85,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: const Color(0xff1C2B35),
+                              color:  Theme.of(context).indicatorColor,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context).canvasColor,
+                                  blurRadius: 1
+                                ),
+                              ]
                             ),
                             padding: const EdgeInsets.symmetric(horizontal: 5.0),
                             child: DropdownButtonHideUnderline(
@@ -153,17 +165,17 @@ class _addAssetsState extends ConsumerState<addAssets> {
                                 hint: Text(
                                   translation(context).select,
                                   style: TextStyle(
-                                    color: Theme.of(context).disabledColor,
+                                    color: Theme.of(context).secondaryHeaderColor,
                                   ),
                                 ),
-                                dropdownColor: renkler.koyuuRenk,
+                                dropdownColor:Theme.of(context).indicatorColor,
                                 borderRadius: BorderRadius.circular(20),
                                 value: moneyType,
                                 elevation: 16,
-                                style: TextStyle(color: Theme.of(context).disabledColor),
+                                style: TextStyle(color: Theme.of(context).secondaryHeaderColor),
                                 underline: Container(
                                   height: 2,
-                                  color: renkler.koyuuRenk,
+                                  color: Theme.of(context).indicatorColor,
                                 ),
                                 onChanged: (newValue) {
                                   setState(() {
@@ -223,10 +235,10 @@ class _addAssetsState extends ConsumerState<addAssets> {
                           ),
                           child: Text(
                             translation(context).doneAsset,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Nexa2",
                               height: 1,
-                              color: Theme.of(context).primaryColor
+                              color: Color(0xFF0D1C26),
                             ),
                           ),
                         ),
@@ -306,7 +318,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
           cornerRadius: 20,
           radiusStyle: true,
           animate: true,
-          curve: Curves.linearToEaseOut,
+           curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
                 fontSize: 9, fontFamily: 'Nexa4', fontWeight: FontWeight.w300)

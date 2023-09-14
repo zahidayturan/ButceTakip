@@ -85,11 +85,12 @@ class HelpAssets extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Theme.of(context).highlightColor,
                               borderRadius: BorderRadius.circular(8),
-                              boxShadow: const [
+                              boxShadow: [
                                 BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 3,
-                                    spreadRadius: 1
+                                    color: Colors.black.withOpacity(0.8),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 2)
                                 )
                               ]
                           ),
@@ -121,12 +122,12 @@ class HelpAssets extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),
-                          boxShadow: const [
+                          boxShadow: [
                             BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 1,
-                              spreadRadius: 1,
-                              offset: Offset(0, 1),
+                                color: Colors.black.withOpacity(0.8),
+                                spreadRadius: 0.5,
+                                blurRadius: 2,
+                                offset: const Offset(0, 2)
                             )
                           ],
                           color: Theme.of(context).indicatorColor,
@@ -184,27 +185,40 @@ class HelpAssets extends StatelessWidget {
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
-                      FittedBox(
-                        child:  Container(
-                          padding: EdgeInsets.all(6),
+                      Container(
+                          height: 30,
+                          width: 110,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).disabledColor,
-                            borderRadius: BorderRadius.circular(9),
+                              color: Theme.of(context).disabledColor,
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.8),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 2)
+                                )
+                              ]
                           ),
-                          child : const Row(
+                          child: Center(child: Row(
                             children: [
-                              Icon(
-                                Icons.circle,
-                                color: Colors.green,
-                                size: 9,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 6),
+                                child: Container(
+                                  width: 10,
+                                  height: 10,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: renkler.yesilRenk
+                                  ),
+                                ),
                               ),
-                              SizedBox(
-                                width: 5,
+                              Padding(
+                                padding: const EdgeInsets.only(right: 6,top: 4),
+                                child: Text("Aktif Döviz",style: TextStyle(color: renkler.koyuuRenk,height: 1),),
                               ),
-                              Text("Aktif Döviz"),
                             ],
-                          ),
-                        ),
+                          ))
                       ),
                       const SizedBox(height: 14,),
                       Text(
@@ -219,6 +233,14 @@ class HelpAssets extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             color: Theme.of(context).indicatorColor,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.8),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 2)
+                                )
+                              ]
                           ),
                           child: Row(
                             children: [

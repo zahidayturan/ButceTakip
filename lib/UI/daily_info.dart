@@ -37,6 +37,8 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
     var size = MediaQuery.of(context).size;
     var readNavBar = ref.read(botomNavBarRiverpod);
     var readCalendar = ref.read(calendarRiverpod);
+    var readSetting = ref.read(settingsRiverpod);
+    var darkMode = readSetting.DarkMode;
     CustomColors renkler = CustomColors();
     return Center(
       child: SizedBox(
@@ -56,14 +58,14 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(Radius.circular(15)),
-                        color: Theme.of(context).highlightColor,
+                        color: Theme.of(context).secondaryHeaderColor,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10, top: 6, bottom: 6),
                         child: Text(
                           translation(context).todaysActivities, /// dil destekli yazi
                           style: TextStyle(
-                            color: renkler.arkaRenk,
+                            color: Theme.of(context).primaryColor,
                             height: 1,
                             fontFamily: 'Nexa3',
                             fontSize: 16,
@@ -82,7 +84,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                       onTap: () {
                         readNavBar.setCurrentindex(2);
                         Navigator.of(context).popUntil((route) => route.isFirst) ;
-                        readCalendar.setIndex(0, 3);
+                        readCalendar.setIndex(0, 3,ref);
                         readCalendar.resetPageController();
                       },
                       child: Text(formattedDate,
