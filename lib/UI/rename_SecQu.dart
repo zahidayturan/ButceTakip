@@ -51,11 +51,11 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
 
                 },
                 child: Container( //boyut
-                  height: size.width * .48,
+                  height: size.width * .54,
                   width: size.width * .6,
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: renkler.koyuuRenk,
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(
@@ -67,8 +67,8 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                           SizedBox(width: size.width * .05),
                           Text(
                             translation(context).securityQuestion,
-                            style: const TextStyle(
-                                color: Colors.white,
+                            style: TextStyle(
+                                color: Theme.of(context).dialogBackgroundColor,
                                 fontFamily: "Nexa2",
                                 fontSize: 16,
                               height: 1
@@ -78,8 +78,8 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                             height: 30,
                             width: 30,
                             child: DecoratedBox(
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).canvasColor,
                                   shape: BoxShape.circle
                               ),
                               child: IconButton(
@@ -92,6 +92,7 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                                   "assets/icons/remove.png",
                                   height: 20,
                                   width: 20,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                               ),
                             ),
@@ -101,17 +102,17 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(height: size.height * .01),
+                          SizedBox(height: size.height * .02),
                           Text(
                             translation(context).whatIsYourFavoriteAnimal,
                             style: TextStyle(
-                                color: Theme.of(context).disabledColor,
+                                color: Theme.of(context).canvasColor,
                                 fontSize: 13,
                                 fontFamily: "Nexa4",
                               height: .7
                             ),
                           ),
-                          SizedBox(height: size.height * .01),
+                          SizedBox(height: size.height * .02),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(

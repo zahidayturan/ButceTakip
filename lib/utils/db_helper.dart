@@ -210,7 +210,7 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
-  static Future<List<SpendInfo>> getItemsForPassive(SpendInfo item) async { ///
+  static Future<List<SpendInfo>> getItemsForPassive(SpendInfo item) async { ///o güne ait olan pasif kayıtları listeler aynı kayıd ile toplanmak için muhtemel 1 elemanlı.
     final db = await SQLHelper.db();
     var result = await db.rawQuery("""SELECT * FROM spendinfo WHERE (
       moneyType == '${item.moneyType!.substring(0,3)}' AND 
@@ -220,6 +220,13 @@ class SQLHelper {
       )
       """
     );
+    return List.generate(result.length, (index) {
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
+  static Future<List<SpendInfo>> getItemsAssets(String operationTool) async { /// Varlık olarak eklenmiş kayıtları döner.
+    final db = await SQLHelper.db();
+    var result = await db.rawQuery("SELECT * FROM spendinfo WHERE (operationDay == 'null' AND operationTool == '$operationTool')");
     return List.generate(result.length, (index) {
       return SpendInfo.fromObject(result[index]);
     });

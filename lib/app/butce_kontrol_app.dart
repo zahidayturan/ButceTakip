@@ -49,8 +49,8 @@ class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
         hintColor: Color(0xFF1A8E58),
         hoverColor: Color(0xFFD91A2A),
         disabledColor: Color(0xFFF2CB05),
+        unselectedWidgetColor: Color(0xFFE9E9E9), // checkbox border rengi için kullandım.
         fontFamily: "Nexa3",
-        //unselectedWidgetColor: Colors.white, // checkbox border rengi için kullandım.
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -69,6 +69,7 @@ class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
         hintColor: Color(0xFF1C2B35),
         hoverColor: Color(0xFF1C2B35),
         disabledColor: Color(0xFFDBB704),
+        unselectedWidgetColor: Color(0xFFDBB704),
         fontFamily: "Nexa3",
       ),
       themeMode: readSettings.DarkMode == 0 ? ThemeMode.light : ThemeMode.dark,

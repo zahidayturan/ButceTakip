@@ -75,23 +75,46 @@ class HelpBackup extends StatelessWidget {
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
-                      FittedBox(
+                      SizedBox(
+                        width: size.width * 0.56,
+                        height: 30,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: const Color(0xff2A2895),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.8),
+                                  spreadRadius: 0.5,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2)
+                              )
+                            ],
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [const Color(0xff2A2895), renkler.koyuuRenk],
+                            ),
                           ),
                           child: Center(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 35),
-                              child: Text(
-                                translation(context).signIn,
-                                style: TextStyle(
-                                    color: renkler.arkaRenk,
-                                    height: 1,
-                                    fontSize: 15,
-                                    fontFamily: "Nexa3"
-                                ),
+                              padding: const EdgeInsets.all(8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                      "assets/icons/google.png"
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    translation(context).signIn,
+                                    style: TextStyle(
+                                        color: renkler.arkaRenk,
+                                        height: 1,
+                                        fontSize: 15,
+                                        fontFamily: "Nexa3"
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -142,6 +165,14 @@ class HelpBackup extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: renkler.koyuuRenk,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.8),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 2)
+                                  )
+                                ]
                               ),
                               child: Center(
                                 child: Padding(
@@ -179,6 +210,14 @@ class HelpBackup extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: renkler.koyuuRenk,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.8),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 2)
+                                  )
+                                ]
                               ),
                               child: Center(
                                 child: Padding(
@@ -286,6 +325,14 @@ class HelpBackup extends StatelessWidget {
                         Icons.warning,
                         color: Theme.of(context).secondaryHeaderColor,
                         size: 40,
+                        shadows: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.8),
+                              spreadRadius: 0.5,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2)
+                          )
+                        ],
                       ),
                       const SizedBox(height: 14),
                       Text(
