@@ -1389,10 +1389,10 @@ class _SettingsState extends ConsumerState<Settings> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: const BannerAds(
-                    adSize: AdSize.largeBanner,
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  child: BannerAds(
+                    adSize: AdSize.fullBanner,
                   ),
                 ),
               ]),

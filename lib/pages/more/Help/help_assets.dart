@@ -1,4 +1,6 @@
+import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../../classes/app_bar_for_page.dart';
 import '../../../classes/language.dart';
 import '../../../constans/material_color.dart';
@@ -73,7 +75,13 @@ class HelpAssets extends StatelessWidget {
                         "Varlıklarım sayfası anlık olarak tüm varlığınızı görebilmeniz için   tasarlanmıştır."
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      const SizedBox(height: 14,),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        child: BannerAds(
+                          adSize: AdSize.fullBanner,
+                        ),
+                      ),
+                      const SizedBox(height: 7,),
                       Text(
                         "Bu sayfada yapabileceğiniz işlemler"
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,

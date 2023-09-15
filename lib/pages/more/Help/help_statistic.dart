@@ -2,7 +2,9 @@ import 'package:butcekontrol/Pages/more/Help/help_footer.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class HelpStatisic extends StatelessWidget {
   const HelpStatisic({Key? key}) : super(key: key);
@@ -72,11 +74,19 @@ class HelpStatisic extends StatelessWidget {
                         "Eklediğiniz işlemlere filtreler uygulayarak işlemlerinizin kategorilere göre dağılımını inceleyebilirsiniz."
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      const SizedBox(height: 14,),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        child: BannerAds(
+                          adSize: AdSize.fullBanner,
+                        ),
+                      ),
+                      const SizedBox(height: 7,),
                       Text(
                         "Bu sayfada yapabileceğiniz işlemler"
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                       ),
+                      const SizedBox(height: 14,),
+
                       const SizedBox(height: 14,),
                       Row(
                         children: [

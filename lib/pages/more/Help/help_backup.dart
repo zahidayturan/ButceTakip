@@ -1,4 +1,6 @@
+import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../../../classes/app_bar_for_page.dart';
 import '../../../classes/language.dart';
@@ -71,7 +73,7 @@ class HelpBackup extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Bütün verileriniz kendi Google Drive’ınız üzerinden yedeklemeleri gerçekleşmektedir. bunun için Google hesabınız ile giriş yapmanız gerekmektedir."
+                        "Bütün verileriniz Google Drive’ınız üzerinden yedeklemeleri gerçekleşmektedir. bunun için Google hesabınız ile giriş yapmanız gerekmektedir."
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -120,7 +122,13 @@ class HelpBackup extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 14,),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        child: BannerAds(
+                          adSize: AdSize.fullBanner,
+                        ),
+                      ),
+                      const SizedBox(height: 7,),
                       Text(
                         "Bu sayfada yapabileceğiniz işlemler"
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
