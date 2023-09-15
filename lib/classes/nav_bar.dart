@@ -56,12 +56,13 @@ class NavBar extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
-                                icon: const Icon(
+                                icon: Icon(
                                   size: 30,
                                   Icons.equalizer_rounded,
-                                  color: Colors.white,
+                                  color: read.currentindex == 1 ? Theme.of(context).disabledColor : renkler.yaziRenk,
                                 ),
                                 highlightColor: Theme.of(context).primaryColor,
+                                splashColor: Theme.of(context).scaffoldBackgroundColor,
                                 constraints: const BoxConstraints(
                                     minHeight: 45,
                                     minWidth: 50
@@ -72,29 +73,30 @@ class NavBar extends ConsumerWidget {
 
                                 },
                               ),
-                              read.currentindex == 1
-                                  ? ClipRRect(
-                                borderRadius: const BorderRadius.vertical(top:Radius.circular(20)),
-                                child: Container(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  height : 7,
-                                  width : 25 ,
-                                  color: Theme.of(context).disabledColor,
+                              AnimatedContainer(
+                                duration: Duration(milliseconds: 300),
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).disabledColor,
+                                    borderRadius: BorderRadius.vertical(top: Radius.circular(20))
                                 ),
+                                curve: Curves.easeInOut,
+                                padding: const EdgeInsets.only(left: 10),
+                                height : read.currentindex != 1 ? 0 : 7,
+                                width : 25 ,
                               )
-                                  :const SizedBox(width: 1,)
                             ],
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     size: 30,
                                     Icons.calendar_month_rounded,
-                                    color: Colors.white,
+                                    color: read.currentindex == 2 ? Theme.of(context).disabledColor : renkler.yaziRenk,
                                   ),
                                   highlightColor: Theme.of(context).primaryColor,
+                                  splashColor: Theme.of(context).scaffoldBackgroundColor,
                                   constraints: const BoxConstraints(
                                       minHeight: 45,
                                       minWidth: 50
@@ -105,17 +107,17 @@ class NavBar extends ConsumerWidget {
                                     Navigator.of(context).popUntil((route) => route.isFirst) ;
                                   }
                               ),
-                              read.currentindex == 2
-                                  ? ClipRRect(
-                                borderRadius: const BorderRadius.vertical(top:Radius.circular(20)),
-                                child: Container(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  height : 7,
-                                  width : 25 ,
-                                  color: Theme.of(context).disabledColor,
+                              AnimatedContainer(
+                                duration: Duration(milliseconds: 300),
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).disabledColor,
+                                    borderRadius: BorderRadius.vertical(top: Radius.circular(20))
                                 ),
+                                curve: Curves.easeInOut,
+                                padding: const EdgeInsets.only(left: 10),
+                                height : read.currentindex != 2 ? 0 : 7,
+                                width : 25 ,
                               )
-                                  :const SizedBox(width: 1,)
                             ],
                           ),
                           SizedBox(
@@ -125,12 +127,13 @@ class NavBar extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     size: 30,
                                     Icons.calculate_rounded,
-                                    color: Colors.white,
+                                    color: read.currentindex == 3 ? Theme.of(context).disabledColor : renkler.yaziRenk,
                                   ),
                                   highlightColor: Theme.of(context).primaryColor,
+                                  splashColor: Theme.of(context).scaffoldBackgroundColor,
                                   constraints: const BoxConstraints(
                                       minHeight: 45,
                                       minWidth: 50
@@ -140,28 +143,29 @@ class NavBar extends ConsumerWidget {
                                     Navigator.of(context).popUntil((route) => route.isFirst) ;
                                   }
                               ),
-                              read.currentindex == 3
-                                  ? ClipRRect(
-                                borderRadius: const BorderRadius.vertical(top:Radius.circular(20)),
-                                child: Container(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  height : 7,
-                                  width : 25 ,
-                                  color: Theme.of(context).disabledColor,
+                              AnimatedContainer(
+                                duration: Duration(milliseconds: 300),
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).disabledColor,
+                                    borderRadius: BorderRadius.vertical(top: Radius.circular(20))
                                 ),
+                                curve: Curves.easeInOut,
+                                padding: const EdgeInsets.only(left: 10),
+                                height : read.currentindex != 3 ? 0 : 7,
+                                width : 25 ,
                               )
-                                  :const SizedBox(width: 1,)
                             ],
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     size: 30,
                                     Icons.keyboard_control_rounded,
-                                    color: Colors.white,
+                                    color: read.currentindex == 4 ? Theme.of(context).disabledColor : renkler.yaziRenk,
                                   ),
+                                  splashColor: Theme.of(context).scaffoldBackgroundColor,
                                   highlightColor: Theme.of(context).primaryColor,
                                   constraints: const BoxConstraints(
                                       minHeight: 45,
@@ -172,17 +176,17 @@ class NavBar extends ConsumerWidget {
                                     Navigator.of(context).popUntil((route) => route.isFirst) ;
                                   }
                               ),
-                              read.currentindex == 4
-                                  ? ClipRRect( ///navbar sarı pointer
-                                borderRadius: const BorderRadius.vertical(top:Radius.circular(20)),
-                                child: Container(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  height : 7,
-                                  width : 25 ,
-                                  color: Theme.of(context).disabledColor,
-                                ),
-                              )
-                                  :const SizedBox(width: 1)
+                               AnimatedContainer(
+                                    duration: Duration(milliseconds: 300),
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context).disabledColor,
+                                      borderRadius: BorderRadius.vertical(top: Radius.circular(20))
+                                    ),
+                                    curve: Curves.easeInOut,
+                                    padding: const EdgeInsets.only(left: 10),
+                                    height : read.currentindex != 4 ? 0 : 7,
+                                    width : 25 ,
+                                  )
                             ],
                           )
                         ],
@@ -202,19 +206,24 @@ class NavBar extends ConsumerWidget {
                 height: 64,
                 child: Center(
                   heightFactor: 1,
-                  child: FloatingActionButton.large(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AddData(),));
-                      read.setcur();  /// arastırılacak
-                    },
-                    splashColor: Theme.of(context).primaryColor,
-                    backgroundColor: Theme.of(context).disabledColor,
-                    elevation: 0,
-                    child: Image.asset(
-                      "assets/icons/add.png",
-                      height: 38,
-                      width: 38,
-                      color: Color(0xFFFFFFFF),
+                  child: Theme(
+                    data: Theme.of(context).copyWith(highlightColor:renkler.sariRenk.withOpacity(0.8),shadowColor: renkler.koyuuRenk),
+                    child: FloatingActionButton.large(
+                      onPressed: () {
+                        Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => const AddData(),));
+                        read.setcur();  /// arastırılacak
+                      },
+                      splashColor: Theme.of(context).primaryColor,
+                      backgroundColor: Theme.of(context).disabledColor,
+                      foregroundColor: renkler.yesilRenk,
+                      elevation: 0,
+                      child: Image.asset(
+                        "assets/icons/add.png",
+                        height: 38,
+                        width: 38,
+                        color: renkler.yaziRenk,
+                      ),
                     ),
                   ),
                 ),

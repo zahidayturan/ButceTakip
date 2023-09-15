@@ -1,9 +1,7 @@
-import 'package:butcekontrol/Riverpod/settings_riverpod.dart';
 import 'package:butcekontrol/constans/fezai_checkbox.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/models/currency_info.dart';
-import 'package:butcekontrol/riverpod/currency_riverpod.dart';
 import 'package:butcekontrol/utils/firestore_helper.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -127,7 +125,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                   left: 20.0,
                 ),
                 child: SizedBox(
-                  height: size.height * 0.54,
+                  height: size.height * 0.55,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(20),
@@ -758,7 +756,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             style: BorderStyle.none,
                           ))),
                       iconEnabledColor: renkler.koyuuRenk,
-                      dropdownColor: Theme.of(context).primaryColor,
+                      dropdownColor: renkler.arkaRenk,
                       value: selectedValue,
                       alignment: Alignment.center,
                       menuMaxHeight: 200,
@@ -783,9 +781,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                 ),
               ],
             ),
-
             SizedBox(
-              height: size.height / 30,
+              height: size.height / 50,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -850,7 +847,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
               ],
             ),
             SizedBox(
-              height: size.height / 80,
+              height: size.height / 100,
             ),
             SizedBox(
               height: size.height / 5,
@@ -1566,7 +1563,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
     var renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     DateTime now = DateTime.now();
-    String formattedDate = intl.DateFormat('dd.MM.yyyy').format(now);
+    String formattedDate = intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(now);
     var readCurrency = ref.read(currencyRiverpod);
     Future<List<currencyInfo>> historyCurrency = firestoreHelper.getHistoryCurrency();
 
@@ -1581,6 +1578,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
       "SAR"
     ];
 
+    var dateText = currency?.lastApiUpdateDate?.split(" ")[0].replaceAll("-", ".") ?? readCurrency.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".");
+    print(dateText);
+    DateTime dateTextForFormat =  DateTime(int.parse(dateText.split(".")[0]),int.parse(dateText.split(".")[1]),int.parse(dateText.split(".")[2]));
+    print(dateTextForFormat);
     var readSettings = ref.watch(settingsRiverpod);
     return SingleChildScrollView(
       child: Padding(
@@ -2164,7 +2165,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             if(snapshot.hasData){
                               List<String> Lista = [];
                               for (var element in snapshot.data!) {
-                                Lista.add(element.lastApiUpdateDate!.split(" ")[0].replaceAll("-", "."));
+                                var date = element.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".");
+                                DateTime dateForFormat = DateTime(int.parse(date.split(".")[0]),int.parse(date.split(".")[1]),int.parse(date.split(".")[2]));
+                                Lista.add(intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateForFormat));
                               }
                               return Container(
                                 height: 28,
@@ -2307,7 +2310,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                    ],
                   ),
                   Text(
-                    "Son Güncellenme : ${currency?.lastApiUpdateDate?.split(" ")[0].replaceAll("-", ".") ?? readCurrency.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".")} ",
+                    "Son Güncellenme : ${intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateTextForFormat)}",
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 15,

@@ -3,6 +3,7 @@ import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../classes/language.dart';
 import '../riverpod_management.dart';
 
@@ -76,6 +77,8 @@ class _historyAsset extends ConsumerState<historyAsset> {
                                   return ListView.builder(
                                     itemCount: list!.length,
                                     itemBuilder:(context, index) {
+                                      var date = list[index].operationDate ?? "00.00.0000";
+                                      DateTime dateForFormat = DateTime(int.parse(date.split(".")[2]),int.parse(date.split(".")[1]),int.parse(date.split(".")[0]));
                                       return Column(
                                         children: [
                                           Container(
@@ -104,7 +107,7 @@ class _historyAsset extends ConsumerState<historyAsset> {
                                                       mainAxisAlignment : MainAxisAlignment.spaceBetween,
                                                       children: [
                                                         Text(
-                                                          "${list[index].operationDate}",
+                                                          DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateForFormat),
                                                           style: TextStyle(
                                                               color: Theme.of(context).canvasColor,
                                                               height: 1.1,

@@ -133,6 +133,8 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     List yearName = read.getYears();
     read.startDate = DateTime(read.yearIndex,read.monthIndex,selectedValueDay);
     read.endDate = DateTime(read.yearIndex,read.monthIndex+1,selectedValueDay-1);
+    var readSetting = ref.read(settingsRiverpod);
+    var darkMode = readSetting.DarkMode;
     return Center(
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -146,7 +148,21 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                 height: size.height * 0.05,
                 decoration: BoxDecoration(
                     color: Theme.of(context).highlightColor,
-                    borderRadius: BorderRadius.all(Radius.circular(20))
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    boxShadow: darkMode == 1 ? [
+                      BoxShadow(
+                        color: Colors.black54.withOpacity(0.4),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: const Offset(-1, 2),
+                      )
+                    ] : [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 0.5,
+                          blurRadius: 2,
+                          offset: const Offset(0, 2)
+                      )]
                 ),
                 child: AspectRatio(
                   aspectRatio: 1,
@@ -185,6 +201,20 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(50)),
                               color: Theme.of(context).disabledColor,
+                                boxShadow: darkMode == 1 ? [
+                                  BoxShadow(
+                                    color: Colors.black54.withOpacity(0.4),
+                                    spreadRadius: 1,
+                                    blurRadius: 2,
+                                    offset: const Offset(-1, 2),
+                                  )
+                                ] : [
+                                BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 0.5,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2)
+                          )]
                             ),
                           ),
                         ),
@@ -226,6 +256,20 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(Radius.circular(30)),
                                 color: Theme.of(context).highlightColor,
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.4),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.5,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )]
                               ),
                               child: PageView(
                                 controller: read.pageYearController,
@@ -282,6 +326,20 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                   decoration: BoxDecoration(
                     color: Theme.of(context).disabledColor,
                     borderRadius: BorderRadius.all(Radius.circular(20)),
+                      boxShadow: darkMode == 1 ? [
+                        BoxShadow(
+                          color: Colors.black54.withOpacity(0.4),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: const Offset(-1, 2),
+                        )
+                      ] : [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 0.5,
+                            blurRadius: 2,
+                            offset: const Offset(0, 2)
+                        )]
                   ),
                   child: AspectRatio(
                     aspectRatio: 1,
@@ -299,6 +357,20 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           decoration: BoxDecoration(
                               borderRadius:
                               const BorderRadius.all(Radius.circular(5)),
+                              boxShadow: darkMode == 1 ? [
+                                BoxShadow(
+                                  color: Colors.black54.withOpacity(0.4),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(-1, 2),
+                                )
+                              ] : [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 2)
+                                )],
                               color: Theme.of(context).highlightColor),
                           child: Text(
                             selectedValueDay.toString(),style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'Nexa4'),

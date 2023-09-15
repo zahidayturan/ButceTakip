@@ -93,38 +93,35 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
       ),
     );
   }
+  int lampCounter = 0;
   Widget lampMode(BuildContext context){
-    CustomColors renkler = CustomColors();
     var readSetting = ref.read(settingsRiverpod);
     var darkMode = readSetting.DarkMode;
     return Padding(
       padding: const EdgeInsets.only(right: 16),
       child: GestureDetector(
         onTap: () {
-          readSetting.setDarkModeNotBool();
+          lampCounter < 5 ? readSetting.setDarkModeNotBool() : null;
+          lampCounter += 1;
+          lampCounter == 10 ? lampCounter = 0 : null;
+          print(lampCounter);
         },
-        child: darkMode == 0
-            ? AnimatedContainer(
-            duration: const Duration(milliseconds: 800),
-            curve: Curves.easeInOut,
-            width: 60,
-            height: 100,
-            child: Image.asset(
-              "assets/icons/lightTheme.png",
-            ))
-            : AnimatedContainer(
-          duration: const Duration(milliseconds: 800),
-          curve: Curves.easeInOut,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: SizedBox(
-                width: 60,
-                height: 80,
-                child: Image.asset(
-                  "assets/icons/darkTheme.png",
-                )),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.linear,
+          width: 50,
+          height: 100,
+          padding: darkMode == 0 ?  EdgeInsets.zero : EdgeInsets.only(bottom: 20,right: 0),
+          child: Image.asset(
+            lampCounter < 5 ?
+            darkMode == 0
+                ? "assets/icons/lightTheme.png"
+                : "assets/icons/darkTheme.png" :
+            darkMode == 0
+                ? "assets/icons/lightTheme2.png"
+                : "assets/icons/darkTheme2.png",
           ),
-        ),
+        )
       ),
     );
   }
