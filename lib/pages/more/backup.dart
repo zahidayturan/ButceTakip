@@ -4,6 +4,7 @@ import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/pages/more/Help/help_backup.dart';
 import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,12 +23,23 @@ class BackUp extends ConsumerStatefulWidget {
 }
 
 class _BackUpState extends ConsumerState<BackUp> {
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+
   Future <ListResult> ?futureFiles ;
   int  backupPushCount = 5 ;
+
   @override
-  void initState(){
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
+    if (adCounter! < 1) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
     super.initState();
-    futureFiles = FirebaseStorage.instance.ref("/files").listAll();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
   }
   @override
   Widget build(BuildContext context) {
@@ -36,6 +48,8 @@ class _BackUpState extends ConsumerState<BackUp> {
     ref.watch(gglDriveRiverpod).RfPageSt;
     bool isopen = readSetting.isBackUp == 1 ? true : false ; // databaseden alınacak
     CustomColors renkler = CustomColors();
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
     var size = MediaQuery.of(context).size;
     return Container(
       color: renkler.koyuuRenk,
@@ -240,6 +254,12 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   SizedBox(width:size.width * 0.04),
                                   InkWell(
                                     onTap: () async { // Yedekle.
+                                      if (adCounter == 0) {
+                                        _showInterstitialAd(context);
+                                        readSettings.resetAdCounter();
+                                      } else {
+                                        readSettings.useAdCounter();
+                                      }
                                       DateTime date = DateTime.now();
                                       final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
                                       try{
@@ -478,10 +498,11 @@ class _BackUpState extends ConsumerState<BackUp> {
                   ),
                 ),
               ),
+                Spacer(),
                 const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: EdgeInsets.symmetric(vertical: 4),
                   child: BannerAds(
-                    adSize: AdSize.fullBanner,
+                    adSize: AdSize.banner,
                   ),
                 ),
               ],

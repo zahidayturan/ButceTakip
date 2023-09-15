@@ -1,4 +1,5 @@
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +22,21 @@ class _addAssetsState extends ConsumerState<addAssets> {
   List<String> moneyTypes = ["TRY", "USD", "EUR", "GBP", "KWD", "JOD", "IQD", "SAR"];
   var moneyType ;
   String BugFixText = "";
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+
+  @override
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adEventCounter = readSettings.adEventCounter;
+    if (adEventCounter! < 6) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
+    super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
+  }
   @override
   void dispose() {
     _controller.dispose();
@@ -29,6 +45,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
   @override
   Widget build(BuildContext context) {
     var readSettings = ref.read(settingsRiverpod);
+    var adEventCounter = readSettings.adCounter;
     var size = MediaQuery.of(context).size;
     var renkler = CustomColors();
     return SafeArea(
@@ -219,6 +236,12 @@ class _addAssetsState extends ConsumerState<addAssets> {
                             );
                             await SQLHelper.createItem(newinfo).then((value) {
                               readSettings.setisuseinsert();
+                              if (adEventCounter! <= 0) {
+                                _showInterstitialAd(context);
+                                readSettings.resetAdEventCounter();
+                              } else {
+                                readSettings.useAdEventCounter();
+                              }
                               Navigator.of(context).pop();
                             });
                           }else{//geri mesaj ver.

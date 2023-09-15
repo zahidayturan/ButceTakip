@@ -1328,7 +1328,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
                 child: const BannerAds(
-                  adSize: AdSize.fullBanner,
+                  adSize: AdSize.banner,
                 ),
               ),
               const SizedBox(height: 14,),

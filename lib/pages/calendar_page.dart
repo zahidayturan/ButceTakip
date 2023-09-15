@@ -2,6 +2,7 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,6 +35,21 @@ class CalendarBody extends ConsumerStatefulWidget {
 
 class _CalendarBody extends ConsumerState<CalendarBody> {
 
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+
+  @override
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adEventCounter = readSettings.adEventCounter;
+    if (adEventCounter! < 6) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
+    super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -134,6 +150,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     read.startDate = DateTime(read.yearIndex,read.monthIndex,selectedValueDay);
     read.endDate = DateTime(read.yearIndex,read.monthIndex+1,selectedValueDay-1);
     var readSetting = ref.read(settingsRiverpod);
+    var adEventCounter = readSettings.adEventCounter;
     var darkMode = readSetting.DarkMode;
     return Center(
       child: Column(
@@ -181,6 +198,14 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         read.setIndex(0, 3,ref);
                         read.pageMonthController.jumpToPage(read.monthIndex-1);
                         read.pageYearController.jumpToPage(read.yearIndex-2020);
+                        if (adEventCounter! <= 0) {
+                          print("object");
+                          _showInterstitialAd(context);
+                          readSettings.resetAdEventCounter();
+                        } else {
+                          readSettings.useAdEventCounter();
+                        }
+                        print(readSettings.adEventCounter);
                       });
                     },
                   ),

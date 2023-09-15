@@ -40,7 +40,8 @@ class SQLHelper {
       createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       prefixSymbol TEXT DEFAULT ' ₺',
       monthStartDay INTEGER DEFAULT 1,
-      dateFormat TEXT DEFAULT 'dd.MM.yyyy'
+      dateFormat TEXT DEFAULT 'dd.MM.yyyy',
+      adEventCounter INTEGER DEFAULT 5
       )
       """);
   }
@@ -71,7 +72,7 @@ class SQLHelper {
   static Future<sql.Database> db() async {
     return sql.openDatabase(
       'bt.db',
-      version: 3,
+      version: 4,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
         await createSettingTable(database);
@@ -86,6 +87,7 @@ class SQLHelper {
           database.execute("ALTER TABLE setting ADD COLUMN prefixSymbol TEXT DEFAULT ' ₺' ");
           database.execute("ALTER TABLE setting ADD COLUMN monthStartDay INTEGER DEFAULT 1 ");
           database.execute("ALTER TABLE setting ADD COLUMN dateFormat TEXT DEFAULT 'dd.MM.yyyy' ");
+          database.execute("ALTER TABLE setting ADD COLUMN adEventCounter INTEGER DEFAULT 5 ");
         }
       },
     );

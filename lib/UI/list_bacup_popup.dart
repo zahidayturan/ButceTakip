@@ -1,4 +1,5 @@
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../classes/language.dart';
@@ -12,9 +13,18 @@ class listBackUpPopUp extends ConsumerStatefulWidget{
 }
 
 class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
   bool isclicked = false ;
   var renkdeneme = Colors.white;
   List selectedIndexList = [] ;
+  void initState(){
+    super.initState();
+    _interstitialAdManager.loadInterstitialAd();
+  }
+
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
+  }
   @override
   Widget build(BuildContext context) {
     var readGglAuth = ref.read(gglDriveRiverpod);
@@ -136,6 +146,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                    }catch(e){
                                                      print("Veriler indirilirken hata meydana geldi $e");
                                                    }
+                                                   _showInterstitialAd(context);
                                                    Navigator.of(context).pop();
                                                    ScaffoldMessenger.of(context).showSnackBar(
                                                      SnackBar(

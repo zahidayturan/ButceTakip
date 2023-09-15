@@ -2,6 +2,7 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/category_info_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -77,12 +78,20 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ],
     );
   }
-
-
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
 
   @override
   void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adEventCounter = readSettings.adEventCounter;
+    if (adEventCounter! < 6) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
     super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
   }
 
   @override
@@ -138,6 +147,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
 
   Widget filterAdd(BuildContext context) {
     var readStatistics = ref.read(statisticsRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
+    var adEventCounter = readSettings.adEventCounter;
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
     return InkWell(
@@ -893,15 +904,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   ),
                                 ),
                                 InkWell(
-                                    onTap: () {
-                                      setState(() {});
-                                    },
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      color: Colors.lightGreenAccent,
-                                    )),
-                                InkWell(
                                   onTap: () {
                                     if (selectedValueType ==
                                         translation(context).both) {
@@ -978,6 +980,13 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         ? int.parse(selectedValueDay!)
                                         : day;
                                     print('Tamam bastın ve gün : ${day}');
+                                    if (adEventCounter! <= 0) {
+                                      print("object");
+                                      _showInterstitialAd(context);
+                                      readSettings.resetAdEventCounter();
+                                    } else {
+                                      readSettings.useAdEventCounter();
+                                    }
                                     Navigator.of(context).pop();
                                   },
                                   child: Container(

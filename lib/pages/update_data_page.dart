@@ -1,5 +1,6 @@
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/models/spend_info.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -139,6 +140,20 @@ class ButtonMenu extends ConsumerStatefulWidget {
 }
 
 class _ButtonMenu extends ConsumerState<ButtonMenu> {
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+  @override
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
+    if (adCounter! < 1) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
+    super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
+  }
 
   FocusNode amountFocusNode = FocusNode();
   FocusNode dateFocusNode = FocusNode();
@@ -3647,6 +3662,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     String alertContent = '';
     int alertOperator = 0;
     double amount = double.tryParse(amount0.text) ?? 0.0;
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
     void setAlertContent(BuildContext context) {
       if (amount == 0 && category.text.isEmpty) {
         alertContent = translation(context).enterAmountAndCategory;
@@ -3723,6 +3740,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         }
                     readHome.setStatus();
                     readDailyInfo.setSpendDetailItemWithId(int.parse(id));
+                    if (adCounter == 0) {
+                      _showInterstitialAd(context);
+                      readSettings.resetAdCounter();
+                    } else {
+                      readSettings.useAdCounter();
+                    }
                     if(menuController == 1){
                       Navigator.of(context).pop();
                     }

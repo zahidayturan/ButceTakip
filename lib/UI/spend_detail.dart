@@ -75,12 +75,12 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 ),
                 const Spacer(),
                 (item[index].moneyType! != readSettings.Prefix) && (item[index].operationType == "Gelir") &&  item[index].moneyType!.length == 3
-                    ?const SizedBox(
+                    ?SizedBox(
                       width: 90,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.circle,
                             size: 14,
                             color: Colors.grey,
@@ -88,7 +88,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           Text(
                               "Pasif Döviz",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: renkler.yaziRenk,
                                 fontFamily: 'Nexa4',
                                 height: 1,
                                 fontSize: 13,
@@ -109,10 +109,10 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         size: 14,
                         color: renkler.yesilRenk,
                       ),
-                      const Text(
+                       Text(
                           "Aktif Döviz",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: renkler.yaziRenk,
                             fontFamily: 'Nexa4',
                             height: 1,
                             fontSize: 13,
@@ -153,8 +153,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(translation(context).dateDetails,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
                       height: 1,
                       fontSize: 18,
@@ -162,8 +162,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 SizedBox(
                   height: 26,
                   child: DecoratedBox(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    decoration:  BoxDecoration(
+                      color: renkler.yaziRenk,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: Center(
@@ -192,15 +192,15 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(translation(context).timeDetails,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
                       height: 1,
                       fontSize: 18,
                     )),
                 Text("${item[index].operationTime}",
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
                       fontFamily: 'Nexa3',
                       height: 1,
                       fontSize: 18,
@@ -214,16 +214,16 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(translation(context).categoryDetails,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
                       height: 1,
                       fontSize: 18,
                     )),
                 Expanded(
                   child: Text("${Converter().textConverterFromDB(item[index].category!, context, 0)} - ${item[index].userCategory}",
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: renkler.yaziRenk,
                         fontFamily: 'Nexa3',
                         height: 1,
                         fontSize: 18,
@@ -240,15 +240,15 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(translation(context).paymentMethodDetails,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
                       height: 1,
                       fontSize: 18,
                     )),
                 Text(Converter().textConverterFromDB(item[index].operationTool!, context, 2),
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style:TextStyle(
+                      color: renkler.yaziRenk,
                       fontFamily: 'Nexa3',
                       height: 1,
                       fontSize: 18,
@@ -262,16 +262,16 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(translation(context).amountDetails,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
                       height: 1,
                       fontSize: 18,
                     )),
                 Expanded(
                   child: Text("${item[index].amount} ${item[index].moneyType}",
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: renkler.yaziRenk,
                         fontFamily: 'Nexa3',
                         height: 1,
                         fontSize: 18,
@@ -288,23 +288,23 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(translation(context).savingStatusDetails,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
                       height: 1,
                       fontSize: 18,
                     )),
                 item[index].registration == 0
                     ? Text(translation(context).notSaved,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
                       fontFamily: 'Nexa3',
                       height: 1,
                       fontSize: 18,
                     ))
                     : Text(translation(context).saved,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
                       fontFamily: 'Nexa3',
                       height: 1,
                       fontSize: 18,
@@ -320,16 +320,16 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(translation(context).repetitionInstallment,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: renkler.yaziRenk,
                         fontFamily: 'Nexa4',
                         height: 1,
                         fontSize: 18,
                       )),
                   Expanded(
                     child: Text(Converter().textConverterFromDB(item[index].processOnce!, context, 1),
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: renkler.yaziRenk,
                           fontFamily: 'Nexa3',
                           height: 1,
                           fontSize: 18,
@@ -352,8 +352,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                   Row(
                     children: [
                       Text(translation(context).systemMessage,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: renkler.yaziRenk,
                             fontFamily: 'Nexa4',
                             height: 1,
                             fontSize: 18,
@@ -364,8 +364,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                   Padding(
                     padding: const EdgeInsets.only(top: 5, left: 5),
                     child: Text("İşlenen : ${Converter().textConverterFromDB(item[index].processOnce!, context, 1)}",
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: renkler.yaziRenk,
                           fontFamily: 'Nexa3',
                           height: 1,
                           fontSize: 18,
@@ -383,8 +383,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 Row(
                   children: [
                     Text(translation(context).noteDetails,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: renkler.yaziRenk,
                           fontFamily: 'Nexa4',
                           height: 1,
                           fontSize: 18,
@@ -398,8 +398,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     child: item[index].note == ''
                         ? Text(translation(context).noNoteAdded,
                         textAlign: TextAlign.justify,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: renkler.yaziRenk,
                           fontFamily: 'Nexa3',
                           height: 1,
                           fontSize: 18,
@@ -408,8 +408,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         textAlign: TextAlign.justify,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 6,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: renkler.yaziRenk,
                           fontFamily: 'Nexa3',
                           height: 1,
                           fontSize: 18,
@@ -514,8 +514,8 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                               duration: const Duration(seconds: 1),
                               content: Text(
                                 translation(context).activityDeleted,
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: renkler.yaziRenk,
                                   fontSize: 16,
                                   fontFamily: 'Nexa3',
                                   fontWeight: FontWeight.w600,

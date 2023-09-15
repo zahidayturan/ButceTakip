@@ -105,7 +105,7 @@ class HelpCalender extends StatelessWidget {
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 6),
                         child: BannerAds(
-                          adSize: AdSize.fullBanner,
+                          adSize: AdSize.banner,
                         ),
                       ),
                       const SizedBox(height: 7,),

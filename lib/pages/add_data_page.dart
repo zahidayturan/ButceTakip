@@ -135,11 +135,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     var adCounter = readSettings.adCounter;
     if (adCounter! < 1) {
       _interstitialAdManager.loadInterstitialAd();
-
-      ///reklamyükle
-      print('+');
     } else {
-      print('-');
     }
     super.initState();
   }
@@ -3949,15 +3945,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
 
                         if (adCounter == 0) {
                           _showInterstitialAd(context);
-
-                          ///reklam
                           readSettings.resetAdCounter();
-
-                          ///2 leme
                         } else {
                           readSettings.useAdCounter();
-
-                          ///eksi 1
                         }
                         Navigator.of(context).pop();
                         read2.setCurrentindex(0);
