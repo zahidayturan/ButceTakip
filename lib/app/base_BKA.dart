@@ -74,7 +74,12 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       }else if (readSetting.isPassword == null){
         print("Password için emulator yavas kaldı.");
       }
-      
+
+      await readSetting.setMonthStarDayForHomePage(readSetting.monthStartDay!);
+      await ref.read(databaseRiverpod).setMonthandYear(readSetting.monthIndex.toString(), readSetting.yearIndex.toString());
+      ref.read(homeRiverpod).setStatus();
+      await ref.read(calendarRiverpod).setMonthStartDay(readSetting.monthStartDay!);
+
       await readCurrency.controlCurrency(ref).then((value) { //currency control
         var readHome = ref.read(homeRiverpod);
         var readUpdateData =  ref.read(updateDataRiverpod);

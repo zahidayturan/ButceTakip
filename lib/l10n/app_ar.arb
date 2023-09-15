@@ -288,9 +288,9 @@
   "totalInterest": "مجموع الفوائد:  ",
   "totalPayment": "مبلغ الدفع الإجمالي:  ",
 
-  "currencyConverter": "العملات تحويل",
-  "calculatePercentage": "المئوية احسب بالنسبة",
-  "calculateInterestCredit": "احسب الفائدة - القرض",
+  "currencyConverter": "تحويل العملات",
+  "calculatePercentage": "احسب بالنسبة المئوية  ",
+  "calculateInterestCredit": "احسب الفائدة - القرض ",
 
   "currencyConverterWarning": "لم يتم تفعيل محول العملات بعد.",
 

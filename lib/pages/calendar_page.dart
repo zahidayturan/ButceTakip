@@ -2,7 +2,6 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -134,6 +133,8 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     List yearName = read.getYears();
     read.startDate = DateTime(read.yearIndex,read.monthIndex,selectedValueDay);
     read.endDate = DateTime(read.yearIndex,read.monthIndex+1,selectedValueDay-1);
+    var readSetting = ref.read(settingsRiverpod);
+    var darkMode = readSetting.DarkMode;
     return Center(
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -147,7 +148,21 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                 height: size.height * 0.05,
                 decoration: BoxDecoration(
                     color: Theme.of(context).highlightColor,
-                    borderRadius: BorderRadius.all(Radius.circular(20))
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    boxShadow: darkMode == 1 ? [
+                      BoxShadow(
+                        color: Colors.black54.withOpacity(0.4),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: const Offset(-1, 2),
+                      )
+                    ] : [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 0.5,
+                          blurRadius: 2,
+                          offset: const Offset(0, 2)
+                      )]
                 ),
                 child: AspectRatio(
                   aspectRatio: 1,
@@ -163,7 +178,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     iconSize: 30,
                     onPressed: () {
                       setState(() {
-                        read.setIndex(0, 3);
+                        read.setIndex(0, 3,ref);
                         read.pageMonthController.jumpToPage(read.monthIndex-1);
                         read.pageYearController.jumpToPage(read.yearIndex-2020);
                       });
@@ -186,6 +201,20 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(50)),
                               color: Theme.of(context).disabledColor,
+                                boxShadow: darkMode == 1 ? [
+                                  BoxShadow(
+                                    color: Colors.black54.withOpacity(0.4),
+                                    spreadRadius: 1,
+                                    blurRadius: 2,
+                                    offset: const Offset(-1, 2),
+                                  )
+                                ] : [
+                                BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 0.5,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2)
+                          )]
                             ),
                           ),
                         ),
@@ -199,7 +228,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                 controller: read.pageMonthController,
                                 onPageChanged: (index) {
                                   setState(() {
-                                    read.setIndex(index,0);
+                                    read.setIndex(index,0,ref);
                                   });
                                 },
                                 children: monthName
@@ -227,13 +256,27 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(Radius.circular(30)),
                                 color: Theme.of(context).highlightColor,
+                                  boxShadow: darkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.4),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.5,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )]
                               ),
                               child: PageView(
                                 controller: read.pageYearController,
                                 onPageChanged: (index) {
                                   setState(() {
                                     print(index);
-                                    read.setIndex(index,1);
+                                    read.setIndex(index,1,ref);
                                   });
                                 },
                                 children: yearName
@@ -283,6 +326,20 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                   decoration: BoxDecoration(
                     color: Theme.of(context).disabledColor,
                     borderRadius: BorderRadius.all(Radius.circular(20)),
+                      boxShadow: darkMode == 1 ? [
+                        BoxShadow(
+                          color: Colors.black54.withOpacity(0.4),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: const Offset(-1, 2),
+                        )
+                      ] : [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 0.5,
+                            blurRadius: 2,
+                            offset: const Offset(0, 2)
+                        )]
                   ),
                   child: AspectRatio(
                     aspectRatio: 1,
@@ -300,6 +357,20 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           decoration: BoxDecoration(
                               borderRadius:
                               const BorderRadius.all(Radius.circular(5)),
+                              boxShadow: darkMode == 1 ? [
+                                BoxShadow(
+                                  color: Colors.black54.withOpacity(0.4),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(-1, 2),
+                                )
+                              ] : [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 2)
+                                )],
                               color: Theme.of(context).highlightColor),
                           child: Text(
                             selectedValueDay.toString(),style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'Nexa4'),
@@ -339,7 +410,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               onPageChanged: (index) {
                 setState(() {
                   print(index);
-                  read.setIndex(index, 2);
+                  read.setIndex(index, 2,ref);
                   pageController.jumpToPage(1);
                   read.pageMonthController.jumpToPage(read.monthIndex-1);
                   read.pageYearController.jumpToPage(read.yearIndex-2020);

@@ -57,6 +57,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
     return SafeArea(
         bottom: false,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBarForPage(title: translation(context).myAssets),
           bottomNavigationBar: const NavBar(),
           body: FutureBuilder(

@@ -84,7 +84,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                       onTap: () {
                         readNavBar.setCurrentindex(2);
                         Navigator.of(context).popUntil((route) => route.isFirst) ;
-                        readCalendar.setIndex(0, 3);
+                        readCalendar.setIndex(0, 3,ref);
                         readCalendar.resetPageController();
                       },
                       child: Text(formattedDate,

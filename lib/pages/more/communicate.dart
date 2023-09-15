@@ -469,8 +469,11 @@ class Communicate extends StatelessWidget {
                 ),
               ],
             ),
-            const BannerAds(
-              adSize: AdSize.largeBanner,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+              child: BannerAds(
+                adSize: AdSize.fullBanner,
+              ),
             ),
           ],
         ),

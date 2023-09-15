@@ -2,10 +2,12 @@ import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/pages/more/Help/help_backup.dart';
+import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../../UI/list_bacup_popup.dart';
 import '../../classes/app_bar_for_page.dart';
@@ -476,7 +478,14 @@ class _BackUpState extends ConsumerState<BackUp> {
                   ),
                 ),
               ),
-            ],
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: BannerAds(
+                    adSize: AdSize.fullBanner,
+                  ),
+                ),
+              ],
+
           ),
         ),
       ),
