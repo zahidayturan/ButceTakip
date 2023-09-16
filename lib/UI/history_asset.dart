@@ -7,14 +7,14 @@ import 'package:intl/intl.dart';
 import '../classes/language.dart';
 import '../riverpod_management.dart';
 
-class historyAsset extends ConsumerStatefulWidget{
-  const historyAsset({Key? key}) : super(key: key);
+class HistoryAsset extends ConsumerStatefulWidget{
+  const HistoryAsset({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<historyAsset> createState() => _historyAsset();
+  ConsumerState<HistoryAsset> createState() => _HistoryAsset();
 }
 
-class _historyAsset extends ConsumerState<historyAsset> {
+class _HistoryAsset extends ConsumerState<HistoryAsset> {
   final PageController _controller = PageController(initialPage: 0);
   String errormessage = "";
   bool isEdit = false ;
@@ -74,8 +74,17 @@ class _historyAsset extends ConsumerState<historyAsset> {
                               builder: (context, snapshot) {
                                 if(snapshot.hasData){
                                   List<SpendInfo>? list = snapshot.data ;
-                                  return ListView.builder(
-                                    itemCount: list!.length,
+                                  return list!.isEmpty
+                                  ?const Center(
+                                    child: Text(
+                                        "Veri Yok",
+                                      style: TextStyle(
+                                        color: Colors.black
+                                      ),
+                                    ),
+                                  )
+                                  :ListView.builder(
+                                    itemCount: list.length,
                                     itemBuilder:(context, index) {
                                       var date = list[index].operationDate ?? "00.00.0000";
                                       DateTime dateForFormat = DateTime(int.parse(date.split(".")[2]),int.parse(date.split(".")[1]),int.parse(date.split(".")[0]));
@@ -163,15 +172,7 @@ class _historyAsset extends ConsumerState<historyAsset> {
                                     },
                                   );
                                 }else{
-                                  return const Text(
-                                    "veri yok",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        height: 1.1,
-                                        fontSize: 14
-                                    ),
-                                    textAlign: TextAlign.justify,
-                                  );
+                                  return SizedBox();
                                 }
                               },
                             ),
@@ -180,8 +181,17 @@ class _historyAsset extends ConsumerState<historyAsset> {
                               builder: (context, snapshot) {
                                 if(snapshot.hasData){
                                   List<SpendInfo>? list = snapshot.data ;
-                                  return ListView.builder(
-                                    itemCount: list!.length,
+                                  return list!.isEmpty
+                                    ?const Center(
+                                      child: Text(
+                                        "Veri Yok",
+                                        style: TextStyle(
+                                            color: Colors.black
+                                        ),
+                                      ),
+                                    )
+                                   :ListView.builder(
+                                    itemCount: list.length,
                                     itemBuilder:(context, index) {
                                       return Column(
                                         children: [
@@ -267,15 +277,7 @@ class _historyAsset extends ConsumerState<historyAsset> {
                                     },
                                   );
                                 }else{
-                                  return const Text(
-                                    "veri yok",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        height: 1.1,
-                                        fontSize: 14
-                                    ),
-                                    textAlign: TextAlign.justify,
-                                  );
+                                  return SizedBox();
                                 }
                               },
                             ),
@@ -284,8 +286,17 @@ class _historyAsset extends ConsumerState<historyAsset> {
                               builder: (context, snapshot) {
                                 if(snapshot.hasData){
                                   List<SpendInfo>? list = snapshot.data ;
-                                  return ListView.builder(
-                                    itemCount: list!.length,
+                                  return list!.isEmpty
+                                    ?const Center(
+                                      child: Text(
+                                        "Veri Yok",
+                                        style: TextStyle(
+                                            color: Colors.black
+                                        ),
+                                      ),
+                                    )
+                                  :ListView.builder(
+                                    itemCount: list.length,
                                     itemBuilder:(context, index) {
                                       return Column(
                                         children: [
@@ -350,7 +361,7 @@ class _historyAsset extends ConsumerState<historyAsset> {
                                                   ),
                                                 ),
                                                 isEdit
-                                                    ?GestureDetector(
+                                                  ?GestureDetector(
                                                   onTap: () async {
                                                     await SQLHelper.deleteItem(list[index].id!);
                                                     ref.watch(settingsRiverpod).setisuseinsert();
@@ -361,7 +372,7 @@ class _historyAsset extends ConsumerState<historyAsset> {
                                                     size: 18,
                                                   ),
                                                 )
-                                                    :const SizedBox(),
+                                                :const SizedBox(),
                                               ],
                                             ),
                                           ),
@@ -371,15 +382,7 @@ class _historyAsset extends ConsumerState<historyAsset> {
                                     },
                                   );
                                 }else{
-                                  return const Text(
-                                    "veri yok",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        height: 1.1,
-                                        fontSize: 14
-                                    ),
-                                    textAlign: TextAlign.justify,
-                                  );
+                                  return SizedBox();
                                 }
                               },
                             ),

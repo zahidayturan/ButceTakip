@@ -70,6 +70,12 @@ class firestoreHelper {
     await docCurrency.update(json);
   }
 
+  static Future<Map<String, dynamic>?> getAppInfo() async {
+    final docAppInfo = await FirebaseFirestore.instance.collection("appInfo").doc("security");
+    DocumentSnapshot<Map<String, dynamic>> querySnapshot = await docAppInfo.get();
+    return querySnapshot.data();
+  }
+
   static Future<List<currencyInfo>> readCurrenciesFirestore() async {
     currencyInfo ? currency;
     List<currencyInfo> currencies = [];

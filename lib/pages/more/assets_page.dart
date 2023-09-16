@@ -1,5 +1,4 @@
 import 'package:butcekontrol/UI/change_currency_page.dart';
-import 'package:butcekontrol/UI/history_asset.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
@@ -11,6 +10,7 @@ import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../UI/add_assets.dart';
+import '../../UI/history_asset.dart';
 import '../../classes/language.dart';
 import '../../constans/material_color.dart';
 
@@ -302,7 +302,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                           PageRouteBuilder(
                                             opaque: false, //sayfa saydam olması için
                                             transitionDuration: const Duration(milliseconds: 1),
-                                            pageBuilder: (context, animation, nextanim) => const historyAsset(),
+                                            pageBuilder: (context, animation, nextanim) => const HistoryAsset(),
                                             reverseTransitionDuration: const Duration(milliseconds: 1),
                                             transitionsBuilder: (context, animation, nexttanim, child) {
                                               return FadeTransition(
@@ -380,10 +380,10 @@ class _assetsPage extends ConsumerState<assetsPage> {
                             width: double.infinity,
                             padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.02),
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Theme.of(context).secondaryHeaderColor.withOpacity(0.7), Theme.of(context).shadowColor.withOpacity(0.6)],
-                              ),
-                              //color: Theme.of(context).highlightColor,
+                              gradient: readSettingsRiv.DarkMode == 1 ? LinearGradient(
+                                colors: [Theme.of(context).secondaryHeaderColor, Theme.of(context).shadowColor],
+                              ) : null ,
+                              color : readSettingsRiv.DarkMode == 1 ? null : Theme.of(context).highlightColor,
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
                                 color: Theme.of(context).canvasColor.withOpacity(0.5),

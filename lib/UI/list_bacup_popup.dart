@@ -128,7 +128,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                    setState(() {
                                                      isclicked = true;
                                                    });
-                                                   try {
+                                                   try {/// VERİ İNDİRİLİYOR.
                                                     await readGglAuth.downloadGoogleDriveFile("${data[index].id}", "${data[index].name}");
                                                     if(readSettings.Prefix != "TRY"){
                                                       ref.read(currencyRiverpod).calculateAllSQLHistoryTime();
