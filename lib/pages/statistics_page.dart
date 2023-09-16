@@ -148,6 +148,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   Widget filterAdd(BuildContext context) {
     var readStatistics = ref.read(statisticsRiverpod);
     var readSettings = ref.read(settingsRiverpod);
+    var darkMode = readSettings.DarkMode;
     var adEventCounter = readSettings.adEventCounter;
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
@@ -157,15 +158,37 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         width: size.width * 0.92,
         height: 30,
         decoration: BoxDecoration(
-          color: Theme.of(context).highlightColor,
+          //color: Theme.of(context).highlightColor,
+          color: renkler.koyuuRenk,
+          border: Border.all(
+              color: Theme.of(context).highlightColor, // Set border color
+              width: 1,
+          strokeAlign: BorderSide.strokeAlignInside),
+            boxShadow: darkMode == 1 ? [
+              BoxShadow(
+                color: Colors.black54.withOpacity(0.8),
+                spreadRadius: 1,
+                blurRadius: 2,
+                offset: const Offset(-1, 2),
+              )
+            ] : [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 0.5,
+                  blurRadius: 2,
+                  offset: const Offset(0, 2)
+              )],
           borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
         child: Center(
-            child: Text(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 3),
+              child: Text(
           translation(context).tapToFilter,
           style: TextStyle(
-              color: renkler.arkaRenk, fontFamily: 'Nexa3', fontSize: 15, height: 1),
-        )),
+                color: renkler.arkaRenk, fontFamily: 'Nexa3', fontSize: 15, height: 1),
+        ),
+            )),
       ),
       onTap: () {
         showDialog(
@@ -2697,7 +2720,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 width: 140,
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).indicatorColor,
                       borderRadius: BorderRadius.circular(200)),
                 ),
               ),

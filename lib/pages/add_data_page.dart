@@ -1541,9 +1541,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                             children: [
                                                                                               Text(translation(context).replaceCategoryQuestion,style: TextStyle(fontSize: 14,height: 1,color: Theme.of(context).canvasColor,), textAlign: TextAlign.center,),
                                                                                               SizedBox(
-                                                                                                width : size.width*0.32,
+                                                                                                width : size.width*0.38,
                                                                                                 height: 24,
-                                                                                                child: TextField(
+                                                                                                child: TextFormField(
                                                                                                   maxLength: 20,
                                                                                                   maxLines: 1,
                                                                                                   style:
@@ -1555,7 +1555,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                           fontSize: 13,
                                                                                                           fontFamily: 'Nexa3'),
                                                                                                       counterText: '',
-                                                                                                      border: InputBorder.none),
+                                                                                                      border: InputBorder.none,
+                                                                                                  isDense: true),
                                                                                                   cursorRadius: const Radius.circular(10),
                                                                                                   keyboardType: TextInputType.text,
                                                                                                   textCapitalization: TextCapitalization.words,
@@ -1563,7 +1564,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                   onEditingComplete: () {
                                                                                                     setState((){});
                                                                                                   },
-
                                                                                                 ),
                                                                                               ),
                                                                                             ],
@@ -1973,7 +1973,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                     padding: const EdgeInsets.only(top: 6),
                                                                                     child: SizedBox(
                                                                                       width: size.width * 0.81,
-                                                                                      height: 120,
+                                                                                      height: 140,
                                                                                       child: Container(
                                                                                         decoration: BoxDecoration(
                                                                                             border: Border.all(
@@ -2084,7 +2084,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                     padding: const EdgeInsets.only(top: 6),
                                                                                     child: SizedBox(
                                                                                       width: size.width * 0.81,
-                                                                                      height: 120,
+                                                                                      height: 140,
                                                                                       child: Container(
                                                                                         decoration: BoxDecoration(
                                                                                             border: Border.all(

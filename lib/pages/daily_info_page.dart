@@ -107,8 +107,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                           Theme.of(context).dialogBackgroundColor,))),
                                 child: Scrollbar(
                                   thumbVisibility: true,
-                                  scrollbarOrientation: readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.left :
-                                  ScrollbarOrientation.right,
+                                  scrollbarOrientation: ScrollbarOrientation.right,
                                   interactive: true,
                                   thickness: 7,
                                   radius: const Radius.circular(15),
@@ -181,7 +180,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                     ),
                                                     Padding(
                                                       padding: const EdgeInsets.only(
-                                                          right: 8.0),
+                                                          right: 8.0,left: 8),
                                                       child : item[index]
                                                           .operationType ==
                                                           "Gelir"

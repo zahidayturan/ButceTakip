@@ -1898,7 +1898,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                     padding: const EdgeInsets.only(top: 6),
                                                                                     child: SizedBox(
                                                                                       width: size.width * 0.81,
-                                                                                      height: 120,
+                                                                                      height: 140,
                                                                                       child: Container(
                                                                                         decoration: BoxDecoration(
                                                                                             border: Border.all(

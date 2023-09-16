@@ -63,6 +63,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style: TextStyle(
                       color: Theme.of(context).dialogBackgroundColor,
                       fontFamily: 'Nexa4',
+                      fontWeight: FontWeight.w900,
                       height: 1,
                       fontSize: 22,
                     ),
@@ -156,6 +157,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style: TextStyle(
                       color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
+                      fontWeight: FontWeight.w900,
                       height: 1,
                       fontSize: 18,
                     )),
@@ -195,6 +197,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style: TextStyle(
                       color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
+                      fontWeight: FontWeight.w900,
                       height: 1,
                       fontSize: 18,
                     )),
@@ -217,6 +220,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style: TextStyle(
                       color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
+                      fontWeight: FontWeight.w900,
                       height: 1,
                       fontSize: 18,
                     )),
@@ -243,6 +247,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style: TextStyle(
                       color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
+                      fontWeight: FontWeight.w900,
                       height: 1,
                       fontSize: 18,
                     )),
@@ -265,6 +270,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style: TextStyle(
                       color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
+                      fontWeight: FontWeight.w900,
                       height: 1,
                       fontSize: 18,
                     )),
@@ -291,6 +297,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     style: TextStyle(
                       color: renkler.yaziRenk,
                       fontFamily: 'Nexa4',
+                      fontWeight: FontWeight.w900,
                       height: 1,
                       fontSize: 18,
                     )),
@@ -319,10 +326,11 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(translation(context).repetitionInstallment,
+                  Text(item[index].processOnce!.contains("/") ? translation(context).installment : translation(context).repeat,
                       style: TextStyle(
                         color: renkler.yaziRenk,
                         fontFamily: 'Nexa4',
+                        fontWeight: FontWeight.w900,
                         height: 1,
                         fontSize: 18,
                       )),
@@ -343,7 +351,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
             ),
           ),
           Visibility(
-            visible: item[index].systemMessage != '',
+            visible: item[index].systemMessage != '' && item[index].processOnce! == "",
             child: Padding(
               padding: const EdgeInsets.only(bottom: 9),
               child: Column(
@@ -355,6 +363,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           style: TextStyle(
                             color: renkler.yaziRenk,
                             fontFamily: 'Nexa4',
+                            fontWeight: FontWeight.w900,
                             height: 1,
                             fontSize: 18,
                           )),
@@ -363,7 +372,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5, left: 5),
-                    child: Text("İşlenen : ${Converter().textConverterFromDB(item[index].processOnce!, context, 1)}",
+                    child: Text("${Converter().textConverterFromDB(item[index].systemMessage!, context, 1)} ${item[index].systemMessage!.contains("/") ? translation(context).installment.toLowerCase() : translation(context).repeat.toLowerCase()}",
                         style: TextStyle(
                           color: renkler.yaziRenk,
                           fontFamily: 'Nexa3',
@@ -386,6 +395,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         style: TextStyle(
                           color: renkler.yaziRenk,
                           fontFamily: 'Nexa4',
+                          fontWeight: FontWeight.w900,
                           height: 1,
                           fontSize: 18,
                         )),

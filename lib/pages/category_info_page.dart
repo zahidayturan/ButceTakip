@@ -104,8 +104,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                         Theme.of(context).dialogBackgroundColor))),
                             child: Scrollbar(
                               thumbVisibility: true,
-                              scrollbarOrientation: readSettings.localChanger() == Locale("ar") ? ScrollbarOrientation.left :
-                              ScrollbarOrientation.right,
+                              scrollbarOrientation: ScrollbarOrientation.right,
                               interactive: true,
                               thickness: 7,
                               radius: const Radius.circular(15),

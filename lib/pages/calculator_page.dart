@@ -108,6 +108,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
   Widget build(BuildContext context) {
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
+    var watchCurrency = ref.watch(currencyRiverpod);
     return Container(
       color: const Color(0xFF03111A),
       child: SafeArea(
@@ -142,7 +143,17 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               setState(() => _currentPageindex = value),
                           children: [
                             //calculator(), //Page 1
-                            currencyConverter(context), //Page 2
+                            ref.read(currencyRiverpod).lastApiUpdateDate != null ? currencyConverter(context)
+                                : Center(
+                            child: SizedBox(
+                              height: size.width * .17,
+                              width: size.width * .17,
+                              child: CircularProgressIndicator(
+                                color: Theme.of(context).disabledColor,
+                                backgroundColor: renkler.koyuuRenk,
+                              ),
+                            )
+                        ), //Page 2
                             krediPage(), //Page 4
                             yuzdePage(), // Page 3
                           ],

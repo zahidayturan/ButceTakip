@@ -875,7 +875,7 @@ class UpdateDataRiverpod extends ChangeNotifier {
                 count < remainder ? i == count -1 ? "${finished + 1}/$total" : "" : remainder == 1 ? "" : "" ,
                 ref.read(currencyRiverpod).calculateRealAmount(item.amount!, item.moneyType.toString(), ref.read(settingsRiverpod).Prefix!),
                 item.userCategory,
-                remainder == 1 ? "${total}/$total Taksit Bitti" : "${finished+1}/$total Taksit İşlendi"
+                remainder == 1 ? " ${total}/$total " : " ${finished+1}/$total "
             );
             SQLHelper.createItem(newinfo);
             SQLHelper.updateCustomize(item.id, "");

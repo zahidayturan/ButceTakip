@@ -505,6 +505,14 @@ class More extends ConsumerWidget {
                         children: [
                           InkWell(
                             onTap: () {
+                                final appId = 'com.fezaitech.butcetakip';
+                                final url = Uri.parse(
+                                 "market://details?id=$appId"
+                                );
+                                launchUrl(
+                                  url,
+                                  mode: LaunchMode.externalApplication,
+                                );
                             },
                             borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15)),
                             child: Container(
