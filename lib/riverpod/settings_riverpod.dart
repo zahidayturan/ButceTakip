@@ -83,6 +83,7 @@ class SettingsRiverpod extends ChangeNotifier{
   }
   void setErrorStatusBackup(String ?Error){
     errorStatusBackup = Error ;
+    setisuseinsert();
     notifyListeners();
   }
 

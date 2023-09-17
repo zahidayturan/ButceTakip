@@ -61,6 +61,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
             ),
           );
           readSettings.setLastBackup();
+          readSettings.setErrorStatusBackup("");
           readSettings.setbackUpAlert(false);
           Navigator.of(context).pop();
         });

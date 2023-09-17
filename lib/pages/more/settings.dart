@@ -200,12 +200,12 @@ class _SettingsState extends ConsumerState<Settings> {
                                       size: 18,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
+                                  const Padding(
+                                    padding: EdgeInsets.only(
                                         top: 4, left: 8, right: 8),
                                     child: Text(
                                       "Dil",
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontFamily: "Nexa3",
                                           fontSize: 14,
                                           height: 1),

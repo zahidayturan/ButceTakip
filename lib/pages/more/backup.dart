@@ -204,6 +204,25 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 children: [
                                   InkWell(
                                     onTap: () async { // geri yükle.
+                                      await readGglAuth.downloadFileToDevice();
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          backgroundColor:
+                                          const Color(0xff0D1C26),
+                                          duration: const Duration(seconds: 1),
+                                          content: Text(
+                                            "Verileriniz İndirildi",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontFamily: 'Nexa3',
+                                              fontWeight: FontWeight.w600,
+                                              height: 1.3,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                      /*
                                       Navigator.push(
                                         context,
                                         PageRouteBuilder(
@@ -219,6 +238,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           },
                                         ),
                                       );
+                                     */
                                     },
                                     child: SizedBox(
                                       height: 32,
@@ -252,7 +272,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     ),
                                   ),
                                   SizedBox(width:size.width * 0.04),
-                                  InkWell(
+                                  InkWell( ///upload File restore
                                     onTap: () async { // Yedekle.
                                       if (adCounter == 0) {
                                         _showInterstitialAd(context);
@@ -260,10 +280,32 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       } else {
                                         readSettings.useAdCounter();
                                       }
-                                      DateTime date = DateTime.now();
-                                      final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
+                                      final String fileName = "Bka_CSV.cvs" ;
                                       try{
                                         await writeToCvs(fileName);
+                                        await readGglAuth.uploadFileToStorage();
+                                        readSetting.setLastBackup();
+                                        readSetting.setbackUpAlert(false);
+                                        readGglAuth.refreshPage();
+
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            backgroundColor: const Color(0xff0D1C26),
+                                            duration: const Duration(seconds: 1),
+                                            content: Text(
+                                              "Verileriniz Yedeklendi",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontFamily: 'Nexa3',
+                                                fontWeight: FontWeight.w600,
+                                                height: 1.3,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+
+                                        /*
                                         await Future.delayed(const Duration(milliseconds: 400));
                                         await readGglAuth.uploadFileToDrive(fileName).then((value) {
                                           ScaffoldMessenger.of(context).showSnackBar(
@@ -283,8 +325,10 @@ class _BackUpState extends ConsumerState<BackUp> {
                                             ),
                                           );
                                           readSetting.setLastBackup();
+                                          readSetting.setbackUpAlert(false);
                                           readGglAuth.refreshPage();
                                         });
+                                       */
                                       }catch(e){
                                         print("HATAAAAAAAAAAA ===============>>>>>>>>>>${e.toString()}");
                                         ScaffoldMessenger.of(context).showSnackBar(
@@ -305,11 +349,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           ),
                                         );
                                       }
+                                      /*
                                       if(backupPushCount == 0)  {
                                         readGglAuth.controlListCount();
                                       }else{
                                         backupPushCount -= 1 ;
                                       }
+                                       */
                                     },
                                     child: SizedBox(
                                       height: 32,
@@ -350,10 +396,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      readSetting.setLastBackup(a : true);
-                                      Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
+                                      Navigator.push(context, PageRouteBuilder(
                                           transitionDuration: const Duration(milliseconds: 1),
                                           pageBuilder: (context, animation, nextanim) => const HelpBackup(),
                                           reverseTransitionDuration: const Duration(milliseconds: 1),
@@ -365,8 +408,6 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           },
                                         ),
                                       );
-                                      readGglAuth.refreshPage();
-                                      print("çektim geriye.");
                                     },
                                     child: Container(
                                       width : 25,
@@ -438,7 +479,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 onTap: () async {
                                   try{
                                     await readGglAuth.signInWithGoogle();
-                                    await readGglAuth.checkAuthState(ref);
+                                    //await readGglAuth.checkAuthState(ref);
                                     readGglAuth.setAccountStatus(true);
                                     readGglAuth.refreshPage();
                                   }catch(e){
