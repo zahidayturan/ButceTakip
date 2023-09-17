@@ -183,7 +183,7 @@ class More extends ConsumerWidget {
                                       ],
                                     ),
                                   ),
-                                  Text("Net Varlık Durumunuz",style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,)
+                                  Text(translation(context).yourNetAsset,style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,)
                                 ],
                               ),
                             ),
@@ -505,6 +505,14 @@ class More extends ConsumerWidget {
                         children: [
                           InkWell(
                             onTap: () {
+                                final appId = 'com.fezaitech.butcetakip';
+                                final url = Uri.parse(
+                                 "market://details?id=$appId"
+                                );
+                                launchUrl(
+                                  url,
+                                  mode: LaunchMode.externalApplication,
+                                );
                             },
                             borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(15), topRight: Radius.circular(15)),
                             child: Container(

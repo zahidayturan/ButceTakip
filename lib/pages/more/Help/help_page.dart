@@ -150,7 +150,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             Expanded(child: Container(
                               height: 2,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                borderRadius: const BorderRadius.all(Radius.circular(10)),
                                 color: Theme.of(context).highlightColor,
                                 boxShadow: darkMode == 1 ? [
                                   BoxShadow(
@@ -171,7 +171,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ))
                           ],
                         ),
-                        SizedBox(height: 12,),
+                        const SizedBox(height: 12,),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 14),
                           child: Row(
@@ -216,12 +216,12 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.home_rounded,
                                             color: Color(0xffF2F2F2),
                                             size: 22,
                                           ),
-                                          FittedBox(
+                                          Expanded(
                                             child: Padding(
                                               padding: const EdgeInsets.only(top: 2),
                                               child: Text(
@@ -231,6 +231,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                     color: Color(0xffF2F2F2),
                                                     fontSize: 11
                                                 ),
+                                                maxLines: 2,
                                                 textAlign: TextAlign.center,
                                               ),
                                             ),
@@ -280,7 +281,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.equalizer_rounded,
                                             color: Color(0xffF2F2F2),
                                             size: 22,
@@ -344,7 +345,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.calendar_month_rounded,
                                             color: Color(0xffF2F2F2),
                                             size: 22,
@@ -372,7 +373,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 12,),
+                        const SizedBox(height: 12,),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 14),
                           child: Row(
@@ -417,7 +418,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.wallet,
                                             color: Color(0xffF2F2F2),
                                             size: 22,
@@ -481,7 +482,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.calculate,
                                             color: Color(0xffF2F2F2),
                                             size: 22,
@@ -545,7 +546,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.backup,
                                             color: Color(0xffF2F2F2),
                                             size: 22,
@@ -573,7 +574,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 12,),
+                        const SizedBox(height: 12,),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 14),
                           child: Row(
@@ -614,7 +615,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                         ]
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      padding: EdgeInsets.symmetric(horizontal: 8.0),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
@@ -625,8 +626,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                           ),
                                           FittedBox(
                                             child: Text(
-                                              "Ekle\nDüzenle",
-                                              style: const TextStyle(
+                                              translation(context).addEditHelp,
+                                              style: TextStyle(
                                                   height: 1,
                                                   color: Color(0xffF2F2F2),
                                                   fontSize: 11
@@ -675,7 +676,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                         ]
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      padding: EdgeInsets.symmetric(horizontal: 8.0),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
@@ -686,8 +687,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                           ),
                                           FittedBox(
                                             child: Text(
-                                              "Döviz\nSistemi",
-                                              style: const TextStyle(
+                                              translation(context).exchangeSystemHelp,
+                                              style: TextStyle(
                                                   height: 1,
                                                   color: Color(0xffF2F2F2),
                                                   fontSize: 11
@@ -752,7 +753,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             Expanded(child: Container(
                               height: 2,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                                   color: Theme.of(context).highlightColor,
                                   boxShadow: darkMode == 1 ? [
                                     BoxShadow(
@@ -800,7 +801,8 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 2),
                                 child: Text(
-                                    "Android 2.0.0v Sürüm Notu (15.09.2023)"
+                                    "Android 2.0.0v ${translation(context).version2Title} (15.09.2023)",
+                                    textDirection: TextDirection.ltr,
                                 ),
                               ),
                             ),
@@ -852,7 +854,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             Expanded(child: Container(
                               height: 2,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                                   color: Theme.of(context).highlightColor,
                                   boxShadow: darkMode == 1 ? [
                                     BoxShadow(
@@ -875,7 +877,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                         ),
                         const SizedBox(height: 10),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               boxShadow: darkMode == 1 ? [
                                 BoxShadow(
@@ -897,20 +899,20 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             border: Border.all(color: Theme.of(context).splashColor)
                           ),
                           child: ListTileTheme(
-                              contentPadding: EdgeInsets.all(0),
+                              contentPadding: const EdgeInsets.all(0),
                               dense: true,
                             child: Theme(
                               data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                               child: ExpansionTile(
                                 title: Text(
-                                  "Verilerim silindi ne yapmam gerekiyor?",
-                                  style: TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  translation(context).question1,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
-                                      "Veri güvenliğiniz için verilerinizi yerel depolamanızda saklıyoruz. Yedekleme yapmadıysanız verilerinizi geri getiremezsiniz. Sorunun sizden kaynaklı olmadığını düşünüyorsanız lütfen bizimle iletişime geçin.",
-                                      style: TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      translation(context).answer1,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                     ),
                                   )
                                 ],
@@ -918,9 +920,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8,),
+                        const SizedBox(height: 8,),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               boxShadow: darkMode == 1 ? [
                                 BoxShadow(
@@ -942,20 +944,20 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               border: Border.all(color: Theme.of(context).splashColor)
                           ),
                           child: ListTileTheme(
-                            contentPadding: EdgeInsets.all(0),
+                            contentPadding: const EdgeInsets.all(0),
                             dense: true,
                             child: Theme(
                               data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                               child: ExpansionTile(
                                 title: Text(
-                                  "Size nasıl ulaşabilirim?",
-                                  style: TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  translation(context).question2,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
-                                      "Gerekli iletişim bilgileri İletişim sayfasında yer almaktadır. Gitmek için butona basabilirsiniz.",
-                                      style: TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      translation(context).answer2,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                   GestureDetector(
@@ -977,22 +979,23 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.only(bottom: 8),
-                                      child: Container(
-                                        height: 24,
-                                        width: size.width*0.4,
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).disabledColor,
-                                          borderRadius: BorderRadius.all(Radius.circular(10))
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 2),
-                                          child: Center(
-                                            child: Text(
-                                              translation(context).contactUs,style: TextStyle(
-                                              color: renkler.koyuuRenk,
-                                              height: 1,
-                                              fontSize: 14
-                                            ),
+                                      child: FittedBox(
+                                        child: Container(
+                                          height: 24,
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context).disabledColor,
+                                            borderRadius: const BorderRadius.all(Radius.circular(10))
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top: 2, left: 10, right: 10),
+                                            child: Center(
+                                              child: Text(
+                                                translation(context).contactUs,style: TextStyle(
+                                                color: renkler.koyuuRenk,
+                                                height: 1,
+                                                fontSize: 14
+                                              ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -1004,9 +1007,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8,),
+                        const SizedBox(height: 8,),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               boxShadow: darkMode == 1 ? [
                                 BoxShadow(
@@ -1028,20 +1031,20 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               border: Border.all(color: Theme.of(context).splashColor)
                           ),
                           child: ListTileTheme(
-                            contentPadding: EdgeInsets.all(0),
+                            contentPadding: const EdgeInsets.all(0),
                             dense: true,
                             child: Theme(
                               data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                               child: ExpansionTile(
                                 title: Text(
-                                  "Verilerimi Excel çıktısı olarak alabilir miyim?",
-                                  style: TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  translation(context).question3,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
-                                      "Evet, verilerinizi Google Hesabınıza yedekledikten sonra .csv uzantılı dosyayı Excel olarak dönüştürüp görüntüleyebilirsiniz.",
-                                      style: TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      translation(context).answer3,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -1049,9 +1052,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8,),
+                        const SizedBox(height: 8,),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               boxShadow: darkMode == 1 ? [
                                 BoxShadow(
@@ -1073,20 +1076,20 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               border: Border.all(color: Theme.of(context).splashColor)
                           ),
                           child: ListTileTheme(
-                            contentPadding: EdgeInsets.all(0),
+                            contentPadding: const EdgeInsets.all(0),
                             dense: true,
                             child: Theme(
                               data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                               child: ExpansionTile(
                                 title: Text(
-                                  "Döviz sistemi nasıl çalışıyor, aktif ve pasif döviz ne demek?",
-                                  style: TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  translation(context).question4,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
-                                      "Yardım sayfasında bu konu detaylıca açıklanmıştır. Gitmek için butona basabilirsiniz",
-                                      style: TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      translation(context).answer4,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                   GestureDetector(
@@ -1108,22 +1111,23 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.only(bottom: 8),
-                                      child: Container(
-                                        height: 24,
-                                        width: size.width*0.4,
-                                        decoration: BoxDecoration(
-                                            color: Theme.of(context).disabledColor,
-                                            borderRadius: BorderRadius.all(Radius.circular(10))
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 2),
-                                          child: Center(
-                                            child: Text(
-                                              "Döviz Sistemi",style: TextStyle(
-                                                color: renkler.koyuuRenk,
-                                                height: 1,
-                                                fontSize: 14
-                                            ),
+                                      child: FittedBox(
+                                        child: Container(
+                                          height: 24,
+                                          decoration: BoxDecoration(
+                                              color: Theme.of(context).disabledColor,
+                                              borderRadius: const BorderRadius.all(Radius.circular(10))
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top: 2, left: 10, right: 10),
+                                            child: Center(
+                                              child: Text(
+                                                translation(context).exchangeSystem,style: TextStyle(
+                                                  color: renkler.koyuuRenk,
+                                                  height: 1,
+                                                  fontSize: 14
+                                              ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -1135,9 +1139,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8,),
+                        const SizedBox(height: 8,),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               boxShadow: darkMode == 1 ? [
                                 BoxShadow(
@@ -1159,20 +1163,20 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               border: Border.all(color: Theme.of(context).splashColor)
                           ),
                           child: ListTileTheme(
-                            contentPadding: EdgeInsets.all(0),
+                            contentPadding: const EdgeInsets.all(0),
                             dense: true,
                             child: Theme(
                               data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                               child: ExpansionTile(
                                 title: Text(
-                                  "Yedeklediğim verilerin bazıları silinmiş, bu bir hata mı?",
-                                  style: TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  translation(context).question5,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
-                                      "Hayır bu bir hata değil, sistemimiz belirli bir yedekleme sayısından sonra, eski tarihli yedeklemeleri silmesi için Google Drive’a istekte bulunuyor. Siz dilerseniz yedeklemeleri başka bir yerde saklayabilirsiniz.",
-                                      style: TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      translation(context).answer5,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -1180,9 +1184,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8,),
+                        const SizedBox(height: 8,),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               boxShadow: darkMode == 1 ? [
                                 BoxShadow(
@@ -1204,20 +1208,20 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               border: Border.all(color: Theme.of(context).splashColor)
                           ),
                           child: ListTileTheme(
-                            contentPadding: EdgeInsets.all(0),
+                            contentPadding: const EdgeInsets.all(0),
                             dense: true,
                             child: Theme(
                               data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                               child: ExpansionTile(
                                 title: Text(
-                                  "Ayın başlangıç günü neyi değiştiriyor?",
-                                  style: TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  translation(context).question6,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
-                                      "Seçtiğiniz başlangıç gününe göre hesap kesim aralığınız ana sayfa ve takvim gibi sayfalarda değişecektir. Örnek olarak; 15 seçildiyse, aylık veriler bir sonraki ayın 14 üne kadar hesaplanacaktır.",
-                                      style: TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      translation(context).answer6,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -1225,9 +1229,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8,),
+                        const SizedBox(height: 8,),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               boxShadow: darkMode == 1 ? [
                                 BoxShadow(
@@ -1249,20 +1253,20 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               border: Border.all(color: Theme.of(context).splashColor)
                           ),
                           child: ListTileTheme(
-                            contentPadding: EdgeInsets.all(0),
+                            contentPadding: const EdgeInsets.all(0),
                             dense: true,
                             child: Theme(
                               data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                               child: ExpansionTile(
                                 title: Text(
-                                  "Tarih formatı neyi değiştiriyor?",
-                                  style: TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  translation(context).question7,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
-                                      "Seçtiğiniz tarih formatı sadece görünümü değiştirir. İşlemler üzerinde bir etkisi yoktur. Size uygun formatı seçebilirsiniz.",
-                                      style: TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      translation(context).answer7,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -1270,9 +1274,9 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8,),
+                        const SizedBox(height: 8,),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               boxShadow: darkMode == 1 ? [
                                 BoxShadow(
@@ -1294,20 +1298,20 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               border: Border.all(color: Theme.of(context).splashColor)
                           ),
                           child: ListTileTheme(
-                            contentPadding: EdgeInsets.all(0),
+                            contentPadding: const EdgeInsets.all(0),
                             dense: true,
                             child: Theme(
                               data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                               child: ExpansionTile(
                                 title: Text(
-                                  "Birden fazla kart ekleyebilir miyim?",
-                                  style: TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  translation(context).question8,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
-                                      "Hayır, şu an da işlem eklerken  tek bir kartınız varmış gibi düşünüp işlem yapmalısınız. Sonra ki güncellemelerde kart ekleme seçeneği de gelecektir.",
-                                      style: TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      translation(context).answer8,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -1315,7 +1319,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8,),
+                        const SizedBox(height: 8,),
 
 
 
@@ -1327,7 +1331,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
                 child: const BannerAds(
-                  adSize: AdSize.fullBanner,
+                  adSize: AdSize.banner,
                 ),
               ),
               const SizedBox(height: 14,),

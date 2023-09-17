@@ -58,7 +58,7 @@ class HelpStatisic extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
                             child: Text(
-                              "İSTATİSTİK SAYFASI",
+                              translation(context).statisticsPageHelp,
                               style: TextStyle(
                                 fontFamily: "Nexa4",
                                 fontSize: 24,
@@ -71,18 +71,18 @@ class HelpStatisic extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Eklediğiniz işlemlere filtreler uygulayarak işlemlerinizin kategorilere göre dağılımını inceleyebilirsiniz."
+                        translation(context).statisticsPageHelpDescription
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 6),
                         child: BannerAds(
-                          adSize: AdSize.fullBanner,
+                          adSize: AdSize.banner,
                         ),
                       ),
                       const SizedBox(height: 7,),
                       Text(
-                        "Bu sayfada yapabileceğiniz işlemler"
+                        translation(context).whatYouCanDoOnThisPage
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -129,7 +129,7 @@ class HelpStatisic extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Bu kutucuklar size filtreleme işlemi hakkında bilgi verecektir. Üzerine basılma aktifse o başlık da istatistiğe dahil olmuştur."
+                              translation(context).infoBoxesForFiltering
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -137,19 +137,19 @@ class HelpStatisic extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "İstatistik Filtreleme"
+                        translation(context).statisticsFiltering
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Stack(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 1),
                               child: Container(
                                 height: 30,
-                                width: size.width * 0.95,
+                                width: size.width,
                                 color: Theme.of(context).highlightColor,
                               ),
                             ),
@@ -170,7 +170,7 @@ class HelpStatisic extends StatelessWidget {
                                         translation(context).dateStatistics,
                                         style: TextStyle(
                                             color: renkler.arkaRenk,
-                                            fontSize: 15,
+                                            fontSize: 14,
                                             fontFamily: 'Nexa3'),
                                       ),
                                     ),
@@ -192,7 +192,7 @@ class HelpStatisic extends StatelessWidget {
                                               padding: const EdgeInsets.symmetric(horizontal: 14),
                                               child: Text(translation(context).monthly,style: TextStyle(
                                                 color: renkler.koyuuRenk,
-                                                fontSize: 14,
+                                                fontSize: 12,
                                                 fontFamily: "Nexa4"
                                               ),),
                                             ),
@@ -207,21 +207,21 @@ class HelpStatisic extends StatelessWidget {
                                           children: [
                                             SizedBox(
                                                 height: 30,
-                                                width: 80,
+                                                width: 68,
                                                 child: Center(
                                                     child: Text(
                                                       translation(context).august,
                                                       style: TextStyle(
                                                           color: renkler.arkaRenk,
                                                           height: 1,
-                                                          fontSize: 13,
+                                                          fontSize: 12,
                                                           fontFamily: 'Nexa3'),
                                                     ))),
                                             Positioned(
                                               bottom: 0,
                                               child: Container(
                                                 height: 5,
-                                                width: 80,
+                                                width: 68,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.only(
                                                       topRight: Radius.circular(15),
@@ -241,14 +241,14 @@ class HelpStatisic extends StatelessWidget {
                                           children: [
                                             SizedBox(
                                               height: 30,
-                                              width: 64,
+                                              width: 54,
                                               child: Center(
                                                   child: Text(
                                                     "2023",
                                                     style: TextStyle(
                                                         color: renkler.arkaRenk,
                                                         height: 1,
-                                                        fontSize: 13,
+                                                        fontSize: 12,
                                                         fontFamily: 'Nexa3'),
                                                   )),
                                             ),
@@ -256,7 +256,7 @@ class HelpStatisic extends StatelessWidget {
                                               bottom: 0,
                                               child: Container(
                                                 height: 5,
-                                                width: 64,
+                                                width: 54,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.only(
                                                       topRight: Radius.circular(15),
@@ -278,12 +278,12 @@ class HelpStatisic extends StatelessWidget {
                       ),
                       const SizedBox(height: 10,),
                       Text(
-                        "Filtrelemek için açtığınız menüden işlem türünün, tarihin, kayıtlı işlemlerin ve ödeme şeklinin nasıl filtreleneceğini açılır menüler ile kolayca seçebilirsiniz."
+                        translation(context).filteringInstructions
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Eski haline getirdiğinizde ise içinde bulunduğunuz ayın tüm işlemleri filtrelenerek karşınıza çıkacaktır."
+                        translation(context).resetButtonForFiltering
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -365,7 +365,7 @@ class HelpStatisic extends StatelessWidget {
                       ),
                       const SizedBox(height: 7,),
                       Text(
-                        "Kategorilerin filtreler sonucunda yüzde ve miktarı gösterilmektedir. Basıldığında ise detayları karşınıza çıkacaktır."
+                        translation(context).filteringResult
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -395,7 +395,7 @@ class HelpStatisic extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Kategorilerin dağılımını pasta grafiği üzerinden takip edebilirsiniz. Filtreler sonucunda en çok yüzdeye sahip kategoriler gösterilmektedir."
+                              translation(context).pieChart
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),

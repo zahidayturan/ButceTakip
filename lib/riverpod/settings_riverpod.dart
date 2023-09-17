@@ -27,6 +27,7 @@ class SettingsRiverpod extends ChangeNotifier{
   String ?dateFormat;
   bool backUpAlert = false ;
   String ?errorStatusBackup ;
+  int ?adEventCounter;
 
   Future readDb() async{
     List<SettingsInfo> setting = await SQLHelper.settingsControl() ;
@@ -45,6 +46,7 @@ class SettingsRiverpod extends ChangeNotifier{
     prefixSymbol = setting[setting.length - 1].prefixSymbol;
     monthStartDay = setting[setting.length - 1].monthStartDay;
     dateFormat = setting[setting.length - 1].dateFormat;
+    adEventCounter = setting[setting.length -1].adEventCounter;
 
     print("""
       id : ${setting[setting.length - 1].id}
@@ -59,7 +61,7 @@ class SettingsRiverpod extends ChangeNotifier{
       Password : ${setting[setting.length - 1].password}
       securityQu : ${setting[setting.length - 1].securityQu}
       securityClaimK(Kalan Hak) : ${setting[setting.length - 1].securityClaim}
-      adCounter(Kalan Hak) : ${setting[setting.length - 1].adCounter}
+      adCounter(Kalan Hak) : ${setting[setting.length - 1].adCounter} ----2.--> ${setting[setting.length - 1].adEventCounter}
       tarih ve gün : ${setting[setting.length - 1].dateFormat}${setting[setting.length - 1].monthStartDay}""");
     notifyListeners();
   }
@@ -69,10 +71,11 @@ class SettingsRiverpod extends ChangeNotifier{
       prefixSymbol = settingsReglength[0].prefixSymbol;
       monthStartDay = settingsReglength[0].monthStartDay;
       dateFormat = settingsReglength[0].dateFormat;
+      adEventCounter = settingsReglength[0].adEventCounter;
       await readDb();
     }else{
      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => bkaSlider()));
-      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy") ;
+      final info = SettingsInfo("TRY", 0, 0, "Turkce", 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy",5) ;
       await SQLHelper.addItemSetting(info);
       await readDb();
     }
@@ -118,6 +121,14 @@ class SettingsRiverpod extends ChangeNotifier{
   }
   void resetAdCounter(){
     this.adCounter = 2 ;
+    Updating();
+  }
+  void useAdEventCounter(){
+    adEventCounter = (adEventCounter! - 1);
+    Updating();
+  }
+  void resetAdEventCounter(){
+    adEventCounter = 5 ;
     Updating();
   }
   void setDarkMode(bool mode){
@@ -270,7 +281,8 @@ class SettingsRiverpod extends ChangeNotifier{
         adCounter,
         prefixSymbol,
         monthStartDay,
-        dateFormat
+        dateFormat,
+      adEventCounter
     );
     await SQLHelper.updateSetting(info);
     notifyListeners();

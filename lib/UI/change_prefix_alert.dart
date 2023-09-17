@@ -23,6 +23,7 @@ class _changePrefixAlert extends ConsumerState<changePrefixAlert> {
   Widget build(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
     var currencyRiv = ref.read(currencyRiverpod);
+    var adEventCounter = readSetting.adEventCounter;
     var size = MediaQuery.of(context).size;
     var renkler = CustomColors();
     return WillPopScope(
@@ -149,6 +150,7 @@ class _changePrefixAlert extends ConsumerState<changePrefixAlert> {
                        ),
                        GestureDetector(
                          onTap: () async {
+                           adEventCounter != 0 ? readSetting.useAdEventCounter() : null;
                            oldVAlue = readSetting.Prefix!;
                            setState(() {
                              loading = true;

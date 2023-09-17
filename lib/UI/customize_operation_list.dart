@@ -5,7 +5,6 @@ import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
 class CustomizeList extends ConsumerWidget {

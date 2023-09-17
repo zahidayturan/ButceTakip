@@ -57,7 +57,7 @@ class HelpAddUpdate extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 7),
                             child: Text(
-                              "VERİ EKLE - DÜZENLE",
+                              translation(context).addEdit,
                               style: TextStyle(
                                 fontFamily: "Nexa4",
                                 fontSize: 23,
@@ -70,18 +70,18 @@ class HelpAddUpdate extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Tek sayfadan ekleme, düzenleme ve aynı işlemi tekrardan ekleme işlemlerini yapabilirsiniz."
+                        translation(context).operationsDescription
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 6),
                         child: BannerAds(
-                          adSize: AdSize.fullBanner,
+                          adSize: AdSize.banner,
                         ),
                       ),
                       const SizedBox(height: 7,),
                       Text(
-                        "Bu sayfada yapabileceğiniz işlemler"
+                        translation(context).whatYouCanDoOnThisPage
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -111,7 +111,7 @@ class HelpAddUpdate extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Gider ve gelir seçiminize göre kategoriler ve döviz aktifliği değişecektir."
+                              translation(context).categoryCurrencyVariation
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -144,7 +144,7 @@ class HelpAddUpdate extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Takvimden seçtiğiniz gün, ana işlemin yanı sıra tekrarlı ve taksitli işlemler için de başlangıç günü olarak seçilecektir."
+                              translation(context).startingDaySelection
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -177,7 +177,7 @@ class HelpAddUpdate extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Kategorilerde varsayılan olarak eklenenler değiştirelemez. Kendi eklediğiniz kategorileri silebilir ve değiştirebilirsiniz."
+                              translation(context).systemCategoryEdit
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -210,7 +210,7 @@ class HelpAddUpdate extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Kart olarak seçtiğiniz işlemler tek kart olarak işlenir. Şu an da ikinci bir kart ekleyemezsiniz."
+                              translation(context).singleCardPayment
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -243,7 +243,7 @@ class HelpAddUpdate extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Kaydettiğiniz işlemler ana sayfanın üst tarafında menü içerisinde listelenecektir."
+                              translation(context).savedActivitiesMenu
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -276,7 +276,7 @@ class HelpAddUpdate extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Tekrarlı olarak eklediğiniz bir işlem daha sonra taksitli işleme çevrilemez. Taksitli bir işlem için taksit sayısına göre tutar hesaplanacaktır. Siz tutarın hepsini girmelisiniz"
+                              translation(context).repeatingToInstallment
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -313,7 +313,7 @@ class HelpAddUpdate extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "En fazla 7 haneli tutar ekleyebilirsiniz. Döviz eklerseniz işlemin tarihine göre döviz kuru işleme uygulanacaktır. Girdiğiniz tutar sabit kalacak, gösterilen tutar değişecektir."
+                              translation(context).maximumAmount
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -321,7 +321,7 @@ class HelpAddUpdate extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Sadece  gelir olarak eklediğiniz dövizlerin gösterilen tutarı döviz kuruna göre değişecektir. Bu işlemleri işlem detayından kontrol edebilirsiniz."
+                        translation(context).incomeCurrencyUpdate
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -329,7 +329,7 @@ class HelpAddUpdate extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            "İşlem Düzenleme - Tekrar Ekleme"
+                            translation(context).activityEditAddAgain
                             ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                           ),
                           Container(
@@ -360,7 +360,7 @@ class HelpAddUpdate extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "Tekrar ekleyeceğiniz işlemler güncel tarih ile düzenleyeceğiniz işlemler ise işlemin tarihi ile işlenecektir."
+                              translation(context).activityAddAgainCurrentDate
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -395,7 +395,7 @@ class HelpAddUpdate extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "İşlemin türünü değiştirdiyseniz kategori sıfırlanacaktır. Eski haline dönmek isterseniz çıkıp tekrar girmelisiniz."
+                               translation(context).startOverToUpdate
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -430,7 +430,7 @@ class HelpAddUpdate extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "Pasif olan bir dövizi düzenlerken dikkatli olmalısınız. Gelir olan dövizler aktifleşecektir."
+                              translation(context).beCarefulInactiveCurrency
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -465,7 +465,7 @@ class HelpAddUpdate extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "Sistem mesajını içeren işlemleri düzenlerken o işlemin tekrarlı veya taksitli işlem olduğunu unutmamalısınız. Olmayan bir tekrarı oluşturabilirsiniz."
+                              translation(context).editActivitiesWithSystemMessage
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),

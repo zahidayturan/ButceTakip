@@ -66,7 +66,7 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
                             child: Text(
-                              "V2.0.0 Sürüm Notu",
+                              translation(context).version2,
                               style: TextStyle(
                                 fontFamily: "Nexa4",
                                 fontSize: 24,
@@ -83,7 +83,7 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 12),
                             child: Text(
-                              " Bütçe Takip Güncellendi !"
+                              translation(context).budgetUpdate
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15,fontFamily: "Nexa4"),textAlign: TextAlign.start,
                             ),
                           ),
@@ -91,7 +91,7 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                         ],
                       ),
                       Text(
-                        " İlk gösterimimizden bugüne kadar yorum olarak ilettiğiniz önerilerinizi Bütçe Takip uygulamamızda hayata geçirdik."
+                        translation(context).implementedSuggestions
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                     ],
@@ -128,7 +128,7 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                       Padding(
                         padding: const EdgeInsets.only(top: 4,left: 18,right: 18),
                         child: Text(
-                          "Yenilikler",
+                          translation(context).whatsNewVersion,
                           style: TextStyle(
                               color: Theme.of(context).disabledColor,
                               fontFamily: "Nexa4",
@@ -154,33 +154,33 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                   ),
                   child: Column(
                     children: [
-                      buildText(context, "Dil Desteği", "Yeni", Icons.language_rounded, 0, darkMode!, "Uygulamayı artık şu dillerde kullanabilirsiniz: Türkçe, İngilizce, Arapça"),
+                      buildText(context, translation(context).languageSupport, translation(context).yeniNew, Icons.language_rounded, 0, darkMode!, translation(context).supportedLanguages),
                       const SizedBox(height: 14,),
-                      buildText(context, "Para Birimleri", "Yeni", Icons.currency_lira_rounded, 0, darkMode!, "İşlemlerinize artık şu para birimlerini de ekleyebilirsiniz: USD TRY GBP EUR KWD IQD SAR JOD"),
+                      buildText(context, translation(context).currencies, translation(context).yeniNew, Icons.currency_lira_rounded, 0, darkMode!, translation(context).supportedCurrencies),
                       const SizedBox(height: 14,),
-                      buildText(context, "Döviz Sistemi", "Yeni", Icons.currency_exchange_rounded, 0, darkMode!, "Yeni dinamik döviz sisteminde 3 saatte bir kurlar ve kayıtlarınız güncellenmektedir. Döviz işlemleriniz aktif ve pasif olarak değerlendirilmektedir."),
+                      buildText(context, translation(context).exchangeSystem, translation(context).yeniNew, Icons.currency_exchange_rounded, 0, darkMode!, translation(context).exchangeSystemDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "Döviz Çevirici", "Yeni", Icons.currency_pound_rounded, 0, darkMode!, "Döviz çevirici artık aktif. Güncel ve eski tarihli döviz kurlarından hesap yapabilirsiniz. Hesap makinesinden kullanabilirsiniz."),
+                      buildText(context, translation(context).currencyConverter, translation(context).yeniNew, Icons.currency_pound_rounded, 0, darkMode!, translation(context).currencyConverterDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "Koyu Tema", "Yeni", Icons.dark_mode_outlined, 0, darkMode!, "Koyu temaya geçip gözlerinizi dinlendirebilirsiniz."),
+                      buildText(context, translation(context).darkMode, translation(context).yeniNew, Icons.dark_mode_outlined, 0, darkMode!, translation(context).darkModeDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "Kategoriler", "Güncel", Icons.category_outlined, 1, darkMode!, "Kategorilere dilediğiniz gibi ekleme yapıp, eklediklerinizi de düzenleyebilirsiniz."),
+                      buildText(context, translation(context).categories, translation(context).update, Icons.category_outlined, 1, darkMode!, translation(context).categoriesDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "İşlem Özelleştirme", "Yeni", Icons.dashboard_customize_outlined, 0, darkMode!, "Tekrarlı ve taksitli işlem eklemek artık mümkün. Ekleme sayfasından özelleştirme menüsünü kullanabilirsiniz."),
+                      buildText(context, translation(context).activityCustomize, translation(context).yeniNew, Icons.dashboard_customize_outlined, 0, darkMode!, translation(context).activityCustomizeDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "Yeni Yedekleme Sistemi", "Yeni", Icons.backup_outlined, 0, darkMode!, "Veri güvenliğiniz için Google Drive yedeklemesi ve oto yedeklenme için hata yönetimi eklendi."),
+                      buildText(context, translation(context).newBackupSystem, translation(context).yeniNew, Icons.backup_outlined, 0, darkMode!, translation(context).backupSystemDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "Kayıt Arama", "Yeni", Icons.search_rounded, 0, darkMode!, "Geçmiş işlemlerinize ulaşmak için arama motoruna işlemin notunu, tarihini, ödeme şeklini veya  kategorisini yazabilirsiniz."),
+                      buildText(context, translation(context).search, translation(context).yeniNew, Icons.search_rounded, 0, darkMode!, translation(context).searchDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "Varlıklarım Sayfası", "Yeni", Icons.wallet_rounded, 0, darkMode!, "Varlıklarınızı tek bir sayfadan görebilir ve denkleyebilirsiniz, Aktif dövizlerinizi bu sayfadan görüntüleyebilirsiniz."),
+                      buildText(context, translation(context).myAssetsPage, translation(context).yeniNew, Icons.wallet_rounded, 0, darkMode!, translation(context).myAssetsPageDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "Kurulum Aşaması", "Yeni", Icons.phonelink_setup_rounded, 0, darkMode!, "Uygulamaya daha iyi bir başlangıç yapabilmek için size yardımcı olacak kurulum sayfaları."),
+                      buildText(context, translation(context).installation, translation(context).yeniNew, Icons.phonelink_setup_rounded, 0, darkMode!, translation(context).installationDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "İstatistik İyileştirmeleri", "Güncel", Icons.equalizer_rounded, 1, darkMode!, "Daha fazla filtreleme seçeneği ile artık daha detaylı istatistikler elde edebilirsiniz."),
+                      buildText(context, translation(context).statisticsImprovements, translation(context).update, Icons.equalizer_rounded, 1, darkMode!, translation(context).statisticsImprovementsDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "Arayüz İyileştirmeleri", "Güncel", Icons.settings_accessibility_rounded, 1, darkMode!, "Kullanıcı deneyimini arttırmak için daha kullanışlı bir arayüze geçiş yapıldı, tasarımsal düzenlemelere gidildi. Ana sayfa ve takvim sayfasında kaydırılabilir tasarım uygulandı."),
+                      buildText(context, translation(context).interfaceImprovements, translation(context).update, Icons.settings_accessibility_rounded, 1, darkMode!, translation(context).interfaceImprovementsDescription),
                       const SizedBox(height: 14,),
-                      buildText(context, "Yeni Ayarlar", "Yeni", Icons.settings_rounded, 0, darkMode!, "Artık hesap kesim tarihinizi ayın başlangıç gününü ayarlayarak değiştirebilirsiniz. Aynı zamanda tarih formatınızı seçebilirsiniz."),
+                      buildText(context, translation(context).newSettings, translation(context).yeniNew, Icons.settings_rounded, 0, darkMode!, translation(context).newSettingsDescription),
                       const SizedBox(height: 14,),
                       SizedBox(
                         width: size.width*0.4,

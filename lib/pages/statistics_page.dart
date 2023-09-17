@@ -2,6 +2,7 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/category_info_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -77,12 +78,20 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       ],
     );
   }
-
-
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
 
   @override
   void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adEventCounter = readSettings.adEventCounter;
+    if (adEventCounter! < 6) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
     super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
   }
 
   @override
@@ -138,6 +147,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
 
   Widget filterAdd(BuildContext context) {
     var readStatistics = ref.read(statisticsRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
+    var darkMode = readSettings.DarkMode;
+    var adEventCounter = readSettings.adEventCounter;
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
     return InkWell(
@@ -146,15 +158,37 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         width: size.width * 0.92,
         height: 30,
         decoration: BoxDecoration(
-          color: Theme.of(context).highlightColor,
+          //color: Theme.of(context).highlightColor,
+          color: renkler.koyuuRenk,
+          border: Border.all(
+              color: Theme.of(context).highlightColor, // Set border color
+              width: 1,
+          strokeAlign: BorderSide.strokeAlignInside),
+            boxShadow: darkMode == 1 ? [
+              BoxShadow(
+                color: Colors.black54.withOpacity(0.8),
+                spreadRadius: 1,
+                blurRadius: 2,
+                offset: const Offset(-1, 2),
+              )
+            ] : [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 0.5,
+                  blurRadius: 2,
+                  offset: const Offset(0, 2)
+              )],
           borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
         child: Center(
-            child: Text(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 3),
+              child: Text(
           translation(context).tapToFilter,
           style: TextStyle(
-              color: renkler.arkaRenk, fontFamily: 'Nexa3', fontSize: 15, height: 1),
-        )),
+                color: renkler.arkaRenk, fontFamily: 'Nexa3', fontSize: 15, height: 1),
+        ),
+            )),
       ),
       onTap: () {
         showDialog(
@@ -893,15 +927,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   ),
                                 ),
                                 InkWell(
-                                    onTap: () {
-                                      setState(() {});
-                                    },
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      color: Colors.lightGreenAccent,
-                                    )),
-                                InkWell(
                                   onTap: () {
                                     if (selectedValueType ==
                                         translation(context).both) {
@@ -978,6 +1003,13 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         ? int.parse(selectedValueDay!)
                                         : day;
                                     print('Tamam bastın ve gün : ${day}');
+                                    if (adEventCounter! <= 0) {
+                                      print("object");
+                                      _showInterstitialAd(context);
+                                      readSettings.resetAdEventCounter();
+                                    } else {
+                                      readSettings.useAdEventCounter();
+                                    }
                                     Navigator.of(context).pop();
                                   },
                                   child: Container(
@@ -2688,7 +2720,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 width: 140,
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).indicatorColor,
                       borderRadius: BorderRadius.circular(200)),
                 ),
               ),

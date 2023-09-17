@@ -1,8 +1,10 @@
 import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../riverpod_management.dart';
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -57,7 +59,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             child: TextField(
                               onChanged: (value) {
                                 if(value != ""){
-                                  dbRiv.searchItem(_controller.text);
+                                  dbRiv.searchText = value;
+                                  dbRiv.searchItem(Converter().textConverterToDBForSearch(_controller.text, context, 0));
                                 }else{
                                   dbRiv.resetSearchListTile();
                                 }
@@ -149,6 +152,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       child: ListView.builder(
                         itemCount: dbRiv.searchListTile!.length,
                         itemBuilder: (context, index) {
+                          DateTime itemDate = DateTime(int.tryParse(dbRiv.searchListTile![index].operationYear!)!,int.tryParse(dbRiv.searchListTile![index].operationMonth!)!,int.tryParse(dbRiv.searchListTile![index].operationDay!)!);
+                          String formattedDate = DateFormat(readSettings.dateFormat).format(itemDate);
                           return Column(
                             children: [
                               GestureDetector(
@@ -199,8 +204,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                                 SizedBox(
                                                   width: size.width * .30,
                                                   child: Text(
-                                                    "${dbRiv.searchListTile![index].category}",
-                                                    //"aaaaaaaaaaaaaaaaaaaa",
+                                                    Converter().textConverterFromDB(dbRiv.searchListTile![index].category!, context, 0),
                                                     style: TextStyle(
                                                         color: renkler.arkaRenk,
                                                         fontSize: 16
@@ -210,7 +214,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                                 SizedBox(
                                                   width: size.width * .28,
                                                   child: Text(
-                                                    "${dbRiv.searchListTile![index].operationDate}",
+                                                    formattedDate,
                                                     style: TextStyle(
                                                         color: renkler.arkaRenk,
                                                         fontSize: 16

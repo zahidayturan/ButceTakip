@@ -2,6 +2,7 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,6 +35,21 @@ class CalendarBody extends ConsumerStatefulWidget {
 
 class _CalendarBody extends ConsumerState<CalendarBody> {
 
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+
+  @override
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adEventCounter = readSettings.adEventCounter;
+    if (adEventCounter! < 6) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
+    super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -134,6 +150,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     read.startDate = DateTime(read.yearIndex,read.monthIndex,selectedValueDay);
     read.endDate = DateTime(read.yearIndex,read.monthIndex+1,selectedValueDay-1);
     var readSetting = ref.read(settingsRiverpod);
+    var adEventCounter = readSettings.adEventCounter;
     var darkMode = readSetting.DarkMode;
     return Center(
       child: Column(
@@ -181,6 +198,14 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         read.setIndex(0, 3,ref);
                         read.pageMonthController.jumpToPage(read.monthIndex-1);
                         read.pageYearController.jumpToPage(read.yearIndex-2020);
+                        if (adEventCounter! <= 0) {
+                          print("object");
+                          _showInterstitialAd(context);
+                          readSettings.resetAdEventCounter();
+                        } else {
+                          readSettings.useAdEventCounter();
+                        }
+                        print(readSettings.adEventCounter);
                       });
                     },
                   ),
@@ -189,7 +214,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               Stack(
                 children: [
                   SizedBox(
-                    width: size.width * 0.58,
+                    width: size.width * 0.52,
                     height: size.height * 0.074,
                     child: Stack(
                       children: [
@@ -197,9 +222,9 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           top: size.height * 0.007,
                           child: Container(
                             height: size.height * 0.060,
-                            width: size.width * 0.56,
+                            width: size.width * 0.50,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(50)),
+                              borderRadius: BorderRadius.all(Radius.circular(25)),
                               color: Theme.of(context).disabledColor,
                                 boxShadow: darkMode == 1 ? [
                                   BoxShadow(
@@ -223,7 +248,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           children: [
                             SizedBox(
                               height: size.height * 0.060,
-                              width: size.width * 0.35,
+                              width: size.width * 0.32,
                               child: PageView(
                                 controller: read.pageMonthController,
                                 onPageChanged: (index) {
@@ -239,7 +264,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                       month,
                                       style: const TextStyle(
                                         color: Color(0xff0D1C26),
-                                        fontSize: 20,
+                                        fontSize: 19,
                                         fontFamily: 'Nexa4',
                                         fontWeight: FontWeight.w600,
                                         height: 1.3,
@@ -252,7 +277,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             ),
                             Container(
                               height: size.height * 0.074,
-                              width: size.width * 0.23,
+                              width: size.width * 0.20,
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(Radius.circular(30)),
                                 color: Theme.of(context).highlightColor,
@@ -286,7 +311,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                       year,
                                       style: TextStyle(
                                         color: Theme.of(context).dialogBackgroundColor,
-                                        fontSize: 20,
+                                        fontSize: 18,
                                         fontFamily: 'Nexa4',
                                         fontWeight: FontWeight.w600,
                                         height: 1.3,
@@ -321,11 +346,18 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     ),
                   ).then((value) => ref.read(botomNavBarRiverpod).setCurrentindex(4));
                 },
-                child: Container(
-                  height: size.height * 0.05,
+                child: Tooltip(
+                  message: translation(context).calendarMonthStartDayButton,
+                  triggerMode: TooltipTriggerMode.tap,
+                  showDuration: const Duration(seconds: 5),
+                  textStyle: TextStyle(
+                      fontSize: 14,
+                      color: renkler.arkaRenk,
+                      height: 1),
+                  textAlign: TextAlign.center,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).disabledColor,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                      borderRadius:
+                      const BorderRadius.all(Radius.circular(5)),
                       boxShadow: darkMode == 1 ? [
                         BoxShadow(
                           color: Colors.black54.withOpacity(0.4),
@@ -339,39 +371,32 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             spreadRadius: 0.5,
                             blurRadius: 2,
                             offset: const Offset(0, 2)
-                        )]
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: Center(
-                      child: FittedBox(
-                        child: Tooltip(
-                          message: "Ayın Başlangıç Günü\nDeğiştirmek İçin Uzun Basın",
-                          triggerMode: TooltipTriggerMode.tap,
-                          showDuration: const Duration(seconds: 2),
-                          textStyle: TextStyle(
-                              fontSize: 13,
-                              color: renkler.arkaRenk,
-                              height: 1),
-                          textAlign: TextAlign.center,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                              const BorderRadius.all(Radius.circular(5)),
-                              boxShadow: darkMode == 1 ? [
-                                BoxShadow(
-                                  color: Colors.black54.withOpacity(0.4),
-                                  spreadRadius: 1,
-                                  blurRadius: 2,
-                                  offset: const Offset(-1, 2),
-                                )
-                              ] : [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 0.5,
-                                    blurRadius: 2,
-                                    offset: const Offset(0, 2)
-                                )],
-                              color: Theme.of(context).highlightColor),
+                        )],
+                      color: Theme.of(context).highlightColor),
+                  child: Container(
+                    height: size.height * 0.05,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).disabledColor,
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                        boxShadow: darkMode == 1 ? [
+                          BoxShadow(
+                            color: Colors.black54.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                            offset: const Offset(-1, 2),
+                          )
+                        ] : [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 0.5,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2)
+                          )]
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Center(
+                        child: FittedBox(
                           child: Text(
                             selectedValueDay.toString(),style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'Nexa4'),
                           ),
@@ -493,6 +518,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     var size = MediaQuery.of(context).size;
     var read = ref.read(calendarRiverpod);
     var readSettings = ref.read(settingsRiverpod);
+    var darkMode = readSettings.DarkMode;
     int selectedValueDay = readSettings.monthStartDay!;
     return FutureBuilder<List>(
       future: read.getMonthAmount(read.monthIndex, read.yearIndex,selectedValueDay),
@@ -511,6 +537,20 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     width: size.width * 0.90,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
+                        boxShadow: darkMode == 1 ? [
+                          BoxShadow(
+                            color: Colors.black54.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                            offset: const Offset(-1, 2),
+                          )
+                        ] : [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 0.5,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2)
+                          )],
                         gradient: LinearGradient(
                           colors: [Theme.of(context).hintColor, Theme.of(context).hoverColor],
                           stops: [0.5, 0.5],
@@ -525,7 +565,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             "  +0.0",
                             style: TextStyle(
                               color:  Colors.white,
-                              fontSize: 18,
+                              fontSize: 16,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -538,7 +578,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             "-0.0  ",
                             style: TextStyle(
                               color:  Colors.white,
-                              fontSize: 18,
+                              fontSize: 16,
                               fontFamily: 'Nexa3',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
@@ -564,7 +604,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                           "0.0",
                           style: TextStyle(
                             color: Color(0xff0D1C26),
-                            fontSize: 18,
+                            fontSize: 16,
                             fontFamily: 'Nexa3',
                             fontWeight: FontWeight.w900,
                             height: 1.4,
@@ -593,6 +633,20 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     width: size.width * 0.90,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
+                        boxShadow: darkMode == 1 ? [
+                          BoxShadow(
+                            color: Colors.black54.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                            offset: const Offset(-1, 2),
+                          )
+                        ] : [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 0.5,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2)
+                          )],
                         gradient: LinearGradient(
                           colors: [Theme.of(context).hintColor, Theme.of(context).hoverColor],
                           stops: [0.5, 0.5],
@@ -781,8 +835,9 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
   }
 
   Widget containerDayAdd(BuildContext context, String day) {
+    var size = MediaQuery.of(context).size;
     return SizedBox(
-      height:45,
+      height: size.height * 0.056,
       child: AspectRatio(
         aspectRatio: 1,
         child: Container(
@@ -795,7 +850,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               day,
               style: const TextStyle(
                 color: Color(0xFFE9E9E9),
-                fontSize: 20,
+                fontSize: 18,
                 fontFamily: 'Nexa3',
                 fontWeight: FontWeight.w900,
                 height: 1.4,
@@ -860,7 +915,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                   color: isInRange
                       ? Theme.of(context).canvasColor
                       : Theme.of(context).indicatorColor,
-                  fontSize: 20,
+                  fontSize: 18,
                   fontFamily: 'Nexa3',
                   fontWeight: FontWeight.w600,
                   height: 1.4,
@@ -896,11 +951,11 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             String toplamS = toplam.toString();
             if (toplamS.contains('-')) {
               return Positioned(
-                right: 3,
-                top: 3,
+                right: 4,
+                top: 4,
                 child: Container(
-                  height: size.height * 0.030,
-                  width: size.width * 0.055,
+                  height: size.height * 0.025,
+                  width: size.height * 0.025,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(90),
@@ -916,8 +971,8 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                 right: 3,
                 top: 3,
                 child: Container(
-                  height: size.height * 0.030,
-                  width: size.width * 0.055,
+                  height: size.height * 0.025,
+                  width: size.height * 0.025,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(90),

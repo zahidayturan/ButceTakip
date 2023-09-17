@@ -2,6 +2,8 @@ import 'package:butcekontrol/UI/customize_operation_list.dart';
 import 'package:butcekontrol/UI/introduction_page.dart';
 import 'package:butcekontrol/UI/registery_list.dart';
 import 'package:butcekontrol/UI/warning_backup.dart';
+import 'package:butcekontrol/classes/language.dart';
+import 'package:butcekontrol/pages/more/Help/help_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
 import 'package:butcekontrol/pages/search_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
@@ -23,7 +25,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
       child: AppBar(
         backgroundColor: const Color(0xFF0D1C26),
         title: Padding(
-          padding: EdgeInsets.only(top: 5),
+          padding: const EdgeInsets.only(top: 5),
           child: readSetting.backUpAlert
           ?InkWell(
             onTap: () {
@@ -32,7 +34,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                 PageRouteBuilder(
                   opaque: false, //sayfa saydam olması için
                   transitionDuration: const Duration(milliseconds: 1),
-                  pageBuilder: (context, animation, nextanim) => warningBackUp(),
+                  pageBuilder: (context, animation, nextanim) => const warningBackUp(),
                   reverseTransitionDuration: const Duration(milliseconds: 1),
                   transitionsBuilder: (context, animation, nexttanim, child) {
                     return FadeTransition(
@@ -43,7 +45,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                 ),
               );
             },
-            child: const Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -51,22 +53,22 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        "Yedekleme\nYapılamadı",
-                      style: TextStyle(
+                      translation(context).backupFailedEnter,
+                      style: const TextStyle(
                         color: Colors.yellow,
                           fontSize: 16
                       ),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.warning,
                       size: 30,
                     ),
-                    SizedBox(width: 7),
+                    const SizedBox(width: 7),
                   ],
                 ),
                 Text(
-                  "Kontrol Etmek için tıklayınız",
-                  style: TextStyle(
+                  translation(context).clickToCheck,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 11
                   ),
@@ -143,6 +145,21 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           ),
           IconButton(
             onPressed: () async {
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 1),
+                  pageBuilder: (context, animation, nextanim) =>  const HelpCenter(),
+                  reverseTransitionDuration: const Duration(milliseconds: 1),
+                  transitionsBuilder: (context, animation, nexttanim, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+              /*
               final SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.setBool("showBTA", false);
               final bool? showBTA = prefs.getBool("showBTA");
@@ -150,8 +167,8 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
               print(showBTA);
 
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => IntroductionPage())
-              );
+                  MaterialPageRoute(builder: (context) => const IntroductionPage())
+              );*/
             },
             icon: const Icon(
               Icons.help_outline_rounded,

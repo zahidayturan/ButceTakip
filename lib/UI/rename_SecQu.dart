@@ -51,7 +51,6 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
 
                 },
                 child: Container( //boyut
-                  height: size.width * .54,
                   width: size.width * .6,
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
@@ -60,6 +59,7 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

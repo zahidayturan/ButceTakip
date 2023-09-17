@@ -4,6 +4,7 @@ import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/pages/more/Help/help_backup.dart';
 import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,12 +22,23 @@ class BackUp extends ConsumerStatefulWidget {
 }
 
 class _BackUpState extends ConsumerState<BackUp> {
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+
   Future <ListResult> ?futureFiles ;
   int  backupPushCount = 5 ;
+
   @override
-  void initState(){
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
+    if (adCounter! < 1) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
     super.initState();
-    futureFiles = FirebaseStorage.instance.ref("/files").listAll();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
   }
   @override
   Widget build(BuildContext context) {
@@ -35,6 +47,8 @@ class _BackUpState extends ConsumerState<BackUp> {
     ref.watch(gglDriveRiverpod).RfPageSt;
     bool isopen = readSetting.isBackUp == 1 ? true : false ; // databaseden alınacak
     CustomColors renkler = CustomColors();
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
     var size = MediaQuery.of(context).size;
     return Container(
       color: renkler.koyuuRenk,
@@ -99,7 +113,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Google ile Yedekle",
+                              translation(context).backupViaGoogleAccount,
                               style: TextStyle(
                                 height: 1,
                                 fontSize: 16,
@@ -113,7 +127,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                               width: 85,
                               height: 25,
                             )
-                           */
+                            */
                           ],
                         ),
                         Divider(thickness: 2.0,color: Theme.of(context).disabledColor),
@@ -168,12 +182,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    translation(context).backupFrequency,
-                                    style:TextStyle(
-                                      fontFamily: "Nexa3",
-                                      fontSize: 15  ,
-                                      color: Theme.of(context).canvasColor
+                                  Expanded(
+                                    child: Text(
+                                      translation(context).backupFrequency,
+                                      style:TextStyle(
+                                        fontFamily: "Nexa3",
+                                        fontSize: 15  ,
+                                        color: Theme.of(context).canvasColor,
+                                      ),
+                                      maxLines: 2,
                                     ),
                                   ),
                                   SizedBox(height: size.height * 0.01),
@@ -273,8 +290,12 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   SizedBox(width:size.width * 0.04),
                                   InkWell( ///upload File restore
                                     onTap: () async { // Yedekle.
-                                      //DateTime date = DateTime.now();
-                                      //final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
+                                      if (adCounter == 0) {
+                                        _showInterstitialAd(context);
+                                        readSettings.resetAdCounter();
+                                      } else {
+                                        readSettings.useAdCounter();
+                                      }
                                       final String fileName = "Bka_CSV.cvs" ;
                                       showDialog(
                                         context: context,
@@ -339,13 +360,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       }catch(e){
                                         print("HATAAAAAAAAAAA ===============>>>>>>>>>>${e.toString()}");
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
+                                          SnackBar(
                                             backgroundColor:
-                                            Color(0xff0D1C26),
-                                            duration: Duration(seconds: 1),
+                                            const Color(0xff0D1C26),
+                                            duration: const Duration(seconds: 1),
                                             content: Text(
-                                              "Yedeklenirken hata meydana geldi",
-                                              style: TextStyle(
+                                              translation(context).backupError,
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
                                                 fontFamily: 'Nexa3',
@@ -542,10 +563,11 @@ class _BackUpState extends ConsumerState<BackUp> {
                   ),
                 ),
               ),
+                Spacer(),
                 const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: EdgeInsets.symmetric(vertical: 4),
                   child: BannerAds(
-                    adSize: AdSize.fullBanner,
+                    adSize: AdSize.banner,
                   ),
                 ),
               ],
@@ -561,7 +583,7 @@ class _BackUpState extends ConsumerState<BackUp> {
     var readSetting = ref.read(settingsRiverpod);
     int  initialLabelIndex = readSetting.Backuptimes == "Günlük" ? 0 : readSetting.Backuptimes == "Aylık" ? 1 : 2;
     return SizedBox(
-      height: 32,
+      height: 30,
       child: ToggleSwitch(
         initialLabelIndex: initialLabelIndex,
         totalSwitches: 3,
@@ -570,7 +592,7 @@ class _BackUpState extends ConsumerState<BackUp> {
         activeFgColor: const Color(0xff0D1C26),
         inactiveBgColor: const Color(0xff0D1C26),
         inactiveFgColor: const Color(0xFFE9E9E9),
-        minWidth: 60,
+        minWidth: 68,
         cornerRadius: 20,
         radiusStyle: true,
         animate: true,

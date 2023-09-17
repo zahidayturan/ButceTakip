@@ -1,4 +1,6 @@
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/models/spend_info.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -138,6 +140,20 @@ class ButtonMenu extends ConsumerStatefulWidget {
 }
 
 class _ButtonMenu extends ConsumerState<ButtonMenu> {
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+  @override
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
+    if (adCounter! < 1) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
+    super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
+  }
 
   FocusNode amountFocusNode = FocusNode();
   FocusNode dateFocusNode = FocusNode();
@@ -206,9 +222,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 height : 5,
               ),
               amountCustomButton(),
+              /*
               SizedBox(
                   width: size.width*0.95,
                   child: Text('DEBUG: ${operationType.text} -${operationDate.text} - ${category.text} - ${operationTool.text} - ${int.parse(registration.text)} - ${note.text} - ${customize.text} - $convertedCustomize - ${amount.text} - ${moneyType.text} - ${realAmount0.text} - ${userCategoryController != "" ? userCategoryController : category.text == userCategory.text ? userCategory.text : ""} - ${systemMessage.text} - ${moneyTypeSymbol.text}',style: const TextStyle(color: Colors.red,fontFamily: 'TL'))),
+             */
               const SizedBox(
                 height: 5,
               ),
@@ -1882,7 +1900,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                     padding: const EdgeInsets.only(top: 6),
                                                                                     child: SizedBox(
                                                                                       width: size.width * 0.81,
-                                                                                      height: 120,
+                                                                                      height: 140,
                                                                                       child: Container(
                                                                                         decoration: BoxDecoration(
                                                                                             border: Border.all(
@@ -3646,6 +3664,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     String alertContent = '';
     int alertOperator = 0;
     double amount = double.tryParse(amount0.text) ?? 0.0;
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
     void setAlertContent(BuildContext context) {
       if (amount == 0 && category.text.isEmpty) {
         alertContent = translation(context).enterAmountAndCategory;
@@ -3720,8 +3740,15 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             customize.text != "" ? systemMessage.toString() : "",
                           );
                         }
+                    read.searchText != "" ? read.searchItem(read.searchText) : null;
                     readHome.setStatus();
                     readDailyInfo.setSpendDetailItemWithId(int.parse(id));
+                    if (adCounter == 0) {
+                      _showInterstitialAd(context);
+                      readSettings.resetAdCounter();
+                    } else {
+                      readSettings.useAdCounter();
+                    }
                     if(menuController == 1){
                       Navigator.of(context).pop();
                     }
