@@ -67,8 +67,8 @@ class _addAssetsState extends ConsumerState<addAssets> {
 
                 },
                 child: Container( //boyut
-                  height: size.width * .65,
-                  width: size.width * .62,
+                  height: 230,
+                  width: 250,
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     color: Theme.of(context).scaffoldBackgroundColor,
@@ -304,14 +304,14 @@ class _addAssetsState extends ConsumerState<addAssets> {
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),
-          minWidth: 50,
+          minWidth: 60,
           cornerRadius: 20,
           radiusStyle: true,
           animate: true,
           curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 9, fontFamily: 'Nexa4', fontWeight: FontWeight.w300)
+                fontSize: 11, fontFamily: 'Nexa4', fontWeight: FontWeight.w300)
           ],
           onToggle: (index) {
             if (index == 0) {
@@ -344,7 +344,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
            curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 9, fontFamily: 'Nexa4', fontWeight: FontWeight.w300)
+                fontSize: 11, fontFamily: 'Nexa4', fontWeight: FontWeight.w300)
           ],
           onToggle: (index) {
             setState(() {

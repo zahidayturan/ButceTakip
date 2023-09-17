@@ -189,15 +189,15 @@ class CurrencyRiverpod extends ChangeNotifier {
         info.moneyType = "TRY";
       }
 
-     if(info.moneyType!.length == 4 ) {//aktif kayıtlarler(Giderler) buraya girecek.
+      if(info.moneyType!.length == 4 ) {//aktif kayıtlarler(Giderler) buraya girecek.
         info.realAmount = await calculateRealAmount(
           info.amount!,
           info.moneyType!,
           settingsList[0].prefix!,
         );
-        await SQLHelper.updateItem(info);
         print("Kayıt güncellendi: ${info.category} - Eski miktar: ${info.amount} ${info.moneyType} - RealAmount miktar: ${info.realAmount} ${settingsList[0].prefix!} - ID: ${info.id}");
       }
+      await SQLHelper.updateItem(info);
       //ref.read(settingsRiverpod).setisuseinsert();
     }
   }

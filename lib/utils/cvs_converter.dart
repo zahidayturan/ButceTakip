@@ -24,12 +24,14 @@ Future <void> writeToCvs(String fileName) async {
     Directory tempDir = await getTemporaryDirectory(); //uygulamanın kendi deplaması
     final directory = "${tempDir.path}/$fileName";
     final File f = File(directory);
+    /*
     if (f.existsSync()) {
       f.deleteSync();
       print('Dosya silindi.');
     } else {
       print('Dosya bulunamadı.');
     }// Dosyayı silmek için await
+     */
     final Database db = await SQLHelper.db();
     //final List<Map<String, dynamic>> allData = await db.query("spendinfo", orderBy: "id", );
     final List<Map<String, dynamic>> allData = await db.rawQuery("SELECT id, operationType, category, operationTool, registration, amount, note, operationDay, operationMonth, operationYear, operationTime, operationDate, moneyType , processOnce, realAmount, userCategory, systemMessage FROM spendinfo");
