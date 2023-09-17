@@ -222,9 +222,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 height : 5,
               ),
               amountCustomButton(),
+              /*
               SizedBox(
                   width: size.width*0.95,
                   child: Text('DEBUG: ${operationType.text} -${operationDate.text} - ${category.text} - ${operationTool.text} - ${int.parse(registration.text)} - ${note.text} - ${customize.text} - $convertedCustomize - ${amount.text} - ${moneyType.text} - ${realAmount0.text} - ${userCategoryController != "" ? userCategoryController : category.text == userCategory.text ? userCategory.text : ""} - ${systemMessage.text} - ${moneyTypeSymbol.text}',style: const TextStyle(color: Colors.red,fontFamily: 'TL'))),
+             */
               const SizedBox(
                 height: 5,
               ),
@@ -2283,11 +2285,13 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                           ],
                                         ),
                                       ),
+                                      /*
                                       Text(
                                         "Debug:${category.text} - ${convertedCategory} - ${userCategoryController}",
                                         style:
                                         const TextStyle(color: Colors.red),
                                       )
+                                       */
                                     ],
                                   ),
                                 );
@@ -3619,10 +3623,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     ),
                                   ],
                                 ),
+                                /*
                                 Text(
                                   "Debug:${_customize.text}",
                                   style: const TextStyle(color: Colors.red),
                                 )
+                               */
                               ],
                             ),
                           );
@@ -3738,6 +3744,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             customize.text != "" ? systemMessage.toString() : "",
                           );
                         }
+                    read.searchText != "" ? read.searchItem(read.searchText) : null;
                     readHome.setStatus();
                     readDailyInfo.setSpendDetailItemWithId(int.parse(id));
                     if (adCounter == 0) {

@@ -71,9 +71,13 @@ class firestoreHelper {
   }
 
   static Future<Map<String, dynamic>?> getAppInfo() async {
-    final docAppInfo = await FirebaseFirestore.instance.collection("appInfo").doc("security");
-    DocumentSnapshot<Map<String, dynamic>> querySnapshot = await docAppInfo.get();
-    return querySnapshot.data();
+    try {
+      DocumentSnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance.collection("appInfo").doc("security").get();
+      return querySnapshot.data();
+    } catch (e) {
+      print("Hata oluştu: $e");
+      return null; // Hata durumunda null dönebilirsiniz veya uygun bir hata işleme stratejisi uygulayabilirsiniz.
+    }
   }
 
   static Future<List<currencyInfo>> readCurrenciesFirestore() async {

@@ -461,7 +461,8 @@
     "saved": "Saved",
     "notSaved": "Not saved",
     "systemMessage": "SYSTEM MESSAGE",
-    "repetitionInstallment": "REP / INS",
+    "repetitionActivityDetails": "REPETITION",
+    "installmentActivityDetails": "INSTALLMENT",
     "addAgain": "Add Again",
     "noteDetails": "NOTE",
     "noNoteAdded": "No Note Added",
@@ -630,5 +631,13 @@
     "noInternetConnection": "No internet connection found. Backup could not be done.",
     "okAnladim": "Ok",
 
-    "loading": "Loading"
+    "loading": "Loading",
+
+    "care1" : "Budget Wise is under maintenance",
+    "care2" : "Thanks for waiting",
+    "care3" : "Contact us",
+
+    "update1" : "Budget Wise updated!",
+    "update2" : "Please update the application from the store",
+    "update3" : "Tap to update"
 }

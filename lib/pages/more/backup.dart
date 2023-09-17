@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import '../../UI/list_bacup_popup.dart';
 import '../../classes/app_bar_for_page.dart';
 import '../../classes/nav_bar.dart';
 import '../../riverpod_management.dart';
@@ -111,7 +110,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               translation(context).backupViaGoogleAccount,
@@ -183,12 +182,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    translation(context).backupFrequency,
-                                    style:TextStyle(
-                                      fontFamily: "Nexa3",
-                                      fontSize: 15  ,
-                                      color: Theme.of(context).canvasColor
+                                  Expanded(
+                                    child: Text(
+                                      translation(context).backupFrequency,
+                                      style:TextStyle(
+                                        fontFamily: "Nexa3",
+                                        fontSize: 15  ,
+                                        color: Theme.of(context).canvasColor,
+                                      ),
+                                      maxLines: 2,
                                     ),
                                   ),
                                   SizedBox(height: size.height * 0.01),
@@ -206,7 +208,19 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 children: [
                                   InkWell(
                                     onTap: () async { // geri yükle.
+                                      showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (context) {
+                                          return Center(
+                                              child: CircularProgressIndicator(
+                                                color: Theme.of(context).disabledColor,
+                                                backgroundColor: renkler.koyuuRenk,
+                                              ));
+                                        },
+                                      );
                                       await readGglAuth.downloadFileToDevice();
+                                      Navigator.of(context).pop();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           backgroundColor:
@@ -283,12 +297,24 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         readSettings.useAdCounter();
                                       }
                                       final String fileName = "Bka_CSV.cvs" ;
+                                      showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (context) {
+                                          return Center(
+                                              child: CircularProgressIndicator(
+                                                color: Theme.of(context).disabledColor,
+                                                backgroundColor: renkler.koyuuRenk,
+                                              ));
+                                        },
+                                      );
                                       try{
                                         await writeToCvs(fileName);
                                         await readGglAuth.uploadFileToStorage();
                                         readSetting.setLastBackup();
                                         readSetting.setbackUpAlert(false);
                                         readGglAuth.refreshPage();
+                                        Navigator.of(context).pop();
 
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           const SnackBar(
@@ -479,15 +505,11 @@ class _BackUpState extends ConsumerState<BackUp> {
                               SizedBox(height: size.height * 0.02),
                               InkWell(
                                 onTap: () async {
-                                  try{
                                     await readGglAuth.signInWithGoogle();
                                     //await readGglAuth.checkAuthState(ref);
                                     readGglAuth.setAccountStatus(true);
                                     readGglAuth.refreshPage();
-                                  }catch(e){
-                                    print("Hata var = $e");
-                                    await readGglAuth.signOutWithGoogle();
-                                  }
+
                                 },
                                 child: SizedBox(
                                   width: size.width * 0.56,
@@ -561,7 +583,7 @@ class _BackUpState extends ConsumerState<BackUp> {
     var readSetting = ref.read(settingsRiverpod);
     int  initialLabelIndex = readSetting.Backuptimes == "Günlük" ? 0 : readSetting.Backuptimes == "Aylık" ? 1 : 2;
     return SizedBox(
-      height: 32,
+      height: 30,
       child: ToggleSwitch(
         initialLabelIndex: initialLabelIndex,
         totalSwitches: 3,
@@ -570,7 +592,7 @@ class _BackUpState extends ConsumerState<BackUp> {
         activeFgColor: const Color(0xff0D1C26),
         inactiveBgColor: const Color(0xff0D1C26),
         inactiveFgColor: const Color(0xFFE9E9E9),
-        minWidth: 60,
+        minWidth: 68,
         cornerRadius: 20,
         radiusStyle: true,
         animate: true,

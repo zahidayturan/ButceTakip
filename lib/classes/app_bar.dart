@@ -3,6 +3,7 @@ import 'package:butcekontrol/UI/introduction_page.dart';
 import 'package:butcekontrol/UI/registery_list.dart';
 import 'package:butcekontrol/UI/warning_backup.dart';
 import 'package:butcekontrol/classes/language.dart';
+import 'package:butcekontrol/pages/more/Help/help_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
 import 'package:butcekontrol/pages/search_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
@@ -88,7 +89,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                 PageRouteBuilder(
                   opaque: false, //sayfa saydam olması için
                   transitionDuration: const Duration(milliseconds: 1),
-                  pageBuilder: (context, animation, nextanim) => const searchPage(),
+                  pageBuilder: (context, animation, nextanim) => const SearchPage(),
                   reverseTransitionDuration: const Duration(milliseconds: 1),
                   transitionsBuilder: (context, animation, nexttanim, child) {
                     return FadeTransition(
@@ -144,6 +145,21 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           ),
           IconButton(
             onPressed: () async {
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 1),
+                  pageBuilder: (context, animation, nextanim) =>  const HelpCenter(),
+                  reverseTransitionDuration: const Duration(milliseconds: 1),
+                  transitionsBuilder: (context, animation, nexttanim, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+              /*
               final SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.setBool("showBTA", false);
               final bool? showBTA = prefs.getBool("showBTA");
@@ -152,7 +168,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
 
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const IntroductionPage())
-              );
+              );*/
             },
             icon: const Icon(
               Icons.help_outline_rounded,

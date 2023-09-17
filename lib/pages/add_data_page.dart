@@ -234,12 +234,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               const SizedBox(
                 height: 5,
               ),
-              SizedBox(
+              /*SizedBox(
                   width: size.width * 0.98,
                   child: Text(
                       'DEBUG: ${_operationType.text} - ${_category.text} - ${convertedCategory} - ${userCategoryController} - ${_operationTool.text} - ${int.parse(_registration.text)} - ${_amount.text} - ${_note.text} - ${_operationDate.text} -${_customize.text} - ${convertedCustomize} - ${selectedCustomizeMenu} - ${_moneyType.text}',
                       style: const TextStyle(
-                          color: Colors.red, fontFamily: 'TL'))),
+                          color: Colors.red, fontFamily: 'TL'))),*/
               const SizedBox(
                 height: 5,
               ),
@@ -2359,11 +2359,13 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                           ],
                                         ),
                                       ),
+                                      /*
                                       Text(
                                         "Debug:${_category.text} - ${convertedCategory} - ${userCategoryController}",
                                         style:
                                         const TextStyle(color: Colors.red),
                                       )
+                                       */
                                     ],
                                   ),
                                 );
@@ -3836,21 +3838,14 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         }
 
                         if(_moneyType.text != readSettings.Prefix && _operationType.text == "Gider" ) {
-                          print("Kontrol sağlıyoruz. daha önceden gider olarak girilmiş döviz var mı aynı türde bakalım.");
                           List<SpendInfo> liste = await SQLHelper.getItemsForIncomeCal(_moneyType.text);
                           if(liste.isNotEmpty) {
                             liste.sort((a, b) => convertDateTime(a.operationDate!).compareTo(convertDateTime(b.operationDate!))); // eskieden yeniye
-                            print("***********************");
-                            for (var element in liste) {
-                              print("${element.amount}   ${element.operationDate}");
-                            }
-                            print("***********************");
                             double remaining = double.parse(_amount.text);
                             for (var element in liste){
                               if(remaining > 0){
                                 List<SpendInfo> listPassive = await SQLHelper.getItemsForPassive(element);
                                 if(remaining >= element.amount!){
-                                  print("borcumuz boyumuza TAM");
                                   //elementi pasif yapacağız.
                                   element.moneyType = element.moneyType!.substring(0,3); //pasifleştirme
                                   remaining -= element.amount!; //kalan miktar 0
@@ -3861,7 +3856,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   }
                                   SQLHelper.updateItem(element);
                                 }else{ //daha kücük bir miktar harcama yaıldıysa
-                                  print("borcumuz azdı ödedik ");
                                   double firstValue = element.amount!;
                                   element.amount = element.amount! - remaining;
                                   element.realAmount =ref.read(currencyRiverpod).calculateRealAmount(element.amount!, element.moneyType!, ref.read(settingsRiverpod).Prefix!);
@@ -3893,7 +3887,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     });
                                     remaining = 0 ;
                                   }else{//normal kayıt
-                                    print("normal kayıd");
                                     if(listPassive.isNotEmpty){
                                       double newAmount =  listPassive[0].amount! + result ;
                                       double newRealAmount = ref.read(currencyRiverpod).calculateRealAmount(
@@ -3915,7 +3908,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   }
                                 }
                               }else{
-                                print("pas geçiyohk");
                               }
 
                             }

@@ -85,6 +85,88 @@ class Converter{
     }
   }
 
+  String textConverterToDBForSearch(String text, BuildContext context, int operetionType)
+  {
+    /// DataBase'e gönderilecek olan kategorilerin çevrilmesi için
+    if(operetionType == 0) {
+      if (translation(context).foodExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Yemek";
+      } else if (translation(context).clothingExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Giyim";
+      } else if (translation(context).entertainmentExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Eğlence";
+      } else if (translation(context).educationExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Eğitim";
+      } else if (translation(context).duesRentExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Aidat/Kira";
+      } else if (translation(context).shoppingExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Alışveriş";
+      } else if (translation(context).personelExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Özel-";
+      } else if (translation(context).transportExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Ulaşım";
+      } else if (translation(context).healthExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Sağlık";
+      } else if (translation(context).dailyExpenses.toLowerCase().contains(text.toLowerCase())) {
+        return "Günlük Yaşam";
+      } else if (translation(context).hobbyExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Hobi";
+      } else if (translation(context).otherExpense.toLowerCase().contains(text.toLowerCase())) {
+        return "Diğer-";
+      }
+      else if (translation(context).pocketMoneyIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "Harçlık";
+      } else if (translation(context).grantIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "Burs";
+      } else if (translation(context).salaryIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "Maaş";
+      } else if (translation(context).creditIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "Kredi";
+      } else if (translation(context).personalIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "Özel+";
+      } else if (translation(context).duesRentIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "Kira/Aidat";
+      } else if (translation(context).overtimeIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "Fazla Mesai";
+      } else if (translation(context).freelanceIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "İş Getirisi";
+      } else if (translation(context).incomeViaCurrencyIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "Döviz Getirisi";
+      } else if (translation(context).investmentIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "Yatırım Getirisi";
+      } else if (translation(context).otherIncome.toLowerCase().contains(text.toLowerCase())) {
+        return "Diğer+";
+      } else {
+        return text;
+      }
+    }
+    else if(operetionType == 1) {
+      if (text == translation(context).dailyAddData) {
+        return "Günlük";
+      } else if (text == translation(context).weeklyAddData) {
+        return "Haftalık";
+      } else if (text == translation(context).biweekly) {
+        return "İki Haftada Bir";
+      } else if (text == translation(context).monthlyAddData) {
+        return "Aylık";
+      } else if (text == translation(context).bimonthly) {
+        return "İki Ayda Bir";
+      } else if (text == translation(context).everyThreeMonths) {
+        return "Üç Ayda Bir";
+      } else if (text == translation(context).everyFourMonths) {
+        return "Dört Ayda Bir";
+      } else if (text == translation(context).everySixMonths) {
+        return "Altı Ayda Bir";
+      } else if (text == translation(context).yearlyAddData) {
+        return "Yıllık";
+      } else {
+        return text;
+      }
+    }
+    else{
+      return "";
+    }
+  }
   String textConverterFromDB(String text, BuildContext context, int operetionType){
     /// Kategori çevirmesi
     if(operetionType == 0){

@@ -118,10 +118,13 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "assets/image/origami_noinfo.png",
-                            width: 45,
-                            height: 45,
-                            color: Theme.of(context).canvasColor,
+                            "assets/image/noInfo.png",
+                            width: 70,
+                            height: 70,
+                            //color: Theme.of(context).canvasColor,
+                          ),
+                          const SizedBox(
+                            height: 6,
                           ),
                           SizedBox(
                             height: 22,

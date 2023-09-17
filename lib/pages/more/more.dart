@@ -11,10 +11,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:flutter_share/flutter_share.dart';
-import 'package:pay/pay.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../riverpod_management.dart';
-import '../../utils/payment_config.dart';
 import 'Help/help_page.dart';
 import 'password_splash.dart';
 import 'backup.dart';
@@ -22,6 +20,7 @@ import 'backup.dart';
 class More extends ConsumerWidget {
   More({Key? key}) : super(key: key);
   final renkler = CustomColors();
+  /*
   var buton = GooglePayButton(
     paymentConfiguration: PaymentConfiguration.fromJsonString(defaultGooglePay),
     paymentItems: const [
@@ -39,6 +38,7 @@ class More extends ConsumerWidget {
       child: CircularProgressIndicator(),
     ),
   );
+   */
   Future<void> shareButceTakip(BuildContext context) async {
     await FlutterShare.share(
         title: translation(context).download,

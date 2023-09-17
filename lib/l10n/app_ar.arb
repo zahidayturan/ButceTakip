@@ -461,7 +461,8 @@
   "saved": "محفوظ",
   "notSaved": "غير محفوظ",
   "systemMessage": "رسالة النظام",
-  "repetitionInstallment": "تكرار / تقسيط",
+  "repetitionActivityDetails": "التكرار",
+  "installmentActivityDetails": "التقسيط",
   "addAgain": "أضف مجددًا",
   "noteDetails": "ملاحظة",
   "noNoteAdded": "لم يتم إضافة ملاحظة",
@@ -630,5 +631,13 @@
   "noInternetConnection": "لم يتم الاتصال بالإنترنت. لم يتم النسخ الاحتياطي.",
   "okAnladim": "حسنا",
 
-  "loading": "جار التحميل"
+  "loading": "جار التحميل",
+
+  "care1" : "متابعة الميزانية تحت الصيانة",
+  "care2" : "شكرا على الانتظار",
+  "care3" : "تواصل معنا",
+
+  "update1" : "تم تحديث متابعة الميزانية",
+  "update2" : "يرجى تحديث التطبيق من المتجر",
+  "update3" : "انقر للتحديث"
 }

@@ -462,7 +462,8 @@
   "saved": "Kayıtlı",
   "notSaved": "Kayıtlı değil",
   "systemMessage": "SİSTEM MESAJI",
-  "repetitionInstallment": "TEKRAR / TAKSİT",
+  "repetitionActivityDetails": "TEKRAR",
+  "installmentActivityDetails": "TAKSİT",
   "addAgain": "Tekrar Ekle",
   "noteDetails": "NOT",
   "noNoteAdded": "Not Eklenmemiş",
@@ -631,7 +632,14 @@
   "noInternetConnection": "İnternet bağlantısı bulunamadı. Yedekleme Yapılamıyor.",
   "okAnladim": "Anladım",
 
-  "loading": "Yükleniyor"
+  "loading": "Yükleniyor",
 
+  "care1" : "Bütçe Takip bakımda",
+  "care2" : "Beklediğiniz için teşekkür ederiz",
+  "care3" : "iletişim için",
+
+  "update1" : "Bütçe Takip güncellendi!",
+  "update2" : "Lütfen uygulamayı mağazadan güncelleyin",
+  "update3" : "Güncellemek için dokunun"
 }
 

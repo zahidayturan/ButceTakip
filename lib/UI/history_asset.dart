@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../classes/language.dart';
+import '../constans/text_pref.dart';
 import '../riverpod_management.dart';
 
 class HistoryAsset extends ConsumerStatefulWidget{
@@ -75,12 +76,32 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                 if(snapshot.hasData){
                                   List<SpendInfo>? list = snapshot.data ;
                                   return list!.isEmpty
-                                  ?const Center(
-                                    child: Text(
-                                        "Veri Yok",
-                                      style: TextStyle(
-                                        color: Colors.black
-                                      ),
+                                  ?SizedBox(
+                                    height: 150,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          "assets/image/noInfo.png",
+                                          width: 75,
+                                          height: 75,
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                          width: 80,
+                                          child: DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(20),
+                                                color: Theme.of(context).canvasColor,
+                                              ),
+                                              child: Center(child: TextMod(
+                                                  translation(context).noActivity, Theme.of(context).primaryColor, 11))
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   )
                                   :ListView.builder(
@@ -182,12 +203,32 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                 if(snapshot.hasData){
                                   List<SpendInfo>? list = snapshot.data ;
                                   return list!.isEmpty
-                                    ?const Center(
-                                      child: Text(
-                                        "Veri Yok",
-                                        style: TextStyle(
-                                            color: Colors.black
-                                        ),
+                                  ?SizedBox(
+                                      height: 150,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            "assets/image/noInfo.png",
+                                            width: 75,
+                                            height: 75,
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                            width: 80,
+                                            child: DecoratedBox(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  color: Theme.of(context).canvasColor,
+                                                ),
+                                                child: Center(child: TextMod(
+                                                    translation(context).noActivity, Theme.of(context).primaryColor, 11))
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     )
                                    :ListView.builder(
@@ -256,18 +297,18 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                                   ),
                                                 ),
                                                 isEdit
-                                                    ?GestureDetector(
-                                                  onTap: () async {
-                                                    await SQLHelper.deleteItem(list[index].id!);
-                                                    ref.watch(settingsRiverpod).setisuseinsert();
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.delete,
-                                                    color: Color(0xFFD91A2A),
-                                                    size: 18,
-                                                  ),
-                                                )
-                                                    :const SizedBox(),
+                                                ?GestureDetector(
+                                                    onTap: () async {
+                                                      await SQLHelper.deleteItem(list[index].id!);
+                                                      ref.watch(settingsRiverpod).setisuseinsert();
+                                                    },
+                                                    child: const Icon(
+                                                      Icons.delete,
+                                                      color: Color(0xFFD91A2A),
+                                                      size: 18,
+                                                    ),
+                                                  )
+                                                :const SizedBox(),
                                               ],
                                             ),
                                           ),
@@ -287,12 +328,32 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                 if(snapshot.hasData){
                                   List<SpendInfo>? list = snapshot.data ;
                                   return list!.isEmpty
-                                    ?const Center(
-                                      child: Text(
-                                        "Veri Yok",
-                                        style: TextStyle(
-                                            color: Colors.black
-                                        ),
+                                  ?SizedBox(
+                                      height: 150,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            "assets/image/noInfo.png",
+                                            width: 75,
+                                            height: 75,
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                            width: 80,
+                                            child: DecoratedBox(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  color: Theme.of(context).canvasColor,
+                                                ),
+                                                child: Center(child: TextMod(
+                                                    translation(context).noActivity, Theme.of(context).primaryColor, 11))
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     )
                                   :ListView.builder(
