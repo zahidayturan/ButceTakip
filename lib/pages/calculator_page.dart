@@ -2292,7 +2292,6 @@ class _CalculatorState extends ConsumerState<Calculator> {
               height: size.height / 140,
             ),
             SizedBox(
-              height: size.height * .07,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -2353,6 +2352,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       ),
                    ],
                   ),
+                  SizedBox(height: 6,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

@@ -225,7 +225,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       fontSize: 18,
                     )),
                 Expanded(
-                  child: Text("${Converter().textConverterFromDB(item[index].category!, context, 0)} - ${item[index].userCategory}",
+                  child: Text(Converter().textConverterFromDB(item[index].category!, context, 0),
                       style: TextStyle(
                         color: renkler.yaziRenk,
                         fontFamily: 'Nexa3',
@@ -326,7 +326,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(item[index].processOnce!.contains("/") ? translation(context).installment : translation(context).repeat,
+                  Text(item[index].processOnce!.contains("/") ? translation(context).installmentActivityDetails : translation(context).repetitionActivityDetails,
                       style: TextStyle(
                         color: renkler.yaziRenk,
                         fontFamily: 'Nexa4',
@@ -516,7 +516,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         onPressed: () {
                           readHome.setStatus();
                           readDB.delete(item[index].id!);
-                          readDB.myMethod2();
+                          readDB.searchText != "" ? readDB.searchItem(readDB.searchText) : null;
                           Navigator.of(context).pop();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

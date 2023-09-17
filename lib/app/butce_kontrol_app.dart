@@ -6,7 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ButceKontrolApp extends ConsumerStatefulWidget {
   final bool showBTA;
-  const ButceKontrolApp({Key? key, required this.showBTA}) : super(key: key);
+  final Map<String, String>? appInfo;
+  const ButceKontrolApp({Key? key, required this.showBTA, required this.appInfo}) : super(key: key);
 
   @override
   ConsumerState<ButceKontrolApp> createState() => _ButceKontrolAppState();
@@ -73,7 +74,7 @@ class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
         fontFamily: "Nexa3",
       ),
       themeMode: readSettings.DarkMode == 0 ? ThemeMode.light : ThemeMode.dark,
-      home: base_BKA(showBTA: widget.showBTA),
+      home: base_BKA(showBTA: widget.showBTA,appInfo:widget.appInfo),
     );
   }
 }

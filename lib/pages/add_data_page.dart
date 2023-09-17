@@ -234,12 +234,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               const SizedBox(
                 height: 5,
               ),
-              SizedBox(
+              /*SizedBox(
                   width: size.width * 0.98,
                   child: Text(
                       'DEBUG: ${_operationType.text} - ${_category.text} - ${convertedCategory} - ${userCategoryController} - ${_operationTool.text} - ${int.parse(_registration.text)} - ${_amount.text} - ${_note.text} - ${_operationDate.text} -${_customize.text} - ${convertedCustomize} - ${selectedCustomizeMenu} - ${_moneyType.text}',
                       style: const TextStyle(
-                          color: Colors.red, fontFamily: 'TL'))),
+                          color: Colors.red, fontFamily: 'TL'))),*/
               const SizedBox(
                 height: 5,
               ),

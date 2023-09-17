@@ -1031,7 +1031,7 @@ class _SettingsState extends ConsumerState<Settings> {
                           ),
                           const Spacer(),
                           Tooltip(
-                            message:  "Seçtiğiniz başlangıç gününe göre hesap kesim aralığınız ana sayfa ve takvim gibi sayfalarda değişecektir. Örnek olarak; 15 seçildiyse, aylık veriler bir sonraki ayın 14 üne kadar hesaplanacaktır.",
+                            message:  translation(context).answer6,
                             triggerMode: TooltipTriggerMode.tap,
                             showDuration: const Duration(seconds: 10),
                             margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1267,7 +1267,7 @@ class _SettingsState extends ConsumerState<Settings> {
                           ),
                           const Spacer(),
                           Tooltip(
-                            message:  "Seçtiğiniz tarih formatı sadece görünümü değiştirir. İşlemler üzerinde bir etkisi yoktur. Size uygun formatı seçebilirsiniz.",
+                            message:  translation(context).answer7,
                             triggerMode: TooltipTriggerMode.tap,
                             showDuration: const Duration(seconds: 10),
                             margin: const EdgeInsets.symmetric(horizontal: 20),

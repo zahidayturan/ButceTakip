@@ -1,6 +1,9 @@
+import 'package:butcekontrol/UI/appStatus.dart';
 import 'package:butcekontrol/UI/introduction_page.dart';
+import 'package:butcekontrol/app/information_app.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/utils/notification_service.dart';
+import 'package:butcekontrol/utils/security_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../Pages/more/password_splash.dart';
@@ -9,7 +12,8 @@ import '../utils/cvs_converter.dart';
 
 class base_BKA extends ConsumerStatefulWidget {
   final bool showBTA;
-  const base_BKA({Key ? key,required this.showBTA}) :super(key :key);
+  final Map<String, String>? appInfo;
+  const base_BKA({Key ? key,required this.showBTA, required this.appInfo}) :super(key :key);
 
   @override
   ConsumerState<base_BKA> createState() => _base_BKAState();
@@ -150,10 +154,54 @@ class _base_BKAState extends ConsumerState<base_BKA> {
   @override
   Widget build(BuildContext context) {
     var watch = ref.watch(botomNavBarRiverpod);
+    bool bottomNavigationBar = true;
+    String currentVersion = informationApp.version;
+    String newVersion = widget.appInfo!["version"]!;
+    int compareVersions(String version1, String version2) {
+      List<int> v1 = version1.split('.').map(int.parse).toList();
+      List<int> v2 = version2.split('.').map(int.parse).toList();
+      for (int i = 0; i < 3; i++) {
+        if (v1[i] < v2[i]) {
+          return -1; // version1, version2'den küçük
+        } else if (v1[i] > v2[i]) {
+          return 1;  // version1, version2'den büyük
+        }
+      }
+      return 0; // version1 ve version2 aynı
+    }
+    print("aaaa");
+    print(compareVersions(currentVersion, newVersion));
+    Widget getWidgetToStart(){
+      print(widget.appInfo);
+      if(widget.appInfo!["appInfoString"] != securityFile().careCode && widget.appInfo!["appInfoString"] != securityFile().updateCode){
+        if(widget.showBTA){
+          bottomNavigationBar = true;
+          return watch.body();
+      }else{
+          bottomNavigationBar = false;
+          return IntroductionPage();
+        }
+      }else if(widget.appInfo!["appInfoString"] == securityFile().careCode){
+        bottomNavigationBar = false;
+        return AppStatus(status:"care");
+      }
+      else if(widget.appInfo!["appInfoString"] == securityFile().updateCode){
+        if(compareVersions(currentVersion,newVersion) == -1){
+          bottomNavigationBar = false;
+          return AppStatus(status:"update");
+        }else{
+          bottomNavigationBar = true;
+          return watch.body();
+        }
+      }else{
+        bottomNavigationBar = true;
+        return watch.body();
+      }
+    }
     return Scaffold(
-      body : widget.showBTA == true ? watch.body() : IntroductionPage(),
+      body : getWidgetToStart(),
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: widget.showBTA == true ? NavBar() : null,
+      bottomNavigationBar: bottomNavigationBar == true ? NavBar() : null,
     );
   }
 }

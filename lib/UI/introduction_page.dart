@@ -1024,9 +1024,9 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(18.0),
                   child: Text(
-                    "Verilerinizi oturum açtıktan sonra yedekleyebilirisiniz",
+                    translation(context).backupYourDataSecurelyViaGoogleAccount,
                     // translation(context).backupYourDataSecurely,
                     style: TextStyle(
                         fontSize: 20,
@@ -1062,18 +1062,22 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                     readGglAuth.refreshPage();
                     readSetting.setisuseinsert();
                     readSetting.setBackup(true);
+                    Navigator.of(context).pop();
+                    readSetting.setBackuptimes("Aylık");
+                    controllerBackUp.nextPage(
+                        duration: const Duration(milliseconds: 800),
+                        curve: Curves.easeInOut);
                   }catch(e){
                     print("Hata var = $e");
                     await readGglAuth.signOutWithGoogle();
                   }
+                  setState(() {
+
+                  });
                   /*await readGglAuth.signInWithGoogle();
                   readGglAuth.setAccountStatus(true);
                   readSetting.setBackup(true);*/
-                  Navigator.of(context).pop();
-                  readSetting.setBackuptimes("Aylık");
-                  controllerBackUp.nextPage(
-                      duration: const Duration(milliseconds: 800),
-                      curve: Curves.easeInOut);
+
                 },
                 child: SizedBox(
                     height: 44,
@@ -1472,19 +1476,25 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
               ),
             ),
           ),
-          Text(
-            translation(context).trackAssets,
-            style: TextStyle(
-                fontSize: 18, height: 1, color: Theme.of(context).canvasColor),
-            textDirection: TextDirection.ltr,
-            textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              translation(context).trackAssets,
+              style: TextStyle(
+                  fontSize: 18, height: 1, color: Theme.of(context).canvasColor),
+              textDirection: TextDirection.ltr,
+              textAlign: TextAlign.center,
+            ),
           ),
-          Text(
-            translation(context).startFromZero,
-            style: TextStyle(
-                fontSize: 18, height: 1, color: Theme.of(context).canvasColor),
-            textDirection: TextDirection.ltr,
-            textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              translation(context).startFromZero,
+              style: TextStyle(
+                  fontSize: 18, height: 1, color: Theme.of(context).canvasColor),
+              textDirection: TextDirection.ltr,
+              textAlign: TextAlign.center,
+            ),
           ),
           Column(
             children: [
@@ -2104,7 +2114,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
     final bool? showBTA = prefs.getBool("showBTA");
     print(showBTA);
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => base_BKA(showBTA: true))
+        MaterialPageRoute(builder: (context) => base_BKA(showBTA: true, appInfo:{"appInfoString": "normal", "version": "1.0.0"}))
     );
   }
 
@@ -2191,7 +2201,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
               await prefs.setBool("showBTA", true);
               final bool? showBTA = prefs.getBool("showBTA");
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const base_BKA(showBTA: true)));
+                  builder: (context) => const base_BKA(showBTA: true,appInfo:{"appInfoString": "normal", "version": "1.0.0"})));
             },
             child: Padding(
               padding: const EdgeInsets.only(bottom: 80),

@@ -38,7 +38,7 @@ class DbProvider extends ChangeNotifier {
 
   void refreshDB() async {
     await SQLHelper.getItems();
-    myMethod2();
+    //myMethod2();
     notifyListeners();
   }
 
@@ -280,6 +280,7 @@ class DbProvider extends ChangeNotifier {
     searchListTile?.clear();
     notifyListeners();
   }
+  String searchText = "";
   void searchItem(searchText) async {
     searchListTile = await SQLHelper.searchItem(searchText);
     var sortedlist;

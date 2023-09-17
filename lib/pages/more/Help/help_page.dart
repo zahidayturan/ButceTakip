@@ -222,7 +222,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                             color: Color(0xffF2F2F2),
                                             size: 22,
                                           ),
-                                          FittedBox(
+                                          Expanded(
                                             child: Padding(
                                               padding: const EdgeInsets.only(top: 2),
                                               child: Text(
@@ -232,6 +232,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                                     color: Color(0xffF2F2F2),
                                                     fontSize: 11
                                                 ),
+                                                maxLines: 2,
                                                 textAlign: TextAlign.center,
                                               ),
                                             ),

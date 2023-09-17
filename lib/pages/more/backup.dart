@@ -181,12 +181,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    translation(context).backupFrequency,
-                                    style:TextStyle(
-                                      fontFamily: "Nexa3",
-                                      fontSize: 15  ,
-                                      color: Theme.of(context).canvasColor
+                                  Expanded(
+                                    child: Text(
+                                      translation(context).backupFrequency,
+                                      style:TextStyle(
+                                        fontFamily: "Nexa3",
+                                        fontSize: 15  ,
+                                        color: Theme.of(context).canvasColor,
+                                      ),
+                                      maxLines: 2,
                                     ),
                                   ),
                                   SizedBox(height: size.height * 0.01),
@@ -559,7 +562,7 @@ class _BackUpState extends ConsumerState<BackUp> {
     var readSetting = ref.read(settingsRiverpod);
     int  initialLabelIndex = readSetting.Backuptimes == "Günlük" ? 0 : readSetting.Backuptimes == "Aylık" ? 1 : 2;
     return SizedBox(
-      height: 32,
+      height: 30,
       child: ToggleSwitch(
         initialLabelIndex: initialLabelIndex,
         totalSwitches: 3,
@@ -568,7 +571,7 @@ class _BackUpState extends ConsumerState<BackUp> {
         activeFgColor: const Color(0xff0D1C26),
         inactiveBgColor: const Color(0xff0D1C26),
         inactiveFgColor: const Color(0xFFE9E9E9),
-        minWidth: 60,
+        minWidth: 68,
         cornerRadius: 20,
         radiusStyle: true,
         animate: true,

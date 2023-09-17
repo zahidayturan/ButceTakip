@@ -142,14 +142,14 @@ class HelpStatisic extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Stack(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 1),
                               child: Container(
                                 height: 30,
-                                width: size.width * 0.95,
+                                width: size.width,
                                 color: Theme.of(context).highlightColor,
                               ),
                             ),
@@ -170,7 +170,7 @@ class HelpStatisic extends StatelessWidget {
                                         translation(context).dateStatistics,
                                         style: TextStyle(
                                             color: renkler.arkaRenk,
-                                            fontSize: 15,
+                                            fontSize: 14,
                                             fontFamily: 'Nexa3'),
                                       ),
                                     ),
@@ -192,7 +192,7 @@ class HelpStatisic extends StatelessWidget {
                                               padding: const EdgeInsets.symmetric(horizontal: 14),
                                               child: Text(translation(context).monthly,style: TextStyle(
                                                 color: renkler.koyuuRenk,
-                                                fontSize: 14,
+                                                fontSize: 12,
                                                 fontFamily: "Nexa4"
                                               ),),
                                             ),
@@ -207,21 +207,21 @@ class HelpStatisic extends StatelessWidget {
                                           children: [
                                             SizedBox(
                                                 height: 30,
-                                                width: 80,
+                                                width: 68,
                                                 child: Center(
                                                     child: Text(
                                                       translation(context).august,
                                                       style: TextStyle(
                                                           color: renkler.arkaRenk,
                                                           height: 1,
-                                                          fontSize: 13,
+                                                          fontSize: 12,
                                                           fontFamily: 'Nexa3'),
                                                     ))),
                                             Positioned(
                                               bottom: 0,
                                               child: Container(
                                                 height: 5,
-                                                width: 80,
+                                                width: 68,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.only(
                                                       topRight: Radius.circular(15),
@@ -241,14 +241,14 @@ class HelpStatisic extends StatelessWidget {
                                           children: [
                                             SizedBox(
                                               height: 30,
-                                              width: 64,
+                                              width: 54,
                                               child: Center(
                                                   child: Text(
                                                     "2023",
                                                     style: TextStyle(
                                                         color: renkler.arkaRenk,
                                                         height: 1,
-                                                        fontSize: 13,
+                                                        fontSize: 12,
                                                         fontFamily: 'Nexa3'),
                                                   )),
                                             ),
@@ -256,7 +256,7 @@ class HelpStatisic extends StatelessWidget {
                                               bottom: 0,
                                               child: Container(
                                                 height: 5,
-                                                width: 64,
+                                                width: 54,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.only(
                                                       topRight: Radius.circular(15),
