@@ -485,13 +485,13 @@
   "inactiveCurrency": "Pasif Döviz",
 
   "backupSystem1": "YEDEKLEME SİSTEMİ",
-  "backupSystem2": "Bütün verileriniz yedeklemeleri Google Drive’ınız üzerinden gerçekleşmektedir. Bunun için Google hesabınız ile giriş yapmanız gerekmektedir.",
+  "backupSystem2": "Bütün verileriniz yedeklemeleri Google hesabınız üzerinden gerçekleşmektedir. Bunun için Google hesabınız ile giriş yapmanız gerekmektedir.",
   "whatYouCanDoOnThisPage": "Bu sayfada yapabileceğiniz işlemler",
   "backupSystem4": "Varsayılan olarak otomatik yedekleme aktif olmaktadır ve varsayılan olarak aylık yedeklenme yapılmaktadır.",
   "backupSystem5": "Yedekle Butonuna tıklandığı zaman bütün verileriniz .csv dosyasına çevrilerek yedeklenmektedir.",
-  "backupSystem6": "Geri Yükle butonuna tıklandığında ise Google Drive‘ınızdaki \"BütçeTakip\" adlı dosyanın içindeki kayıtlar listelenecektir. Ondan sonra geri yüklemek istediğiniz dosyayı seçebilirsiniz.",
+  "backupSystem6": "Geri Yükle butonuna tıklandığında ise en son yedeklenen kayıtlarınız uygulamaya indirilmektedir.",
   "backupSystem7": "Kaydınız üzerine uzun basarsanız da istediğiniz kaydı silebilirsiniz.",
-  "backupSystem8": "Kayıtlarınız geri yüklendiği zaman mevcut verileriniz silinmektedir. Seçtiğiniz kayıtlarınız yüklenmektedir. Google Drive üzerindeki kayıtlarınızın sayısı 30’u geçerse en eski 15 kaydınız silinmektedir.",
+  "backupSystem8": "Kayıtlarınız geri yüklendiği zaman mevcut verileriniz silinmektedir. Seçtiğiniz kayıtlarınız yüklenmektedir.",
 
   "assetsPage1": "VARLIKLARIM SAYFASI",
   "assetsPage2": "Varlıklarım sayfası anlık olarak tüm varlığınızı görebilmeniz için tasarlanmıştır.",

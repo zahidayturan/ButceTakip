@@ -211,32 +211,33 @@ class HelpBackup extends StatelessWidget {
 
                       Row(
                         children: [
-                          Container(
-                            height: 26,
-                            width: size.width * 0.2,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: renkler.koyuuRenk,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black.withOpacity(0.8),
-                                      spreadRadius: 0.5,
-                                      blurRadius: 2,
-                                      offset: const Offset(0, 2)
-                                  )
-                                ]
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Text(
-                                    translation(context).restoreData, // geri yükle
-                                    style: TextStyle(
-                                        height: 1,
-                                        color: renkler.arkaRenk,
-                                        fontSize: 11,
-                                        fontFamily: "Nexa3"
+                          FittedBox(
+                            child: Container(
+                              height: 26,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: renkler.koyuuRenk,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.8),
+                                        spreadRadius: 0.5,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ]
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Text(
+                                      translation(context).restoreData, // geri yükle
+                                      style: TextStyle(
+                                          height: 1,
+                                          color: renkler.arkaRenk,
+                                          fontSize: 11,
+                                          fontFamily: "Nexa3"
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -253,6 +254,7 @@ class HelpBackup extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 14),
+                      /*
                       Container( //boyut
                         height: size.width * .5,
                         width: size.width * .73,
@@ -328,6 +330,7 @@ class HelpBackup extends StatelessWidget {
                         translation(context).backupSystem7
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
+                      */
                       const SizedBox(height: 14),
                       Icon(
                         Icons.warning,

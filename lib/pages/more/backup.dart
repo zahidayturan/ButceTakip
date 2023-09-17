@@ -114,7 +114,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              translation(context).backupViaGoogleDrive,
+                              translation(context).backupViaGoogleAccount,
                               style: TextStyle(
                                 height: 1,
                                 fontSize: 16,
@@ -122,11 +122,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 color: Theme.of(context).canvasColor,
                               ),
                             ),
+                            /*
                             Image.asset(
                               "assets/image/googleDrive.png",
                               width: 85,
                               height: 25,
                             )
+                            */
                           ],
                         ),
                         Divider(thickness: 2.0,color: Theme.of(context).disabledColor),
