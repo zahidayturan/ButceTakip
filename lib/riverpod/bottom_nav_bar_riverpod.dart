@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget
   int currentindex = 0 ;
   int ?current ;
-  Color currentColor = Colors.white;
+  Color currentColor = Color(0xFFE9E9E9);
   void setcur(){
     current = currentindex;
     notifyListeners();

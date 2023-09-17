@@ -39,7 +39,6 @@ class _BannerAds extends State<BannerAds> {
     );
     _bannerAd.load();
   }
-
   @override
   Widget build(BuildContext context) {
     if (_isBannerAdReady) {
@@ -53,9 +52,7 @@ class _BannerAds extends State<BannerAds> {
       );
     }
     else {
-      return const SizedBox(
-          height:50,
-          child: Center(child: Text('REKLAMLAR...')));
+      return const SizedBox();
     }
   }
 }

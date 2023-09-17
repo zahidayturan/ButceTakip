@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import '../models/spend_info.dart';
 import '../utils/db_helper.dart';
+import 'package:butcekontrol/classes/language.dart';
 
 
 class DailyInfoRiverpod extends ChangeNotifier {
@@ -15,6 +16,7 @@ class DailyInfoRiverpod extends ChangeNotifier {
     return reg;
   }
 
+
   late int day ;
   late int month ;
   late int year ;
@@ -23,26 +25,26 @@ class DailyInfoRiverpod extends ChangeNotifier {
     this.month = month;
     this.year = year;
   }
-  String getMonthName(int monthIndex) {
+  String getMonthName(int monthIndex, BuildContext context) {
     final months = [
       '',
-      'Ocak',
-      'Şubat',
-      'Mart',
-      'Nisan',
-      'Mayıs',
-      'Haziran',
-      'Temmuz',
-      'Ağustos',
-      'Eylül',
-      'Ekim',
-      'Kasım',
-      'Aralık'
+      translation(context).january,
+      translation(context).february,
+      translation(context).march,
+      translation(context).april,
+      translation(context).may,
+      translation(context).june,
+      translation(context).july,
+      translation(context).august,
+      translation(context).september,
+      translation(context).october,
+      translation(context).november,
+      translation(context).december,
     ];
     return months[monthIndex];
   }
-  getDate(){
-    List<String> dateList = [day.toString(),getMonthName(month),year.toString()];
+  getDate(BuildContext context){
+    List<String> dateList = [day.toString(),getMonthName(month, context),year.toString()];
     return dateList;
   }
 
@@ -59,15 +61,15 @@ class DailyInfoRiverpod extends ChangeNotifier {
 
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
 
     double totalAmount2 = items
         .where((element) => element.operationType == 'Gider')
-        .fold(0, (previousValue, element) => previousValue + element.amount!);
+        .fold(0, (previousValue, element) => previousValue + element.realAmount!);
 
     double result = totalAmount - totalAmount2;
     String formattedResult = result.toStringAsFixed(1);
-    List amountList = [totalAmount,totalAmount2,formattedResult,result];
+    List amountList = [totalAmount,totalAmount2.toStringAsFixed(1),formattedResult,result];
     return Future.value(amountList);
   }
 
@@ -96,6 +98,8 @@ class DailyInfoRiverpod extends ChangeNotifier {
     await SQLHelper.updateRegistration(id, newRegistrationValue);
   }
 
+  bool refrestst = false ;
+
   late List<SpendInfo> item;
   late  int index;
   setSpendDetail(List<SpendInfo> item, int index){
@@ -104,6 +108,13 @@ class DailyInfoRiverpod extends ChangeNotifier {
   }
   getSpendDetailItem(){
     return item;
+  }
+  setSpendDetailItemWithId(int id) async{
+    List<SpendInfo> item = await SQLHelper.getItemsWithId(id);
+    this.item = item;
+    index =0;
+    refrestst = !refrestst;
+    notifyListeners();
   }
   getSpendDetailIndex(){
     return index;
