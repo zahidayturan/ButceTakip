@@ -1,7 +1,9 @@
 import 'package:butcekontrol/Riverpod/update_data_riverpod.dart';
 import 'package:butcekontrol/Riverpod/appbar_type_2_riverpod.dart';
 import 'package:butcekontrol/Riverpod/settings_riverpod.dart';
+import 'package:butcekontrol/riverpod/currency_riverpod.dart';
 import 'package:butcekontrol/riverpod/ggl_drive_riverpod.dart';
+import 'package:butcekontrol/riverpod/montly_info_riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'Riverpod/bottom_nav_bar_riverpod.dart';
 import 'Riverpod/database_provider.dart';
@@ -10,6 +12,7 @@ import 'Riverpod/category_info_riverpod.dart';
 import 'Riverpod/daily_info_riverpod.dart';
 import 'Riverpod/home_riverpod.dart';
 import 'Riverpod/statistics_riverpod.dart';
+import 'Riverpod/asset_riverpod.dart';
 
 final botomNavBarRiverpod = ChangeNotifierProvider((ref) => BottomNavBarRiverpod());
 final databaseRiverpod = ChangeNotifierProvider((ref) => DbProvider());
@@ -22,3 +25,6 @@ final categoryInfoRiverpod = ChangeNotifierProvider((ref) => CategoryInfoRiverpo
 final settingsRiverpod = ChangeNotifierProvider((ref) => SettingsRiverpod());
 final updateDataRiverpod = ChangeNotifierProvider((ref) => UpdateDataRiverpod());
 final gglDriveRiverpod = ChangeNotifierProvider((ref) => GglDriveRiverpod());
+final currencyRiverpod = ChangeNotifierProvider((ref) => CurrencyRiverpod());
+final montlyInfoRiverpod = ChangeNotifierProvider((ref) => MontlyInfoRiverpod());
+final assetRiverpod = ChangeNotifierProvider((ref) => AssetRiverpod());

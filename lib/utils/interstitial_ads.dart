@@ -26,7 +26,7 @@ class InterstitialAdManager {
     if (_isAdLoaded) {
       _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
         onAdDismissedFullScreenContent: (ad) {
-          Navigator.of(context).pop();
+          //Navigator.of(context).pop();
           _interstitialAd!.dispose();
           _isAdLoaded = false;
         },

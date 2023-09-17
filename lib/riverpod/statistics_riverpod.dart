@@ -1,623 +1,609 @@
 import 'dart:async';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/models/spend_info.dart';
+import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
+import 'package:intl/intl.dart';
 
 class StatisticsRiverpod extends ChangeNotifier {
+    /*String operationType = 'Gider';
+    int day = DateTime.now().day;
+    int month = DateTime.now().month;
+    int year = DateTime.now().year;
+    int week = 1;
+    int range1 = 1;
+    int range2 = 1;
+    int dateType = 1 ;
+    int registration = 0;
+    List<String> operationTool = ['Hepsi'];
 
-  List<String> giderKategorileri = [
-    "Yemek",
-    "Giyim",
-    "Eğlence",
-    "Eğitim",
-    "Aidat/Kira",
-    "Alışveriş",
-    "Özel-",
-    "Ulaşım",
-    "Sağlık",
-    "Günlük Yaşam",
-    "Hobi",
-    "Diğer-"
-  ];
-  List<String> gelirKategorileri = [
-    "Harçlık",
-    "Burs",
-    "Maaş",
-    "Kredi",
-    "Özel+",
-    "Kira/Ödenek",
-    "Fazla Mesai",
-    "İş Getirisi",
-    "Döviz Getirisi",
-    "Yatırım Getirisi",
-    "Diğer+"
-  ];
-  List<String> hepsiKategorileri = [
-    "Yemek",
-    "Giyim",
-    "Eğlence",
-    "Eğitim",
-    "Aidat/Kira",
-    "Alışveriş",
-    "Özel-",
-    "Ulaşım",
-    "Sağlık",
-    "Günlük Yaşam",
-    "Hobi",
-    "Diğer-",
-    "Harçlık",
-    "Burs",
-    "Maaş",
-    "Kredi",
-    "Özel+",
-    "Kira/Ödenek",
-    "Fazla Mesai",
-    "İş Getirisi",
-    "Döviz Getirisi",
-    "Yatırım Getirisi",
-    "Diğer+",
-  ];
-  List<String> giderKategorileri2 = [
-    "Yemek",
-    "Giyim",
-    "Eğlence",
-    "Eğitim",
-    "Aidat/\nKira",
-    "Alışveriş",
-    "Özel-",
-    "Ulaşım",
-    "Sağlık",
-    "Günlük \nYaşam",
-    "Hobi",
-    "Diğer-"
-  ];
-  List<String> gelirKategorileri2 = [
-    "Harçlık",
-    "Burs",
-    "Maaş",
-    "Kredi",
-    "Özel+",
-    "Kira/\nÖdenek",
-    "Fazla \nMesai",
-    "İş Getirisi",
-    "Döviz \nGetirisi",
-    "Yatırım \nGetirisi",
-    "Diğer+"
-  ];
-  List<String> hepsiKategorileri2 = [
-    "Yemek",
-    "Giyim",
-    "Eğlence",
-    "Eğitim",
-    "Aidat/\nKira",
-    "Alışveriş",
-    "Özel-",
-    "Ulaşım",
-    "Sağlık",
-    "Günlük\nYaşam",
-    "Hobi",
-    "Diğer-",
-    "Harçlık",
-    "Burs",
-    "Maaş",
-    "Kredi",
-    "Özel+",
-    "Kira/\nÖdenek",
-    "Fazla \nMesai",
-    "İş Getirisi",
-    "Döviz \nGetirisi",
-    "Yatırım \nGetirisi",
-    "Diğer+",
-  ];
-  List<double> giderKategoriTutarlari = [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ];
-  List<double> hepsiKategoriTutarlari = [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ];
-  List<double> gelirKategoriTutarlari = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+   getOperationTools(String operationType, int regOperation, List<String> operationTool, int dateType, int year, int month, int week, int day, int range1, int range2){
+     this.operationType = operationType;
+     this.registration = regOperation;
+     this.operationTool = operationTool;
+     this.dateType = dateType;
+     this.day = day;
+     this.month = month;
+     this.year = year;
+     this.week = week;
+     this.range1 = range1;
+     this.range2 = range2;
+  }*/
 
-  ///metin için liste
-  Future <List<Map<String, dynamic>>> getCategoryByMonth(int dataType, String type, int year, int month, int week, int day) async {
-    List<double> categoryBaseAmounts = [];
-    List <String> categoryBaseType = [];
-    if(dataType ==  1){
-      List<SpendInfo> items = await SQLHelper.getItemsByOperationYear(
-          year.toString());
+    Future <List<Map<String, dynamic>>> getCategoryList(String operationType, int registration, List<String> operationTool, int dateType, int year, int month, int week, int day, DateTime? range1, DateTime? range2) async {
 
-      List<double> categoryAmounts;
+      List <SpendInfo> filteredList = [];
+      List<Map<String, dynamic>> groupedItems = [];
 
-      if (type == 'Gider') {
+      String operationTool1 = operationTool[0];
+      String operationTool2 = operationTool.length == 2 ?  operationTool[1] : '';
+      DateTime initialStartDate = DateFormat("dd.MM.yyyy").parse('15.${DateTime.now().day > 15 ? DateTime.now().month : DateTime.now().month - 1}.${DateTime.now().year}');
+      DateTime initialEndDate = DateFormat("dd.MM.yyyy").parse('15.${DateTime.now().day > 15 ? DateTime.now().month+1 : DateTime.now().month}.${DateTime.now().year}');
+      DateTime firstDate = range1 ?? initialStartDate ;
+      DateTime secondDate = range2 ?? initialEndDate ;
 
-        for (var i = 0; i < giderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == giderKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          giderKategoriTutarlari[i] = amount;
+      if(dateType ==  0){
+        List<SpendInfo> items = await SQLHelper.getItemsByOperationYear(year.toString());
+        if(operationType == 'Hepsi'){
+          filteredList = items;
+        }else{
+          List<SpendInfo> filteredList1 = items
+              .where((element) => element.operationType == operationType)
+              .toList();
+          filteredList = filteredList1;
         }
-        categoryAmounts = giderKategoriTutarlari;
-      }
-      else if (type == 'Hepsi'){
 
-        for (var i = 0; i < hepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == hepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+        filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
 
-          hepsiKategoriTutarlari[i] = amount;
+        if(operationTool1 == 'Hepsi'){
         }
-        categoryAmounts = hepsiKategoriTutarlari;
-      }
-      else {
-
-        for (var i = 0; i < gelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == gelirKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          gelirKategoriTutarlari[i] = amount;
+        else if(operationTool.length == 1 && operationTool1 != 'Hepsi'){
+          filteredList = filteredList.where((element) => element.operationTool == operationTool1)
+            .toList();
         }
-        categoryAmounts = gelirKategoriTutarlari;
-      }
-      categoryBaseAmounts = categoryAmounts;
-    }
-    else if(dataType  == 2 ){
-      List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(
-          month.toString(), year.toString());
-
-      List<double> categoryAmounts;
-
-      if (type == 'Gider') {
-        for (var i = 0; i < giderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == giderKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          giderKategoriTutarlari[i] = amount;
+        else{
+          List<SpendInfo> filteredList1 = filteredList
+              .where((element) => element.operationTool == operationTool1 || element.operationTool == operationTool2)
+              .toList();
+          filteredList = filteredList1;
         }
-        categoryAmounts = giderKategoriTutarlari;
+
+        filteredList.forEach((element) {
+          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category);
+          if (existingCategoryIndex != -1) {
+            groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
+          } else {
+            groupedItems.add({'category': element.category, 'realAmount': element.realAmount});
+          }
+        });
+
+        groupedItems.forEach((item) {
+          double totalAmount = groupedItems.fold(0, (sum, item) => sum + item['realAmount']);
+          double percentages = (item['realAmount'] as double) / totalAmount * 100;
+          item['percentages'] = percentages.toStringAsFixed(1);
+        });
+
+        groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
+
+
       }
-      else if (type == 'Hepsi'){
-
-        for (var i = 0; i < hepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == hepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          hepsiKategoriTutarlari[i] = amount;
+      else if(dateType  == 1 ){
+        List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(
+            month.toString(), year.toString());
+        if(operationType == 'Hepsi'){
+          filteredList = items;
+        }else{
+          List<SpendInfo> filteredList1 = items
+              .where((element) => element.operationType == operationType)
+              .toList();
+          filteredList = filteredList1;
         }
-        categoryAmounts = hepsiKategoriTutarlari;
-      }
-      else {
 
-        for (var i = 0; i < gelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == gelirKategorileri[i])
+        filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
 
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          gelirKategoriTutarlari[i] = amount;
+        if(operationTool1 == 'Hepsi'){
         }
-        categoryAmounts = gelirKategoriTutarlari;
-      }
-      categoryBaseAmounts = categoryAmounts;
-    }
-    else if(dataType  == 3 ){
-      var date = DateTime.utc(year, month, 1);
-      var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
-      var startDate = date.add(Duration(days: daysToAdd));
-      var endDate = startDate.add(const Duration(days: 6));
-      List<List<SpendInfo>> allSpendInfo = [];
-      for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
-        var date = startDate.add(Duration(days: i));
-        List<SpendInfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
-            date.day.toString(), date.month.toString(), date.year.toString());
-        allSpendInfo.add(spendInfo);
-      }
-      List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
-
-
-
-      //List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear('24','04','2023');
-      List<double> categoryAmounts;
-
-      if (type == 'Gider') {
-        for (var i = 0; i < giderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == giderKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          giderKategoriTutarlari[i] = amount;
+        else if(operationTool.length == 1 && operationTool1 != 'Hepsi'){
+          filteredList = filteredList.where((element) => element.operationTool == operationTool1)
+              .toList();
         }
-        categoryAmounts = giderKategoriTutarlari;
-      }
-      else if (type == 'Hepsi'){
-        for (var i = 0; i < hepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == hepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          hepsiKategoriTutarlari[i] = amount;
+        else{
+          List<SpendInfo> filteredList1 = filteredList
+              .where((element) => element.operationTool == operationTool1 || element.operationTool == operationTool2)
+              .toList();
+          filteredList = filteredList1;
         }
-        categoryAmounts = hepsiKategoriTutarlari;
-      }
-      else {
-        for (var i = 0; i < gelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == gelirKategorileri[i])
 
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          gelirKategoriTutarlari[i] = amount;
+        filteredList.forEach((element) {
+          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category);
+          if (existingCategoryIndex != -1) {
+            groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
+          } else {
+            groupedItems.add({'category': element.category, 'realAmount': element.realAmount});
+          }
+        });
+
+        groupedItems.forEach((item) {
+          double totalAmount = groupedItems.fold(0, (sum, item) => sum + item['realAmount']);
+          double percentages = (item['realAmount'] as double) / totalAmount * 100;
+          item['percentages'] = percentages.toStringAsFixed(1);
+        });
+
+        groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
+
+      }
+      else if(dateType  == 2 ){
+        var date = DateTime.utc(year, month, 1);
+        var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
+        var startDate = date.add(Duration(days: daysToAdd));
+        var endDate = startDate.add(const Duration(days: 6));
+        List<List<SpendInfo>> allSpendInfo = [];
+        for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
+          var date = startDate.add(Duration(days: i));
+          List<SpendInfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
+              date.day.toString(), date.month.toString(), date.year.toString());
+          allSpendInfo.add(spendInfo);
         }
-        categoryAmounts = gelirKategoriTutarlari;
-      }
-      categoryBaseAmounts = categoryAmounts;
-    }
-    else if(dataType  == 4 ){
-      List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(),
-          month.toString(), year.toString());
-
-      List<double> categoryAmounts;
-
-      if (type == 'Gider') {
-        for (var i = 0; i < giderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == giderKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          giderKategoriTutarlari[i] = amount;
+        List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
+        if(operationType == 'Hepsi'){
+          filteredList = items;
+        }else{
+          List<SpendInfo> filteredList1 = items
+              .where((element) => element.operationType == operationType)
+              .toList();
+          filteredList = filteredList1;
         }
-        categoryAmounts = giderKategoriTutarlari;
-      }
-      else if (type == 'Hepsi'){
-        for (var i = 0; i < hepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == hepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
 
-          hepsiKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = hepsiKategoriTutarlari;
-      }
-      else {
-        for (var i = 0; i < gelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == gelirKategorileri[i])
+        filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
 
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          gelirKategoriTutarlari[i] = amount;
+        if(operationTool1 == 'Hepsi'){
         }
-        categoryAmounts = gelirKategoriTutarlari;
+        else if(operationTool.length == 1 && operationTool1 != 'Hepsi'){
+          filteredList = filteredList.where((element) => element.operationTool == operationTool1)
+              .toList();
+        }
+        else{
+          List<SpendInfo> filteredList1 = filteredList
+              .where((element) => element.operationTool == operationTool1 || element.operationTool == operationTool2)
+              .toList();
+          filteredList = filteredList1;
+        }
+
+        filteredList.forEach((element) {
+          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category);
+          if (existingCategoryIndex != -1) {
+            groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
+          } else {
+            groupedItems.add({'category': element.category, 'realAmount': element.realAmount});
+          }
+        });
+
+        groupedItems.forEach((item) {
+          double totalAmount = groupedItems.fold(0, (sum, item) => sum + item['realAmount']);
+          double percentages = (item['realAmount'] as double) / totalAmount * 100;
+          item['percentages'] = percentages.toStringAsFixed(1);
+        });
+
+        groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
+
+
       }
-      categoryBaseAmounts = categoryAmounts;
+      else if(dateType  == 3 ){
+        List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(),
+            month.toString(), year.toString());
+        if(operationType == 'Hepsi'){
+          filteredList = items;
+        }else{
+          List<SpendInfo> filteredList1 = items
+              .where((element) => element.operationType == operationType)
+              .toList();
+          filteredList = filteredList1;
+        }
+
+        filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
+
+        if(operationTool1 == 'Hepsi'){
+        }
+        else if(operationTool.length == 1 && operationTool1 != 'Hepsi'){
+          filteredList = filteredList.where((element) => element.operationTool == operationTool1)
+              .toList();
+        }
+        else{
+          List<SpendInfo> filteredList1 = filteredList
+              .where((element) => element.operationTool == operationTool1 || element.operationTool == operationTool2)
+              .toList();
+          filteredList = filteredList1;
+        }
+
+        filteredList.forEach((element) {
+          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category);
+          if (existingCategoryIndex != -1) {
+            groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
+          } else {
+            groupedItems.add({'category': element.category, 'realAmount': element.realAmount});
+          }
+        });
+
+        groupedItems.forEach((item) {
+          double totalAmount = groupedItems.fold(0, (sum, item) => sum + item['realAmount']);
+          double percentages = (item['realAmount'] as double) / totalAmount * 100;
+          item['percentages'] = percentages.toStringAsFixed(1);
+        });
+
+        groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
+
+      }
+      else if(dateType  == 4 ){
+        List<List<SpendInfo>> allSpendInfo = [];
+        for (var i = 0; i <= secondDate.difference(firstDate).inDays; i++) {
+          var date = firstDate.add(Duration(days: i));
+          List<SpendInfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
+              date.day.toString(), date.month.toString(), date.year.toString());
+          allSpendInfo.add(spendInfo);
+        }
+        List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
+        if(operationType == 'Hepsi'){
+          filteredList = items;
+        }else{
+          List<SpendInfo> filteredList1 = items
+              .where((element) => element.operationType == operationType)
+              .toList();
+          filteredList = filteredList1;
+        }
+
+        filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
+
+        if(operationTool1 == 'Hepsi'){
+        }
+        else if(operationTool.length == 1 && operationTool1 != 'Hepsi'){
+          filteredList = filteredList.where((element) => element.operationTool == operationTool1)
+              .toList();
+        }
+        else{
+          List<SpendInfo> filteredList1 = filteredList
+              .where((element) => element.operationTool == operationTool1 || element.operationTool == operationTool2)
+              .toList();
+          filteredList = filteredList1;
+        }
+
+        filteredList.forEach((element) {
+          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category);
+          if (existingCategoryIndex != -1) {
+            groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
+          } else {
+            groupedItems.add({'category': element.category, 'realAmount': element.realAmount});
+          }
+        });
+
+        groupedItems.forEach((item) {
+          double totalAmount = groupedItems.fold(0, (sum, item) => sum + item['realAmount']);
+          double percentages = (item['realAmount'] as double) / totalAmount * 100;
+          item['percentages'] = percentages.toStringAsFixed(1);
+        });
+
+        groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
+      }
+      return Future.value(groupedItems.length > 24 ? groupedItems.sublist(0,23): groupedItems);
     }
 
-    if(type == 'Gider'){
-      categoryBaseType = giderKategorileri;
-    }
-    else if(type == 'Hepsi'){
-      categoryBaseType = hepsiKategorileri;
-    }
-    else{
-      categoryBaseType = gelirKategorileri;
-    }
-
-    double total = categoryBaseAmounts.fold(0, (a, b) => a + b);
-    List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(1))).toList();
-    List<Map<String, dynamic>> listMap = [];
-    for (int i = 0; i < categoryBaseAmounts.length; i++) {
-      if (categoryBaseAmounts[i] != 0) {
-        Map<String, dynamic> map = {
-          'category': categoryBaseType[i],
-          'percentages': percentages[i],
-          'amount': categoryBaseAmounts[i],
-        };
-        listMap.add(map);
-      }
-    }
-    listMap.sort((a, b) => b['amount'].compareTo(a['amount']));
-    return Future.value(listMap);
-  }
   ///pasta için liste
-  Future <List<Map<String, dynamic>>> getCategoryAndAmount(int dataType,String type, int year, int month, int week, int day) async {
-    List<double> categoryBaseAmounts = [];
-    List <String> categoryBaseType = [];
-    if(dataType == 1){
-      List<SpendInfo> items = await SQLHelper.getItemsByOperationYear(
-          year.toString());
-      List<double> categoryAmounts;
+  Future <List<Map<String, dynamic>>> getCategoryAndAmount(String operationType, int registration, List<String> operationTool, int dateType, int year, int month, int week, int day, DateTime? range1, DateTime? range2) async {
+    List <SpendInfo> filteredList = [];
+    List<Map<String, dynamic>> groupedItems = [];
 
-      if (type == 'Gider') {
-        for (var i = 0; i < giderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == giderKategorileri[i])
+    String operationTool1 = operationTool[0];
+    String operationTool2 = operationTool.length == 2 ?  operationTool[1] : '';
 
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+    DateTime initialStartDate = DateFormat("dd.MM.yyyy").parse('15.${DateTime.now().day > 15 ? DateTime.now().month : DateTime.now().month - 1}.${DateTime.now().year}');
+    DateTime initialEndDate = DateFormat("dd.MM.yyyy").parse('15.${DateTime.now().day > 15 ? DateTime.now().month+1 : DateTime.now().month}.${DateTime.now().year}');
+    DateTime firstDate = range1 ?? initialStartDate ;
+    DateTime secondDate = range2 ?? initialEndDate ;
 
-          giderKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = giderKategoriTutarlari;
-      }
-      else if (type == 'Hepsi'){
-        for (var i = 0; i < hepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == hepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
+    if(dateType == 0){
+      List<SpendInfo> items = await SQLHelper.getItemsByOperationYear(year.toString());
 
-          hepsiKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = hepsiKategoriTutarlari;
-      }
-      else {
-        for (var i = 0; i < gelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == gelirKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          gelirKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = gelirKategoriTutarlari;
+      if(operationType == 'Hepsi'){
+        filteredList = items;
+      }else{
+        List<SpendInfo> filteredList1 = items
+            .where((element) => element.operationType == operationType)
+            .toList();
+        filteredList = filteredList1;
       }
 
-      categoryBaseAmounts = categoryAmounts;
-    }
-    else if(dataType == 2 ){
-      List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(
-          month.toString(), year.toString());
-      List<double> categoryAmounts;
-      if (type == 'Gider') {
-        for (var i = 0; i < giderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == giderKategorileri[i])
+      filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
 
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          giderKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = giderKategoriTutarlari;
+      if(operationTool1 == 'Hepsi'){
       }
-      else if (type == 'Hepsi'){
-        for (var i = 0; i < hepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == hepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          hepsiKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = hepsiKategoriTutarlari;
-      }
-      else {
-        for (var i = 0; i < gelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == gelirKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          gelirKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = gelirKategoriTutarlari;
-      }
-      categoryBaseAmounts = categoryAmounts;
-    }
-    else if(dataType  == 3 ){
-      var date = DateTime.utc(year, month, 1);
-      var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
-      var startDate = date.add(Duration(days: daysToAdd));
-      var endDate = startDate.add(const Duration(days: 6));
-      List<List<SpendInfo>> allSpendInfo = [];
-      for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
-        var date = startDate.add(Duration(days: i));
-        List<SpendInfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
-            date.day.toString(), date.month.toString(), date.year.toString());
-        allSpendInfo.add(spendInfo);
-      }
-      List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
-
-
-
-      //List<spendinfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear('24','04','2023');
-      List<double> categoryAmounts;
-
-      if (type == 'Gider') {
-        for (var i = 0; i < giderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == giderKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          giderKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = giderKategoriTutarlari;
-      }
-      else if (type == 'Hepsi'){
-        for (var i = 0; i < hepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == hepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          hepsiKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = hepsiKategoriTutarlari;
-      }
-      else {
-        for (var i = 0; i < gelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == gelirKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          gelirKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = gelirKategoriTutarlari;
-      }
-      categoryBaseAmounts = categoryAmounts;
-    }
-    else if(dataType  == 4 ){
-      List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(), month.toString(), year.toString());
-      List<double> categoryAmounts;
-      if (type == 'Gider') {
-        for (var i = 0; i < giderKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gider')
-              .where((element) => element.category == giderKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          giderKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = giderKategoriTutarlari;
-      }
-      else if (type == 'Hepsi'){
-
-        for (var i = 0; i < hepsiKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.category == hepsiKategorileri[i])
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-
-          hepsiKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = hepsiKategoriTutarlari;
-      }
-      else {
-
-        for (var i = 0; i < gelirKategorileri.length; i++) {
-          double amount = items
-              .where((element) => element.operationType == 'Gelir')
-              .where((element) => element.category == gelirKategorileri[i])
-
-              .fold(
-              0, (previousValue, element) => previousValue + element.amount!);
-          gelirKategoriTutarlari[i] = amount;
-        }
-        categoryAmounts = gelirKategoriTutarlari;
-      }
-      type == 'Gider' ? categoryBaseType = giderKategorileri : categoryBaseType = gelirKategorileri;
-      categoryBaseAmounts = categoryAmounts;
-    }
-
-    if(type == 'Gider'){
-      categoryBaseType = giderKategorileri2;
-    }
-    else if(type == 'Hepsi'){
-      categoryBaseType = hepsiKategorileri2;
-    }
-    else{
-      categoryBaseType = gelirKategorileri2;
-    }
-    double total = categoryBaseAmounts.fold(0, (a, b) => a + b);
-    List<double> percentages = categoryBaseAmounts.map((amount) => double.parse((amount / total * 100).toStringAsFixed(1))).toList();
-    List<Map<String, dynamic>> listMap = [];
-    for (int i = 0; i < categoryBaseAmounts.length; i++) {
-      if(type != 'Hepsi') {
-        if (percentages[i] >= 5) {
-          Map<String, dynamic> map = {
-            'domain': categoryBaseType[i],
-            'measure': percentages[i]
-          };
-          listMap.add(map);
-        }
+      else if(operationTool.length == 1 && operationTool1 != 'Hepsi'){
+        filteredList = filteredList.where((element) => element.operationTool == operationTool1)
+            .toList();
       }
       else{
-        if (percentages[i] >= 5) {
-          Map<String, dynamic> map = {
-            'domain': categoryBaseType[i],
-            'measure': percentages[i]
-          };
-          listMap.add(map);
-        }
+        List<SpendInfo> filteredList1 = filteredList
+            .where((element) => element.operationTool == operationTool1 || element.operationTool == operationTool2)
+            .toList();
+        filteredList = filteredList1;
       }
+
+      filteredList.forEach((element) {
+        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category);
+        if (existingCategoryIndex != -1) {
+          groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
+        } else {
+          groupedItems.add({'domain': element.category, 'realAmount': element.realAmount});
+        }
+      });
+
+      groupedItems.forEach((item) {
+        double totalAmount = groupedItems.fold(0, (sum, item) => sum + item['realAmount']);
+        double percentages = (item['realAmount'] as double) / totalAmount * 100;
+        item['measure'] = percentages.toInt();
+      });
+
+      groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
+
+      groupedItems.forEach((item) {
+        Map<String, dynamic> newMap = {
+          'domain': item['domain'],
+          'measure': item['measure'],
+        };
+        item.clear();
+        item.addAll(newMap);
+      });
+
     }
-    listMap.sort((a, b) => b['measure'].compareTo(a['measure']));
-    return Future.value(listMap);
+    else if(dateType == 1 ){
+      List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(
+          month.toString(), year.toString());
+      if(operationType == 'Hepsi'){
+        filteredList = items;
+      }else{
+        List<SpendInfo> filteredList1 = items
+            .where((element) => element.operationType == operationType)
+            .toList();
+        filteredList = filteredList1;
+      }
+
+      filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
+
+      if(operationTool1 == 'Hepsi'){
+      }
+      else if(operationTool.length == 1 && operationTool1 != 'Hepsi'){
+        filteredList = filteredList.where((element) => element.operationTool == operationTool1)
+            .toList();
+      }
+      else{
+        List<SpendInfo> filteredList1 = filteredList
+            .where((element) => element.operationTool == operationTool1 || element.operationTool == operationTool2)
+            .toList();
+        filteredList = filteredList1;
+      }
+
+      filteredList.forEach((element) {
+        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category);
+        if (existingCategoryIndex != -1) {
+          groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
+        } else {
+          groupedItems.add({'domain': element.category, 'realAmount': element.realAmount});
+        }
+      });
+
+      groupedItems.forEach((item) {
+        double totalAmount = groupedItems.fold(0, (sum, item) => sum + item['realAmount']);
+        double percentages = (item['realAmount'] as double) / totalAmount * 100;
+        item['measure'] = percentages.toInt();
+      });
+
+      groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
+
+      groupedItems.forEach((item) {
+        Map<String, dynamic> newMap = {
+          'domain': item['domain'],
+          'measure': item['measure'],
+        };
+        item.clear();
+        item.addAll(newMap);
+      });
+
+    }
+    else if(dateType  == 2 ){
+      var date = DateTime.utc(year, month, 1);
+      var daysToAdd = ((week - 1) * 7) - date.weekday + 1;
+      var startDate = date.add(Duration(days: daysToAdd));
+      var endDate = startDate.add(const Duration(days: 6));
+      List<List<SpendInfo>> allSpendInfo = [];
+      for (var i = 0; i <= endDate.difference(startDate).inDays; i++) {
+        var date = startDate.add(Duration(days: i));
+        List<SpendInfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
+            date.day.toString(), date.month.toString(), date.year.toString());
+        allSpendInfo.add(spendInfo);
+      }
+      List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
+      if(operationType == 'Hepsi'){
+        filteredList = items;
+      }else{
+        List<SpendInfo> filteredList1 = items
+            .where((element) => element.operationType == operationType)
+            .toList();
+        filteredList = filteredList1;
+      }
+
+      filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
+
+      if(operationTool1 == 'Hepsi'){
+      }
+      else if(operationTool.length == 1 && operationTool1 != 'Hepsi'){
+        filteredList = filteredList.where((element) => element.operationTool == operationTool1)
+            .toList();
+      }
+      else{
+        List<SpendInfo> filteredList1 = filteredList
+            .where((element) => element.operationTool == operationTool1 || element.operationTool == operationTool2)
+            .toList();
+        filteredList = filteredList1;
+      }
+
+      filteredList.forEach((element) {
+        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category);
+        if (existingCategoryIndex != -1) {
+          groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
+        } else {
+          groupedItems.add({'domain': element.category, 'realAmount': element.realAmount});
+        }
+      });
+
+      groupedItems.forEach((item) {
+        double totalAmount = groupedItems.fold(0, (sum, item) => sum + item['realAmount']);
+        double percentages = (item['realAmount'] as double) / totalAmount * 100;
+        item['measure'] = percentages.toInt();
+      });
+
+      groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
+
+      groupedItems.forEach((item) {
+        Map<String, dynamic> newMap = {
+          'domain': item['domain'],
+          'measure': item['measure'],
+        };
+        item.clear();
+        item.addAll(newMap);
+      });
+
+    }
+    else if(dateType  == 3 ){
+      List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(), month.toString(), year.toString());
+      if(operationType == 'Hepsi'){
+        filteredList = items;
+      }else{
+        List<SpendInfo> filteredList1 = items
+            .where((element) => element.operationType == operationType)
+            .toList();
+        filteredList = filteredList1;
+      }
+
+      filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
+
+      if(operationTool1 == 'Hepsi'){
+      }
+      else if(operationTool.length == 1 && operationTool1 != 'Hepsi'){
+        filteredList = filteredList.where((element) => element.operationTool == operationTool1)
+            .toList();
+      }
+      else{
+        List<SpendInfo> filteredList1 = filteredList
+            .where((element) => element.operationTool == operationTool1 || element.operationTool == operationTool2)
+            .toList();
+        filteredList = filteredList1;
+      }
+
+      filteredList.forEach((element) {
+        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category);
+        if (existingCategoryIndex != -1) {
+          groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
+        } else {
+          groupedItems.add({'domain': element.category, 'realAmount': element.realAmount});
+        }
+      });
+
+      groupedItems.forEach((item) {
+        double totalAmount = groupedItems.fold(0, (sum, item) => sum + item['realAmount']);
+        double percentages = (item['realAmount'] as double) / totalAmount * 100;
+        item['measure'] = percentages.toInt();
+      });
+
+      groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
+
+      groupedItems.forEach((item) {
+        Map<String, dynamic> newMap = {
+          'domain': item['domain'],
+          'measure': item['measure'],
+        };
+        item.clear();
+        item.addAll(newMap);
+      });
+    }
+    else if(dateType  == 4 ){
+      List<List<SpendInfo>> allSpendInfo = [];
+      for (var i = 0; i <= secondDate.difference(firstDate).inDays; i++) {
+        var date = firstDate.add(Duration(days: i));
+        List<SpendInfo> spendInfo = await SQLHelper.getItemsByOperationDayMonthAndYear(
+            date.day.toString(), date.month.toString(), date.year.toString());
+        allSpendInfo.add(spendInfo);
+      }
+      List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
+      if(operationType == 'Hepsi'){
+        filteredList = items;
+      }else{
+        List<SpendInfo> filteredList1 = items
+            .where((element) => element.operationType == operationType)
+            .toList();
+        filteredList = filteredList1;
+      }
+
+      filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
+
+      if(operationTool1 == 'Hepsi'){
+      }
+      else if(operationTool.length == 1 && operationTool1 != 'Hepsi'){
+        filteredList = filteredList.where((element) => element.operationTool == operationTool1)
+            .toList();
+      }
+      else{
+        List<SpendInfo> filteredList1 = filteredList
+            .where((element) => element.operationTool == operationTool1 || element.operationTool == operationTool2)
+            .toList();
+        filteredList = filteredList1;
+      }
+
+      filteredList.forEach((element) {
+        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category);
+        if (existingCategoryIndex != -1) {
+          groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
+        } else {
+          groupedItems.add({'domain': element.category, 'realAmount': element.realAmount});
+        }
+      });
+
+      groupedItems.forEach((item) {
+        double totalAmount = groupedItems.fold(0, (sum, item) => sum + item['realAmount']);
+        double percentages = (item['realAmount'] as double) / totalAmount * 100;
+        item['measure'] = percentages.toInt();
+      });
+
+      groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
+
+      groupedItems.forEach((item) {
+        Map<String, dynamic> newMap = {
+          'domain': item['domain'],
+          'measure': item['measure'],
+        };
+        item.clear();
+        item.addAll(newMap);
+      });
+    }
+
+    return Future.value(groupedItems.length > 24 ? groupedItems.sublist(0,23): groupedItems);
   }
 
 
-  List getMonths() {
+
+  List<String> getMonths(BuildContext context) {
     List<String> monthList = [
-      'Ocak',
-      'Şubat',
-      'Mart',
-      'Nisan',
-      'Mayıs',
-      'Haziran',
-      'Temmuz',
-      'Ağustos',
-      'Eylül',
-      'Ekim',
-      'Kasım',
-      'Aralık'
+      translation(context).january,
+      translation(context).february,
+      translation(context).march,
+      translation(context).april,
+      translation(context).may,
+      translation(context).june,
+      translation(context).july,
+      translation(context).august,
+      translation(context).september,
+      translation(context).october,
+      translation(context).november,
+      translation(context).december,
     ];
     return monthList;
   }
@@ -645,7 +631,7 @@ class StatisticsRiverpod extends ChangeNotifier {
     }
     return days;
   }
-  List getYears() {
+  List<String> getYears() {
     List<String> yearList = [
       '2020',
       '2021',

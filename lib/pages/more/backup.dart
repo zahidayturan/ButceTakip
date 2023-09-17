@@ -1,9 +1,15 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
+import 'package:butcekontrol/pages/more/Help/help_backup.dart';
+import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:butcekontrol/utils/cvs_converter.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import '../../classes/app_bar_for_page.dart';
 import '../../classes/nav_bar.dart';
 import '../../riverpod_management.dart';
@@ -16,30 +22,41 @@ class BackUp extends ConsumerStatefulWidget {
 }
 
 class _BackUpState extends ConsumerState<BackUp> {
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+
   Future <ListResult> ?futureFiles ;
+  int  backupPushCount = 5 ;
+
   @override
-  void initState(){
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
+    if (adCounter! < 1) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
     super.initState();
-    futureFiles = FirebaseStorage.instance.ref("/files").listAll();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
   }
   @override
   Widget build(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
     var readGglAuth = ref.read(gglDriveRiverpod);
     ref.watch(gglDriveRiverpod).RfPageSt;
-    readGglAuth.checkAuthState();
-    //bool isExpandGDrive = false ;
-    //bool isExpandExcel = false ;
     bool isopen = readSetting.isBackUp == 1 ? true : false ; // databaseden alınacak
     CustomColors renkler = CustomColors();
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
     var size = MediaQuery.of(context).size;
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
+          //backgroundColor: const Color(0xffF2F2F2),
           bottomNavigationBar: const NavBar(),
-          appBar: const AppBarForPage(title: "YEDEKLE"),
+          appBar: AppBarForPage(title: translation(context).backupTitle),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),
             child: Column(
@@ -51,22 +68,23 @@ class _BackUpState extends ConsumerState<BackUp> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      color: renkler.arkaRenk,
+                      color: Theme.of(context).indicatorColor,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
                           children: [
-                            const Text(
-                              "Yedeklenme Durumu",
+                            Text(
+                              translation(context).backupStatus,
                               style: TextStyle(
                                 fontFamily: "Nexa3",
+                                color: Theme.of(context).canvasColor,
                               ),
                             ),
                           const Spacer(),
-                          isopen ? const Text("Açık", style: TextStyle(fontFamily: "Nexa3"),)
-                              : const Text("Kapalı", style: TextStyle(fontFamily: "Nexa3"),),
+                          isopen ? Text(translation(context).on, style: TextStyle(fontFamily: "Nexa3",color:  Theme.of(context).canvasColor,),)
+                              : Text(translation(context).off, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor,),),
                           Switch(
-                            activeColor: renkler.sariRenk,
+                            activeColor: Theme.of(context).disabledColor,
                             value: isopen ,
                             onChanged: (bool value) {
                               setState(() {
@@ -85,20 +103,34 @@ class _BackUpState extends ConsumerState<BackUp> {
               if (!isopen) const SizedBox() else ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
-                  color: renkler.arkaRenk,
+                  color: Theme.of(context).indicatorColor,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Google Cloud ile Yedekle",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "Nexa4"
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              translation(context).backupViaGoogleAccount,
+                              style: TextStyle(
+                                height: 1,
+                                fontSize: 16,
+                                fontFamily: "Nexa4",
+                                color: Theme.of(context).canvasColor,
+                              ),
+                            ),
+                            /*
+                            Image.asset(
+                              "assets/image/googleDrive.png",
+                              width: 85,
+                              height: 25,
+                            )
+                            */
+                          ],
                         ),
-                        Divider(thickness: 2.0,color: renkler.sariRenk),
+                        Divider(thickness: 2.0,color: Theme.of(context).disabledColor),
                         readGglAuth.accountStatus == true || readGglAuth.isSignedIn
                           ?Column(
                             children: [
@@ -106,15 +138,15 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Email:", Colors.black,  15),
-                                  TextMod("${readGglAuth.getUserEmail()}", Colors.black, 15),
+                                  TextMod(translation(context).email,  Theme.of(context).canvasColor,  15),
+                                  TextMod("${readGglAuth.getUserEmail()}", Theme.of(context).canvasColor, 15),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Ad ve Soyad:", Colors.black, 15),
+                                  TextMod(translation(context).nameAndSurname, Theme.of(context).canvasColor, 15),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
@@ -125,14 +157,12 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           child: SizedBox(
                                             height : 20,
                                             width: 20,
-                                            child: Container(
-                                                child: Image.network("${readGglAuth.getUserPhotoUrl()}")
-                                            ),
+                                            child: Image.network("${readGglAuth.getUserPhotoUrl()}"),
                                           ),
                                         ),
                                       ),
                                       SizedBox(width: size.width * 0.01),
-                                      TextMod("${readGglAuth.getUserDisplayName()}", Colors.black, 15),
+                                      TextMod("${readGglAuth.getUserDisplayName()}", Theme.of(context).canvasColor, 15),
                                     ],
                                   ),
                                 ],
@@ -141,29 +171,33 @@ class _BackUpState extends ConsumerState<BackUp> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod("Son Yedekleme Tarihi:", Colors.black, 15),
-                                  TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : "Yedeklenmedi", Colors.black, 15),
+                                  TextMod(translation(context).lastBackupDate, Theme.of(context).canvasColor, 15),
+                                  TextMod(readSetting.lastBackup.toString() != '00.00.0000' ? "${readSetting.lastBackup}" : translation(context).notBackedUp, Theme.of(context).canvasColor, 15),
                                 ],
                               ),
                               SizedBox(height: size.height * 0.015),
-                              Divider(thickness: 2.0,color: renkler.sariRenk),
+                              Divider(thickness: 2.0,color: Theme.of(context).disabledColor),
                               SizedBox(height: size.height * 0.01),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
-                                    "Yedeklenme Sıklığı",
-                                    style:TextStyle(
-                                      fontFamily: "Nexa3",
-                                      fontSize: 15  ,
+                                  Expanded(
+                                    child: Text(
+                                      translation(context).backupFrequency,
+                                      style:TextStyle(
+                                        fontFamily: "Nexa3",
+                                        fontSize: 15  ,
+                                        color: Theme.of(context).canvasColor,
+                                      ),
+                                      maxLines: 2,
                                     ),
                                   ),
                                   SizedBox(height: size.height * 0.01),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      toolCustomButton(context),
+                                      backupCustomButton(context),
                                     ],
                                   ),
                                 ],
@@ -173,16 +207,27 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   InkWell(
-                                    onTap: () {
-                                      readGglAuth.downloadFileToDevice();
-                                      //GoogleDrive().uploadFileToGoogleDrive();
+                                    onTap: () async { // geri yükle.
+                                      showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (context) {
+                                          return Center(
+                                              child: CircularProgressIndicator(
+                                                color: Theme.of(context).disabledColor,
+                                                backgroundColor: renkler.koyuuRenk,
+                                              ));
+                                        },
+                                      );
+                                      await readGglAuth.downloadFileToDevice();
+                                      Navigator.of(context).pop();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           backgroundColor:
-                                          Color(0xff0D1C26),
-                                          duration: Duration(seconds: 1),
+                                          const Color(0xff0D1C26),
+                                          duration: const Duration(seconds: 1),
                                           content: Text(
-                                            'Cloud üzerinden Verileriniz Çekildi',
+                                            "Verileriniz İndirildi",
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -193,22 +238,46 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           ),
                                         ),
                                       );
+                                      /*
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          opaque: false, //sayfa saydam olması için
+                                          transitionDuration: const Duration(milliseconds: 1),
+                                          pageBuilder: (context, animation, nextanim) => const listBackUpPopUp(),
+                                          reverseTransitionDuration: const Duration(milliseconds: 1),
+                                          transitionsBuilder: (context, animation, nexttanim, child) {
+                                            return FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                      );
+                                     */
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                       height: 32,
-                                      width: size.width * 0.26,
+                                      width: size.width * 0.32,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
                                           color: renkler.koyuuRenk,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.white,
+                                                blurRadius: 1
+                                            )
+                                          ]
                                         ),
-                                        child: const Center(
+                                        child: Center(
                                           child: Padding(
-                                            padding: EdgeInsets.all(8),
+                                            padding: const EdgeInsets.all(8),
                                             child: Text(
-                                              "Geri Yükle",
+                                              translation(context).restoreData, // geri yükle
                                               style: TextStyle(
-                                                  color: Colors.white,
+                                                height: 1,
+                                                  color: renkler.arkaRenk,
                                                   fontSize: 15,
                                                   fontFamily: "Nexa3"
                                               ),
@@ -219,46 +288,125 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     ),
                                   ),
                                   SizedBox(width:size.width * 0.04),
-                                  InkWell(
-                                    onTap: () async {
-                                      await writeToCvs().then((value) {
-                                        readGglAuth.uploadFileToStorage().then((value) => readGglAuth.refreshPage());
+                                  InkWell( ///upload File restore
+                                    onTap: () async { // Yedekle.
+                                      if (adCounter == 0) {
+                                        _showInterstitialAd(context);
+                                        readSettings.resetAdCounter();
+                                      } else {
+                                        readSettings.useAdCounter();
+                                      }
+                                      final String fileName = "Bka_CSV.cvs" ;
+                                      showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (context) {
+                                          return Center(
+                                              child: CircularProgressIndicator(
+                                                color: Theme.of(context).disabledColor,
+                                                backgroundColor: renkler.koyuuRenk,
+                                              ));
+                                        },
+                                      );
+                                      try{
+                                        await writeToCvs(fileName);
+                                        await readGglAuth.uploadFileToStorage();
                                         readSetting.setLastBackup();
-                                      });
-                                      //readGglAuth.uploadFile();
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          backgroundColor:
-                                          Color(0xff0D1C26),
-                                          duration: Duration(seconds: 1),
-                                          content: Text(
-                                            'Cloud sistemine yüklendi',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontFamily: 'Nexa3',
-                                              fontWeight: FontWeight.w600,
-                                              height: 1.3,
+                                        readSetting.setbackUpAlert(false);
+                                        readGglAuth.refreshPage();
+                                        Navigator.of(context).pop();
+
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            backgroundColor: const Color(0xff0D1C26),
+                                            duration: const Duration(seconds: 1),
+                                            content: Text(
+                                              "Verileriniz Yedeklendi",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontFamily: 'Nexa3',
+                                                fontWeight: FontWeight.w600,
+                                                height: 1.3,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
+                                        );
+
+                                        /*
+                                        await Future.delayed(const Duration(milliseconds: 400));
+                                        await readGglAuth.uploadFileToDrive(fileName).then((value) {
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              backgroundColor: const Color(0xff0D1C26),
+                                              duration: const Duration(seconds: 1),
+                                              content: Text(
+                                                translation(context).uploadedToGoogleDrive,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontFamily: 'Nexa3',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 1.3,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                          readSetting.setLastBackup();
+                                          readSetting.setbackUpAlert(false);
+                                          readGglAuth.refreshPage();
+                                        });
+                                       */
+                                      }catch(e){
+                                        print("HATAAAAAAAAAAA ===============>>>>>>>>>>${e.toString()}");
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            backgroundColor:
+                                            const Color(0xff0D1C26),
+                                            duration: const Duration(seconds: 1),
+                                            content: Text(
+                                              translation(context).backupError,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontFamily: 'Nexa3',
+                                                fontWeight: FontWeight.w600,
+                                                height: 1.3,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      /*
+                                      if(backupPushCount == 0)  {
+                                        readGglAuth.controlListCount();
+                                      }else{
+                                        backupPushCount -= 1 ;
+                                      }
+                                       */
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                       height: 32,
-                                      width: size.width * 0.26,
+                                      width: size.width * 0.32,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
                                           color: renkler.koyuuRenk,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              color: Colors.white,
+                                              blurRadius: 1
+                                            )
+                                          ]
                                         ),
-                                        child: const Center(
+                                        child: Center(
                                           child: Padding(
-                                            padding: EdgeInsets.all(8),
+                                            padding: const EdgeInsets.all(8),
                                             child: Text(
-                                              "Yedekle",
+                                              translation(context).backup,
                                               style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: renkler.arkaRenk,
+                                                height: 1,
                                                   fontSize: 15,
                                                   fontFamily: "Nexa3"
                                               ),
@@ -272,70 +420,142 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
-                              InkWell(
-                                onTap: () async {
-                                  await readGglAuth.signOutWithGoogle();
-                                  readGglAuth.setAccountStatus(false);
-                                },
-                                child: SizedBox(
-                                  width: size.width * 0.56,
-                                  height: 32,
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Color(0xffB72E2E),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, PageRouteBuilder(
+                                          transitionDuration: const Duration(milliseconds: 1),
+                                          pageBuilder: (context, animation, nextanim) => const HelpBackup(),
+                                          reverseTransitionDuration: const Duration(milliseconds: 1),
+                                          transitionsBuilder: (context, animation, nexttanim, child) {
+                                            return FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width : 25,
+                                      height : 25,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Theme.of(context).scaffoldBackgroundColor,
+                                        border: Border.all(
+                                          color: Theme.of(context).canvasColor,
+                                          width: 1
+                                        ),
+                                      ),
+                                      child: Icon(
+                                          Icons.question_mark,
+                                        size: 18,
+                                        color: Theme.of(context).canvasColor,
+                                      ),
                                     ),
-                                    child: const Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: Text(
-                                          "Çıkış Yap",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                              fontFamily: "Nexa3"
+                                  ),
+                                  SizedBox(width: size.width * .08),
+                                  InkWell(
+                                    onTap: () async {
+                                      await readGglAuth.signOutWithGoogle();
+                                      readGglAuth.setAccountStatus(false);
+                                    },
+                                    child: SizedBox(
+                                      width: size.width * 0.56,
+                                      height: 30,
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.white,
+                                                blurRadius: 1
+                                            )
+                                          ],
+                                          gradient: LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [renkler.kirmiziRenk, renkler.koyuuRenk],
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Text(
+                                              translation(context).logOut,
+                                              style: TextStyle(
+                                                height: 1,
+                                                  color: renkler.arkaRenk,
+                                                  fontSize: 15,
+                                                  fontFamily: "Nexa3"
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
+                                ],
                               ),
                             ],
                           )
                           :Column(
                             children: [
-                              SizedBox(height: size.height * 0.005),
+                              SizedBox(height: size.height * 0.02),
                               InkWell(
                                 onTap: () async {
-                                  await readGglAuth.signInWithGoogle();
-                                  readGglAuth.setAccountStatus(true);
+                                    await readGglAuth.signInWithGoogle();
+                                    //await readGglAuth.checkAuthState(ref);
+                                    readGglAuth.setAccountStatus(true);
+                                    readGglAuth.refreshPage();
+
                                 },
                                 child: SizedBox(
                                   width: size.width * 0.56,
-                                  height: 32,
+                                  height: 30,
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Color(0xff2A2895),
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Colors.white,
+                                            blurRadius: 1
+                                        )
+                                      ],
+                                      gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [const Color(0xff2A2895), renkler.koyuuRenk],
+                                      ),
                                     ),
-                                    child: const Center(
+                                    child: Center(
                                       child: Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: Text(
-                                          "Oturum Aç",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                              fontFamily: "Nexa3"
-                                          ),
+                                        padding: const EdgeInsets.all(8),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              "assets/icons/google.png"
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Text(
+                                              translation(context).signIn,
+                                              style: TextStyle(
+                                                  color: renkler.arkaRenk,
+                                                height: 1,
+                                                  fontSize: 15,
+                                                  fontFamily: "Nexa3"
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                             ],
                           ),
                       ],
@@ -343,154 +563,66 @@ class _BackUpState extends ConsumerState<BackUp> {
                   ),
                 ),
               ),
-            ],
+                Spacer(),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                  child: BannerAds(
+                    adSize: AdSize.banner,
+                  ),
+                ),
+              ],
+
           ),
         ),
       ),
       )
     );
   }
-  double heightTool_ = 32;
-  double heightTool2_ = 38;
-  double heightTool3_ = 32;
-  Color _containerColorTool3 = const Color(0xff0D1C26);
-  Color _containerColorTool2 = const Color(0xff0D1C26);
-  Color _containerColorTool = const Color(0xffF2CB05);
-  Color _textColorTool = const Color(0xff0D1C26);
-  Color _textColorTool2 = Colors.white;
-  Color _textColorTool3 = Colors.white;
-  Widget toolCustomButton(BuildContext context) {
+
+  Widget backupCustomButton(BuildContext context) {
     var readSetting = ref.read(settingsRiverpod);
-    if(readSetting.Backuptimes == "Günlük"){
-      setState(() {
-        heightTool2_ = 32;
-        heightTool_ = 26;
-        heightTool3_ = 26;
-        _containerColorTool = const Color(0xffF2CB05);
-        _containerColorTool2 = const Color(0xff0D1C26);
-        _containerColorTool3 = const Color(0xff0D1C26);
-        _textColorTool = const Color(0xff0D1C26);
-        _textColorTool2 = Colors.white;
-        _textColorTool3 = Colors.white;
-      });
-    }else if(readSetting.Backuptimes == "Aylık"){
-      setState(() {
-        heightTool_ = 32;
-        heightTool2_ = 26;
-        heightTool3_ = 26;
-        _containerColorTool2 = const Color(0xffF2CB05);
-        _containerColorTool = const Color(0xff0D1C26);
-        _containerColorTool3 = const Color(0xff0D1C26);
-        _textColorTool = Colors.white;
-        _textColorTool2 = const Color(0xff0D1C26);
-        _textColorTool3 = Colors.white;
-      });
-    }else{
-      setState(() {
-        heightTool_ = 26;
-        heightTool2_ = 26;
-        heightTool3_ = 32;
-        _containerColorTool3 = const Color(0xffF2CB05);
-        _containerColorTool = const Color(0xff0D1C26);
-        _containerColorTool2 = const Color(0xff0D1C26);
-        _textColorTool = Colors.white;
-        _textColorTool2 = Colors.white;
-        _textColorTool3 = const Color(0xff0D1C26);
-      });
-    }
+    int  initialLabelIndex = readSetting.Backuptimes == "Günlük" ? 0 : readSetting.Backuptimes == "Aylık" ? 1 : 2;
     return SizedBox(
-      height: 32,
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 2,bottom: 2),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Color(0xff0D1C26),
-              ),
-              height: 28,
-              width: 156,
-            ),
-          ),
-          Row(
-            children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool,
-                ),
-                height: heightTool2_,
-                child: SizedBox(
-                  width: 60,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          readSetting.setBackuptimes("Günlük");
-                        });
-                      },
-                      child: Text("Günlük",
-                          style: TextStyle(
-                              color: _textColorTool,
-                              fontSize: 13,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool2,
-                ),
-                height: heightTool_,
-                child: SizedBox(
-                  width: 48,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          readSetting.setBackuptimes("Aylık");
-                        });
-                      },
-                      child: Text("Aylık",
-                          style: TextStyle(
-                              color: _textColorTool2,
-                              fontSize: 13,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.fastLinearToSlowEaseIn,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: _containerColorTool3,
-                ),
-                height: heightTool3_,
-                child: SizedBox(
-                  width: 48,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          readSetting.setBackuptimes("Yıllık");
-                        });
-                      },
-                      child: Text("Yıllık",
-                          style: TextStyle(
-                              color: _textColorTool3,
-                              fontSize: 13,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w800))),
-                ),
-              ),
-            ],
-          ),
+      height: 30,
+      child: ToggleSwitch(
+        initialLabelIndex: initialLabelIndex,
+        totalSwitches: 3,
+        labels: [translation(context).dailyBackup, translation(context).monthlyBackup, translation(context).yearlyBackup],
+        activeBgColor: [Theme.of(context).disabledColor],
+        activeFgColor: const Color(0xff0D1C26),
+        inactiveBgColor: const Color(0xff0D1C26),
+        inactiveFgColor: const Color(0xFFE9E9E9),
+        minWidth: 68,
+        cornerRadius: 20,
+        radiusStyle: true,
+        animate: true,
+        curve: Curves.linearToEaseOut,
+        customTextStyles: const [
+          TextStyle(
+              fontSize: 12, fontFamily: 'Nexa3', fontWeight: FontWeight.w800)
         ],
-      ),
+        onToggle: (index) {
+          if (index == 0) {
+            setState(() {
+              readSetting.setBackuptimes("Günlük");
+              initialLabelIndex = 0;
+            });
+          } else if (index == 1) {
+            setState(() {
+              readSetting.setBackuptimes("Aylık");
+            });
+          }
+          else if (index == 2){
+            setState(() {
+              readSetting.setBackuptimes("Yıllık");
+            });
+          }
+          else{
+
+          }
+          initialLabelIndex = index!;
+        },
+      )
     );
   }
 }

@@ -11,6 +11,10 @@ class SettingsInfo {
   String ?securityQu;
   int ?securityClaim ;
   int ?adCounter ;
+  String ?prefixSymbol;
+  int ?monthStartDay;
+  String ?dateFormat;
+  int ?adEventCounter;
 
   SettingsInfo(
       this.prefix,
@@ -23,7 +27,11 @@ class SettingsInfo {
       this.password,
       this.securityQu,
       this.securityClaim,
-      this.adCounter
+      this.adCounter,
+      this.prefixSymbol,
+      this.monthStartDay,
+      this.dateFormat,
+      this.adEventCounter
       );
   SettingsInfo.withId(
       this.id,
@@ -37,8 +45,12 @@ class SettingsInfo {
       this.password,
       this.securityQu,
       this.securityClaim,
-      this.adCounter
-      );
+      this.adCounter,
+      this.prefixSymbol,
+      this.monthStartDay,
+      this.dateFormat,
+      this.adEventCounter
+  );
   Map <String, dynamic> toMap(){
     var map = <String, dynamic>{};
     map["Prefix"] = prefix ;
@@ -52,6 +64,10 @@ class SettingsInfo {
     map["securityQu"] = securityQu ;
     map["securityClaim"] = securityClaim ;
     map["adCounter"] = adCounter ;
+    map["prefixSymbol"] = prefixSymbol ;
+    map["monthStartDay"] = monthStartDay ;
+    map["dateFormat"] = dateFormat ;
+    map["adEventCounter"] = adEventCounter;
     return map ;
   }
   SettingsInfo.fromObject(dynamic o){
@@ -67,5 +83,9 @@ class SettingsInfo {
     securityQu = o["securityQu"];
     securityClaim = o["securityClaim"] as int;
     adCounter = o["adCounter"] as int;
+    prefixSymbol = o["prefixSymbol"] ;
+    monthStartDay = o["monthStartDay"] as int;
+    dateFormat = o["dateFormat"] ;
+    adEventCounter = o["adEventCounter"] as int;
   }
 }

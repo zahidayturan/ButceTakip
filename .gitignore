@@ -45,3 +45,5 @@ app.*.map.json
 /android/app/release
 /android/app/google-services.json
 /lib/utils/ads_helper.dart
+/lib/utils/security_file.dart
+client_secret_997825583670-qpaluv2qd3peoa1hsjph406nlfmn5u04.apps.googleusercontent.com.json

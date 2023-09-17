@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +29,14 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
               height: 60,
               child: Container(
                 width: size.width,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                      ),
+                    ],
                     color: Color(0xff0D1C26),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(100),
@@ -43,8 +51,8 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
               height: 60,
               child: Container(
                 width: 60,
-                decoration: const BoxDecoration(
-                    color: Color(0xffF2CB05),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).disabledColor,
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(100),
                       topRight: Radius.circular(100),
@@ -58,56 +66,63 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
             child: IconButton(
               padding: const EdgeInsets.only(right: 0),
               iconSize: 48,
-              icon: title == "YARDIM"
-                  || title == "YARDIM<"
-                  || title == "AYARLAR"
-                  || title == "İLETİŞİM"
-                  || title == "YEDEKLE"
-                  || title == "GİRİŞ ŞİFRESİ"
-              ?const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
+              icon: title == translation(context).helpTitle
+                  || title == translation(context).helpTitle2
+                  || title == translation(context).settingsTitle
+                  || title == translation(context).contactUsTitle
+                  || title == translation(context).backupTitle
+                  || title == translation(context).loginPasswordTitle
+                  || title == translation(context).myAssets
+              ?Directionality(
+                textDirection: TextDirection.ltr,
+                child: Icon(
+                  Icons.arrow_circle_left_outlined,
+                  color: renkler.yaziRenk,
+                  size: 40,
+                ),
               )
-              :const Icon(
-                Icons.home_outlined,
-                color : Colors.white,
+                  :Icon(
+                Icons.home_rounded,
+                color : renkler.yaziRenk,
                 size: 40,
               ),
+              highlightColor: Theme.of(context).indicatorColor,
               onPressed: () async {
-                if(title == "YARDIM" || title == "AYARLAR" || title == "İLETİŞİM" || title == "YEDEKLE" || title == "YARDIM<"){
+                if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2 || title == translation(context).myAssets){
                   Navigator.of(context).pop();
-                }else if(title == "GİRİŞ ŞİFRESİ") {
+                }else if(title == translation(context).loginPasswordTitle) {
                   if(readsetting.isPassword == 1 && readsetting.Password == "null") {
                     bool confirm = await showDialog(
                       context: context,
                       builder: (context) =>
                           AlertDialog(
                             backgroundColor: renkler.koyuuRenk,
+                            shadowColor: Theme.of(context).highlightColor,
                             title: Row(
                               children: [
                                 Icon(
                                   Icons.warning_amber,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                   size: 35,
                                 ),
                                 const SizedBox(width: 20),
-                                const TextMod("Uyarı", Colors.white, 18),
+                                TextMod(translation(context).warning, Colors.white, 18),
                               ],
                             ),
-                            content:  const TextMod("Herhangi Bir Şifre koymadınız\nŞifre Koymaktan vaz mı geçiyorsunuz ?", Colors.white, 15),
+                            content: TextMod(translation(context).youHaveNotCreatedAnyPasswordWarning, Colors.white, 15),
                             actions: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(20) ,
                                 child: Container(
                                   height: 30,
                                   width: 80,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                   margin: const EdgeInsets.all(5),
                                   child:  InkWell(
                                       onTap: () => Navigator.pop(context, false),
                                       child: SizedBox(
                                           child: Center(
-                                              child: TextMod("Geri Dön", renkler.koyuuRenk, 16)
+                                              child: TextMod(translation(context).yes, renkler.koyuuRenk, 16)
                                           )
                                       )
                                   ) ,
@@ -118,7 +133,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                 child: Container(
                                   height: 30,
                                   width: 80,
-                                  color: renkler.sariRenk,
+                                  color: Theme.of(context).disabledColor,
                                   margin: const EdgeInsets.all(5),
                                   child:  InkWell(
                                       onTap: () {
@@ -128,7 +143,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                                       },
                                       child: SizedBox(
                                           child: Center(
-                                              child: TextMod("Vazgeç", renkler.koyuuRenk, 16)
+                                              child: TextMod(translation(context).no, renkler.koyuuRenk, 16)
                                           )
                                       )
                                   ) ,
@@ -147,11 +162,11 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                     }
                   }else{
                     Navigator.pop(context, true);
-                    }
                   }
-                  else{
-                    read2.setCurrentindex(0);
-                  }
+                }
+                else{
+                  read2.setCurrentindex(0);
+                }
                 //Navigator.of(context).pop();
               },
             ),
@@ -174,3 +189,34 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
     );
   }
 }
+/*
+Positioned(
+              right: 20,
+              top: 20,
+              child: Text(
+                title,
+                style: const TextStyle(
+                  height: 1,
+                  color: Colors.white,
+                  fontFamily: 'NEXA4',
+                  fontSize: 22,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
+ */
+
+/*
+icon: title == translation(context).helpTitle
+                    || title == translation(context).helpTitle2
+                    || title == translation(context).settingsTitle
+                    || title == translation(context).contactUsTitle
+                    || title == translation(context).backupTitle
+                    || title == translation(context).loginPasswordTitle
+                  if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2){
+                  }else if(title == translation(context).loginPasswordTitle) {
+                    if(readsetting.isPassword == 1 && readsetting.Password == "null") {
+                              content:  TextMod(translation(context).youHaveNotCreatedAnyPasswordWarning, Colors.white, 15),
+                                                child: TextMod(translation(context).yes, renkler.koyuuRenk, 16)
+                                ),
+ */

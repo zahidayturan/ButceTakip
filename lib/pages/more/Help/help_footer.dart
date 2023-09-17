@@ -1,3 +1,4 @@
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 
@@ -6,15 +7,25 @@ Widget helpFooter(BuildContext context) {
   var renkler = CustomColors();
   var size = MediaQuery.of(context).size;
   return Container(
-    color: renkler.koyuuRenk,
-    height: size.height / 5.44,
+    height: size.height / 8,
+    decoration: BoxDecoration(
+        color: renkler.koyuuRenk,
+      boxShadow: [
+        BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            spreadRadius: 0.5,
+            blurRadius: 2,
+            offset: Offset(0, -2)
+        )
+      ]
+    ),
     child: Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 4),
           child: Divider(
             thickness: 2.5,
-            color: renkler.sariRenk,
+            color: Theme.of(context).disabledColor,
           ),
         ), // Dividerin bulundugu kisim
         Padding(
@@ -23,11 +34,11 @@ Widget helpFooter(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "FezaiTech Help Center",
+                "FezaiTech ${translation(context).helpCenter}",
                 style: TextStyle(
                   color: renkler.yaziRenk,
                   fontFamily: 'Nexa3',
-                  fontSize: 16,
+                  fontSize: 15,
                 ),
 
               ),
@@ -40,14 +51,14 @@ Widget helpFooter(BuildContext context) {
           ),
         ), // fezai tech help center ve logo
         Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding: const EdgeInsets.only(top: 4),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Copyright ©2023",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 15,
                   fontFamily: 'Nexa3',
                   color: renkler.yaziRenk,
                 ),

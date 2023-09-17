@@ -1,10 +1,9 @@
  import 'package:butcekontrol/UI/password_forget.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/more/password.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sqflite/sqflite.dart';
 
 import '../../riverpod_management.dart';
 
@@ -23,20 +22,28 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
   bool num4 = false;
   List <String> password1list = [];
   String password1 = "" ;
-  String info = "Giriş kodunuzu giriniz.";
+  int abuzer = 0;
+  String abuzerHesapla(BuildContext context){
+    if(abuzer == 0){
+      return translation(context).enterThePasscode;/// giris kodunu giriniz
+    }else if(abuzer == 1){
+      return  translation(context).wrongPassword;///yanlis sifre girdiniz
+    }else{
+      return translation(context).warning;
+    }
+  }
   String errorText = "" ;
   int ?Claim  ;
   bool security = false ;
   CustomColors renkler =  CustomColors();
   @override
   Widget build(BuildContext context) {
-    var readSetting = ref.read(settingsRiverpod) ;
     var size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async  => widget.mode == "admin" ? true : false,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(0xffF2F2F2),
+          //backgroundColor: const Color(0xffF2F2F2),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
             child: SingleChildScrollView(
@@ -56,7 +63,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                       ),
                       const SizedBox(width: 20),
                       Text(
-                        "Vazgeç",
+                        translation(context).goBack,
                         style: TextStyle(
                           color: renkler.koyuuRenk,
                           fontSize: 20,
@@ -65,129 +72,134 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                       )
                     ],
                   )
-                  :const SizedBox(),
-                  SizedBox(height: size.height/60),
+                  :SizedBox(height : size.height * .04),
                   Column(
                     mainAxisAlignment:  MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(height: size.height/15) ,
                       Text(
-                        info,
+                        abuzerHesapla(context),
                         style: TextStyle(
-                            color: renkler.koyuuRenk,
+                            color: Theme.of(context).canvasColor,
                             fontFamily: "Nexa4"
                         ),
                       ),
                     SizedBox(height: size.height/20) ,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(20)),
-                              child: Container(
-                                color: num1 ? Colors.black : const Color(0xffE2E1E1),
-                              ),
-                            )
-                        ),
-                        const SizedBox(width: 10),
-                        SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(20)),
-                              child: Container(
-                                color: num2 ? Colors.black : const Color(0xffE2E1E1),
-                              ),
-                            )
-                        ),
-                        const SizedBox(width: 10),
-                        SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(20)),
-                              child: Container(
-                                color: num3 ? Colors.black : const Color(0xffE2E1E1),
-                              ),
-                            )
-                        ),
-                        const SizedBox(width: 10),
-                        SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(20)),
-                              child: Container(
-                                color: num4 ? Colors.black : const Color(0xffE2E1E1),
-                              ),
-                            )
-                        ),
-                        const SizedBox(width: 10),
-                        IconButton(
-                          icon : const Icon(Icons.backspace),
-                          onPressed: () {
-                              if(num1){
-                                password1list.removeLast();
-                              }
-                              if(num3){
-                                setState(() {
-                                  num3 = false;
-                                });
-                              }else if(num2){
-                                setState(() {
-                                  num2 = false;
-                                });
-                              }else if(num1){
-                                setState(() {
-                                  num1 = false ;
-                                });
-                              }
-                          },
-                        )
-                      ],
-                    ),
-                    SizedBox(height: size.height/30) ,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
-                      child: Column(
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              buton(context, "1"),
-                              buton(context, "2"),
-                              buton(context, "3"),
-                            ],
+                          SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                child: Container(
+                                  color: num1 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
+                                ),
+                              )
                           ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              buton(context, "4"),
-                              buton(context, "5"),
-                              buton(context, "6"),
-                            ],
+                          const SizedBox(width: 10),
+                          SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                child: Container(
+                                  color: num2 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
+                                ),
+                              )
                           ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              buton(context, "7"),
-                              buton(context, "8"),
-                              buton(context, "9"),
-                            ],
+                          const SizedBox(width: 10),
+                          SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                child: Container(
+                                  color: num3 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
+                                ),
+                              )
                           ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              buton(context, "0"),
-                            ],
+                          const SizedBox(width: 10),
+                          SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                child: Container(
+                                  color: num4 ? Theme.of(context).disabledColor : const Color(0xffE2E1E1),
+                                ),
+                              )
+                          ),
+                          const SizedBox(width: 10),
+                          IconButton(
+                            icon : const Icon(Icons.backspace),
+                            onPressed: () {
+                                if(num1){
+                                  password1list.removeLast();
+                                }
+                                if(num3){
+                                  setState(() {
+                                    num3 = false;
+                                  });
+                                }else if(num2){
+                                  setState(() {
+                                    num2 = false;
+                                  });
+                                }else if(num1){
+                                  setState(() {
+                                    num1 = false ;
+                                  });
+                                }
+                            },
                           )
                         ],
+                      ),
+                    ),
+                    SizedBox(height: size.height/30) ,
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buton(context, "1"),
+                                buton(context, "2"),
+                                buton(context, "3"),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buton(context, "4"),
+                                buton(context, "5"),
+                                buton(context, "6"),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buton(context, "7"),
+                                buton(context, "8"),
+                                buton(context, "9"),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                buton(context, "0"),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                       Row(
@@ -210,15 +222,15 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                                       child: SizedBox(
-                                        height: 240,
+                                        height: 220,
                                         child: Column(
                                           children: [
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                const Text(
-                                                  "Şifremi Unuttum",
-                                                  style: TextStyle(
+                                                Text(
+                                                  translation(context).forgotPassword,
+                                                  style: const TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20,
                                                       fontFamily: "Nexa2"
@@ -236,9 +248,10 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                                     onPressed: () {
                                                       Navigator.of(context).pop();
                                                     },
-                                                    icon: const Icon(
+                                                    icon: Icon(
                                                       Icons.clear_rounded,
                                                       size: 30,
+                                                      color: renkler.koyuuRenk,
                                                     ),
                                                   ),
                                                 ),
@@ -249,7 +262,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                    "Merhabalar Sizin için Şifremi unuttum seçeneği oluşturduk ilk şifrenizi oluştururken size sorduğumuz güvenlik sorusu sayesinde işlemlerimizi gerçekleştireceğiz. Unutmayınız doğru seçenek için yalnızca 3 hakkınız var bilemediğiniz takdirde verileriniz silinecektir . Eğer hazırsanız .",
+                                                  translation(context).disablePasswordParagraph,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: renkler.arkaRenk,
@@ -272,7 +285,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                                           backgroundColor:
                                                           const Color(0xff0D1C26),
                                                           builder: (context) {
-                                                            return PasswordForget();
+                                                            return const PasswordForget();
                                                           },
                                                       );
                                                     },
@@ -280,12 +293,13 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                                       height: 25,
                                                       width: 80,
                                                       color: renkler.arkaRenk,
-                                                      child: const Center(
+                                                      child: Center(
                                                         child: Text(
-                                                            "Devam Et",
+                                                          translation(context).continueProcessing,
                                                           style: TextStyle(
                                                             fontSize: 15,
-                                                            fontWeight: FontWeight.bold
+                                                            fontWeight: FontWeight.bold,
+                                                            color: renkler.koyuuRenk
                                                           ),
                                                         ),
                                                       ),
@@ -301,9 +315,9 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                                   },
                                 );
                               },
-                              child: const Text(
-                                "Şifremi Unuttum ?",
-                                style: TextStyle(
+                              child: Text(
+                                translation(context).forgotPassword,
+                                style: const TextStyle(
                                   fontFamily: "Nexa4"
                                 ),
                               )
@@ -371,10 +385,17 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                       print("ps1 = $password1");
                       if (password1 == ref.read(settingsRiverpod).Password ) {
                         setState(() {
-                          info = "Giriş Başarılı" ;
                           password1list.clear();
                           ref.read(settingsRiverpod).setStatus(true);
                           Navigator.of(context).pop();
+                          ref.read(settingsRiverpod).useSecurityClaim(false);
+                          /*
+                          if(widget.mode == "admin"){
+                            Navigator.of(context).pop();
+                            print("POP oldu");
+                          }
+
+                           */
                         });
                         widget.mode == "admin"
                             ?Navigator.push(
@@ -397,7 +418,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                         temizle();
                         password1list.clear();
                         setState(() {
-                          info = "Yanlış Şifre Girdiniz." ;
+                          abuzer = 1;
                           ref.read(settingsRiverpod).setStatus(false);
                         });
                       }
