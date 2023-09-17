@@ -2,6 +2,7 @@ import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
 import 'package:butcekontrol/models/spend_info.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';
@@ -16,16 +17,27 @@ class changeCurrencyPage extends ConsumerStatefulWidget{
 }
 
 class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
   List<String> moneyTypes = ["TRY", "USD", "EUR", "GBP", "KWD", "JOD", "IQD", "SAR"];
   String ?desiredUnit ;
   double amount = 0.0 ;
   double rate = 0.0;
+
+  void initState(){
+    super.initState();
+    _interstitialAdManager.loadInterstitialAd();
+  }
+
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
+  }
   @override
   Widget build(BuildContext context) {
     var errormessage = "";
     var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     var renkler = CustomColors();
+    var adCounter = readSettings.adCounter;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -206,6 +218,12 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                               "moneyType" : moneyType
                             };
                             await SQLHelper.updateDB(widget.data.id, "spendinfo", changes).then((value) => readSettings.setisuseinsert());
+                            if (adCounter == 0) {
+                              _showInterstitialAd(context);
+                              readSettings.resetAdCounter();
+                            } else {
+                              readSettings.useAdCounter();
+                            }
                             Navigator.of(context).pop();
                           }else{//geri mesaj ver.
 

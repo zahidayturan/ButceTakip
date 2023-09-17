@@ -155,6 +155,7 @@
     "calendarSaturday": "Sa",
     "calendarSunday": "Su",
 
+    "calendarMonthStartDayButton" : "The starting day of the month.\nLong Press to Change it",
     "dataForTheDayNotFound": "Data for the day not found!",
 
     "date": "DATE",
@@ -344,8 +345,8 @@
     "calendarPage": "Calendar\nPage",
     "calculatorHelp": "Calculator",
     "backupSystem": "Backup\nSystem",
-    "addEditHelp": "Ad\nEdit",
-    "exchangeSystemHelp": "Foreign Exchange\nSystem",
+    "addEditHelp": "Add\nEdit",
+    "exchangeSystemHelp": "Exchange\nSystem",
 
     "faq": "Frequently Asked Questions",
     "appShutdown": "Application Keeps Shutting Down",

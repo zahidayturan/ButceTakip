@@ -155,6 +155,7 @@
   "calendarSaturday": "Ct",
   "calendarSunday": "Pz",
 
+  "calendarMonthStartDayButton" : "Ayın Başlangıç Günü\nDeğiştirmek İçin Uzun Basın",
   "dataForTheDayNotFound": "Güne ait veri bulunamadı!",
 
   "date": "TARİH",
@@ -329,7 +330,7 @@
   "changeCurrencyWarning": "Bütün kayıtların para birimi, işlem tarihinin döviz kuruna göre şu para birimi ile çevrilecek:",
   "convert": "Çevir",
   "convertMessage": "Para birimi çevriliyor lütfen bekleyiniz",
-  "language": "Dil Desteği",
+  "language": "Dil",
   "dateFormat": "Tarih Formatı",
   "dateFormatSize": "110",
   "dayMonthYear": "Gün.Ay.Yıl",

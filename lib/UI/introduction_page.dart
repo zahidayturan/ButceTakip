@@ -12,6 +12,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -93,38 +94,35 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
       ),
     );
   }
+  int lampCounter = 0;
   Widget lampMode(BuildContext context){
-    CustomColors renkler = CustomColors();
     var readSetting = ref.read(settingsRiverpod);
     var darkMode = readSetting.DarkMode;
     return Padding(
       padding: const EdgeInsets.only(right: 16),
       child: GestureDetector(
         onTap: () {
-          readSetting.setDarkModeNotBool();
+          lampCounter < 5 ? readSetting.setDarkModeNotBool() : null;
+          lampCounter += 1;
+          lampCounter == 10 ? lampCounter = 0 : null;
+          print(lampCounter);
         },
-        child: darkMode == 0
-            ? AnimatedContainer(
-            duration: const Duration(milliseconds: 800),
-            curve: Curves.easeInOut,
-            width: 60,
-            height: 100,
-            child: Image.asset(
-              "assets/icons/lightTheme.png",
-            ))
-            : AnimatedContainer(
-          duration: const Duration(milliseconds: 800),
-          curve: Curves.easeInOut,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: SizedBox(
-                width: 60,
-                height: 80,
-                child: Image.asset(
-                  "assets/icons/darkTheme.png",
-                )),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.linear,
+          width: 50,
+          height: 100,
+          padding: darkMode == 0 ?  EdgeInsets.zero : EdgeInsets.only(bottom: 20,right: 0),
+          child: Image.asset(
+            lampCounter < 5 ?
+            darkMode == 0
+                ? "assets/icons/lightTheme.png"
+                : "assets/icons/darkTheme.png" :
+            darkMode == 0
+                ? "assets/icons/lightTheme2.png"
+                : "assets/icons/darkTheme2.png",
           ),
-        ),
+        )
       ),
     );
   }
@@ -1028,7 +1026,8 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    translation(context).backupYourDataSecurely,
+                    "Verilerinizi oturum açtıktan sonra yedekleyebilirisiniz",
+                    // translation(context).backupYourDataSecurely,
                     style: TextStyle(
                         fontSize: 20,
                         height: 1,
@@ -1056,9 +1055,20 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           ));
                     },
                   );
-                  await readGglAuth.signInWithGoogle();
+                  try{
+                    await readGglAuth.signInWithGoogle();
+                    //await readGglAuth.checkAuthState(ref);
+                    readGglAuth.setAccountStatus(true);
+                    readGglAuth.refreshPage();
+                    readSetting.setisuseinsert();
+                    readSetting.setBackup(true);
+                  }catch(e){
+                    print("Hata var = $e");
+                    await readGglAuth.signOutWithGoogle();
+                  }
+                  /*await readGglAuth.signInWithGoogle();
                   readGglAuth.setAccountStatus(true);
-                  readSetting.setBackup(true);
+                  readSetting.setBackup(true);*/
                   Navigator.of(context).pop();
                   readSetting.setBackuptimes("Aylık");
                   controllerBackUp.nextPage(
@@ -1082,7 +1092,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
               ),
             ),
           ),
-          Padding(
+          /*Padding(
             padding: const EdgeInsets.only(bottom: 40),
             child: Center(
               child: SizedBox(
@@ -1092,7 +1102,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 ),
               ),
             ),
-          ),
+          ),*/
           Align(
             alignment: readSetting.Language == "العربية" ? Alignment.centerLeft : Alignment.centerRight,
             child: Padding(
@@ -1142,10 +1152,11 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
     var darkMode = readSetting.DarkMode;
     var readGglAuth = ref.read(gglDriveRiverpod);
     //ref.watch(gglDriveRiverpod).RfPageSt;
+
     List<String> backUpList = <String>[
-      'Günlük',
-      "Aylık",
-      "Yıllık",
+      translation(context).dailyBackup,
+      translation(context).monthlyBackup,
+      translation(context).yearlyBackup,
     ];
     var size = MediaQuery.of(context).size;
     return Container(
@@ -1202,7 +1213,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                 const BorderRadius.all(Radius.circular(20))),
                         child: Center(
                             child: Text(
-                          "${readGglAuth.getUserEmail()}",
+                          readGglAuth.accountStatus != false ? "${readGglAuth.getUserEmail()}" : "",
                           style: TextStyle(
                               height: 1,
                               fontSize: 18,
@@ -1248,7 +1259,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   isExpanded: true,
                                   hint: Center(
                                     child: Text(
-                                      selectedBackUpType ?? "Aylık",
+                                      selectedBackUpType ?? translation(context).monthlyBackup,
                                       style: TextStyle(
                                           fontSize: 18,
                                           height: 1,
@@ -1274,12 +1285,12 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   value: selectedBackUpType,
                                   onChanged: (String? value) {
                                     setState(() {
-                                      if (value == "Günlük") {
+                                      if (value == translation(context).dailyBackup) {
                                           readSetting.setBackuptimes("Günlük");
-                                      } else if (value == "Aylık") {
+                                      } else if (value == translation(context).monthlyBackup) {
                                           readSetting.setBackuptimes("Aylık");
                                       }
-                                      else if (value == "Yıllık"){
+                                      else if (value == translation(context).yearlyBackup){
                                           readSetting.setBackuptimes("Yıllık");
                                       }
                                       else{

@@ -41,7 +41,8 @@ class GglDriveRiverpod extends ChangeNotifier{
   } //+
 
   Future<UserCredential> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: ['email', drive.DriveApi.driveScope]).signIn();
+    //final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: ['email', drive.DriveApi.driveScope]).signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
@@ -51,6 +52,7 @@ class GglDriveRiverpod extends ChangeNotifier{
     if(googleUser != null){
       setAccountStatus(true);
     }
+
      */
     refreshPage();
     return await FirebaseAuth.instance.signInWithCredential(credential);
@@ -157,11 +159,11 @@ class GglDriveRiverpod extends ChangeNotifier{
     //bu çalışıyor A planı
     //var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
     Directory tempDir = await getTemporaryDirectory();
-    final filePath = "${tempDir.path}/Bka_data.csv";
+    final filePath = "${tempDir.path}/Bka_CSV.cvs";
     final File f = File(filePath) ;
     //googleDrive().uploadFileToDrive(filePath);
     if (f.existsSync()) {
-      Reference storageRef = _storage.ref().child("ButceTakipArchive/${_auth.currentUser?.email}/Bka_CSV.csv");
+      Reference storageRef = _storage.ref().child("ButceTakipArchive/${_auth.currentUser?.email}/Bka_CSV.cvs");
 
       UploadTask uploadTask = storageRef.putFile(f);
       TaskSnapshot taskSnapshot = await uploadTask;
@@ -202,10 +204,10 @@ class GglDriveRiverpod extends ChangeNotifier{
   Future<void> downloadFileToDevice() async {
     //var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
     Directory tempDir = await getTemporaryDirectory();
-    const String fileName = "Bka_data.csv";
+    const String fileName = "Bka_CSV.cvs";
     final filePath = "${tempDir.path}/$fileName";
     final f = File(filePath);
-    Reference storageRef = _storage.ref().child("ButceTakipArchive/${_auth.currentUser?.email}/Bka_CSV.csv");
+    Reference storageRef = _storage.ref().child("ButceTakipArchive/${_auth.currentUser?.email}/Bka_CSV.cvs");
     final downloadTask = storageRef.writeToFile(f);
     downloadTask.snapshotEvents.listen((taskSnapshot) async {
       switch (taskSnapshot.state) {
@@ -214,7 +216,7 @@ class GglDriveRiverpod extends ChangeNotifier{
         case TaskState.paused:
           break;
         case TaskState.success:
-          await restore("Bka_data.csv");
+          await restore("Bka_CSV.cvs");
           break;
         case TaskState.canceled:
           break;
@@ -256,6 +258,7 @@ class GglDriveRiverpod extends ChangeNotifier{
     if(_auth.currentUser != null)  {
       try{
         accountStatus = true;
+        /*
         await _googleSignIn.signInSilently().then((value) async {
           await _initializeDrive(_googleSignIn.currentUser!).then((value) => print("Kullanıcı initalize oldu."));
           await checkFolderID().then((value) {
@@ -263,6 +266,7 @@ class GglDriveRiverpod extends ChangeNotifier{
             print("dosya konumu bulundu.");
           });
         });
+         */
       }catch(e){
         print("INTERNET NOT FOUND FOR USER $e"); ///internetin yokluğu veya oturum süresi dolmasında buraya geliyor.
         readSettings.setErrorStatusBackup("internet");

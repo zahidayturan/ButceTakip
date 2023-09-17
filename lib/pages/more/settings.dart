@@ -6,6 +6,7 @@ import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/more/password.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/banner_ads.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,6 +24,25 @@ class Settings extends ConsumerStatefulWidget {
 
 ///Koyu tema , Yedeklenme durumunun  database ile implementi sağlanrı
 class _SettingsState extends ConsumerState<Settings> {
+
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+
+
+
+  @override
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adEventCounter = readSettings.adEventCounter;
+    if (adEventCounter! < 6) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
+    super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
+  }
+
   List<String> moneyPrefix = <String>[
     'TRY',
     "USD",
@@ -48,7 +68,7 @@ class _SettingsState extends ConsumerState<Settings> {
   List<String> dilDestegi = <String>["Türkçe", "English", "العربية"];
   List<String> monthStartDays = <String>["1", "8", "15", "22", "29"];
   CustomColors renkler = CustomColors();
-
+  int lampCounter = 0;
   @override
   Widget build(BuildContext context) {
     List<String> dateFormats = <String>[
@@ -93,6 +113,7 @@ class _SettingsState extends ConsumerState<Settings> {
     ref
         .watch(settingsRiverpod)
         .isuseinsert;
+    var adEventCounter = readSetting.adEventCounter;
     return Container(
       color: renkler.koyuuRenk,
       child: SafeArea(
@@ -100,11 +121,15 @@ class _SettingsState extends ConsumerState<Settings> {
         child: Scaffold(
           bottomNavigationBar: const NavBar(),
           appBar: AppBarForPage(title: translation(context).settingsTitle),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
-              child:
-              Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
+            child:
+            CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              slivers: [
+              SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -179,7 +204,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                     padding: const EdgeInsets.only(
                                         top: 4, left: 8, right: 8),
                                     child: Text(
-                                      "Dil",
+                                      translation(context).language,
                                       style: const TextStyle(
                                           fontFamily: "Nexa3",
                                           fontSize: 14,
@@ -230,6 +255,12 @@ class _SettingsState extends ConsumerState<Settings> {
                                               .toList(),
                                           value: language,
                                           onChanged: (newValue) {
+                                            if (adEventCounter! <= 0) {
+                                              _showInterstitialAd(context);
+                                              readSetting.resetAdEventCounter();
+                                            } else {
+                                              readSetting.useAdEventCounter();
+                                            }
                                             if (newValue == "Türkçe") {
                                               /// database te Turkce yazılı olduğu için if koşulu kullandık.
                                               readSetting.setLanguage("Turkce");
@@ -405,9 +436,12 @@ class _SettingsState extends ConsumerState<Settings> {
                         ),
                       ],
                     ),
+
                     GestureDetector(
                         onTap: () {
-                          readSetting.setDarkModeNotBool();
+                          lampCounter < 9 ? readSetting.setDarkModeNotBool() : null;
+                          lampCounter += 1;
+                          lampCounter == 12 ? lampCounter = 0 : null;
                         },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 500),
@@ -416,9 +450,13 @@ class _SettingsState extends ConsumerState<Settings> {
                           height: darkMode == 0 ? 100 : 80,
                           //padding: darkMode == 0 ?  EdgeInsets.zero : EdgeInsets.only(bottom: 20),
                           child: Image.asset(
+                            lampCounter < 9 ?
                             darkMode == 0
                                 ? "assets/icons/lightTheme.png"
-                                : "assets/icons/darkTheme.png",
+                                : "assets/icons/darkTheme.png" :
+                            darkMode == 0
+                                ? "assets/icons/lightTheme2.png"
+                                : "assets/icons/darkTheme2.png",
                           ),
 
                         )
@@ -799,7 +837,7 @@ class _SettingsState extends ConsumerState<Settings> {
                             padding: const EdgeInsets.only(
                                 top: 4, left: 8, right: 8),
                             child: Text(
-                              "Para Birimi",
+                              translation(context).currency,
                               style: const TextStyle(
                                   fontFamily: "Nexa3", fontSize: 14, height: 1),
                             ),
@@ -850,7 +888,6 @@ class _SettingsState extends ConsumerState<Settings> {
                                       context,
                                       PageRouteBuilder(
                                         opaque: false,
-                                        //sayfa saydam olması için
                                         transitionDuration:
                                         const Duration(milliseconds: 1),
                                         pageBuilder:
@@ -1090,6 +1127,12 @@ class _SettingsState extends ConsumerState<Settings> {
                                 onChanged: (newValue) {
                                   setState(
                                         () {
+                                          if (adEventCounter! <= 0) {
+                                            _showInterstitialAd(context);
+                                            readSetting.resetAdEventCounter();
+                                          } else {
+                                            readSetting.useAdEventCounter();
+                                          }
                                       readSetting.setMonthStartDay(
                                           int.parse(newValue!));
                                       ref.read(calendarRiverpod).setMonthStartDay(int.parse(newValue!));
@@ -1320,6 +1363,12 @@ class _SettingsState extends ConsumerState<Settings> {
                                 onChanged: (newValue) {
                                   setState(
                                         () {
+                                          if (adEventCounter! <= 0) {
+                                            _showInterstitialAd(context);
+                                            readSetting.resetAdEventCounter();
+                                          } else {
+                                            readSetting.useAdEventCounter();
+                                          }
                                       if (newValue ==
                                           translation(context).dayMonthYear) {
                                         readSetting.setDateFormat("dd.MM.yyyy");
@@ -1389,17 +1438,23 @@ class _SettingsState extends ConsumerState<Settings> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: const BannerAds(
-                    adSize: AdSize.largeBanner,
+                const Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      child: BannerAds(
+                        adSize: AdSize.banner,
+                      ),
+                    ),
                   ),
                 ),
               ]),
             ),
+          ],
           ),
         ),
-      ),
+      ),)
     );
   }
 }

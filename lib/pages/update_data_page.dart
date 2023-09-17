@@ -1,5 +1,6 @@
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/models/spend_info.dart';
+import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,6 @@ class _AddDataState extends State<UpdateData> {
     return const SafeArea(
       bottom: false,
       child: Scaffold(
-        //backgroundColor: Colors.white,
         appBar: _AddAppBar(),
         body: ButtonMenu(),
         bottomNavigationBar: null,
@@ -39,6 +39,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var read = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
+    CustomColors renkler = CustomColors();
     int menuController = ref.read(updateDataRiverpod).getMenuController();
     return Directionality(
       textDirection: TextDirection.ltr,
@@ -74,18 +75,18 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                           "assets/icons/pencil.png",
                           height: 18,
                           width: 18,
-                          color: Colors.white,
+                          color: renkler.yaziRenk,
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 20,right: 20,top: 6),
                         child: Text(
                           menuController == 0 ? translation(context).editTitle : translation(context).addAgainTitle,
-                          style: const TextStyle(
+                          style: TextStyle(
                             height: 1,
                             fontFamily: 'Nexa4',
                             fontSize: 20,
-                            color: Colors.white,
+                            color: renkler.yaziRenk,
                           ),
                         ),
                       ),
@@ -115,7 +116,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                       "assets/icons/remove.png",
                       height: 26,
                       width: 26,
-                      color: Colors.white,
+                      color: renkler.yaziRenk,
                     ),
                     onPressed: () {
                       Navigator.pop(context);
@@ -139,6 +140,20 @@ class ButtonMenu extends ConsumerStatefulWidget {
 }
 
 class _ButtonMenu extends ConsumerState<ButtonMenu> {
+  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+  @override
+  void initState() {
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
+    if (adCounter! < 1) {
+      _interstitialAdManager.loadInterstitialAd();
+    } else {
+    }
+    super.initState();
+  }
+  void _showInterstitialAd(BuildContext context) {
+    _interstitialAdManager.showInterstitialAd(context);
+  }
 
   FocusNode amountFocusNode = FocusNode();
   FocusNode dateFocusNode = FocusNode();
@@ -325,9 +340,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 child: Center(
                   child: Text(
                     translation(context).categoryDetails,
-                    style: const TextStyle(
+                    style: TextStyle(
                       height: 1,
-                      color: Colors.white,
+                      color: renkler.yaziRenk,
                       fontSize: 15,
                       fontFamily: 'Nexa4',
                       fontWeight: FontWeight.w800,
@@ -1883,7 +1898,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                     padding: const EdgeInsets.only(top: 6),
                                                                                     child: SizedBox(
                                                                                       width: size.width * 0.81,
-                                                                                      height: 120,
+                                                                                      height: 140,
                                                                                       child: Container(
                                                                                         decoration: BoxDecoration(
                                                                                             border: Border.all(
@@ -2559,9 +2574,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                               width: 95,
                               child: Center(
                                 child: Text(translation(context).amountDetails,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         height: 1,
-                                        color: Colors.white,
+                                        color: renkler.yaziRenk,
                                         fontSize: 15,
                                         fontFamily: 'Nexa4',
                                         fontWeight: FontWeight.w800)),
@@ -2939,8 +2954,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 width: 70,
                 child: Center(
                   child: Text(translation(context).save,
-                      style: const TextStyle(
-                          color: Colors.white,
+                      style:  TextStyle(
+                          color: renkler.yaziRenk,
                           height: 1,
                           fontSize: 13,
                           fontFamily: 'Nexa4',
@@ -2977,9 +2992,9 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               registration.text = '1';
             });
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.bookmark_add_outlined,
-            color: Colors.white,
+            color: renkler.yaziRenk,
           ));
     }
     else{
@@ -3076,7 +3091,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 padding: const EdgeInsets.only(left: 20,right: 20),
                 child: SizedBox(
                   width: 114,
-                  height: 38,
+                  height: 34,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -3186,8 +3201,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 child: Center(
                   child: Text(
                     translation(context).customize,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
                       fontSize: 15,
                       fontFamily: 'Nexa4',
                       fontWeight: FontWeight.w800,
@@ -3647,6 +3662,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     String alertContent = '';
     int alertOperator = 0;
     double amount = double.tryParse(amount0.text) ?? 0.0;
+    var readSettings = ref.read(settingsRiverpod);
+    var adCounter = readSettings.adCounter;
     void setAlertContent(BuildContext context) {
       if (amount == 0 && category.text.isEmpty) {
         alertContent = translation(context).enterAmountAndCategory;
@@ -3723,6 +3740,12 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         }
                     readHome.setStatus();
                     readDailyInfo.setSpendDetailItemWithId(int.parse(id));
+                    if (adCounter == 0) {
+                      _showInterstitialAd(context);
+                      readSettings.resetAdCounter();
+                    } else {
+                      readSettings.useAdCounter();
+                    }
                     if(menuController == 1){
                       Navigator.of(context).pop();
                     }
@@ -3735,8 +3758,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         duration: const Duration(seconds: 1),
                         content: Text(
                           menuController == 0 ? translation(context).activityUpdated : translation(context).activityAdded,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: renkler.yaziRenk,
                             fontSize: 16,
                             fontFamily: 'Nexa3',
                             fontWeight: FontWeight.w600,

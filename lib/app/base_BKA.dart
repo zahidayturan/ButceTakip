@@ -24,11 +24,16 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       readGglAuth.setAccountStatus(false);
     }else{
       await writeToCvs(fileName);
-      await Future.delayed(const Duration(milliseconds: 500));
+      // await Future.delayed(const Duration(milliseconds: 500));
       try{
+        await readGglAuth.uploadFileToStorage();
+        readSetting.setLastBackup();
+        /*
         await readGglAuth.uploadFileToDrive(fileName).then((value) {
           readSetting.setLastBackup();
         });
+
+         */
       }catch(e){
         print("Yedeklenme sırasında hata saptandı = $e");
         try{
@@ -42,14 +47,15 @@ class _base_BKAState extends ConsumerState<base_BKA> {
           }
         }
       }
-      readGglAuth.controlListCount(); //30 kayıt kontrolu sağlanıyor.
+      //readGglAuth.controlListCount(); //30 kayıt kontrolu sağlanıyor.
     }
   }
 
   Future<void> loadData()  async {
     // örnek gecikme
     DateTime date = DateTime.now();
-    final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
+    final String fileName = "Bka_CSV.cvs" ;
+    //final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
     var readSetting =  ref.read(settingsRiverpod); //read okuma işlemleri gerçekleşti
     var readCurrency = ref.read(currencyRiverpod);
     var readGglAuth = ref.read(gglDriveRiverpod);

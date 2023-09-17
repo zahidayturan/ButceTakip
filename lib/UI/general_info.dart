@@ -299,29 +299,34 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                             const BorderRadius.all(Radius.circular(10)),
                                             color: Theme.of(context).disabledColor),
                                         child: FittedBox(
-                                          child: RichText(
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              text: TextSpan(children: [
-                                                TextSpan(
-                                                  text: readdb.getTotalAmount(items)[0],
-                                                  style: TextStyle(
-                                                    fontSize: 19,
-                                                    fontFamily: 'Nexa3',
-                                                    color: Theme.of(context).canvasColor,
-                                                  ),
+                                          child :   Directionality(
+                                        textDirection: readSettings.Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                readdb.getTotalAmount(items)[0],
+                                                style: TextStyle(
+                                                  fontSize: 19,
+                                                  fontFamily: 'Nexa3',
+                                                  color: Theme.of(context).canvasColor,
                                                 ),
-                                                TextSpan(
-                                                  text: readSettings.prefixSymbol,
-                                                  style: TextStyle(
-                                                    height: 1,
-                                                    fontFamily: 'TL',
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Theme.of(context).canvasColor,
-                                                  ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                textDirection: TextDirection.ltr,
+                                              ),
+                                              Text(
+                                                readSettings.prefixSymbol!,
+                                                style: TextStyle(
+                                                  height: 1,
+                                                  fontFamily: 'TL',
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Theme.of(context).canvasColor,
                                                 ),
-                                              ])),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                         ),
                                       ),
                                     ),

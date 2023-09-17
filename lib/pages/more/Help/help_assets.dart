@@ -1,4 +1,6 @@
+import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../../classes/app_bar_for_page.dart';
 import '../../../classes/language.dart';
 import '../../../constans/material_color.dart';
@@ -73,7 +75,13 @@ class HelpAssets extends StatelessWidget {
                         translation(context).assetsPage2
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      const SizedBox(height: 14,),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        child: BannerAds(
+                          adSize: AdSize.banner,
+                        ),
+                      ),
+                      const SizedBox(height: 7,),
                       Text(
                         translation(context).whatYouCanDoOnThisPage
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
@@ -185,40 +193,42 @@ class HelpAssets extends StatelessWidget {
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
-                      Container(
-                          height: 30,
-                          width: 110,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).disabledColor,
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(0.8),
-                                    spreadRadius: 0.5,
-                                    blurRadius: 2,
-                                    offset: const Offset(0, 2)
-                                )
-                              ]
-                          ),
-                          child: Center(child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 6),
-                                child: Container(
-                                  width: 10,
-                                  height: 10,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: renkler.yesilRenk
+                      FittedBox(
+                        child: Container(
+                            height: 30,
+                            //width: 110,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).disabledColor,
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.8),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 2)
+                                  )
+                                ]
+                            ),
+                            child: Center(child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                                  child: Container(
+                                    width: 10,
+                                    height: 10,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: renkler.yesilRenk
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 6,top: 4),
-                                child: Text(translation(context).activeCurrency,style: TextStyle(color: renkler.koyuuRenk,height: 1),),
-                              ),
-                            ],
-                          ))
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 6,top: 4),
+                                  child: Text(translation(context).activeCurrency,style: TextStyle(color: renkler.koyuuRenk,height: 1),),
+                                ),
+                              ],
+                            ))
+                        ),
                       ),
                       const SizedBox(height: 14,),
                       Text(

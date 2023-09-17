@@ -3,8 +3,10 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/fezai_checkbox.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class HelpCalculator extends StatelessWidget {
   const HelpCalculator({Key? key}) : super(key: key);
@@ -118,7 +120,7 @@ class HelpCalculator extends StatelessWidget {
                             height: 30,
                             width: 70,
                             decoration: BoxDecoration(
-                                color: Theme.of(context).secondaryHeaderColor,
+                                color: Theme.of(context).disabledColor,
                                 borderRadius: BorderRadius.all(Radius.circular(10)),
                             ),
                             child: DropdownButtonHideUnderline(
@@ -194,7 +196,7 @@ class HelpCalculator extends StatelessWidget {
                             height: 30,
                             width: 30,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).secondaryHeaderColor,
+                              color: Theme.of(context).disabledColor,
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                                 boxShadow: [
                                   BoxShadow(
@@ -250,7 +252,13 @@ class HelpCalculator extends StatelessWidget {
                         translation(context).oldExchangeRateCalculation
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
-                      const SizedBox(height: 14,),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        child: BannerAds(
+                          adSize: AdSize.banner,
+                        ),
+                      ),
+                      const SizedBox(height: 7,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [

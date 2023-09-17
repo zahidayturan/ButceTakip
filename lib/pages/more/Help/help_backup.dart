@@ -1,4 +1,6 @@
+import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../../../classes/app_bar_for_page.dart';
 import '../../../classes/language.dart';
@@ -120,7 +122,13 @@ class HelpBackup extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 14,),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        child: BannerAds(
+                          adSize: AdSize.banner,
+                        ),
+                      ),
+                      const SizedBox(height: 7,),
                       Text(
                         translation(context).whatYouCanDoOnThisPage
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,

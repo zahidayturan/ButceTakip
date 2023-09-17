@@ -2,7 +2,9 @@ import 'package:butcekontrol/Pages/more/Help/help_footer.dart';
 import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class HelpCurrency extends StatelessWidget {
   const HelpCurrency({Key? key}) : super(key: key);
@@ -53,21 +55,30 @@ class HelpCurrency extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Text(
-                              translation(context).foreignExchangeSystem,
-                              style: TextStyle(
-                                fontFamily: "Nexa4",
-                                fontSize: 24,
-                                height: 1,
-                                color: Theme.of(context).secondaryHeaderColor,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Text(
+                                translation(context).foreignExchangeSystem,
+                                style: TextStyle(
+                                  fontFamily: "Nexa4",
+                                  fontSize: 24,
+                                  height: 1,
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                ),
+                                maxLines: 2,
                               ),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 14,),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        child: BannerAds(
+                          adSize: AdSize.banner,
+                        ),
+                      ),
+                      const SizedBox(height: 7,),
                       Row(
                         children: [
                           Container(
