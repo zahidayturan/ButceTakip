@@ -8,7 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-
 import '../riverpod_management.dart';
 
 class GoogleAuthClient extends http.BaseClient {
@@ -33,16 +32,16 @@ class GglDriveRiverpod extends ChangeNotifier{
   final FirebaseStorage _storage = FirebaseStorage.instance;
   drive.DriveApi ?_driveApi;
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', drive.DriveApi.driveScope]);
-
+/*
   Future<void> _initializeDrive(GoogleSignInAccount account) async {
     final authHeaders = await account.authHeaders;
     final client = GoogleAuthClient(authHeaders);
     _driveApi = drive.DriveApi(client);
-  } //+
-
+  } //
+ */
   Future<UserCredential> signInWithGoogle() async {
     //final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: ['email', drive.DriveApi.driveScope]).signIn();
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: ['profile', 'email']).signIn();
     final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
@@ -52,10 +51,9 @@ class GglDriveRiverpod extends ChangeNotifier{
     if(googleUser != null){
       setAccountStatus(true);
     }
-
      */
     refreshPage();
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    return FirebaseAuth.instance.signInWithCredential(credential);
   }//+
   Future<String?> checkFolderID() async { // drive içerisinde BütçeTakip adlı dosya var mı kontrolu yapıyor.
     var fileList = await _driveApi!.files.list();
@@ -69,8 +67,8 @@ class GglDriveRiverpod extends ChangeNotifier{
          print('Folder created with ID: ${createdFolder.id}');
          return createdFolder.id ;
        }else{
-         return A!.first.id ;
          print("Dosya Zaten Var");
+         return A!.first.id ;
        }
     } else {
       final folder = drive.File()
@@ -281,6 +279,7 @@ class GglDriveRiverpod extends ChangeNotifier{
       return user.photoURL;
     } else {
       print("hesap açılmamış!!");
+      return null;
     }
   }
   String? getUserEmail(){

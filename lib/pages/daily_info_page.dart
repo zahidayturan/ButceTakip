@@ -7,6 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../UI/spend_detail.dart';
 import 'package:butcekontrol/classes/language.dart';
 
+import '../constans/text_pref.dart';
+
 class DailyInfo extends ConsumerWidget {
   const DailyInfo({Key? key}) : super(key: key);
 
@@ -70,7 +72,33 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
               }
               var item = snapshot.data!; // !
               return Expanded(
-                child: Column(
+                child: item.length == 0
+                  ?Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/image/noInfo.png",
+                        width: 150,
+                        height: 150,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 15,
+                        width: 80,
+                        child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Theme.of(context).canvasColor,
+                            ),
+                            child: Center(child: TextMod(
+                                translation(context).noActivity, Theme.of(context).primaryColor, 11))
+                        ),
+                      ),
+                    ],
+                  )
+                  :Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(

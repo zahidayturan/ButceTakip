@@ -512,13 +512,16 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Image.asset(
-                                        "assets/image/origami_noinfo.png",
-                                        width: 45,
-                                        height: 45,
-                                        color: Theme.of(context).canvasColor,
+                                        "assets/image/noInfo.png",
+                                        width: 75,
+                                        height: 75,
+                                        //color: Theme.of(context).canvasColor,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
                                       ),
                                       SizedBox(
-                                        height: 25,
+                                        height: 20,
                                         width: 140,
                                         child: DecoratedBox(
                                             decoration: BoxDecoration(
@@ -612,7 +615,11 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                   },
                                 );
                               }else{
-                                return CircularProgressIndicator();
+                                return Center(
+                                    child: CircularProgressIndicator(
+                                      color: Theme.of(context).disabledColor,
+                                  )
+                                );
                               }
                             },
                           ),
@@ -622,7 +629,11 @@ class _assetsPage extends ConsumerState<assetsPage> {
                   ),
                 );
               }else{
-                return const CircularProgressIndicator();
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).disabledColor,
+                  )
+                );
               }
             },
           ),

@@ -76,35 +76,38 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                       padding: const EdgeInsets.only(top: 8, bottom: 4),
                       child: dailyTotals.length == 0
                           ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/image/origami_noinfo.png",
-                              width: 45,
-                              height: 45,
-                              color: Theme.of(context).canvasColor,
-                            ),
-                            SizedBox(
-                              height: 22,
-                              width: 85,
-                              child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Theme.of(context).canvasColor,
-                                  ),
-                                  child: Center(
-                                      child: TextMod(
-                                          translation(context).noActivity,
-                                          Theme.of(context).primaryColor,
-                                          14
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/image/noInfo.png",
+                                  width: 80,
+                                  height: 80,
+                                  //color: Theme.of(context).canvasColor,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                SizedBox(
+                                  height: 22,
+                                  width: 85,
+                                  child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Theme.of(context).canvasColor,
+                                      ),
+                                      child: Center(
+                                          child: TextMod(
+                                              translation(context).noActivity,
+                                              Theme.of(context).primaryColor,
+                                              14
+                                          )
                                       )
-                                  )
-                              ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )
+                          )
                           : ListView.builder(
                           controller: scrolbarcontroller1,
                           itemCount: dailyTotals.length,

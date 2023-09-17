@@ -4,15 +4,15 @@ import 'package:butcekontrol/constans/material_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';
-class searchPage extends ConsumerStatefulWidget {
-  const searchPage({Key? key}) : super(key: key);
+class SearchPage extends ConsumerStatefulWidget {
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<searchPage> createState() => _searchPageState();
+  ConsumerState<SearchPage> createState() => _SearchPageState();
 }
 
-class _searchPageState extends ConsumerState<searchPage> {
-  TextEditingController _controller = TextEditingController();
+class _SearchPageState extends ConsumerState<SearchPage> {
+  final TextEditingController _controller = TextEditingController();
   @override
   void dispose() {
     _controller.dispose();
@@ -94,7 +94,10 @@ class _searchPageState extends ConsumerState<searchPage> {
                             ),
                             child: Transform.rotate(
                                 angle: 3.14 / 2,
-                                child: Icon(Icons.swap_horiz)
+                                child: const Icon(
+                                    Icons.swap_horiz,
+                                  color: Colors.black,
+                                )
                             ),
                           ),
                         ),
@@ -122,24 +125,24 @@ class _searchPageState extends ConsumerState<searchPage> {
                   SizedBox(height: size.height * .01),
                   dbRiv.searchListTile?.length == 0 || dbRiv.searchListTile == null
                       ?Padding(
-                    padding:  EdgeInsets.only(top: size.height * .01),
-                    child: Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).disabledColor,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        translation(context).noMatchData,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: "Nexa3",
-                            height: 1
+                        padding:  EdgeInsets.only(top: size.height * .01),
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).disabledColor,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            translation(context).noMatchData,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontFamily: "Nexa3",
+                                height: 1
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  )
-                      :Padding(
+                      )
+                    :Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width * .04),
                     child: SizedBox(
                       height: size.height * .75,

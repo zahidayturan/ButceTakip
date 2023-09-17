@@ -87,7 +87,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                 PageRouteBuilder(
                   opaque: false, //sayfa saydam olması için
                   transitionDuration: const Duration(milliseconds: 1),
-                  pageBuilder: (context, animation, nextanim) => const searchPage(),
+                  pageBuilder: (context, animation, nextanim) => const SearchPage(),
                   reverseTransitionDuration: const Duration(milliseconds: 1),
                   transitionsBuilder: (context, animation, nexttanim, child) {
                     return FadeTransition(

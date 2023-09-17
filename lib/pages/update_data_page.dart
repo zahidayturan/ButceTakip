@@ -1,5 +1,4 @@
 import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
