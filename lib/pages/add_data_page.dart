@@ -2359,11 +2359,13 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                           ],
                                         ),
                                       ),
+                                      /*
                                       Text(
                                         "Debug:${_category.text} - ${convertedCategory} - ${userCategoryController}",
                                         style:
                                         const TextStyle(color: Colors.red),
                                       )
+                                       */
                                     ],
                                   ),
                                 );

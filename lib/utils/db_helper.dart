@@ -72,7 +72,7 @@ class SQLHelper {
   static Future<sql.Database> db() async {
     return sql.openDatabase(
       'bt.db',
-      version: 4,
+      version: 2,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
         await createSettingTable(database);
