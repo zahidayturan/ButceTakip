@@ -483,13 +483,13 @@
     "inactiveCurrency": "Inactive Currency",
 
     "backupSystem1": "BACKUP SYSTEM",
-    "backupSystem2": "All your data is backed up via your Google Drive. For this, you need to log in with your Google account.",
+    "backupSystem2": "All your data is backed up via your Google account. For this, you need to log in with your Google account.",
     "whatYouCanDoOnThisPage": "What you can do on this page",
     "backupSystem4": "By default, automatic backup is active and monthly backups are made by default.",
     "backupSystem5": "When the Backup button is clicked, all your data is backed up by converting them to .csv file.",
-    "backupSystem6": "When the Restore Data button is clicked, the records in the file named \"BütçeTakip\" in your Google Drive will be listed. After that, you can select the file you want to restore.",
+    "backupSystem6": "When the Restore Data button is clicked, the most recently backed up records are downloaded to the application.",
     "backupSystem7": "If you long press on your recording, you can delete the recording you want.",
-    "backupSystem8": "When your records are restored, your existing records are deleted and your selected records are loaded. If the number of your records on Google Drive exceeds 30, your oldest 15 records are deleted.",
+    "backupSystem8": "When your records are restored, your existing records are deleted and your selected records are loaded.",
 
     "assetsPage1": "MY ASSETS PAGE",
     "assetsPage2": "The My Assets page is designed for you to see all your assets.",
