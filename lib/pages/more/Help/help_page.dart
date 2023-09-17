@@ -614,7 +614,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                           ),
                                         ]
                                     ),
-                                    child: const Padding(
+                                    child: Padding(
                                       padding: EdgeInsets.symmetric(horizontal: 8.0),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -626,7 +626,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                           ),
                                           FittedBox(
                                             child: Text(
-                                              "Ekle\nDüzenle",
+                                              translation(context).addEditHelp,
                                               style: TextStyle(
                                                   height: 1,
                                                   color: Color(0xffF2F2F2),
@@ -675,7 +675,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                           ),
                                         ]
                                     ),
-                                    child: const Padding(
+                                    child: Padding(
                                       padding: EdgeInsets.symmetric(horizontal: 8.0),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -687,7 +687,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                           ),
                                           FittedBox(
                                             child: Text(
-                                              "Döviz\nSistemi",
+                                              translation(context).exchangeSystemHelp,
                                               style: TextStyle(
                                                   height: 1,
                                                   color: Color(0xffF2F2F2),

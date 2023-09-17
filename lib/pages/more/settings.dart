@@ -68,7 +68,7 @@ class _SettingsState extends ConsumerState<Settings> {
   List<String> dilDestegi = <String>["Türkçe", "English", "العربية"];
   List<String> monthStartDays = <String>["1", "8", "15", "22", "29"];
   CustomColors renkler = CustomColors();
-
+  int lampCounter = 0;
   @override
   Widget build(BuildContext context) {
     List<String> dateFormats = <String>[
@@ -200,12 +200,12 @@ class _SettingsState extends ConsumerState<Settings> {
                                       size: 18,
                                     ),
                                   ),
-                                  const Padding(
-                                    padding: EdgeInsets.only(
+                                  Padding(
+                                    padding: const EdgeInsets.only(
                                         top: 4, left: 8, right: 8),
                                     child: Text(
-                                      "Dil",
-                                      style: TextStyle(
+                                      translation(context).language,
+                                      style: const TextStyle(
                                           fontFamily: "Nexa3",
                                           fontSize: 14,
                                           height: 1),
@@ -439,7 +439,9 @@ class _SettingsState extends ConsumerState<Settings> {
 
                     GestureDetector(
                         onTap: () {
-                          readSetting.setDarkModeNotBool();
+                          lampCounter < 9 ? readSetting.setDarkModeNotBool() : null;
+                          lampCounter += 1;
+                          lampCounter == 12 ? lampCounter = 0 : null;
                         },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 500),
@@ -448,9 +450,13 @@ class _SettingsState extends ConsumerState<Settings> {
                           height: darkMode == 0 ? 100 : 80,
                           //padding: darkMode == 0 ?  EdgeInsets.zero : EdgeInsets.only(bottom: 20),
                           child: Image.asset(
+                            lampCounter < 9 ?
                             darkMode == 0
                                 ? "assets/icons/lightTheme.png"
-                                : "assets/icons/darkTheme.png",
+                                : "assets/icons/darkTheme.png" :
+                            darkMode == 0
+                                ? "assets/icons/lightTheme2.png"
+                                : "assets/icons/darkTheme2.png",
                           ),
 
                         )
@@ -831,7 +837,7 @@ class _SettingsState extends ConsumerState<Settings> {
                             padding: const EdgeInsets.only(
                                 top: 4, left: 8, right: 8),
                             child: Text(
-                              "Para Birimi",
+                              translation(context).currency,
                               style: const TextStyle(
                                   fontFamily: "Nexa3", fontSize: 14, height: 1),
                             ),

@@ -155,6 +155,7 @@
   "calendarSaturday": "س",
   "calendarSunday": "ح",
 
+  "calendarMonthStartDayButton" : "يعرض هذا الزر يوم بداية الشهر.\n يمكنك تغييره بالضغط المطول.",
   "dataForTheDayNotFound": "لم يتم العثور على بيانات اليوم!",
 
   "date": "التاريخ",

@@ -346,11 +346,18 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     ),
                   ).then((value) => ref.read(botomNavBarRiverpod).setCurrentindex(4));
                 },
-                child: Container(
-                  height: size.height * 0.05,
+                child: Tooltip(
+                  message: translation(context).calendarMonthStartDayButton,
+                  triggerMode: TooltipTriggerMode.tap,
+                  showDuration: const Duration(seconds: 5),
+                  textStyle: TextStyle(
+                      fontSize: 14,
+                      color: renkler.arkaRenk,
+                      height: 1),
+                  textAlign: TextAlign.center,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).disabledColor,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                      borderRadius:
+                      const BorderRadius.all(Radius.circular(5)),
                       boxShadow: darkMode == 1 ? [
                         BoxShadow(
                           color: Colors.black54.withOpacity(0.4),
@@ -364,39 +371,32 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             spreadRadius: 0.5,
                             blurRadius: 2,
                             offset: const Offset(0, 2)
-                        )]
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: Center(
-                      child: FittedBox(
-                        child: Tooltip(
-                          message: "Ayın Başlangıç Günü\nDeğiştirmek İçin Uzun Basın",
-                          triggerMode: TooltipTriggerMode.tap,
-                          showDuration: const Duration(seconds: 2),
-                          textStyle: TextStyle(
-                              fontSize: 13,
-                              color: renkler.arkaRenk,
-                              height: 1),
-                          textAlign: TextAlign.center,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                              const BorderRadius.all(Radius.circular(5)),
-                              boxShadow: darkMode == 1 ? [
-                                BoxShadow(
-                                  color: Colors.black54.withOpacity(0.4),
-                                  spreadRadius: 1,
-                                  blurRadius: 2,
-                                  offset: const Offset(-1, 2),
-                                )
-                              ] : [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 0.5,
-                                    blurRadius: 2,
-                                    offset: const Offset(0, 2)
-                                )],
-                              color: Theme.of(context).highlightColor),
+                        )],
+                      color: Theme.of(context).highlightColor),
+                  child: Container(
+                    height: size.height * 0.05,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).disabledColor,
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                        boxShadow: darkMode == 1 ? [
+                          BoxShadow(
+                            color: Colors.black54.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                            offset: const Offset(-1, 2),
+                          )
+                        ] : [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 0.5,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2)
+                          )]
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Center(
+                        child: FittedBox(
                           child: Text(
                             selectedValueDay.toString(),style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'Nexa4'),
                           ),

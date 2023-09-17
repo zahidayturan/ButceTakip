@@ -114,6 +114,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBarForPage(title: translation(context).calculatorTitle),
+          resizeToAvoidBottomInset: false,
           //backgroundColor: const Color(0xffF2F2F2),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1967,7 +1968,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 SizedBox(
                                   width : size.width*0.33-39,
                                   child: TextField(
-                                    enabled: false,
+                                    readOnly: true,
                                     maxLines: 1,
                                     textAlign: TextAlign.center,
                                     controller: _controllerSecond,
@@ -2088,6 +2089,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
               child: Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 3),
@@ -2110,15 +2112,16 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(
-                        translation(context).calculateFromCurrentExchangeRate,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: "Nexa3",
-                            fontSize: 14
+                      Expanded(
+                        child: Text(
+                          translation(context).calculateFromCurrentExchangeRate,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Nexa3",
+                              fontSize: 14
+                          ),
                         ),
                       ),
-                      const Spacer(),
                       Text(
                         formattedDate,
                         style: TextStyle(
@@ -2129,30 +2132,31 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 30,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 3),
-                          child: fezaiCheckBox(
-                            value: historyRates ,
-                            clickedColor: Theme.of(context).disabledColor,
-                            onChanged: (value) {
-                              if(currentRates){
-                                setState(() {
-                                  currentRates = false;
-                                  historyRates = value;
-                                });
-                                calculateCurrencyConvert(readCurrency, _controllerFirst.text);
-                              }
-                            },
-                          ),
+                  const SizedBox(height: 8,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 3),
+                        child: fezaiCheckBox(
+                          value: historyRates ,
+                          clickedColor: Theme.of(context).disabledColor,
+                          onChanged: (value) {
+                            if(currentRates){
+                              setState(() {
+                                currentRates = false;
+                                historyRates = value;
+                              });
+                              calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                            }
+                          },
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Expanded(
+                        child: Text(
                           translation(context).calculateFromOldExchangeRate,
                           style: const TextStyle(
                               color: Colors.white,
@@ -2160,127 +2164,126 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               fontSize: 14
                           ),
                         ),
-                        const Spacer(),
-                        !historyRates
-                        ?Text(
-                          "...",
-                          style: TextStyle(
-                              color: Theme.of(context).disabledColor,
-                              fontFamily: "Nexa4",
-                              fontSize: 13
-                          ),
-                        )
-                        :FutureBuilder(
-                          future: historyCurrency,
-                          builder: (context, snapshot) {
-                            if(snapshot.hasData){
-                              List<String> Lista = [];
-                              for (var element in snapshot.data!) {
-                                var date = element.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".");
-                                DateTime dateForFormat = DateTime(int.parse(date.split(".")[0]),int.parse(date.split(".")[1]),int.parse(date.split(".")[2]));
-                                Lista.add(intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateForFormat));
-                              }
-                              return Container(
-                                height: 28,
-                                //width: 106,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).disabledColor,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child : DropdownButtonHideUnderline(
-                                  child: DropdownButton2<String>(
-                                    isExpanded: true,
-                                    hint: Center(
-                                      child: Text(
-                                        translation(context).select,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          height: 1,
-                                          fontFamily: 'Nexa3',
-                                          color: renkler.koyuuRenk,
-                                        ),
-                                      ),
-                                    ),
-                                    items: Lista
-                                        .map((item) => DropdownMenuItem(
-                                      value: item,
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 2),
-                                          child: Text(
-                                            item,
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                height: 1,
-                                                fontFamily: 'Nexa3',
-                                                color: renkler.koyuuRenk),
-                                          ),
-                                        ),
-                                      ),
-                                    ))
-                                        .toList(),
-                                    value: date,
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        date = newValue!;
-                                        currency = snapshot.data![Lista.indexOf(newValue)];
-                                      });
-                                      calculateCurrencyConvert(readCurrency, _controllerFirst.text);
-                                    },
-                                    //barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
-                                    buttonStyleData: ButtonStyleData(
-                                      overlayColor: MaterialStatePropertyAll(renkler
-                                          .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                      height: 28,
-                                      width: 110,
-                                    ),
-                                    dropdownStyleData: DropdownStyleData(
-                                      maxHeight: 200,
-                                      width: 110,
-                                      decoration: BoxDecoration(
-                                          color: renkler.sariRenk,
-                                          borderRadius:
-                                          const BorderRadius.all(Radius.circular(5))),
-                                    ),
-                                    menuItemStyleData: MenuItemStyleData(
-                                      overlayColor: MaterialStatePropertyAll(
-                                          renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
-                                      height: 32,
-                                    ),
-                                    iconStyleData: IconStyleData(
-                                      icon: const Icon(
-                                        Icons.arrow_drop_down,
-                                      ),
-                                      iconSize: 24,
-                                      iconEnabledColor:
-                                      renkler.koyuAraRenk,
-                                      iconDisabledColor:
-                                      Theme.of(context).secondaryHeaderColor,
-                                      openMenuIcon: Icon(
-                                        Icons.arrow_drop_up,
-                                        color: Theme.of(context).canvasColor,
-                                        size: 24,
+                      ),
+                      !historyRates
+                      ?Text(
+                        "...",
+                        style: TextStyle(
+                            color: Theme.of(context).disabledColor,
+                            fontFamily: "Nexa4",
+                            fontSize: 13
+                        ),
+                      )
+                      :FutureBuilder(
+                        future: historyCurrency,
+                        builder: (context, snapshot) {
+                          if(snapshot.hasData){
+                            List<String> Lista = [];
+                            for (var element in snapshot.data!) {
+                              var date = element.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".");
+                              DateTime dateForFormat = DateTime(int.parse(date.split(".")[0]),int.parse(date.split(".")[1]),int.parse(date.split(".")[2]));
+                              Lista.add(intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateForFormat));
+                            }
+                            return Container(
+                              height: 28,
+                              //width: 106,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).disabledColor,
+                                borderRadius: BorderRadius.circular(10)
+                              ),
+                              child : DropdownButtonHideUnderline(
+                                child: DropdownButton2<String>(
+                                  isExpanded: true,
+                                  hint: Center(
+                                    child: Text(
+                                      translation(context).select,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        height: 1,
+                                        fontFamily: 'Nexa3',
+                                        color: renkler.koyuuRenk,
                                       ),
                                     ),
                                   ),
+                                  items: Lista
+                                      .map((item) => DropdownMenuItem(
+                                    value: item,
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 2),
+                                        child: Text(
+                                          item,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              height: 1,
+                                              fontFamily: 'Nexa3',
+                                              color: renkler.koyuuRenk),
+                                        ),
+                                      ),
+                                    ),
+                                  ))
+                                      .toList(),
+                                  value: date,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      date = newValue!;
+                                      currency = snapshot.data![Lista.indexOf(newValue)];
+                                    });
+                                    calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                                  },
+                                  //barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
+                                  buttonStyleData: ButtonStyleData(
+                                    overlayColor: MaterialStatePropertyAll(renkler
+                                        .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                    height: 28,
+                                    width: 110,
+                                  ),
+                                  dropdownStyleData: DropdownStyleData(
+                                    maxHeight: 200,
+                                    width: 110,
+                                    decoration: BoxDecoration(
+                                        color: renkler.sariRenk,
+                                        borderRadius:
+                                        const BorderRadius.all(Radius.circular(5))),
+                                  ),
+                                  menuItemStyleData: MenuItemStyleData(
+                                    overlayColor: MaterialStatePropertyAll(
+                                        renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                    height: 32,
+                                  ),
+                                  iconStyleData: IconStyleData(
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down,
+                                    ),
+                                    iconSize: 24,
+                                    iconEnabledColor:
+                                    renkler.koyuAraRenk,
+                                    iconDisabledColor:
+                                    Theme.of(context).secondaryHeaderColor,
+                                    openMenuIcon: Icon(
+                                      Icons.arrow_drop_up,
+                                      color: Theme.of(context).canvasColor,
+                                      size: 24,
+                                    ),
+                                  ),
                                 ),
-                              );
-                            }else{
-                              return Text(
-                                translation(context).loading,
-                                style: TextStyle(
-                                    color: Theme.of(context).disabledColor,
-                                    fontFamily: "Nexa2",
-                                    fontSize: 13
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                      ],
-                    ),
+                              ),
+                            );
+                          }else{
+                            return Text(
+                              translation(context).loading,
+                              style: TextStyle(
+                                  color: Theme.of(context).disabledColor,
+                                  fontFamily: "Nexa2",
+                                  fontSize: 13
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -2289,61 +2292,97 @@ class _CalculatorState extends ConsumerState<Calculator> {
               height: size.height / 140,
             ),
             SizedBox(
-              height: size.height * .09,
+              height: size.height * .07,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        currency != null ? "${translation(context).exchangeRate} $first": "${translation(context).currentExchangeRate} $first",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontFamily: "Nexa3"
-                        ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                        size: 15,
-                      ),
-                      Text(
-                        " $second ",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontFamily: "Nexa3",
-                        ),
-                      ),
-                      Text(
-                        "${readCurrency.calculateRate(first, second, currency: currency)}",
-                        style: const TextStyle(
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          currency != null ? "${translation(context).exchangeRate} ": "${translation(context).currentExchangeRate} ",
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 15,
-                            fontFamily: "Nexa3",
+                            fontFamily: "Nexa4",
+                            fontWeight: FontWeight.w900
+                          ),
+                          maxLines: 3,
+                          textAlign: TextAlign.start,
                         ),
-                      )
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              " $first ",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Nexa3",
+                              ),
+                            ),
+                            const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                            Text(
+                              " $second ",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Nexa3",
+                              ),
+                            ),
+                            Text(
+                              ": ${readCurrency.calculateRate(first, second, currency: currency)}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Nexa3",
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                    ],
                   ),
-                  Text(
-                    "Son Güncellenme : ${intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateTextForFormat)}",
-                    "${translation(context).lastUpdate} ${currency?.lastApiUpdateDate?.split(" ")[0].replaceAll("-", ".") ?? readCurrency.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".")} ",
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontFamily: "Nexa3"
-                    ),
-                  ),
-                  Text(
-                    " ${currency != null  ? convertHourAndMinute(currency!.lastApiUpdateDate) : convertHourAndMinute(readCurrency.lastApiUpdateDate)} ",
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontFamily: "Nexa3"
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          translation(context).lastUpdate,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontFamily: "Nexa4",
+                              fontWeight: FontWeight.w900
+                          ),
+                          maxLines: 2,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          "${intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateTextForFormat)} / ${currency != null  ? convertHourAndMinute(currency!.lastApiUpdateDate) : convertHourAndMinute(readCurrency.lastApiUpdateDate)} ",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontFamily: "Nexa3"
+                          ),
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

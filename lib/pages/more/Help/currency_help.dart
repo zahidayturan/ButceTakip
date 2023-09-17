@@ -55,15 +55,18 @@ class HelpCurrency extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Text(
-                              translation(context).foreignExchangeSystem,
-                              style: TextStyle(
-                                fontFamily: "Nexa4",
-                                fontSize: 24,
-                                height: 1,
-                                color: Theme.of(context).secondaryHeaderColor,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Text(
+                                translation(context).foreignExchangeSystem,
+                                style: TextStyle(
+                                  fontFamily: "Nexa4",
+                                  fontSize: 24,
+                                  height: 1,
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                ),
+                                maxLines: 2,
                               ),
                             ),
                           ),
