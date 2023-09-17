@@ -1459,14 +1459,14 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             ),
           ),
           Text(
-            "Sahip olduğunuz para miktarını ekleyerek gelir-gider takibinizi kendi varlığınıza göre yapabilirsiniz.",
+            translation(context).trackAssets,
             style: TextStyle(
                 fontSize: 18, height: 1, color: Theme.of(context).canvasColor),
             textDirection: TextDirection.ltr,
             textAlign: TextAlign.center,
           ),
           Text(
-            "Girmediğiniz durumda uygulamada yer alan varlığınız sıfırdan başlayacaktır. Daha sonra bu işlemi tekrar yapabilirsiniz.",
+            translation(context).startFromZero,
             style: TextStyle(
                 fontSize: 18, height: 1, color: Theme.of(context).canvasColor),
             textDirection: TextDirection.ltr,

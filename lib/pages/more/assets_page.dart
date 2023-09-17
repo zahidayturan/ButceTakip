@@ -77,7 +77,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                         Container(
                           height: size.height * .053,
                           width: double.infinity,
-                          padding: EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: Theme.of(context).indicatorColor,
                             borderRadius: BorderRadius.circular(11),
@@ -330,19 +330,19 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                               )
                                             ]
                                         ),
-                                        child: const Row(
+                                        child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              "Geçmiş",
-                                              style: TextStyle(
+                                              translation(context).past,
+                                              style: const TextStyle(
                                                 color: Color(0xFFE9E9E9),
                                                 fontSize: 13,
                                                 height: 1
                                               ),
                                             ),
-                                            SizedBox(width: 5),
-                                            Icon(
+                                            const SizedBox(width: 5),
+                                            const Icon(
                                               Icons.history,
                                               size: 16,
                                               color: Color(0xFFE9E9E9),
@@ -457,7 +457,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                 ),
                                 child: Transform.rotate(
                                   angle: 3.14 / 2,
-                                  child: Icon(Icons.swap_horiz),
+                                  child: const Icon(Icons.swap_horiz),
                                 ),
                               ),
                             ),
@@ -612,7 +612,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                   },
                                 );
                               }else{
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               }
                             },
                           ),
@@ -630,9 +630,9 @@ class _assetsPage extends ConsumerState<assetsPage> {
     );
   }
   List<Color> colorsList = [
-    Color(0xFFF5ECB9),
-    Color(0xFFF9D1AC),
-    Color(0xFFF9ACAC),
+    const Color(0xFFF5ECB9),
+    const Color(0xFFF9D1AC),
+    const Color(0xFFF9ACAC),
   ];
 
 
@@ -651,7 +651,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
     return Container(
       height: size.height * .052,
       width: size.width * .36,
-      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),
         border: Border.all(

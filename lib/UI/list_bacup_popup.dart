@@ -217,10 +217,10 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                   children: [
                                     Container(
                                       height: size.height * .026,
-                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
-                                        color: Color(0xFF1C2B35),
+                                        color: const Color(0xFF1C2B35),
                                         border: Border.all(
                                             color: Colors.white,
                                             width: 1
@@ -267,10 +267,10 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                     ),
                                     Container(
                                       height: size.height * .026,
-                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(7),
-                                          color: Color(0xFF1C2B35),
+                                          color: const Color(0xFF1C2B35),
                                         border: Border.all(
                                           color: Colors.white,
                                           width: 1
@@ -307,7 +307,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                 )
                                 :Center(
                                   child: Text(
-                                    "${data.length} adet kayıt gösteriliyor.",
+                                    "${translation(context).numberOfRecordsShown} ${data.length}",
                                     style: TextStyle(
                                       fontSize: 13,
                                       fontFamily: "Nexa3",
@@ -318,10 +318,10 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                             ],
                           );
                         }else {
-                          return const Center(
+                          return Center(
                             child: Text(
-                                "Yükleniyor ...",
-                              style: TextStyle(
+                                "${translation(context).loading} ...",
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),

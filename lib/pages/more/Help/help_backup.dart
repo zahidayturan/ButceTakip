@@ -60,7 +60,7 @@ class HelpBackup extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
                             child: Text(
-                              "YEDEKLEME SİSTEMİ",
+                              translation(context).backupSystem1,
                               style: TextStyle(
                                 fontFamily: "Nexa4",
                                 fontSize: 24,
@@ -73,13 +73,13 @@ class HelpBackup extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Bütün verileriniz Google Drive’ınız üzerinden yedeklemeleri gerçekleşmektedir. bunun için Google hesabınız ile giriş yapmanız gerekmektedir."
+                        translation(context).backupSystem2
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       SizedBox(
                         width: size.width * 0.56,
-                        height: 30,
+                        height: 31,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -130,12 +130,12 @@ class HelpBackup extends StatelessWidget {
                       ),
                       const SizedBox(height: 7,),
                       Text(
-                        "Bu sayfada yapabileceğiniz işlemler"
+                        translation(context).whatYouCanDoOnThisPage
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "varsayılan olarak oto yedekleme aktif olmaktadır ve varsayılan olarak aylık  yedeklenmesini yapmaktadır."
+                        translation(context).backupSystem4
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -149,14 +149,14 @@ class HelpBackup extends StatelessWidget {
                           activeFgColor: const Color(0xff0D1C26),
                           inactiveBgColor: const Color(0xff0D1C26),
                           inactiveFgColor: const Color(0xFFE9E9E9),
-                          minWidth: 50,
+                          minWidth: 60,
                           cornerRadius: 20,
                           radiusStyle: true,
                           animate: true,
                           curve: Curves.linearToEaseOut,
                           customTextStyles: const [
                             TextStyle(
-                                fontSize: 9, fontFamily: 'Nexa3', fontWeight: FontWeight.w800)
+                                fontSize: 9, fontFamily: 'Nexa3', fontWeight: FontWeight.w800, height: 1)
                           ],
                           onToggle: (index) {
 
@@ -186,7 +186,7 @@ class HelpBackup extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8),
                                   child: Text(
-                                    translation(context).restoreData, // geri yükle
+                                    translation(context).backup, // geri yükle
                                     style: TextStyle(
                                         height: 1,
                                         color: renkler.arkaRenk,
@@ -201,7 +201,7 @@ class HelpBackup extends StatelessWidget {
                           const SizedBox(width: 14),
                           Expanded(
                             child: Text(
-                              "Yedekle Butonuna tıklandığı zaman bütün kayıtlarınız .csv dosyasına çevirilerek yedeklenmektedir."
+                              translation(context).backupSystem5
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -246,7 +246,7 @@ class HelpBackup extends StatelessWidget {
                           const SizedBox(width: 14),
                           Expanded(
                             child: Text(
-                              "Geri Yükle butonuna tıklandığında ise Google Drive‘ınızdaki BütçeTakip adlı dosyanın içindeki kayıtları listeleyerek sizden bir seçim yapmanızı istemektedir."
+                              translation(context).backupSystem6
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -254,7 +254,7 @@ class HelpBackup extends StatelessWidget {
                       ),
                       const SizedBox(height: 14),
                       Container( //boyut
-                        height: size.width * .4,
+                        height: size.width * .5,
                         width: size.width * .73,
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
@@ -312,7 +312,7 @@ class HelpBackup extends StatelessWidget {
                             ),
                             Center(
                               child: Text(
-                                "2 adet kayıt gösteriliyor.",
+                                "${translation(context).numberOfRecordsShown} 2",
                                 style: TextStyle(
                                   fontSize: 13,
                                   fontFamily: "Nexa3",
@@ -325,7 +325,7 @@ class HelpBackup extends StatelessWidget {
                       ),
                       const SizedBox(height: 14),
                       Text(
-                        "Kayıdınız üzerine uzun basarsanız da istediğiniz kayıtları silebileceğiniz bir arayüz çıkmaktadır."
+                        translation(context).backupSystem7
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14),
@@ -344,7 +344,7 @@ class HelpBackup extends StatelessWidget {
                       ),
                       const SizedBox(height: 14),
                       Text(
-                        "Kayıtlarınız geri yüklendiği zaman mevcut verileriniz silinmektedir. Seçtiğiniz kayıtlarınız yüklenmektedir. Google Drive üzerindeki kayıtlarınızın sayısı 30’ u geçerse en eski 15 kaydınız silinmektedir. "
+                        translation(context).backupSystem8
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
 
