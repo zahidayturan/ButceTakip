@@ -1,4 +1,4 @@
-import 'package:butcekontrol/UI/appStatus.dart';
+import 'package:butcekontrol/UI/app_status.dart';
 import 'package:butcekontrol/UI/introduction_page.dart';
 import 'package:butcekontrol/app/information_app.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
@@ -169,10 +169,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
       }
       return 0; // version1 ve version2 aynı
     }
-    print("aaaa");
-    print(compareVersions(currentVersion, newVersion));
     Widget getWidgetToStart(){
-      print(widget.appInfo);
       if(widget.appInfo!["appInfoString"] != securityFile().careCode && widget.appInfo!["appInfoString"] != securityFile().updateCode){
         if(widget.showBTA){
           bottomNavigationBar = true;

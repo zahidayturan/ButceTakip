@@ -122,6 +122,7 @@ class HelpBackup extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 6,),
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 6),
                         child: BannerAds(
@@ -147,7 +148,7 @@ class HelpBackup extends StatelessWidget {
                           labels: [translation(context).dailyBackup, translation(context).monthlyBackup, translation(context).yearlyBackup],
                           activeBgColor: const [Color(0xffF2CB05)],
                           activeFgColor: const Color(0xff0D1C26),
-                          inactiveBgColor: const Color(0xff0D1C26),
+                          inactiveBgColor: Theme.of(context).highlightColor,
                           inactiveFgColor: const Color(0xFFE9E9E9),
                           minWidth: 60,
                           cornerRadius: 20,
