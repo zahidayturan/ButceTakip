@@ -50,7 +50,7 @@ class _historyAsset extends ConsumerState<historyAsset> {
                   child: Column(
                     children: [
                       Text(
-                        "GEÇMİŞ VARLIK KAYITLARIM",
+                        translation(context).myPastAssetRecords,
                         style: TextStyle(
                             color: Theme.of(context).secondaryHeaderColor,
                             height: 1.1,
@@ -414,7 +414,7 @@ class _historyAsset extends ConsumerState<historyAsset> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    isEdit ? "Bitti" :"Düzenle",
+                                    isEdit ? translation(context).doneBitti :translation(context).edit,
                                     style: TextStyle(
                                         color: Theme.of(context).unselectedWidgetColor,
                                         fontSize: 14,
@@ -456,7 +456,7 @@ class _historyAsset extends ConsumerState<historyAsset> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Kapat",
+                                    translation(context).close,
                                     style: TextStyle(
                                         color: Theme.of(context).unselectedWidgetColor,
                                         fontSize: 14,

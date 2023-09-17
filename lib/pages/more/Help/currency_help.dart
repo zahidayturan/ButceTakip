@@ -56,7 +56,7 @@ class HelpCurrency extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
                             child: Text(
-                              "DÖVİZ SİSTEMİ",
+                              translation(context).foreignExchangeSystem,
                               style: TextStyle(
                                 fontFamily: "Nexa4",
                                 fontSize: 24,
@@ -94,7 +94,7 @@ class HelpCurrency extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Gider - gelir ekleme sayfasından bir işlemin para birimini sistemin para biriminden farklı seçerseniz sistem onu döviz olarak algılar."
+                              translation(context).currencySelectionExplanation
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -106,7 +106,7 @@ class HelpCurrency extends StatelessWidget {
 
                           Expanded(
                             child: Text(
-                              "Uygulamaya daha önce hiç gelir türünde döviz eklemediyseniz, ilk dövizinizin türünü gider olarak eklememeniz gerekir. Aksi halde sistem olmayan bir dövizin hesaptan çıktığını görecektir. Bu mantık yanlıştır."
+                              translation(context).foreignCurrencyFirstIncomeExplanation
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -161,7 +161,7 @@ class HelpCurrency extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Eklediğiniz ilk döviz gelir türünde olursa, sistem o dövizin türü gider oluncaya dek tutarını güncel döviz kuru ile her açılışta tekrar hesaplayacaktır. Buna aktif döviz denir."
+                              translation(context).activeCurrencyExplanation
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -172,7 +172,7 @@ class HelpCurrency extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "Ne zaman ki siz gider türünde döviz  eklerseniz daha önce eklediğiniz gelir türünde dövizin artık tutarı tekrar hesaplanmaz. Buna pasif döviz denir."
+                              translation(context).inactiveCurrencyExplanation
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -227,7 +227,7 @@ class HelpCurrency extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Var olan dövizi düzenleyip türünü gider yapmamalısınız. Yeniden işlem ekleme sayfasından, türü gider olan döviz işlemini eklemelisiniz."
+                              translation(context).updateCurrencyTypeInstructions
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -238,7 +238,7 @@ class HelpCurrency extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "Bir dövizin aktif veya pasif döviz olup olmadığını işlem detayından görebilirsiniz. Her döviz kendi para biriminde değerlendirilir."
+                              translation(context).currencyActivityCheckInstructions
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -293,7 +293,7 @@ class HelpCurrency extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Daha önce gelir türünde eklediğiniz dövizin tamamını değil de bir kısmını gider türünde eklerseniz sistem en eskisinden başlayarak gelir türünde olan dövizi parçalayacaktır. Giderin tutarı kadar aktif döviz pasifleşecek geri kalanı ise aktif olarak devam edecektir."
+                              translation(context).splitIncomeToExpenseExplanation
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -304,7 +304,7 @@ class HelpCurrency extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "Varlıklarım sayfasından aktif dövizlerinizi takip edebilirsiniz. Varlıklarım sayfasından ekleyeceğiniz  dövizler de aktif olacaktır.  Buradan eklenen işlemler ana sayfaya yansımaz. Bu sayfa varlığınızı denkleştirmek için vardır. İşlemlerinizi gelir-gider ekleme sayfasından yapmalısınız."
+                              translation(context).myAssetsPageExplanation
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),

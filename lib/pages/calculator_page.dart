@@ -1420,7 +1420,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     )
                   : const SizedBox(height: 1),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             SizedBox(
               height: size.height * .14,
               child: Column(
@@ -1593,7 +1593,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
-                  "Döviz Çevirici",
+                  translation(context).currencyConverter,
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'Nexa4',
@@ -1684,7 +1684,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 decoration: BoxDecoration(
                                     color: renkler.sariRenk,
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(5))),
+                                    const BorderRadius.all(Radius.circular(5))),
                               ),
                               menuItemStyleData: MenuItemStyleData(
                                 overlayColor: MaterialStatePropertyAll(
@@ -1768,7 +1768,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                     ],
                                     decoration: InputDecoration(
                                         isDense: true,
-                                        contentPadding: EdgeInsets.only(top: 3,left: 2,right: 2),
+                                        contentPadding: const EdgeInsets.only(top: 3,left: 2,right: 2),
                                         hintText: translation(context).amount,
                                         hintStyle: TextStyle(
                                             color: Theme.of(context).scaffoldBackgroundColor,
@@ -1798,7 +1798,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 2),
                                 child: Text(
-                                  "Temizle",
+                                  translation(context).delete,
                                   style: TextStyle(
                                     height: 1,
                                     color: renkler.arkaRenk,
@@ -1911,7 +1911,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   decoration: BoxDecoration(
                                       color: renkler.sariRenk,
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
+                                      const BorderRadius.all(Radius.circular(5))),
                                   ),
                               menuItemStyleData: MenuItemStyleData(
                                 overlayColor: MaterialStatePropertyAll(
@@ -1969,7 +1969,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                       FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
                                     ],
                                     decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.only(top: 3,left: 2,right: 2),
+                                        contentPadding: const EdgeInsets.only(top: 3,left: 2,right: 2),
                                       isDense: true,
                                         hintText: translation(context).result,
                                         hintStyle: TextStyle(
@@ -2016,10 +2016,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               ));
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  backgroundColor: Color(0xff0D1C26),
+                                  backgroundColor: const Color(0xff0D1C26),
                                   duration: const Duration(seconds: 1),
                                   content: Text(
-                                    'Panoya kopyalandı: ${_controllerSecond.text}',
+                                    '${translation(context).copiedToClipboard}  ${_controllerSecond.text}',
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
@@ -2040,7 +2040,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 2),
                                   child: Text(
-                                    "Kopyala",
+                                    translation(context).copy,
                                     style: TextStyle(
                                       height: 1,
                                       color: renkler.arkaRenk,
@@ -2098,9 +2098,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                       const SizedBox(
                         width: 5,
                       ),
-                      const Text(
-                        "Güncel Kurdan Hesapla",
-                        style: TextStyle(
+                      Text(
+                        translation(context).calculateFromCurrentExchangeRate,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontFamily: "Nexa3",
                             fontSize: 14
@@ -2140,9 +2140,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         const SizedBox(
                           width: 5,
                         ),
-                        const Text(
-                          "Eski Kurdan Hesapla",
-                          style: TextStyle(
+                        Text(
+                          translation(context).calculateFromOldExchangeRate,
+                          style: const TextStyle(
                               color: Colors.white,
                               fontFamily: "Nexa3",
                               fontSize: 14
@@ -2228,7 +2228,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                       decoration: BoxDecoration(
                                           color: renkler.sariRenk,
                                           borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
+                                          const BorderRadius.all(Radius.circular(5))),
                                     ),
                                     menuItemStyleData: MenuItemStyleData(
                                       overlayColor: MaterialStatePropertyAll(
@@ -2255,7 +2255,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               );
                             }else{
                               return Text(
-                                "Yükleniyor",
+                                translation(context).loading,
                                 style: TextStyle(
                                     color: Theme.of(context).disabledColor,
                                     fontFamily: "Nexa2",
@@ -2284,7 +2284,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        currency != null ? first: "Güncel $first",
+                        currency != null ? "${translation(context).exchangeRate} $first": "${translation(context).currentExchangeRate} $first",
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,
@@ -2297,17 +2297,25 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         size: 15,
                       ),
                       Text(
-                        "$second Kur : ${readCurrency.calculateRate(first, second, currency: currency)}",
+                        " $second ",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontFamily: "Nexa3",
+                        ),
+                      ),
+                      Text(
+                        "${readCurrency.calculateRate(first, second, currency: currency)}",
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 15,
-                            fontFamily: "Nexa3"
+                            fontFamily: "Nexa3",
                         ),
                       )
                    ],
                   ),
                   Text(
-                    "Son Güncellenme : ${currency?.lastApiUpdateDate?.split(" ")[0].replaceAll("-", ".") ?? readCurrency.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".")} ",
+                    "${translation(context).lastUpdate} ${currency?.lastApiUpdateDate?.split(" ")[0].replaceAll("-", ".") ?? readCurrency.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".")} ",
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 15,
@@ -2315,7 +2323,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     ),
                   ),
                   Text(
-                    "Saat ${currency != null  ? convertHourAndMinute(currency!.lastApiUpdateDate) : convertHourAndMinute(readCurrency.lastApiUpdateDate)} ",
+                    " ${currency != null  ? convertHourAndMinute(currency!.lastApiUpdateDate) : convertHourAndMinute(readCurrency.lastApiUpdateDate)} ",
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 15,
@@ -2335,7 +2343,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
   } ///page1
 
   String convertHourAndMinute(String? date){
-    DateTime? dateFormat = DateTime.tryParse(date.toString())?.subtract(Duration(hours: 3));
+    DateTime? dateFormat = DateTime.tryParse(date.toString())?.subtract(const Duration(hours: 3));
     return "${dateFormat?.hour}:${dateFormat?.minute}";
   }
 

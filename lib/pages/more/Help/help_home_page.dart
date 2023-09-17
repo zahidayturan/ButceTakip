@@ -55,7 +55,7 @@ class HelpHomePage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
                             child: Text(
-                              "ANA SAYFA",
+                              translation(context).homePageHelp,
                               style: TextStyle(
                                 fontFamily: "Nexa4",
                                 fontSize: 24,
@@ -79,12 +79,12 @@ class HelpHomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Eklediğiniz işlemleri aylık olarak takip etmeniz ve diğer sayfalara ulaşmanız için hazırlanmıştır."
+                        translation(context).homePageDescription
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Bu sayfada yapabileceğiniz işlemler"
+                        translation(context).whatYouCanDoOnThisPage
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -114,7 +114,7 @@ class HelpHomePage extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Not ve kategoriye göre işlem arama menüsü."
+                              translation(context).activitySearchMenu
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -147,7 +147,7 @@ class HelpHomePage extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Tekrarlı ve taksitli işlemler menüsü. Bu tür işlemleri buradan kontrol edebilirsiniz."
+                              translation(context).repeatingAndInstallmentMenu
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -180,7 +180,7 @@ class HelpHomePage extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Kaydedilen ve son işlemler menüsü."
+                              translation(context).savedAndRecentMenu
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -213,7 +213,7 @@ class HelpHomePage extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Ayarlar menüsü. Basılı tutarak temayı da buradan değiştirebilirsiniz"
+                              translation(context).settingsMenu
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -312,7 +312,7 @@ class HelpHomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 10,),
                       Text(
-                        "Ayı değiştirmek için butonları kullanabilir veya doğrudan aylık verileri sağa veya sola kaydırabilirsiniz. Yazıya bastığınızda ise içinde bulunduğunuz aya dönülecektir."
+                        translation(context).changeMonthButtonInfo
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -499,7 +499,7 @@ class HelpHomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 10,),
                       Text(
-                        "Seçili ayın işlem içeren günlerinin yer aldığı tıklanabilir liste. Basarak detaylarına erişebilirsiniz."
+                        translation(context).dailyActivitiesInfo
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -546,7 +546,7 @@ class HelpHomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 10,),
                       Text(
-                        "Bu yazı butonlarına basarak içinde bulunduğunuz günün işlem detaylarına ve takvim menüsüne erişebilirsiniz."
+                        translation(context).accessDetailsButtonInfo
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -554,7 +554,7 @@ class HelpHomePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            "İşlem Detayları - Açılır Menü"
+                            translation(context).activityDetailsDropdown
                             ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                           ),
                           Container(
@@ -582,7 +582,7 @@ class HelpHomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 10,),
                       Text(
-                        "Bir işlemin tüm detayları yer almaktadır. Bu menüden işlemi silebilir, tekrar ekleyebilir ve düzenleyebilirsiniz."
+                        translation(context).activityDetailsInfo
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 10,),
@@ -687,7 +687,7 @@ class HelpHomePage extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 6,top: 4),
-                                    child: Text("Aktif Döviz",style: TextStyle(color: renkler.koyuuRenk,height: 1),),
+                                    child: Text(translation(context).activeCurrency,style: TextStyle(color: renkler.koyuuRenk,height: 1),),
                                   ),
                                 ],
                               ))
@@ -695,7 +695,7 @@ class HelpHomePage extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Bu bilgi gelir olarak eklediğiniz dövizlerde yer alacaktır. Cebinizde olacağı için her gün döviz kuruna göre tutarı yeniden hesaplanacaktır."
+                              translation(context).activeInfo
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -734,7 +734,7 @@ class HelpHomePage extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 6,top: 4),
-                                  child: Text("Pasif Döviz",style: TextStyle(color: renkler.arkaRenk,height: 1),),
+                                  child: Text(translation(context).inactiveCurrency,style: TextStyle(color: renkler.arkaRenk,height: 1),),
                                 ),
                               ],
                             ))
@@ -742,7 +742,7 @@ class HelpHomePage extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Bu bilgi daha önceden gelir olarak eklenmiş bir dövizin gider olarak eklenmesi sonucunda ortaya çıkacaktır. Cebinizden çıktığı için artık tutarı sabit kalacaktır."
+                              translation(context).inactiveInfo
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -750,7 +750,7 @@ class HelpHomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Bu menüde eğer ki sistem mesajı görülüyorsa o işlem tekrar veya taksitli bir işlemdir."
+                        translation(context).systemMessageInfo
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 18,),

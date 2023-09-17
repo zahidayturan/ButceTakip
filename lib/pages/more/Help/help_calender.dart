@@ -84,7 +84,7 @@ class HelpCalender extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
                             child: Text(
-                              "TAKVİM SAYFASI",
+                              translation(context).calenderPage,
                               style: TextStyle(
                                 fontFamily: "Nexa4",
                                 fontSize: 24,
@@ -97,12 +97,12 @@ class HelpCalender extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                          "Eklediğiniz işlemlere özelleştirilmiş bir takvim ile bu sayfadan ulaşabilirsiniz."
+                        translation(context).calenderPageDescription
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Bu sayfada yapabileceğiniz işlemler"
+                        translation(context).whatYouCanDoOnThisPage
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -203,8 +203,9 @@ class HelpCalender extends StatelessWidget {
                       ),
                       const SizedBox(height: 7,),
                       Text(
-                        "Burada ayı ve yılı sağa veya sola kaydırarak değiştirebilirsiniz."
-                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                        translation(context).changeMonthYear
+                        ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15,
+                      ),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Row(
@@ -233,7 +234,7 @@ class HelpCalender extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Bu buton ile içinde bulunduğunuz ay’a hızlıca geçiş yapabilirsiniz."
+                              translation(context).backToCurrentMonth
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -270,7 +271,7 @@ class HelpCalender extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Bu buton ayın başlangıç gününü göstermektedir. Değiştirmek için uzun basarak  ayarlara gidebilirsiniz. (Örnek: 15 seçili ise takvim sonraki ayın 14’üne kadar işlenecektir."
+                              translation(context).startingDayOfMonth
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -329,7 +330,7 @@ class HelpCalender extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Günler aslında birer butondur. Kırmızı veya yeşil olmaları o gün için işlemlerinizin ekside veya artıda olduğunu gösterir. Bastığınızda ise o güne ait işlemlerin tümü karşınıza çıkacaktır."
+                              translation(context).dayButtons
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -337,7 +338,7 @@ class HelpCalender extends StatelessWidget {
                       ),
                       const SizedBox(height: 18,),
                       Text(
-                        "Seçili ayı ve başlangıç gününü hesaba katarak bütün işlemleri sizin için hesaplar. Gelir toplamınız net durumunuz ve gider toplamınız  gösterilmektedir."
+                        translation(context).incomeNetAmountExpenses
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 7,),

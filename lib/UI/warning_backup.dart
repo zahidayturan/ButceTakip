@@ -41,13 +41,13 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
     final String fileName = "BT_Data*${date.day}.${date.month}.${date.year}.csv"; //Dosay adı.
     try{
       await writeToCvs(fileName).then((value) async  {
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
         await readGglAuth.uploadFileToDrive(fileName).then((value) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor:
-              Color(0xff0D1C26),
-              duration: Duration(seconds: 1),
+              const Color(0xff0D1C26),
+              duration: const Duration(seconds: 1),
               content: Text(
                 translation(context).uploadedToGoogleDrive,
                 style: const TextStyle(
@@ -107,7 +107,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                   child: Container( //boyut
                     height: readSettings.errorStatusBackup == "internet" ? size.height * .23 : size.height * .46,
                     width: size.width * .94,
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(20),
@@ -127,7 +127,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                             size: 35,
                           ),
                           Text(
-                            "İnternet bağlantısı bulunamadı Yedekleme Yapılamıyor.",
+                            translation(context).noInternetConnection,
                             style: TextStyle(
                               fontFamily: "Nexa3",
                               fontSize: 18,
@@ -158,12 +158,12 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                                   colors: [Theme.of(context).disabledColor, renkler.koyuuRenk],
                                 ),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Anladım",
-                                    style: TextStyle(color: Colors.white,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
+                                    translation(context).okAnladim,
+                                    style: const TextStyle(color: Colors.white,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                                   ),
                                 ],
                               ),
@@ -210,7 +210,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                               textAlign: TextAlign.center,
                             ),
                           )
-                          :SizedBox(width: 1)
+                          :const SizedBox(width: 1)
                         ],
                       ),
                     )
@@ -226,7 +226,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                             ),
                             SizedBox(width : size.width * .07),
                             Text(
-                              "Yedekleme Yapılamadı ",
+                              translation(context).backupFailed,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Theme.of(context).canvasColor
@@ -238,7 +238,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                           children: [
                             Expanded(
                               child: Text(
-                                "Muhtemel sorun, ağ akışından veya hesap süresinin dolmasından kaynaklı olabilir. Bazen yaşanabilen bir durumdur. Çözüm için yeniden giriş yapmanız en sağlıklı yoldur.  Yeniden giriş yaptığınız durumda sizin için bugünün yedeklemesini yapacağız."
+                                translation(context).backupFailedDescription
                                 ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                               ),
                             ),
@@ -253,7 +253,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Son Yedekleme Tarihi",
+                                    translation(context).lastBackupDate,
                                     style: TextStyle(
                                         color: Theme.of(context).canvasColor,
                                         height: 1.1,
@@ -278,7 +278,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Yedekleme Sıklığı",
+                                    translation(context).backupFrequency,
                                     style: TextStyle(
                                         color: Theme.of(context).canvasColor,
                                         height: 1.1,
@@ -303,7 +303,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Aktif Hesap",
+                                    translation(context).activeAccount,
                                     style: TextStyle(
                                         color: Theme.of(context).canvasColor,
                                         height: 1.1,
@@ -356,7 +356,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                                     gradient: LinearGradient(
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
-                                      colors: [Color(0xFF426CB1), renkler.koyuuRenk],
+                                      colors: [const Color(0xFF426CB1), renkler.koyuuRenk],
                                     ),
                                   ),
                                   child: Row(
@@ -366,10 +366,10 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                                         "assets/icons/google.png",
                                         height: 20,
                                       ),
-                                      SizedBox(width: 10),
-                                      const Text(
-                                        "Google ile Oturum Aç ve Yedekle (Önerilen)",
-                                        style: TextStyle(color: Colors.white,height: 1.1,fontSize: 12),textAlign: TextAlign.justify,
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        translation(context).signInAndBackupWithGoogle,
+                                        style: const TextStyle(color: Colors.white,height: 1.1,fontSize: 12),textAlign: TextAlign.justify,
                                       ),
                                     ],
                                   ),
@@ -400,12 +400,12 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                                       colors: [renkler.kirmiziRenk, renkler.koyuuRenk],
                                     ),
                                   ),
-                                  child: const Row(
+                                  child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Yedeklemeyi ve Google Oturumunu Kapat",
-                                        style: TextStyle(color: Colors.white,height: 1.1,fontSize: 12),textAlign: TextAlign.justify,
+                                        translation(context).turnOffBackupAndSignOutFromGoogle,
+                                        style: const TextStyle(color: Colors.white,height: 1.1,fontSize: 12),textAlign: TextAlign.justify,
                                       ),
                                     ],
                                   ),

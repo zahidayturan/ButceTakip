@@ -181,7 +181,7 @@ class HelpCalculator extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Açılır menülerde yalnızca uygulamada kullanabileceğiniz para birimleri yer almaktadır. Tek yapmanız gereken çevireceğiniz birimleri seçip tutarı girmektir."
+                              translation(context).currencyConversionExplanation
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -214,7 +214,7 @@ class HelpCalculator extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Döviz çevirme işleminin yönünü göstermektedir."
+                              translation(context).currencyConversionDirection
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -234,7 +234,7 @@ class HelpCalculator extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Bu buton ile para birimlerinin yerlerini değiştirebilirsiniz."
+                              translation(context).changeCurrencyLocation
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -242,12 +242,12 @@ class HelpCalculator extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Temizle butonu ile tutarı sıfırlayabilir, kopyala butonu ile sonucu kopyalayabilirsiniz."
+                        translation(context).clearCopyButton
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Eski kurdan hesaplamayı seçerseniz, sistemimizde bu zamana dek kayıtlı olan bütün kur tarihleri çıkacaktır. Şu an da listede olmayan bir tarihe ulaşamazsınız."
+                        translation(context).oldExchangeRateCalculation
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -284,7 +284,7 @@ class HelpCalculator extends StatelessWidget {
                       ),
                       const SizedBox(height: 10,),
                       Text(
-                        "Ana para ve faiz değerlerini girdikten sonra vade seçimi yapmanız gerekmektedir. Hesapla butonuna basarak sonuçları görebilir, sıfırla butonu ile girdiğiniz değerleri silebilirsiniz. Sonuçlar listelenecektir."
+                        translation(context).instructions
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -314,7 +314,7 @@ class HelpCalculator extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "En fazla 7 haneli ana para girebilirsiniz. Vade listesinde yer alanların dışında vade giremezsiniz."
+                              translation(context).maxAmount
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -354,7 +354,7 @@ class HelpCalculator extends StatelessWidget {
                       ),
                       const SizedBox(height: 10,),
                       Text(
-                        "Tek sayılı işlemlerde bir sayı ve bir yüzde girmeniz gerekmektedir. Girilen sayının yüzdesini verecektir."
+                        translation(context).instructionsPercentage
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -370,7 +370,7 @@ class HelpCalculator extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "İkinci sayı için kutucuğu işaretlemelisiniz."
+                              translation(context).secondNumberNote
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -378,7 +378,7 @@ class HelpCalculator extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "İki sayılı işlemlerde; ikinci sayı birinci sayının yüzde kaçıdır ve birinci sayıdan ikinci sayıya değişim oranı kaçtır işlemlerini yapabilirsiniz."
+                        translation(context).twoNumberedTransactions
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 18,),

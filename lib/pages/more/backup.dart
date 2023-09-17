@@ -266,13 +266,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       }catch(e){
                                         print("HATAAAAAAAAAAA ===============>>>>>>>>>>${e.toString()}");
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
+                                          SnackBar(
                                             backgroundColor:
-                                            Color(0xff0D1C26),
-                                            duration: Duration(seconds: 1),
+                                            const Color(0xff0D1C26),
+                                            duration: const Duration(seconds: 1),
                                             content: Text(
-                                              "Yedeklenirken hata meydana geldi",
-                                              style: TextStyle(
+                                              translation(context).backupError,
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
                                                 fontFamily: 'Nexa3',

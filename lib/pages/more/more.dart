@@ -183,7 +183,7 @@ class More extends ConsumerWidget {
                                       ],
                                     ),
                                   ),
-                                  Text("Net Varlık Durumunuz",style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,)
+                                  Text(translation(context).yourNetAsset,style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,)
                                 ],
                               ),
                             ),

@@ -56,7 +56,7 @@ class HelpStatisic extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
                             child: Text(
-                              "İSTATİSTİK SAYFASI",
+                              translation(context).statisticsPageHelp,
                               style: TextStyle(
                                 fontFamily: "Nexa4",
                                 fontSize: 24,
@@ -69,12 +69,12 @@ class HelpStatisic extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Eklediğiniz işlemlere filtreler uygulayarak işlemlerinizin kategorilere göre dağılımını inceleyebilirsiniz."
+                        translation(context).statisticsPageHelpDescription
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Bu sayfada yapabileceğiniz işlemler"
+                        translation(context).whatYouCanDoOnThisPage
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -119,7 +119,7 @@ class HelpStatisic extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Bu kutucuklar size filtreleme işlemi hakkında bilgi verecektir. Üzerine basılma aktifse o başlık da istatistiğe dahil olmuştur."
+                              translation(context).infoBoxesForFiltering
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
@@ -127,7 +127,7 @@ class HelpStatisic extends StatelessWidget {
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "İstatistik Filtreleme"
+                        translation(context).statisticsFiltering
                         ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -268,12 +268,12 @@ class HelpStatisic extends StatelessWidget {
                       ),
                       const SizedBox(height: 10,),
                       Text(
-                        "Filtrelemek için açtığınız menüden işlem türünün, tarihin, kayıtlı işlemlerin ve ödeme şeklinin nasıl filtreleneceğini açılır menüler ile kolayca seçebilirsiniz."
+                        translation(context).filteringInstructions
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Text(
-                        "Eski haline getirdiğinizde ise içinde bulunduğunuz ayın tüm işlemleri filtrelenerek karşınıza çıkacaktır."
+                        translation(context).resetButtonForFiltering
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -355,7 +355,7 @@ class HelpStatisic extends StatelessWidget {
                       ),
                       const SizedBox(height: 7,),
                       Text(
-                        "Kategorilerin filtreler sonucunda yüzde ve miktarı gösterilmektedir. Basıldığında ise detayları karşınıza çıkacaktır."
+                        translation(context).filteringResult
                         ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
@@ -385,7 +385,7 @@ class HelpStatisic extends StatelessWidget {
                           const SizedBox(width: 14,),
                           Expanded(
                             child: Text(
-                              "Kategorilerin dağılımını pasta grafiği üzerinden takip edebilirsiniz. Filtreler sonucunda en çok yüzdeye sahip kategoriler gösterilmektedir."
+                              translation(context).pieChart
                               ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15),textAlign: TextAlign.justify,
                             ),
                           ),
