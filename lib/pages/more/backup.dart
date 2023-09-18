@@ -139,14 +139,26 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextMod(translation(context).email,  Theme.of(context).canvasColor,  15),
-                                  TextMod("${readGglAuth.getUserEmail()}", Theme.of(context).canvasColor, 15),
+                                  SizedBox(width: 2,),
+                                  Expanded(
+                                    child: Text(
+                                      "${readGglAuth.getUserEmail()}",
+                                      style: TextStyle(
+                                        color: Theme.of(context).canvasColor,
+                                        fontSize: 15,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.end,
+
+                                    ),
+                                  )
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextMod(translation(context).nameAndSurname, Theme.of(context).canvasColor, 15),
+                                  Expanded(child: TextMod(translation(context).nameAndSurname, Theme.of(context).canvasColor, 15)),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
@@ -222,13 +234,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       await readGglAuth.downloadFileToDevice();
                                       Navigator.of(context).pop();
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
+                                        SnackBar(
                                           backgroundColor:
                                           const Color(0xff0D1C26),
                                           duration: const Duration(seconds: 1),
                                           content: Text(
-                                            "Verileriniz İndirildi",
-                                            style: TextStyle(
+                                            translation(context).downloadData,
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
                                               fontFamily: 'Nexa3',
@@ -317,12 +329,12 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         Navigator.of(context).pop();
 
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
+                                          SnackBar(
                                             backgroundColor: const Color(0xff0D1C26),
                                             duration: const Duration(seconds: 1),
                                             content: Text(
-                                              "Verileriniz Yedeklendi",
-                                              style: TextStyle(
+                                              translation(context).backupedData,
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
                                                 fontFamily: 'Nexa3',
@@ -424,7 +436,10 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      Navigator.push(context, PageRouteBuilder(
+                                      /*readSetting.setLastBackup(a : true);*/
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
                                           transitionDuration: const Duration(milliseconds: 1),
                                           pageBuilder: (context, animation, nextanim) => const HelpBackup(),
                                           reverseTransitionDuration: const Duration(milliseconds: 1),
@@ -436,6 +451,9 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           },
                                         ),
                                       );
+                                      /*
+                                      readGglAuth.refreshPage();
+                                      print("çektim geriye.");*/
                                     },
                                     child: Container(
                                       width : 25,

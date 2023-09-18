@@ -512,7 +512,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Image.asset(
-                                        "assets/image/noInfo.png",
+                                        "assets/image/noInfo5.png",
                                         width: 75,
                                         height: 75,
                                         //color: Theme.of(context).canvasColor,
