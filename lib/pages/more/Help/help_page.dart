@@ -1007,6 +1007,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
+                        /*
                         const SizedBox(height: 8,),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -1052,6 +1053,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
+                         */
                         const SizedBox(height: 8,),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -1139,6 +1141,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
+                        /*
                         const SizedBox(height: 8,),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -1184,6 +1187,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
+                         */
                         const SizedBox(height: 8,),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),

@@ -65,7 +65,7 @@ class _base_BKAState extends ConsumerState<base_BKA> {
     var readGglAuth = ref.read(gglDriveRiverpod);
     var checkAuth = readGglAuth.checkAuthState(ref); //Google User açık mı sorgusu yapılıyor
     var Query = readSetting.controlSettings(context);
-    //Future.delayed(Duration(milliseconds: 100));// Settings tablosunu çekiyoruz. ve implemente ettik
+    //Future.delayed(Duration(milliseconds: 100));// Settings tablosunu çekiyoruz. ve implemente ettik kanaı açık tutuyor.
     Query.then((value) async {
       if(readSetting.isPassword == 1 && readSetting.Password != "null") { // password controll
         print("Password var göster");

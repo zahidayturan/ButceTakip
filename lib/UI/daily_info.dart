@@ -113,7 +113,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                   }
                   return snapshot.data!.length == 0 ? Center(
                     child: SizedBox(
-                      height: 150,
+                      height: 180,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
