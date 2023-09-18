@@ -97,49 +97,52 @@ class _base_BKAState extends ConsumerState<base_BKA> {
         readUpdateData.customizeInstallmentOperation(ref).then((value) => readHome.setStatus());
       }); // Güncel kur database sorgusunu gerçekleştirir
 
-      if(readSetting.isBackUp == 1){ //yedekleme açık mı?
-        int counter = 2 ;
-        print("Yedeklenme açık");
-        checkAuth.then((value) async {
-          if(readGglAuth.accountStatus == true) {
-            List<String> datesplit = readSetting.lastBackup!.split(".");
-            if(readSetting.Backuptimes == "Günlük"){
-              print("günlük giriş var");
-              if(int.parse(datesplit[0]) != DateTime.now().day) {
-                print("gunluk guncelleniyor.");
-                await backup(fileName, ref);
-              }else{
-                print("mevcut gün => ${DateTime.now().day}");
-                print("son kayıt => ${datesplit[0]}");
-                print("bugün zaten yuklenmiş");
-              }
-            }else if(readSetting.Backuptimes == "Aylık"){
-              print("Aylık giriş var");
-              if(int.parse(datesplit[2]) == DateTime.now().year){
-                if(DateTime.now().month - int.parse(datesplit[1]) >= 1 ){
-                  print("ay bazında kayıt yapıyoruz.");
+      if(widget.appInfo!["appInfoString"] != securityFile().noBackup){
+        if(readSetting.isBackUp == 1){ //yedekleme açık mı?
+          int counter = 2 ;
+          print("Yedeklenme açık");
+          checkAuth.then((value) async {
+            if(readGglAuth.accountStatus == true) {
+              List<String> datesplit = readSetting.lastBackup!.split(".");
+              if(readSetting.Backuptimes == "Günlük"){
+                print("günlük giriş var");
+                if(int.parse(datesplit[0]) != DateTime.now().day) {
+                  print("gunluk guncelleniyor.");
+                  await backup(fileName, ref);
+                }else{
+                  print("mevcut gün => ${DateTime.now().day}");
+                  print("son kayıt => ${datesplit[0]}");
+                  print("bugün zaten yuklenmiş");
+                }
+              }else if(readSetting.Backuptimes == "Aylık"){
+                print("Aylık giriş var");
+                if(int.parse(datesplit[2]) == DateTime.now().year){
+                  if(DateTime.now().month - int.parse(datesplit[1]) >= 1 ){
+                    print("ay bazında kayıt yapıyoruz.");
+                    await backup(fileName, ref);
+                  }
+                }else{
                   await backup(fileName, ref);
                 }
-              }else{
-                await backup(fileName, ref);
+              }else if(readSetting.Backuptimes == "Yıllık"){
+                print("Yıllık giriş var");
+                if(int.parse(datesplit[2]) != DateTime.now().year){
+                  //readSetting.Backup();
+                  await backup(fileName, ref);
+                }
               }
-            }else if(readSetting.Backuptimes == "Yıllık"){
-              print("Yıllık giriş var");
-              if(int.parse(datesplit[2]) != DateTime.now().year){
-                //readSetting.Backup();
-                await backup(fileName, ref);
-              }
+            }else{
+              readSetting.setBackup(false);
+              print("yedeklenmesi gerekiyor ama hesabın açık değil GAHPE");
             }
-          }else{
-            readSetting.setBackup(false);
-            print("yedeklenmesi gerekiyor ama hesabın açık değil GAHPE");
-          }
-        });
-      }else if(readSetting.isBackUp == 0) {
-        print("Yedekleme kapalı");
-      }else{
-        print("Sorgular için Emulator yavas kalıyor.");
+          });
+        }else if(readSetting.isBackUp == 0) {
+          print("Yedekleme kapalı");
+        }else{
+          print("Sorgular için Emulator yavas kalıyor.");
+        }
       }
+
     }
     );
   }
