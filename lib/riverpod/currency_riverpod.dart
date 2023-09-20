@@ -145,7 +145,7 @@ class CurrencyRiverpod extends ChangeNotifier {
               }else{
                 if(firstdays != null){
                   historyCurrency = firstdays;
-                  print("FİNALLL === > ${firstdays!.lastApiUpdateDate}");
+                  print("FİNALLL === > ${firstdays.lastApiUpdateDate}");
                 }else{
                   historyCurrency = lastdays;
                   print("FİNALLL === > ${lastdays!.lastApiUpdateDate}");
@@ -187,6 +187,12 @@ class CurrencyRiverpod extends ChangeNotifier {
     for (var info in AllData) {
       if (info.moneyType == "0") {
         info.moneyType = "TRY";
+      }
+      if(info.realAmount == 0){
+        info.realAmount = info.amount ;
+      }
+      if(info.processOnce == "0"){
+        info.processOnce = "";
       }
 
       if(info.moneyType!.length == 4 ) {//aktif kayıtlarler(Giderler) buraya girecek.
@@ -231,8 +237,6 @@ class CurrencyRiverpod extends ChangeNotifier {
 
   Future<currencyInfo> fetchExchangeRates()  async {
     DateTime globalNow = await NTP.now();
-    const String apiBaseUrl = 'https://api.apilayer.com/exchangerates_data';
-    const String endpoint = '/latest';
     String apiKey = securityFile().api_key ?? "request API for currency rates";
     Map<String, dynamic> ?responseMap;
     final response = await http.get(Uri.parse("https://api.apilayer.com/exchangerates_data/latest?base=TRY&symbols=TRY,USD,EUR,GBP,KWD,JOD,IQD,SAR"),
@@ -341,7 +345,7 @@ class CurrencyRiverpod extends ChangeNotifier {
             }
           }else {
             print("bulutta veri var sql de yoktu ekledik");
-            SQLHelper.addItemCurrency(currrenciesFirestoreList![currrenciesFirestoreList!.length - 1]).then((value) {
+            SQLHelper.addItemCurrency(currrenciesFirestoreList[currrenciesFirestoreList.length - 1]).then((value) {
               SQLHelper.currencyControl().then((value) => currencySqlList = value);
               calculateAllSQLRealTime();
               readDb();

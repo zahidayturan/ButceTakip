@@ -85,7 +85,7 @@ class Communicate extends StatelessWidget {
                                   SnackBar(
                                       backgroundColor: const Color(0xff0D1C26),
                                       duration: const Duration(seconds: 1),
-                                      content: Text('Email Panoya Kopyalandı',style: TextStyle(color : Theme.of(context).canvasColor,fontFamily: 'Nexa3',fontSize: 15),)));
+                                      content: Text(translation(context).copiedToClipboard,style: TextStyle(color : renkler.yaziRenk,fontFamily: 'Nexa3',fontSize: 15),)));
                             },
                           )
                         ],

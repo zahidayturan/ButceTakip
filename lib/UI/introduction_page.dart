@@ -6,6 +6,7 @@ import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
+import 'package:butcekontrol/utils/security_file.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -326,7 +327,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                 ))
                             .toList(),
                         value: selectedLanguage,
-                        onChanged: (String? value) {
+                        onChanged: (String? value) async {
                           setState(() {
                             if (value == "Türkçe") {
                               readSetting.setLanguage("Turkce");
@@ -344,6 +345,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                             readSetting.setisuseinsert();
                             selectedLanguage = value;
                           });
+                          await ref.read(currencyRiverpod).calculateAllSQLRealTime();
                           controller.nextPage(
                               duration: const Duration(milliseconds: 800),
                               curve: Curves.easeInOut);
@@ -2112,7 +2114,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
     final bool? showBTA = prefs.getBool("showBTA");
     print(showBTA);
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => base_BKA(showBTA: true, appInfo:{"appInfoString": "normal", "version": "1.0.0"}))
+        MaterialPageRoute(builder: (context) => base_BKA(showBTA: true, appInfo:{"appInfoString": securityFile().noBackup, "version": "1.0.0"}))
     );
   }
 
@@ -2199,7 +2201,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
               await prefs.setBool("showBTA", true);
               final bool? showBTA = prefs.getBool("showBTA");
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const base_BKA(showBTA: true,appInfo:{"appInfoString": "normal", "version": "1.0.0"})));
+                  builder: (context) => base_BKA(showBTA: true,appInfo:{"appInfoString": securityFile().noBackup, "version": "1.0.0"})));
             },
             child: Padding(
               padding: const EdgeInsets.only(bottom: 80),

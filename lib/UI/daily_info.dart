@@ -113,18 +113,15 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                   }
                   return snapshot.data!.length == 0 ? Center(
                     child: SizedBox(
-                      height: 150,
+                      height: 180,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "assets/image/noInfo.png",
-                            width: 70,
-                            height: 70,
+                            "assets/image/noInfo4.png",
+                            width: 90,
+                            height: 90,
                             //color: Theme.of(context).canvasColor,
-                          ),
-                          const SizedBox(
-                            height: 6,
                           ),
                           SizedBox(
                             height: 22,
