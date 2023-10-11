@@ -82,7 +82,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Image.asset(
-                                          "assets/image/noInfo.png",
+                                          "assets/image/noInfo5.png",
                                           width: 75,
                                           height: 75,
                                         ),
@@ -209,7 +209,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Image.asset(
-                                            "assets/image/noInfo.png",
+                                            "assets/image/noInfo5.png",
                                             width: 75,
                                             height: 75,
                                           ),
@@ -334,7 +334,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Image.asset(
-                                            "assets/image/noInfo.png",
+                                            "assets/image/noInfo5.png",
                                             width: 75,
                                             height: 75,
                                           ),

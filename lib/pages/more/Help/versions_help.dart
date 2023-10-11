@@ -167,8 +167,10 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                       buildText(context, translation(context).categories, translation(context).update, Icons.category_outlined, 1, darkMode!, translation(context).categoriesDescription),
                       const SizedBox(height: 14,),
                       buildText(context, translation(context).activityCustomize, translation(context).yeniNew, Icons.dashboard_customize_outlined, 0, darkMode!, translation(context).activityCustomizeDescription),
+                      /*
                       const SizedBox(height: 14,),
                       buildText(context, translation(context).newBackupSystem, translation(context).yeniNew, Icons.backup_outlined, 0, darkMode!, translation(context).backupSystemDescription),
+                       */
                       const SizedBox(height: 14,),
                       buildText(context, translation(context).search, translation(context).yeniNew, Icons.search_rounded, 0, darkMode!, translation(context).searchDescription),
                       const SizedBox(height: 14,),

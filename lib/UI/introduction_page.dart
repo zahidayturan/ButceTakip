@@ -327,7 +327,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                 ))
                             .toList(),
                         value: selectedLanguage,
-                        onChanged: (String? value) {
+                        onChanged: (String? value) async {
                           setState(() {
                             if (value == "Türkçe") {
                               readSetting.setLanguage("Turkce");
@@ -345,6 +345,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                             readSetting.setisuseinsert();
                             selectedLanguage = value;
                           });
+                          await ref.read(currencyRiverpod).calculateAllSQLRealTime();
                           controller.nextPage(
                               duration: const Duration(milliseconds: 800),
                               curve: Curves.easeInOut);

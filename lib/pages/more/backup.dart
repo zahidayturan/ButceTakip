@@ -234,13 +234,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                                       await readGglAuth.downloadFileToDevice();
                                       Navigator.of(context).pop();
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
+                                        SnackBar(
                                           backgroundColor:
                                           const Color(0xff0D1C26),
                                           duration: const Duration(seconds: 1),
                                           content: Text(
-                                            "Verileriniz İndirildi",
-                                            style: TextStyle(
+                                            translation(context).downloadData,
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
                                               fontFamily: 'Nexa3',
@@ -329,12 +329,12 @@ class _BackUpState extends ConsumerState<BackUp> {
                                         Navigator.of(context).pop();
 
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
+                                          SnackBar(
                                             backgroundColor: const Color(0xff0D1C26),
                                             duration: const Duration(seconds: 1),
                                             content: Text(
-                                              "Verileriniz Yedeklendi",
-                                              style: TextStyle(
+                                              translation(context).backupedData,
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
                                                 fontFamily: 'Nexa3',
