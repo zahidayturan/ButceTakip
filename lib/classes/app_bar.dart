@@ -78,7 +78,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           )
           :Image.asset(
             readSetting.Language == "Turkce" ?
-            "assets/image/icon_BKA/yatayYazi.png" : readSetting.Language == "العربية" ? "assets/image/icon_BKA/appNameAr.png" : "assets/image/icon_BKA/appNameEn.png" ,
+            "assets/image/icon_BKA/appNameTr.png" : readSetting.Language == "العربية" ? "assets/image/icon_BKA/appNameAr.png" : "assets/image/icon_BKA/appNameEn.png" ,
             width: 100,
           ),
         ),

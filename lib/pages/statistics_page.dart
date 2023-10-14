@@ -1410,7 +1410,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             child: ClipPath(
               clipper: MyCustomClipper(),
               child: Tooltip(
-                message: 'Sadece Kayıtlı İşlemler'.toUpperCase(),
+                message: translation(context).onlySavedActivities.toUpperCase(),
                 triggerMode: TooltipTriggerMode.tap,
                 showDuration: registration == 1 ? const Duration(seconds: 1) : const Duration(seconds: 0),
                 textStyle: TextStyle(

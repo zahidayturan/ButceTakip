@@ -609,8 +609,7 @@ class More extends ConsumerWidget {
                   Column(
                     children: [
                       Image.asset(
-                        readSetting.Language == "Turkce" ?
-                        "assets/image/icon_BKA/LOGOBKA-2.png" : readSetting.Language == "العربية" ?"assets/image/icon_BKA/LOGOBKA-2ar.png"  :"assets/image/icon_BKA/LOGOBKA-2en.png" ,
+                        "assets/image/icon_BKA/logoBta${translation(context).appLanguage}.png",
                         color: renkler.sariRenk,
                         height: 70,
                       ),

@@ -1,4 +1,5 @@
 {
+    "appLanguage" : "En",
     "statisticsTitle": "STATISTICS",
     "activityCalendarTitle": "ACTIVITY CALENDAR",
     "calculatorTitle": "CALCULATOR",
@@ -449,6 +450,7 @@
     "receivedAmount": "Amount You Will Receive",
 
     "activityDetails": "ACTIVITY DETAILS",
+    "activityDetail": "Activity\nDetail",
 
     "details": "DETAILS",
     "dateDetails": "DATE",

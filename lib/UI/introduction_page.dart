@@ -440,8 +440,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
               child: SizedBox(
                 width: size.width * 0.45,
                 child: Image.asset(
-                  readSetting.Language == "Turkce" ?
-                  "assets/image/icon_BKA/LOGOBKA-2.png" : readSetting.Language == "العربية" ? "assets/image/icon_BKA/LOGOBKA-2ar.png" :  "assets/image/icon_BKA/LOGOBKA-2en.png",
+                  "assets/image/icon_BKA/logoBta${translation(context).appLanguage}.png",
                   color: Theme.of(context).dialogBackgroundColor,
                 ),
               ),
@@ -2298,7 +2297,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                   borderRadius: BorderRadius.circular(10.0),
                   child: Image.asset(
                     readSetting.Language == "Turkce" ?
-                    "assets/image/icon_BKA/appLogotr.png" : readSetting.Language == "العربية" ? "assets/image/icon_BKA/arAppLogo.png"  : "assets/image/icon_BKA/enAppLogo.png" ,
+                    "assets/image/icon_BKA/appLogoTr.png" : readSetting.Language == "العربية" ? "assets/image/icon_BKA/appLogoAr.png"  : "assets/image/icon_BKA/appLogoEn.png" ,
                     fit: BoxFit.contain,
                   ),
                 ),

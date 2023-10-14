@@ -148,7 +148,7 @@ class _AppStatusState extends ConsumerState<AppStatus> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.asset(
-                  "assets/image/icon_BKA/appLogotr.png",
+                  "assets/image/icon_BKA/appLogoTr.png",
                   fit: BoxFit.contain,
                 ),
               ),

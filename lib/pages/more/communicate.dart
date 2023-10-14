@@ -43,18 +43,18 @@ class Communicate extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          "assets/image/icon_BKA/appLogotr.png",
+                          "assets/image/icon_BKA/appLogoTr.png",
                           width: size.width/7,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.asset(
-                            "assets/image/icon_BKA/enAppLogo.png",
+                            "assets/image/icon_BKA/appLogoEn.png",
                             width: size.width/7,
                           ),
                         ),
                         Image.asset(
-                          "assets/image/icon_BKA/arAppLogo.png",
+                          "assets/image/icon_BKA/appLogoAr.png",
                           width: size.width/7,
                         ),
                       ],

@@ -1,4 +1,5 @@
 {
+  "appLanguage" : "Tr",
   "statisticsTitle": "İSTATİSTİKLER",
   "activityCalendarTitle": "İŞLEM TAKVİMİ",
   "calculatorTitle": "HESAP MAKİNESİ",
@@ -450,6 +451,7 @@
   "receivedAmount": "Alacağınız Miktar",
 
   "activityDetails": "İŞLEM DETAYLARI",
+  "activityDetail": "İşlem\nDetayı",
 
   "details": "İŞLEM DETAYI",
   "dateDetails": "TARİH",
