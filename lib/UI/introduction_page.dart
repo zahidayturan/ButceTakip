@@ -186,7 +186,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 child: Text(
                   text,
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 17,
                       height: 1,
                       color: Theme.of(context).primaryColor),
                 ),
@@ -232,155 +232,216 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             child: Center(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      "Merhaba",
-                      style: TextStyle(
-                          fontSize: 40,
-                          height: 1,
-                          color: darkMode == 0
-                              ? renkler.koyuuRenk
-                              : language == 'Türkçe'
-                                  ? Theme.of(context).disabledColor
-                                  : renkler.arkaRenk),
-                      textDirection: TextDirection.ltr,
+                  GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        "Merhaba",
+                        style: TextStyle(
+                            fontSize: 40,
+                            height: 1,
+                            color: darkMode == 0
+                                ? renkler.koyuuRenk
+                                : language == 'Türkçe'
+                                    ? Theme.of(context).disabledColor
+                                    : renkler.arkaRenk),
+                        textDirection: TextDirection.ltr,
+                      ),
+                    ),
+                    onTap: () {
+                      readSetting.setLanguage("Turkce");
+                      readSetting.setPrefix("TRY");
+                      readSetting.setisuseinsert();
+                      selectedLanguage = "Türkçe";
+                    },
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      readSetting.setLanguage("English");
+                      readSetting.setPrefix("USD");
+                      readSetting.setisuseinsert();
+                      selectedLanguage = "English";
+
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        "Hello",
+                        style: TextStyle(
+                            fontSize: 40,
+                            height: 1,
+                            color: darkMode == 0
+                                ? renkler.koyuuRenk
+                                : language == 'English'
+                                    ? Theme.of(context).disabledColor
+                                    : renkler.arkaRenk),
+                        textDirection: TextDirection.ltr,
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      "Hello",
-                      style: TextStyle(
-                          fontSize: 40,
-                          height: 1,
-                          color: darkMode == 0
-                              ? renkler.koyuuRenk
-                              : language == 'English'
-                                  ? Theme.of(context).disabledColor
-                                  : renkler.arkaRenk),
-                      textDirection: TextDirection.ltr,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      "مرحبًا",
-                      style: TextStyle(
-                          fontSize: 40,
-                          height: 1,
-                          color: darkMode == 0
-                              ? renkler.koyuuRenk
-                              : language == 'العربية'
-                                  ? Theme.of(context).disabledColor
-                                  : renkler.arkaRenk),
-                      textDirection: TextDirection.ltr,
+                  GestureDetector(
+                    onTap: () {
+                      readSetting.setLanguage("العربية");
+                      readSetting.setPrefix("SAR");
+                      readSetting.setisuseinsert();
+                      selectedLanguage = "العربية";
+
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        "مرحبًا",
+                        style: TextStyle(
+                            fontSize: 40,
+                            height: 1,
+                            color: darkMode == 0
+                                ? renkler.koyuuRenk
+                                : language == 'العربية'
+                                    ? Theme.of(context).disabledColor
+                                    : renkler.arkaRenk),
+                        textDirection: TextDirection.ltr,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Center(
-              child: SizedBox(
-                  height: 44,
-                  width: size.width * 0.7,
-                  child: TextButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(darkMode == 0
-                          ? renkler.arkaRenk
-                          : Theme.of(context).secondaryHeaderColor),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Center(
+                  child: SizedBox(
+                      height: 44,
+                      width: size.width * 0.7,
+                      child: TextButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(darkMode == 0
+                              ? renkler.arkaRenk
+                              : Theme.of(context).secondaryHeaderColor),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      const BorderRadius.all(Radius.circular(20)),
+                                  side: BorderSide(
+                                      width: 2, color: renkler.koyuuRenk))),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton2<String>(
+                            isExpanded: true,
+                            hint: Center(
+                              child: FittedBox(
+                                child: Text(
+                                  selectedLanguage ?? translation(context).selectLanguage,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      height: 1,
+                                      color: renkler.koyuuRenk),
+                                ),
+                              ),
+                            ),
+                            items: languageList
+                                .map((String item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Center(
+                                        child: Text(
+                                          item,
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              height: 1,
+                                              color: Theme.of(context).canvasColor),
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            value: selectedLanguage,
+                            onChanged: (String? value) async {
+                              setState(() {
+                                if (value == "Türkçe") {
+                                  readSetting.setLanguage("Turkce");
+                                  readSetting.setPrefix("TRY");
+                                } else if (value == "English") {
+                                  readSetting.setLanguage(value!);
+                                  readSetting.setPrefix("USD");
+                                } else if (value == "العربية") {
+                                  readSetting.setLanguage(value!);
+                                  readSetting.setPrefix("SAR");
+                                } else {
+                                  readSetting.setLanguage("English");
+                                  readSetting.setPrefix("USD");
+                                }
+                                readSetting.setisuseinsert();
+                                selectedLanguage = value;
+                              });
+                              await ref.read(currencyRiverpod).calculateAllSQLRealTime();
+                              controller.nextPage(
+                                  duration: const Duration(milliseconds: 800),
+                                  curve: Curves.easeInOut);
+                            },
+                            iconStyleData: const IconStyleData(
+                              iconSize: 0,
+                            ),
+                            //alignment: Alignment.center,
+                            dropdownStyleData: DropdownStyleData(
+                                decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                              side: BorderSide(
-                                  width: 2, color: renkler.koyuuRenk))),
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton2<String>(
-                        isExpanded: true,
-                        hint: Center(
-                          child: Text(
-                            selectedLanguage ?? translation(context).selectLanguage,
-                            style: TextStyle(
-                                fontSize: 18,
-                                height: 1,
-                                color: renkler.koyuuRenk),
+                                  const BorderRadius.all(Radius.circular(10)),
+                            )),
+                            buttonStyleData: ButtonStyleData(
+                              height: 36,
+                              width: size.width * 0.7,
+                            ),
+                            menuItemStyleData: MenuItemStyleData(
+                              overlayColor:
+                                  MaterialStatePropertyAll(Theme.of(context).disabledColor),
+                              padding: const EdgeInsets.all(8),
+                            ),
                           ),
                         ),
-                        items: languageList
-                            .map((String item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Center(
-                                    child: Text(
-                                      item,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          height: 1,
-                                          color: Theme.of(context).canvasColor),
-                                    ),
-                                  ),
-                                ))
-                            .toList(),
-                        value: selectedLanguage,
-                        onChanged: (String? value) async {
-                          setState(() {
-                            if (value == "Türkçe") {
-                              readSetting.setLanguage("Turkce");
-                              readSetting.setPrefix("TRY");
-                            } else if (value == "English") {
-                              readSetting.setLanguage(value!);
-                              readSetting.setPrefix("USD");
-                            } else if (value == "العربية") {
-                              readSetting.setLanguage(value!);
-                              readSetting.setPrefix("SAR");
-                            } else {
-                              readSetting.setLanguage("English");
-                              readSetting.setPrefix("USD");
-                            }
-                            readSetting.setisuseinsert();
-                            selectedLanguage = value;
-                          });
-                          await ref.read(currencyRiverpod).calculateAllSQLRealTime();
-                          controller.nextPage(
-                              duration: const Duration(milliseconds: 800),
-                              curve: Curves.easeInOut);
-                        },
-                        iconStyleData: const IconStyleData(
-                          iconSize: 0,
+                      )),
+                ),
+              ),
+              Visibility(
+                visible: selectedLanguage != null,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: GestureDetector(
+                    onTap: () async {
+                      await ref.read(currencyRiverpod).calculateAllSQLRealTime();
+                      controller.nextPage(
+                          duration: const Duration(milliseconds: 800),
+                          curve: Curves.easeInOut);
+                    },
+                    child: Center(
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).secondaryHeaderColor,
+                          shape: BoxShape.circle,
                         ),
-                        //alignment: Alignment.center,
-                        dropdownStyleData: DropdownStyleData(
-                            decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                        )),
-                        buttonStyleData: ButtonStyleData(
-                          height: 36,
-                          width: size.width * 0.7,
-                        ),
-                        menuItemStyleData: MenuItemStyleData(
-                          overlayColor:
-                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
-                          padding: const EdgeInsets.all(8),
-                        ),
+                        child: Icon(
+                          Icons.check_rounded,
+                        size: 32,
+                        color: Theme.of(context).primaryColor,),
                       ),
-                    ),
-                  )),
-            ),
+                ),
+                  ),
+                ),
+              )
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 40),
             child: Center(
               child: SizedBox(
-                width: size.width * 0.5,
+                width: size.width * 0.45,
                 child: Image.asset(
-                  "assets/image/icon_BKA/LOGOBKA-4.png",
+                  readSetting.Language == "Turkce" ?
+                  "assets/image/icon_BKA/LOGOBKA-2.png" : readSetting.Language == "العربية" ? "assets/image/icon_BKA/LOGOBKA-2ar.png" :  "assets/image/icon_BKA/LOGOBKA-2en.png",
                   color: Theme.of(context).dialogBackgroundColor,
                 ),
               ),
@@ -425,11 +486,11 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: Text(
                     translation(context).betterExperience,
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 34,
                         height: 1,
                         color: Theme.of(context).canvasColor),
                     textDirection: TextDirection.ltr,
@@ -459,9 +520,11 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)))),
                     ),
-                    child: Text(
-                      translation(context).startInstallation,
-                      style: TextStyle(fontSize: 18, color: renkler.koyuuRenk, height: 1),
+                    child: FittedBox(
+                      child: Text(
+                        translation(context).startInstallation,
+                        style: TextStyle(fontSize: 18, color: renkler.koyuuRenk, height: 1),
+                      ),
                     ),
                   )),
             ),
@@ -498,7 +561,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       child: Text(
                         translation(context).skipInstallation,
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             color: Theme.of(context).primaryColor,
                             height: 1
                         ),
@@ -546,11 +609,11 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: Text(
                     translation(context).skipInstallationWarning,
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 34,
                         height: 1,
                         color: Theme.of(context).canvasColor),
                     textDirection: TextDirection.ltr,
@@ -665,11 +728,11 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: Text(
                     translation(context).selectCurrencyForApplication,
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 34,
                         height: 1,
                         color: Theme.of(context).canvasColor),
                     textDirection: TextDirection.ltr,
@@ -693,26 +756,30 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       child: DropdownButton2<String>(
                         isExpanded: true,
                         hint: Center(
-                          child: Text(
-                            selectedMoneyType ?? moneyType,
-                            style: TextStyle(
-                                fontSize: 18,
-                                height: 1,
-                                fontFamily: 'TL',
-                                color: renkler.koyuuRenk),
+                          child: FittedBox(
+                            child: Text(
+                              selectedMoneyType ?? moneyType,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  height: 1,
+                                  fontFamily: 'TL',
+                                  color: renkler.koyuuRenk),
+                            ),
                           ),
                         ),
                         items: moneyNameList
                             .map((String item) => DropdownMenuItem<String>(
                                   value: item,
                                   child: Center(
-                                    child: Text(
-                                      item,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          height: 1,
-                                          fontFamily: 'TL',
-                                          color: renkler.koyuuRenk),
+                                    child: FittedBox(
+                                      child: Text(
+                                        item,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            height: 1,
+                                            fontFamily: 'TL',
+                                            color: renkler.koyuuRenk),
+                                      ),
                                     ),
                                   ),
                                 ))
@@ -798,7 +865,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       child: Text(
                         translation(context).continueProcessing,
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             height: 1,
                             color: Theme.of(context).primaryColor),
                       ),
@@ -859,11 +926,11 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: Text(
                     translation(context).appNotifications,
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 36,
                         height: 1,
                         color: Theme.of(context).canvasColor),
                     textDirection: TextDirection.ltr,
@@ -895,15 +962,15 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20))),
                           child: Center(
-                              child: Text(
-                            notificationsController == 0
-                                ? notificationStatus
-                                : "Ayarlayın",
+                              child: FittedBox(
+                                child: Text(
+                            translation(context).setNotification,
                             style: TextStyle(
-                                height: 1,
-                                fontSize: 18,
-                                color: renkler.koyuuRenk),
-                          )),
+                                  height: 1,
+                                  fontSize: 18,
+                                  color: renkler.koyuuRenk),
+                          ),
+                              )),
                         )),
                   ],
                 ),
@@ -914,7 +981,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: Text(
                     translation(context).turnOnNotifications,
                     style: TextStyle(
@@ -957,7 +1024,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       child: Text(
                         translation(context).continueProcessing,
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             height: 1,
                             color: Theme.of(context).primaryColor),
                       ),
@@ -1006,11 +1073,11 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: Text(
                     translation(context).backupPreference,
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 36,
                         height: 1,
                         color: Theme.of(context).canvasColor),
                     textDirection: TextDirection.ltr,
@@ -1024,7 +1091,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(18.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: Text(
                     translation(context).backupYourDataSecurelyViaGoogleAccount,
                     // translation(context).backupYourDataSecurely,
@@ -1087,11 +1154,13 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                           color: Theme.of(context).disabledColor,
                           borderRadius: const BorderRadius.all(Radius.circular(20))),
                       child: Center(
-                          child: Text(
-                            translation(context).signInGoogle,
+                          child: FittedBox(
+                            child: Text(
+                              translation(context).signInGoogle,
                         style: TextStyle(
-                            height: 1, fontSize: 18, color: renkler.koyuuRenk),
-                      )),
+                              height: 1, fontSize: 18, color: renkler.koyuuRenk),
+                      ),
+                          )),
                     )),
               ),
             ),
@@ -1136,7 +1205,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       child: Text(
                         translation(context).skipBackup,
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             height: 1,
                             color: Theme.of(context).primaryColor),
                       ),
@@ -1192,11 +1261,11 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             children: [
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: Text(
                     translation(context).backupPreference,
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 36,
                         height: 1,
                         color: Theme.of(context).canvasColor),
                     textDirection: TextDirection.ltr,
@@ -1216,13 +1285,15 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20))),
                         child: Center(
-                            child: Text(
+                            child: FittedBox(
+                              child: Text(
                           readGglAuth.accountStatus != false ? "${readGglAuth.getUserEmail()}" : "",
                           style: TextStyle(
-                              height: 1,
-                              fontSize: 18,
-                              color: Theme.of(context).primaryColor),
-                        )),
+                                height: 1,
+                                fontSize: 17,
+                                color: Theme.of(context).primaryColor),
+                        ),
+                            )),
                       )),
                 ),
               ),
@@ -1232,11 +1303,11 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
             children: [
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(14.0),
                   child: Text(
                     translation(context).backupFrequency,
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 36,
                         height: 1,
                         color: Theme.of(context).canvasColor),
                     textDirection: TextDirection.ltr,
@@ -1265,7 +1336,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                     child: Text(
                                       selectedBackUpType ?? translation(context).monthlyBackup,
                                       style: TextStyle(
-                                          fontSize: 18,
+                                          fontSize: 17,
                                           height: 1,
                                           fontFamily: 'Nexa3',
                                           color: renkler.koyuuRenk),
@@ -1278,7 +1349,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                       child: Text(
                                         item,
                                         style: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: 17,
                                             height: 1,
                                             fontFamily: 'Nexa3',
                                             color: renkler.koyuuRenk),
@@ -1361,7 +1432,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       child: Text(
                         translation(context).continueProcessing,
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             height: 1,
                             color: Theme.of(context).primaryColor),
                       ),
@@ -1425,7 +1496,6 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
       }
     }else{
       emptyTotal =0;
-      print("boş");
     }
   }
 
@@ -1464,34 +1534,37 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
           ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                translation(context).yourAssetStatus,
-                style: TextStyle(
-                    fontSize: 40,
-                    height: 1,
-                    color: Theme.of(context).canvasColor),
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.center,
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: FittedBox(
+                child: Text(
+                  translation(context).yourAssetStatus,
+                  style: TextStyle(
+                      fontSize: 34,
+                      height: 1,
+                      color: Theme.of(context).canvasColor),
+                  textDirection: TextDirection.ltr,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Text(
               translation(context).trackAssets,
               style: TextStyle(
-                  fontSize: 18, height: 1, color: Theme.of(context).canvasColor),
+                  fontSize: 17, height: 1, color: Theme.of(context).canvasColor),
               textDirection: TextDirection.ltr,
               textAlign: TextAlign.center,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Text(
               translation(context).startFromZero,
               style: TextStyle(
-                  fontSize: 18, height: 1, color: Theme.of(context).canvasColor),
+                  fontSize: 17, height: 1, color: Theme.of(context).canvasColor),
               textDirection: TextDirection.ltr,
               textAlign: TextAlign.center,
             ),
@@ -1522,8 +1595,10 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   borderRadius:
                                   BorderRadius.all(Radius.circular(20)))),
                         ),
-                        child: Text(cardTotal != 0 ? "${translation(context).bank} ${cardTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
-                            :translation(context).enterBankAssets,style: TextStyle(color: renkler.koyuuRenk),)
+                        child: FittedBox(
+                          child: Text(cardTotal != 0 ? "${translation(context).bank} ${cardTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
+                              :translation(context).enterBankAssets,style: TextStyle(color: renkler.koyuuRenk),),
+                        )
                       )),
                 ),
               ),
@@ -1551,8 +1626,10 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   borderRadius:
                                   BorderRadius.all(Radius.circular(20)))),
                         ),
-                        child: Text(cashTotal != 0 ? "${translation(context).cashAsset} ${cashTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
-                              :translation(context).enterCashAssets,style: TextStyle(color: renkler.koyuuRenk),)
+                        child: FittedBox(
+                          child: Text(cashTotal != 0 ? "${translation(context).cashAsset} ${cashTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
+                                :translation(context).enterCashAssets,style: TextStyle(color: renkler.koyuuRenk),),
+                        )
                       )),
                 ),
               ),
@@ -1580,8 +1657,10 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                   borderRadius:
                                   BorderRadius.all(Radius.circular(20)))),
                         ),
-                        child: Text(otherTotal != 0 ? "${translation(context).other} ${otherTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
-                            :translation(context).enterOtherAssets,style: TextStyle(color: renkler.koyuuRenk),)
+                        child: FittedBox(
+                          child: Text(otherTotal != 0 ? "${translation(context).other} ${otherTotal.toStringAsFixed(2)} ${readSetting.Prefix!}"
+                              :translation(context).enterOtherAssets,style: TextStyle(color: renkler.koyuuRenk),),
+                        )
                       )),
                 ),
               ),
@@ -1590,14 +1669,14 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
           Text(
             "${translation(context).startingAmount} ${(cardTotal+cashTotal+otherTotal).toStringAsFixed(1)} ${readSetting.Prefix} ",
             style: TextStyle(
-                fontSize: 20, height: 1, color: Theme.of(context).canvasColor),
+                fontSize: 18, height: 1, color: Theme.of(context).canvasColor),
             textAlign: TextAlign.center,
             maxLines: 2,
           ),
           Align(
             alignment: readSetting.Language == "العربية" ? Alignment.centerLeft : Alignment.centerRight,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 80),
+              padding: const EdgeInsets.only(bottom: 70),
               child: SizedBox(
                   height: 44,
                   child: TextButton(
@@ -1703,7 +1782,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       child: Text(
                         translation(context).complete,
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             height: 1,
                             color: Theme.of(context).primaryColor),
                       ),
@@ -1749,7 +1828,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                             style: TextStyle(
                                 color: Theme.of(context).canvasColor,
                                 fontFamily: "Nexa4",
-                                fontSize: 21),
+                                fontSize: 18),
                           ),
                           SizedBox(
                             height: 32,
@@ -2155,7 +2234,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       Text(
                         translation(context).budgetTrackOnlyTurkish,
                         style: TextStyle(
-                            fontSize: 32,
+                            fontSize: 30,
                             height: 1,
                             color: Theme.of(context).secondaryHeaderColor,
                             fontFamily: "Nexa4"),
@@ -2165,7 +2244,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                       Text(
                         translation(context).thankYouMessage,
                         style: TextStyle(
-                            fontSize: 32,
+                            fontSize: 30,
                             height: 1,
                             color: Theme.of(context).canvasColor),
                         textDirection: TextDirection.ltr,
@@ -2218,7 +2297,8 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child: Image.asset(
-                    "assets/image/icon_BKA/İKON.png",
+                    readSetting.Language == "Turkce" ?
+                    "assets/image/icon_BKA/appLogotr.png" : readSetting.Language == "العربية" ? "assets/image/icon_BKA/arAppLogo.png"  : "assets/image/icon_BKA/enAppLogo.png" ,
                     fit: BoxFit.contain,
                   ),
                 ),

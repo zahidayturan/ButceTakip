@@ -29,6 +29,7 @@
 
   "currency": "العملة",
   "appNotifications": "اشعارات التطبيق",
+  "setNotification": "ضبط",
   "turnOnNotifications": "",
 
   "backupPreference": "النسخ الاحتياطي",

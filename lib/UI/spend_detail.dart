@@ -275,7 +275,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                       fontSize: 18,
                     )),
                 Expanded(
-                  child: Text("${item[index].amount} ${item[index].moneyType}",
+                  child: Text("${item[index].amount} ${item[index].moneyType!.substring(0,3)}",
                       style: TextStyle(
                         color: renkler.yaziRenk,
                         fontFamily: 'Nexa3',

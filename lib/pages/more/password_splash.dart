@@ -50,27 +50,34 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
               child: Column(
                 children: [
                   widget.mode == "admin"
-                  ?Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          icon: Icon(
-                              Icons.arrow_back,
-                            color: renkler.koyuuRenk,
-                            size: 35,
-                          )
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        translation(context).goBack,
-                        style: TextStyle(
-                          color: renkler.koyuuRenk,
-                          fontSize: 20,
-                          fontFamily: "Nexa2"
+                  ?Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            icon: Icon(
+                              Icons.arrow_circle_left_outlined,
+                              color: Theme.of(context).canvasColor,
+                              size: 32,
+                            ),
                         ),
-                      )
-                    ],
+                        const SizedBox(width: 2),
+                        Padding(
+                          padding: const EdgeInsets.only(top:6.0),
+                          child: Text(
+                            translation(context).goBack,
+                            style: TextStyle(
+                              color: Theme.of(context).canvasColor,
+                              fontSize: 18,
+                              fontFamily: "Nexa4",
+                              fontWeight: FontWeight.w900
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   )
                   :SizedBox(height : size.height * .04),
                   Column(
@@ -81,6 +88,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                         abuzerHesapla(context),
                         style: TextStyle(
                             color: Theme.of(context).canvasColor,
+                            fontSize: 16,
                             fontFamily: "Nexa4"
                         ),
                       ),
