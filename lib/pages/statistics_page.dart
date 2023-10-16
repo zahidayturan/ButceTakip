@@ -39,43 +39,50 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       //myCategoryList(context);
       return ref.watch(databaseRiverpod);
     });
+    var read2 = ref.read(botomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        const SizedBox(height: 10),
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              leftInfoButton(context),
-              Expanded(
-                child: SizedBox(
-                  height: size.height * 0.26,
-                  child: pasta(context),
+    return WillPopScope(
+      onWillPop: () async {
+        read2.setCurrentindex(0);
+        return false;
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          const SizedBox(height: 10),
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                leftInfoButton(context),
+                Expanded(
+                  child: SizedBox(
+                    height: size.height * 0.26,
+                    child: pasta(context),
+                  ),
                 ),
-              ),
-              rightInfoButton(context),
-            ],
+                rightInfoButton(context),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        filterAdd(context),
-        const SizedBox(
-          height: 8,
-        ),
-        Expanded(
-          child: SizedBox(
-              width: size.width * 0.98, child: myCategoryList(context)),
-        ),
-        /*SizedBox(
-          child: Text(
-              "data ${validDateMenu} tür ${giderGelirHepsi} yıl ${selectedYearIndex} ay ${selectedMonthIndex} hafta ${selectedWeekIndex} gün ${selectedDayIndex}"),
-        ),*/
-      ],
+          const SizedBox(
+            height: 10,
+          ),
+          filterAdd(context),
+          const SizedBox(
+            height: 8,
+          ),
+          Expanded(
+            child: SizedBox(
+                width: size.width * 0.98, child: myCategoryList(context)),
+          ),
+          /*SizedBox(
+            child: Text(
+                "data ${validDateMenu} tür ${giderGelirHepsi} yıl ${selectedYearIndex} ay ${selectedMonthIndex} hafta ${selectedWeekIndex} gün ${selectedDayIndex}"),
+          ),*/
+        ],
+      ),
     );
   }
   final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();

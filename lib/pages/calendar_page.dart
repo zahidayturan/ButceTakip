@@ -53,16 +53,23 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: SizedBox(
-        height: size.height*0.78,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            calendarDesign(context, ref),
-          ],
+    var read2 = ref.read(botomNavBarRiverpod);
+    return WillPopScope(
+      onWillPop: () async {
+        read2.setCurrentindex(0);
+        return false;
+      },
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: SizedBox(
+          height: size.height*0.78,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              calendarDesign(context, ref),
+            ],
 
+          ),
         ),
       ),
     );
