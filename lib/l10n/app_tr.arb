@@ -1,4 +1,5 @@
 {
+  "appLanguage" : "Tr",
   "statisticsTitle": "İSTATİSTİKLER",
   "activityCalendarTitle": "İŞLEM TAKVİMİ",
   "calculatorTitle": "HESAP MAKİNESİ",
@@ -29,6 +30,7 @@
 
   "currency": "Para Birimi",
   "appNotifications": "Uygulama Bildirimleri",
+  "setNotification": "Ayarlayın",
   "turnOnNotifications": "İşlemlerinizi hatırlatabilmemiz için\nbildirimleri açık bırakmanızı öneririz.",
 
   "backupPreference": "Yedekleme Tercihi",
@@ -449,6 +451,7 @@
   "receivedAmount": "Alacağınız Miktar",
 
   "activityDetails": "İŞLEM DETAYLARI",
+  "activityDetail": "İşlem\nDetayı",
 
   "details": "İŞLEM DETAYI",
   "dateDetails": "TARİH",
@@ -473,7 +476,7 @@
 
   "updateDone": "GÜNCELLE",
   "activityUpdated": "İşlem bilgisi güncellendi",
-  "clickToAddNote": "Not eklemek için tıklayınız",
+  "clickToAddNote": "Not eklemek için dokunun",
 
   "firstWeek": "1.Hafta",
   "secondWeek": "2.Hafta",
@@ -627,7 +630,7 @@
   "signInAndBackupWithGoogle": "Google ile Oturum Aç ve Yedekle (Önerilen)",
   "turnOffBackupAndSignOutFromGoogle": "Yedeklemeyi ve Google Oturumunu Kapat",
 
-  "clickToCheck": "Kontrol Etmek İçin Tıklayınız",
+  "clickToCheck": "Kontrol Etmek İçin Dokunun",
 
   "noInternetConnection": "İnternet bağlantısı bulunamadı. Yedekleme Yapılamıyor.",
   "okAnladim": "Anladım",

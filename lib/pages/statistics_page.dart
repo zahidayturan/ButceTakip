@@ -2768,8 +2768,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     Colors.blue.shade600,
     Colors.blue.shade400,
     Colors.indigo.shade500,
-    Colors.deepPurple.shade800,
+    Colors.deepPurple.shade900,
+    Colors.deepPurple.shade700,
     Colors.deepPurple.shade500,
+    Colors.deepPurple.shade300,
     Colors.deepPurple.shade200,
   ];
 }

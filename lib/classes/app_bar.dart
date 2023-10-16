@@ -77,8 +77,9 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             ),
           )
           :Image.asset(
-            "assets/image/icon_BKA/yatayYazi.png",
-            width: 120,
+            readSetting.Language == "Turkce" ?
+            "assets/image/icon_BKA/appNameTr.png" : readSetting.Language == "العربية" ? "assets/image/icon_BKA/appNameAr.png" : "assets/image/icon_BKA/appNameEn.png" ,
+            width: 100,
           ),
         ),
         actions: [
@@ -145,6 +146,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           ),
           IconButton(
             onPressed: () async {
+              /*
               Navigator.push(
                 context,
                 PageRouteBuilder(
@@ -159,7 +161,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                   },
                 ),
               );
-              /*
+              */
               final SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.setBool("showBTA", false);
               final bool? showBTA = prefs.getBool("showBTA");
@@ -168,7 +170,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
 
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const IntroductionPage())
-              );*/
+              );
             },
             icon: const Icon(
               Icons.help_outline_rounded,

@@ -1,4 +1,5 @@
 {
+    "appLanguage" : "En",
     "statisticsTitle": "STATISTICS",
     "activityCalendarTitle": "ACTIVITY CALENDAR",
     "calculatorTitle": "CALCULATOR",
@@ -29,6 +30,7 @@
 
     "currency": "Currency",
     "appNotifications": "App Notifications",
+    "setNotification": "Adjust",
     "turnOnNotifications": "",
 
     "backupPreference": "Backup Data",
@@ -50,7 +52,7 @@
     "budgetTrackOnlyTurkish": "",
     "budgetTrack": "Budget Track",
     "appPreparationMessage": "Your App is Getting Ready",
-    "thankYouMessage": "Thank you for using our app",
+    "thankYouMessage": "Thank you for using Budget Wise",
 
     "savedActivities": "Saved Activities",
     "savedActivitiesAmount": "Amount",
@@ -448,6 +450,7 @@
     "receivedAmount": "Amount You Will Receive",
 
     "activityDetails": "ACTIVITY DETAILS",
+    "activityDetail": "Activity\nDetail",
 
     "details": "DETAILS",
     "dateDetails": "DATE",
@@ -472,7 +475,7 @@
 
     "updateDone": "DONE",
     "activityUpdated": "Activity updated",
-    "clickToAddNote": "Click to add note",
+    "clickToAddNote": "Tap to add note",
 
     "firstWeek": "1st week",
     "secondWeek": "2nd week",
@@ -626,7 +629,7 @@
     "signInAndBackupWithGoogle": "Sign in and Backup with Google (Recommended)",
     "turnOffBackupAndSignOutFromGoogle": "Turn Off Backup and Sign Out from Google.",
 
-    "clickToCheck": "Click to Check",
+    "clickToCheck": "Tap to Check",
 
     "noInternetConnection": "No internet connection found. Backup could not be done.",
     "okAnladim": "Ok",

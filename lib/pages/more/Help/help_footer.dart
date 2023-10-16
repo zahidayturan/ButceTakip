@@ -40,10 +40,9 @@ Widget helpFooter(BuildContext context) {
                   fontFamily: 'Nexa3',
                   fontSize: 15,
                 ),
-
               ),
               Image.asset(
-                "assets/image/LogoBkaShort.png",
+                "assets/image/icon_BKA/logoMini${translation(context).appLanguage}.png",
                 height: 40,
                 width: 40,
               ),

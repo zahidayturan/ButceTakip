@@ -1,4 +1,5 @@
 {
+  "appLanguage" : "Ar",
   "statisticsTitle": "الإحصائيات",
   "activityCalendarTitle": "تقويم العمليات",
   "calculatorTitle": "الآلة الحاسبة",
@@ -29,6 +30,7 @@
 
   "currency": "العملة",
   "appNotifications": "اشعارات التطبيق",
+  "setNotification": "ضبط",
   "turnOnNotifications": "",
 
   "backupPreference": "النسخ الاحتياطي",
@@ -448,6 +450,7 @@
   "receivedAmount": "المبلغ المستلم",
 
   "activityDetails": "تفاصيل العمليات",
+  "activityDetail": "تفاصيل \nالعمليات",
 
   "details": "تفاصيل العملية",
   "dateDetails": "التاريخ",
