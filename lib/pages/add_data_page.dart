@@ -240,9 +240,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       'DEBUG: ${_operationType.text} - ${_category.text} - ${convertedCategory} - ${userCategoryController} - ${_operationTool.text} - ${int.parse(_registration.text)} - ${_amount.text} - ${_note.text} - ${_operationDate.text} -${_customize.text} - ${convertedCustomize} - ${selectedCustomizeMenu} - ${_moneyType.text}',
                       style: const TextStyle(
                           color: Colors.red, fontFamily: 'TL'))),*/
-              const SizedBox(
-                height: 5,
-              ),
               operationCustomButton(context),
               const SizedBox(
                 height: 15,
@@ -679,7 +676,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                       });
                                                                 },
                                                                 child: Image.asset(
-                                                                  sortChanger == 1 ? "assets/icons/sort1.png" : sortChanger == 2 ? "assets/icons/sort2.png" : "assets/icons/sort1.png",
+                                                                  sortChanger == 1 ? ref.read(settingsRiverpod).Language == "العربية" ? "assets/icons/sort1ar.png" : "assets/icons/sort1.png" : sortChanger == 2 ? ref.read(settingsRiverpod).Language == "العربية" ? "assets/icons/sort2ar.png" :"assets/icons/sort2.png" : ref.read(settingsRiverpod).Language == "العربية" ? "assets/icons/sort1ar.png" : "assets/icons/sort1.png",
                                                                   color: sortChanger == 0 ? renkler.arkaRenk : renkler.koyuuRenk,
                                                                   fit: BoxFit.contain,
                                                                 ),
@@ -2445,18 +2442,21 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 child: SizedBox(
                   width: size.width * 0.95 - 130,
                   child: Center(
-                    child: Text(
-                      _customize.text == ""
-                          ? translation(context).tapToCustomize
-                          : selectedCustomizeMenu == 0
-                              ? '${translation(context).tekrarTurkEmpty} ${_customize.text} ${translation(context).turkTekrarOnly}' /// Uyuşmamalar nedeniyle bu şekilde çevrilmiştir
-                              : '${translation(context).taksitArabicOnly} ${_customize.text} ${translation(context).ayTaksitArapcaEpty} ${translation(context).taksitDevamArabicOnly}',
-                      maxLines: 2,
-                      style: TextStyle(
-                          height: 1,
-                          fontSize: 14,
-                          fontFamily: 'Nexa3',
-                          color: renkler.koyuuRenk),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: Text(
+                        _customize.text == ""
+                            ? translation(context).tapToCustomize
+                            : selectedCustomizeMenu == 0
+                                ? '${translation(context).tekrarTurkEmpty} ${_customize.text} ${translation(context).turkTekrarOnly}' /// Uyuşmamalar nedeniyle bu şekilde çevrilmiştir
+                                : '${translation(context).taksitArabicOnly} ${_customize.text} ${translation(context).ayTaksitArapcaEpty} ${translation(context).taksitDevamArabicOnly}',
+                        maxLines: 2,
+                        style: TextStyle(
+                            height: 1,
+                            fontSize: 14,
+                            fontFamily: 'Nexa3',
+                            color: renkler.koyuuRenk),
+                      ),
                     ),
                   ),
                 ),
@@ -3607,7 +3607,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   }
 
   int maxLength = 108;
-  int textLength = 0;
   Widget noteCustomButton(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SizedBox(
@@ -3650,7 +3649,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     maxLines: 3,
                     onChanged: (value) {
                       setState(() {
-                        textLength = value.length;
+
                       });
                     },
                     keyboardType: TextInputType.text,
@@ -3714,7 +3713,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        textLength = 0;
                         setState(() {
                           _note.text = "";
                         });
@@ -3786,7 +3784,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     onTap: () {
                       _note.text = "";
                       _amount.text = "";
-                      textLength = 0;
                       setState(() {
                         _category.text = "";
                         _customize.text = "";
@@ -3800,7 +3797,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Theme.of(context).shadowColor,
+                        color: Theme.of(context).highlightColor,
                       ),
                       height: 28,
                       width: size.width > 392 ? size.width * 0.26 : 100,
@@ -3808,7 +3805,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         child: Text(translation(context).deleteAll,
                             style: TextStyle(
                                 height: 1,
-                                color: Theme.of(context).canvasColor,
+                                color: renkler.arkaRenk,
                                 fontSize: 15,
                                 fontFamily: 'Nexa4',
                                 fontWeight: FontWeight.w900)),

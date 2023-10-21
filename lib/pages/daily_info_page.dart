@@ -141,6 +141,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                   radius: const Radius.circular(15),
                                   child: ListView.builder(
                                     itemCount: item.length,
+                                    physics: const BouncingScrollPhysics(),
                                     itemBuilder: (context, index) {
                                       return Padding(
                                         padding: const EdgeInsets.only(

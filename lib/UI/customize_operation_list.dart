@@ -174,6 +174,7 @@ class CustomizeList extends ConsumerWidget {
                             padding: const EdgeInsets.only(right: 1),
                             child: ListView.builder(
                               itemCount: item.length,
+                              physics: const BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 var readSettings = ref.read(settingsRiverpod);
                                 DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);
@@ -553,6 +554,7 @@ class CustomizeList extends ConsumerWidget {
                             padding: const EdgeInsets.only(right: 1),
                             child: ListView.builder(
                               itemCount: item.length,
+                              physics: const BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 var readSettings = ref.read(settingsRiverpod);
                                 DateTime itemDate = DateTime(int.tryParse(item[index].operationYear!)!,int.tryParse(item[index].operationMonth!)!,int.tryParse(item[index].operationDay!)!);

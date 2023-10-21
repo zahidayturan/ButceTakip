@@ -1,5 +1,4 @@
 import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -606,7 +605,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                       });
                                                                 },
                                                                 child: Image.asset(
-                                                                  sortChanger == 1 ? "assets/icons/sort1.png" : sortChanger == 2 ? "assets/icons/sort2.png" : "assets/icons/sort1.png",
+                                                                  sortChanger == 1 ? ref.read(settingsRiverpod).Language == "العربية" ? "assets/icons/sort1ar.png" : "assets/icons/sort1.png" : sortChanger == 2 ? ref.read(settingsRiverpod).Language == "العربية" ? "assets/icons/sort2ar.png" :"assets/icons/sort2.png" : ref.read(settingsRiverpod).Language == "العربية" ? "assets/icons/sort1ar.png" : "assets/icons/sort1.png",
                                                                   color: sortChanger == 0 ? renkler.arkaRenk : renkler.koyuuRenk,
                                                                   fit: BoxFit.contain,
                                                                 ),

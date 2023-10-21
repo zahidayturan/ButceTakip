@@ -90,6 +90,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                     thumbVisibility: true ,
                                     child: ListView.builder(
                                       itemCount: isclicked ? 1 : data.length,
+                                      physics: const BouncingScrollPhysics(),
                                       itemBuilder: (context, index) {
                                         return Padding(
                                           padding: const EdgeInsets.only(right: 10),

@@ -111,6 +111,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                           : ListView.builder(
                           controller: scrolbarcontroller1,
                           itemCount: dailyTotals.length,
+                          physics: const BouncingScrollPhysics(),
                           itemBuilder: (BuildContext context, index) {
                             var keys = dailyTotals.keys.toList();
                             var day = keys[index];

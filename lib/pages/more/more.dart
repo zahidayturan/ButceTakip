@@ -170,20 +170,17 @@ class More extends ConsumerWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Icon(Icons.wallet_rounded, color: renkler.koyuuRenk, size: 35),
-                                        Expanded(child: Padding(
-                                          padding: const EdgeInsets.only(top:8.0),
-                                          child: Text(translation(context).assets,style: TextStyle(color: renkler.koyuuRenk,fontSize: 16,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
-                                        )),
-                                      ],
-                                    ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Icon(Icons.wallet_rounded, color: renkler.koyuuRenk, size: 35),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:8.0),
+                                        child: Text(translation(context).assets,style: TextStyle(color: renkler.koyuuRenk,fontSize: 16,fontFamily: 'Nexa3',height: 1,overflow: TextOverflow.ellipsis),maxLines: 1,textAlign: TextAlign.center),
+                                      ),
+                                    ],
                                   ),
-                                  Text(translation(context).yourNetAsset,style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,)
+                                  Text(translation(context).yourNetAsset,style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1,overflow: TextOverflow.ellipsis),maxLines: 2,textAlign: TextAlign.center,)
                                 ],
                               ),
                             ),

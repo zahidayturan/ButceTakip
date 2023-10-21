@@ -143,6 +143,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                     child: ListView.builder(
                         controller: scroolBarController2,
                         itemCount: snapshot.data!.length,
+                        physics: const BouncingScrollPhysics(),
                         itemBuilder:
                             (BuildContext context, index) {
                           SpendInfo item = snapshot.data![index];

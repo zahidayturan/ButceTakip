@@ -2028,6 +2028,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                     width: size.width * 0.8,
                     child: ListView.builder(
                       itemCount: listName.length,
+                      physics: const BouncingScrollPhysics(),
                       itemBuilder: (ctx, index) {
                         return SizedBox(
                           height: 30,

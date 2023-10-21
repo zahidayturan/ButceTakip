@@ -106,6 +106,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                   )
                                   :ListView.builder(
                                     itemCount: list.length,
+                                    physics: const BouncingScrollPhysics(),
                                     itemBuilder:(context, index) {
                                       var date = list[index].operationDate ?? "00.00.0000";
                                       DateTime dateForFormat = DateTime(int.parse(date.split(".")[2]),int.parse(date.split(".")[1]),int.parse(date.split(".")[0]));
@@ -233,6 +234,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                     )
                                    :ListView.builder(
                                     itemCount: list.length,
+                                    physics: const BouncingScrollPhysics(),
                                     itemBuilder:(context, index) {
                                       return Column(
                                         children: [
@@ -358,6 +360,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                     )
                                   :ListView.builder(
                                     itemCount: list.length,
+                                    physics: const BouncingScrollPhysics(),
                                     itemBuilder:(context, index) {
                                       return Column(
                                         children: [
