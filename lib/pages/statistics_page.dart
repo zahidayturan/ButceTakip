@@ -66,7 +66,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               ],
             ),
           ),
-        ),
         const SizedBox(
           height: 10,
         ),
@@ -82,7 +81,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           child: Text(
               "data ${validDateMenu} tür ${giderGelirHepsi} yıl ${selectedYearIndex} ay ${selectedMonthIndex} hafta ${selectedWeekIndex} gün ${selectedDayIndex}"),
         ),*/
-      ],
+        ]),
     );
   }
 
