@@ -267,14 +267,16 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                     .map(
                                       (month) => Center(
                                     widthFactor: 1.5,
-                                    child: Text(
-                                      month,
-                                      style: const TextStyle(
-                                        color: Color(0xff0D1C26),
-                                        fontSize: 19,
-                                        fontFamily: 'Nexa4',
-                                        fontWeight: FontWeight.w600,
-                                        height: 1.3,
+                                    child: FittedBox(
+                                      child: Text(
+                                        month,
+                                        style: const TextStyle(
+                                          color: Color(0xff0D1C26),
+                                          fontSize: 19,
+                                          fontFamily: 'Nexa4',
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.3,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -314,14 +316,16 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                 children: yearName
                                     .map(
                                       (year) => Center(
-                                    child: Text(
-                                      year,
-                                      style: TextStyle(
-                                        color: Theme.of(context).dialogBackgroundColor,
-                                        fontSize: 18,
-                                        fontFamily: 'Nexa4',
-                                        fontWeight: FontWeight.w600,
-                                        height: 1.3,
+                                    child: FittedBox(
+                                      child: Text(
+                                        year,
+                                        style: TextStyle(
+                                          color: Theme.of(context).dialogBackgroundColor,
+                                          fontSize: 18,
+                                          fontFamily: 'Nexa4',
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.3,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -568,27 +572,31 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "  +0.0",
-                            style: TextStyle(
-                              color:  Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w900,
-                              height: 1.4,
+                          FittedBox(
+                            child: const Text(
+                              "  +0.0",
+                              style: TextStyle(
+                                color:  Colors.white,
+                                fontSize: 16,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w900,
+                                height: 1.4,
+                              ),
                             ),
                           ),
                           SizedBox(
                             width: size.width * 0.15,
                           ),
-                          const Text(
-                            "-0.0  ",
-                            style: TextStyle(
-                              color:  Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w900,
-                              height: 1.4,
+                          FittedBox(
+                            child: const Text(
+                              "-0.0  ",
+                              style: TextStyle(
+                                color:  Colors.white,
+                                fontSize: 16,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w900,
+                                height: 1.4,
+                              ),
                             ),
                           )
                         ],
@@ -607,14 +615,16 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         color: Theme.of(context).disabledColor,
                       ),
                       child: Center(
-                        child: Text(
-                          "0.0",
-                          style: TextStyle(
-                            color: Color(0xff0D1C26),
-                            fontSize: 16,
-                            fontFamily: 'Nexa3',
-                            fontWeight: FontWeight.w900,
-                            height: 1.4,
+                        child: FittedBox(
+                          child: Text(
+                            "0.0",
+                            style: TextStyle(
+                              color: Color(0xff0D1C26),
+                              fontSize: 16,
+                              fontFamily: 'Nexa3',
+                              fontWeight: FontWeight.w900,
+                              height: 1.4,
+                            ),
                           ),
                         ),
                       ), //Toplam değişim.
@@ -664,27 +674,31 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "  +${data[0]}",
-                            style: const TextStyle(
-                              color:  Colors.white,
-                              fontSize: 15,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w900,
-                              height: 1.4,
+                          FittedBox(
+                            child: Text(
+                              "  +${data[0]}",
+                              style: const TextStyle(
+                                color:  Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w900,
+                                height: 1.4,
+                              ),
                             ),
                           ),
                           SizedBox(
                             width: size.width * 0.15,
                           ),
-                          Text(
-                            "-${data[1]}  ",
-                            style: const TextStyle(
-                              color:  Colors.white,
-                              fontSize: 15,
-                              fontFamily: 'Nexa3',
-                              fontWeight: FontWeight.w900,
-                              height: 1.4,
+                          FittedBox(
+                            child: Text(
+                              "-${data[1]}  ",
+                              style: const TextStyle(
+                                color:  Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'Nexa3',
+                                fontWeight: FontWeight.w900,
+                                height: 1.4,
+                              ),
                             ),
                           ),
                         ],
@@ -750,24 +764,28 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "0 ${translation(context).incomeInfo}",
-                  style: TextStyle(
-                    color: Theme.of(context).canvasColor,
-                    fontSize: 17,
-                    fontFamily: 'Nexa3',
-                    fontWeight: FontWeight.w600,
-                    height: 1.4,
+                FittedBox(
+                  child: Text(
+                    "0 ${translation(context).incomeInfo}",
+                    style: TextStyle(
+                      color: Theme.of(context).canvasColor,
+                      fontSize: 17,
+                      fontFamily: 'Nexa3',
+                      fontWeight: FontWeight.w600,
+                      height: 1.4,
+                    ),
                   ),
                 ),
-                Text(
-                  "0 ${translation(context).expenseInfo}",
-                  style: TextStyle(
-                    color: Theme.of(context).canvasColor,
-                    fontSize: 17,
-                    fontFamily: 'Nexa3',
-                    fontWeight: FontWeight.w600,
-                    height: 1.4,
+                FittedBox(
+                  child: Text(
+                    "0 ${translation(context).expenseInfo}",
+                    style: TextStyle(
+                      color: Theme.of(context).canvasColor,
+                      fontSize: 17,
+                      fontFamily: 'Nexa3',
+                      fontWeight: FontWeight.w600,
+                      height: 1.4,
+                    ),
                   ),
                 ),
               ],
@@ -781,24 +799,28 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "${data[0]} ${translation(context).incomeInfo}",
-                  style: TextStyle(
-                    color: Theme.of(context).canvasColor,
-                    fontSize: 17,
-                    fontFamily: 'Nexa3',
-                    fontWeight: FontWeight.w600,
-                    height: 1.4,
+                FittedBox(
+                  child: Text(
+                    "${data[0]} ${translation(context).incomeInfo}",
+                    style: TextStyle(
+                      color: Theme.of(context).canvasColor,
+                      fontSize: 17,
+                      fontFamily: 'Nexa3',
+                      fontWeight: FontWeight.w600,
+                      height: 1.4,
+                    ),
                   ),
                 ),
-                Text(
-                  "${data[1]} ${translation(context).expenseInfo}",
-                  style: TextStyle(
-                    color: Theme.of(context).canvasColor,
-                    fontSize: 17,
-                    fontFamily: 'Nexa3',
-                    fontWeight: FontWeight.w600,
-                    height: 1.4,
+                FittedBox(
+                  child: Text(
+                    "${data[1]} ${translation(context).expenseInfo}",
+                    style: TextStyle(
+                      color: Theme.of(context).canvasColor,
+                      fontSize: 17,
+                      fontFamily: 'Nexa3',
+                      fontWeight: FontWeight.w600,
+                      height: 1.4,
+                    ),
                   ),
                 ),
               ],
@@ -853,14 +875,16 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
             color: Theme.of(context).highlightColor,
           ),
           child: Center(
-            child: Text(
-              day,
-              style: const TextStyle(
-                color: Color(0xFFE9E9E9),
-                fontSize: 18,
-                fontFamily: 'Nexa3',
-                fontWeight: FontWeight.w900,
-                height: 1.4,
+            child: FittedBox(
+              child: Text(
+                day,
+                style: const TextStyle(
+                  color: Color(0xFFE9E9E9),
+                  fontSize: 18,
+                  fontFamily: 'Nexa3',
+                  fontWeight: FontWeight.w900,
+                  height: 1.4,
+                ),
               ),
             ),
           ),

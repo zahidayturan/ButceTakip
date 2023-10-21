@@ -167,6 +167,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       height: size.height * .75,
                       child: ListView.builder(
                         itemCount: dbRiv.searchListTile!.length,
+                        physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
                           DateTime itemDate = DateTime(int.tryParse(dbRiv.searchListTile![index].operationYear!)!,int.tryParse(dbRiv.searchListTile![index].operationMonth!)!,int.tryParse(dbRiv.searchListTile![index].operationDay!)!);
                           String formattedDate = DateFormat(readSettings.dateFormat).format(itemDate);

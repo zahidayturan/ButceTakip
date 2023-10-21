@@ -52,7 +52,7 @@ class HelpBackup extends StatelessWidget {
                               ),
                               child: Icon(
                                 size: 20,
-                                Icons.wallet,
+                                Icons.backup,
                                 color: Theme.of(context).scaffoldBackgroundColor,
                               ),
                             ),

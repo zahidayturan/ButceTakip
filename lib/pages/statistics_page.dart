@@ -66,25 +66,25 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          filterAdd(context),
-          const SizedBox(
-            height: 8,
-          ),
-          Expanded(
-            child: SizedBox(
-                width: size.width * 0.98, child: myCategoryList(context)),
-          ),
-          /*SizedBox(
-            child: Text(
-                "data ${validDateMenu} tür ${giderGelirHepsi} yıl ${selectedYearIndex} ay ${selectedMonthIndex} hafta ${selectedWeekIndex} gün ${selectedDayIndex}"),
-          ),*/
-        ],
-      ),
+        const SizedBox(
+          height: 10,
+        ),
+        filterAdd(context),
+        const SizedBox(
+          height: 10,
+        ),
+        Expanded(
+          child: SizedBox(
+              width: size.width * 0.98, child: myCategoryList(context)),
+        ),
+        /*SizedBox(
+          child: Text(
+              "data ${validDateMenu} tür ${giderGelirHepsi} yıl ${selectedYearIndex} ay ${selectedMonthIndex} hafta ${selectedWeekIndex} gün ${selectedDayIndex}"),
+        ),*/
+        ]),
     );
   }
+
   final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
 
   @override
@@ -93,10 +93,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     var adEventCounter = readSettings.adEventCounter;
     if (adEventCounter! < 6) {
       _interstitialAdManager.loadInterstitialAd();
-    } else {
-    }
+    } else {}
     super.initState();
   }
+
   void _showInterstitialAd(BuildContext context) {
     _interstitialAdManager.showInterstitialAd(context);
   }
@@ -106,7 +106,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     super.dispose();
   }
 
-  String operationType = 'Hepsi';
+  String operationType = 'Gider';
   int day = DateTime.now().day;
   int month = DateTime.now().month;
   int year = DateTime.now().year;
@@ -128,7 +128,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       translation(context).cash,
       translation(context).card,
       translation(context).otherPaye,
-    translation(context).all,
+      translation(context).all,
     ];
   }
 
@@ -143,14 +143,13 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   }
 
   String selectedValueTypes(String value, BuildContext context) {
-    return translation(context).both;
+    return translation(context).expenses;
   }
 
   String? selectedValueDate;
   String? selectedValueType;
   List<String> selectedItemsTool = [];
   List<String> selectedItemsToolToData = [];
-
 
   Widget filterAdd(BuildContext context) {
     var readStatistics = ref.read(statisticsRiverpod);
@@ -170,32 +169,37 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           border: Border.all(
               color: Theme.of(context).highlightColor, // Set border color
               width: 1,
-          strokeAlign: BorderSide.strokeAlignInside),
-            boxShadow: darkMode == 1 ? [
-              BoxShadow(
-                color: Colors.black54.withOpacity(0.8),
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: const Offset(-1, 2),
-              )
-            ] : [
-              BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  spreadRadius: 0.5,
-                  blurRadius: 2,
-                  offset: const Offset(0, 2)
-              )],
+              strokeAlign: BorderSide.strokeAlignInside),
+          boxShadow: darkMode == 1
+              ? [
+                  BoxShadow(
+                    color: Colors.black54.withOpacity(0.8),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: const Offset(-1, 2),
+                  )
+                ]
+              : [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 0.5,
+                      blurRadius: 2,
+                      offset: const Offset(0, 2))
+                ],
           borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
         child: Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 3),
-              child: Text(
-          translation(context).tapToFilter,
-          style: TextStyle(
-                color: renkler.arkaRenk, fontFamily: 'Nexa3', fontSize: 15, height: 1),
-        ),
-            )),
+          padding: const EdgeInsets.only(top: 3),
+          child: Text(
+            translation(context).tapToFilter,
+            style: TextStyle(
+                color: renkler.arkaRenk,
+                fontFamily: 'Nexa3',
+                fontSize: 15,
+                height: 1),
+          ),
+        )),
       ),
       onTap: () {
         showDialog(
@@ -295,7 +299,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         height: 36,
                                         //width: 100,
                                         decoration: BoxDecoration(
-                                          color: Theme.of(context).disabledColor,
+                                          color:
+                                              Theme.of(context).disabledColor,
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
                                         ),
@@ -304,7 +309,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             isExpanded: true,
                                             hint: Center(
                                               child: Text(
-                                                translation(context).both,
+                                                translation(context).expenses,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontFamily: 'Nexa4',
@@ -357,7 +362,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 height: 36,
                                                 width: 100,
                                                 decoration: BoxDecoration(
-                                                    color: Theme.of(context).disabledColor,
+                                                    color: Theme.of(context)
+                                                        .disabledColor,
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(10))
@@ -370,7 +376,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                               height: 32,
                                               overlayColor:
                                                   MaterialStatePropertyAll(
-                                                      Theme.of(context).disabledColor),
+                                                      Theme.of(context)
+                                                          .disabledColor),
                                               padding: const EdgeInsets.all(8),
                                             ),
                                           ),
@@ -424,7 +431,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             height: 36,
                                             //width: 100,
                                             decoration: BoxDecoration(
-                                              color: Theme.of(context).disabledColor,
+                                              color: Theme.of(context)
+                                                  .disabledColor,
                                               borderRadius:
                                                   const BorderRadius.all(
                                                       Radius.circular(10)),
@@ -514,7 +522,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                   height: 32,
                                                   overlayColor:
                                                       MaterialStatePropertyAll(
-                                                          Theme.of(context).disabledColor),
+                                                          Theme.of(context)
+                                                              .disabledColor),
                                                   padding:
                                                       const EdgeInsets.all(8),
                                                 ),
@@ -560,7 +569,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          translation(context).onlySavedActivities,
+                                          translation(context)
+                                              .onlySavedActivities,
                                           style: TextStyle(
                                               color: renkler.arkaRenk,
                                               fontSize: 15,
@@ -571,7 +581,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         height: 36,
                                         width: 86,
                                         decoration: BoxDecoration(
-                                            color: Theme.of(context).disabledColor,
+                                            color:
+                                                Theme.of(context).disabledColor,
                                             borderRadius:
                                                 const BorderRadius.all(
                                                     Radius.circular(10))),
@@ -606,8 +617,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                     top: 2),
                                                 child: Text(
                                                   registration == 1
-                                                      ? translation(context).yesBig
-                                                      : translation(context).noBig,
+                                                      ? translation(context)
+                                                          .yesBig
+                                                      : translation(context)
+                                                          .noBig,
                                                   style: TextStyle(
                                                       color: renkler.koyuuRenk,
                                                       fontFamily: 'Nexa4',
@@ -652,7 +665,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          translation(context).paymentMethodStatistics,
+                                          translation(context)
+                                              .paymentMethodStatistics,
                                           style: TextStyle(
                                               color: renkler.arkaRenk,
                                               fontSize: 15,
@@ -663,7 +677,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         height: 36,
                                         //width: 100,
                                         decoration: BoxDecoration(
-                                            color: Theme.of(context).disabledColor,
+                                            color:
+                                                Theme.of(context).disabledColor,
                                             borderRadius:
                                                 const BorderRadius.all(
                                                     Radius.circular(10))),
@@ -697,7 +712,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                     return InkWell(
                                                       onTap: () {
                                                         if (item ==
-                                                            translation(context).all) {
+                                                            translation(context)
+                                                                .all) {
                                                           isSelected
                                                               ? selectedItemsTool
                                                                   .remove(item)
@@ -715,11 +731,12 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                   .remove(item)
                                                               : selectedItemsTool
                                                                       .contains(
-                                                            translation(context).all)
+                                                                          translation(context)
+                                                                              .all)
                                                                   ? {
                                                                       (selectedItemsTool
                                                                         ..remove(
-                                                                          translation(context).all)
+                                                                            translation(context).all)
                                                                         ..add(
                                                                             item)),
                                                                       Navigator.of(
@@ -742,7 +759,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                     .otherPaye)) {
                                                           selectedItemsTool
                                                             ..clear()
-                                                            ..add(translation(context).all);
+                                                            ..add(translation(
+                                                                    context)
+                                                                .all);
                                                           Navigator.of(context)
                                                               .pop();
                                                         }
@@ -856,7 +875,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 height: 36,
                                                 width: 120,
                                                 decoration: BoxDecoration(
-                                                    color: Theme.of(context).disabledColor,
+                                                    color: Theme.of(context)
+                                                        .disabledColor,
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(10))
@@ -870,7 +890,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                               padding: EdgeInsets.zero,
                                               overlayColor:
                                                   MaterialStatePropertyAll(
-                                                      Theme.of(context).disabledColor),
+                                                      Theme.of(context)
+                                                          .disabledColor),
                                               //padding: EdgeInsets.all(8),
                                             ),
                                           ),
@@ -894,7 +915,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 InkWell(
                                   onTap: () {
                                     selectedValueType = null;
-                                    operationType = 'Hepsi';
+                                    operationType = 'Gider';
                                     registration = 0;
                                     selectedValueDate =
                                         translation(context).monthly;
@@ -925,7 +946,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     ),
                                     child: Center(
                                         child: Text(
-                                          translation(context).reset,
+                                      translation(context).reset,
                                       style: TextStyle(
                                           color: Theme.of(context).canvasColor,
                                           fontSize: 15,
@@ -945,7 +966,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         translation(context).expenses) {
                                       operationType = 'Gider';
                                     } else {
-                                      operationType = 'Hepsi';
+                                      operationType = 'Gider';
                                     }
                                     print(
                                         'Tamam bastın ve type : ${operationType}');
@@ -987,7 +1008,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     } else if (selectedValueDate ==
                                         translation(context).daily) {
                                       dateType = 3;
-                                    } else if (selectedValueDate == translation(context).period) {
+                                    } else if (selectedValueDate ==
+                                        translation(context).period) {
                                       dateType = 4;
                                     } else {
                                       dateType = 1;
@@ -1029,7 +1051,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     ),
                                     child: Center(
                                         child: Text(
-                                          translation(context).okStatistics,
+                                      translation(context).okStatistics,
                                       style: TextStyle(
                                           color: renkler.arkaRenk,
                                           fontSize: 15,
@@ -1062,7 +1084,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         selectedValueYear != null ? selectedValueYear! : year.toString();
     int monthText =
         selectedValueMonth != null ? convertMonth(selectedValueMonth!) : month;
-    String monthTextTip = selectedValueMonth != null ? selectedValueMonth! : readStatistics.getMonths(context)[month-1] ;
+    String monthTextTip = selectedValueMonth != null
+        ? selectedValueMonth!
+        : readStatistics.getMonths(context)[month - 1];
     String weekText =
         selectedValueWeek != null ? selectedValueWeek! : week.toString();
     String dayText =
@@ -1109,15 +1133,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               child: Tooltip(
                 message: '$date1 / $date2',
                 triggerMode: TooltipTriggerMode.tap,
-                showDuration: dateController == 4 ? const Duration(seconds: 1) : const Duration(seconds: 0),
-                textStyle: TextStyle(
-                    fontSize: 13,
-                    color: renkler.arkaRenk,
-                    height: 1),
+                showDuration: dateController == 4
+                    ? const Duration(seconds: 1)
+                    : const Duration(seconds: 0),
+                textStyle:
+                    TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
                 textAlign: TextAlign.center,
                 decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: Theme.of(context).highlightColor),
                 child: Container(
                   height: 36,
@@ -1151,15 +1174,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               child: Tooltip(
                 message: '$dayText. Gün'.toUpperCase(),
                 triggerMode: TooltipTriggerMode.tap,
-                showDuration: dateController == 3 ? const Duration(seconds: 1) : const Duration(seconds: 0),
-                textStyle: TextStyle(
-                    fontSize: 13,
-                    color: renkler.arkaRenk,
-                    height: 1),
+                showDuration: dateController == 3
+                    ? const Duration(seconds: 1)
+                    : const Duration(seconds: 0),
+                textStyle:
+                    TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
                 textAlign: TextAlign.center,
                 decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: Theme.of(context).highlightColor),
                 child: Container(
                   height: 36,
@@ -1198,15 +1220,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               child: Tooltip(
                 message: '$weekText. Hafta'.toUpperCase(),
                 triggerMode: TooltipTriggerMode.tap,
-                showDuration: dateController == 2 ? const Duration(seconds: 1) : const Duration(seconds: 0),
-                textStyle: TextStyle(
-                    fontSize: 13,
-                    color: renkler.arkaRenk,
-                    height: 1),
+                showDuration: dateController == 2
+                    ? const Duration(seconds: 1)
+                    : const Duration(seconds: 0),
+                textStyle:
+                    TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
                 textAlign: TextAlign.center,
                 decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: Theme.of(context).highlightColor),
                 child: Container(
                   height: 36,
@@ -1246,15 +1267,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               child: Tooltip(
                 message: monthTextTip.toUpperCase(),
                 triggerMode: TooltipTriggerMode.tap,
-                showDuration: dateController == 1 ? const Duration(seconds: 1) : const Duration(seconds: 0),
-                textStyle: TextStyle(
-                    fontSize: 13,
-                    color: renkler.arkaRenk,
-                    height: 1),
+                showDuration: dateController == 1
+                    ? const Duration(seconds: 1)
+                    : const Duration(seconds: 0),
+                textStyle:
+                    TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
                 textAlign: TextAlign.center,
                 decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: Theme.of(context).highlightColor),
                 child: Container(
                   height: 36,
@@ -1294,15 +1314,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               child: Tooltip(
                 message: yearText,
                 triggerMode: TooltipTriggerMode.tap,
-                showDuration: dateController != 4 ? const Duration(seconds: 1) : const Duration(seconds: 0),
-                textStyle: TextStyle(
-                    fontSize: 13,
-                    color: renkler.arkaRenk,
-                    height: 1),
+                showDuration: dateController != 4
+                    ? const Duration(seconds: 1)
+                    : const Duration(seconds: 0),
+                textStyle:
+                    TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
                 textAlign: TextAlign.center,
                 decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: Theme.of(context).highlightColor),
                 child: Container(
                   height: 36,
@@ -1341,14 +1360,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               message: dateInfo,
               triggerMode: TooltipTriggerMode.tap,
               showDuration: const Duration(seconds: 1),
-              textStyle: TextStyle(
-                  fontSize: 13,
-                  color: renkler.arkaRenk,
-                  height: 1),
+              textStyle:
+                  TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
               textAlign: TextAlign.center,
               decoration: BoxDecoration(
-                  borderRadius:
-                  const BorderRadius.all(Radius.circular(5)),
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
                   color: Theme.of(context).highlightColor),
               child: Container(
                 height: 36,
@@ -1369,7 +1385,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
   Widget leftInfoButton(BuildContext context) {
     String typeInfo = selectedValueType != null
         ? selectedValueType!
-        : translation(context).both;
+        : translation(context).expenses;
     List<String> toolInfo = selectedItemsTool.isNotEmpty
         ? selectedItemsTool!
         : [translation(context).both];
@@ -1419,15 +1435,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               child: Tooltip(
                 message: translation(context).onlySavedActivities.toUpperCase(),
                 triggerMode: TooltipTriggerMode.tap,
-                showDuration: registration == 1 ? const Duration(seconds: 1) : const Duration(seconds: 0),
-                textStyle: TextStyle(
-                    fontSize: 13,
-                    color: renkler.arkaRenk,
-                    height: 1),
+                showDuration: registration == 1
+                    ? const Duration(seconds: 1)
+                    : const Duration(seconds: 0),
+                textStyle:
+                    TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
                 textAlign: TextAlign.center,
                 decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: Theme.of(context).highlightColor),
                 child: Container(
                   height: 36,
@@ -1466,17 +1481,16 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 message: translation(context).otherPaye,
                 triggerMode: TooltipTriggerMode.tap,
                 showDuration: typeInfoController == 0 ||
-                    typeInfoController == 3 ||
-                    typeInfoController == 5 ||
-                    typeInfoController == 6 ? const Duration(seconds: 1) : const Duration(seconds: 0),
-                textStyle: TextStyle(
-                    fontSize: 13,
-                    color: renkler.arkaRenk,
-                    height: 1),
+                        typeInfoController == 3 ||
+                        typeInfoController == 5 ||
+                        typeInfoController == 6
+                    ? const Duration(seconds: 1)
+                    : const Duration(seconds: 0),
+                textStyle:
+                    TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
                 textAlign: TextAlign.center,
                 decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: Theme.of(context).highlightColor),
                 child: Container(
                   height: 36,
@@ -1519,17 +1533,16 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 message: translation(context).card,
                 triggerMode: TooltipTriggerMode.tap,
                 showDuration: typeInfoController == 0 ||
-                    typeInfoController == 2 ||
-                    typeInfoController == 4 ||
-                    typeInfoController == 6 ? const Duration(seconds: 1) : const Duration(seconds: 0),
-                textStyle: TextStyle(
-                    fontSize: 13,
-                    color: renkler.arkaRenk,
-                    height: 1),
+                        typeInfoController == 2 ||
+                        typeInfoController == 4 ||
+                        typeInfoController == 6
+                    ? const Duration(seconds: 1)
+                    : const Duration(seconds: 0),
+                textStyle:
+                    TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
                 textAlign: TextAlign.center,
                 decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: Theme.of(context).highlightColor),
                 child: Container(
                   height: 36,
@@ -1572,17 +1585,16 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 message: translation(context).cash,
                 triggerMode: TooltipTriggerMode.tap,
                 showDuration: typeInfoController == 0 ||
-    typeInfoController == 1 ||
-    typeInfoController == 4 ||
-    typeInfoController == 5 ? const Duration(seconds: 1) : const Duration(seconds: 0),
-                textStyle: TextStyle(
-                    fontSize: 13,
-                    color: renkler.arkaRenk,
-                    height: 1),
+                        typeInfoController == 1 ||
+                        typeInfoController == 4 ||
+                        typeInfoController == 5
+                    ? const Duration(seconds: 1)
+                    : const Duration(seconds: 0),
+                textStyle:
+                    TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
                 textAlign: TextAlign.center,
                 decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: Theme.of(context).highlightColor),
                 child: Container(
                   height: 36,
@@ -1624,15 +1636,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               child: Tooltip(
                 message: translation(context).expenses,
                 triggerMode: TooltipTriggerMode.tap,
-                showDuration: typeInfo == translation(context).income ? const Duration(seconds: 0) : const Duration(seconds: 1),
-                textStyle: TextStyle(
-                    fontSize: 13,
-                    color: renkler.arkaRenk,
-                    height: 1),
+                showDuration: typeInfo == translation(context).income
+                    ? const Duration(seconds: 0)
+                    : const Duration(seconds: 1),
+                textStyle:
+                    TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
                 textAlign: TextAlign.center,
                 decoration: BoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: Theme.of(context).highlightColor),
                 child: Container(
                   height: 36,
@@ -1644,14 +1655,12 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         ? Theme.of(context).disabledColor
                         : Theme.of(context).focusColor,
                   ),
-                  child: Image.asset(
-                    "assets/icons/expense.png",
+                  child: Image.asset("assets/icons/expense.png",
                       filterQuality: FilterQuality.medium,
                       color: typeInfo == translation(context).both ||
-                          typeInfo == translation(context).expenses
+                              typeInfo == translation(context).expenses
                           ? null
-                          : Theme.of(context).primaryColor
-                  ),
+                          : Theme.of(context).primaryColor),
                   /*child: Icon(
                     Icons.south_west_rounded,
                     color: typeInfo == translation(context).both ||
@@ -1677,15 +1686,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             child: Tooltip(
               message: translation(context).income,
               triggerMode: TooltipTriggerMode.tap,
-              showDuration: typeInfo == translation(context).expenses ? const Duration(seconds: 0) : const Duration(seconds: 1),
-              textStyle: TextStyle(
-                  fontSize: 13,
-                  color: renkler.arkaRenk,
-                  height: 1),
+              showDuration: typeInfo == translation(context).expenses
+                  ? const Duration(seconds: 0)
+                  : const Duration(seconds: 1),
+              textStyle:
+                  TextStyle(fontSize: 13, color: renkler.arkaRenk, height: 1),
               textAlign: TextAlign.center,
               decoration: BoxDecoration(
-                  borderRadius:
-                  const BorderRadius.all(Radius.circular(5)),
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
                   color: Theme.of(context).highlightColor),
               child: Container(
                 height: 36,
@@ -1697,15 +1705,13 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       ? Theme.of(context).disabledColor
                       : Theme.of(context).focusColor,
                 ),
-                child: Image.asset(
-                    "assets/icons/income.png",
+                child: Image.asset("assets/icons/income.png",
                     filterQuality: FilterQuality.medium,
                     color: typeInfo == translation(context).both ||
-                        typeInfo == translation(context).income
+                            typeInfo == translation(context).income
                         ? null
-                        : Theme.of(context).primaryColor
-                ),
-               /* child: Icon(
+                        : Theme.of(context).primaryColor),
+                /* child: Icon(
                   Icons.north_east_rounded,
                   color: typeInfo == translation(context).both ||
                           typeInfo == translation(context).income
@@ -1725,7 +1731,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     var readSettings = ref.read(settingsRiverpod);
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var size = MediaQuery.of(context).size;
-    final ScrollController scrolbarcontroller1 = ScrollController();
+    var watchHome = ref.watch(homeRiverpod);
     Future<List<Map<String, dynamic>>> myList = read.getCategoryList(
         operationType,
         registration,
@@ -1745,7 +1751,10 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               child: CircularProgressIndicator(),
             );
           }
-          var item = snapshot.data!;
+          var item = snapshot.data!.length > 24
+              ? snapshot.data!.sublist(0, 23)
+              : snapshot.data!;
+          var fullItem = snapshot.data!;
           double totalAmount = 0;
           for (var item in item) {
             totalAmount += item['realAmount']!;
@@ -1784,60 +1793,20 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             return Column(
               children: [
                 Expanded(
-                  child: Stack(
-                    alignment: Alignment.bottomLeft,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: 1.5),
-                            child: SizedBox(
-                              width: 4,
-                              //height: size.height * 0.35,
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(right: 1.5, left: 1.5),
-                            child: Container(
-                              width: 4,
-                              //height: size.height * 0.35,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(30)),
-                                  color: snapshot.data!.length <= 7
-                                      ? Theme.of(context).indicatorColor
-                                      : Theme.of(context).canvasColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Theme(
-                        data: Theme.of(context).copyWith(
-                            scrollbarTheme: ScrollbarThemeData(
-                                thumbColor: MaterialStateProperty.all(
-                          Theme.of(context).dialogBackgroundColor,
-                        ))),
-                        child: Scrollbar(
-                          thumbVisibility: true,
-                          controller: scrolbarcontroller1,
-                          scrollbarOrientation:
-                              readSettings.localChanger() == const Locale("ar")
-                                  ? ScrollbarOrientation.left
-                                  : ScrollbarOrientation.right,
-                          interactive: true,
-                          thickness: 7,
-                          radius: const Radius.circular(15.0),
-                          child: ListView.builder(
-                            controller: scrolbarcontroller1,
-                            itemCount: snapshot.data!.length > 30
-                                ? 30
-                                : snapshot.data!.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Padding(
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                        scrollbarTheme: ScrollbarThemeData(
+                            thumbColor: MaterialStateProperty.all(
+                      Theme.of(context).dialogBackgroundColor,
+                    ))),
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: item.length + 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        return index != item.length
+                            ? Padding(
                                 padding: const EdgeInsets.only(
-                                    bottom: 8, right: 16, left: 16),
+                                    bottom: 8, right: 10, left: 10),
                                 child: InkWell(
                                   highlightColor:
                                       Theme.of(context).primaryColor,
@@ -1874,7 +1843,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     ));
                                   },
                                   child: SizedBox(
-                                    height: 42,
+                                    height: 40,
                                     width: size.width * 0.95,
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
@@ -1893,57 +1862,74 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                   BorderRadius.circular(10),
                                             ),
                                             child: Center(
-                                                child: Text(
-                                              "% ${item[index]['percentages']}",
-                                              style: const TextStyle(
-                                                height: 1,
-                                                fontFamily: 'NEXA3',
-                                                color: Colors.white,
+                                                child: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 2),
+                                              child: Text(
+                                                "% ${item[index]['percentages']}",
+                                                style: const TextStyle(
+                                                  height: 1,
+                                                  fontFamily: 'Nexa3',
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                ),
                                               ),
                                             )),
                                           ),
                                           const SizedBox(width: 10),
                                           Expanded(
-                                            child: Text(
-                                              Converter().textConverterFromDB(item[index]["category"]!, context, 0),
-                                              style: TextStyle(
-                                                height: 1,
-                                                fontFamily: 'NEXA3',
-                                                fontSize: 18,
-                                                color:
-                                                    Theme.of(context).canvasColor,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 4),
+                                              child: Text(
+                                                Converter().textConverterFromDB(
+                                                    item[index]["category"]!,
+                                                    context,
+                                                    0),
+                                                style: TextStyle(
+                                                  height: 1,
+                                                  fontFamily: 'Nexa3',
+                                                  fontSize: 16,
+                                                  color: Theme.of(context)
+                                                      .canvasColor,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
                                               ),
-                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
-                                          RichText(
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: item[index]
-                                                          ['realAmount']
-                                                      .toStringAsFixed(2),
-                                                  style: TextStyle(
-                                                    height: 1,
-                                                    fontFamily: 'NEXA3',
-                                                    fontSize: 16,
-                                                    color: Theme.of(context)
-                                                        .dialogBackgroundColor,
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 4),
+                                            child: RichText(
+                                              text: TextSpan(
+                                                children: [
+                                                  TextSpan(
+                                                    text: item[index]
+                                                            ['realAmount']
+                                                        .toStringAsFixed(2),
+                                                    style: TextStyle(
+                                                      height: 1,
+                                                      fontFamily: 'NEXA3',
+                                                      fontSize: 16,
+                                                      color: Theme.of(context)
+                                                          .dialogBackgroundColor,
+                                                    ),
                                                   ),
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      readSettings.prefixSymbol,
-                                                  style: TextStyle(
-                                                    height: 1,
-                                                    fontFamily: 'TL',
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Theme.of(context)
-                                                        .dialogBackgroundColor,
+                                                  TextSpan(
+                                                    text: readSettings
+                                                        .prefixSymbol,
+                                                    style: TextStyle(
+                                                      height: 1,
+                                                      fontFamily: 'TL',
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Theme.of(context)
+                                                          .dialogBackgroundColor,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ),
                                           const SizedBox(width: 10),
@@ -1952,12 +1938,62 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
+                              )
+                            : item.length > 24
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 8, right: 10, left: 10),
+                                    child: InkWell(
+                                      highlightColor:
+                                          Theme.of(context).focusColor,
+                                      borderRadius: BorderRadius.circular(5),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            opaque:
+                                                false, //sayfa saydam olması için
+                                            transitionDuration:
+                                                const Duration(milliseconds: 1),
+                                            pageBuilder:
+                                                (context, animation, next) =>
+                                                    getFullItem(context),
+                                            reverseTransitionDuration:
+                                                const Duration(milliseconds: 1),
+                                            transitionsBuilder: (context,
+                                                animation, nexttanim, child) {
+                                              return FadeTransition(
+                                                opacity: animation,
+                                                child: child,
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      child: SizedBox(
+                                        height: 28,
+                                        width: size.width * 0.2,
+                                        child: DecoratedBox(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: Theme.of(context).focusColor,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                                "Listenin Tamamını Görüntüle",
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .secondaryHeaderColor,
+                                                )),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox();
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -1989,8 +2025,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         height: 26,
                         child: Center(
                           child: Padding(
-                            padding:
-                                const EdgeInsets.only(right: 10, left: 10),
+                            padding: const EdgeInsets.only(right: 10, left: 10),
                             child: FittedBox(
                               child: RichText(
                                 text: TextSpan(
@@ -2030,6 +2065,370 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
         });
   }
 
+  Widget getFullItem(BuildContext context) {
+    var read = ref.read(statisticsRiverpod);
+    var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
+    var readCategoryInfo = ref.read(categoryInfoRiverpod);
+    Future<List<Map<String, dynamic>>> myList = read.getCategoryList(
+        operationType,
+        registration,
+        operationTool,
+        dateType,
+        year,
+        month,
+        week,
+        day,
+        firstDate,
+        secondDate);
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.5),
+            ),
+            child: Center(
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: size.width * .9,
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      FutureBuilder(
+                          future: myList,
+                          builder: (context,
+                              AsyncSnapshot<List<Map<String, dynamic>>>
+                                  snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              return Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 6, right: 6),
+                                    child: SizedBox(
+                                      width: size.width * 0.9,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Listenin Tamamı",
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .secondaryHeaderColor,
+                                                fontFamily: "Nexa4",
+                                                fontSize: 21),
+                                          ),
+                                          SizedBox(
+                                            height: 32,
+                                            width: 32,
+                                            child: DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context)
+                                                    .canvasColor,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(20)),
+                                              ),
+                                              child: IconButton(
+                                                icon: Image.asset(
+                                                  "assets/icons/remove.png",
+                                                  height: 16,
+                                                  width: 16,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                ),
+                                                iconSize: 24,
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 14.0,
+                                  ),
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        height: size.height * 0.6,
+                                        width: size.width * 0.9,
+                                        child: Theme(
+                                          data: Theme.of(context).copyWith(
+                                              scrollbarTheme:
+                                                  ScrollbarThemeData(
+                                                      thumbColor:
+                                                          MaterialStateProperty
+                                                              .all(
+                                            Theme.of(context)
+                                                .dialogBackgroundColor,
+                                          ))),
+                                          child: ListView.builder(
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            itemCount: snapshot.data!.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 6,
+                                                    right: 2,
+                                                    left: 2),
+                                                child: InkWell(
+                                                  highlightColor:
+                                                      Theme.of(context)
+                                                          .primaryColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  onTap: () {
+                                                    year = selectedValueYear !=
+                                                            null
+                                                        ? int.parse(
+                                                            selectedValueYear!)
+                                                        : year;
+                                                    month = selectedValueMonth !=
+                                                            null
+                                                        ? convertMonth(
+                                                            selectedValueMonth!)
+                                                        : month;
+                                                    week = selectedValueWeek !=
+                                                            null
+                                                        ? int.parse(
+                                                            selectedValueWeek!)
+                                                        : week;
+                                                    day = selectedValueDay !=
+                                                            null
+                                                        ? int.parse(
+                                                            selectedValueDay!)
+                                                        : day;
+                                                    registration =
+                                                        registration ?? 0;
+                                                    readCategoryInfo
+                                                        .setDateAndCategory(
+                                                            day,
+                                                            month,
+                                                            year,
+                                                            week,
+                                                            snapshot.data![
+                                                                    index]
+                                                                ['category'],
+                                                            registration,
+                                                            operationTool,
+                                                            dateType,
+                                                            firstDate,
+                                                            secondDate);
+                                                    Navigator.of(context)
+                                                        .push(MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const CategoryInfo(),
+                                                    ));
+                                                  },
+                                                  child: SizedBox(
+                                                    height: 40,
+                                                    child: DecoratedBox(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        color: Theme.of(context)
+                                                            .focusColor,
+                                                      ),
+                                                      child: Row(
+                                                        children: [
+                                                          const SizedBox(
+                                                              width: 5),
+                                                          Container(
+                                                            width: 70,
+                                                            height: 25,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xFF0D1C26),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
+                                                            child: Center(
+                                                                child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      top: 2),
+                                                              child: Text(
+                                                                "%${snapshot.data![index]['percentages']}",
+                                                                style:
+                                                                    const TextStyle(
+                                                                  height: 1,
+                                                                  fontFamily:
+                                                                      'Nexa3',
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                            )),
+                                                          ),
+                                                          const SizedBox(
+                                                              width: 10),
+                                                          Expanded(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      top: 4),
+                                                              child: Text(
+                                                                Converter().textConverterFromDB(
+                                                                    snapshot.data![
+                                                                            index]
+                                                                        [
+                                                                        "category"]!,
+                                                                    context,
+                                                                    0),
+                                                                style:
+                                                                    TextStyle(
+                                                                  height: 1,
+                                                                  fontFamily:
+                                                                      'Nexa3',
+                                                                  fontSize: 15,
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .canvasColor,
+                                                                ),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 4),
+                                                            child: RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(
+                                                                    text: snapshot
+                                                                        .data![
+                                                                            index]
+                                                                            [
+                                                                            'realAmount']
+                                                                        .toStringAsFixed(
+                                                                            2),
+                                                                    style:
+                                                                        TextStyle(
+                                                                      height: 1,
+                                                                      fontFamily:
+                                                                          'Nexa4',
+                                                                      fontSize:
+                                                                          15,
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .dialogBackgroundColor,
+                                                                    ),
+                                                                  ),
+                                                                  TextSpan(
+                                                                    text: readSettings
+                                                                        .prefixSymbol,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      height: 1,
+                                                                      fontFamily:
+                                                                          'TL',
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .dialogBackgroundColor,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                              width: 10),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 4, right: 4, top: 4, bottom: 4),
+                                    child: SizedBox(
+                                      width: size.width * 0.9,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Gösterilen Kayıt Sayısı",
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .canvasColor,
+                                                fontFamily: "Nexa3",
+                                                fontSize: 15),
+                                          ),
+                                          Text(
+                                            snapshot.data!.length.toString(),
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .secondaryHeaderColor,
+                                                fontFamily: "Nexa4",
+                                                fontSize: 15),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+                          }),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
   String? selectedValueMonth;
   String? selectedValueYear;
   String? selectedValueWeek;
@@ -2095,58 +2494,54 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           borderRadius: BorderRadius.all(Radius.circular(15)))),
                   textButtonTheme: TextButtonThemeData(
                     style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(10))),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         //foregroundColor: Theme.of(context).canvasColor,
-                        textStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15)// button text color
-                    ),
+                        textStyle: TextStyle(
+                            fontFamily: "Nexa3",
+                            height: 1,
+                            fontSize: 15) // button text color
+                        ),
                   ),
                   dividerTheme: DividerThemeData(
-                      color: Theme.of(context).canvasColor,
-                      thickness: 1.5
-                  ),
+                      color: Theme.of(context).canvasColor, thickness: 1.5),
                   datePickerTheme: DatePickerThemeData(
-                    dayStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15,color: renkler.koyuuRenk),
-                    dayOverlayColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
-                    headerForegroundColor: renkler.yaziRenk,
-                    rangePickerBackgroundColor: Theme.of(context).primaryColor,
-                    rangeSelectionBackgroundColor: Theme.of(context).disabledColor,
-                    rangePickerHeaderBackgroundColor: Theme.of(context).disabledColor,
-                    rangePickerHeaderForegroundColor: renkler.arkaRenk,
-                    headerHeadlineStyle: const TextStyle(
-                        fontSize: 22,
-                        fontFamily: "Nexa4",
-                        height: 1
-                    ),
-                    headerHelpStyle: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: "Nexa4",
-                        height: 1
-                    ),
-                    headerBackgroundColor: renkler.koyuuRenk,
-                    backgroundColor: Theme.of(context).disabledColor,
-                    rangePickerHeaderHelpStyle: const TextStyle(
-                      fontSize: 16,
-                      fontFamily: "Nexa4",
-                      height: 1
-                    ),
-                    rangePickerHeaderHeadlineStyle: TextStyle(
-                        fontSize: 22,
-                        fontFamily: "Nexa4",
-                        height: 1
-                    ),
-                    dayForegroundColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
-                    rangePickerShape:  RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)))
-                  ),
+                      dayStyle: TextStyle(
+                          fontFamily: "Nexa3",
+                          height: 1,
+                          fontSize: 15,
+                          color: renkler.koyuuRenk),
+                      dayOverlayColor: MaterialStatePropertyAll(
+                          Theme.of(context).disabledColor),
+                      headerForegroundColor: renkler.yaziRenk,
+                      rangePickerBackgroundColor:
+                          Theme.of(context).primaryColor,
+                      rangeSelectionBackgroundColor:
+                          Theme.of(context).disabledColor,
+                      rangePickerHeaderBackgroundColor:
+                          Theme.of(context).disabledColor,
+                      rangePickerHeaderForegroundColor: renkler.arkaRenk,
+                      headerHeadlineStyle: const TextStyle(
+                          fontSize: 22, fontFamily: "Nexa4", height: 1),
+                      headerHelpStyle: const TextStyle(
+                          fontSize: 16, fontFamily: "Nexa4", height: 1),
+                      headerBackgroundColor: renkler.koyuuRenk,
+                      backgroundColor: Theme.of(context).disabledColor,
+                      rangePickerHeaderHelpStyle: const TextStyle(
+                          fontSize: 16, fontFamily: "Nexa4", height: 1),
+                      rangePickerHeaderHeadlineStyle: TextStyle(
+                          fontSize: 22, fontFamily: "Nexa4", height: 1),
+                      dayForegroundColor: MaterialStatePropertyAll(
+                          Theme.of(context).disabledColor),
+                      rangePickerShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)))),
                   textTheme: TextTheme(
-                    bodyMedium: TextStyle(
-                      color: Theme.of(context).canvasColor,
-                      fontSize: 16,
-                      height: 1,
-                      fontFamily: "Nexa3"
-                    )
-
-                  ),
+                      bodyMedium: TextStyle(
+                          color: Theme.of(context).canvasColor,
+                          fontSize: 16,
+                          height: 1,
+                          fontFamily: "Nexa3")),
                   colorScheme: ColorScheme(
                     brightness: Brightness.light,
                     primary: renkler.koyuuRenk, // üst taraf arkaplan rengi
@@ -2160,7 +2555,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                     onBackground: renkler.koyuuRenk,
                     surface: Theme.of(context).disabledColor, //ÜST TARAF RENK
                     onPrimaryContainer: renkler.koyuuRenk,
-                    onSurface: Theme.of(context).canvasColor, //alt günlerin rengi
+                    onSurface:
+                        Theme.of(context).canvasColor, //alt günlerin rengi
                   ),
                 ),
                 child: child!,
@@ -2181,15 +2577,18 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
 
     var readSettings = ref.read(settingsRiverpod);
 
-    String getFormattedDate(String date){
-      List <String> parts = date.split(".");
+    String getFormattedDate(String date) {
+      List<String> parts = date.split(".");
       int parseDay = int.parse(parts[0]);
       int parseMonth = int.parse(parts[1]);
       int parseYear = int.parse(parts[2]);
-      String formattedDate = readSettings.dateFormat == "yyyy.MM.dd" ? "$parseYear.$parseMonth.$parseDay" : readSettings.dateFormat == "MM.dd.yyyy" ? "$parseMonth.$parseDay.$parseYear" : "$parseDay.$parseMonth.$parseYear";
-    return formattedDate;
+      String formattedDate = readSettings.dateFormat == "yyyy.MM.dd"
+          ? "$parseYear.$parseMonth.$parseDay"
+          : readSettings.dateFormat == "MM.dd.yyyy"
+              ? "$parseMonth.$parseDay.$parseYear"
+              : "$parseDay.$parseMonth.$parseYear";
+      return formattedDate;
     }
-
 
     return StatefulBuilder(
       builder: (context, setState) {
@@ -2256,8 +2655,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         menuItemStyleData: MenuItemStyleData(
                           ///açılmış kutu
                           height: 32,
-                          overlayColor:
-                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
+                          overlayColor: MaterialStatePropertyAll(
+                              Theme.of(context).disabledColor),
                           padding: const EdgeInsets.all(8),
                         ),
                       ),
@@ -2344,8 +2743,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         menuItemStyleData: MenuItemStyleData(
                           ///açılmış kutu
                           height: 32,
-                          overlayColor:
-                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
+                          overlayColor: MaterialStatePropertyAll(
+                              Theme.of(context).disabledColor),
                           padding: const EdgeInsets.all(8),
                         ),
                       ),
@@ -2356,7 +2755,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                     child: Container(
                       height: 5,
                       width: 34,
-                      decoration:BoxDecoration(
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15),
                             topLeft: Radius.circular(15)),
@@ -2451,8 +2850,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         menuItemStyleData: MenuItemStyleData(
                           ///açılmış kutu
                           height: 32,
-                          overlayColor:
-                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
+                          overlayColor: MaterialStatePropertyAll(
+                              Theme.of(context).disabledColor),
                           padding: const EdgeInsets.all(8),
                         ),
                       ),
@@ -2556,8 +2955,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                         menuItemStyleData: MenuItemStyleData(
                           ///açılmış kutu
                           height: 32,
-                          overlayColor:
-                              MaterialStatePropertyAll(Theme.of(context).disabledColor),
+                          overlayColor: MaterialStatePropertyAll(
+                              Theme.of(context).disabledColor),
                           padding: const EdgeInsets.all(8),
                         ),
                       ),
@@ -2595,7 +2994,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             },
                             child: Center(
                                 child: Text(
-                                  getFormattedDate(date1),
+                              getFormattedDate(date1),
                               style: TextStyle(
                                   color: renkler.arkaRenk,
                                   height: 1,
@@ -2634,7 +3033,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           },
                           child: Center(
                               child: Text(
-                                getFormattedDate(date2),
+                            getFormattedDate(date2),
                             style: TextStyle(
                                 color: renkler.arkaRenk,
                                 height: 1,
@@ -2740,7 +3139,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 return colorsList[index!];
               },
               pieLabel: (pieData, index) {
-                return "${pieData['domain']}:\n${pieData['measure']}%";
+                return "${Converter().textConverterFromDB(pieData['domain'], context, 0)}:\n${pieData['measure']}%";
               },
               labelPosition: PieLabelPosition.auto,
               //donutWidth: 15,
