@@ -149,7 +149,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                                           mainAxisAlignment : MainAxisAlignment.spaceBetween,
                                                           children: [
                                                             Text(
-                                                              "${list[index].amount}",
+                                                              "${list[index].amount!.toStringAsFixed(2)}",
                                                               style: TextStyle(
                                                                 color: list[index].operationType == "Gelir" ? Theme.of(context).canvasColor : Color(0xFFD91A2A),
                                                                 height: 1.1,
