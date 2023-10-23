@@ -140,6 +140,9 @@
     "all": "ALL",
     "reset": "Reset",
     "okStatistics": "OK",
+    "viewFullList": "View Full List",
+    "fullList": "Full List",
+    "numberOfElementsShown": "Number of Elements Shown",
 
     "firstDayOfTheMonth": "First day of the Month",
     "setAsOnlyForTurkish": "",
@@ -448,6 +451,7 @@
     "doneExchange": "Done",
     "currentRate": "Current Rate",
     "receivedAmount": "Amount You Will Receive",
+    "detailsForCurrencyExchange": "Details",
 
     "activityDetails": "ACTIVITY DETAILS",
     "activityDetail": "Activity\nDetail",

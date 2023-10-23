@@ -140,6 +140,9 @@
   "all": "HEPSİ",
   "reset": "Eski Haline Getir",
   "okStatistics": "TAMAM",
+  "viewFullList": "Listenin Tamamını Görüntüle",
+  "fullList": "Listenin Tamamı",
+  "numberOfElementsShown": "Gösterilen Eleman Sayısı",
 
   "firstDayOfTheMonth": "Ayın Başlangıç Günü",
   "setAsOnlyForTurkish": "Olarak Ayarla",
@@ -449,6 +452,7 @@
   "doneExchange": "Onayla",
   "currentRate": "Güncel Kur",
   "receivedAmount": "Alacağınız Miktar",
+  "detailsForCurrencyExchange": "İşlem Detayı",
 
   "activityDetails": "İŞLEM DETAYLARI",
   "activityDetail": "İşlem\nDetayı",
