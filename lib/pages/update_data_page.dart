@@ -289,6 +289,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           },
         ));
   }
+  int selectedCategory = 0;
   String? selectedValue;
   int initialLabelIndex2 = 0;
   int selectedAddCategoryMenu = 0;
@@ -311,6 +312,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     var readHome = ref.read(homeRiverpod);
     var readUpdateDB = ref.read(updateDataRiverpod);
     final category = readUpdateDB.getCategory();
+    final operationType = readUpdateDB.getType();
+    operationType.text == 'Gider' ? selectedCategory = 0 : selectedCategory = 1;
     convertedCategory = Converter().textConverterToDB(category.text, context, 0);
     return SizedBox(
       height: 38,
@@ -2877,7 +2880,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     );
   }
 
-  int selectedCategory = 0;
+
   int initialLabelIndexTool = 0;
   Widget toolCustomButton(BuildContext context) {
     var size = MediaQuery.of(context).size;

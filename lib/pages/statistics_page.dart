@@ -1754,7 +1754,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
           var item = snapshot.data!.length > 24
               ? snapshot.data!.sublist(0, 23)
               : snapshot.data!;
-          var fullItem = snapshot.data!;
           double totalAmount = 0;
           for (var item in item) {
             totalAmount += item['realAmount']!;
@@ -1939,7 +1938,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   ),
                                 ),
                               )
-                            : item.length > 24
+                            : snapshot.data!.length > 24
                                 ? Padding(
                                     padding: const EdgeInsets.only(
                                         bottom: 8, right: 10, left: 10),
