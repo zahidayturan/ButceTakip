@@ -74,7 +74,6 @@ class SettingsRiverpod extends ChangeNotifier{
       adEventCounter = settingsReglength[0].adEventCounter;
       await readDb();
     }else{
-     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => bkaSlider()));
       final info = SettingsInfo("TRY", 0, 0, getDeviceLocaleLanguage(), 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy",5) ;
       await SQLHelper.addItemSetting(info);
       await readDb();
