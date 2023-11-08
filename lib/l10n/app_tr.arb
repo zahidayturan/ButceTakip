@@ -1,4 +1,5 @@
 {
+  "appLanguage" : "Tr",
   "statisticsTitle": "İSTATİSTİKLER",
   "activityCalendarTitle": "İŞLEM TAKVİMİ",
   "calculatorTitle": "HESAP MAKİNESİ",
@@ -29,6 +30,7 @@
 
   "currency": "Para Birimi",
   "appNotifications": "Uygulama Bildirimleri",
+  "setNotification": "Ayarlayın",
   "turnOnNotifications": "İşlemlerinizi hatırlatabilmemiz için\nbildirimleri açık bırakmanızı öneririz.",
 
   "backupPreference": "Yedekleme Tercihi",
@@ -138,6 +140,9 @@
   "all": "HEPSİ",
   "reset": "Eski Haline Getir",
   "okStatistics": "TAMAM",
+  "viewFullList": "Listenin Tamamını Görüntüle",
+  "fullList": "Listenin Tamamı",
+  "numberOfElementsShown": "Gösterilen Eleman Sayısı",
 
   "firstDayOfTheMonth": "Ayın Başlangıç Günü",
   "setAsOnlyForTurkish": "Olarak Ayarla",
@@ -304,7 +309,7 @@
   "calculatePercentage": "Yüzde Hesapla",
   "calculateInterestCredit": "Faiz-Kredi Hesapla",
 
-  "currencyConverterWarning": "Döviz çevirici henüz aktif değildir.",
+  "currencyConverterWarning": "Döviz kurları güncelleniyor.",
 
   "settings": "Ayarlar",
   "help": "Yardım",
@@ -447,8 +452,10 @@
   "doneExchange": "Onayla",
   "currentRate": "Güncel Kur",
   "receivedAmount": "Alacağınız Miktar",
+  "detailsForCurrencyExchange": "İşlem Detayı",
 
   "activityDetails": "İŞLEM DETAYLARI",
+  "activityDetail": "İşlem\nDetayı",
 
   "details": "İŞLEM DETAYI",
   "dateDetails": "TARİH",
@@ -473,7 +480,7 @@
 
   "updateDone": "GÜNCELLE",
   "activityUpdated": "İşlem bilgisi güncellendi",
-  "clickToAddNote": "Not eklemek için tıklayınız",
+  "clickToAddNote": "Not eklemek için dokunun",
 
   "firstWeek": "1.Hafta",
   "secondWeek": "2.Hafta",
@@ -501,7 +508,7 @@
   "assetsPage6": "Gösterilen kayıtların, isterseniz buradan isterseniz de işlem detayından para birimini değiştirebilirsiniz. Kaydın üzerine tıkladığınızda döviz bürosu açılacaktır ve farklı para birimlerine Güncel döviz kurlarıyla dövizinizi dönüştürebilir veya bozdurabilirsiniz.",
 
   "version2Title": "Sürüm Notu",
-  "version2": "V2.0.1 Sürüm Notu",
+  "version2": "V2.0.2 Sürüm Notu",
   "budgetUpdate": "Bütçe Takip Güncellendi!",
   "implementedSuggestions": "İlk gösterimimizden bugüne kadar yorum olarak ilettiğiniz önerilerinizi Bütçe Takip uygulamamızda hayata geçirdik.",
   "whatsNewVersion": "Yenilikler",
@@ -627,7 +634,7 @@
   "signInAndBackupWithGoogle": "Google ile Oturum Aç ve Yedekle (Önerilen)",
   "turnOffBackupAndSignOutFromGoogle": "Yedeklemeyi ve Google Oturumunu Kapat",
 
-  "clickToCheck": "Kontrol Etmek İçin Tıklayınız",
+  "clickToCheck": "Kontrol Etmek İçin Dokunun",
 
   "noInternetConnection": "İnternet bağlantısı bulunamadı. Yedekleme Yapılamıyor.",
   "okAnladim": "Anladım",
@@ -643,6 +650,8 @@
   "update3" : "Güncellemek için dokunun",
 
   "downloadedData" : "verileriniz indirildi.",
-  "backupedData" : "verileriniz yedeklendi"
+  "backupedData" : "verileriniz yedeklendi",
+
+  "close" : "Kapat"
 }
 

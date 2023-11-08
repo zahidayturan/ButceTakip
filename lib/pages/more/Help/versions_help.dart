@@ -139,7 +139,7 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Image.asset(
-                          "assets/image/LogoBkaShort.png",
+                          "assets/image/icon_BKA/logoMini${translation(context).appLanguage}.png",
                           height: 36,
                           width: 36,
                         ),
@@ -187,7 +187,7 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                       SizedBox(
                         width: size.width*0.4,
                         child: Image.asset(
-                            "assets/image/icon_BKA/LOGOBKA-4.png",
+                            "assets/image/icon_BKA/logoBta${translation(context).appLanguage}.png",
                           color: darkMode == 0 ? renkler.sariRenk : renkler.arkaRenk,
                         ),
                       ),

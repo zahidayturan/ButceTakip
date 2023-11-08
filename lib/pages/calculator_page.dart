@@ -26,11 +26,14 @@ class _CalculatorState extends ConsumerState<Calculator> {
   int _currentPageindex = 0;
 
   void changePage(int pageindex) {
-    _pagecont.animateToPage(pageindex, duration: const Duration(milliseconds: 250), curve: Curves.linear).then((value) {
+    _pagecont
+        .animateToPage(pageindex,
+            duration: const Duration(milliseconds: 250), curve: Curves.linear)
+        .then(
+      (value) {
         setState(() {
           _currentPageindex = pageindex;
-          }
-        );
+        });
       },
     );
   }
@@ -109,97 +112,263 @@ class _CalculatorState extends ConsumerState<Calculator> {
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     var watchCurrency = ref.watch(currencyRiverpod);
-    return Container(
-      color: const Color(0xFF03111A),
-      child: SafeArea(
-        child: Scaffold(
-          appBar: AppBarForPage(title: translation(context).calculatorTitle),
-          resizeToAvoidBottomInset: false,
-          //backgroundColor: const Color(0xffF2F2F2),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10.0,
-                  bottom: 7.0,
-                  right: 20.0,
-                  left: 20.0,
-                ),
-                child: SizedBox(
-                  height: size.height * 0.55,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                    ),
-                    child: Container(
-                      color: Theme.of(context).highlightColor,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: PageView(
-                          controller: _pagecont,
-                          onPageChanged: (value) =>
-                              setState(() => _currentPageindex = value),
-                          children: [
-                            //calculator(), //Page 1
-                            ref.read(currencyRiverpod).lastApiUpdateDate != null ? currencyConverter(context)
-                                : Center(
-                            child: SizedBox(
-                              height: size.width * .17,
-                              width: size.width * .17,
-                              child: CircularProgressIndicator(
-                                color: Theme.of(context).disabledColor,
-                                backgroundColor: renkler.koyuuRenk,
-                              ),
-                            )
-                        ), //Page 2
-                            krediPage(), //Page 4
-                            yuzdePage(), // Page 3
-                          ],
+    var read2 = ref.read(botomNavBarRiverpod);
+    return WillPopScope(
+      onWillPop: () async {
+        read2.setCurrentindex(0);
+        return false;
+      },
+      child: Container(
+        color: const Color(0xFF03111A),
+        child: SafeArea(
+          child: Scaffold(
+            appBar: AppBarForPage(title: translation(context).calculatorTitle),
+            resizeToAvoidBottomInset: false,
+            //backgroundColor: const Color(0xffF2F2F2),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10.0,
+                    bottom: 7.0,
+                    right: 20.0,
+                    left: 20.0,
+                  ),
+                  child: SizedBox(
+                    height: size.height * 0.55,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                      child: Container(
+                        color: Theme.of(context).highlightColor,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: PageView(
+                            controller: _pagecont,
+                            onPageChanged: (value) =>
+                                setState(() => _currentPageindex = value),
+                            children: [
+                              //calculator(), //Page 1
+                              ref.read(currencyRiverpod).lastApiUpdateDate != null ? currencyConverter(context)
+                                  : Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: size.width * .17,
+                                    width: size.width * .17,
+                                    child: CircularProgressIndicator(
+                                      color: Theme.of(context).disabledColor,
+                                      backgroundColor: renkler.koyuuRenk,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(translation(context).currencyConverterWarning,style: TextStyle(color: renkler.yaziRenk,fontSize: 15),),
+                                  )
+                                ],
+                              )
+                          ), //Page 2
+                              krediPage(), //Page 4
+                              yuzdePage(), // Page 3
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5.0),
-                child: Row(
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: size.width / 3,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2.0,
+                                color: Theme.of(context).canvasColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 50,
+                        height: 20,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).canvasColor,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width / 3,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2.0,
+                                color: Theme.of(context).canvasColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(
-                      width: size.width / 3,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              width: 2.0,
-                              color: Theme.of(context).canvasColor,
+                    InkWell(
+                      borderRadius:  BorderRadius.circular(20),
+                      onTap: () {
+                        changePage(0);
+                      },
+                      child: SizedBox(
+                        height: size.width / 4,
+                        width: size.width / 4,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).highlightColor,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 0
+                                ? Border.all(
+                              color: Theme.of(context).disabledColor,
+                              width: 3,
+                            )
+                                : null,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.currency_exchange_rounded,
+                                  size: 36,
+                                  color: renkler.arkaRenk,
+                                ),
+                                Center(
+                                  child: Text(
+                                    translation(context).currencyConverter,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      height: 1,
+                                        fontSize: 15,
+                                      overflow: TextOverflow.ellipsis
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 50,
-                      height: 20,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).canvasColor,
-                          borderRadius: BorderRadius.circular(50),
+                    InkWell(
+                      borderRadius:  BorderRadius.circular(20),
+                      onTap: () {
+                        changePage(1);
+                      },
+                      child: SizedBox(
+                        height: size.width / 4,
+                        width: size.width / 4,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).highlightColor,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 1
+                                ? Border.all(
+                                    color: Theme.of(context).disabledColor,
+                                    width: 3,
+                                  )
+                                : null,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.credit_card_rounded,
+                                  size: 40,
+                                  color: renkler.arkaRenk,
+                                ),
+                                Center(
+                                  child: Text(
+                                    translation(context).calculateInterestCredit,
+                                    style: const TextStyle(
+                                      height: 1,
+                                      color: Colors.white,
+                                        fontSize: 15,
+                                        overflow: TextOverflow.ellipsis
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: size.width / 3,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              width: 2.0,
-                              color: Theme.of(context).canvasColor,
+                    InkWell(
+                      borderRadius:  BorderRadius.circular(20),
+                      onTap: () {
+                        changePage(2);
+                      },
+                      child: SizedBox(
+                        height: size.width / 4,
+                        width: size.width / 4,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).highlightColor,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 2
+                                ? Border.all(
+                              color: Theme.of(context).disabledColor,
+                              width: 3,
+                            )
+                                : null,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.percent_rounded,
+                                  size: 40,
+                                  color: renkler.arkaRenk,
+                                ),
+                                Center(
+                                  child: Text(
+                                    translation(context).calculatePercentage,
+                                    style: const TextStyle(
+                                      height: 1,
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                        overflow: TextOverflow.ellipsis
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
@@ -207,157 +376,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    borderRadius:  BorderRadius.circular(20),
-                    onTap: () {
-                      changePage(0);
-                    },
-                    child: SizedBox(
-                      height: size.width / 4,
-                      width: size.width / 4,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).highlightColor,
-                          borderRadius: BorderRadius.circular(20),
-                          border: _currentPageindex == 0
-                              ? Border.all(
-                            color: Theme.of(context).disabledColor,
-                            width: 3,
-                          )
-                              : null,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(
-                                Icons.currency_exchange_rounded,
-                                size: 36,
-                                color: renkler.arkaRenk,
-                              ),
-                              Center(
-                                child: Text(
-                                  translation(context).currencyConverter,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    height: 1,
-                                      fontSize: 15,
-                                    overflow: TextOverflow.ellipsis
-                                  ),
-                                  maxLines: 3,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    borderRadius:  BorderRadius.circular(20),
-                    onTap: () {
-                      changePage(1);
-                    },
-                    child: SizedBox(
-                      height: size.width / 4,
-                      width: size.width / 4,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).highlightColor,
-                          borderRadius: BorderRadius.circular(20),
-                          border: _currentPageindex == 1
-                              ? Border.all(
-                                  color: Theme.of(context).disabledColor,
-                                  width: 3,
-                                )
-                              : null,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(
-                                Icons.credit_card_rounded,
-                                size: 40,
-                                color: renkler.arkaRenk,
-                              ),
-                              Center(
-                                child: Text(
-                                  translation(context).calculateInterestCredit,
-                                  style: const TextStyle(
-                                    height: 1,
-                                    color: Colors.white,
-                                      fontSize: 15,
-                                      overflow: TextOverflow.ellipsis
-                                  ),
-                                  maxLines: 3,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    borderRadius:  BorderRadius.circular(20),
-                    onTap: () {
-                      changePage(2);
-                    },
-                    child: SizedBox(
-                      height: size.width / 4,
-                      width: size.width / 4,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).highlightColor,
-                          borderRadius: BorderRadius.circular(20),
-                          border: _currentPageindex == 2
-                              ? Border.all(
-                            color: Theme.of(context).disabledColor,
-                            width: 3,
-                          )
-                              : null,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(
-                                Icons.percent_rounded,
-                                size: 40,
-                                color: renkler.arkaRenk,
-                              ),
-                              Center(
-                                child: Text(
-                                  translation(context).calculatePercentage,
-                                  style: const TextStyle(
-                                    height: 1,
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                      overflow: TextOverflow.ellipsis
-                                  ),
-                                  maxLines: 3,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -456,7 +476,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
   double aylikTaksit = 0;
   List<String> tutarList = ["0", "0", "0", "0"];
 
-  void faizHesapla(TextEditingController anaPara, TextEditingController faizYuzde, int vadeSuresi) {
+  void faizHesapla(TextEditingController anaPara,
+      TextEditingController faizYuzde, int vadeSuresi) {
     if (faizYuzde.text.isEmpty || anaPara.text.isEmpty) {
       showModalBottomSheet(
           context: context,
@@ -590,7 +611,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         width: 96,
                         height: 30,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 4,right: 4,left: 4),
+                          padding:
+                              const EdgeInsets.only(top: 4, right: 4, left: 4),
                           child: TextFormField(
                             maxLength: 7,
                             controller: anaPara,
@@ -697,11 +719,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               hintText: "0.0",
                               isDense: true,
                               hintStyle: TextStyle(
-                                color: renkler.koyuuRenk,
-                                fontSize: 16,
-                                fontFamily: 'Nexa4',
-                                height: 1
-                              ),
+                                  color: renkler.koyuuRenk,
+                                  fontSize: 16,
+                                  fontFamily: 'Nexa4',
+                                  height: 1),
                             ),
                             textAlign: TextAlign.right,
                           ),
@@ -755,6 +776,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     padding: const EdgeInsets.only(left: 10),
                     child: DropdownButtonFormField<String>(
                       key: dropDownKey,
+
                       /// bunun kullanim nedeni sıfırla yapınca varsayılan vade gelmesi için
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       decoration: const InputDecoration(
@@ -874,30 +896,27 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         TextSpan(
                           text: translation(context).monthlyEqualInstalments,
                           style: TextStyle(
-                            color: renkler.yaziRenk,
-                            fontFamily: 'Nexa4',
-                            fontSize: 16,
-                            height: 1
-                          ),
+                              color: renkler.yaziRenk,
+                              fontFamily: 'Nexa4',
+                              fontSize: 16,
+                              height: 1),
                         ),
                         TextSpan(
                             text: tutarList[0],
                             style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Nexa4',
-                              color: renkler.yaziRenk,
-                                height: 1
-                            )),
-                            TextSpan(
-                              text: readSettings.prefixSymbol,
-                              style: TextStyle(
-                                fontFamily: 'TL',
                                 fontSize: 16,
-                                height: 1,
+                                fontFamily: 'Nexa4',
                                 color: renkler.yaziRenk,
-                              ),
-                            ),
-
+                                height: 1)),
+                        TextSpan(
+                          text: readSettings.prefixSymbol,
+                          style: TextStyle(
+                            fontFamily: 'TL',
+                            fontSize: 16,
+                            height: 1,
+                            color: renkler.yaziRenk,
+                          ),
+                        ),
                       ]))
                     ],
                   ), // aylık eşit taksit
@@ -909,30 +928,27 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         TextSpan(
                           text: translation(context).totalAmount,
                           style: TextStyle(
-                            color: renkler.yaziRenk,
-                            fontFamily: 'Nexa4',
-                            fontSize: 16,
-                              height: 1
-                          ),
+                              color: renkler.yaziRenk,
+                              fontFamily: 'Nexa4',
+                              fontSize: 16,
+                              height: 1),
                         ),
                         TextSpan(
                             text: tutarList[1],
                             style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Nexa4',
-                              color: renkler.yaziRenk,
-                                height: 1
-                            )),
-                            TextSpan(
-                              text: readSettings.prefixSymbol,
-                              style: TextStyle(
-                                fontFamily: 'TL',
                                 fontSize: 16,
-                                height: 1,
+                                fontFamily: 'Nexa4',
                                 color: renkler.yaziRenk,
-                              ),
-                            ),
-
+                                height: 1)),
+                        TextSpan(
+                          text: readSettings.prefixSymbol,
+                          style: TextStyle(
+                            fontFamily: 'TL',
+                            fontSize: 16,
+                            height: 1,
+                            color: renkler.yaziRenk,
+                          ),
+                        ),
                       ]))
                     ],
                   ), // toplam ana para
@@ -944,29 +960,27 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         TextSpan(
                           text: translation(context).totalInterest,
                           style: TextStyle(
-                            color: renkler.yaziRenk,
-                            fontFamily: 'Nexa4',
-                            fontSize: 16,
-                              height: 1
-                          ),
+                              color: renkler.yaziRenk,
+                              fontFamily: 'Nexa4',
+                              fontSize: 16,
+                              height: 1),
                         ),
                         TextSpan(
                             text: tutarList[2],
                             style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Nexa4',
-                              color: renkler.yaziRenk,
-                                height: 1
-                            )),
-                            TextSpan(
-                              text: readSettings.prefixSymbol,
-                              style: TextStyle(
-                                fontFamily: 'TL',
                                 fontSize: 16,
-                                height: 1,
+                                fontFamily: 'Nexa4',
                                 color: renkler.yaziRenk,
-                              ),
-                            ),
+                                height: 1)),
+                        TextSpan(
+                          text: readSettings.prefixSymbol,
+                          style: TextStyle(
+                            fontFamily: 'TL',
+                            fontSize: 16,
+                            height: 1,
+                            color: renkler.yaziRenk,
+                          ),
+                        ),
                       ]))
                     ],
                   ), // toplam faiz
@@ -978,20 +992,18 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         TextSpan(
                           text: translation(context).totalPayment,
                           style: TextStyle(
-                            color: Theme.of(context).disabledColor,
-                            fontFamily: 'Nexa4',
-                            fontSize: 17,
-                              height: 1
-                          ),
+                              color: Theme.of(context).disabledColor,
+                              fontFamily: 'Nexa4',
+                              fontSize: 17,
+                              height: 1),
                         ),
                         TextSpan(
                             text: tutarList[3],
                             style: TextStyle(
-                              fontSize: 17,
-                              fontFamily: 'Nexa4',
-                              color: Theme.of(context).disabledColor,
-                                height: 1
-                            )),
+                                fontSize: 17,
+                                fontFamily: 'Nexa4',
+                                color: Theme.of(context).disabledColor,
+                                height: 1)),
                         TextSpan(
                           text: readSettings.prefixSymbol,
                           style: TextStyle(
@@ -1089,6 +1101,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                 ),
               ],
             ),
+
             /// çıkış butonu
             SizedBox(
               height: size.height / 50,
@@ -1099,24 +1112,24 @@ class _CalculatorState extends ConsumerState<Calculator> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     sayi2ishere
-                    ? Text(
-                        translation(context).firstNumber,
-                        style: TextStyle(
-                          fontFamily: "Nexa4",
-                          fontSize: 17,
-                          height: 1,
-                          color: renkler.arkaRenk,
-                        ),
-                      )
-                    : Text(
-                      translation(context).number,
-                      style: TextStyle(
-                        fontFamily: "Nexa4",
-                        fontSize: 17,
-                        height: 1,
-                        color: renkler.arkaRenk,
-                      ),
-                    ),
+                        ? Text(
+                            translation(context).firstNumber,
+                            style: TextStyle(
+                              fontFamily: "Nexa4",
+                              fontSize: 17,
+                              height: 1,
+                              color: renkler.arkaRenk,
+                            ),
+                          )
+                        : Text(
+                            translation(context).number,
+                            style: TextStyle(
+                              fontFamily: "Nexa4",
+                              fontSize: 17,
+                              height: 1,
+                              color: renkler.arkaRenk,
+                            ),
+                          ),
                     Container(
                       height: 30,
                       width: 130,
@@ -1134,139 +1147,176 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               color: renkler.koyuuRenk,
                               fontSize: 16,
                               fontFamily: 'Nexa4',
-                            height: 1
-                            ),
+                              height: 1),
                           onChanged: (value) {
                             if (firstselect == true) {
-                              if (sayi2Controller.text != "" && sayi1Controller.text != "") {
-                                sonuc = ((double.parse(sayi2Controller.text) / double.parse(sayi1Controller.text)) * 100);
-                                yuzdeOranController.text = sonuc.toStringAsFixed(3);
+                              if (sayi2Controller.text != "" &&
+                                  sayi1Controller.text != "") {
+                                sonuc = ((double.parse(sayi2Controller.text) /
+                                        double.parse(sayi1Controller.text)) *
+                                    100);
+                                yuzdeOranController.text =
+                                    sonuc.toStringAsFixed(3);
                               }
                             } else if (secondselect == true) {
-                              if (sayi1Controller.text != "" && sayi2Controller.text != "") {
-                                sonuc = ((double.parse(sayi2Controller.text) - double.parse(sayi1Controller.text)) * 100) / double.parse(sayi1Controller.text);
-                                yuzdeOranController.text = sonuc.toStringAsFixed(3);
+                              if (sayi1Controller.text != "" &&
+                                  sayi2Controller.text != "") {
+                                sonuc = ((double.parse(sayi2Controller.text) -
+                                            double.parse(
+                                                sayi1Controller.text)) *
+                                        100) /
+                                    double.parse(sayi1Controller.text);
+                                yuzdeOranController.text =
+                                    sonuc.toStringAsFixed(3);
                               }
                             } else if (yuzdeOranController.text != "") {
-                              sonuc = double.parse(sayi1Controller.text) * (double.parse(yuzdeOranController.text) / 100);
+                              sonuc = double.parse(sayi1Controller.text) *
+                                  (double.parse(yuzdeOranController.text) /
+                                      100);
                               sonucController.text = sonuc.toStringAsFixed(3);
                             }
                           },
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d{0,8}(\.\d{0,2})?'),
+                            )
                           ],
                           controller: sayi1Controller,
                           decoration: InputDecoration(
                             hintText: translation(context).enteraNumber,
-                          hintStyle: const TextStyle(
-                            height: 1,
-                            fontSize: 14,
-                            fontFamily: 'Nexa3',
-                            color: Colors.black,
-                          ),
-                          counterText: '',
-                          isDense: true,
-                          enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            style: BorderStyle.none,
+                            hintStyle: const TextStyle(
+                              height: 1,
+                              fontSize: 14,
+                              fontFamily: 'Nexa3',
+                              color: Colors.black,
+                            ),
+                            counterText: '',
+                            isDense: true,
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                style: BorderStyle.none,
+                              ),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                style: BorderStyle.none,
+                              ),
                             ),
                           ),
-                          focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            style: BorderStyle.none,
-                          ),
                         ),
-                      ),
                       ),
                     ),
+                  ],
                 ),
-              ],
-            ),
-            sayi2ishere
-              ? Column(
-                children: [
-                  SizedBox(
-                    height: size.height / 40,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        translation(context).secondNumber,
-                        style: TextStyle(
-                          fontFamily: "Nexa4",
-                          fontSize: 16,
-                          height: 1,
-                          color: renkler.arkaRenk,
-                        ),
-                      ),
-                      Container(
-                          height: 30,
-                          width: 130,
-                        decoration: BoxDecoration(
-                          color: renkler.yaziRenk,
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 5,right: 5),
-                          child: TextField(
-                            maxLength: 12,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: renkler.koyuuRenk,
-                                fontSize: 16,
-                                fontFamily: 'Nexa4'),
-                            onChanged: (value) {
-                              if (firstselect == true) {
-                                if (sayi2Controller.text != "" && sayi1Controller.text != "") {
-                                  sonuc = ((double.parse(sayi2Controller.text) / double.parse(sayi1Controller.text)) * 100);
-                                  yuzdeOranController.text = sonuc.toStringAsFixed(2);
-                                }
-                              } else if (secondselect == true) {
-                                if (sayi1Controller.text != "" && sayi2Controller.text != "") {
-                                  sonuc = ((double.parse(sayi2Controller.text) - double.parse(sayi1Controller.text)) * 100) / double.parse(sayi1Controller.text);
-                                  yuzdeOranController.text = sonuc.toStringAsFixed(2);
-                                }
-                              }
-                            },
-                            controller: sayi2Controller,
-                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
-                            ],
-                            decoration: InputDecoration(
-                              counterText: '',
-                              hintText: translation(context).enteraNumber,
-                              hintStyle: const TextStyle(
-                                height: 1,
-                                  fontSize: 14,
-                                  fontFamily: 'Nexa3',
-                                color : Colors.black
-                              ),
-                              isDense: true,
-                              enabledBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  style: BorderStyle.none,
-                                ),
-                              ),
-                              focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  style: BorderStyle.none,
-                                ),
-                              ),
-                              border: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                              )
-                            ),
+                sayi2ishere
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: size.height / 40,
                           ),
-                        )
-                      )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                translation(context).secondNumber,
+                                style: TextStyle(
+                                  fontFamily: "Nexa4",
+                                  fontSize: 16,
+                                  height: 1,
+                                  color: renkler.arkaRenk,
+                                ),
+                              ),
+                              Container(
+                                  height: 30,
+                                  width: 130,
+                                  decoration: BoxDecoration(
+                                    color: renkler.yaziRenk,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 5, right: 5),
+                                    child: TextField(
+                                      maxLength: 12,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: renkler.koyuuRenk,
+                                          fontSize: 16,
+                                          fontFamily: 'Nexa4'),
+                                      onChanged: (value) {
+                                        if (firstselect == true) {
+                                          if (sayi2Controller.text != "" &&
+                                              sayi1Controller.text != "") {
+                                            sonuc = ((double.parse(
+                                                        sayi2Controller.text) /
+                                                    double.parse(
+                                                        sayi1Controller.text)) *
+                                                100);
+                                            yuzdeOranController.text =
+                                                sonuc.toStringAsFixed(2);
+                                          }
+                                        } else if (secondselect == true) {
+                                          if (sayi1Controller.text != "" &&
+                                              sayi2Controller.text != "") {
+                                            sonuc = ((double.parse(
+                                                            sayi2Controller
+                                                                .text) -
+                                                        double.parse(
+                                                            sayi1Controller
+                                                                .text)) *
+                                                    100) /
+                                                double.parse(
+                                                    sayi1Controller.text);
+                                            yuzdeOranController.text =
+                                                sonuc.toStringAsFixed(2);
+                                          }
+                                        }
+                                      },
+                                      controller: sayi2Controller,
+                                      keyboardType:
+                                          const TextInputType.numberWithOptions(
+                                              decimal: true),
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                          RegExp(r'^\d{0,8}(\.\d{0,2})?'),
+                                        )
+                                      ],
+                                      decoration: InputDecoration(
+                                          counterText: '',
+                                          hintText:
+                                              translation(context).enteraNumber,
+                                          hintStyle: const TextStyle(
+                                              height: 1,
+                                              fontSize: 14,
+                                              fontFamily: 'Nexa3',
+                                              color: Colors.black),
+                                          isDense: true,
+                                          enabledBorder:
+                                              const UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              style: BorderStyle.none,
+                                            ),
+                                          ),
+                                          focusedBorder:
+                                              const UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              style: BorderStyle.none,
+                                            ),
+                                          ),
+                                          border: const OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                          )),
+                                    ),
+                                  ))
                             ],
-                  ),
-                ],
-              )
-              : const SizedBox(height: 1),
+                          ),
+                        ],
+                      )
+                    : const SizedBox(height: 1),
                 SizedBox(
                   height: size.height / 40,
                 ),
@@ -1274,22 +1324,22 @@ class _CalculatorState extends ConsumerState<Calculator> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     sayi2ishere
-                    ? Text(
-                      translation(context).result2,
-                      style: const TextStyle(
-                        fontFamily: "Nexa4",
-                        fontSize: 17,
-                        color: Colors.white,
-                      ),
-                    )
-                    : Text(
-                      translation(context).percentageRate,
-                      style: const TextStyle(
-                        fontFamily: "Nexa4",
-                        fontSize: 17,
-                        color: Colors.white,
-                      ),
-                    ),
+                        ? Text(
+                            translation(context).result2,
+                            style: const TextStyle(
+                              fontFamily: "Nexa4",
+                              fontSize: 17,
+                              color: Colors.white,
+                            ),
+                          )
+                        : Text(
+                            translation(context).percentageRate,
+                            style: const TextStyle(
+                              fontFamily: "Nexa4",
+                              fontSize: 17,
+                              color: Colors.white,
+                            ),
+                          ),
                     Container(
                       height: 30,
                       width: 130,
@@ -1299,7 +1349,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                             const BorderRadius.all(Radius.circular(10)),
                       ),
                       child: Padding(
-                        padding:  const EdgeInsets.only(left: 5,right: 5),
+                        padding: const EdgeInsets.only(left: 5, right: 5),
                         child: TextField(
                           textAlign: TextAlign.center,
                           maxLength: sayi2ishere ? null : 10,
@@ -1307,25 +1357,28 @@ class _CalculatorState extends ConsumerState<Calculator> {
                           style: TextStyle(
                               color: renkler.koyuuRenk,
                               fontFamily: 'Nexa4',
-                              fontSize: 16
-                          ),
+                              fontSize: 16),
                           onChanged: (value) {
                             if (sayi1Controller.text.isNotEmpty &&
                                 yuzdeOranController.text.isNotEmpty) {
                               // Virgülü noktaya dönüştür
                               final sayi1 =
                                   sayi1Controller.text.replaceAll(',', '.');
-                              final yuzdeOran = yuzdeOranController.text
-                                  .replaceAll(',', '.');
+                              final yuzdeOran =
+                                  yuzdeOranController.text.replaceAll(',', '.');
 
-                              sonuc = double.parse(sayi1) * (double.parse(yuzdeOran) / 100);
+                              sonuc = double.parse(sayi1) *
+                                  (double.parse(yuzdeOran) / 100);
                               sonucController.text = sonuc.toStringAsFixed(2);
                             }
                           },
                           controller: yuzdeOranController,
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d{0,8}(\.\d{0,2})?'),
+                            )
                           ],
                           decoration: InputDecoration(
                               isDense: true,
@@ -1378,7 +1431,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
               padding: const EdgeInsets.only(top: 20, bottom: 5),
               child: !sayi2ishere
                   ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           translation(context).result,
@@ -1556,21 +1609,31 @@ class _CalculatorState extends ConsumerState<Calculator> {
 
   String first = "TRY";
   String second = "USD";
-  String ?date;
-  currencyInfo ?currency ;
+  String? mode ;
+  String? date;
+  String year = "-" ;
+  String month  = "-";
+  String day  = "-";
+  currencyInfo? currency;
   bool currentRates = true;
   bool historyRates = false;
   final TextEditingController _controllerFirst = TextEditingController();
   final TextEditingController _controllerSecond = TextEditingController();
 
-  void calculateCurrencyConvert(var readCurrency, String value){
-    if(_controllerFirst.text != ""){
-      var result = readCurrency.calculateRealAmount(double.tryParse(_controllerFirst.text)!, first, second, currency: currency);
+  void calculateCurrencyConvert(var readCurrency, String value) {
+    if (_controllerFirst.text != "") {
+      var result = readCurrency.calculateRealAmount(
+          double.tryParse(_controllerFirst.text)!, first, second,
+          currency: currency);
       _controllerSecond.text = result.toString();
-    }else{
+    } else {
       _controllerSecond.text = "";
     }
   }
+  List<currencyInfo> historyfirst = [] ;
+  List<String> years = ["-"];
+  List<String> months = ["-"];
+  List<String> days= ["-"];
   Widget currencyConverter(BuildContext context) {
     var renkler = CustomColors();
     var size = MediaQuery.of(context).size;
@@ -1578,7 +1641,6 @@ class _CalculatorState extends ConsumerState<Calculator> {
     String formattedDate = intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(now);
     var readCurrency = ref.read(currencyRiverpod);
     Future<List<currencyInfo>> historyCurrency = firestoreHelper.getHistoryCurrency();
-
     List<String> moneyPrefix = <String>[
       'TRY',
       "USD",
@@ -1590,14 +1652,18 @@ class _CalculatorState extends ConsumerState<Calculator> {
       "SAR"
     ];
 
-    var dateText = currency?.lastApiUpdateDate?.split(" ")[0].replaceAll("-", ".") ?? readCurrency.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".");
-    print(dateText);
-    DateTime dateTextForFormat =  DateTime(int.parse(dateText.split(".")[0]),int.parse(dateText.split(".")[1]),int.parse(dateText.split(".")[2]));
-    print(dateTextForFormat);
+    var dateText =
+        currency?.lastApiUpdateDate?.split(" ")[0].replaceAll("-", ".") ??
+            readCurrency.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".");
+
+    DateTime dateTextForFormat = DateTime(int.parse(dateText.split(".")[0]),
+        int.parse(dateText.split(".")[1]), int.parse(dateText.split(".")[2]));
+
     var readSettings = ref.watch(settingsRiverpod);
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(top:  15, bottom: 20, left : 10, right: 10),
+        padding:
+            const EdgeInsets.only(top: 15, bottom: 20, left: 10, right: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -1631,7 +1697,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
               child: Row(
                 children: [
                   Expanded(
-                    flex : 3,
+                    flex: 3,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1659,35 +1725,37 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               ),
                               items: moneyPrefix
                                   .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 2),
-                                    child: Text(
-                                      item,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          height: 1,
-                                          fontFamily: 'Nexa3',
-                                          color: renkler.koyuuRenk),
-                                    ),
-                                  ),
-                                ),
-                              ))
+                                        value: item,
+                                        child: Center(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2),
+                                            child: Text(
+                                              item,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  height: 1,
+                                                  fontFamily: 'Nexa3',
+                                                  color: renkler.koyuuRenk),
+                                            ),
+                                          ),
+                                        ),
+                                      ))
                                   .toList(),
                               value: first.toString(),
                               onChanged: (newValue) {
                                 setState(() {
                                   first = newValue!;
                                 });
-                                calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                                calculateCurrencyConvert(
+                                    readCurrency, _controllerFirst.text);
                               },
                               //barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
                               buttonStyleData: ButtonStyleData(
                                 overlayColor: MaterialStatePropertyAll(renkler
                                     .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
                                 padding:
-                                const EdgeInsets.symmetric(horizontal: 4),
+                                    const EdgeInsets.symmetric(horizontal: 4),
                                 height: 30,
                                 width: 80,
                               ),
@@ -1696,8 +1764,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 width: 80,
                                 decoration: BoxDecoration(
                                     color: renkler.sariRenk,
-                                    borderRadius:
-                                    const BorderRadius.all(Radius.circular(5))),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5))),
                               ),
                               menuItemStyleData: MenuItemStyleData(
                                 overlayColor: MaterialStatePropertyAll(
@@ -1709,10 +1777,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   Icons.arrow_drop_down,
                                 ),
                                 iconSize: 24,
-                                iconEnabledColor:
-                                renkler.koyuAraRenk,
+                                iconEnabledColor: renkler.koyuAraRenk,
                                 iconDisabledColor:
-                                Theme.of(context).secondaryHeaderColor,
+                                    Theme.of(context).secondaryHeaderColor,
                                 openMenuIcon: Icon(
                                   Icons.arrow_drop_up,
                                   color: Theme.of(context).canvasColor,
@@ -1726,20 +1793,19 @@ class _CalculatorState extends ConsumerState<Calculator> {
                           width: size.width * .33,
                           height: 30,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).canvasColor,
-                            borderRadius: BorderRadius.circular(6),
-                            border: Border.all(
-                              color: Theme.of(context).dialogBackgroundColor,
-                              strokeAlign: BorderSide.strokeAlignCenter,
-                              width: 1 ,
-                            )
-                          ),
+                              color: Theme.of(context).canvasColor,
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(
+                                color: Theme.of(context).dialogBackgroundColor,
+                                strokeAlign: BorderSide.strokeAlignCenter,
+                                width: 1,
+                              )),
                           child: Directionality(
                             textDirection: TextDirection.ltr,
                             child: Row(
                               children: [
                                 SizedBox(
-                                  width : 36,
+                                  width: 36,
                                   //height: 30,
                                   child: Align(
                                     alignment: Alignment.centerLeft,
@@ -1751,8 +1817,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                           style: TextStyle(
                                             height: 1,
                                             color: Theme.of(context).cardColor,
-                                            fontFamily:
-                                            "TL",
+                                            fontFamily: "TL",
                                             fontSize: 24,
                                           ),
                                         ),
@@ -1762,33 +1827,40 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 ),
                                 const SizedBox(width: 2),
                                 SizedBox(
-                                  width: size.width*0.33-39,
+                                  width: size.width * 0.33 - 39,
                                   child: TextField(
                                     onChanged: (value) async {
-                                      calculateCurrencyConvert(readCurrency, value);
+                                      calculateCurrencyConvert(
+                                          readCurrency, value);
                                     },
                                     textAlign: TextAlign.center,
                                     controller: _controllerFirst,
                                     maxLines: 1,
                                     style: TextStyle(
-                                      color: Theme.of(context).scaffoldBackgroundColor,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
                                       fontSize: 15,
                                       height: 1,
                                     ),
-                                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: true),
                                     inputFormatters: [
-                                      FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d{0,8}(\.\d{0,2})?'),
+                                      )
                                     ],
                                     decoration: InputDecoration(
                                         isDense: true,
-                                        contentPadding: const EdgeInsets.only(top: 3,left: 2,right: 2),
+                                        contentPadding: const EdgeInsets.only(
+                                            top: 3, left: 2, right: 2),
                                         hintText: translation(context).amount,
                                         hintStyle: TextStyle(
-                                            color: Theme.of(context).scaffoldBackgroundColor,
-                                            fontSize: 15,
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                          fontSize: 15,
                                         ),
-                                        border: InputBorder.none
-                                    ),
+                                        border: InputBorder.none),
                                   ),
                                 ),
                               ],
@@ -1803,7 +1875,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                           child: Row(
                             children: [
                               Icon(
-                                  Icons.backspace,
+                                Icons.backspace,
                                 color: Theme.of(context).disabledColor,
                                 size: 18,
                               ),
@@ -1815,8 +1887,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   style: TextStyle(
                                     height: 1,
                                     color: renkler.arkaRenk,
-                                    fontFamily:
-                                    "Nexa3",
+                                    fontFamily: "Nexa3",
                                     fontSize: 12,
                                   ),
                                 ),
@@ -1835,7 +1906,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Icon(
-                            readSettings.localChanger() != const Locale("ar") ? Icons.double_arrow_rounded : Icons.keyboard_double_arrow_left_rounded,
+                            readSettings.localChanger() != const Locale("ar")
+                                ? Icons.double_arrow_rounded
+                                : Icons.keyboard_double_arrow_left_rounded,
                             color: renkler.arkaRenk,
                             size: 28,
                           ),
@@ -1844,9 +1917,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               setState(() {
                                 var a = first;
                                 first = second;
-                                second = a ;
+                                second = a;
                               });
-                              calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                              calculateCurrencyConvert(
+                                  readCurrency, _controllerFirst.text);
                             },
                             child: Image.asset(
                               "assets/icons/swap2.png",
@@ -1875,7 +1949,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               isExpanded: true,
                               hint: Center(
                                 child: Text(
-                                  translation(context).select,
+                                  translation(context).all,
                                   style: TextStyle(
                                     fontSize: 14,
                                     height: 1,
@@ -1884,24 +1958,24 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   ),
                                 ),
                               ),
-                              items: moneyPrefix
-                                  .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 2),
-                                    child: Text(
-                                      item,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          height: 1,
-                                          fontFamily: 'Nexa3',
-                                          color: renkler.koyuuRenk),
+                              items: moneyPrefix.map(
+                                (item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Center(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(top: 2),
+                                      child: Text(
+                                        item,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            height: 1,
+                                            fontFamily: 'Nexa3',
+                                            color: renkler.koyuuRenk),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ))
-                                  .toList(),
+                                )).toList(),
                               value: second.toString(),
                               onChanged: (newValue) {
                                 setState(() {
@@ -1914,18 +1988,18 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 overlayColor: MaterialStatePropertyAll(renkler
                                     .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
                                 padding:
-                                const EdgeInsets.symmetric(horizontal: 4),
+                                    const EdgeInsets.symmetric(horizontal: 4),
                                 height: 30,
                                 width: 80,
                               ),
                               dropdownStyleData: DropdownStyleData(
-                                  //maxHeight: 150,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                      color: renkler.sariRenk,
-                                      borderRadius:
-                                      const BorderRadius.all(Radius.circular(5))),
-                                  ),
+                                //maxHeight: 150,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                    color: renkler.sariRenk,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5))),
+                              ),
                               menuItemStyleData: MenuItemStyleData(
                                 overlayColor: MaterialStatePropertyAll(
                                     renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
@@ -1936,10 +2010,9 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   Icons.arrow_drop_down,
                                 ),
                                 iconSize: 24,
-                                iconEnabledColor:
-                                renkler.koyuAraRenk,
+                                iconEnabledColor: renkler.koyuAraRenk,
                                 iconDisabledColor:
-                                Theme.of(context).secondaryHeaderColor,
+                                    Theme.of(context).secondaryHeaderColor,
                                 openMenuIcon: Icon(
                                   Icons.arrow_drop_up,
                                   color: Theme.of(context).canvasColor,
@@ -1958,58 +2031,61 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               border: Border.all(
                                 color: Theme.of(context).dialogBackgroundColor,
                                 strokeAlign: BorderSide.strokeAlignCenter,
-                                width: 1 ,
-                              )
-                          ),
+                                width: 1,
+                              )),
                           child: Directionality(
                             textDirection: TextDirection.ltr,
                             child: Row(
                               children: [
                                 SizedBox(
-                                  width : size.width*0.33-39,
+                                  width: size.width * 0.33 - 39,
                                   child: TextField(
                                     readOnly: true,
                                     maxLines: 1,
                                     textAlign: TextAlign.center,
                                     controller: _controllerSecond,
                                     style: TextStyle(
-                                      color: Theme.of(context).scaffoldBackgroundColor,
-                                      fontSize: 15,
-                                      height: 1
-                                    ),
-                                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        fontSize: 15,
+                                        height: 1),
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: true),
                                     inputFormatters: [
-                                      FilteringTextInputFormatter.allow(RegExp(r'^\d{0,8}(\.\d{0,2})?'),)
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d{0,8}(\.\d{0,2})?'),
+                                      )
                                     ],
                                     decoration: InputDecoration(
-                                        contentPadding: const EdgeInsets.only(top: 3,left: 2,right: 2),
-                                      isDense: true,
+                                        contentPadding: const EdgeInsets.only(
+                                            top: 3, left: 2, right: 2),
+                                        isDense: true,
                                         hintText: translation(context).result,
                                         hintStyle: TextStyle(
-                                          color: Theme.of(context).scaffoldBackgroundColor,
-                                          fontSize: 15,
-                                          height: 1
-                                        ),
-                                        border: InputBorder.none
-                                    ),
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor,
+                                            fontSize: 15,
+                                            height: 1),
+                                        border: InputBorder.none),
                                   ),
                                 ),
                                 const SizedBox(width: 2),
                                 SizedBox(
-                                  width : 36,
+                                  width: 36,
                                   //height: 30,
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: FittedBox(
                                       child: Padding(
-                                        padding: const EdgeInsets.only(top: 3,right: 2),
+                                        padding: const EdgeInsets.only(
+                                            top: 3, right: 2),
                                         child: Text(
                                           readSettings.convertPrefix(second),
                                           style: TextStyle(
                                             height: 1,
                                             color: Theme.of(context).cardColor,
-                                            fontFamily:
-                                            "TL",
+                                            fontFamily: "TL",
                                             fontSize: 24,
                                           ),
                                         ),
@@ -2024,9 +2100,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         InkWell(
                           onTap: () {
                             if (_controllerFirst.text != "") {
-                              Clipboard.setData(ClipboardData(
-                                  text: _controllerSecond.text
-                              ));
+                              Clipboard.setData(
+                                  ClipboardData(text: _controllerSecond.text));
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: const Color(0xff0D1C26),
@@ -2057,8 +2132,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                     style: TextStyle(
                                       height: 1,
                                       color: renkler.arkaRenk,
-                                      fontFamily:
-                                      "Nexa3",
+                                      fontFamily: "Nexa3",
                                       fontSize: 12,
                                     ),
                                   ),
@@ -2082,323 +2156,627 @@ class _CalculatorState extends ConsumerState<Calculator> {
               ),
             ),
             SizedBox(
-              height: size.height / 50,
+              height: size.height / 60,
             ),
-            SizedBox(
-              height: size.height * .12,
+            historyRates && currency == null
+            ? SizedBox(
+              height: size.height * .26, /// ayarlanacak
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 3),
-                        child: fezaiCheckBox(
-                            value: currentRates ,
-                            clickedColor: Theme.of(context).disabledColor,
-                            onChanged: (value) {
-                              if(historyRates){
-                                setState(() {
-                                  date = null;
-                                  currency = null;
-                                  currentRates = value;
-                                  historyRates = false ;
-                                });
-                                calculateCurrencyConvert(readCurrency, _controllerFirst.text);
-                              }
-                            },
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color:Theme.of(context).disabledColor,
+                            borderRadius : BorderRadius.circular(4),
                           ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Expanded(
-                        child: Text(
-                          translation(context).calculateFromCurrentExchangeRate,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: "Nexa3",
-                              fontSize: 14
-                          ),
-                        ),
-                      ),
-                      Text(
-                        formattedDate,
-                        style: TextStyle(
-                            color: Theme.of(context).disabledColor,
-                            fontFamily: "Nexa4",
-                            fontSize: 13
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 3),
-                        child: fezaiCheckBox(
-                          value: historyRates ,
-                          clickedColor: Theme.of(context).disabledColor,
-                          onChanged: (value) {
-                            if(currentRates){
-                              setState(() {
-                                currentRates = false;
-                                historyRates = value;
-                              });
-                              calculateCurrencyConvert(readCurrency, _controllerFirst.text);
-                            }
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Expanded(
-                        child: Text(
-                          translation(context).calculateFromOldExchangeRate,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: "Nexa3",
-                              fontSize: 14
-                          ),
-                        ),
-                      ),
-                      !historyRates
-                      ?Text(
-                        "...",
-                        style: TextStyle(
-                            color: Theme.of(context).disabledColor,
-                            fontFamily: "Nexa4",
-                            fontSize: 13
-                        ),
-                      )
-                      :FutureBuilder(
-                        future: historyCurrency,
-                        builder: (context, snapshot) {
-                          if(snapshot.hasData){
-                            List<String> Lista = [];
-                            for (var element in snapshot.data!) {
-                              var date = element.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".");
-                              DateTime dateForFormat = DateTime(int.parse(date.split(".")[0]),int.parse(date.split(".")[1]),int.parse(date.split(".")[2]));
-                              Lista.add(intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateForFormat));
-                            }
-                            return Container(
-                              height: 28,
-                              //width: 106,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).disabledColor,
-                                borderRadius: BorderRadius.circular(10)
-                              ),
-                              child : DropdownButtonHideUnderline(
-                                child: DropdownButton2<String>(
-                                  isExpanded: true,
-                                  hint: Center(
-                                    child: Text(
-                                      translation(context).select,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        height: 1,
-                                        fontFamily: 'Nexa3',
-                                        color: renkler.koyuuRenk,
-                                      ),
-                                    ),
-                                  ),
-                                  items: Lista
-                                      .map((item) => DropdownMenuItem(
-                                    value: item,
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 2),
-                                        child: Text(
-                                          item,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              height: 1,
-                                              fontFamily: 'Nexa3',
-                                              color: renkler.koyuuRenk),
-                                        ),
-                                      ),
-                                    ),
-                                  ))
-                                      .toList(),
-                                  value: date,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      date = newValue!;
-                                      currency = snapshot.data![Lista.indexOf(newValue)];
-                                    });
-                                    calculateCurrencyConvert(readCurrency, _controllerFirst.text);
-                                  },
-                                  //barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
-                                  buttonStyleData: ButtonStyleData(
-                                    overlayColor: MaterialStatePropertyAll(renkler
-                                        .koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
-                                    padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                    height: 28,
-                                    width: 110,
-                                  ),
-                                  dropdownStyleData: DropdownStyleData(
-                                    maxHeight: 200,
-                                    width: 110,
-                                    decoration: BoxDecoration(
-                                        color: renkler.sariRenk,
-                                        borderRadius:
-                                        const BorderRadius.all(Radius.circular(5))),
-                                  ),
-                                  menuItemStyleData: MenuItemStyleData(
-                                    overlayColor: MaterialStatePropertyAll(
-                                        renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
-                                    height: 32,
-                                  ),
-                                  iconStyleData: IconStyleData(
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                    ),
-                                    iconSize: 24,
-                                    iconEnabledColor:
-                                    renkler.koyuAraRenk,
-                                    iconDisabledColor:
-                                    Theme.of(context).secondaryHeaderColor,
-                                    openMenuIcon: Icon(
-                                      Icons.arrow_drop_up,
-                                      color: Theme.of(context).canvasColor,
-                                      size: 24,
-                                    ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2<String>(
+                              isExpanded: true,
+                              hint: Center(
+                                child: Text(
+                                  "-",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    height: 1,
+                                    fontFamily: 'Nexa3',
+                                    color: renkler.koyuuRenk,
                                   ),
                                 ),
                               ),
-                            );
-                          }else{
-                            return Text(
+                              items: days.map((item) => DropdownMenuItem(
+                                value: item,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 2),
+                                    child: Text(
+                                      item,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          height: 1,
+                                          fontFamily: 'Nexa3',
+                                          color: renkler.koyuuRenk),
+                                    ),
+                                  ),
+                                ),
+                              )).toList(),
+                              value: day,
+                              onChanged: (newValue)  {
+                                setState(()  {
+                                  day = newValue!;
+                                  mode = "day";
+                                });
+                                Future.delayed(Duration(milliseconds: 100)).then((value) {
+                                  setState(() {
+                                  });
+                                });
+                              },
+                              buttonStyleData: ButtonStyleData(
+                                overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 4),
+                                height: 18,
+                                width: 50,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: 200,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                    color: renkler.sariRenk,
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(5))),
+                              ),
+                              menuItemStyleData: MenuItemStyleData(
+                                overlayColor: MaterialStatePropertyAll(
+                                    renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                height: 32,
+                              ),
+                              iconStyleData: IconStyleData(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down,
+                                ),
+                                iconSize: 24,
+                                iconEnabledColor:
+                                renkler.koyuAraRenk,
+                                iconDisabledColor:
+                                Theme.of(context).secondaryHeaderColor,
+                                openMenuIcon: Icon(
+                                  Icons.arrow_drop_up,
+                                  color: Theme.of(context).canvasColor,
+                                  size: 24,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color:Theme.of(context).disabledColor,
+                            borderRadius : BorderRadius.circular(5),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2<String>(
+                              isExpanded: true,
+                              hint: Center(
+                                child: Text(
+                                  "-",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    height: 1,
+                                    fontFamily: 'Nexa3',
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                ),
+                              ),
+                              items: months.map((item) => DropdownMenuItem(
+                                value: item,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 2),
+                                    child: Text(
+                                      item,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          height: 1,
+                                          fontFamily: 'Nexa3',
+                                          color: renkler.koyuuRenk),
+                                    ),
+                                  ),
+                                ),
+                              )).toList(),
+                              value: month,
+                              onChanged: (newValue)   {
+                                setState(()  {
+                                  month = newValue!;
+                                  mode = "month";
+                                });
+                                print("NEWW VALUE $months");
+                                Future.delayed(Duration(milliseconds: 100)).then((value) {
+                                  setState(() {
+                                  });
+                                });
+                              },
+                              //barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
+                              buttonStyleData: ButtonStyleData(
+                                overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 4),
+                                height: 18,
+                                width: 50,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: 200,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                    color: renkler.sariRenk,
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(5))),
+                              ),
+                              menuItemStyleData: MenuItemStyleData(
+                                overlayColor: MaterialStatePropertyAll(
+                                    renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                height: 32,
+                              ),
+                              iconStyleData: IconStyleData(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down,
+                                ),
+                                iconSize: 24,
+                                iconEnabledColor:
+                                renkler.koyuAraRenk,
+                                iconDisabledColor:
+                                Theme.of(context).secondaryHeaderColor,
+                                openMenuIcon: Icon(
+                                  Icons.arrow_drop_up,
+                                  color: Theme.of(context).canvasColor,
+                                  size: 24,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color:Theme.of(context).disabledColor,
+                            borderRadius : BorderRadius.circular(5),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2<String>(
+                              isExpanded: true,
+                              hint: Center(
+                                child: Text(
+                                  "-",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    height: 1,
+                                    fontFamily: 'Nexa3',
+                                    color: renkler.koyuuRenk,
+                                  ),
+                                ),
+                              ),
+                              items: years.map((item) => DropdownMenuItem(
+                                value: item,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 2),
+                                    child: Text(
+                                      item,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          height: 1,
+                                          fontFamily: 'Nexa3',
+                                          color: renkler.koyuuRenk),
+                                    ),
+                                  ),
+                                ),
+                              )).toList(),
+                              value: year,
+                              onChanged: (newValue)  {
+                                setState(() {
+                                  year = newValue!;
+                                  mode = "year";
+                                });
+                                Future.delayed(Duration(milliseconds: 100)).then((value) {
+                                  setState(() {
+                                  });
+                                });
+                              },
+                              //barrierColor: renkler.koyuAraRenk.withOpacity(0.8),
+                              buttonStyleData: ButtonStyleData(
+                                overlayColor: MaterialStatePropertyAll(renkler.koyuAraRenk), // BAŞLANGIÇ BASILMA RENGİ
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 4),
+                                height: 18,
+                                width: 80,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: 200,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                    color: renkler.sariRenk,
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(5))),
+                              ),
+                              menuItemStyleData: MenuItemStyleData(
+                                overlayColor: MaterialStatePropertyAll(
+                                    renkler.koyuAraRenk), // MENÜ BASILMA RENGİ
+                                height: 32,
+                              ),
+                              iconStyleData: IconStyleData(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down,
+                                ),
+                                iconSize: 24,
+                                iconEnabledColor:
+                                renkler.koyuAraRenk,
+                                iconDisabledColor:
+                                Theme.of(context).secondaryHeaderColor,
+                                openMenuIcon: Icon(
+                                  Icons.arrow_drop_up,
+                                  color: Theme.of(context).canvasColor,
+                                  size: 24,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            if (historyRates) {
+                              setState(() {
+                                date = null;
+                                currency = null;
+                                currentRates = true;
+                                historyRates = false;
+                              });
+                              calculateCurrencyConvert(
+                                  readCurrency, _controllerFirst.text);
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).cardColor,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: FittedBox(
+                              child: Text(
+                                translation(context).close,
+                                style: TextStyle(
+                                  height: 1,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: FutureBuilder(
+                      future: historyCurrency,
+                      builder: (context, snapshot)  {
+                        if(snapshot.hasData) {
+                          var temp = snapshot.data ;
+                          if(historyfirst.isEmpty){
+                            parsedDate(ref, temp!);
+                            Future.delayed(Duration(milliseconds: 100)).then((value) {
+                              setState(() {
+
+                              });
+                            });
+                          }
+                          historyfirst =  filterDateCurrendy(ref, temp!, day: int.tryParse(day), month: int.tryParse(month), year: int.tryParse(year));
+                          return  GridView.builder(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: size.width * .02,
+                                mainAxisSpacing: size.height * .008,
+                                childAspectRatio: 3.35
+                            ),
+                            itemCount: historyfirst.length,
+                            itemBuilder: (context, index) {
+                              int? darkMode = readSettings.DarkMode;
+                              return GestureDetector(
+                                onTap: () {
+                                    setState(() {
+                                      date = historyfirst[index].lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".");
+                                      currency = historyfirst[index];
+                                    });
+                                    calculateCurrencyConvert(readCurrency, _controllerFirst.text);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF0D1C26),
+                                    boxShadow: darkMode == 1 ? [
+                                      BoxShadow(
+                                        color: Colors.black54.withOpacity(0.8),
+                                        spreadRadius: 1,
+                                        blurRadius: 2,
+                                        offset: const Offset(-1, 2),
+                                      )
+                                    ] : [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 0.5,
+                                          blurRadius: 2,
+                                          offset: const Offset(0, 2)
+                                      )
+                                    ],
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                                    border: Border.all(
+                                        color: Theme
+                                            .of(context)
+                                            .indicatorColor, // Set border color
+                                        width: 1.0),
+                                    //color: Theme.of(context).primaryColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      historyfirst[index].lastApiUpdateDate!.split(" ")[0].replaceAll("-", "."),
+                                      style: TextStyle(
+                                        color: Color(0xFFE9E9E9),
+                                        fontFamily: "Nexa3"
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }else{
+                          return Center(
+                            child: Text(
                               translation(context).loading,
                               style: TextStyle(
                                   color: Theme.of(context).disabledColor,
                                   fontFamily: "Nexa2",
-                                  fontSize: 13
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                                  fontSize: 13),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: size.height / 140,
-            ),
-            SizedBox(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          currency != null ? "${translation(context).exchangeRate} ": "${translation(context).currentExchangeRate} ",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontFamily: "Nexa4",
-                            fontWeight: FontWeight.w900
-                          ),
-                          maxLines: 3,
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              " $first ",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontFamily: "Nexa3",
-                              ),
-                            ),
-                            const Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                              size: 15,
-                            ),
-                            Text(
-                              " $second ",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontFamily: "Nexa3",
-                              ),
-                            ),
-                            Text(
-                              ": ${readCurrency.calculateRate(first, second, currency: currency)}",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontFamily: "Nexa3",
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                   ],
-                  ),
-                  SizedBox(height: 6,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          translation(context).lastUpdate,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontFamily: "Nexa4",
-                              fontWeight: FontWeight.w900
-                          ),
-                          maxLines: 2,
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Text(
-                          "${intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateTextForFormat)} / ${currency != null  ? convertHourAndMinute(currency!.lastApiUpdateDate) : convertHourAndMinute(readCurrency.lastApiUpdateDate)} ",
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontFamily: "Nexa3"
-                          ),
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: size.height * .015,
             )
+            :Column(
+              children: [
+                SizedBox(
+                  height: size.height * .08,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 3),
+                            child: fezaiCheckBox(
+                              value: currentRates,
+                              clickedColor: Theme.of(context).disabledColor,
+                              onChanged: (value) {
+                                if (historyRates) {
+                                  setState(() {
+                                    date = null;
+                                    currency = null;
+                                    currentRates = value;
+                                    historyRates = false;
+                                  });
+                                  calculateCurrencyConvert(
+                                      readCurrency, _controllerFirst.text);
+                                }
+
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: Text(
+                              translation(context).calculateFromCurrentExchangeRate,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Nexa3",
+                                  fontSize: 14),
+                            ),
+                          ),
+                          Text(
+                            formattedDate,
+                            style: TextStyle(
+                                color: Theme.of(context).disabledColor,
+                                fontFamily: "Nexa4",
+                                fontSize: 13),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 3),
+                            child: fezaiCheckBox(
+                              value: historyRates,
+                              clickedColor: Theme.of(context).disabledColor,
+                              onChanged: (value) {
+                                if (currentRates) {
+                                  setState(() {
+                                    currentRates = false;
+                                    historyRates = value;
+                                  });
+                                  calculateCurrencyConvert(
+                                      readCurrency, _controllerFirst.text);
+                                }
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: Text(
+                              translation(context).calculateFromOldExchangeRate,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Nexa3",
+                                  fontSize: 14),
+                            ),
+                          ),
+                          historyRates
+                          ?GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                currency = null ;
+                              });
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).disabledColor,
+                                borderRadius : BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                "Yeni Tarih Seç",
+                                style: TextStyle(
+                                  color : Color(0xFF0D1C26)
+                                )
+                              ),
+                            ),
+                          ): SizedBox(),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * .04,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            currency != null
+                                ? "${translation(context).exchangeRate} "
+                                : "${translation(context).currentExchangeRate} ",
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Nexa4",
+                                fontWeight: FontWeight.w900),
+                            maxLines: 3,
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                " $first ",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: "Nexa3",
+                                ),
+                              ),
+                              const Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                                size: 15,
+                              ),
+                              Text(
+                                " $second ",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: "Nexa3",
+                                ),
+                              ),
+                              Text(
+                                ": ${readCurrency.calculateRate(first, second, currency: currency)}",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: "Nexa3",
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            translation(context).lastUpdate,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Nexa4",
+                                fontWeight: FontWeight.w900),
+                            maxLines: 2,
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                            "${intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateTextForFormat)} / ${currency != null ? convertHourAndMinute(currency!.lastApiUpdateDate) : convertHourAndMinute(readCurrency.lastApiUpdateDate)} ",
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Nexa3"),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
-  } ///page1
+  }
 
-  String convertHourAndMinute(String? date){
+  ///page1
+
+  String convertHourAndMinute(String? date) {
     DateTime? dateFormat = DateTime.tryParse(date.toString())?.subtract(const Duration(hours: 3));
-    return "${dateFormat?.hour}:${dateFormat?.minute}";
+    return "${dateFormat?.hour.toString().length == 1 ? "0" + dateFormat!.hour.toString() : dateFormat?.hour  }:${dateFormat?.minute.toString().length == 1 ? "0" + dateFormat!.minute.toString() : dateFormat?.minute}";
+  }
+
+  String convertDateFormat(String? date) {
+    List<String> temp = date!.split(" ")[0].split("-");
+    return temp[2] + "." + temp[1] + "." + temp[0] ;
   }
 
   Widget equalsBtnCreat(Size size) {
@@ -2451,5 +2829,80 @@ class _CalculatorState extends ConsumerState<Calculator> {
         ),
       ),
     );
+  }
+
+  List<currencyInfo> filterDateCurrendy(WidgetRef ref, List<currencyInfo> data, {int? day, int? month, int? year}) {
+    print("$day $month $year ");
+    List<currencyInfo> list = [];
+    data.forEach((element) {
+      List date = element.lastApiUpdateDate!.split(" ")[0].split("-");
+      if(day != null || month != null || year != null){
+        if(day == int.parse(date[2])  && month == int.parse(date[1]) && year == int.parse(date[0])){
+          list.add(element);
+        }else if (day == int.parse(date[2])  && month == int.parse(date[1]) && year == int.parse(date[0])){
+          list.add(element);
+        }else if (day == int.parse(date[2])  && month == null && year == int.parse(date[0])){
+          list.add(element);
+        }else if (day == int.parse(date[2])  && month == int.parse(date[1]) && year == null ){
+          list.add(element);
+        }else if (day == null && month == int.parse(date[1]) && year == int.parse(date[0])){
+          list.add(element);
+        }else if (day == null && month == null && year == int.parse(date[0])){
+          list.add(element);
+        }else if (day == null  && month == int.parse(date[1]) && year == null){
+          list.add(element);
+        }else if (day == int.parse(date[2])  && month == null && year == null){
+          list.add(element);
+        }else{
+        }
+      }else{
+        list.add(element);
+      }
+    });
+    parsedDate(ref, list);
+    return list;
+  }
+
+  void parsedDate(WidgetRef ref, List<currencyInfo> a, {String? click})  {
+    if(mode == "day"){
+      months.clear();
+      years.clear();
+      days.remove("-");
+    }else if (mode == "month"){
+      years.clear();
+      days.clear();
+      months.remove("-");
+    }else if(mode == "year"){
+      months.clear();
+      days.clear();
+      years.remove("-");
+    }else{
+      years.clear();
+      days.clear();
+      months.clear();
+    }
+    print("before $months");
+    a.forEach((element) {
+      if(!(years.contains(element.lastApiUpdateDate!.split(" ")[0].split("-")[0]))){
+        years.add(element.lastApiUpdateDate!.split(" ")[0].split("-")[0]);
+      }
+      if(!(months.contains(element.lastApiUpdateDate!.split(" ")[0].split("-")[1]))){
+        months.add(element.lastApiUpdateDate!.split(" ")[0].split("-")[1]);
+      }
+      if(!(days.contains(element.lastApiUpdateDate!.split(" ")[0].split("-")[2]))){
+        days.add(element.lastApiUpdateDate!.split(" ")[0].split("-")[2]);
+      }
+    });
+    //years.sort((a, b) => int.parse(a).compareTo(int.tryParse(b)!));
+    //months.sort((a, b) => int.parse(a).compareTo(int.tryParse(b)!));
+
+    years.sort((a, b) => int.tryParse(a.toString())!.compareTo(int.tryParse(b)!));
+    months.sort((a, b) => int.tryParse(a.toString())!.compareTo(int.tryParse(b)!));
+    days.sort((a, b) => int.tryParse(a.toString())!.compareTo(int.tryParse(b)!));
+    print(a);
+    print("=> $months");
+    years.insert(0, "-");
+    months.insert(0, "-");
+    days.insert(0, "-");
   }
 }

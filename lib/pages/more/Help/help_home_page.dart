@@ -68,7 +68,7 @@ class HelpHomePage extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            "İşlem\nDetayı",
+                            translation(context).activityDetail,
                             style: TextStyle(
                               fontFamily: "Nexa4",
                               fontSize: 15,

@@ -542,7 +542,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       mainAxisSpacing: size.height * .005,
                                       childAspectRatio: 3
                                   ),
-                                  itemCount: data!.length,
+                                  itemCount: data.length,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
@@ -586,7 +586,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                                         ),
                                                       ),
                                                       Text(
-                                                          data![index].operationDay.toString()  == "null" ? translation(context).asset : data![index].operationDate.toString() ,
+                                                          data[index].operationDay.toString()  == "null" ? translation(context).asset : data[index].operationDate.toString() ,
                                                         style: TextStyle(
                                                           fontSize: 14,
                                                           height: 1,
@@ -596,7 +596,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                                     ],
                                                   ),
                                                   Text(
-                                                      "${data[index].amount} ${data[index].moneyType.toString().substring(0,3)}",style: TextStyle(
+                                                      "${data[index].amount.toStringAsFixed(2)} ${data[index].moneyType.toString().substring(0,3)}",style: TextStyle(
                                                     height: 1,
                                                     color: Theme.of(context).canvasColor,
                                                   ),

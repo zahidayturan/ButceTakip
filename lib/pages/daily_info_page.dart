@@ -141,6 +141,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                   radius: const Radius.circular(15),
                                   child: ListView.builder(
                                     itemCount: item.length,
+                                    physics: const BouncingScrollPhysics(),
                                     itemBuilder: (context, index) {
                                       return Padding(
                                         padding: const EdgeInsets.only(
@@ -193,17 +194,33 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                             : Theme.of(context).canvasColor,
                                                       ),
                                                     ),
-                                                    const SizedBox(width: 5),
+                                                    const SizedBox(width: 7),
                                                     Expanded(
-                                                      child: Text(
-                                                        Converter().textConverterFromDB(item[index].category!, context, 0),
-                                                        style: TextStyle(
-                                                          fontFamily: 'NEXA3',
-                                                          fontSize: 17,
-                                                          height: 1,
-                                                          color: Theme.of(context).canvasColor,
-                                                        ),
-                                                        overflow: TextOverflow.ellipsis,
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            Converter().textConverterFromDB(item[index].category!, context, 0),
+                                                            style: TextStyle(
+                                                              fontFamily: 'NEXA3',
+                                                              fontSize: 17,
+                                                              height: 1,
+                                                              color: Theme.of(context).canvasColor,
+                                                            ),
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                          item[index].note! != "" ? Text(
+                                                            "${translation(context).note} ${item[index].note!}",
+                                                            style: TextStyle(
+                                                              fontFamily: 'NEXA3',
+                                                              fontSize: 14,
+                                                              height: 1,
+                                                              color: Theme.of(context).canvasColor,
+                                                            ),
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ) : SizedBox(),
+                                                        ],
                                                       ),
                                                     ),
                                                     Padding(
@@ -338,7 +355,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                           children: [
                             FittedBox(
                               child: Text(
-                                " +${data[0]}",
+                                " +${data[0].toStringAsFixed(2)}",
                                 style: TextStyle(
                                   color: renkler.yaziRenk,
                                   fontSize: 15,

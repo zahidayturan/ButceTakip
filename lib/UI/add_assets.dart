@@ -67,7 +67,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
 
                 },
                 child: Container( //boyut
-                  height: 230,
+                  height: 240,
                   width: 250,
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
@@ -337,7 +337,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
           activeFgColor: const Color(0xff0D1C26),
           inactiveBgColor: Theme.of(context).highlightColor,
           inactiveFgColor: const Color(0xFFE9E9E9),
-          minWidth: 60,
+          minWidth: 90,
           cornerRadius: 20,
           radiusStyle: true,
           animate: true,

@@ -77,8 +77,9 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             ),
           )
           :Image.asset(
-            "assets/image/icon_BKA/yatayYazi.png",
-            width: 120,
+            readSetting.Language == "Turkce" ?
+            "assets/image/icon_BKA/appNameTr.png" : readSetting.Language == "العربية" ? "assets/image/icon_BKA/appNameAr.png" : "assets/image/icon_BKA/appNameEn.png" ,
+            width: 100,
           ),
         ),
         actions: [
@@ -119,7 +120,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             },
             icon: const Icon(
               //Icons.event_repeat_rounded,
-              Icons.history_rounded,
+              Icons.manage_history_rounded,
               color: Color(0xFFFFFFFF),
               size: 30,
             ),

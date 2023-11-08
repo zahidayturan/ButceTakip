@@ -190,12 +190,22 @@ class _base_BKAState extends ConsumerState<base_BKA> {
           bottomNavigationBar = false;
           return AppStatus(status:"update");
         }else{
-          bottomNavigationBar = true;
-          return watch.body();
+          if(widget.showBTA){
+            bottomNavigationBar = true;
+            return watch.body();
+          }else{
+            bottomNavigationBar = false;
+            return IntroductionPage();
+          }
         }
       }else{
-        bottomNavigationBar = true;
-        return watch.body();
+        if(widget.showBTA){
+          bottomNavigationBar = true;
+          return watch.body();
+        }else{
+          bottomNavigationBar = false;
+          return IntroductionPage();
+        }
       }
     }
     return Scaffold(
