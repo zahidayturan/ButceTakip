@@ -326,7 +326,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                                 borderRadius: BorderRadius.circular(7),
                               ),
                               child: Text(
-                                "Kayıdı göster",
+                                translation(context).detailsForCurrencyExchange,
                                 style: TextStyle(
                                     fontFamily: "Nexa2",
                                     height: 1,

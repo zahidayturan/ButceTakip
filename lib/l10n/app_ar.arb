@@ -1,4 +1,5 @@
 {
+  "appLanguage" : "Ar",
   "statisticsTitle": "الإحصائيات",
   "activityCalendarTitle": "تقويم العمليات",
   "calculatorTitle": "الآلة الحاسبة",
@@ -29,6 +30,7 @@
 
   "currency": "العملة",
   "appNotifications": "اشعارات التطبيق",
+  "setNotification": "ضبط",
   "turnOnNotifications": "",
 
   "backupPreference": "النسخ الاحتياطي",
@@ -138,6 +140,9 @@
   "all": "الجميع",
   "reset": "رجوع",
   "okStatistics": "تم",
+  "viewFullList": "اعرض القائمة بأكملها",
+  "fullList": "القائمة بأكملها",
+  "numberOfElementsShown": "عدد العناصر المعروضة",
 
   "firstDayOfTheMonth": "بداية الشهر",
   "setAsOnlyForTurkish": "",
@@ -304,7 +309,7 @@
   "calculatePercentage": "احسب بالنسبة المئوية  ",
   "calculateInterestCredit": "احسب الفائدة - القرض ",
 
-  "currencyConverterWarning": "لم يتم تفعيل صرف العملات بعد.",
+  "currencyConverterWarning": "يتم تحديث أسعار العملات",
 
   "settings": "الإعدادات",
   "help": "مساعدة",
@@ -446,8 +451,10 @@
   "doneExchange": "موافقة",
   "currentRate": "سعر الصرف الحالي",
   "receivedAmount": "المبلغ المستلم",
+  "detailsForCurrencyExchange": "تفاصيل العملية",
 
   "activityDetails": "تفاصيل العمليات",
+  "activityDetail": "تفاصيل \nالعمليات",
 
   "details": "تفاصيل العملية",
   "dateDetails": "التاريخ",

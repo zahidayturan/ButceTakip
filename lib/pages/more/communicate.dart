@@ -39,13 +39,25 @@ class Communicate extends StatelessWidget {
                 Column(
                   children: [
                     const SizedBox(height: 10),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Image.asset(
-                        "assets/image/icon_BKA/LOGOBKA-2.png",
-                        width: size.width / 2,
-                        color: Theme.of(context).canvasColor,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/image/icon_BKA/appLogoTr.png",
+                          width: size.width/7,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            "assets/image/icon_BKA/appLogoEn.png",
+                            width: size.width/7,
+                          ),
+                        ),
+                        Image.asset(
+                          "assets/image/icon_BKA/appLogoAr.png",
+                          width: size.width/7,
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 20),
                     Padding(

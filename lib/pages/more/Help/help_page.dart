@@ -92,7 +92,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Image.asset(
-                          "assets/image/LogoBkaShort.png",
+                          "assets/image/icon_BKA/logoMini${translation(context).appLanguage}.png",
                           height: 44,
                           width: 44,
                         ),

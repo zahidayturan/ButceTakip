@@ -112,97 +112,263 @@ class _CalculatorState extends ConsumerState<Calculator> {
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     var watchCurrency = ref.watch(currencyRiverpod);
-    return Container(
-      color: const Color(0xFF03111A),
-      child: SafeArea(
-        child: Scaffold(
-          appBar: AppBarForPage(title: translation(context).calculatorTitle),
-          resizeToAvoidBottomInset: false,
-          //backgroundColor: const Color(0xffF2F2F2),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10.0,
-                  bottom: 7.0,
-                  right: 20.0,
-                  left: 20.0,
-                ),
-                child: SizedBox(
-                  height: size.height * 0.55,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                    ),
-                    child: Container(
-                      color: Theme.of(context).highlightColor,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: PageView(
-                          controller: _pagecont,
-                          onPageChanged: (value) =>
-                              setState(() => _currentPageindex = value),
-                          children: [
-                            //calculator(), //Page 1
-                            ref.read(currencyRiverpod).lastApiUpdateDate != null
-                                ? currencyConverter(context)
-                                : Center(
-                                    child: SizedBox(
+    var read2 = ref.read(botomNavBarRiverpod);
+    return WillPopScope(
+      onWillPop: () async {
+        read2.setCurrentindex(0);
+        return false;
+      },
+      child: Container(
+        color: const Color(0xFF03111A),
+        child: SafeArea(
+          child: Scaffold(
+            appBar: AppBarForPage(title: translation(context).calculatorTitle),
+            resizeToAvoidBottomInset: false,
+            //backgroundColor: const Color(0xffF2F2F2),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10.0,
+                    bottom: 7.0,
+                    right: 20.0,
+                    left: 20.0,
+                  ),
+                  child: SizedBox(
+                    height: size.height * 0.55,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                      child: Container(
+                        color: Theme.of(context).highlightColor,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: PageView(
+                            controller: _pagecont,
+                            onPageChanged: (value) =>
+                                setState(() => _currentPageindex = value),
+                            children: [
+                              //calculator(), //Page 1
+                              ref.read(currencyRiverpod).lastApiUpdateDate != null ? currencyConverter(context)
+                                  : Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
                                     height: size.width * .17,
                                     width: size.width * .17,
                                     child: CircularProgressIndicator(
                                       color: Theme.of(context).disabledColor,
                                       backgroundColor: renkler.koyuuRenk,
                                     ),
-                                  )), //Page 2
-                            krediPage(), //Page 4
-                            yuzdePage(), // Page 3
-                          ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(translation(context).currencyConverterWarning,style: TextStyle(color: renkler.yaziRenk,fontSize: 15),),
+                                  )
+                                ],
+                              )
+                          ), //Page 2
+                              krediPage(), //Page 4
+                              yuzdePage(), // Page 3
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5.0),
-                child: Row(
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: size.width / 3,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2.0,
+                                color: Theme.of(context).canvasColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 50,
+                        height: 20,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).canvasColor,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width / 3,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2.0,
+                                color: Theme.of(context).canvasColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(
-                      width: size.width / 3,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              width: 2.0,
-                              color: Theme.of(context).canvasColor,
+                    InkWell(
+                      borderRadius:  BorderRadius.circular(20),
+                      onTap: () {
+                        changePage(0);
+                      },
+                      child: SizedBox(
+                        height: size.width / 4,
+                        width: size.width / 4,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).highlightColor,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 0
+                                ? Border.all(
+                              color: Theme.of(context).disabledColor,
+                              width: 3,
+                            )
+                                : null,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.currency_exchange_rounded,
+                                  size: 36,
+                                  color: renkler.arkaRenk,
+                                ),
+                                Center(
+                                  child: Text(
+                                    translation(context).currencyConverter,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      height: 1,
+                                        fontSize: 15,
+                                      overflow: TextOverflow.ellipsis
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 50,
-                      height: 20,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).canvasColor,
-                          borderRadius: BorderRadius.circular(50),
+                    InkWell(
+                      borderRadius:  BorderRadius.circular(20),
+                      onTap: () {
+                        changePage(1);
+                      },
+                      child: SizedBox(
+                        height: size.width / 4,
+                        width: size.width / 4,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).highlightColor,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 1
+                                ? Border.all(
+                                    color: Theme.of(context).disabledColor,
+                                    width: 3,
+                                  )
+                                : null,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.credit_card_rounded,
+                                  size: 40,
+                                  color: renkler.arkaRenk,
+                                ),
+                                Center(
+                                  child: Text(
+                                    translation(context).calculateInterestCredit,
+                                    style: const TextStyle(
+                                      height: 1,
+                                      color: Colors.white,
+                                        fontSize: 15,
+                                        overflow: TextOverflow.ellipsis
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: size.width / 3,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              width: 2.0,
-                              color: Theme.of(context).canvasColor,
+                    InkWell(
+                      borderRadius:  BorderRadius.circular(20),
+                      onTap: () {
+                        changePage(2);
+                      },
+                      child: SizedBox(
+                        height: size.width / 4,
+                        width: size.width / 4,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).highlightColor,
+                            borderRadius: BorderRadius.circular(20),
+                            border: _currentPageindex == 2
+                                ? Border.all(
+                              color: Theme.of(context).disabledColor,
+                              width: 3,
+                            )
+                                : null,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.percent_rounded,
+                                  size: 40,
+                                  color: renkler.arkaRenk,
+                                ),
+                                Center(
+                                  child: Text(
+                                    translation(context).calculatePercentage,
+                                    style: const TextStyle(
+                                      height: 1,
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                        overflow: TextOverflow.ellipsis
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
@@ -210,154 +376,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    borderRadius: BorderRadius.circular(20),
-                    onTap: () {
-                      changePage(0);
-                    },
-                    child: SizedBox(
-                      height: size.width / 4,
-                      width: size.width / 4,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).highlightColor,
-                          borderRadius: BorderRadius.circular(20),
-                          border: _currentPageindex == 0
-                              ? Border.all(
-                                  color: Theme.of(context).disabledColor,
-                                  width: 3,
-                                )
-                              : null,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(
-                                Icons.currency_exchange_rounded,
-                                size: 36,
-                                color: renkler.arkaRenk,
-                              ),
-                              Center(
-                                child: Text(
-                                  translation(context).currencyConverter,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      height: 1,
-                                      fontSize: 15,
-                                      overflow: TextOverflow.ellipsis),
-                                  maxLines: 3,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(20),
-                    onTap: () {
-                      changePage(1);
-                    },
-                    child: SizedBox(
-                      height: size.width / 4,
-                      width: size.width / 4,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).highlightColor,
-                          borderRadius: BorderRadius.circular(20),
-                          border: _currentPageindex == 1
-                              ? Border.all(
-                                  color: Theme.of(context).disabledColor,
-                                  width: 3,
-                                )
-                              : null,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(
-                                Icons.credit_card_rounded,
-                                size: 40,
-                                color: renkler.arkaRenk,
-                              ),
-                              Center(
-                                child: Text(
-                                  translation(context).calculateInterestCredit,
-                                  style: const TextStyle(
-                                      height: 1,
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      overflow: TextOverflow.ellipsis),
-                                  maxLines: 3,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(20),
-                    onTap: () {
-                      changePage(2);
-                    },
-                    child: SizedBox(
-                      height: size.width / 4,
-                      width: size.width / 4,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).highlightColor,
-                          borderRadius: BorderRadius.circular(20),
-                          border: _currentPageindex == 2
-                              ? Border.all(
-                                  color: Theme.of(context).disabledColor,
-                                  width: 3,
-                                )
-                              : null,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(
-                                Icons.percent_rounded,
-                                size: 40,
-                                color: renkler.arkaRenk,
-                              ),
-                              Center(
-                                child: Text(
-                                  translation(context).calculatePercentage,
-                                  style: const TextStyle(
-                                      height: 1,
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      overflow: TextOverflow.ellipsis),
-                                  maxLines: 3,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
