@@ -650,6 +650,8 @@
   "update3" : "Güncellemek için dokunun",
 
   "downloadedData" : "verileriniz indirildi.",
-  "backupedData" : "verileriniz yedeklendi"
+  "backupedData" : "verileriniz yedeklendi",
+
+  "close" : "Kapat"
 }
 
