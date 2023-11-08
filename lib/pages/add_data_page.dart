@@ -331,8 +331,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                width: 130,
-                height: 38,
+                width: 114,
+                height: 36,
                 decoration: BoxDecoration(
                   color: Theme.of(context).highlightColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -343,7 +343,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     style: TextStyle(
                       height: 1,
                       color: renkler.yaziRenk,
-                      fontSize: 15,
+                      fontSize: 14,
                       fontFamily: 'Nexa4',
                       fontWeight: FontWeight.w800,
                     ),
@@ -354,7 +354,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 highlightColor: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(30),
                 child: SizedBox(
-                  width: (size.width * 0.95) - 130,
+                  width: (size.width * 0.95) - 114,
                   child: Center(
                     child: Text(
                       _category.text == ""
@@ -2409,7 +2409,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Theme.of(context).disabledColor,
+                //color: Theme.of(context).disabledColor,
+                border: Border.all(color: Theme.of(context).highlightColor,width: 1.5)
               ),
               height: 34,
               width: size.width * 0.95,
@@ -2418,21 +2419,30 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           Row(
             children: [
               Container(
-                width: 130,
-                height: 38,
+                width: 114,
+                height: 36,
                 decoration: BoxDecoration(
                   color: Theme.of(context).highlightColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                 ),
                 child: Center(
-                  child: Text(
-                    translation(context).customize,
-                    style: TextStyle(
-                      color: renkler.yaziRenk,
-                      fontSize: 15,
-                      fontFamily: 'Nexa4',
-                      fontWeight: FontWeight.w800,
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3,right: 3,left: 3),
+                        child: Text(
+                          translation(context).customize,
+                          style: TextStyle(
+                            color: renkler.yaziRenk,
+                            fontSize: 14,
+                            fontFamily: 'Nexa4',
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -2440,22 +2450,38 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 highlightColor: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(30),
                 child: SizedBox(
-                  width: size.width * 0.95 - 130,
+                  width: size.width * 0.95 - 114,
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 2),
-                      child: Text(
-                        _customize.text == ""
-                            ? translation(context).tapToCustomize
-                            : selectedCustomizeMenu == 0
-                                ? '${translation(context).tekrarTurkEmpty} ${_customize.text} ${translation(context).turkTekrarOnly}' /// Uyuşmamalar nedeniyle bu şekilde çevrilmiştir
-                                : '${translation(context).taksitArabicOnly} ${_customize.text} ${translation(context).ayTaksitArapcaEpty} ${translation(context).taksitDevamArabicOnly}',
-                        maxLines: 2,
-                        style: TextStyle(
-                            height: 1,
-                            fontSize: 14,
-                            fontFamily: 'Nexa3',
-                            color: renkler.koyuuRenk),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const SizedBox(
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Text(
+                              _customize.text == ""
+                                  ? translation(context).tapToCustomize
+                                  : selectedCustomizeMenu == 0
+                                      ? '${translation(context).tekrarTurkEmpty} ${_customize.text} ${translation(context).turkTekrarOnly}' /// Uyuşmamalar nedeniyle bu şekilde çevrilmiştir
+                                      : '${translation(context).taksitArabicOnly} ${_customize.text} ${translation(context).ayTaksitArapcaEpty} ${translation(context).taksitDevamArabicOnly}',
+                              maxLines: 2,
+                              style: TextStyle(
+                                  height: 1,
+                                  fontSize: 14,
+                                  fontFamily: 'Nexa3',
+                                  color: Theme.of(context).canvasColor),
+                            ),
+                          ),
+                          Icon(
+                            //Icons.event_repeat_rounded,
+                            Icons.manage_history_rounded,
+                            color: Theme.of(context).secondaryHeaderColor,
+                            size: 22,
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -3639,6 +3665,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     decoration: InputDecoration(
                         hintText: translation(context).clickToAddNote,
                         hintStyle: TextStyle(
+                          fontSize: 14,
                           color: Theme.of(context).canvasColor,
                         ),
                         counterText: "",
@@ -3679,7 +3706,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: SizedBox(
-                  width: 114,
+                  width: 110,
                   height: 34,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
@@ -3692,7 +3719,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           height: 1,
-                          fontSize: 15,
+                          fontSize: 14,
                           fontFamily: 'Nexa4',
                           fontWeight: FontWeight.w800,
                         ),

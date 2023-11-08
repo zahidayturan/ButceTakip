@@ -335,8 +335,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                width: 130,
-                height: 38,
+                width: 114,
+                height: 36,
                 decoration: BoxDecoration(
                   color: Theme.of(context).highlightColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -347,7 +347,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     style: TextStyle(
                       height: 1,
                       color: renkler.yaziRenk,
-                      fontSize: 15,
+                      fontSize: 14,
                       fontFamily: 'Nexa4',
                       fontWeight: FontWeight.w800,
                     ),
@@ -358,7 +358,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 highlightColor: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(30),
                 child: SizedBox(
-                  width: (size.width * 0.95) - 130,
+                  width: (size.width * 0.95) - 114,
                   child: Center(
                     child: Text(
                       category.text == ""
@@ -3189,7 +3189,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Theme.of(context).disabledColor,
+                //color: Theme.of(context).disabledColor,
+                border: Border.all(color: Theme.of(context).highlightColor,width: 1.5)
               ),
               height: 34,
               width: size.width * 0.95,
@@ -3198,8 +3199,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           Row(
             children: [
               Container(
-                width: 130,
-                height: 38,
+                width: 114,
+                height: 36,
                 decoration: BoxDecoration(
                   color: Theme.of(context).highlightColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -3209,7 +3210,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     translation(context).customize,
                     style: TextStyle(
                       color: renkler.yaziRenk,
-                      fontSize: 15,
+                      fontSize: 14,
                       fontFamily: 'Nexa4',
                       fontWeight: FontWeight.w800,
                     ),
@@ -3218,7 +3219,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               ),
               InkWell(
                 child: SizedBox(
-                  width: size.width * 0.95 - 130,
+                  width: size.width * 0.95 - 114,
                   child: Center(
                     child: Text(
                       _customize.text == ""
@@ -3230,7 +3231,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         height: 1,
                         fontSize: 14,
                         fontFamily: 'Nexa3',
-                          color: renkler.koyuuRenk
+                          color: Theme.of(context).canvasColor
                       ),
                     ),
                   ),

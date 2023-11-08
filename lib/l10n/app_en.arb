@@ -306,7 +306,7 @@
     "calculatePercentage": "Calculate Percentage",
     "calculateInterestCredit": "Calculate Interest-Credit",
 
-    "currencyConverterWarning": "Currency converter is not active yet.",
+    "currencyConverterWarning": "Currency rates are updating.",
 
     "settings": "Settings",
     "help": "Help",
