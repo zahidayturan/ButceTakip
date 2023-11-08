@@ -298,9 +298,11 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment :widget.data.operationDay == "null" ? MainAxisAlignment.center : MainAxisAlignment.spaceEvenly,
                         children: [
-                          GestureDetector(
+                          widget.data.operationDay == "null"
+                          ?const SizedBox(height: 0)
+                          :GestureDetector(
                             onTap: () {
                               Navigator.of(context).pop();
                               ref.read(dailyInfoRiverpod).setSpendDetail([widget.data], 0);
@@ -327,7 +329,8 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                                 translation(context).detailsForCurrencyExchange,
                                 style: TextStyle(
                                     fontFamily: "Nexa2",
-                                    height: 1
+                                    height: 1,
+                                    color: renkler.koyuuRenk
                                 ),
                               ),
                             ),
@@ -418,9 +421,10 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                               ),
                               child: Text(
                                 translation(context).doneExchange,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontFamily: "Nexa2",
-                                    height: 1
+                                    height: 1,
+                                    color: renkler.koyuuRenk
                                 ),
                               ),
                             ),
