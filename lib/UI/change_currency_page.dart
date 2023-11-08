@@ -323,8 +323,8 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                                 color: Theme.of(context).disabledColor,
                                 borderRadius: BorderRadius.circular(7),
                               ),
-                              child: const Text(
-                                "Kayıdı göster",
+                              child: Text(
+                                translation(context).detailsForCurrencyExchange,
                                 style: TextStyle(
                                     fontFamily: "Nexa2",
                                     height: 1

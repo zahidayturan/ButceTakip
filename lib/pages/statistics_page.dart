@@ -1980,10 +1980,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                           ),
                                           child: Center(
                                             child: Text(
-                                                "Listenin Tamamını Görüntüle",
+                                                translation(context).viewFullList,
                                                 style: TextStyle(
                                                   color: Theme.of(context)
                                                       .secondaryHeaderColor,
+                                                  height: 1
                                                 )),
                                           ),
                                         ),
@@ -2128,12 +2129,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "Listenin Tamamı",
+                                            translation(context).fullList,
                                             style: TextStyle(
                                                 color: Theme.of(context)
                                                     .secondaryHeaderColor,
                                                 fontFamily: "Nexa4",
-                                                fontSize: 21),
+                                                fontSize: 21,
+                                                height: 1
+                                            ),
                                           ),
                                           SizedBox(
                                             height: 32,
@@ -2395,12 +2398,14 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "Gösterilen Kayıt Sayısı",
+                                            translation(context).numberOfElementsShown,
                                             style: TextStyle(
                                                 color: Theme.of(context)
                                                     .canvasColor,
                                                 fontFamily: "Nexa3",
-                                                fontSize: 15),
+                                                fontSize: 15,
+                                                height: 1
+                                            ),
                                           ),
                                           Text(
                                             snapshot.data!.length.toString(),
