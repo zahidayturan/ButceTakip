@@ -2445,7 +2445,15 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               color: Theme.of(context).cardColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: Text("Exit"),
+                            child: FittedBox(
+                              child: Text(
+                                translation(context).close,
+                                style: TextStyle(
+                                  height: 1,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                           ),
                         ),
                       ],

@@ -649,5 +649,8 @@
   "update3" : "انقر للتحديث",
 
   "downloadedData" : "Your data downloaded",
-  "backupedData" : "Your data is backed up"
+  "backupedData" : "Your data is backed up",
+
+  "close" : "أغلق"
+
 }
