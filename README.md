@@ -107,6 +107,8 @@ class securityFile{
 }
 ```
 Add your releasekey.jks file.
+**TODO**
+
 ## How can I support developers?
 - Star our GitHub repo
 - Create pull requests, submit bugs, suggest new features or documentation updates
