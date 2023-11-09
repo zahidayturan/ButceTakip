@@ -309,7 +309,7 @@
     "calculatePercentage": "Calculate Percentage",
     "calculateInterestCredit": "Calculate Interest-Credit",
 
-    "currencyConverterWarning": "Currency converter is not active yet.",
+    "currencyConverterWarning": "Currency rates are updating.",
 
     "settings": "Settings",
     "help": "Help",
@@ -649,5 +649,8 @@
     "update3" : "Tap to update",
 
     "downloadedData" : "Your data downloaded",
-    "backupedData" : "Your data is backed up"
+    "backupedData" : "Your data is backed up",
+
+    "close" : "Close"
+
 }

@@ -198,7 +198,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                     Expanded(
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                        mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [
                                                           Text(
                                                             Converter().textConverterFromDB(item[index].category!, context, 0),
@@ -210,8 +210,8 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                             ),
                                                             overflow: TextOverflow.ellipsis,
                                                           ),
-                                                          Text(
-                                                            translation(context).note + " " + Converter().textConverterFromDB(item[index].note!, context, 0),
+                                                          item[index].note! != "" ? Text(
+                                                            "${translation(context).note} ${item[index].note!}",
                                                             style: TextStyle(
                                                               fontFamily: 'NEXA3',
                                                               fontSize: 14,
@@ -219,7 +219,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                               color: Theme.of(context).canvasColor,
                                                             ),
                                                             overflow: TextOverflow.ellipsis,
-                                                          ),
+                                                          ) : SizedBox(),
                                                         ],
                                                       ),
                                                     ),

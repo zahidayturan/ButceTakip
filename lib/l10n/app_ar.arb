@@ -309,7 +309,7 @@
   "calculatePercentage": "احسب بالنسبة المئوية  ",
   "calculateInterestCredit": "احسب الفائدة - القرض ",
 
-  "currencyConverterWarning": "لم يتم تفعيل صرف العملات بعد.",
+  "currencyConverterWarning": "يتم تحديث أسعار العملات",
 
   "settings": "الإعدادات",
   "help": "مساعدة",
@@ -649,5 +649,8 @@
   "update3" : "انقر للتحديث",
 
   "downloadedData" : "Your data downloaded",
-  "backupedData" : "Your data is backed up"
+  "backupedData" : "Your data is backed up",
+
+  "close" : "أغلق"
+
 }

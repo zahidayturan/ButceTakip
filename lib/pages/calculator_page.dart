@@ -155,13 +155,23 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               //calculator(), //Page 1
                               ref.read(currencyRiverpod).lastApiUpdateDate != null ? currencyConverter(context)
                                   : Center(
-                              child: SizedBox(
-                                height: size.width * .17,
-                                width: size.width * .17,
-                                child: CircularProgressIndicator(
-                                  color: Theme.of(context).disabledColor,
-                                  backgroundColor: renkler.koyuuRenk,
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: size.width * .17,
+                                    width: size.width * .17,
+                                    child: CircularProgressIndicator(
+                                      color: Theme.of(context).disabledColor,
+                                      backgroundColor: renkler.koyuuRenk,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(translation(context).currencyConverterWarning,style: TextStyle(color: renkler.yaziRenk,fontSize: 15),),
+                                  )
+                                ],
                               )
                           ), //Page 2
                               krediPage(), //Page 4
@@ -2435,7 +2445,15 @@ class _CalculatorState extends ConsumerState<Calculator> {
                               color: Theme.of(context).cardColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: Text("Exit"),
+                            child: FittedBox(
+                              child: Text(
+                                translation(context).close,
+                                style: TextStyle(
+                                  height: 1,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                           ),
                         ),
                       ],

@@ -235,8 +235,11 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                 ),
                                                 item[index].note != "" ? Padding(
                                                   padding: const EdgeInsets.only(left: 8,right: 8,bottom: 2),
-                                                  child: Text(
-                                                    "${translation(context).note} ${item[index].note!}",overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 14,height: 1),),
+                                                  child: Align(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: Text(
+                                                      "${translation(context).note} ${item[index].note!}",overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 14,height: 1),),
+                                                  ),
                                                 ) : SizedBox(),
                                               ],
                                             ),

@@ -120,7 +120,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             },
             icon: const Icon(
               //Icons.event_repeat_rounded,
-              Icons.history_rounded,
+              Icons.manage_history_rounded,
               color: Color(0xFFFFFFFF),
               size: 30,
             ),
@@ -146,7 +146,6 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
           ),
           IconButton(
             onPressed: () async {
-              /*
               Navigator.push(
                 context,
                 PageRouteBuilder(
@@ -161,7 +160,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                   },
                 ),
               );
-              */
+              /*
               final SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.setBool("showBTA", false);
               final bool? showBTA = prefs.getBool("showBTA");
@@ -170,7 +169,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
 
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const IntroductionPage())
-              );
+              );*/
             },
             icon: const Icon(
               Icons.help_outline_rounded,
