@@ -285,7 +285,7 @@ class StatisticsRiverpod extends ChangeNotifier {
 
         groupedItems.sort((a, b) => b['realAmount'].compareTo(a['realAmount']));
       }
-      return Future.value(groupedItems.length > 24 ? groupedItems.sublist(0,23): groupedItems);
+      return Future.value(groupedItems);
     }
 
   ///pasta için liste

@@ -127,23 +127,39 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   ),
                   SizedBox(height: size.height * .01),
                   dbRiv.searchListTile?.length == 0 || dbRiv.searchListTile == null
-                      ?Padding(
-                        padding:  EdgeInsets.only(top: size.height * .01),
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).disabledColor,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            translation(context).noMatchData,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontFamily: "Nexa3",
-                                height: 1
+                      ?Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(17),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).highlightColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.asset(
+                              "assets/image/noInfo6.png",
+                              width: 100,
+                              height: 100,
                             ),
                           ),
-                        ),
+                          Padding(
+                            padding:  EdgeInsets.only(top: size.height * .01),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).highlightColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                translation(context).noMatchData,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Nexa3",
+                                    height: 1
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       )
                     :Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width * .04),
@@ -151,6 +167,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       height: size.height * .75,
                       child: ListView.builder(
                         itemCount: dbRiv.searchListTile!.length,
+                        physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
                           DateTime itemDate = DateTime(int.tryParse(dbRiv.searchListTile![index].operationYear!)!,int.tryParse(dbRiv.searchListTile![index].operationMonth!)!,int.tryParse(dbRiv.searchListTile![index].operationDay!)!);
                           String formattedDate = DateFormat(readSettings.dateFormat).format(itemDate);

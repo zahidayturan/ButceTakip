@@ -82,7 +82,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Image.asset(
-                                          "assets/image/noInfo.png",
+                                          "assets/image/noInfo5.png",
                                           width: 75,
                                           height: 75,
                                         ),
@@ -106,6 +106,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                   )
                                   :ListView.builder(
                                     itemCount: list.length,
+                                    physics: const BouncingScrollPhysics(),
                                     itemBuilder:(context, index) {
                                       var date = list[index].operationDate ?? "00.00.0000";
                                       DateTime dateForFormat = DateTime(int.parse(date.split(".")[2]),int.parse(date.split(".")[1]),int.parse(date.split(".")[0]));
@@ -149,7 +150,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                                           mainAxisAlignment : MainAxisAlignment.spaceBetween,
                                                           children: [
                                                             Text(
-                                                              "${list[index].amount}",
+                                                              "${list[index].amount!.toStringAsFixed(2)}",
                                                               style: TextStyle(
                                                                 color: list[index].operationType == "Gelir" ? Theme.of(context).canvasColor : Color(0xFFD91A2A),
                                                                 height: 1.1,
@@ -209,7 +210,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Image.asset(
-                                            "assets/image/noInfo.png",
+                                            "assets/image/noInfo5.png",
                                             width: 75,
                                             height: 75,
                                           ),
@@ -233,6 +234,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                     )
                                    :ListView.builder(
                                     itemCount: list.length,
+                                    physics: const BouncingScrollPhysics(),
                                     itemBuilder:(context, index) {
                                       return Column(
                                         children: [
@@ -334,7 +336,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Image.asset(
-                                            "assets/image/noInfo.png",
+                                            "assets/image/noInfo5.png",
                                             width: 75,
                                             height: 75,
                                           ),
@@ -358,6 +360,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                                     )
                                   :ListView.builder(
                                     itemCount: list.length,
+                                    physics: const BouncingScrollPhysics(),
                                     itemBuilder:(context, index) {
                                       return Column(
                                         children: [

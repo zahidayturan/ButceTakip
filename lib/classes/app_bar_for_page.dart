@@ -180,6 +180,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                 color: Colors.white,
                 fontFamily: 'NEXA4',
                 fontSize: 22,
+                height: 1,
                 fontWeight: FontWeight.w900,
               ),
             ),

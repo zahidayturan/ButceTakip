@@ -92,7 +92,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Image.asset(
-                          "assets/image/LogoBkaShort.png",
+                          "assets/image/icon_BKA/logoMini${translation(context).appLanguage}.png",
                           height: 44,
                           width: 44,
                         ),
@@ -801,7 +801,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 2),
                                 child: Text(
-                                    "Android 2.0.0v ${translation(context).version2Title} (15.09.2023)",
+                                    "Android 2.0.2v ${translation(context).version2Title} (19.09.2023)",
                                     textDirection: TextDirection.ltr,
                                 ),
                               ),
@@ -1007,6 +1007,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
+                        /*
                         const SizedBox(height: 8,),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -1052,6 +1053,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
+                         */
                         const SizedBox(height: 8,),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -1139,6 +1141,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
+                        /*
                         const SizedBox(height: 8,),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -1184,6 +1187,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                             ),
                           ),
                         ),
+                         */
                         const SizedBox(height: 8,),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),

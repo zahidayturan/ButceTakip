@@ -39,13 +39,25 @@ class Communicate extends StatelessWidget {
                 Column(
                   children: [
                     const SizedBox(height: 10),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Image.asset(
-                        "assets/image/icon_BKA/LOGOBKA-2.png",
-                        width: size.width / 2,
-                        color: Theme.of(context).canvasColor,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/image/icon_BKA/appLogoTr.png",
+                          width: size.width/7,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            "assets/image/icon_BKA/appLogoEn.png",
+                            width: size.width/7,
+                          ),
+                        ),
+                        Image.asset(
+                          "assets/image/icon_BKA/appLogoAr.png",
+                          width: size.width/7,
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 20),
                     Padding(
@@ -85,7 +97,7 @@ class Communicate extends StatelessWidget {
                                   SnackBar(
                                       backgroundColor: const Color(0xff0D1C26),
                                       duration: const Duration(seconds: 1),
-                                      content: Text('Email Panoya Kopyalandı',style: TextStyle(color : Theme.of(context).canvasColor,fontFamily: 'Nexa3',fontSize: 15),)));
+                                      content: Text(translation(context).copiedToClipboard,style: TextStyle(color : renkler.yaziRenk,fontFamily: 'Nexa3',fontSize: 15),)));
                             },
                           )
                         ],

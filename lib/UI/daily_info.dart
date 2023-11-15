@@ -113,18 +113,15 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                   }
                   return snapshot.data!.length == 0 ? Center(
                     child: SizedBox(
-                      height: 150,
+                      height: 180,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "assets/image/noInfo.png",
-                            width: 70,
-                            height: 70,
+                            "assets/image/noInfo4.png",
+                            width: 90,
+                            height: 90,
                             //color: Theme.of(context).canvasColor,
-                          ),
-                          const SizedBox(
-                            height: 6,
                           ),
                           SizedBox(
                             height: 22,
@@ -146,6 +143,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                     child: ListView.builder(
                         controller: scroolBarController2,
                         itemCount: snapshot.data!.length,
+                        physics: const BouncingScrollPhysics(),
                         itemBuilder:
                             (BuildContext context, index) {
                           SpendInfo item = snapshot.data![index];
@@ -214,99 +212,102 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                             Expanded(
                               flex: 2,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(right: 2),
-                                          child: Text(
-                                            item.operationTime.toString(),
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                                color: Theme.of(context).canvasColor,
-                                                fontWeight: FontWeight.w900,
-                                                fontSize: 14,
-                                              height: 1
-                                            ),
-                                          ),
-                                        ),
-                                      ),///time
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          Converter().textConverterFromDB(item.category!, context, 0),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Theme.of(context).canvasColor,
-                                            height: 1
-                                          ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),///category
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          Converter().textConverterFromDB(item.operationTool!, context, 2),
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(
-                                            color: Theme.of(context).canvasColor,
-                                            height: 1
-                                          ),
-                                        ),
-                                      ),///operation
-                                      Directionality(
-                                        textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
-                                        child: Expanded(
-                                          flex: 2,
-                                          child: SizedBox(
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: RichText(
-                                                  text: TextSpan(children: [
-                                                    TextSpan(
-                                                      text:  "${item.realAmount}",
-                                                      style: TextStyle(
-                                                        height: 1,
-                                                        color: item.operationType == "Gelir" ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                                        fontFamily:
-                                                        "Nexa3",
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text: ref.read(settingsRiverpod).prefixSymbol,
-                                                      style: TextStyle(
-                                                        height: 1,
-                                                        color: item.operationType == "Gelir" ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                                        fontFamily:
-                                                        "TL",
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                  ])),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 2),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 2),
+                                            child: Text(
+                                              item.operationTime.toString(),
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                  color: Theme.of(context).canvasColor,
+                                                  fontWeight: FontWeight.w900,
+                                                  fontSize: 14,
+                                                height: 1
                                               ),
                                             ),
                                           ),
-                                      ),///amount
-                                      ],
-                                    ),
-                                    Expanded(
+                                        ),///time
+                                        Expanded(
+                                          flex: 2,
+                                          child: Text(
+                                            Converter().textConverterFromDB(item.category!, context, 0),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Theme.of(context).canvasColor,
+                                              height: 1
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),///category
+                                        Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                            Converter().textConverterFromDB(item.operationTool!, context, 2),
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              color: Theme.of(context).canvasColor,
+                                              height: 1
+                                            ),
+                                          ),
+                                        ),///operation
+                                        Directionality(
+                                          textDirection: readSettings.localChanger() == const Locale("ar") ? TextDirection.rtl : TextDirection.ltr,
+                                          child: Expanded(
+                                            flex: 2,
+                                            child: SizedBox(
+                                              child: Align(
+                                                alignment: Alignment.centerRight,
+                                                child: RichText(
+                                                    text: TextSpan(children: [
+                                                      TextSpan(
+                                                        text:  "${item.realAmount}",
+                                                        style: TextStyle(
+                                                          height: 1,
+                                                          color: item.operationType == "Gelir" ? renkler.yesilRenk : renkler.kirmiziRenk,
+                                                          fontFamily:
+                                                          "Nexa3",
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text: ref.read(settingsRiverpod).prefixSymbol,
+                                                        style: TextStyle(
+                                                          height: 1,
+                                                          color: item.operationType == "Gelir" ? renkler.yesilRenk : renkler.kirmiziRenk,
+                                                          fontFamily:
+                                                          "TL",
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ])),
+                                                ),
+                                              ),
+                                            ),
+                                        ),///amount
+                                        ],
+                                      ),
+                                  ),
+                                  item.note != "" ? Expanded(
                                       child: Text(
                                         item.note != "" ? "${translation(context).note} ${item.note}" : translation(context).noNoteAdded,
                                         style: const TextStyle(
                                           height: 1,
-                                          fontSize: 14
+                                          fontSize: 13
                                         ),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       )
-                                    )
+                                    ) : SizedBox()
                                   ],
                                 ),
                               ),

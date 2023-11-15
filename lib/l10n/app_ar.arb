@@ -1,4 +1,5 @@
 {
+  "appLanguage" : "Ar",
   "statisticsTitle": "الإحصائيات",
   "activityCalendarTitle": "تقويم العمليات",
   "calculatorTitle": "الآلة الحاسبة",
@@ -29,6 +30,7 @@
 
   "currency": "العملة",
   "appNotifications": "اشعارات التطبيق",
+  "setNotification": "ضبط",
   "turnOnNotifications": "",
 
   "backupPreference": "النسخ الاحتياطي",
@@ -138,6 +140,9 @@
   "all": "الجميع",
   "reset": "رجوع",
   "okStatistics": "تم",
+  "viewFullList": "اعرض القائمة بأكملها",
+  "fullList": "القائمة بأكملها",
+  "numberOfElementsShown": "عدد العناصر المعروضة",
 
   "firstDayOfTheMonth": "بداية الشهر",
   "setAsOnlyForTurkish": "",
@@ -304,7 +309,7 @@
   "calculatePercentage": "احسب بالنسبة المئوية  ",
   "calculateInterestCredit": "احسب الفائدة - القرض ",
 
-  "currencyConverterWarning": "لم يتم تفعيل صرف العملات بعد.",
+  "currencyConverterWarning": "يتم تحديث أسعار العملات",
 
   "settings": "الإعدادات",
   "help": "مساعدة",
@@ -446,8 +451,10 @@
   "doneExchange": "موافقة",
   "currentRate": "سعر الصرف الحالي",
   "receivedAmount": "المبلغ المستلم",
+  "detailsForCurrencyExchange": "تفاصيل العملية",
 
   "activityDetails": "تفاصيل العمليات",
+  "activityDetail": "تفاصيل \nالعمليات",
 
   "details": "تفاصيل العملية",
   "dateDetails": "التاريخ",
@@ -500,7 +507,7 @@
   "assetsPage6": "يمكنك تغيير العملة المعروضة في السجلات من هنا أو من تفاصيل العملية. عند النقر على السجل، سيتم فتح صرف العملات ويمكنك استبدال عملتك بعملات مختلفة بأسعار الصرف الحالي.",
 
   "version2Title": "الإصدار",
-  "version2": "الإصدار V2.0.0",
+  "version2": "الإصدار V2.0.2",
   "budgetUpdate": "تم تحديث متابعة الميزانية!",
   "implementedSuggestions": "لقد قمنا بتنفيذ اقتراحاتكم حتى الآن في تطبيق متابعة الميزانية .",
   "whatsNewVersion": "ما هو الجديد",
@@ -639,5 +646,11 @@
 
   "update1" : "تم تحديث متابعة الميزانية",
   "update2" : "يرجى تحديث التطبيق من المتجر",
-  "update3" : "انقر للتحديث"
+  "update3" : "انقر للتحديث",
+
+  "downloadedData" : "Your data downloaded",
+  "backupedData" : "Your data is backed up",
+
+  "close" : "أغلق"
+
 }

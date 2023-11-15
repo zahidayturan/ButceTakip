@@ -240,9 +240,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       'DEBUG: ${_operationType.text} - ${_category.text} - ${convertedCategory} - ${userCategoryController} - ${_operationTool.text} - ${int.parse(_registration.text)} - ${_amount.text} - ${_note.text} - ${_operationDate.text} -${_customize.text} - ${convertedCustomize} - ${selectedCustomizeMenu} - ${_moneyType.text}',
                       style: const TextStyle(
                           color: Colors.red, fontFamily: 'TL'))),*/
-              const SizedBox(
-                height: 5,
-              ),
               operationCustomButton(context),
               const SizedBox(
                 height: 15,
@@ -334,8 +331,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                width: 130,
-                height: 38,
+                width: 114,
+                height: 36,
                 decoration: BoxDecoration(
                   color: Theme.of(context).highlightColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -346,7 +343,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     style: TextStyle(
                       height: 1,
                       color: renkler.yaziRenk,
-                      fontSize: 15,
+                      fontSize: 14,
                       fontFamily: 'Nexa4',
                       fontWeight: FontWeight.w800,
                     ),
@@ -357,7 +354,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 highlightColor: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(30),
                 child: SizedBox(
-                  width: (size.width * 0.95) - 130,
+                  width: (size.width * 0.95) - 114,
                   child: Center(
                     child: Text(
                       _category.text == ""
@@ -679,7 +676,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                       });
                                                                 },
                                                                 child: Image.asset(
-                                                                  sortChanger == 1 ? "assets/icons/sort1.png" : sortChanger == 2 ? "assets/icons/sort2.png" : "assets/icons/sort1.png",
+                                                                  sortChanger == 1 ? ref.read(settingsRiverpod).Language == "العربية" ? "assets/icons/sort1ar.png" : "assets/icons/sort1.png" : sortChanger == 2 ? ref.read(settingsRiverpod).Language == "العربية" ? "assets/icons/sort2ar.png" :"assets/icons/sort2.png" : ref.read(settingsRiverpod).Language == "العربية" ? "assets/icons/sort1ar.png" : "assets/icons/sort1.png",
                                                                   color: sortChanger == 0 ? renkler.arkaRenk : renkler.koyuuRenk,
                                                                   fit: BoxFit.contain,
                                                                 ),
@@ -2412,7 +2409,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Theme.of(context).disabledColor,
+                //color: Theme.of(context).disabledColor,
+                border: Border.all(color: Theme.of(context).highlightColor,width: 1.5)
               ),
               height: 34,
               width: size.width * 0.95,
@@ -2421,21 +2419,30 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           Row(
             children: [
               Container(
-                width: 130,
-                height: 38,
+                width: 114,
+                height: 36,
                 decoration: BoxDecoration(
                   color: Theme.of(context).highlightColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                 ),
                 child: Center(
-                  child: Text(
-                    translation(context).customize,
-                    style: TextStyle(
-                      color: renkler.yaziRenk,
-                      fontSize: 15,
-                      fontFamily: 'Nexa4',
-                      fontWeight: FontWeight.w800,
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3,right: 3,left: 3),
+                        child: Text(
+                          translation(context).customize,
+                          style: TextStyle(
+                            color: renkler.yaziRenk,
+                            fontSize: 14,
+                            fontFamily: 'Nexa4',
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -2443,20 +2450,39 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 highlightColor: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(30),
                 child: SizedBox(
-                  width: size.width * 0.95 - 130,
+                  width: size.width * 0.95 - 114,
                   child: Center(
-                    child: Text(
-                      _customize.text == ""
-                          ? translation(context).tapToCustomize
-                          : selectedCustomizeMenu == 0
-                              ? '${translation(context).tekrarTurkEmpty} ${_customize.text} ${translation(context).turkTekrarOnly}' /// Uyuşmamalar nedeniyle bu şekilde çevrilmiştir
-                              : '${translation(context).taksitArabicOnly} ${_customize.text} ${translation(context).ayTaksitArapcaEpty} ${translation(context).taksitDevamArabicOnly}',
-                      maxLines: 2,
-                      style: TextStyle(
-                          height: 1,
-                          fontSize: 14,
-                          fontFamily: 'Nexa3',
-                          color: renkler.koyuuRenk),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const SizedBox(
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Text(
+                              _customize.text == ""
+                                  ? translation(context).tapToCustomize
+                                  : selectedCustomizeMenu == 0
+                                      ? '${translation(context).tekrarTurkEmpty} ${_customize.text} ${translation(context).turkTekrarOnly}' /// Uyuşmamalar nedeniyle bu şekilde çevrilmiştir
+                                      : '${translation(context).taksitArabicOnly} ${_customize.text} ${translation(context).ayTaksitArapcaEpty} ${translation(context).taksitDevamArabicOnly}',
+                              maxLines: 2,
+                              style: TextStyle(
+                                  height: 1,
+                                  fontSize: 14,
+                                  fontFamily: 'Nexa3',
+                                  color: Theme.of(context).canvasColor),
+                            ),
+                          ),
+                          Icon(
+                            //Icons.event_repeat_rounded,
+                            Icons.manage_history_rounded,
+                            color: Theme.of(context).secondaryHeaderColor,
+                            size: 22,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -3607,7 +3633,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
   }
 
   int maxLength = 108;
-  int textLength = 0;
   Widget noteCustomButton(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SizedBox(
@@ -3640,6 +3665,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     decoration: InputDecoration(
                         hintText: translation(context).clickToAddNote,
                         hintStyle: TextStyle(
+                          fontSize: 14,
                           color: Theme.of(context).canvasColor,
                         ),
                         counterText: "",
@@ -3650,7 +3676,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     maxLines: 3,
                     onChanged: (value) {
                       setState(() {
-                        textLength = value.length;
+
                       });
                     },
                     keyboardType: TextInputType.text,
@@ -3680,7 +3706,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: SizedBox(
-                  width: 114,
+                  width: 110,
                   height: 34,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
@@ -3693,7 +3719,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           height: 1,
-                          fontSize: 15,
+                          fontSize: 14,
                           fontFamily: 'Nexa4',
                           fontWeight: FontWeight.w800,
                         ),
@@ -3714,7 +3740,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        textLength = 0;
                         setState(() {
                           _note.text = "";
                         });
@@ -3786,7 +3811,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     onTap: () {
                       _note.text = "";
                       _amount.text = "";
-                      textLength = 0;
                       setState(() {
                         _category.text = "";
                         _customize.text = "";
@@ -3800,7 +3824,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Theme.of(context).shadowColor,
+                        color: Theme.of(context).highlightColor,
                       ),
                       height: 28,
                       width: size.width > 392 ? size.width * 0.26 : 100,
@@ -3808,7 +3832,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         child: Text(translation(context).deleteAll,
                             style: TextStyle(
                                 height: 1,
-                                color: Theme.of(context).canvasColor,
+                                color: renkler.arkaRenk,
                                 fontSize: 15,
                                 fontFamily: 'Nexa4',
                                 fontWeight: FontWeight.w900)),
