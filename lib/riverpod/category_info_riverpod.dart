@@ -222,6 +222,21 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     }
     return totalBaseAmount;
   }
+  String getDataType(){
+    if(validDateMenu == 0){
+      return "Yıllık";
+    }else if(validDateMenu == 1){
+      return "Aylık";
+    }else if(validDateMenu == 2){
+      return "Haftalık";
+    }else if(validDateMenu == 3){
+      return "Günlük";
+    }else if(validDateMenu == 4){
+      return "Periyot";
+    }else{
+      return "Yıllık";
+    }
+  }
 
   List <String> getCategory(BuildContext context)  {
     List <String> categoryName = [];

@@ -58,6 +58,7 @@ dependencies:
   ntp: ^2.0.0
   shared_preferences: ^2.2.0
   flutter_share: ^2.0.0
+  syncfusion_flutter_charts: ^23.1.44
 
 dev_dependencies:
   flutter_test:
