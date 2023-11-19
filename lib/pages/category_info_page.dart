@@ -84,10 +84,10 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
             takvim[item.operationDay!] = item.realAmount!;
           }
         }else if(item.operationDay != null){
-          if(takvim.containsKey((item.operationMonth! + "/" + item.operationDay!).toString())){
-            takvim[(item.operationMonth! + "/" + item.operationDay!)] = takvim[(item.operationMonth! + "/" + item.operationDay!)]! + item.realAmount! ;
+          if(takvim.containsKey(("${item.operationMonth!}/${item.operationDay!}").toString())){
+            takvim[("${item.operationMonth!}/${item.operationDay!}")] = takvim[(item.operationMonth! + "/" + item.operationDay!)]! + item.realAmount! ;
           }else{
-            takvim[(item.operationMonth! + "/" + item.operationDay!)] = item.realAmount!;
+            takvim[("${item.operationMonth!}/${item.operationDay!}")] = item.realAmount!;
           }
         }
       });
@@ -144,28 +144,38 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  readCategoryInfo.getDataType() != "Günlük"
-                  ? Container(
-                  height: 250,
+                  readCategoryInfo.getDataType() != "Günlük" && item.length != 1
+                  ? SizedBox(
+                    height: 250,
                    child: SfCartesianChart(
+                     /*
+                     title: ChartTitle(
+                       text: "${readCategoryInfo.getDataType()} Grafik",
+                       alignment: ChartAlignment.center,
+                       textStyle: TextStyle(
+                         color: Theme.of(context).canvasColor,
+                         fontFamily: "Nexa3"
+                       )
+                     ),
+                      */
                      borderColor: Colors.transparent,
                      primaryXAxis: CategoryAxis(
                        labelRotation: 45,
-                       majorGridLines: MajorGridLines(width: 0), // Ana grid çizgilerini gizler
-                       minorGridLines: MinorGridLines(width: 0), // Alt grid çizgilerini gizler
+                       majorGridLines: const MajorGridLines(width: 0), // Ana grid çizgilerini gizler
+                       minorGridLines: const MinorGridLines(width: 0), // Alt grid çizgilerini gizler
                        axisLine: const AxisLine(
                          color: Colors.transparent,
                        ),
                      ),
                      primaryYAxis: NumericAxis(
-                        minorGridLines: MinorGridLines(width: 0),
+                        minorGridLines: const MinorGridLines(width: 0),
                      ),
                      tooltipBehavior: TooltipBehavior( //Grafiğe tıklanınca çıkan bilgi ekranını sağlıyor.
                        enable: true,
                        header: "Bilgi",
                        color: Theme.of(context).highlightColor,
                        borderColor: Colors.white,
-                       textStyle: TextStyle(
+                       textStyle: const TextStyle(
                          color: Colors.white
                        ),
                        duration: 1600,
@@ -204,7 +214,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                           dataLabelSettings:  DataLabelSettings(
                               builder: (data, point, series, pointIndex, seriesIndex) {
                                 return Container(
-                                  padding: EdgeInsets.all(4.0),
+                                  padding: const EdgeInsets.all(4.0),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).highlightColor, // Customize the background color as needed
                                     borderRadius: BorderRadius.circular(8.0), // Customize the border radius as needed
@@ -220,17 +230,16 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                               isVisible: false,
                               angle: 45,
                               alignment: ChartAlignment.far,
-                              offset: Offset(0, 0),
+                              offset: const Offset(0, 0),
                               color: Colors.pink,
                               labelAlignment: ChartDataLabelAlignment.middle
                           ),
                           color: Theme.of(context).secondaryHeaderColor,
                           width: 2,
-                          markerSettings: MarkerSettings(
+                          markerSettings: const MarkerSettings(
                             isVisible: true,
                             width: 5,
                             height: 5,
-
                           ),
                           isVisible: true,
                           xValueMapper:(Data data, _) => data.x,
@@ -240,7 +249,12 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
 
                    ),
                   )
-                  : SizedBox(width: 1),
+                  : const SizedBox(
+                    height: 40,
+                    child: Center(
+                      child: Text("Grafik için yeterli veri yok"),
+                    ),
+                  ),
                   Expanded(
                     child: Stack(
                       children: [
