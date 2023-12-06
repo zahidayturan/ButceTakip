@@ -144,6 +144,8 @@
     "fullList": "Full List",
     "numberOfElementsShown": "Number of Elements Shown",
 
+    "noEnoughDataForTheChart": "There is no enough data for the chart",
+
     "firstDayOfTheMonth": "First day of the Month",
     "setAsOnlyForTurkish": "",
     "setAsExceptTurkish": "set as",

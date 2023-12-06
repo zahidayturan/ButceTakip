@@ -31,10 +31,6 @@ class NavBar extends ConsumerWidget {
                 child: Stack(
                   children: [
                     Container(
-                      child: CustomPaint(
-                        size: Size(size.width, 80),
-                        painter: BNBCustomPainter(),
-                      ),
                       decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -44,6 +40,10 @@ class NavBar extends ConsumerWidget {
                                 offset: Offset(0, 0)
                             )
                           ]
+                      ),
+                      child: CustomPaint(
+                        size: Size(size.width, 80),
+                        painter: BNBCustomPainter(),
                       ),
                     ),
                     SizedBox(
@@ -69,8 +69,8 @@ class NavBar extends ConsumerWidget {
                                 ),
                                 onPressed: () {
                                   read.setCurrentindex(1);
-                                  Navigator.of(context).popUntil((route) => route.isFirst                                ) ; //Butun Navigator stacki boşaltıyor
-
+                                  Navigator.of(context).popUntil((route) => route.isFirst
+                                  ) ; //Butun Navigator stacki boşaltıyor
                                 },
                               ),
                               AnimatedContainer(
