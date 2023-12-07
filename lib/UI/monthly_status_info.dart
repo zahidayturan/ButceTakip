@@ -33,7 +33,6 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
       builder: (BuildContext context,
           AsyncSnapshot<Map<String, Map<String, double>>> snapshot) {
         if (!snapshot.hasData) {
-          print("Yüklenecek");
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -164,19 +163,22 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Center(child: Text("Ekonomi puanınız",
+                                  Center(child: Text("Ekonomi puanı",
                                     style: TextStyle(
                                     height: 1,
                                     color: Theme.of(context).primaryColor,
                                     fontFamily:
                                     "Nexa3",
                                     fontSize: 15,
-                                  ),textAlign: TextAlign.center,)),
+                                  ),textAlign: TextAlign.center)),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      SizedBox(height: 18,
-                                        width: 18,),
+                                      Visibility(
+                                        visible: size.width > 320,
+                                        child: SizedBox(height: 16,
+                                          width: 16,),
+                                      ),
                                       RichText(
                                           text: TextSpan(children: [
                                             TextSpan(
@@ -198,57 +200,61 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                                 fontFamily:
                                                 "Nexa3",
                                                 fontSize: 16,
+                                                overflow: TextOverflow.ellipsis
                                               ),
                                             ),
                                           ])),
-                                      Tooltip(
-                                        message:  "Aylık olarak gelir gider oranına göre hesaplanan puan",
-                                        triggerMode: TooltipTriggerMode.tap,
-                                        showDuration: const Duration(seconds: 10),
-                                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                                        textStyle: TextStyle(
-                                            fontSize: 14,
-                                            color: renkler.arkaRenk,
-                                            height: 1),
-                                        textAlign: TextAlign.justify,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                          const BorderRadius.all(Radius.circular(10)),
-                                          color: Theme.of(context).highlightColor,
-                                          boxShadow: 1 == 1 ? [
-                                            BoxShadow(
-                                              color: Colors.black54.withOpacity(0.8),
-                                              spreadRadius: 1,
-                                              blurRadius: 2,
-                                              offset: const Offset(-1, 2),
-                                            )
-                                          ] : [
-                                            BoxShadow(
-                                                color: Colors.black.withOpacity(0.2),
-                                                spreadRadius: 0.5,
+                                      Visibility(
+                                        visible: size.width > 320,
+                                        child: Tooltip(
+                                          message:  "Aylık olarak gelir gider oranına göre hesaplanan puan",
+                                          triggerMode: TooltipTriggerMode.tap,
+                                          showDuration: const Duration(seconds: 10),
+                                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                                          textStyle: TextStyle(
+                                              fontSize: 14,
+                                              color: renkler.arkaRenk,
+                                              height: 1),
+                                          textAlign: TextAlign.justify,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                            const BorderRadius.all(Radius.circular(10)),
+                                            color: Theme.of(context).highlightColor,
+                                            boxShadow: 1 == 1 ? [
+                                              BoxShadow(
+                                                color: Colors.black54.withOpacity(0.8),
+                                                spreadRadius: 1,
                                                 blurRadius: 2,
-                                                offset: const Offset(0, 2)
-                                            )
-                                          ],
-                                          border: Border.all(
+                                                offset: const Offset(-1, 2),
+                                              )
+                                            ] : [
+                                              BoxShadow(
+                                                  color: Colors.black.withOpacity(0.2),
+                                                  spreadRadius: 0.5,
+                                                  blurRadius: 2,
+                                                  offset: const Offset(0, 2)
+                                              )
+                                            ],
+                                            border: Border.all(
+                                                color: Theme
+                                                    .of(context)
+                                                    .indicatorColor, // Set border color
+                                                width: 1.0),
+                                          ),
+                                          child: Container(
+                                            height: 16,
+                                            width: 16,
+                                            decoration: BoxDecoration(
+                                                color: Theme.of(context).splashColor,
+                                                shape: BoxShape.circle
+                                            ),
+                                            child: Icon(
+                                              Icons.question_mark_rounded,
+                                              size: 16,
                                               color: Theme
                                                   .of(context)
-                                                  .indicatorColor, // Set border color
-                                              width: 1.0),
-                                        ),
-                                        child: Container(
-                                          height: 18,
-                                          width: 18,
-                                          decoration: BoxDecoration(
-                                              color: Theme.of(context).splashColor,
-                                              shape: BoxShape.circle
-                                          ),
-                                          child: Icon(
-                                            Icons.question_mark_rounded,
-                                            size: 16,
-                                            color: Theme
-                                                .of(context)
-                                                .canvasColor,
+                                                  .canvasColor,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -295,7 +301,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(child: Center(child: Text("En çok harcama yapılan gün",style: TextStyle(height: 1,fontSize: 15),textAlign: TextAlign.center,))),
+                              Expanded(child: Center(child: Text("En çok harcama yapılan gün",style: TextStyle(height: 1,fontSize: 15,overflow: TextOverflow.ellipsis),textAlign: TextAlign.center,maxLines: 3,))),
                               Container(
                                 height: 36,
                                 decoration: BoxDecoration(
@@ -372,7 +378,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                     Expanded(
                       child: PageView(
                         scrollDirection: Axis.vertical,
-                        physics: BouncingScrollPhysics(),
+                        physics: listItem!.isNotEmpty ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
                         onPageChanged: (value) {
                           setState(() {
                             pageControllerCategory = value;
@@ -382,19 +388,22 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Center(child: Text("En çok harcama yapılan kategori",style: TextStyle(
+                              Center(child: Text("En çok harcama\nyapılan kategori",style: TextStyle(
                                 height: 1,
                                 color: Theme.of(context).canvasColor,
                                 fontFamily:
                                 "Nexa3",
+                                overflow: TextOverflow.ellipsis,
                                 fontSize: 15,
-                              ),textAlign: TextAlign.center,)),
+                              ),textAlign: TextAlign.center,
+                              maxLines: 3,)),
                               Text(category,style: TextStyle(
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
                                 fontFamily:
                                 "Nexa4",
                                 fontSize: 15,
+                                overflow: TextOverflow.ellipsis,
                               ),textAlign: TextAlign.center)
                             ],
                           ),
@@ -472,7 +481,6 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
         double total = 0.0;
         double compare = 0.0;
         if (!snapshot.hasData) {
-          print("Yüklenecek 22");
           return const Center(
             child: CircularProgressIndicator(),
           );

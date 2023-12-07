@@ -136,7 +136,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                               child: CircularProgressIndicator(),
                             );
                           }
-                          return snapshot.data!.length == 0 ? Center(
+                          return snapshot.data!.isEmpty ? Center(
                             child: SizedBox(
                               height: 180,
                               child: Column(
