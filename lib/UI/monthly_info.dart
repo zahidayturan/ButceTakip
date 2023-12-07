@@ -39,8 +39,8 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
     });
     CustomColors renkler = CustomColors();
     return Expanded(
-      child: StreamBuilder<Map<String, dynamic>>(
-          stream: read.myMethod(ref),
+      child: FutureBuilder<Map<String, dynamic>>(
+          future: read.myMethod(ref),
           builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
             if (!snapshot.hasData) {
               return const Center(
@@ -54,15 +54,11 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
               pageSnapping: true,
               onPageChanged: (index) {
                 setState(() {
-                  print(pageController.page!.toInt());
                   if(pageController.page!.toInt() < index){///arttırma
                       readSettings.setIndex(index, 2, ref);
                   }else if(pageController.page!.toInt() == index){ ///azaltma
                       readSettings.setIndex(index, 2, ref);
                   }
-                  print(index);
-                  print(readSettings.yearIndex);
-                  print(readSettings.monthIndex);
                   read.setMonthandYear(readSettings.monthIndex.toString(), readSettings.yearIndex.toString());
                   readHome.setStatus();
                 });
