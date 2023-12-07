@@ -158,6 +158,82 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     var adEventCounter = readSettings.adEventCounter;
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
+
+    void setFilter(){
+      if (selectedValueType ==
+          translation(context).both) {
+        operationType = 'Hepsi';
+      } else if (selectedValueType ==
+          translation(context).income) {
+        operationType = 'Gelir';
+      } else if (selectedValueType ==
+          translation(context).expenses) {
+        operationType = 'Gider';
+      } else {
+        operationType = 'Gider';
+      }
+      /*print('Tamam bastın ve type : ${operationType}');*/
+      selectedItemsToolToData.clear();
+      /*print(selectedItemsTool);*/
+      for (int i = 0;
+      i < selectedItemsTool.length;
+      i++) {
+        if (selectedItemsTool[i] ==
+            translation(context).all) {
+          selectedItemsToolToData.add('Hepsi');
+          break;
+        } else if (selectedItemsTool[i] ==
+            translation(context).cash) {
+          selectedItemsToolToData.add('Nakit');
+        } else if (selectedItemsTool[i] ==
+            translation(context).card) {
+          selectedItemsToolToData.add('Kart');
+        } else {
+          selectedItemsToolToData.add('Diğer');
+        }
+      }
+      if (selectedItemsTool.isEmpty) {
+        selectedItemsToolToData.add('Hepsi');
+      }
+      operationTool = selectedItemsToolToData;
+      /*print('Tamam bastın ve tool : ${operationTool}');*/
+      if (selectedValueDate ==
+          translation(context).yearly) {
+        dateType = 0;
+      } else if (selectedValueDate ==
+          translation(context).monthly) {
+        dateType = 1;
+      } else if (selectedValueDate ==
+          translation(context).weekly) {
+        dateType = 2;
+      } else if (selectedValueDate ==
+          translation(context).daily) {
+        dateType = 3;
+      } else if (selectedValueDate ==
+          translation(context).period) {
+        dateType = 4;
+      } else {
+        dateType = 1;
+      }
+      /*print('Tamam bastın ve dateType : ${dateType}');*/
+      year = selectedValueYear != null
+          ? int.parse(selectedValueYear!)
+          : year;
+      //print('Tamam bastın ve yıl : ${year}');
+      month = selectedValueMonth != null
+          ? convertMonth(selectedValueMonth!)
+          : month;
+      //print('Tamam bastın ve ay : ${month}');
+      week = selectedValueWeek != null
+          ? int.parse(selectedValueWeek!)
+          : week;
+      //print('Tamam bastın ve hafta : ${week}');
+      day = selectedValueDay != null
+          ? int.parse(selectedValueDay!)
+          : day;
+      //print('Tamam bastın ve gün : ${day}');
+    }
+
     return InkWell(
       borderRadius: BorderRadius.circular(10),
       child: Container(
@@ -204,6 +280,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       onTap: () {
         showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (context) {
             return StatefulBuilder(
               builder: (context, setState) {
@@ -223,6 +300,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                             padding: const EdgeInsets.only(left: 8, right: 8),
                             child: SizedBox(
                               width: size.width * 0.95,
+                              height: 32,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -252,6 +330,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         ),
                                         iconSize: 24,
                                         onPressed: () {
+                                          setFilter();
                                           Navigator.of(context).pop();
                                         },
                                       ),
@@ -593,7 +672,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             registration == 0
                                                 ? registration = 1
                                                 : registration = 0;
-                                            setState(() {});
+                                            setState(() {
+                                            });
                                           },
                                           child: Row(
                                             crossAxisAlignment:
@@ -769,7 +849,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                         //isSelected ? selectedItemsTool.remove(item) : selectedItemsTool.add(item);
 
                                                         //This rebuilds the StatefulWidget to update the button's text
-                                                        setState(() {});
+                                                        setState(() {
+                                                        });
                                                         //This rebuilds the dropdownMenu Widget to update the check mark
                                                         menuSetState(() {});
                                                       },
@@ -956,84 +1037,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    if (selectedValueType ==
-                                        translation(context).both) {
-                                      operationType = 'Hepsi';
-                                    } else if (selectedValueType ==
-                                        translation(context).income) {
-                                      operationType = 'Gelir';
-                                    } else if (selectedValueType ==
-                                        translation(context).expenses) {
-                                      operationType = 'Gider';
-                                    } else {
-                                      operationType = 'Gider';
-                                    }
-                                    print(
-                                        'Tamam bastın ve type : ${operationType}');
-                                    selectedItemsToolToData.clear();
-                                    print(selectedItemsTool);
-                                    for (int i = 0;
-                                        i < selectedItemsTool.length;
-                                        i++) {
-                                      if (selectedItemsTool[i] ==
-                                          translation(context).all) {
-                                        selectedItemsToolToData.add('Hepsi');
-                                        break;
-                                      } else if (selectedItemsTool[i] ==
-                                          translation(context).cash) {
-                                        selectedItemsToolToData.add('Nakit');
-                                      } else if (selectedItemsTool[i] ==
-                                          translation(context).card) {
-                                        selectedItemsToolToData.add('Kart');
-                                      } else {
-                                        selectedItemsToolToData.add('Diğer');
-                                      }
-                                    }
-                                    if (selectedItemsTool.isEmpty) {
-                                      selectedItemsToolToData.add('Hepsi');
-                                    }
-                                    operationTool = selectedItemsToolToData;
-                                    print(
-                                        'Tamam bastın ve tool : ${operationTool}');
-
-                                    if (selectedValueDate ==
-                                        translation(context).yearly) {
-                                      dateType = 0;
-                                    } else if (selectedValueDate ==
-                                        translation(context).monthly) {
-                                      dateType = 1;
-                                    } else if (selectedValueDate ==
-                                        translation(context).weekly) {
-                                      dateType = 2;
-                                    } else if (selectedValueDate ==
-                                        translation(context).daily) {
-                                      dateType = 3;
-                                    } else if (selectedValueDate ==
-                                        translation(context).period) {
-                                      dateType = 4;
-                                    } else {
-                                      dateType = 1;
-                                    }
-                                    print(
-                                        'Tamam bastın ve dateType : ${dateType}');
-                                    year = selectedValueYear != null
-                                        ? int.parse(selectedValueYear!)
-                                        : year;
-                                    print('Tamam bastın ve yıl : ${year}');
-                                    month = selectedValueMonth != null
-                                        ? convertMonth(selectedValueMonth!)
-                                        : month;
-                                    print('Tamam bastın ve ay : ${month}');
-                                    week = selectedValueWeek != null
-                                        ? int.parse(selectedValueWeek!)
-                                        : week;
-                                    print('Tamam bastın ve hafta : ${week}');
-                                    day = selectedValueDay != null
-                                        ? int.parse(selectedValueDay!)
-                                        : day;
-                                    print('Tamam bastın ve gün : ${day}');
+                                    setFilter();
                                     if (adEventCounter! <= 0) {
-                                      print("object");
                                       _showInterstitialAd(context);
                                       readSettings.resetAdEventCounter();
                                     } else {
@@ -1732,6 +1737,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var size = MediaQuery.of(context).size;
     var watchHome = ref.watch(homeRiverpod);
+    CustomColors renkler = CustomColors();
     Future<List<Map<String, dynamic>>> myList = read.getCategoryList(
         operationType,
         registration,
@@ -1831,6 +1837,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         week,
                                         item[index]['category'],
                                         registration,
+                                        item[index]['operationType'],
                                         operationTool,
                                         dateType,
                                         firstDate,
@@ -1853,8 +1860,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         children: [
                                           const SizedBox(width: 5),
                                           Container(
-                                            width: 70,
-                                            height: 25,
+                                            width: 68,
+                                            height: 24,
                                             decoration: BoxDecoration(
                                               color: colorsList[index],
                                               borderRadius:
@@ -1875,7 +1882,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                               ),
                                             )),
                                           ),
-                                          const SizedBox(width: 10),
+                                          const SizedBox(width: 8),
                                           Expanded(
                                             child: Padding(
                                               padding:
@@ -1888,11 +1895,25 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 style: TextStyle(
                                                   height: 1,
                                                   fontFamily: 'Nexa3',
-                                                  fontSize: 16,
+                                                  fontSize: 15,
                                                   color: Theme.of(context)
                                                       .canvasColor,
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: operationType == "Hepsi",
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 4,right: 4,top: 2),
+                                              child: Container(
+                                                width: 12,
+                                                height: 12,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
+                                                    color: item[index]["operationType"]! == "Gider" ? renkler.kirmiziRenk :renkler.yesilRenk
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -1909,7 +1930,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                     style: TextStyle(
                                                       height: 1,
                                                       fontFamily: 'NEXA3',
-                                                      fontSize: 16,
+                                                      fontSize: 15,
                                                       color: Theme.of(context)
                                                           .dialogBackgroundColor,
                                                     ),
@@ -1920,7 +1941,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                     style: TextStyle(
                                                       height: 1,
                                                       fontFamily: 'TL',
-                                                      fontSize: 18,
+                                                      fontSize: 16,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       color: Theme.of(context)
@@ -2236,6 +2257,9 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                     index]
                                                                 ['category'],
                                                             registration,
+                                                        snapshot.data![
+                                                        index]
+                                                        ['operationType'],
                                                             operationTool,
                                                             dateType,
                                                             firstDate,

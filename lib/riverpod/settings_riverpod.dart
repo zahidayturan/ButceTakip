@@ -382,6 +382,25 @@ String getMonthInList(BuildContext context){
   ];
   return months[monthIndex];
   }
+  String getMonthInListWithIndex(BuildContext context, int index){
+    print(index);
+    List<String> months = [
+      "",
+      translation(context).january,
+      translation(context).february,
+      translation(context).march,
+      translation(context).april,
+      translation(context).may,
+      translation(context).june,
+      translation(context).july,
+      translation(context).august,
+      translation(context).september,
+      translation(context).october,
+      translation(context).november,
+      translation(context).december,
+    ];
+    return index != 0 ? months[index] : translation(context).december;
+  }
   List<String> years = [
     "2020",
     "2021",

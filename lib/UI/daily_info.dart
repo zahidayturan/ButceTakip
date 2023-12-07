@@ -1,3 +1,4 @@
+import 'package:butcekontrol/UI/monthly_status_info.dart';
 import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/riverpod_management.dart';
@@ -23,6 +24,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
   var renkler = CustomColors();
 
   @override
+  int skipController = 0;
 
   Widget build(BuildContext context) {
     ref.listen(databaseRiverpod, (previous, next) {
@@ -45,112 +47,140 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
         height: 220, // bugünün bilgileri yükseklik.
         child: Column(
           children: [
-            Directionality(
-              textDirection: TextDirection.ltr,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      readDailyInfo.setDate(DateTime.now().day, DateTime.now().month, DateTime.now().year);
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
-                    },
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(15)),
-                        color: Theme.of(context).secondaryHeaderColor,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10, top: 6, bottom: 6),
-                        child: Text(
-                          translation(context).todaysActivities, /// dil destekli yazi
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            height: 1,
-                            fontFamily: 'Nexa3',
-                            fontSize: 16,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Directionality(
+                textDirection: TextDirection.ltr,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if(skipController == 0){
+                          readDailyInfo.setDate(DateTime.now().day, DateTime.now().month, DateTime.now().year);
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
+                        }
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 400),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(15)),
+                          color: skipController == 0 ?  Theme.of(context).secondaryHeaderColor : Theme.of(context).dialogBackgroundColor,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10, top: 6, bottom: 6),
+                          child: Text(
+                            skipController == 0 ? translation(context).todaysActivities : "${readSettings.getMonthInList(context)} ${readSettings.yearIndex.toString()} İçin İstatistikler", /// dil destekli yazi
+                            style: TextStyle(
+                              color: skipController == 0 ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
+                              height: 1,
+                              fontFamily: 'Nexa3',
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      right: 25,
-                      left: 25,
-                      top: 4,
+                    Visibility(
+                      visible: skipController == 0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          right: 25,
+                          left: 25,
+                          top: 4,
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            readNavBar.setCurrentindex(2);
+                            Navigator.of(context).popUntil((route) => route.isFirst) ;
+                            readCalendar.setIndex(0, 3,ref);
+                            readCalendar.resetPageController();
+                          },
+                          child: Text(formattedDate,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  height: 1,
+                                  fontFamily: 'Nexa4',
+                                  fontWeight: FontWeight.w900,
+                              color: Theme.of(context).canvasColor
+                              )),
+                        ),
+                      ),
                     ),
-                    child: GestureDetector(
-                      onTap: () {
-                        readNavBar.setCurrentindex(2);
-                        Navigator.of(context).popUntil((route) => route.isFirst) ;
-                        readCalendar.setIndex(0, 3,ref);
-                        readCalendar.resetPageController();
-                      },
-                      child: Text(formattedDate,
-                          style: TextStyle(
-                              fontSize: 16,
-                              height: 1,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w900,
-                          color: Theme.of(context).canvasColor
-                          )),
-                    ),
-                  )
-                ],
+                    counterContainer(context, skipController)
+                  ],
+                ),
               ),
             ),/// Bugünn bilgileri satırı
             const SizedBox(height: 5),
-            Center(
-              child: FutureBuilder<List<SpendInfo>>(
-                future: readDB.myDailyMethod(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<SpendInfo>> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return snapshot.data!.length == 0 ? Center(
-                    child: SizedBox(
-                      height: 180,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/image/noInfo4.png",
-                            width: 90,
-                            height: 90,
-                            //color: Theme.of(context).canvasColor,
-                          ),
-                          SizedBox(
-                            height: 22,
-                            width: 85,
-                            child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Theme.of(context).canvasColor,
-                                ),
-                                child: Center(child: TextMod(
-                                    translation(context).noActivity, Theme.of(context).primaryColor, 14))
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: SizedBox(
+                height: 184,
+                child: PageView(
+                  onPageChanged: (value) {
+                    setState(() {
+                      skipController = value;
+                    });
+                  },
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Center(
+                      child: FutureBuilder<List<SpendInfo>>(
+                        future: readDB.myDailyMethod(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<SpendInfo>> snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          return snapshot.data!.length == 0 ? Center(
+                            child: SizedBox(
+                              height: 180,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "assets/image/noInfo4.png",
+                                    width: 90,
+                                    height: 90,
+                                    //color: Theme.of(context).canvasColor,
+                                  ),
+                                  SizedBox(
+                                    height: 22,
+                                    width: 85,
+                                    child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: Theme.of(context).canvasColor,
+                                        ),
+                                        child: Center(child: TextMod(
+                                            translation(context).noActivity, Theme.of(context).primaryColor, 14))
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ) :SizedBox(
+                            height: 184,
+                            child: ListView.builder(
+                                controller: scroolBarController2,
+                                itemCount: snapshot.data!.length,
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder:
+                                    (BuildContext context, index) {
+                                  SpendInfo item = snapshot.data![index];
+                                  return RowStyleCreateBox(context, item);
+                                }),
+                          );
+                        },
                       ),
                     ),
-                  ) :SizedBox(
-                    height: 184,
-                    child: ListView.builder(
-                        controller: scroolBarController2,
-                        itemCount: snapshot.data!.length,
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder:
-                            (BuildContext context, index) {
-                          SpendInfo item = snapshot.data![index];
-                          return RowStyleCreateBox(context, item);
-                        }),
-                  );
-                },
+                    const MonthlyStatusInfo(),
+                  ],
+                ),
               ),
             )
           ],
@@ -343,4 +373,36 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
       ),
     );
   }
+
+  Widget counterContainer(BuildContext context, int pageCount) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            width: pageCount == 0 ? 24 : 12,
+            height: 12,
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                color: pageCount == 0
+                    ? Theme.of(context).disabledColor
+                    : Theme.of(context).canvasColor),
+          ),
+        ),
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          width: pageCount == 1 ? 24 : 12,
+          height: 12,
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              color: pageCount == 1
+                  ? Theme.of(context).disabledColor
+                  : Theme.of(context).canvasColor),
+        ),
+      ],
+    );
+  }
+
 }
