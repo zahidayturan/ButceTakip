@@ -249,10 +249,10 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
 
                    ),
                   )
-                  : const SizedBox(
+                  : SizedBox(
                     height: 40,
                     child: Center(
-                      child: Text("Grafik için yeterli veri yok"),
+                      child: Text(translation(context).noEnoughDataForTheChart),
                     ),
                   ),
                   Expanded(

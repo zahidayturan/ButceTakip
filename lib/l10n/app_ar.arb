@@ -144,6 +144,8 @@
   "fullList": "القائمة بأكملها",
   "numberOfElementsShown": "عدد العناصر المعروضة",
 
+  "noEnoughDataForTheChart": "لا توجد بيانات كافية للمخطط",
+
   "firstDayOfTheMonth": "بداية الشهر",
   "setAsOnlyForTurkish": "",
   "setAsExceptTurkish": "اضبط",

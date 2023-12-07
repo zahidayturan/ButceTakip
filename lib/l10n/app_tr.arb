@@ -144,6 +144,8 @@
   "fullList": "Listenin Tamamı",
   "numberOfElementsShown": "Gösterilen Eleman Sayısı",
 
+  "noEnoughDataForTheChart": "Grafik için yeterli veri yok",
+
   "firstDayOfTheMonth": "Ayın Başlangıç Günü",
   "setAsOnlyForTurkish": "Olarak Ayarla",
   "setAsExceptTurkish": "",
