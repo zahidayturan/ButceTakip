@@ -71,11 +71,11 @@ class StatisticsRiverpod extends ChangeNotifier {
         }
 
         filteredList.forEach((element) {
-          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category);
+          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category && item['operationType'] == element.operationType);
           if (existingCategoryIndex != -1) {
             groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
           } else {
-            groupedItems.add({'category': element.category, 'realAmount': element.realAmount});
+            groupedItems.add({'category': element.category, 'realAmount': element.realAmount,'operationType': element.operationType});
           }
         });
 
@@ -92,16 +92,20 @@ class StatisticsRiverpod extends ChangeNotifier {
       else if(dateType  == 1 ){
         List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(
             month.toString(), year.toString());
+        ///ay için veriler çekildi
         if(operationType == 'Hepsi'){
           filteredList = items;
-        }else{
+        }
+        else{
           List<SpendInfo> filteredList1 = items
               .where((element) => element.operationType == operationType)
               .toList();
           filteredList = filteredList1;
         }
+        ///gelir gider türüne göre listelendi
 
         filteredList = registration == 1 ? filteredList.where((element) => element.registration == registration).toList() : filteredList;
+        ///sadece kayıtlı olanlar seçeneği kontrol edildi
 
         if(operationTool1 == 'Hepsi'){
         }
@@ -115,13 +119,15 @@ class StatisticsRiverpod extends ChangeNotifier {
               .toList();
           filteredList = filteredList1;
         }
+        ///nakit kart diğer seçeneğine göre listelendi
+
 
         filteredList.forEach((element) {
-          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category);
+          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category && item['operationType'] == element.operationType);
           if (existingCategoryIndex != -1) {
             groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
           } else {
-            groupedItems.add({'category': element.category, 'realAmount': element.realAmount});
+            groupedItems.add({'category': element.category, 'realAmount': element.realAmount,'operationType': element.operationType});
           }
         });
 
@@ -172,11 +178,11 @@ class StatisticsRiverpod extends ChangeNotifier {
         }
 
         filteredList.forEach((element) {
-          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category);
+          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category && item['operationType'] == element.operationType);
           if (existingCategoryIndex != -1) {
             groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
           } else {
-            groupedItems.add({'category': element.category, 'realAmount': element.realAmount});
+            groupedItems.add({'category': element.category, 'realAmount': element.realAmount,'operationType': element.operationType});
           }
         });
 
@@ -218,11 +224,11 @@ class StatisticsRiverpod extends ChangeNotifier {
         }
 
         filteredList.forEach((element) {
-          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category);
+          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category && item['operationType'] == element.operationType);
           if (existingCategoryIndex != -1) {
             groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
           } else {
-            groupedItems.add({'category': element.category, 'realAmount': element.realAmount});
+            groupedItems.add({'category': element.category, 'realAmount': element.realAmount,'operationType': element.operationType});
           }
         });
 
@@ -269,11 +275,11 @@ class StatisticsRiverpod extends ChangeNotifier {
         }
 
         filteredList.forEach((element) {
-          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category);
+          var existingCategoryIndex = groupedItems.indexWhere((item) => item['category'] == element.category && item['operationType'] == element.operationType);
           if (existingCategoryIndex != -1) {
             groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
           } else {
-            groupedItems.add({'category': element.category, 'realAmount': element.realAmount});
+            groupedItems.add({'category': element.category, 'realAmount': element.realAmount,'operationType': element.operationType});
           }
         });
 
@@ -329,11 +335,11 @@ class StatisticsRiverpod extends ChangeNotifier {
       }
 
       filteredList.forEach((element) {
-        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category);
+        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category && item['operationType'] == element.operationType);
         if (existingCategoryIndex != -1) {
           groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
         } else {
-          groupedItems.add({'domain': element.category, 'realAmount': element.realAmount});
+          groupedItems.add({'domain': element.operationType == "Gider" ? "${element.category}" : "${element.category}+", 'realAmount': element.realAmount, 'operationType' : element.operationType});
         }
       });
 
@@ -383,11 +389,11 @@ class StatisticsRiverpod extends ChangeNotifier {
       }
 
       filteredList.forEach((element) {
-        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category);
+        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category && item['operationType'] == element.operationType);
         if (existingCategoryIndex != -1) {
           groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
         } else {
-          groupedItems.add({'domain': element.category, 'realAmount': element.realAmount});
+          groupedItems.add({'domain': element.operationType == "Gider" ? "${element.category}" : "${element.category}+", 'realAmount': element.realAmount, 'operationType' : element.operationType});
         }
       });
 
@@ -447,11 +453,11 @@ class StatisticsRiverpod extends ChangeNotifier {
       }
 
       filteredList.forEach((element) {
-        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category);
+        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category && item['operationType'] == element.operationType);
         if (existingCategoryIndex != -1) {
           groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
         } else {
-          groupedItems.add({'domain': element.category, 'realAmount': element.realAmount});
+          groupedItems.add({'domain': element.operationType == "Gider" ? "${element.category}" : "${element.category}+", 'realAmount': element.realAmount, 'operationType' : element.operationType});
         }
       });
 
@@ -500,11 +506,11 @@ class StatisticsRiverpod extends ChangeNotifier {
       }
 
       filteredList.forEach((element) {
-        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category);
+        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category && item['operationType'] == element.operationType);
         if (existingCategoryIndex != -1) {
           groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
         } else {
-          groupedItems.add({'domain': element.category, 'realAmount': element.realAmount});
+          groupedItems.add({'domain': element.operationType == "Gider" ? "${element.category}" : "${element.category}+", 'realAmount': element.realAmount, 'operationType' : element.operationType});
         }
       });
 
@@ -559,11 +565,11 @@ class StatisticsRiverpod extends ChangeNotifier {
       }
 
       filteredList.forEach((element) {
-        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category);
+        var existingCategoryIndex = groupedItems.indexWhere((item) => item['domain'] == element.category && item['operationType'] == element.operationType);
         if (existingCategoryIndex != -1) {
           groupedItems[existingCategoryIndex]['realAmount'] += element.realAmount;
         } else {
-          groupedItems.add({'domain': element.category, 'realAmount': element.realAmount});
+          groupedItems.add({'domain': element.operationType == "Gider" ? "${element.category}" : "${element.category}+", 'realAmount': element.realAmount, 'operationType' : element.operationType});
         }
       });
 
