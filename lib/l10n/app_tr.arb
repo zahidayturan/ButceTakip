@@ -114,6 +114,17 @@
 
   "noActivity": "Kayıt Yok",
 
+  "monthlyStatisticsOnlyForTurkish": "İçin İstatistikler",
+  "monthlyStatisticsOnlyForEnglishAndArabic": "",
+  "dailyAverageSpending": "Ortalama günlük harcama tutarı",
+  "spendingScore": "Ekonomi puanı",
+  "mostSpendingCategory": "En çok harcama\nyapılan kategori",
+  "changeInNetSpending": "Bir önceki aya göre\nnet durumun değişimi",
+  "mostSpendingDay": "En çok harcama yapılan gün",
+  "monthlyIncomeExpenseScore": "Aylık olarak gelir gider oranına göre hesaplanan puan",
+  "noSpending": "Harcama yok",
+  "noResult": "Henüz yok",
+
   "both": "HEPSİ",
   "income": "GELİR",
   "expenses": "GİDER",

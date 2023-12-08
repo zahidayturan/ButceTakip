@@ -70,7 +70,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10, top: 6, bottom: 6),
                           child: Text(
-                            skipController == 0 ? translation(context).todaysActivities : "${readSettings.getMonthInList(context)} ${readSettings.yearIndex.toString()} İçin İstatistikler", /// dil destekli yazi
+                            skipController == 0 ? translation(context).todaysActivities : "${translation(context).monthlyStatisticsOnlyForEnglishAndArabic} ${readSettings.getMonthInList(context)} ${readSettings.yearIndex.toString()} ${translation(context).monthlyStatisticsOnlyForTurkish}", /// dil destekli yazi
                             style: TextStyle(
                               color: skipController == 0 ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
                               height: 1,
