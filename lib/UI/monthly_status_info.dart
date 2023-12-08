@@ -100,47 +100,50 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(child: Text("Ortalama günlük harcama tutarı",style: TextStyle(height: 1,fontSize: 15),textAlign: TextAlign.center,)),
-                            Container(
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).secondaryHeaderColor,
-                                borderRadius: BorderRadius.all(Radius.circular(10))
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: RichText(
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                          text: avarageExpenses,
-                                          style: TextStyle(
-                                            height: 1,
-                                            color: Theme.of(context).primaryColor,
-                                            fontFamily:
-                                            "Nexa4",
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: ref.read(settingsRiverpod).prefixSymbol,
-                                          style: TextStyle(
-                                            height: 1,
-                                            color: Theme.of(context).primaryColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily:
-                                            "TL",
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ])),
+                        child: Directionality(
+                          textDirection: ref.read(settingsRiverpod).Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(child: Text(translation(context).dailyAverageSpending,style: TextStyle(height: 1,fontSize: 15),textAlign: TextAlign.center,)),
+                              Container(
+                                height: 36,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
                                 ),
-                              ),
-                            )
-                          ],
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: RichText(
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text: avarageExpenses,
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: Theme.of(context).primaryColor,
+                                              fontFamily:
+                                              "Nexa4",
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: ref.read(settingsRiverpod).prefixSymbol,
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: Theme.of(context).primaryColor,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily:
+                                              "TL",
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ])),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -163,7 +166,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Center(child: Text("Ekonomi puanı",
+                                  Center(child: Text(translation(context).spendingScore,
                                     style: TextStyle(
                                     height: 1,
                                     color: Theme.of(context).primaryColor,
@@ -192,7 +195,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                               ),
                                             ),
                                             TextSpan(
-                                              text: economyScore != 10.01 ?"/10" : "Henüz Yok",
+                                              text: economyScore != 10.01 ?"/10" : translation(context).noResult,
                                               style: TextStyle(
                                                 height: 1,
                                                 color: Theme.of(context).primaryColor,
@@ -207,7 +210,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                       Visibility(
                                         visible: size.width > 320,
                                         child: Tooltip(
-                                          message:  "Aylık olarak gelir gider oranına göre hesaplanan puan",
+                                          message:  translation(context).monthlyIncomeExpenseScore,
                                           triggerMode: TooltipTriggerMode.tap,
                                           showDuration: const Duration(seconds: 10),
                                           margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -298,32 +301,35 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(child: Center(child: Text("En çok harcama yapılan gün",style: TextStyle(height: 1,fontSize: 15,overflow: TextOverflow.ellipsis),textAlign: TextAlign.center,maxLines: 3,))),
-                              Container(
-                                height: 36,
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context).scaffoldBackgroundColor,
-                                    borderRadius: BorderRadius.all(Radius.circular(10))
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Text(
-                                         "${maxTotalAmount2Date}",
-                                          style: TextStyle(
-                                            height: 1,
-                                            color: Theme.of(context).canvasColor,
-                                            fontFamily:
-                                            "Nexa4",
-                                            fontSize: 15,
-                                          ),
-                                        )),
+                          child: Directionality(
+                            textDirection: ref.read(settingsRiverpod).Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(child: Center(child: Text(translation(context).mostSpendingDay,style: TextStyle(height: 1,fontSize: 15,overflow: TextOverflow.ellipsis),textAlign: TextAlign.center,maxLines: 3,))),
+                                Container(
+                                  height: 36,
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context).scaffoldBackgroundColor,
+                                      borderRadius: BorderRadius.all(Radius.circular(10))
                                   ),
-                                ),
-                            ],
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Text(
+                                           maxTotalAmount2Date,
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: Theme.of(context).canvasColor,
+                                              fontFamily:
+                                              "Nexa4",
+                                              fontSize: 15,
+                                            ),
+                                          )),
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -388,7 +394,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Center(child: Text("En çok harcama\nyapılan kategori",style: TextStyle(
+                              Center(child: Text(translation(context).mostSpendingCategory,style: TextStyle(
                                 height: 1,
                                 color: Theme.of(context).canvasColor,
                                 fontFamily:
@@ -443,7 +449,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                         ),
                                       ),
                                     ])),
-                                Center(child: Text("${categoryCount.toString()} Kayıt",style: TextStyle(
+                                Center(child: Text("${categoryCount.toString()} ${translation(context).activityCount}",style: TextStyle(
                                   height: 1,
                                   color: Theme.of(context).canvasColor,
                                   fontFamily:
@@ -499,47 +505,51 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
-                children: [
-                  counterContainer(context,pageController),
-                  Expanded(
-                    child: PageView(
-                      scrollDirection: Axis.vertical,
-                      physics: BouncingScrollPhysics(),
-                      onPageChanged: (value) {
-                        setState(() {
-                          pageController = value;
-                          print(pageController);
-                        });
-                      },
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(child: Center(child: Text("Bir önceki aya göre\n net durumun değişimi",style: TextStyle(height: 1,fontSize: 15),textAlign: TextAlign.center,))),
-                            Container(
-                              height: 36,
-                              decoration: BoxDecoration(
-                                  color: compare > 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                  borderRadius: BorderRadius.all(Radius.circular(10))
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: RichText(
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                          text:  compare.toStringAsFixed(2),
+              child: Directionality(
+                textDirection: ref.read(settingsRiverpod).Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
+                child: Row(
+                  children: [
+                    counterContainer(context,pageController),
+                    Expanded(
+                      child: PageView(
+                        scrollDirection: Axis.vertical,
+                        physics: BouncingScrollPhysics(),
+                        onPageChanged: (value) {
+                          setState(() {
+                            pageController = value;
+                            print(pageController);
+                          });
+                        },
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(child: Center(child: Text(translation(context).changeInNetSpending,style: TextStyle(height: 1,fontSize: 15),textAlign: TextAlign.center,))),
+                              Container(
+                                height: 36,
+                                decoration: BoxDecoration(
+                                    color: compare > 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          compare.toStringAsFixed(2),
                                           style: TextStyle(
-                                            height: 1,
-                                            color: renkler.arkaRenk,
-                                            fontFamily:
-                                            "Nexa4",
-                                            fontSize: 15,
+                                          height: 1,
+                                          color: renkler.arkaRenk,
+                                          fontFamily:
+                                          "Nexa4",
+                                          fontSize: 15,
                                           ),
+                                          textDirection: TextDirection.ltr,
+
                                         ),
-                                        TextSpan(
-                                          text: ref.read(settingsRiverpod).prefixSymbol,
+                                        Text(
+                                          ref.read(settingsRiverpod).prefixSymbol!,
                                           style: TextStyle(
                                             height: 1,
                                             color: renkler.arkaRenk,
@@ -549,29 +559,55 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                             fontSize: 15,
                                           ),
                                         ),
-                                      ])),
+                                      ],
+                                    )
+                                    /*RichText(
+                                        textDirection: TextDirection.ltr,
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text:  compare.toStringAsFixed(2),
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontFamily:
+                                              "Nexa4",
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: ref.read(settingsRiverpod).prefixSymbol,
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily:
+                                              "TL",
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ])),*/
+                                  ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(child: Center(child: Text("${readSettings.getMonthInListWithIndex(context,readSettings.monthIndex-1)}",style: TextStyle(height: 1,fontSize: 14),textAlign: TextAlign.center,))),
-                            Container(
-                              height: 28,
-                              decoration: BoxDecoration(
-                                  color: total >= 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                  borderRadius: BorderRadius.all(Radius.circular(10))
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: RichText(
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                          text:  total.toStringAsFixed(2),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(child: Center(child: Text(readSettings.getMonthInListWithIndex(context,readSettings.monthIndex-1),style: TextStyle(height: 1,fontSize: 14),textAlign: TextAlign.center,))),
+                              Container(
+                                height: 28,
+                                decoration: BoxDecoration(
+                                    color: total >= 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          total.toStringAsFixed(2),
                                           style: TextStyle(
                                             height: 1,
                                             color: renkler.arkaRenk,
@@ -579,9 +615,11 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                             "Nexa4",
                                             fontSize: 14,
                                           ),
+                                          textDirection: TextDirection.ltr,
+
                                         ),
-                                        TextSpan(
-                                          text: ref.read(settingsRiverpod).prefixSymbol,
+                                        Text(
+                                          ref.read(settingsRiverpod).prefixSymbol!,
                                           style: TextStyle(
                                             height: 1,
                                             color: renkler.arkaRenk,
@@ -591,24 +629,49 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                             fontSize: 14,
                                           ),
                                         ),
-                                      ])),
+                                      ],
+                                    )
+                                    /*RichText(
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text:  total.toStringAsFixed(2),
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontFamily:
+                                              "Nexa4",
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: ref.read(settingsRiverpod).prefixSymbol,
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily:
+                                              "TL",
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ])),*/
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(child: Center(child: Text("${readSettings.getMonthInList(context)}",style: TextStyle(height: 1,fontSize: 14),textAlign: TextAlign.center,))),
-                            Container(
-                              height: 28,
-                              decoration: BoxDecoration(
-                                  color: formattedTotal >= 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                  borderRadius: BorderRadius.all(Radius.circular(10))
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: RichText(
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                          text:  formattedTotal.toStringAsFixed(2),
+                              Expanded(child: Center(child: Text(readSettings.getMonthInList(context),style: TextStyle(height: 1,fontSize: 14),textAlign: TextAlign.center,))),
+                              Container(
+                                height: 28,
+                                decoration: BoxDecoration(
+                                    color: formattedTotal >= 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          formattedTotal.toStringAsFixed(2),
                                           style: TextStyle(
                                             height: 1,
                                             color: renkler.arkaRenk,
@@ -616,9 +679,11 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                             "Nexa4",
                                             fontSize: 14,
                                           ),
+                                          textDirection: TextDirection.ltr,
+
                                         ),
-                                        TextSpan(
-                                          text: ref.read(settingsRiverpod).prefixSymbol,
+                                        Text(
+                                          ref.read(settingsRiverpod).prefixSymbol!,
                                           style: TextStyle(
                                             height: 1,
                                             color: renkler.arkaRenk,
@@ -628,16 +693,43 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                             fontSize: 14,
                                           ),
                                         ),
-                                      ])),
+                                      ],
+                                    )
+                                    /*RichText(
+                                        textDirection: TextDirection.ltr,
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text:  formattedTotal.toStringAsFixed(2),
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontFamily:
+                                              "Nexa4",
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: ref.read(settingsRiverpod).prefixSymbol,
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily:
+                                              "TL",
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ])),*/
+                                  ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
