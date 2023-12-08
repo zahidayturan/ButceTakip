@@ -1,9 +1,11 @@
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/classes/language.dart';
+import 'package:intl/intl.dart' as intl;
 
 
 class MonthlyStatusInfo extends ConsumerStatefulWidget {
@@ -38,6 +40,8 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
           );
         }
         var dailyTotals = snapshot.data;
+        int totalAmount2Includes = dailyTotals!.values.where((temp) => temp['totalAmount2'] != 0).length;
+
         double totalExpenses = dailyTotals!
             .values
             .map((totals) => totals['totalAmount2'] ?? 0)
@@ -49,29 +53,22 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
             .fold(0, (prev, amount) => prev + amount);
 
         var formattedTotal = totalIncome - totalExpenses;
-        var avarageExpenses = dailyTotals.isNotEmpty ? (totalExpenses / dailyTotals.length).toStringAsFixed(2) : "0.00";
-/*
-        dailyTotals!.forEach((day, totals) {
-          print('Day: $day');
-          print('Total Amount: ${totals['totalAmount']}');
-          print('Total Amount2: ${totals['totalAmount2']}');
-          print('Items Length: ${totals['itemsLength']}');
-          print('Items Month: ${totals['itemsMonth']}');
-          print('Items Year: ${totals['itemsYear']}');
-          print('------------------');
-        });
-        print(totalExpenses);
-        print(totalIncome);*/
-        double economyScore;
+        var avarageExpenses = dailyTotals.isNotEmpty ? (totalExpenses / totalAmount2Includes).toStringAsFixed(2) : "0.00";
 
+        double economyScore;
         if (totalIncome >= totalExpenses) {
           if(totalIncome == 0 && totalExpenses == 0){
             economyScore = 10.01;
           }else{
             economyScore = 10.0;
           }
-        } else {
-          double ratio = totalIncome / totalExpenses;
+        }
+        else if(totalIncome ==0 && totalExpenses !=0){
+          double ratio = (totalIncome / totalExpenses);
+          economyScore = ratio * 10;
+        }
+        else {
+          double ratio = (totalIncome / totalExpenses)-0.01;
           economyScore = ratio * 10;
         }
         var sortedList = dailyTotals.entries.toList()
@@ -79,7 +76,17 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
         var maxTotalAmount2Day =  sortedList.isNotEmpty ? sortedList.first.key : "";
         var maxTotalAmount2Month =  sortedList.isNotEmpty ? sortedList.first.value["itemsMonth"]!.toStringAsFixed(0) : "";
         var maxTotalAmount2Year =  sortedList.isNotEmpty ? sortedList.first.value["itemsYear"]!.toStringAsFixed(0) : "";
-        String maxTotalAmount2Date = maxTotalAmount2Day != "" ? "$maxTotalAmount2Day.$maxTotalAmount2Month.$maxTotalAmount2Year" : "Harcama yok";
+        String getDateForMaxDay(){
+          var readSettings = ref.read(settingsRiverpod);
+          if(maxTotalAmount2Day != ""){
+            DateTime date = DateTime(int.parse(maxTotalAmount2Year),int.parse(maxTotalAmount2Month),int.parse(maxTotalAmount2Day));
+            String formattedDate = intl.DateFormat(readSettings.dateFormat).format(date);
+            return formattedDate;
+          }else{
+            return translation(context).noSpending;
+          }
+        }
+        String maxTotalAmount2Date = maxTotalAmount2Day != "" ? "$maxTotalAmount2Day.$maxTotalAmount2Month.$maxTotalAmount2Year" : translation(context).noSpending;
 
         return SizedBox(
           height: 184,
@@ -99,7 +106,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                         borderRadius: BorderRadius.all(Radius.circular(15))
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Directionality(
                           textDirection: ref.read(settingsRiverpod).Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
                           child: Row(
@@ -162,7 +169,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                 borderRadius: BorderRadius.all(Radius.circular(15))
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 12),
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
@@ -277,7 +284,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                     padding: const EdgeInsets.only(top: 8,bottom: 8),
                     child: InkWell(
                         onTap: () {
-                          if(maxTotalAmount2Date != "Harcama yok"){
+                          if(maxTotalAmount2Date != translation(context).noSpending){
                             readHome.setDailyStatus(
                                 dailyTotals[maxTotalAmount2Day]!["totalAmount"].toString(),
                                 dailyTotals[maxTotalAmount2Day]!["totalAmount2"].toString(),
@@ -300,7 +307,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                             borderRadius: BorderRadius.all(Radius.circular(15))
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Directionality(
                             textDirection: ref.read(settingsRiverpod).Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
                             child: Row(
@@ -312,21 +319,21 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                   decoration: BoxDecoration(
                                       color: Theme.of(context).scaffoldBackgroundColor,
                                       borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Text(
+                                      getDateForMaxDay(),
+                                          style: TextStyle(
+                                            height: 1,
+                                            color: Theme.of(context).canvasColor,
+                                            fontFamily:
+                                            "Nexa4",
+                                            fontSize: 15,
+                                          ),
+                                        )),
                                   ),
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                      child: Text(
-                                           maxTotalAmount2Date,
-                                            style: TextStyle(
-                                              height: 1,
-                                              color: Theme.of(context).canvasColor,
-                                              fontFamily:
-                                              "Nexa4",
-                                              fontSize: 15,
-                                            ),
-                                          )),
-                                    ),
                                   ),
                               ],
                             ),
@@ -352,11 +359,10 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
       future: readDB.monthlyStatusInfoForCategory(ref),
       builder: (BuildContext context,
           AsyncSnapshot<List<MapEntry<String, List<double>>>> snapshot) {
-        var category = "Harcama yok";
+        var category = translation(context).noSpending;
         var categoryAmount = 0.0;
         int categoryCount = 0;
         if (!snapshot.hasData) {
-          print("Yüklenecek 22");
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -378,7 +384,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                   borderRadius: BorderRadius.all(Radius.circular(15))
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
                     Expanded(
@@ -403,7 +409,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                 fontSize: 15,
                               ),textAlign: TextAlign.center,
                               maxLines: 3,)),
-                              Text(category,style: TextStyle(
+                              Text(Converter().textConverterFromDB(category, context, 0),style: TextStyle(
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
                                 fontFamily:
@@ -418,7 +424,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Center(child: Text(category,style: TextStyle(
+                                Center(child: Text(Converter().textConverterFromDB(category, context, 0),style: TextStyle(
                                   height: 1,
                                   color: Theme.of(context).canvasColor,
                                   fontFamily:
@@ -504,7 +510,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                 borderRadius: BorderRadius.all(Radius.circular(15))
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Directionality(
                 textDirection: ref.read(settingsRiverpod).Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
                 child: Row(
@@ -743,10 +749,10 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(2.0),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            width: 8,
+            width: pageCount == 1 ? 8 : 6,
             height: pageCount == 0 ? 24 : 8,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -757,7 +763,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
         ),
         AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          width:  8,
+          width: pageCount == 0 ? 8 : 6,
           height: pageCount == 1 ? 24 : 8,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(20)),

@@ -2,6 +2,7 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
+import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -844,7 +845,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     var read = ref.read(calendarRiverpod);
     var total = read.getDateColor(days,months,years);
     return SizedBox(
-      height: size.height * 0.055, //45
+      height:  size.height * 0.055, //45
       child: AspectRatio(
         aspectRatio: 1,
         child: Container(
@@ -852,7 +853,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
           //width: size.width * 0.12,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(15)),
-            color: Theme.of(context).dividerColor,
+            color:  Theme.of(context).dividerColor ,
             border: Border.all(color: Theme.of(context).focusColor,width: 1,strokeAlign: BorderSide.strokeAlignOutside),
           ),
           child: Stack(children:[
@@ -905,6 +906,15 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
 
     var controllerDate = DateTime(year,month,day);
     bool isInRange = isDateInRange(controllerDate, startDate, endDate);
+    var today= DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+    bool checkToday(){
+      if(DateTime(year,month,day).isAtSameMomentAs(today)){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
     return SizedBox(
       height: size.height * 0.065,
       width: size.height * 0.065,
@@ -944,7 +954,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                 date > 0 ? date.toString() : "",
                 style: TextStyle(
                   color: isInRange
-                      ? Theme.of(context).canvasColor
+                      ? checkToday()==false ?Theme.of(context).canvasColor : Theme.of(context).disabledColor
                       : Theme.of(context).indicatorColor,
                   fontSize: 18,
                   fontFamily: 'Nexa3',

@@ -1882,11 +1882,25 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                               ),
                                             )),
                                           ),
-                                          const SizedBox(width: 8),
+                                          const SizedBox(width: 4),
+                                          Visibility(
+                                            visible: operationType == "Hepsi",
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(top: 2,left: 4,right: 4),
+                                              child: Container(
+                                                width: 12,
+                                                height: 12,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
+                                                    color: item[index]["operationType"]! == "Gider" ? renkler.kirmiziRenk :renkler.yesilRenk
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                           Expanded(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.only(top: 4),
+                                                  const EdgeInsets.only(top: 4,left: 2,right: 2),
                                               child: Text(
                                                 Converter().textConverterFromDB(
                                                     item[index]["category"]!,
@@ -1900,20 +1914,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                       .canvasColor,
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ),
-                                          Visibility(
-                                            visible: operationType == "Hepsi",
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 4,right: 4,top: 2),
-                                              child: Container(
-                                                width: 12,
-                                                height: 12,
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
-                                                    color: item[index]["operationType"]! == "Gider" ? renkler.kirmiziRenk :renkler.yesilRenk
-                                                ),
                                               ),
                                             ),
                                           ),
