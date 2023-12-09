@@ -923,26 +923,28 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
           onTap: () async {
             double totalAmount = await total;
             if (totalAmount == 0) {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Container(
-                      height: 40,
-                      color: const Color(0xFF0D1C26),
-                      child: Center(
-                        child: FittedBox(
-                          child: Text(
-                            translation(context).dataForTheDayNotFound,
-                            style: const TextStyle(
-                              fontFamily: 'Nexa3',
-                              fontSize: 18,
-                              color: Color(0xFFE9E9E9),
-                            ),
-                          ),
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    backgroundColor: Theme.of(context).highlightColor,
+                    duration: const Duration(milliseconds: 800),
+                    behavior: SnackBarBehavior.floating,
+                    content: Center(
+                      child: Text(
+                        translation(context).dataForTheDayNotFound,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Nexa3',
+                          fontWeight: FontWeight.w600,
+                          height: 1,
                         ),
                       ),
-                    );
-                  });
+                    ),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))
+                ),
+              );
+
             } else {
               readDailyInfo.setDate(date, month, year);
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));

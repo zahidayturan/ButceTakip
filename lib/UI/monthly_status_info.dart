@@ -1,4 +1,6 @@
+import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
@@ -53,7 +55,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
             .fold(0, (prev, amount) => prev + amount);
 
         var formattedTotal = totalIncome - totalExpenses;
-        var avarageExpenses = dailyTotals.isNotEmpty ? (totalExpenses / totalAmount2Includes).toStringAsFixed(2) : "0.00";
+        var avarageExpenses = totalAmount2Includes !=0 ? (totalExpenses / totalAmount2Includes).toStringAsFixed(2) : "0.00";
 
         double economyScore;
         if (totalIncome >= totalExpenses) {
@@ -161,7 +163,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                       Expanded(
                         flex: 4,
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 6,bottom: 8),
+                          padding: const EdgeInsets.only(right: 6,bottom: 6),
                           child: Container(
                             height: 72,
                             decoration: BoxDecoration(
@@ -185,37 +187,45 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Visibility(
-                                        visible: size.width > 320,
+                                        visible: size.width > 324,
                                         child: SizedBox(height: 16,
                                           width: 16,),
                                       ),
-                                      RichText(
-                                          text: TextSpan(children: [
-                                            TextSpan(
-                                              text:  economyScore != 10.01 ?economyScore.toStringAsFixed(1) : "",
-                                              style: TextStyle(
-                                                height: 1,
-                                                color: Theme.of(context).cardColor,
-                                                fontFamily:
-                                                "Nexa4",
-                                                fontSize: 22,
+                                            Directionality(
+                                              textDirection: TextDirection.ltr,
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    economyScore != 10.01 ?economyScore.toStringAsFixed(1) : "",
+                                                    style: TextStyle(
+                                                      height: 1,
+                                                      color: Theme.of(context).cardColor,
+                                                      fontFamily:
+                                                      "Nexa4",
+                                                      fontSize: 22,
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: size.width > 324,
+                                                    child: Text(
+                                                      economyScore != 10.01 ?"/10" : translation(context).noResult,
+                                                      style: TextStyle(
+                                                          height: 1,
+                                                          color: Theme.of(context).primaryColor,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontFamily:
+                                                          "Nexa3",
+                                                          fontSize: 16,
+                                                          overflow: TextOverflow.ellipsis
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            TextSpan(
-                                              text: economyScore != 10.01 ?"/10" : translation(context).noResult,
-                                              style: TextStyle(
-                                                height: 1,
-                                                color: Theme.of(context).primaryColor,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily:
-                                                "Nexa3",
-                                                fontSize: 16,
-                                                overflow: TextOverflow.ellipsis
-                                              ),
-                                            ),
-                                          ])),
                                       Visibility(
-                                        visible: size.width > 320,
+                                        visible: size.width > 324,
                                         child: Tooltip(
                                           message:  translation(context).monthlyIncomeExpenseScore,
                                           triggerMode: TooltipTriggerMode.tap,
@@ -281,8 +291,9 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                   ),
                   beforeMonthCompare(context,formattedTotal),
                   Padding(
-                    padding: const EdgeInsets.only(top: 8,bottom: 8),
+                    padding: const EdgeInsets.only(top: 6,bottom: 6),
                     child: InkWell(
+                      highlightColor: Theme.of(context).scaffoldBackgroundColor,
                         onTap: () {
                           if(maxTotalAmount2Date != translation(context).noSpending){
                             readHome.setDailyStatus(
@@ -297,6 +308,28 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                             readDB.setDay(maxTotalAmount2Day);
                             readDailyInfo.setDate(int.parse(maxTotalAmount2Day), int.parse(maxTotalAmount2Month), int.parse(maxTotalAmount2Year));
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
+                          }else{
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  backgroundColor: Theme.of(context).highlightColor,
+                                  duration: const Duration(seconds: 1),
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Center(
+                                    child: Text(
+                                      translation(context).dataNotFound,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontFamily: 'Nexa3',
+                                        fontWeight: FontWeight.w600,
+                                        height: 1,
+                                      ),
+                                    ),
+                                  ),
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(10)))
+                              ),
+                            );
                           }
                         },
                       child: Container(
@@ -342,6 +375,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                       ),
                     ),
                   ),
+                  mostExpensiveSpending(context),
                 ],
               ),
             ),
@@ -376,7 +410,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
         return Expanded(
           flex: 5,
           child: Padding(
-            padding: const EdgeInsets.only(left: 6,bottom: 8),
+            padding: const EdgeInsets.only(left: 6,bottom: 6),
             child: Container(
               height: 72,
               decoration: BoxDecoration(
@@ -501,7 +535,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
         item != null ? compare = formattedTotal - item : null;
         item != null ? total = item : null;
         return Padding(
-          padding: const EdgeInsets.only(top: 8,bottom: 8),
+          padding: const EdgeInsets.only(top: 6,bottom: 6),
           child: Container(
             height: 54,
             width: size.width,
@@ -534,7 +568,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                               Container(
                                 height: 36,
                                 decoration: BoxDecoration(
-                                    color: compare > 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
+                                    color: compare >= 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
                                     borderRadius: BorderRadius.all(Radius.circular(10))
                                 ),
                                 child: Center(
@@ -542,17 +576,20 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                     child: Row(
                                       children: [
-                                        Text(
-                                          compare.toStringAsFixed(2),
-                                          style: TextStyle(
-                                          height: 1,
-                                          color: renkler.arkaRenk,
-                                          fontFamily:
-                                          "Nexa4",
-                                          fontSize: 15,
-                                          ),
-                                          textDirection: TextDirection.ltr,
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 2),
+                                          child: Text(
+                                            compare.toStringAsFixed(2),
+                                            style: TextStyle(
+                                            height: 1,
+                                            color: renkler.arkaRenk,
+                                            fontFamily:
+                                            "Nexa4",
+                                            fontSize: 15,
+                                            ),
+                                            textDirection: TextDirection.ltr,
 
+                                          ),
                                         ),
                                         Text(
                                           ref.read(settingsRiverpod).prefixSymbol!,
@@ -567,31 +604,6 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                         ),
                                       ],
                                     )
-                                    /*RichText(
-                                        textDirection: TextDirection.ltr,
-                                        text: TextSpan(children: [
-                                          TextSpan(
-                                            text:  compare.toStringAsFixed(2),
-                                            style: TextStyle(
-                                              height: 1,
-                                              color: renkler.arkaRenk,
-                                              fontFamily:
-                                              "Nexa4",
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: ref.read(settingsRiverpod).prefixSymbol,
-                                            style: TextStyle(
-                                              height: 1,
-                                              color: renkler.arkaRenk,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily:
-                                              "TL",
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ])),*/
                                   ),
                                 ),
                               )
@@ -637,30 +649,6 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                         ),
                                       ],
                                     )
-                                    /*RichText(
-                                        text: TextSpan(children: [
-                                          TextSpan(
-                                            text:  total.toStringAsFixed(2),
-                                            style: TextStyle(
-                                              height: 1,
-                                              color: renkler.arkaRenk,
-                                              fontFamily:
-                                              "Nexa4",
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: ref.read(settingsRiverpod).prefixSymbol,
-                                            style: TextStyle(
-                                              height: 1,
-                                              color: renkler.arkaRenk,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily:
-                                              "TL",
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ])),*/
                                   ),
                                 ),
                               ),
@@ -701,31 +689,6 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                         ),
                                       ],
                                     )
-                                    /*RichText(
-                                        textDirection: TextDirection.ltr,
-                                        text: TextSpan(children: [
-                                          TextSpan(
-                                            text:  formattedTotal.toStringAsFixed(2),
-                                            style: TextStyle(
-                                              height: 1,
-                                              color: renkler.arkaRenk,
-                                              fontFamily:
-                                              "Nexa4",
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: ref.read(settingsRiverpod).prefixSymbol,
-                                            style: TextStyle(
-                                              height: 1,
-                                              color: renkler.arkaRenk,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily:
-                                              "TL",
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ])),*/
                                   ),
                                 ),
                               )
@@ -737,6 +700,154 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                   ],
                 ),
               ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget mostExpensiveSpending(BuildContext context) {
+    var readDB = ref.read(databaseRiverpod);
+    var size = MediaQuery.of(context).size;
+    var readSettings = ref.read(settingsRiverpod);
+    CustomColors renkler = CustomColors();
+
+    return FutureBuilder <List<SpendInfo>>(
+      future: readDB.monthlyStatusInfoForMostExpenses(ref),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<SpendInfo>> snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        var item = snapshot.data;
+        SpendInfo mostExpensiveSpending = item!.isNotEmpty ? item[0] : SpendInfo("", "", "", 0, 0.00, "", "", "", "", "", "", "", "", 0.00, "", "");
+        return Padding(
+          padding: const EdgeInsets.only(top: 6,bottom: 6),
+          child: InkWell(
+            highlightColor: Theme.of(context).scaffoldBackgroundColor,
+            onTap: () {
+              if(item.isNotEmpty){
+                var readDailyInfo = ref.read(dailyInfoRiverpod);
+                readDailyInfo.setSpendDetail([item[0]], 0);
+                showModalBottomSheet(
+                  isScrollControlled:true,
+                  context: context,
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
+                  backgroundColor:
+                  renkler.koyuuRenk,
+                  builder: (context) {
+                    //ref.watch(databaseRiverpod).updatest;
+                    // genel bilgi sekmesi açılıyor.
+                    return const SpendDetail();
+                  },
+                );
+              }else{
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Theme.of(context).highlightColor,
+                    duration: const Duration(seconds: 1),
+                    behavior: SnackBarBehavior.floating,
+                    content: Center(
+                      child: Text(
+                        translation(context).dataNotFound,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Nexa3',
+                          fontWeight: FontWeight.w600,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)))
+                  ),
+                );
+              }
+            },
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 54,
+                    //width: size.width-54,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).indicatorColor,
+                        borderRadius: BorderRadius.all(Radius.circular(15))
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Directionality(
+                        textDirection: ref.read(settingsRiverpod).Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(child: Center(child: Text(translation(context).mostExpensiveSpending,style: TextStyle(height: 1,fontSize: 15,overflow: TextOverflow.ellipsis),textAlign: TextAlign.center,maxLines: 2,))),
+                            Container(
+                              height: 36,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).scaffoldBackgroundColor,
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
+                              ),
+                              child: Center(
+                                child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 2),
+                                          child: Text(
+                                            mostExpensiveSpending.amount != 0.0 ?mostExpensiveSpending.amount.toString() : translation(context).noSpending,
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: mostExpensiveSpending.amount != 0.0 ? renkler.kirmiziRenk : Theme.of(context).canvasColor,
+                                              fontFamily:
+                                              "Nexa4",
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          ref.read(settingsRiverpod).prefixSymbol!,
+                                          style: TextStyle(
+                                            height: 1,
+                                            color: mostExpensiveSpending.amount != 0.0 ? renkler.kirmiziRenk : Theme.of(context).canvasColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily:
+                                            "TL",
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 8),
+                  child: Container(
+                    height: 36,
+                    width: 36,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).highlightColor,
+                        shape: BoxShape.circle
+                    ),
+                    child: Icon(
+                      Icons.remove_red_eye,
+                      color: Theme.of(context).unselectedWidgetColor,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         );

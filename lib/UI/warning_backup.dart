@@ -48,6 +48,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
               backgroundColor:
               const Color(0xff0D1C26),
               duration: const Duration(seconds: 1),
+              behavior: SnackBarBehavior.floating,
               content: Text(
                 translation(context).uploadedToGoogleDrive,
                 style: const TextStyle(

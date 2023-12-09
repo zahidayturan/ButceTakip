@@ -284,7 +284,6 @@ class DbProvider extends ChangeNotifier {
     itemsNext = itemsNext.where((element) => int.tryParse(element.operationDay!)! < startDay).toList();
     items.addAll(itemsNext);
     ///AYIN KAPSADIĞI TARİHLERE GÖRE ITEMLER ÇEKİLDİ
-
     var groupedItems = groupBy(
         items.where((item) => int.tryParse(item.operationDay!)! > startDay-1),
             (item) => item.operationDay);
@@ -385,6 +384,36 @@ class DbProvider extends ChangeNotifier {
     item = totalAmountIncome - totalAmountExpense;
     return item;
   }
+
+  Future<List<SpendInfo>> monthlyStatusInfoForMostExpenses(WidgetRef ref) async {
+    int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
+    DateTime startDate = DateTime(int.parse(year), int.parse(month), startDay);
+    DateTime endDate = DateTime(int.parse(year), int.parse(month)+1, startDay-1);
+    ///AYIN KAPSADIĞI TARİHLER BELİRLENDİ
+
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(startDate.month.toString() ,startDate.year.toString());
+    items = items.where((element) => int.tryParse(element.operationDay!)! > startDay-1).toList();
+    List<SpendInfo> itemsNext = await SQLHelper.getItemsByOperationMonthAndYear(endDate.month.toString() ,endDate.year.toString());
+    itemsNext = itemsNext.where((element) => int.tryParse(element.operationDay!)! < startDay).toList();
+    items.addAll(itemsNext);
+    ///AYIN KAPSADIĞI TARİHLERE GÖRE ITEMLER ÇEKİLDİ
+    var mostExpensiveSpending;
+
+    var giderItems = items.where((element) => element.operationType == "Gider").toList();
+
+    if (giderItems.isNotEmpty) {
+      mostExpensiveSpending = giderItems.reduce((a, b) => a.amount! > b.amount! ? a : b);
+    } else {
+      //print("Gider türünde öğe bulunamadı.");
+    }
+    List<SpendInfo> resultList = [];
+    mostExpensiveSpending != null ? resultList.add(mostExpensiveSpending) : null;
+    ///gider olan nesne varsa listeye en pahalısını ekler
+    ///gider yoksa boş olarak liste döndürülür
+    ///diğer tarafta null kontrolü yapılması lazım
+    return resultList;
+  }
+
   bool searchSort = false ;
   void setSearcSort(){
     searchSort = !searchSort;
