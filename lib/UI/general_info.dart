@@ -21,8 +21,8 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
     var read = ref.read(databaseRiverpod);
-    return StreamBuilder<Map<String, dynamic>>(
-        stream: readdb.myMethod(ref),
+    return FutureBuilder<Map<String, dynamic>>(
+        future: readdb.myMethod(ref),
         builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (!snapshot.hasData) {
             return const Center(

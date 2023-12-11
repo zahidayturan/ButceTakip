@@ -103,7 +103,7 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Stream <Map<String, Object>> myMethod(WidgetRef ref) async* {
+  Future <Map<String, Object>> myMethod(WidgetRef ref) async {
     int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
     DateTime startDate = DateTime(int.parse(year), int.parse(month), startDay);
     DateTime endDate = DateTime(int.parse(year), int.parse(month)+1, startDay-1);
@@ -150,7 +150,7 @@ class DbProvider extends ChangeNotifier {
     });
     dailyTotals = Map.fromEntries(sortedEntries);
     notifyListeners();
-    yield {"items" : items, "dailyTotals" : dailyTotals};
+    return {"items" : items, "dailyTotals" : dailyTotals};
   }
 
   Future <List<SpendInfo>> myMethod2() async{
@@ -271,6 +271,149 @@ class DbProvider extends ChangeNotifier {
     List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(todayNow,monthNow,yearNow);
     return items;
   }
+
+  Future<Map<String, Map<String, double>>> monthlyStatusInfo(WidgetRef ref) async {
+    int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
+    DateTime startDate = DateTime(int.parse(year), int.parse(month), startDay);
+    DateTime endDate = DateTime(int.parse(year), int.parse(month)+1, startDay-1);
+    ///AYIN KAPSADIĞI TARİHLER BELİRLENDİ
+
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(startDate.month.toString() ,startDate.year.toString());
+    items = items.where((element) => int.tryParse(element.operationDay!)! > startDay-1).toList();
+    List<SpendInfo> itemsNext = await SQLHelper.getItemsByOperationMonthAndYear(endDate.month.toString() ,endDate.year.toString());
+    itemsNext = itemsNext.where((element) => int.tryParse(element.operationDay!)! < startDay).toList();
+    items.addAll(itemsNext);
+    ///AYIN KAPSADIĞI TARİHLERE GÖRE ITEMLER ÇEKİLDİ
+    var groupedItems = groupBy(
+        items.where((item) => int.tryParse(item.operationDay!)! > startDay-1),
+            (item) => item.operationDay);
+    var groupedItems2 = groupBy(
+        itemsNext.where((item) => int.tryParse(item.operationDay!)! < startDay),
+            (item) => item.operationDay);
+    groupedItems.addAll(groupedItems2);
+    ///GÜNLERE GÖRE GRUPLANDI
+
+    var dailyTotals = <String, Map<String, double>>{};
+    groupedItems.forEach((day, dayItems) {
+      int itemLength = dayItems.length;
+      double itemsMonth = double.tryParse(dayItems.first.operationMonth!)!;
+      double itemsYear = double.tryParse(dayItems.first.operationYear!)!;
+      double totalAmount = dayItems
+          .where((element) => element.operationType == 'Gelir')
+          .fold(
+          0, (previousValue, element) => previousValue + element.realAmount!);
+      double totalAmount2 = dayItems
+          .where((element) => element.operationType == 'Gider')
+          .fold(
+          0, (previousValue, element) => previousValue + element.realAmount!);
+      dailyTotals[day!] = {
+        'totalAmount': totalAmount,
+        'totalAmount2': totalAmount2,
+        'itemsLength' : itemLength.toDouble(),
+        'itemsMonth' : itemsMonth,
+        'itemsYear' : itemsYear,
+      };
+    });
+    ///Gruplanan günlerin verileri gruplandı
+
+    return dailyTotals;
+  }
+
+  Future<List<MapEntry<String, List<double>>>> monthlyStatusInfoForCategory(WidgetRef ref) async {
+    int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
+    DateTime startDate = DateTime(int.parse(year), int.parse(month), startDay);
+    DateTime endDate = DateTime(int.parse(year), int.parse(month)+1, startDay-1);
+    ///AYIN KAPSADIĞI TARİHLER BELİRLENDİ
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(startDate.month.toString() ,startDate.year.toString());
+    items = items.where((element) => int.tryParse(element.operationDay!)! > startDay-1).toList();
+    List<SpendInfo> itemsNext = await SQLHelper.getItemsByOperationMonthAndYear(endDate.month.toString() ,endDate.year.toString());
+    itemsNext = itemsNext.where((element) => int.tryParse(element.operationDay!)! < startDay).toList();
+    items.addAll(itemsNext);
+    ///AYIN KAPSADIĞI TARİHLERE GÖRE ITEMLER ÇEKİLDİ
+    /*
+    Bütün listeyi önce giderler olarak filtrele
+    Filtrelenen listeyi kategoriye göre grupla
+    Gruplanan kategeorilerin tutarlarını ve kaç tane olduğunu ayrı ayrı topla
+    Tutara göre sırala
+     */
+    List<MapEntry<String, List<double>>> itemList = [];
+    var giderList = items.where((element) => element.operationType == "Gider").toList();
+    var groupedByCategory = groupBy(giderList, (SpendInfo item) => item.category);
+
+    var categoryAndAmount = <String, List<double>>{};
+    groupedByCategory.forEach((category, itemList) {
+      var totalAmount = itemList.fold(0.0, (sum, item) => sum + (item.amount ?? 0));
+      categoryAndAmount[category!] = [totalAmount,itemList.length.toDouble()];
+    });
+    var sortedCategoryAndAmount = categoryAndAmount.entries.toList()
+      ..sort((a, b) => b.value.first.compareTo(a.value.first));
+    if(sortedCategoryAndAmount.isNotEmpty){
+      itemList = sortedCategoryAndAmount;
+    }
+    //int categoryCount = itemList.isNotEmpty ? groupedByCategory[itemList.first.key]!.length : 0;
+
+    ///AYIN EN ÇOK HARCAMA YAPILAN KATEGORİSİ
+    return itemList;
+  }
+
+  Future<double> monthlyStatusInfoForCompare(WidgetRef ref) async {
+    int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
+    DateTime startDateBefore = DateTime(int.parse(year), int.parse(month)-1, startDay);
+
+    DateTime endDateBefore = DateTime(int.parse(year), int.parse(month), startDay-1);
+
+    List<SpendInfo> itemsBeforeMonth = await SQLHelper.getItemsByOperationMonthAndYear(startDateBefore.month.toString() ,startDateBefore.year.toString());
+    itemsBeforeMonth = itemsBeforeMonth.where((element) => int.tryParse(element.operationDay!)! > startDay-1).toList();
+    List<SpendInfo> itemsNextBeforeMonth = await SQLHelper.getItemsByOperationMonthAndYear(endDateBefore.month.toString() ,endDateBefore.year.toString());
+    itemsNextBeforeMonth = itemsNextBeforeMonth.where((element) => int.tryParse(element.operationDay!)! < startDay).toList();
+    itemsBeforeMonth.addAll(itemsNextBeforeMonth);
+
+    double totalAmountIncome = 0.0;
+    double totalAmountExpense = 0.0;
+    itemsBeforeMonth.forEach((element) {
+
+
+      if(element.operationType == "Gider"){
+        totalAmountExpense = totalAmountExpense + element.amount!.toDouble();
+      }else{
+        totalAmountIncome = totalAmountIncome + element.amount!.toDouble();
+      }
+    });
+
+    double item = 0.0;
+    item = totalAmountIncome - totalAmountExpense;
+    return item;
+  }
+
+  Future<List<SpendInfo>> monthlyStatusInfoForMostExpenses(WidgetRef ref) async {
+    int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
+    DateTime startDate = DateTime(int.parse(year), int.parse(month), startDay);
+    DateTime endDate = DateTime(int.parse(year), int.parse(month)+1, startDay-1);
+    ///AYIN KAPSADIĞI TARİHLER BELİRLENDİ
+
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(startDate.month.toString() ,startDate.year.toString());
+    items = items.where((element) => int.tryParse(element.operationDay!)! > startDay-1).toList();
+    List<SpendInfo> itemsNext = await SQLHelper.getItemsByOperationMonthAndYear(endDate.month.toString() ,endDate.year.toString());
+    itemsNext = itemsNext.where((element) => int.tryParse(element.operationDay!)! < startDay).toList();
+    items.addAll(itemsNext);
+    ///AYIN KAPSADIĞI TARİHLERE GÖRE ITEMLER ÇEKİLDİ
+    var mostExpensiveSpending;
+
+    var giderItems = items.where((element) => element.operationType == "Gider").toList();
+
+    if (giderItems.isNotEmpty) {
+      mostExpensiveSpending = giderItems.reduce((a, b) => a.amount! > b.amount! ? a : b);
+    } else {
+      //print("Gider türünde öğe bulunamadı.");
+    }
+    List<SpendInfo> resultList = [];
+    mostExpensiveSpending != null ? resultList.add(mostExpensiveSpending) : null;
+    ///gider olan nesne varsa listeye en pahalısını ekler
+    ///gider yoksa boş olarak liste döndürülür
+    ///diğer tarafta null kontrolü yapılması lazım
+    return resultList;
+  }
+
   bool searchSort = false ;
   void setSearcSort(){
     searchSort = !searchSort;

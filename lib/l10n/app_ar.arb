@@ -114,6 +114,18 @@
 
   "noActivity": "لا يوجد قيد",
 
+  "monthlyStatisticsOnlyForTurkish": "",
+  "monthlyStatisticsOnlyForEnglishAndArabic": "إحصائيات شهر",
+  "dailyAverageSpending": "متوسط مبلغ المصاريف اليومية",
+  "spendingScore": "معدل المصاريف",
+  "mostSpendingCategory": "الفئة الأكثر إنفاقًا",
+  "changeInNetSpending": "وضع التغير الصافي\nمقارنة بالشهر السابق",
+  "mostSpendingDay": "اليوم الأكثر إنفاقًا",
+  "monthlyIncomeExpenseScore": "المبالغ المحسوبة وفق معدل الدخل و المصاريف الشهرية",
+  "noSpending": "لا يوجد مصاريف",
+  "noResult": "لا يوجد بعد",
+  "mostExpensiveSpending": " أبهظ المصاريف",
+
   "both": "كلاهما",
   "income": "الدخل",
   "expenses": "المصاريف",
@@ -143,6 +155,8 @@
   "viewFullList": "اعرض القائمة بأكملها",
   "fullList": "القائمة بأكملها",
   "numberOfElementsShown": "عدد العناصر المعروضة",
+
+  "noEnoughDataForTheChart": "لا توجد بيانات كافية للمخطط",
 
   "firstDayOfTheMonth": "بداية الشهر",
   "setAsOnlyForTurkish": "",

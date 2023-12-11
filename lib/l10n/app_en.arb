@@ -114,6 +114,18 @@
 
     "noActivity": "No Activity",
 
+    "monthlyStatisticsOnlyForTurkish": "",
+    "monthlyStatisticsOnlyForEnglishAndArabic": "Statistics for",
+    "dailyAverageSpending": "Daily average spending",
+    "spendingScore": "Budget score",
+    "mostSpendingCategory": "Category with the\nmost spending",
+    "changeInNetSpending": "Change in net spendings\ncompared to the previous month",
+    "mostSpendingDay": "Day with the most spending",
+    "monthlyIncomeExpenseScore": "Score calculated based on monthly income-expense ratio",
+    "noSpending": "No spending",
+    "noResult": "No result",
+    "mostExpensiveSpending": "Most expensive spending",
+
     "both": "BOTH",
     "income": "INCOME",
     "expenses": "EXPENSES",
@@ -143,6 +155,8 @@
     "viewFullList": "View Full List",
     "fullList": "Full List",
     "numberOfElementsShown": "Number of Elements Shown",
+
+    "noEnoughDataForTheChart": "There is no enough data for the chart",
 
     "firstDayOfTheMonth": "First day of the Month",
     "setAsOnlyForTurkish": "",

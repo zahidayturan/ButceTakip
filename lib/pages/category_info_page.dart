@@ -249,10 +249,10 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
 
                    ),
                   )
-                  : const SizedBox(
+                  : SizedBox(
                     height: 40,
                     child: Center(
-                      child: Text("Grafik için yeterli veri yok"),
+                      child: Text(translation(context).noEnoughDataForTheChart),
                     ),
                   ),
                   Expanded(
@@ -591,13 +591,24 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Padding(
+                          padding: const EdgeInsets.only(left: 4,right: 4,bottom: 4),
+                          child: Container(
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: myCategory[2] == "Gider" ? renkler.kirmiziRenk :renkler.yesilRenk
+                            ),
+                          ),
+                        ),
                           Text(
                             '${Converter().textConverterFromDB(myCategory[0], context, 0)} ',
                             style: TextStyle(
                               color: renkler.yaziRenk,
                               fontFamily: "NEXA3",
                               height: 1,
-                              fontSize: 20,
+                              fontSize: 19,
                             ),
                             textAlign: TextAlign.center,
                             maxLines: 2,
@@ -609,7 +620,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                               color: renkler.yaziRenk,
                               fontFamily: "NEXA3",
                               height: 1,
-                              fontSize: 20,
+                              fontSize: 19,
                             ),
                             textAlign: TextAlign.center,
                             maxLines: 2,

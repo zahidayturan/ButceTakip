@@ -17,15 +17,17 @@ class CategoryInfoRiverpod extends ChangeNotifier {
   late int validDateMenu ;
   late int registration;
   late List<String> operationTool;
+  late String operationType;
   late DateTime? range1;
   late DateTime? range2;
-  setDateAndCategory(int day,int month,int year,int week,String category,int registration,List<String> operationTool,int validDateMenu, DateTime? range1, DateTime? range2){
+  setDateAndCategory(int day,int month,int year,int week,String category,int registration,String operationType,List<String> operationTool,int validDateMenu, DateTime? range1, DateTime? range2){
     this.day = day;
     this.month = month;
     this.year = year;
     this.week = week;
     this.category = category;
     this.registration = registration;
+    this.operationType = operationType;
     this.operationTool = operationTool;
     this.validDateMenu = validDateMenu;
     this.range1 = range1;
@@ -64,7 +66,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     if(validDateMenu ==  0){
       List<SpendInfo> items = await SQLHelper.getItemsByOperationYear(year.toString());
       List<SpendInfo> itemsCategory = items
-          .where((element) => element.category == category)
+          .where((element) => element.category == category && element.operationType == operationType)
           .toList();
 
       itemsCategory = registration == 1 ? itemsCategory.where((element) => element.registration == registration).toList() : itemsCategory;
@@ -74,7 +76,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     }
     else if(validDateMenu ==  1){
       List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month.toString(), year.toString());
-      List<SpendInfo> itemsCategory = items.where((element) => element.category == category).toList();
+      List<SpendInfo> itemsCategory = items.where((element) => element.category == category && element.operationType == operationType).toList();
 
       itemsCategory = registration == 1 ? itemsCategory.where((element) => element.registration == registration).toList() : itemsCategory;
 
@@ -95,7 +97,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
       }
       List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
       List<SpendInfo> itemsCategory = items
-          .where((element) => element.category == category)
+          .where((element) => element.category == category && element.operationType == operationType)
           .toList();
 
       itemsCategory = registration == 1 ? itemsCategory.where((element) => element.registration == registration).toList() : itemsCategory;
@@ -106,7 +108,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     else if(validDateMenu ==  3){
       List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(),month.toString(), year.toString());
       List<SpendInfo> itemsCategory = items
-          .where((element) => element.category == category)
+          .where((element) => element.category == category && element.operationType == operationType)
           .toList();
 
       itemsCategory = registration == 1 ? itemsCategory.where((element) => element.registration == registration).toList() : itemsCategory;
@@ -124,7 +126,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
       }
       List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
       List<SpendInfo> itemsCategory = items
-          .where((element) => element.category == category)
+          .where((element) => element.category == category && element.operationType == operationType)
           .toList();
 
       itemsCategory = registration == 1 ? itemsCategory.where((element) => element.registration == registration).toList() : itemsCategory;
@@ -145,7 +147,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     if(validDateMenu ==  0){
       List<SpendInfo> items = await SQLHelper.getItemsByOperationYear(year.toString());
       List<SpendInfo> itemsCategory = items
-          .where((element) => element.category == category).toList();
+          .where((element) => element.category == category && element.operationType == operationType).toList();
 
       itemsCategory = registration == 1 ? itemsCategory.where((element) => element.registration == registration).toList() : itemsCategory;
 
@@ -157,7 +159,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     else if(validDateMenu ==  1){
       List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month.toString(), year.toString());
       List<SpendInfo> itemsCategory = items
-          .where((element) => element.category == category).toList();
+          .where((element) => element.category == category && element.operationType == operationType).toList();
 
       itemsCategory = registration == 1 ? itemsCategory.where((element) => element.registration == registration).toList() : itemsCategory;
 
@@ -180,7 +182,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
       }
       List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
       List<SpendInfo> itemsCategory = items
-          .where((element) => element.category == category).toList();
+          .where((element) => element.category == category && element.operationType == operationType).toList();
 
       itemsCategory = registration == 1 ? itemsCategory.where((element) => element.registration == registration).toList() : itemsCategory;
 
@@ -192,7 +194,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     else if(validDateMenu ==  3){
       List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(),month.toString(), year.toString());
       List<SpendInfo> itemsCategory = items
-          .where((element) => element.category == category).toList();
+          .where((element) => element.category == category && element.operationType == operationType).toList();
 
       itemsCategory = registration == 1 ? itemsCategory.where((element) => element.registration == registration).toList() : itemsCategory;
 
@@ -211,7 +213,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
       }
       List<SpendInfo> items = allSpendInfo.expand((x) => x).toList();
       List<SpendInfo> itemsCategory = items
-          .where((element) => element.category == category).toList();
+          .where((element) => element.category == category && element.operationType == operationType).toList();
 
       itemsCategory = registration == 1 ? itemsCategory.where((element) => element.registration == registration).toList() : itemsCategory;
 
@@ -242,6 +244,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     List <String> categoryName = [];
     categoryName.add(category);
     categoryName.add(translation(context).categoryAppBar);
+    categoryName.add(operationType);
     return categoryName;
   }
   List<String> getDate(BuildContext context)  {

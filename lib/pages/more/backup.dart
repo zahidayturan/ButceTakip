@@ -239,6 +239,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           backgroundColor:
                                           const Color(0xff0D1C26),
                                           duration: const Duration(seconds: 1),
+                                          behavior: SnackBarBehavior.floating,
                                           content: Text(
                                             translation(context).downloadData,
                                             style: const TextStyle(
@@ -333,6 +334,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           SnackBar(
                                             backgroundColor: const Color(0xff0D1C26),
                                             duration: const Duration(seconds: 1),
+                                            behavior: SnackBarBehavior.floating,
                                             content: Text(
                                               translation(context).backupedData,
                                               style: const TextStyle(
@@ -377,6 +379,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                             backgroundColor:
                                             const Color(0xff0D1C26),
                                             duration: const Duration(seconds: 1),
+                                            behavior: SnackBarBehavior.floating,
                                             content: Text(
                                               translation(context).backupError,
                                               style: const TextStyle(
