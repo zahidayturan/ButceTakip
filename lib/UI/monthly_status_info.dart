@@ -188,42 +188,41 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                     children: [
                                       Visibility(
                                         visible: size.width > 324,
-                                        child: SizedBox(height: 16,
-                                          width: 16,),
+                                        child: SizedBox(height: 16, width: 16,),
                                       ),
-                                            Directionality(
-                                              textDirection: TextDirection.ltr,
-                                              child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.end,
-                                                children: [
-                                                  Text(
-                                                    economyScore != 10.01 ?economyScore.toStringAsFixed(1) : "",
-                                                    style: TextStyle(
-                                                      height: 1,
-                                                      color: Theme.of(context).cardColor,
-                                                      fontFamily:
-                                                      "Nexa4",
-                                                      fontSize: 22,
-                                                    ),
-                                                  ),
-                                                  Visibility(
-                                                    visible: size.width > 324,
-                                                    child: Text(
-                                                      economyScore != 10.01 ?"/10" : translation(context).noResult,
-                                                      style: TextStyle(
-                                                          height: 1,
-                                                          color: Theme.of(context).primaryColor,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontFamily:
-                                                          "Nexa3",
-                                                          fontSize: 16,
-                                                          overflow: TextOverflow.ellipsis
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                      Directionality(
+                                        textDirection: TextDirection.ltr,
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              economyScore != 10.01 ?economyScore.toStringAsFixed(1) : "",
+                                              style: TextStyle(
+                                                height: 1,
+                                                color: Theme.of(context).cardColor,
+                                                fontFamily:
+                                                "Nexa4",
+                                                fontSize: 22,
                                               ),
                                             ),
+                                            Visibility(
+                                              visible: size.width > 324,
+                                              child: Text(
+                                                economyScore != 10.01 ?"/10" : translation(context).noResult,
+                                                style: TextStyle(
+                                                    height: 1,
+                                                    color: Theme.of(context).primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily:
+                                                    "Nexa3",
+                                                    fontSize: 16,
+                                                    overflow: TextOverflow.ellipsis
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                       Visibility(
                                         visible: size.width > 324,
                                         child: Tooltip(

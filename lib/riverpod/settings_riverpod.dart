@@ -28,9 +28,12 @@ class SettingsRiverpod extends ChangeNotifier{
   bool backUpAlert = false ;
   String ?errorStatusBackup ;
   int ?adEventCounter;
+  String ?isAssistant;
+  String ?assistantLastShowDate;
 
   Future readDb() async{
     List<SettingsInfo> setting = await SQLHelper.settingsControl() ;
+
     id = setting[setting.length - 1].id ;
     Prefix = setting[setting.length - 1].prefix ;
     DarkMode = setting[setting.length - 1].darkMode;
@@ -47,6 +50,8 @@ class SettingsRiverpod extends ChangeNotifier{
     monthStartDay = setting[setting.length - 1].monthStartDay;
     dateFormat = setting[setting.length - 1].dateFormat;
     adEventCounter = setting[setting.length -1].adEventCounter;
+    isAssistant = setting[setting.length -1].isAssistant;
+    assistantLastShowDate = setting[setting.length -1].assistantLastShowDate;
 
     print("""
       id : ${setting[setting.length - 1].id}
@@ -62,7 +67,10 @@ class SettingsRiverpod extends ChangeNotifier{
       securityQu : ${setting[setting.length - 1].securityQu}
       securityClaimK(Kalan Hak) : ${setting[setting.length - 1].securityClaim}
       adCounter(Kalan Hak) : ${setting[setting.length - 1].adCounter} ----2.--> ${setting[setting.length - 1].adEventCounter}
-      tarih ve gün : ${setting[setting.length - 1].dateFormat}${setting[setting.length - 1].monthStartDay}""");
+      tarih ve gün : ${setting[setting.length - 1].dateFormat}${setting[setting.length - 1].monthStartDay}
+      isAssistant : ${setting[setting.length - 1].isAssistant}
+      assistantLastShowDate : ${setting[setting.length - 1].assistantLastShowDate}
+      """);
     notifyListeners();
   }
   Future controlSettings(BuildContext context) async{ //settings Kayıt değerlendiriyoruz.A
@@ -72,9 +80,11 @@ class SettingsRiverpod extends ChangeNotifier{
       monthStartDay = settingsReglength[0].monthStartDay;
       dateFormat = settingsReglength[0].dateFormat;
       adEventCounter = settingsReglength[0].adEventCounter;
+      isAssistant = settingsReglength[0].isAssistant;
+      assistantLastShowDate = settingsReglength[0].assistantLastShowDate;
       await readDb();
     }else{
-      final info = SettingsInfo("TRY", 0, 0, getDeviceLocaleLanguage(), 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy",5) ;
+      final info = SettingsInfo("TRY", 0, 0, getDeviceLocaleLanguage(), 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy",5, "null", "00.00.0000") ;
       await SQLHelper.addItemSetting(info);
       await readDb();
     }
@@ -85,7 +95,15 @@ class SettingsRiverpod extends ChangeNotifier{
     setisuseinsert();
     notifyListeners();
   }
-
+  void setSwitchAssistant(bool value){
+    this.isAssistant = value == true ? "Haftalık" : "null" ;
+    setisuseinsert();
+    Updating();
+  }
+  void setAssistantLastShowDate(){
+    assistantLastShowDate = DateTime.now().toString();
+    Updating();
+  }
   void reset(){
     this.securityQu = "null";
     Updating();
@@ -266,22 +284,24 @@ class SettingsRiverpod extends ChangeNotifier{
   }
   Future Updating() async {
     final info = SettingsInfo.withId(
-        id,
-        Prefix,
-        DarkMode,
-        isPassword,
-        Language,
-        isBackUp,
-        Backuptimes,
-        lastBackup,
-        Password,
-        securityQu,
-        securityClaim,
-        adCounter,
-        prefixSymbol,
-        monthStartDay,
-        dateFormat,
-      adEventCounter
+      id,
+      Prefix,
+      DarkMode,
+      isPassword,
+      Language,
+      isBackUp,
+      Backuptimes,
+      lastBackup,
+      Password,
+      securityQu,
+      securityClaim,
+      adCounter,
+      prefixSymbol,
+      monthStartDay,
+      dateFormat,
+      adEventCounter,
+      isAssistant,
+      assistantLastShowDate
     );
     await SQLHelper.updateSetting(info);
     notifyListeners();

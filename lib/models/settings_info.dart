@@ -1,20 +1,22 @@
 class SettingsInfo {
-  int ?id;
-  String ?prefix;
-  int ?darkMode;
-  int ?isPassword;
-  String ?language;
-  int ?isBackUp;
-  String ?backupTimes ;
-  String ?lastBackup ;
-  String ?password ;
-  String ?securityQu;
-  int ?securityClaim ;
-  int ?adCounter ;
-  String ?prefixSymbol;
+  int ?id;//kayıt id
+  String ?prefix;//Varsayılan paraBirimi
+  int ?darkMode;//Koyu Tema
+  int ?isPassword;//Password Var mı? 0, 1
+  String ?language;// Dil
+  int ?isBackUp;//Yedekleme Açık mı? 0, 1
+  String ?backupTimes ;//Yedekleme sıklığı
+  String ?lastBackup ;//en son yedeklenme tarihi
+  String ?password ;//Şifre alanı yoksa "null"
+  String ?securityQu; // şifremi unuttum güvenlik sorusu
+  int ?securityClaim ;//Güvenlik sorusu cevaplama hakkı
+  int ?adCounter ;//Reklam sayacı
+  String ?prefixSymbol;//para birimi sembolü
   int ?monthStartDay;
   String ?dateFormat;
   int ?adEventCounter;
+  String ?isAssistant; //Asistanım özelliği açık mı ?
+  String ?assistantLastShowDate; //Asistan son gösteilme tarihi
 
   SettingsInfo(
       this.prefix,
@@ -31,7 +33,9 @@ class SettingsInfo {
       this.prefixSymbol,
       this.monthStartDay,
       this.dateFormat,
-      this.adEventCounter
+      this.adEventCounter,
+      this.isAssistant,
+      this.assistantLastShowDate
       );
   SettingsInfo.withId(
       this.id,
@@ -49,7 +53,9 @@ class SettingsInfo {
       this.prefixSymbol,
       this.monthStartDay,
       this.dateFormat,
-      this.adEventCounter
+      this.adEventCounter,
+      this.isAssistant,
+      this.assistantLastShowDate
   );
   Map <String, dynamic> toMap(){
     var map = <String, dynamic>{};
@@ -68,6 +74,8 @@ class SettingsInfo {
     map["monthStartDay"] = monthStartDay ;
     map["dateFormat"] = dateFormat ;
     map["adEventCounter"] = adEventCounter;
+    map["isAssistant"] = isAssistant;
+    map["assistantLastShowDate"] = assistantLastShowDate;
     return map ;
   }
   SettingsInfo.fromObject(dynamic o){
@@ -87,5 +95,7 @@ class SettingsInfo {
     monthStartDay = o["monthStartDay"] as int;
     dateFormat = o["dateFormat"] ;
     adEventCounter = o["adEventCounter"] as int;
+    isAssistant = o["isAssistant"] ;
+    assistantLastShowDate = o["assistantLastShowDate"] ;
   }
 }
