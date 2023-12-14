@@ -120,7 +120,10 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
               ),
                   child: const Center(
                     child: Text(
-                      "Hesabımı Sil"
+                      "Hesabımı Sil",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

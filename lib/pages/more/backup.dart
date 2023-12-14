@@ -478,75 +478,78 @@ class _BackUpState extends ConsumerState<BackUp> {
                                   ),
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  GestureDetector(
-                                    onTap: (){
-                                      /*readSetting.setLastBackup(a : true);*/
-                                      Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          transitionDuration: const Duration(milliseconds: 1),
-                                          pageBuilder: (context, animation, nextanim) => const HelpBackup(),
-                                          reverseTransitionDuration: const Duration(milliseconds: 1),
-                                          transitionsBuilder: (context, animation, nexttanim, child) {
-                                            return FadeTransition(
-                                              opacity: animation,
-                                              child: child,
-                                            );
-                                          },
-                                        ),
-                                      );
-                                      /*
-                                      readGglAuth.refreshPage();
-                                      print("çektim geriye.");*/
-                                    },
-                                    child: Container(
-                                      width : 25,
-                                      height : 25,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Theme.of(context).scaffoldBackgroundColor,
-                                        border: Border.all(
-                                            color: Theme.of(context).canvasColor,
-                                            width: 1
-                                        ),
-                                      ),
-                                      child: Icon(
-                                        Icons.question_mark,
-                                        size: 18,
-                                        color: Theme.of(context).canvasColor,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top : 15.0),
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        showModalBottomSheet(
-                                          context: context,
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.vertical(
-                                                  top: Radius.circular(25))),
-                                          backgroundColor:
-                                          const Color(0xff0D1C26),
-                                          builder: (context) {
-                                            // genel bilgi sekmesi açılıyor.
-                                            return CheckUserDelete();
-                                          },
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: (){
+                                        /*readSetting.setLastBackup(a : true);*/
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            transitionDuration: const Duration(milliseconds: 1),
+                                            pageBuilder: (context, animation, nextanim) => const HelpBackup(),
+                                            reverseTransitionDuration: const Duration(milliseconds: 1),
+                                            transitionsBuilder: (context, animation, nexttanim, child) {
+                                              return FadeTransition(
+                                                opacity: animation,
+                                                child: child,
+                                              );
+                                            },
+                                          ),
                                         );
+                                        /*
+                                        readGglAuth.refreshPage();
+                                        print("çektim geriye.");*/
                                       },
-                                      child: Text(
-                                        "Verilerimi Sil",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Theme.of(context).canvasColor
+                                      child: Container(
+                                        width : 25,
+                                        height : 25,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Theme.of(context).scaffoldBackgroundColor,
+                                          border: Border.all(
+                                              color: Theme.of(context).canvasColor,
+                                              width: 1
+                                          ),
+                                        ),
+                                        child: Icon(
+                                          Icons.question_mark,
+                                          size: 18,
+                                          color: Theme.of(context).canvasColor,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(top : 15.0),
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          showModalBottomSheet(
+                                            context: context,
+                                            shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.vertical(
+                                                    top: Radius.circular(25))),
+                                            backgroundColor:
+                                            const Color(0xff0D1C26),
+                                            builder: (context) {
+                                              // genel bilgi sekmesi açılıyor.
+                                              return CheckUserDelete();
+                                            },
+                                          );
+                                        },
+                                        child: Text(
+                                          "Verilerimi Sil",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Theme.of(context).canvasColor
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           )

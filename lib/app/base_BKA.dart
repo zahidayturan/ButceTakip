@@ -1,5 +1,6 @@
 import 'package:butcekontrol/UI/app_status.dart';
 import 'package:butcekontrol/UI/introduction_page.dart';
+import 'package:butcekontrol/UI/my_assistant.dart';
 import 'package:butcekontrol/app/information_app.dart';
 import 'package:butcekontrol/classes/nav_bar.dart';
 import 'package:butcekontrol/utils/notification_service.dart';
@@ -97,6 +98,25 @@ class _base_BKAState extends ConsumerState<base_BKA> {
         readUpdateData.customizeInstallmentOperation(ref).then((value) => readHome.setStatus());
       }); // Güncel kur database sorgusunu gerçekleştirir
 
+      var tarih2 = readSetting.assistantLastShowDate!.split(" ")[0].split(".");
+      print("Tarih = > ${readSetting.assistantLastShowDate}");
+      if(readSetting.isAssistant != "null" && DateTime.now().difference(DateTime(int.parse(tarih2[2]), int.parse(tarih2[1]), int.parse(tarih2[0]))).inDays >= 7){
+        Navigator.push(context, PageRouteBuilder(
+            opaque: false, //sayfa saydam olması için
+            transitionDuration: const Duration(milliseconds: 1),
+            pageBuilder: (context, animation, nextanim) => const myAssistant(),
+            reverseTransitionDuration: const Duration(milliseconds: 1),
+            transitionsBuilder: (context, animation, nexttanim, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+          ),
+        );
+      }else if (readSetting.isAssistant == null){
+        print("asistan için emulator yavas kaldı.");
+      }
       if(widget.appInfo!["appInfoString"] != securityFile().noBackup){
         if(readSetting.isBackUp == 1){ //yedekleme açık mı?
           int counter = 2 ;

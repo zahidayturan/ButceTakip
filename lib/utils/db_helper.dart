@@ -41,7 +41,9 @@ class SQLHelper {
       prefixSymbol TEXT DEFAULT ' ₺',
       monthStartDay INTEGER DEFAULT 1,
       dateFormat TEXT DEFAULT 'dd.MM.yyyy',
-      adEventCounter INTEGER DEFAULT 5
+      adEventCounter INTEGER DEFAULT 5,
+      isAssistant TEXT DEFAULT 'null',
+      assistantLastShowDate TEXT DEFAULT "00.00.0000"
       )
       """);
   }
@@ -72,7 +74,7 @@ class SQLHelper {
   static Future<sql.Database> db() async {
     return sql.openDatabase(
       'bt.db',
-      version: 2,
+      version: 3,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
         await createSettingTable(database);
@@ -80,14 +82,8 @@ class SQLHelper {
       },
       onUpgrade: (sql.Database database, int oldVersion, int  newVersion) {
         if (newVersion > oldVersion) {
-          createCurrnecyTable(database);
-          database.execute("ALTER TABLE spendinfo ADD COLUMN realAmount REAL DEFAULT 0");
-          database.execute("ALTER TABLE spendinfo ADD COLUMN userCategory TEXT DEFAULT '' ");
-          database.execute("ALTER TABLE spendinfo ADD COLUMN systemMessage TEXT DEFAULT '' ");
-          database.execute("ALTER TABLE setting ADD COLUMN prefixSymbol TEXT DEFAULT ' ₺' ");
-          database.execute("ALTER TABLE setting ADD COLUMN monthStartDay INTEGER DEFAULT 1 ");
-          database.execute("ALTER TABLE setting ADD COLUMN dateFormat TEXT DEFAULT 'dd.MM.yyyy' ");
-          database.execute("ALTER TABLE setting ADD COLUMN adEventCounter INTEGER DEFAULT 5 ");
+          database.execute("ALTER TABLE setting ADD COLUMN isAssistant TEXT DEFAULT null");
+          database.execute("ALTER TABLE setting ADD COLUMN assistantLastShowDate TEXT DEFAULT 00.00.0000");
         }
       },
     );
@@ -293,7 +289,13 @@ class SQLHelper {
       return SpendInfo.fromObject(result[index]);
     });
   }
-
+  static Future<List<SpendInfo>> SQLEntry(String SQL) async {
+    final db = await SQLHelper.db();
+    var result = await db.rawQuery(SQL);
+    return List.generate(result.length,(index) {
+      return SpendInfo.fromObject(result[index]);
+    });
+  }
   static Future<List<SpendInfo>> getLastOperation(int itemCount) async {
     final db = await SQLHelper.db();
     var result = await db.query(

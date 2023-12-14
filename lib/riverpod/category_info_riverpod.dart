@@ -14,7 +14,7 @@ class CategoryInfoRiverpod extends ChangeNotifier {
   late int year ;
   late int week ;
   late String category ;
-  late int validDateMenu ;
+  late int validDateMenu;
   late int registration;
   late List<String> operationTool;
   late String operationType;
@@ -52,7 +52,10 @@ class CategoryInfoRiverpod extends ChangeNotifier {
     return months[monthIndex];
   }
 
-  Future <List<SpendInfo>> myMethod2() async{
+  Future <List<SpendInfo>> myMethod2({String? key}) async{
+    if(key != null){
+      validDateMenu = 1;
+    }
     String operationTool1 = operationTool.length == 1 ? operationTool[0] : operationTool[0] ;
     String operationTool2 = operationTool.length == 2 ? operationTool[1] : operationTool[0] ;
 

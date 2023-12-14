@@ -1800,21 +1800,21 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                 Expanded(
                   child: Theme(
                     data: Theme.of(context).copyWith(
-                        scrollbarTheme: ScrollbarThemeData(
-                            thumbColor: MaterialStateProperty.all(
-                      Theme.of(context).dialogBackgroundColor,
-                    ))),
+                      scrollbarTheme: ScrollbarThemeData(
+                        thumbColor: MaterialStateProperty.all(
+                          Theme.of(context).dialogBackgroundColor,
+                          )
+                        )
+                      ),
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: item.length + 1,
                       itemBuilder: (BuildContext context, int index) {
                         return index != item.length
                             ? Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 8, right: 10, left: 10),
+                                padding: const EdgeInsets.only(bottom: 8, right: 10, left: 10),
                                 child: InkWell(
-                                  highlightColor:
-                                      Theme.of(context).primaryColor,
+                                  highlightColor: Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(20),
                                   onTap: () {
                                     year = selectedValueYear != null
@@ -1842,11 +1842,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                         dateType,
                                         firstDate,
                                         secondDate);
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const CategoryInfo(),
-                                    ));
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CategoryInfo(),));
                                   },
                                   child: SizedBox(
                                     height: 40,
