@@ -46,7 +46,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                   },
                   child: FittedBox(
                     child: Container( //boyut
-                      width: 310,
+                      width: 330,
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       decoration: BoxDecoration(
                         color: Theme.of(context).scaffoldBackgroundColor,

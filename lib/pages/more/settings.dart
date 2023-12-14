@@ -92,7 +92,7 @@ class _SettingsState extends ConsumerState<Settings> {
     var darkMode = readSetting.DarkMode;
     bool isPassword = readSetting.isPassword == 1 ? true : false;
     bool isBackup = readSetting.isBackUp == 1 ? true : false;
-    switch1 = readSetting.isAssistant == "null" ? true : false; //null olduğunda true dönmesini istiyorum.
+    switch1 = readSetting.isAssistant == "null" ? false : true; //null olduğunda true dönmesini istiyorum.
     String language = readSetting.Language! == "Turkce" ? "Türkçe" : readSetting.Language!;
     int monthStartDay = readSetting.monthStartDay!;
     String dateFormat = readSetting.dateFormat == "dd.MM.yyyy"
@@ -1514,9 +1514,9 @@ class _SettingsState extends ConsumerState<Settings> {
                             },
                             child: Icon(Icons.open_in_browser)
                           ),
-                          Text(
-                            switch1.toString()
-                          ),
+                          SizedBox(width: 10,),
+                          Text(switch1! ? "Açık" : "Kapalı"),
+                          SizedBox(width: 10,),
                           Container(
                             height: 26,
                             decoration: BoxDecoration(
@@ -1526,6 +1526,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                 borderRadius:
                                 const BorderRadius.all(Radius.circular(10))),
                             child: Switch(
+                              activeColor: Theme.of(context).disabledColor,
                               value: readSetting.isAssistant != "null" ? true : false,
                               onChanged: (value) {
                                 readSetting.setSwitchAssistant(value);
@@ -1592,9 +1593,6 @@ class _SettingsState extends ConsumerState<Settings> {
                             ),
                           ),
                           const Spacer(),
-
-
-
                         ],
                       ),
                     ),

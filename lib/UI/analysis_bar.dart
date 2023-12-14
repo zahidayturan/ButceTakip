@@ -20,6 +20,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
   Widget build(BuildContext context) {
     var readSettings = ref.read(settingsRiverpod);
     var readdb = ref.read(databaseRiverpod);
+    readdb.setMonthandYear(DateTime.now().month.toString(), DateTime.now().year.toString());
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
     return FutureBuilder<Map<String, dynamic>>(
@@ -286,7 +287,9 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
                           var data = snapshot.data;
                           return analysisData(ref, items, data);
                         }else{
-                          return CircularProgressIndicator();
+                          return SizedBox(
+                            height: 250,
+                          );
                         }
                       },
                     ),
@@ -311,6 +314,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
   }
   Widget analysisData(WidgetRef ref, var items, List<SpendInfo>? data) {
     var readdb = ref.read(databaseRiverpod);
+    var settingRead = ref.read(settingsRiverpod);
     double income = double.parse(readdb.getTotalAmountPositive(items)[0]); //Aylık Gelir
     double expensive = double.parse(readdb.getTotalAmountNegative(items)[0]); //Aylık Gider
     double total = double.parse(readdb.getTotalAmount(items)[0]); //Aylık Toplam fark
@@ -321,20 +325,24 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
     double dailySpend = (total / (foundMaxdayinMoth() - dateTime.day)) ; //Ayın kalanında harcanması gereken günlük miktar.
     double assetTotal = getAssetsApi(ref, data); //Varlıklarımdan veri çekiyor.
     double montlyincome =  income / foundMaxdayinMoth(); //Aylık normal geliri ile harcaması gereken tutar.
-    //var a = SQLHelper.SQLEntry("SELECT * FROM spendinfo WHERE operationType == 'Gelir' AND (category == Burs OR category == Maaş)");
+    double percentPeriod = expensive * 100 / income ; // Aylık gelirinin yüzdesel harcamasını veriyor.
+    int remainderDay = foundMaxdayinMoth() - DateTime.now().day ; // Ay bitimine kalan günü verir.
+
     if(total > 0){
       message += "Aylık Gelir Gider durumunuzunun + bakiyede olduğunu görebiliyorum. " ;
       if(dailySpend >= montlyincome *.5 && dailySpend < montlyincome){
-        message += "";
+        message += "Böyle Devam ";
       }else if (dailySpend > montlyincome && dailySpend <= montlyincome * 1.4){
         message += "Gayet Güzel bir oran var. ";
       }else if (dailySpend > montlyincome * 1.4){
         message += "Harika ! 🎉🥳🎉";
       }else if(dailySpend < montlyincome * .5){
-        message += "Biraz bütçenizi idareli harcamanızı öneririz.🙄.";
+        message += "Biraz bütçenizi idareli harcamanızı öneririz 🙄. ";
       }else{
         message += "error no found statement";
       }
+      message += "Aylık Gelirinizin %${percentPeriod.toStringAsFixed(0)}' ini harcamışsınız. ";
+      message += "Ay bitimine $remainderDay gün kaldı. ";
       message += "Ay sonuna ortalama günlük ${dailySpend.toStringAsFixed(2)} ${ref.read(settingsRiverpod).Prefix} harcayarak ulaşabilirsiniz. ";
     }else if(total == 0 ){
       message += "Aylık Gelir ve Gider durumunuz eşit. ";
@@ -355,7 +363,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
       message += "\n\nVarlıklarım Sayfasında toplam ${assetTotal.toStringAsFixed(2)} ${ref.read(settingsRiverpod).Prefix} paranız bulunmaktadır. ";
     }
     if(ref.read(settingsRiverpod).assistantLastShowDate != null){
-      message += "\n\nSon Gösterilme tarihi => ${ref.read(settingsRiverpod).assistantLastShowDate.toString().split(" "[0])}";
+      message += "\n\nSon Gösterilme tarihi => ${ref.read(settingsRiverpod).assistantLastShowDate.toString().split(" ")[0]}";
     }
 
     return Column(
@@ -371,6 +379,154 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
             ),
             textAlign: TextAlign.justify,
           ),
+        ),
+        income == 0
+        ?SizedBox(width: 1)
+        :Column(
+          children: [
+            SizedBox(
+              height: 70,
+              child: Column(
+                children: [
+                  Text(
+                      "Bu aydaki Gelir Tipindeki işlemler",
+                    style: const TextStyle(
+                      fontFamily: "Nexa3",
+                      fontSize: 12,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Expanded(
+                    child: FutureBuilder(
+                      future: SQLHelper.SQLEntry('SELECT * FROM spendinfo WHERE (operationType == "Gelir" AND operationMonth == ${DateTime.now().month})'),
+                      builder: (context, snapshot) {
+                        if(snapshot.hasData){
+                          List<SpendInfo>? data = snapshot.data;
+                          return ListView.builder(
+                            itemCount: data!.length,
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+
+                                },
+                                child: Container(
+                                  width: 170,
+                                  margin: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: settingRead.DarkMode == 1 ? [
+                                      BoxShadow(
+                                        color: Colors.black54.withOpacity(0.8),
+                                        spreadRadius: 1,
+                                        blurRadius: 2,
+                                        offset: const Offset(-1, 2),
+                                      )
+                                    ] : [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 0.5,
+                                          blurRadius: 2,
+                                          offset: const Offset(0, 2)
+                                      )
+                                    ],
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width : 6,
+                                        height: 17,
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xFF1A8E58),
+                                          borderRadius: BorderRadius.horizontal(right: Radius.circular(11)),
+                                        ),
+                                      ),
+                                      Column(
+                                        children: [
+                                          Expanded(
+                                            child: SizedBox(
+                                              width : 160,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    data[index].operationDate.toString(),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                      fontFamily: "Nexa3",
+                                                      fontSize: 13,
+                                                    ),
+                                                  ),
+                                                  RichText(
+                                                    maxLines: 1,
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text:  data[index].realAmount.toString(),
+                                                          style: TextStyle(
+                                                            overflow: TextOverflow.ellipsis,
+                                                            height: 1,
+                                                            fontSize: 13,
+                                                            color: Theme.of(context).canvasColor,
+                                                            fontFamily: "Nexa3",
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text: settingRead.prefixSymbol,
+                                                          style: TextStyle(
+                                                            overflow: TextOverflow.ellipsis,
+                                                            height: 1,
+                                                            fontSize: 13,
+                                                            color: Theme.of(context).canvasColor,
+                                                            fontFamily: "TL",
+                                                          ),
+                                                        ),
+                                                      ]
+                                                    )
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ),
+                                          Expanded(
+                                            child: SizedBox(
+                                              width : 120,
+                                              child: Text(
+                                                data[index].note.toString(),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style:const TextStyle(
+                                                  fontFamily: "Nexa3",
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }else{
+                          return Container(
+                            height: 70,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
+          ],
         ),
         assetTotal <= 0
         ?GestureDetector(
@@ -389,7 +545,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
               },
             ),
             );
-            ref.read(settingsRiverpod).setAssistantLastShowDate;
+            settingRead.setAssistantLastShowDate;
           },
           child: Container(
             padding: EdgeInsets.all(8),
@@ -410,7 +566,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
         :GestureDetector(
           onTap: () {
             Navigator.of(context).pop();
-            ref.read(settingsRiverpod).setAssistantLastShowDate;
+            settingRead.setAssistantLastShowDate;
           },
           child: Container(
             padding: EdgeInsets.all(8),
@@ -431,6 +587,4 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
       ],
     );
   }
-
-
 }
