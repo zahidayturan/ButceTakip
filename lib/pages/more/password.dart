@@ -552,6 +552,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 backgroundColor:
                                 Theme.of(context).highlightColor,
                                 duration: const Duration(seconds: 1),
+                                behavior: SnackBarBehavior.floating,
                                 content: Text(
                                   translation(context).passwordCreated,
                                   style: const TextStyle(

@@ -383,7 +383,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             width: pageCount == 0 ? 24 : 12,
-            height: 12,
+            height: pageCount == 1 ? 12 : 10,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 color: pageCount == 0
@@ -394,7 +394,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
         AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           width: pageCount == 1 ? 24 : 12,
-          height: 12,
+          height: pageCount == 0 ? 12 : 10,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
               color: pageCount == 1

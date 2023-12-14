@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constans/text_pref.dart';
 import 'package:butcekontrol/classes/language.dart';
-import 'package:intl/intl.dart' as intl;
 
 class Aylikinfo extends ConsumerStatefulWidget {
   const Aylikinfo({Key? key}) : super(key: key);
