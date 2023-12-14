@@ -280,6 +280,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 10,),
                     FutureBuilder(
                       future: SQLHelper.getItems(),
                       builder: (context, snapshot) {

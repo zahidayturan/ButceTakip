@@ -82,7 +82,7 @@ class SQLHelper {
       },
       onUpgrade: (sql.Database database, int oldVersion, int  newVersion) {
         if (newVersion > oldVersion) {
-          database.execute("ALTER TABLE setting ADD COLUMN isAssistant TEXT DEFAULT null");
+          database.execute("ALTER TABLE setting ADD COLUMN isAssistant TEXT DEFAULT Haftalık");
           database.execute("ALTER TABLE setting ADD COLUMN assistantLastShowDate TEXT DEFAULT 00.00.0000");
         }
       },

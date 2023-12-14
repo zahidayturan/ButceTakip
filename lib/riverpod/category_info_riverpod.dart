@@ -53,8 +53,8 @@ class CategoryInfoRiverpod extends ChangeNotifier {
   }
 
   Future <List<SpendInfo>> myMethod2({String? key}) async{
-    if(key != null){
-      validDateMenu = 1;
+    if(key == "a"){
+      this.validDateMenu = 1;
     }
     String operationTool1 = operationTool.length == 1 ? operationTool[0] : operationTool[0] ;
     String operationTool2 = operationTool.length == 2 ? operationTool[1] : operationTool[0] ;

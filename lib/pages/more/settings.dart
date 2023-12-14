@@ -92,7 +92,7 @@ class _SettingsState extends ConsumerState<Settings> {
     var darkMode = readSetting.DarkMode;
     bool isPassword = readSetting.isPassword == 1 ? true : false;
     bool isBackup = readSetting.isBackUp == 1 ? true : false;
-    switch1 = readSetting.isAssistant == "null" ? false : true; //null olduğunda true dönmesini istiyorum.
+    switch1 = readSetting.isAssistant != "null" ? true : false; //nulldan farklı olduğunda true dönmesini istiyorum.
     String language = readSetting.Language! == "Turkce" ? "Türkçe" : readSetting.Language!;
     int monthStartDay = readSetting.monthStartDay!;
     String dateFormat = readSetting.dateFormat == "dd.MM.yyyy"

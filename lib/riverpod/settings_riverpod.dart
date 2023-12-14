@@ -96,7 +96,7 @@ class SettingsRiverpod extends ChangeNotifier{
     notifyListeners();
   }
   void setSwitchAssistant(bool value){
-    this.isAssistant = value == true ? "Haftalık" : "null" ;
+    this.isAssistant = (value == true ? "Haftalık" : "null" );
     setisuseinsert();
     Updating();
   }
