@@ -19,9 +19,7 @@ class DbProvider extends ChangeNotifier {
   String ?day ;
   String ?operationType;
 
-
   void setStatus(String status){
-    this.status = status ;
     notifyListeners();
   }
 
@@ -102,7 +100,48 @@ class DbProvider extends ChangeNotifier {
     refreshDB();
     notifyListeners();
   }
+  int foundMaxdayinMoth (){ //ayın kaç gün olduğunu buluyor.
+    DateTime now = DateTime.now();
+    DateTime firstDayOfNextMonth = DateTime(now.year, now.month + 1, 1);
+    DateTime lastDayOfMonth = firstDayOfNextMonth.subtract(Duration(days: 1));
+    return lastDayOfMonth.day;
+  }
 
+  Future<List<double>> monthlyAssetChange(WidgetRef ref, double FirstTotalAsset) async { // önceki 30 günü karşılaştıran bir method
+    int nowYear = DateTime.now().year;
+    int nowMonth = DateTime.now().month;
+    double mytotalAsset = FirstTotalAsset;
+    int ?nowDay ;
+    List<double> totalList =<double> [];
+    for(int i = 0 ; i < 30 ; i++){
+      nowDay = DateTime.now().day - i;
+      if (nowDay <= 0){
+        if(nowMonth <= 0){
+          nowMonth = 11 ;
+        }else{
+          nowMonth -= 1;
+        }
+        nowDay = DateTime(nowYear, nowMonth, 1).subtract(Duration(days: 1)).day;
+      }
+      List<SpendInfo> dailyListTotal = await SQLHelper.SQLEntry(
+        "SELECT * FROM spendinfo WHERE "
+            "operationYear == '$nowYear' AND "
+            "operationMonth == '$nowMonth' AND "
+            "operationDay == '$nowDay'"
+      );
+      if(dailyListTotal == null){
+        continue;
+      }else {
+        double incomeTotal = dailyListTotal.where((element) => element.operationType == 'Gelir').fold(0, (previousValue, element) => previousValue + element.realAmount!);
+        double expenseTotal = dailyListTotal.where((element) => element.operationType == 'Gider').fold(0, (previousValue, element) => previousValue + element.realAmount!);
+        double difference = incomeTotal - expenseTotal;
+        mytotalAsset -= difference;
+        print("$i == $nowDay.$nowMonth.$nowYear >> $difference  >> ASSET = $mytotalAsset");
+        totalList.add(mytotalAsset);
+      }
+    }
+    return totalList.reversed.toList();
+  }
   Future <Map<String, Object>> myMethod(WidgetRef ref) async {
     int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
     DateTime startDate = DateTime(int.parse(year), int.parse(month), startDay);
@@ -173,7 +212,7 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
     return items ;
   }
-  String getTotalAmountByKart(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
+  String getTotalAmountByKart(List<SpendInfo> items) {//Bütün Kart Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationTool == 'Kart')
         .where((element) => element.operationType == 'Gelir')
@@ -185,7 +224,7 @@ class DbProvider extends ChangeNotifier {
     return (totalAmount - totalAmount2).toStringAsFixed(1);
   }
 
-  String getTotalAmountByNakit(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
+  String getTotalAmountByNakit(List<SpendInfo> items) {//Bütün Nakit Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationTool == 'Nakit')
         .where((element) => element.operationType == 'Gelir')
@@ -197,7 +236,7 @@ class DbProvider extends ChangeNotifier {
     return (totalAmount - totalAmount2).toStringAsFixed(1);
   }
 
-  String getTotalAmountByDiger(List<SpendInfo> items) {//Bütün net Bütçe Gösteriliyor.
+  String getTotalAmountByDiger(List<SpendInfo> items) {//Bütün Diğer Bütçe Gösteriliyor.
     double totalAmount = items
         .where((element) => element.operationTool == 'Diger')
         .where((element) => element.operationType == 'Gelir')
