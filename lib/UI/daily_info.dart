@@ -163,17 +163,20 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                 ],
                               ),
                             ),
-                          ) :SizedBox(
-                            height: 184,
-                            child: ListView.builder(
-                                controller: scroolBarController2,
-                                itemCount: snapshot.data!.length,
-                                physics: const BouncingScrollPhysics(),
-                                itemBuilder:
-                                    (BuildContext context, index) {
-                                  SpendInfo item = snapshot.data![index];
-                                  return RowStyleCreateBox(context, item);
-                                }),
+                          ) :Padding(
+                            padding: const EdgeInsets.only(top: 4),
+                            child: SizedBox(
+                              height: 184,
+                              child: ListView.builder(
+                                  controller: scroolBarController2,
+                                  itemCount: snapshot.data!.length,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemBuilder:
+                                      (BuildContext context, index) {
+                                    SpendInfo item = snapshot.data![index];
+                                    return RowStyleCreateBox(context, item);
+                                  }),
+                            ),
                           );
                         },
                       ),
