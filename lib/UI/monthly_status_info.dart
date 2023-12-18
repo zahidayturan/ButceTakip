@@ -262,8 +262,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                     children: [
                                       Visibility(
                                         visible: size.width > 324,
-                                        child: SizedBox(height: 16,
-                                          width: 16,),
+                                        child: SizedBox(height: 16, width: 16,),
                                       ),
                                             Directionality(
                                               textDirection: TextDirection.ltr,
@@ -296,6 +295,24 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                                 ],
                                               ),
                                             ),
+                                            Visibility(
+                                              visible: size.width > 324,
+                                              child: Text(
+                                                economyScore != 10.01 ?"/10" : translation(context).noResult,
+                                                style: TextStyle(
+                                                    height: 1,
+                                                    color: Theme.of(context).primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily:
+                                                    "Nexa3",
+                                                    fontSize: 16,
+                                                    overflow: TextOverflow.ellipsis
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                       Visibility(
                                         visible: size.width > 324,
                                         child: Tooltip(
