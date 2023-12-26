@@ -374,9 +374,9 @@ class DbProvider extends ChangeNotifier {
 
 
       if(element.operationType == "Gider"){
-        totalAmountExpense = totalAmountExpense + element.amount!.toDouble();
+        totalAmountExpense = totalAmountExpense + element.realAmount!.toDouble();
       }else{
-        totalAmountIncome = totalAmountIncome + element.amount!.toDouble();
+        totalAmountIncome = totalAmountIncome + element.realAmount!.toDouble();
       }
     });
 
@@ -402,7 +402,7 @@ class DbProvider extends ChangeNotifier {
     var giderItems = items.where((element) => element.operationType == "Gider").toList();
 
     if (giderItems.isNotEmpty) {
-      mostExpensiveSpending = giderItems.reduce((a, b) => a.amount! > b.amount! ? a : b);
+      mostExpensiveSpending = giderItems.reduce((a, b) => a.realAmount! > b.realAmount! ? a : b);
     } else {
       //print("Gider türünde öğe bulunamadı.");
     }
