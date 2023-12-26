@@ -661,11 +661,6 @@
 
   "update1" : "Bütçe Takip güncellendi!",
   "update2" : "Lütfen uygulamayı mağazadan güncelleyin",
-  "update3" : "Güncellemek için dokunun",
-
-  "downloadedData" : "verileriniz indirildi.",
-  "backupedData" : "verileriniz yedeklendi",
-
-  "close" : "Kapat"
+  "update3" : "Güncellemek için dokunun"
 }
 

@@ -660,11 +660,5 @@
 
     "update1" : "Budget Wise updated!",
     "update2" : "Please update the application from the store",
-    "update3" : "Tap to update",
-
-    "downloadedData" : "Your data downloaded",
-    "backupedData" : "Your data is backed up",
-
-    "close" : "Close"
-
+    "update3" : "Tap to update"
 }

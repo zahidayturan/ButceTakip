@@ -660,11 +660,5 @@
 
   "update1" : "تم تحديث متابعة الميزانية",
   "update2" : "يرجى تحديث التطبيق من المتجر",
-  "update3" : "انقر للتحديث",
-
-  "downloadedData" : "Your data downloaded",
-  "backupedData" : "Your data is backed up",
-
-  "close" : "أغلق"
-
+  "update3" : "انقر للتحديث"
 }

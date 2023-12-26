@@ -241,7 +241,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           duration: const Duration(seconds: 1),
                                           behavior: SnackBarBehavior.floating,
                                           content: Text(
-                                            translation(context).downloadData,
+                                            translation(context).yourDataHasBeenRestored,
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -336,7 +336,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                             duration: const Duration(seconds: 1),
                                             behavior: SnackBarBehavior.floating,
                                             content: Text(
-                                              translation(context).backupedData,
+                                              translation(context).yourDataIsBackedUp,
                                               style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
