@@ -1,3 +1,4 @@
+import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/models/spend_info.dart';
@@ -280,6 +281,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 10,),
                     FutureBuilder(
                       future: SQLHelper.getItems(),
                       builder: (context, snapshot) {
@@ -388,14 +390,14 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
               height: 70,
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                       "Bu aydaki Gelir Tipindeki işlemler",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Nexa3",
                       fontSize: 12,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Expanded(
                     child: FutureBuilder(
                       future: SQLHelper.SQLEntry('SELECT * FROM spendinfo WHERE (operationType == "Gelir" AND operationMonth == ${DateTime.now().month})'),
@@ -407,9 +409,24 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
                             scrollDirection: Axis.horizontal,
                             physics: const BouncingScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
+                                  if(data[index].operationDay != "null"){
+                                    ref.read(dailyInfoRiverpod).setSpendDetail([data[index]], 0);
+                                    showModalBottomSheet(
+                                      isScrollControlled:true,
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
+                                      backgroundColor:  CustomColors().koyuuRenk,
+                                      builder: (context) {
+                                        //ref.watch(databaseRiverpod).updatest;
+                                        // genel bilgi sekmesi açılıyor.
+                                        return const SpendDetail();
+                                      },
+                                    );
+                                  }else{
 
+                                  }
                                 },
                                 child: Container(
                                   width: 170,

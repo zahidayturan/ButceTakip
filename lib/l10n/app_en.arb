@@ -429,11 +429,14 @@
     "github": "Github:  ",
     "developers": "DEVELOPERS",
 
-    "goodMorning": "Good morning! We hope you're doing well",
-    "goodDay": "Have a nice day! We hope you're doing well",
-    "goodEvening": "Good evening! We hope you're doing well",
-    "goodNight": "Goodnight! We hope you're doing well",
+    "goodMorning": "Good morning!",
+    "goodDay": "Have a nice day!",
+    "goodEvening": "Good evening!",
+    "goodNight": "Goodnight!",
+    "hopeGood" : "We hope you're doing well",
 
+
+    "totalAssets" : "TOTAL ASSET",
     "total": "TOTAL",
     "past": "Past",
     "myPastAssetRecords": "MY PAST ASSET RECORDS",

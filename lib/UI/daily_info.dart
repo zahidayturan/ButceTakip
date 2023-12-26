@@ -36,11 +36,9 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
     String formattedDate = intl.DateFormat(dateFormat).format(now)  ;
     var readDB = ref.read(databaseRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
-    var size = MediaQuery.of(context).size;
     var readNavBar = ref.read(botomNavBarRiverpod);
     var readCalendar = ref.read(calendarRiverpod);
     var readSetting = ref.read(settingsRiverpod);
-    var darkMode = readSetting.DarkMode;
     CustomColors renkler = CustomColors();
     return Center(
       child: SizedBox(

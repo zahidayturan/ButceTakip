@@ -84,7 +84,7 @@ class SettingsRiverpod extends ChangeNotifier{
       assistantLastShowDate = settingsReglength[0].assistantLastShowDate;
       await readDb();
     }else{
-      final info = SettingsInfo("TRY", 0, 0, getDeviceLocaleLanguage(), 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy",5, "null", "00.00.0000") ;
+      final info = SettingsInfo("TRY", 0, 0, getDeviceLocaleLanguage(), 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy",5, "null", "00-00-0000") ;
       await SQLHelper.addItemSetting(info);
       await readDb();
     }
@@ -96,7 +96,7 @@ class SettingsRiverpod extends ChangeNotifier{
     notifyListeners();
   }
   void setSwitchAssistant(bool value){
-    this.isAssistant = value == true ? "Haftalık" : "null" ;
+    this.isAssistant = (value == true ? "Haftalık" : "null" );
     setisuseinsert();
     Updating();
   }

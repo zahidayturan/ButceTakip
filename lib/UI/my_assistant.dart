@@ -19,7 +19,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
-    Future<List<SpendInfo>> myList = readCategoryInfo.myMethod2(key : "a");
+    Future<List<SpendInfo>> myList = readCategoryInfo.myMethod2(key: "a");
     return WillPopScope(
       onWillPop: () async {
         ref.read(settingsRiverpod).setAssistantLastShowDate();
@@ -101,8 +101,6 @@ class _myAssistant extends ConsumerState<myAssistant> {
 
                                 );
                               }
-
-
                             },
                           ),
                           Column(
@@ -173,9 +171,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10,),
                               AnalysisBar(),
                             ],
                           ),
