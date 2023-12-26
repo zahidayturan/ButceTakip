@@ -111,6 +111,7 @@
   "time": "Saat",
   "monthlyIncome": "Aylık\nGelir",
   "monthlyExpenses": "Aylık\nGider",
+  "monthlyExpensesWithoutEnter": "Aylık Gider / 30",
 
   "noActivity": "Kayıt Yok",
 
@@ -661,6 +662,8 @@
 
   "update1" : "Bütçe Takip güncellendi!",
   "update2" : "Lütfen uygulamayı mağazadan güncelleyin",
-  "update3" : "Güncellemek için dokunun"
+  "update3" : "Güncellemek için dokunun",
+
+  "info": "Bilgi"
 }
 

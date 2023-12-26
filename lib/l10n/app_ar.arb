@@ -111,12 +111,13 @@
   "time": "الوقت",
   "monthlyIncome": "الدخل\nالشهري",
   "monthlyExpenses": "المصاريف\nالشهرية",
+  "monthlyExpensesWithoutEnter": "30 / المصاريف الشهرية",
 
   "noActivity": "لا يوجد قيد",
 
   "monthlyStatisticsOnlyForTurkish": "",
   "monthlyStatisticsOnlyForEnglishAndArabic": "إحصائيات شهر",
-  "dailyAverageSpending": "متوسط مبلغ المصاريف اليومية",
+  "dailyAverageSpending": "متوسط مبلغ المصاريف",
   "spendingScore": "معدل المصاريف",
   "mostSpendingCategory": "الفئة الأكثر إنفاقًا",
   "changeInNetSpending": "وضع التغير الصافي\nمقارنة بالشهر السابق",
@@ -660,5 +661,7 @@
 
   "update1" : "تم تحديث متابعة الميزانية",
   "update2" : "يرجى تحديث التطبيق من المتجر",
-  "update3" : "انقر للتحديث"
+  "update3" : "انقر للتحديث",
+
+  "info": "ملاحظة"
 }

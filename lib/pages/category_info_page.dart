@@ -172,7 +172,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                      ),
                      tooltipBehavior: TooltipBehavior( //Grafiğe tıklanınca çıkan bilgi ekranını sağlıyor.
                        enable: true,
-                       header: "Bilgi",
+                       header: translation(context).info,
                        color: Theme.of(context).highlightColor,
                        borderColor: Colors.white,
                        textStyle: const TextStyle(
