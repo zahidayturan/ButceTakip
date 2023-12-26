@@ -2,7 +2,6 @@ import 'package:butcekontrol/models/currency_info.dart';
 import 'package:butcekontrol/models/settings_info.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart' as sql;
-
 import '../models/spend_info.dart';
 
 class SQLHelper {
@@ -43,7 +42,7 @@ class SQLHelper {
       dateFormat TEXT DEFAULT 'dd.MM.yyyy',
       adEventCounter INTEGER DEFAULT 5,
       isAssistant TEXT DEFAULT 'null',
-      assistantLastShowDate TEXT DEFAULT "00.00.0000"
+      assistantLastShowDate TEXT DEFAULT "00-00-0000"
       )
       """);
   }
@@ -82,8 +81,8 @@ class SQLHelper {
       },
       onUpgrade: (sql.Database database, int oldVersion, int  newVersion) {
         if (newVersion > oldVersion) {
-          database.execute("ALTER TABLE setting ADD COLUMN isAssistant TEXT DEFAULT null");
-          database.execute("ALTER TABLE setting ADD COLUMN assistantLastShowDate TEXT DEFAULT 00.00.0000");
+          database.execute("ALTER TABLE setting ADD COLUMN isAssistant TEXT DEFAULT Haftalık");
+          database.execute("ALTER TABLE setting ADD COLUMN assistantLastShowDate TEXT DEFAULT 00-00-0000");
         }
       },
     );

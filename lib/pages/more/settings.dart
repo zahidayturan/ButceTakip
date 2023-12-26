@@ -92,7 +92,7 @@ class _SettingsState extends ConsumerState<Settings> {
     var darkMode = readSetting.DarkMode;
     bool isPassword = readSetting.isPassword == 1 ? true : false;
     bool isBackup = readSetting.isBackUp == 1 ? true : false;
-    switch1 = readSetting.isAssistant == "null" ? false : true; //null olduğunda true dönmesini istiyorum.
+    switch1 = readSetting.isAssistant != "null" ? true : false; //nulldan farklı olduğunda true dönmesini istiyorum.
     String language = readSetting.Language! == "Turkce" ? "Türkçe" : readSetting.Language!;
     int monthStartDay = readSetting.monthStartDay!;
     String dateFormat = readSetting.dateFormat == "dd.MM.yyyy"
@@ -1533,66 +1533,6 @@ class _SettingsState extends ConsumerState<Settings> {
                               },
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
-                  child: Container(
-                    height: 40,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      boxShadow: darkMode == 1 ? [
-                        BoxShadow(
-                          color: Colors.black54.withOpacity(0.8),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: const Offset(-1, 2),
-                        )
-                      ] : [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 0.5,
-                            blurRadius: 2,
-                            offset: const Offset(0, 2)
-                        )
-                      ],
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(
-                          color: Theme.of(context).indicatorColor, // Set border color
-                          width: 1.0
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 7),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 26,
-                            height: 26,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              shape: BoxShape.circle,
-
-                            ),
-                            child: Icon(
-                              Icons.point_of_sale,
-                              color: Theme.of(context).secondaryHeaderColor,
-                              size: 18,
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 4, left: 8, right: 8),
-                            child: Text(
-                              "Zahidin yeri",
-                              style: TextStyle(
-                                  fontFamily: "Nexa3", fontSize: 14, height: 1),
-                            ),
-                          ),
-                          const Spacer(),
                         ],
                       ),
                     ),

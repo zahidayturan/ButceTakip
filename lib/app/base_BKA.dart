@@ -98,9 +98,9 @@ class _base_BKAState extends ConsumerState<base_BKA> {
         readUpdateData.customizeInstallmentOperation(ref).then((value) => readHome.setStatus());
       }); // Güncel kur database sorgusunu gerçekleştirir
 
-      var tarih2 = readSetting.assistantLastShowDate!.split(" ")[0].split(".");
+      List<String> tarih2 = readSetting.assistantLastShowDate!.split(" ")[0].split("-");
       print("Tarih = > ${readSetting.assistantLastShowDate}");
-      if(readSetting.isAssistant != "null" && DateTime.now().difference(DateTime(int.parse(tarih2[2]), int.parse(tarih2[1]), int.parse(tarih2[0]))).inDays >= 7){
+      if(readSetting.isAssistant != "null" && DateTime.now().difference(DateTime(int.parse(tarih2[0]), int.parse(tarih2[1]), int.parse(tarih2[2]))).inDays >= 7)  {
         Navigator.push(context, PageRouteBuilder(
             opaque: false, //sayfa saydam olması için
             transitionDuration: const Duration(milliseconds: 1),

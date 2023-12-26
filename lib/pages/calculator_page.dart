@@ -2477,6 +2477,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                           historyfirst =  filterDateCurrendy(ref, temp!, day: int.tryParse(day), month: int.tryParse(month), year: int.tryParse(year));
                           return  GridView.builder(
                             padding: EdgeInsets.symmetric(horizontal: 5),
+                            physics: const BouncingScrollPhysics(),
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 crossAxisSpacing: size.width * .02,
@@ -2524,7 +2525,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   child: Center(
                                     child: Text(
                                       historyfirst[index].lastApiUpdateDate!.split(" ")[0].replaceAll("-", "."),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xFFE9E9E9),
                                         fontFamily: "Nexa3"
                                       ),

@@ -431,11 +431,13 @@
   "github": "Github:  ",
   "developers": "GELİŞTİRİCİLER",
 
-  "goodMorning": "Günaydın! Umarız iyisinizdir",
-  "goodDay": "İyi günler! Umarız iyisinizdir",
-  "goodEvening": "İyi akşamlar! Umarız iyisinizdir",
-  "goodNight": "İyi geceler! Umarız iyisinizdir",
+  "goodMorning": "Günaydın!",
+  "goodDay": "İyi günler!",
+  "goodEvening": "İyi akşamlar!",
+  "goodNight": "İyi geceler!",
+  "hopeGood" : "Umarız iyisinizdir.",
 
+  "totalAssets" : "TOPLAM VARLIK",
   "total": "TOPLAM",
   "past": "Geçmiş",
   "myPastAssetRecords": "GEÇMİŞ VARLIK KAYITLARIM",
