@@ -100,21 +100,20 @@ class DbProvider extends ChangeNotifier {
     refreshDB();
     notifyListeners();
   }
-  int foundMaxdayinMoth (){ //ayın kaç gün olduğunu buluyor.
+  int foundMaxdayinMoth (){ //find out how many days the month has
     DateTime now = DateTime.now();
     DateTime firstDayOfNextMonth = DateTime(now.year, now.month + 1, 1);
     DateTime lastDayOfMonth = firstDayOfNextMonth.subtract(Duration(days: 1));
     return lastDayOfMonth.day;
   }
-
-  Future<List<double>> monthlyAssetChange(WidgetRef ref, double FirstTotalAsset) async { // önceki 30 günü karşılaştıran bir method
+  Future<List<double>?> monthlyAssetChange(WidgetRef ref, double FirstTotalAsset) async { //A method that compares the previous 30 days
     int nowYear = DateTime.now().year;
     int nowMonth = DateTime.now().month;
     double mytotalAsset = FirstTotalAsset;
     int ?nowDay ;
     List<double> totalList =<double> [];
     for(int i = 0 ; i < 30 ; i++){
-      nowDay = DateTime.now().day - i;
+      nowDay = DateTime.now().day + 1 - i;
       if (nowDay <= 0){
         if(nowMonth <= 0){
           nowMonth = 11 ;
@@ -129,15 +128,15 @@ class DbProvider extends ChangeNotifier {
             "operationMonth == '$nowMonth' AND "
             "operationDay == '$nowDay'"
       );
-      if(dailyListTotal == null){
-        continue;
-      }else {
+      if(dailyListTotal != null){
         double incomeTotal = dailyListTotal.where((element) => element.operationType == 'Gelir').fold(0, (previousValue, element) => previousValue + element.realAmount!);
         double expenseTotal = dailyListTotal.where((element) => element.operationType == 'Gider').fold(0, (previousValue, element) => previousValue + element.realAmount!);
         double difference = incomeTotal - expenseTotal;
         mytotalAsset -= difference;
-        print("$i == $nowDay.$nowMonth.$nowYear >> $difference  >> ASSET = $mytotalAsset");
         totalList.add(mytotalAsset);
+        //print("$i == $nowDay.$nowMonth.$nowYear >> $difference  >> ASSET = $mytotalAsset");
+      }else {
+        return null;
       }
     }
     return totalList.reversed.toList();
