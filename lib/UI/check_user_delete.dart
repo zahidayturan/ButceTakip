@@ -11,8 +11,8 @@ class CheckUserDelete extends ConsumerStatefulWidget {
 }
 
 class _checkUserDelete extends ConsumerState<CheckUserDelete> {
-  bool clicked = false ;
-  bool cancelled = false ;
+  bool clicked = false;
+  bool cancelled = false;
   int countdown = 3;
   late Timer _timer;
   @override

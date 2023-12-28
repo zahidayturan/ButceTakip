@@ -197,7 +197,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text("Aylık Gider / 30"),
+                                          Text(translation(context).monthlyExpensesWithoutEnter),/// aylik gider / 30
                                           RichText(
                                               text: TextSpan(children: [
                                                 TextSpan(
@@ -528,28 +528,31 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                   fontFamily: "Nexa3",
                                   fontSize: 15,
                                 ),textAlign: TextAlign.center,)),
-                                RichText(
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                        text:  categoryAmount.toStringAsFixed(2),
-                                        style: TextStyle(
-                                          height: 1,
-                                          color: Theme.of(context).disabledColor,
-                                          fontFamily: "Nexa4",
-                                          fontSize: 14,
+                                Directionality(
+                                  textDirection: ref.read(settingsRiverpod).Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
+                                  child: RichText(
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                          text:  categoryAmount.toStringAsFixed(2),
+                                          style: TextStyle(
+                                            height: 1,
+                                            color: Theme.of(context).disabledColor,
+                                            fontFamily: "Nexa4",
+                                            fontSize: 14,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: ref.read(settingsRiverpod).prefixSymbol,
-                                        style: TextStyle(
-                                          height: 1,
-                                          color: Theme.of(context).disabledColor,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: "TL",
-                                          fontSize: 14,
+                                        TextSpan(
+                                          text: ref.read(settingsRiverpod).prefixSymbol,
+                                          style: TextStyle(
+                                            height: 1,
+                                            color: Theme.of(context).disabledColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: "TL",
+                                            fontSize: 14,
+                                          ),
                                         ),
-                                      ),
-                                    ])),
+                                      ])),
+                                ),
                                 Center(child: Text("${categoryCount.toString()} ${translation(context).activityCount}",style: TextStyle(
                                   height: 1,
                                   color: Theme.of(context).canvasColor,

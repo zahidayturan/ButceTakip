@@ -111,6 +111,7 @@
   "time": "Saat",
   "monthlyIncome": "Aylık\nGelir",
   "monthlyExpenses": "Aylık\nGider",
+  "monthlyExpensesWithoutEnter": "Aylık Gider / 30",
 
   "noActivity": "Kayıt Yok",
 
@@ -665,9 +666,6 @@
   "update2" : "Lütfen uygulamayı mağazadan güncelleyin",
   "update3" : "Güncellemek için dokunun",
 
-  "downloadedData" : "verileriniz indirildi.",
-  "backupedData" : "verileriniz yedeklendi",
-
-  "close" : "Kapat"
+  "info": "Bilgi"
 }
 
