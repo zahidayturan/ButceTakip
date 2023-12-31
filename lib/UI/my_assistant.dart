@@ -158,7 +158,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                   SizedBox(
                                     width: 200,
                                     child: Text(
-                                      "Merhaba Ben BütçeTakip Asistanınız !"
+                                      "Merhaba Ben BütçeTakip Asistanınız !\n"
                                       "Aylık harcamalarınıza bir bakalım.",
                                       textAlign: TextAlign.start,
                                       style: TextStyle(

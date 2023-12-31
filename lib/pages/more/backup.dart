@@ -540,7 +540,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           );
                                         },
                                         child: Text(
-                                          "Verilerimi Sil",
+                                          translation(context).deleteMyAccountSmall,
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Theme.of(context).canvasColor

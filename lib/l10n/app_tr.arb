@@ -356,6 +356,7 @@
   "dayMonthYear": "Gün.Ay.Yıl",
   "monthDayYear": "Ay.Gün.Yıl",
   "yearMonthDay": "Yıl.Ay.Gün",
+  "myWeeklyAssistant": "Haftalık Asistanım",
 
   "helpCenter": "Yardım Merkezi",
   "whatsNew": "Yenilikler",
@@ -439,6 +440,7 @@
 
   "totalAssets" : "TOPLAM VARLIK",
   "total": "TOPLAM",
+  "totalSmall": "Toplam",
   "past": "Geçmiş",
   "myPastAssetRecords": "GEÇMİŞ VARLIK KAYITLARIM",
   "close": "Kapat",
@@ -666,6 +668,15 @@
   "update2" : "Lütfen uygulamayı mağazadan güncelleyin",
   "update3" : "Güncellemek için dokunun",
 
-  "info": "Bilgi"
-}
+  "info": "Bilgi",
 
+  "assetChart30Days": "30 Günlük Varlık Değişimi",
+  "yourHighestIncome": "En Yüksek Geliriniz",
+
+  "deleteMyAccount": "HESABIMI SİL",
+  "allDataInYourEmailAccountWillBeDeleted": "Mail hesabınızdaki tüm veriler silinecektir.",
+  "doYouConfirm": "Onaylıyor musunuz? (Yeniden aynı Email ile hesap oluşturabileceksiniz.)",
+  "deleteMyAccountSmall": "Hesabımı Sil",
+  "deleteMyAccountSmallSize": "90",
+  "cancel": "iptal et"
+}

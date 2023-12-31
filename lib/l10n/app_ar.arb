@@ -356,6 +356,7 @@
   "dayMonthYear": "سنة.شهر.يوم",
   "monthDayYear": "سنة.يوم.شهر",
   "yearMonthDay": "يوم.شهر.سنة",
+  "myWeeklyAssistant": "المساعد الأسبوعي",
 
   "helpCenter": "مركز المساعدة",
   "whatsNew": "الجديد",
@@ -437,8 +438,9 @@
   "hopeGood" : "نرجو أن تكون بخير",
 
 
-  "totalAssets": "المجموعا لموجودات",
+  "totalAssets": "إجمالي الأصول",
   "total": "المجموع",
+  "totalSmall": "المجموع",
   "past": "السابق",
   "myPastAssetRecords": "سجلات موجوداتي السابقة",
   "close": "أغلق",
@@ -666,5 +668,15 @@
   "update2" : "يرجى تحديث التطبيق من المتجر",
   "update3" : "انقر للتحديث",
 
-  "info": "ملاحظة"
+  "info": "ملاحظة",
+
+  "assetChart30Days": "تغير الموجودات لمدة 30 يومًا",
+  "yourHighestIncome": "أعلى دخل لك",
+
+  "deleteMyAccount": "احذف حسابي",
+  "allDataInYourEmailAccountWillBeDeleted": "سيتم حذف جميع البيانات الموجودة في حساب بريدك الإلكتروني.",
+  "doYouConfirm": "هل توافق؟ (ستتمكن من تسجيل الدخول مرة أخرى بنفس حساب البريد الإلكتروني.)",
+  "deleteMyAccountSmall": "احذف حسابي",
+  "deleteMyAccountSmallSize": "90",
+  "cancel": "إلغاء"
 }
