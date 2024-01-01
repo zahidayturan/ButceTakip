@@ -17,6 +17,7 @@ class SettingsInfo {
   int ?adEventCounter;
   String ?isAssistant; //Asistanım özelliği açık mı ?
   String ?assistantLastShowDate; //Asistan son gösteilme tarihi
+  int ?addDataType;
 
   SettingsInfo(
       this.prefix,
@@ -35,7 +36,8 @@ class SettingsInfo {
       this.dateFormat,
       this.adEventCounter,
       this.isAssistant,
-      this.assistantLastShowDate
+      this.assistantLastShowDate,
+      this.addDataType
       );
   SettingsInfo.withId(
       this.id,
@@ -55,7 +57,8 @@ class SettingsInfo {
       this.dateFormat,
       this.adEventCounter,
       this.isAssistant,
-      this.assistantLastShowDate
+      this.assistantLastShowDate,
+      this.addDataType
   );
   Map <String, dynamic> toMap(){
     var map = <String, dynamic>{};
@@ -76,6 +79,7 @@ class SettingsInfo {
     map["adEventCounter"] = adEventCounter;
     map["isAssistant"] = isAssistant;
     map["assistantLastShowDate"] = assistantLastShowDate;
+    map["addDataType"] = addDataType;
     return map ;
   }
   SettingsInfo.fromObject(dynamic o){
@@ -97,5 +101,6 @@ class SettingsInfo {
     adEventCounter = o["adEventCounter"] as int;
     isAssistant = o["isAssistant"] ;
     assistantLastShowDate = o["assistantLastShowDate"] ;
+    addDataType = o["addDataType"] as int;
   }
 }

@@ -41,8 +41,9 @@ class SQLHelper {
       monthStartDay INTEGER DEFAULT 1,
       dateFormat TEXT DEFAULT 'dd.MM.yyyy',
       adEventCounter INTEGER DEFAULT 5,
-      isAssistant TEXT DEFAULT 'null',
-      assistantLastShowDate TEXT DEFAULT "00-00-0000"
+      isAssistant TEXT DEFAULT 'WEEKLY',
+      assistantLastShowDate TEXT DEFAULT "00-00-0000",
+      addDataType INTEGER DEFAULT 0
       )
       """);
   }
@@ -80,9 +81,20 @@ class SQLHelper {
         await createCurrnecyTable(database);
       },
       onUpgrade: (sql.Database database, int oldVersion, int  newVersion) {
-        if (newVersion > oldVersion) {
-          database.execute("ALTER TABLE setting ADD COLUMN isAssistant TEXT DEFAULT Haftalık");
+        if(oldVersion == 1){
+          createCurrnecyTable(database);
+          database.execute("ALTER TABLE spendinfo ADD COLUMN realAmount REAL DEFAULT 0");
+          database.execute("ALTER TABLE spendinfo ADD COLUMN userCategory TEXT DEFAULT '' ");
+          database.execute("ALTER TABLE spendinfo ADD COLUMN systemMessage TEXT DEFAULT '' ");
+          database.execute("ALTER TABLE setting ADD COLUMN prefixSymbol TEXT DEFAULT ' ₺' ");
+          database.execute("ALTER TABLE setting ADD COLUMN monthStartDay INTEGER DEFAULT 1 ");
+          database.execute("ALTER TABLE setting ADD COLUMN dateFormat TEXT DEFAULT 'dd.MM.yyyy' ");
+          database.execute("ALTER TABLE setting ADD COLUMN adEventCounter INTEGER DEFAULT 5 ");
+        }
+        else if(newVersion > oldVersion) {
+          database.execute("ALTER TABLE setting ADD COLUMN isAssistant TEXT DEFAULT WEEKLY");
           database.execute("ALTER TABLE setting ADD COLUMN assistantLastShowDate TEXT DEFAULT 00-00-0000");
+          database.execute("ALTER TABLE setting ADD COLUMN addDataType INTEGER DEFAULT 0");
         }
       },
     );

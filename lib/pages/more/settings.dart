@@ -1514,9 +1514,9 @@ class _SettingsState extends ConsumerState<Settings> {
                             },
                             child: Icon(Icons.open_in_browser)
                           ),
-                          SizedBox(width: 10,),
+                          const SizedBox(width: 10,),
                           Text(switch1! ? "Açık" : "Kapalı"),
-                          SizedBox(width: 10,),
+                          const SizedBox(width: 10,),
                           Container(
                             height: 26,
                             decoration: BoxDecoration(

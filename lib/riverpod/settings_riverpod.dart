@@ -30,6 +30,7 @@ class SettingsRiverpod extends ChangeNotifier{
   int ?adEventCounter;
   String ?isAssistant;
   String ?assistantLastShowDate;
+  int ?addDataType;
 
   Future readDb() async{
     List<SettingsInfo> setting = await SQLHelper.settingsControl() ;
@@ -52,6 +53,7 @@ class SettingsRiverpod extends ChangeNotifier{
     adEventCounter = setting[setting.length -1].adEventCounter;
     isAssistant = setting[setting.length -1].isAssistant;
     assistantLastShowDate = setting[setting.length -1].assistantLastShowDate;
+    addDataType = setting[setting.length -1].addDataType;
 
     print("""
       id : ${setting[setting.length - 1].id}
@@ -70,21 +72,25 @@ class SettingsRiverpod extends ChangeNotifier{
       tarih ve gün : ${setting[setting.length - 1].dateFormat}${setting[setting.length - 1].monthStartDay}
       isAssistant : ${setting[setting.length - 1].isAssistant}
       assistantLastShowDate : ${setting[setting.length - 1].assistantLastShowDate}
+      addDataType :${setting[setting.length - 1].addDataType}
       """);
     notifyListeners();
   }
   Future controlSettings(BuildContext context) async{ //settings Kayıt değerlendiriyoruz.A
     List<SettingsInfo> ?settingsReglength = await SQLHelper.settingsControl();
     if(settingsReglength.length > 0) {
+      /*
       prefixSymbol = settingsReglength[0].prefixSymbol;
       monthStartDay = settingsReglength[0].monthStartDay;
       dateFormat = settingsReglength[0].dateFormat;
-      adEventCounter = settingsReglength[0].adEventCounter;
-      isAssistant = settingsReglength[0].isAssistant;
-      assistantLastShowDate = settingsReglength[0].assistantLastShowDate;
+      //adEventCounter = settingsReglength[0].adEventCounter;
+      //isAssistant = settingsReglength[0].isAssistant;
+      //assistantLastShowDate = settingsReglength[0].assistantLastShowDate;
+       */
       await readDb();
     }else{
-      final info = SettingsInfo("TRY", 0, 0, getDeviceLocaleLanguage(), 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy",5, "null", "00-00-0000") ;
+      //ilk defa uygulamayı indiren abinin varsayılan değerleri
+      final info = SettingsInfo("TRY", 0, 0, getDeviceLocaleLanguage(), 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy",5, "WEEKLY", "00-00-0000", 0) ;
       await SQLHelper.addItemSetting(info);
       await readDb();
     }
@@ -96,7 +102,7 @@ class SettingsRiverpod extends ChangeNotifier{
     notifyListeners();
   }
   void setSwitchAssistant(bool value){
-    this.isAssistant = (value == true ? "Haftalık" : "null" );
+    this.isAssistant = (value == true ? "WEEKLY" : "null" );
     setisuseinsert();
     Updating();
   }
@@ -301,7 +307,8 @@ class SettingsRiverpod extends ChangeNotifier{
       dateFormat,
       adEventCounter,
       isAssistant,
-      assistantLastShowDate
+      assistantLastShowDate,
+      addDataType
     );
     await SQLHelper.updateSetting(info);
     notifyListeners();
