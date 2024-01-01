@@ -141,6 +141,28 @@ class DbProvider extends ChangeNotifier {
     }
     return totalList.reversed.toList();
   }
+  ///istenilern ay ve yıla göre bütün kayıtları Liste oalrak döndürür.
+  Future<List<SpendInfo>> getMonthlyInfo(WidgetRef ref, int monthh, int year) async {
+    int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
+    DateTime startDate = DateTime(int.parse(year.toString()), int.parse(monthh.toString()), startDay);
+    DateTime endDate = DateTime(int.parse(year.toString()), int.parse(monthh.toString())+1, startDay-1);
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(startDate.month.toString() ,startDate.year.toString());
+    items = items.where((element) => int.tryParse(element.operationDay!)! > startDay-1).toList();
+    List<SpendInfo> itemsNext = await SQLHelper.getItemsByOperationMonthAndYear(endDate.month.toString() ,endDate.year.toString());
+    itemsNext = itemsNext.where((element) => int.tryParse(element.operationDay!)! < startDay).toList();
+    items.addAll(itemsNext);
+    return items;
+  }
+  //it prepared to use for My_Assistant Widget
+  Future<Map<String, List>> yourMethod(WidgetRef ref, int month, int year) async {
+    List<SpendInfo> items = await getMonthlyInfo(ref, month, year);
+    List<SpendInfo> allItems = await SQLHelper.getItems();
+    return <String, List<SpendInfo>>{
+      "items" : items,
+      "allItems" : allItems
+    };
+  }
+  //it prepared to use for generalInfo Widget
   Future <Map<String, Object>> myMethod(WidgetRef ref) async {
     int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
     DateTime startDate = DateTime(int.parse(year), int.parse(month), startDay);
@@ -308,6 +330,13 @@ class DbProvider extends ChangeNotifier {
   Future<List<SpendInfo>> myDailyMethod() async {
     List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(todayNow,monthNow,yearNow);
     return items;
+  }
+  Future<void> beforeMonthSubCalculate(WidgetRef ref) async {
+    int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
+    DateTime startDate = DateTime(int.parse(year), int.parse(month), startDay);
+    DateTime endDate = DateTime(int.parse(year), int.parse(month)+1, startDay-1);
+    ///AYIN KAPSADIĞI TARİHLER BELİRLENDİ
+
   }
 
   Future<Map<String, Map<String, double>>> monthlyStatusInfo(WidgetRef ref) async {

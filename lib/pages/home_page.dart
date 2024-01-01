@@ -23,7 +23,7 @@ class Home extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Generalinfo(),
+          Generalinfo(isAssistantMode: false),
           Aylikinfo(),
           SizedBox(height: 4),
           GunlukInfo(),
