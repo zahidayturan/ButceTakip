@@ -287,7 +287,10 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           var data = snapshot.data;
-                          return analysisData(ref, items, data);
+                          return Directionality(
+                              textDirection: readSettings.Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
+                              child: analysisData(ref, items, data)
+                          );
                         }else{
                           return const SizedBox(
                             height: 250,
@@ -322,7 +325,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
     double total = double.parse(readdb.getTotalAmount(items)[0]); //Aylık Toplam fark
     DateTime dateTime = DateTime.now();
     var user = FirebaseAuth.instance.currentUser;
-    String message = "Merhabalar  ${user?.displayName ?? "Efendim"}, " ;
+    String message = "${translation(context).hello}  ${user?.displayName ?? translation(context).sir}, " ;
 
     double dailySpend = (total / (foundMaxdayinMoth() - dateTime.day)) ; //Ayın kalanında harcanması gereken günlük miktar.
     double assetTotal = getAssetsApi(ref, data); //Varlıklarımdan veri çekiyor.
@@ -331,41 +334,41 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
     int remainderDay = foundMaxdayinMoth() - DateTime.now().day ; // Ay bitimine kalan günü verir.
 
     if(total > 0){
-      message += "Aylık Gelir Gider durumunuzunun + bakiyede olduğunu görebiliyorum. " ;
+      message += translation(context).spendingInPositiveBalance;
       if(dailySpend >= montlyincome *.5 && dailySpend < montlyincome){
-        message += "Böyle Devam ";
+        message += translation(context).keepGoingLikeThis;
       }else if (dailySpend > montlyincome && dailySpend <= montlyincome * 1.4){
-        message += "Gayet Güzel bir oran var. ";
+        message += translation(context).goodJobKeepGoingLikeThis;
       }else if (dailySpend > montlyincome * 1.4){
-        message += "Harika ! 🎉🥳🎉";
+        message += "${translation(context).great} 🎉🥳🎉";
       }else if(dailySpend < montlyincome * .5){
-        message += "Biraz bütçenizi idareli harcamanızı öneririz 🙄. ";
+        message += "${translation(context).recommendThatYouSpendYourBudgetWisely} 🙄. ";
       }else{
         message += "error no found statement";
       }
-      message += "Aylık Gelirinizin %${percentPeriod.toStringAsFixed(0)}' ini harcamışsınız. ";
-      message += "Ay bitimine $remainderDay gün kaldı. ";
-      message += "Ay sonuna ortalama günlük ${dailySpend.toStringAsFixed(2)} ${ref.read(settingsRiverpod).Prefix} harcayarak ulaşabilirsiniz. ";
+      message += "\n\n- ${translation(context).youSpentThisMuchOfYourMonthlyIncome}${percentPeriod.toStringAsFixed(0)}${translation(context).percentage}";
+      message += "\n- ${translation(context).numberOfDaysLeft} $remainderDay ${translation(context).day}";
+      message += "\n- ${translation(context).spendingThisMuchPerDayOnAverage} ${dailySpend.toStringAsFixed(2)} ${ref.read(settingsRiverpod).Prefix}";
     }else if(total == 0 ){
-      message += "Aylık Gelir ve Gider durumunuz eşit. ";
+      message += translation(context).yourIncomeExpensesAreEqual;
       if(assetTotal > 0){
-        message += "Neyse ki halihazırda Varlıklarınız da Paranız mevcut. ";
+        message += translation(context).fortunatelyYouAlreadyHaveMoneyInAssets;
       }else{
         message += "🥹🥹🥹 "; /// bune gardaş
       }
     }else{
-      message += "Aylık Gelir Gider durumunuzun maalesef - bakiyede olduğunu göryorum. ";
+      message += translation(context).spendingInNegativeBalance;
       /// if(assetTotal > 0){
       ///   message += "neyse ki ";
       /// }
     }
     if(assetTotal <= 0){ ///varlık kontrolu
-      message += "\nMaalesef Varlığınız bulunmuyor. Dilerseniz Varlık sayfasını düzenleyebilirsiniz. ";
+      message += "\n${translation(context).youDoNotHaveAnyAssetsEditYourAssets}";
     }else{
-      message += "\n\nVarlıklarım Sayfasında toplam ${assetTotal.toStringAsFixed(2)} ${ref.read(settingsRiverpod).Prefix} paranız bulunmaktadır. ";
+      message += "\n\n${translation(context).yourTotalMoneyOnTheMyAssetsPageIs}${assetTotal.toStringAsFixed(2)} ${ref.read(settingsRiverpod).Prefix}";
     }
     if(ref.read(settingsRiverpod).assistantLastShowDate != null){
-      message += "\n\nSon Gösterilme tarihi => ${ref.read(settingsRiverpod).assistantLastShowDate.toString().split(" ")[0]}";
+      message += "\n\n${translation(context).lastShowDate}${ref.read(settingsRiverpod).assistantLastShowDate.toString().split(" ")[0]}";
     }
 
     return Column(
@@ -375,7 +378,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
           child: Text(
             message.toString(),
             style: const TextStyle(
-              height: 1,
+              height: 1.1,
               fontSize: 12,
               fontFamily: "Nexa4"
             ),
@@ -390,9 +393,9 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
               height: 70,
               child: Column(
                 children: [
-                  const Text(
-                      "Bu aydaki Gelir Tipindeki işlemler",
-                    style: TextStyle(
+                  Text(
+                      translation(context).yourIncomeActivitiesForThisMonth,
+                    style: const TextStyle(
                       fontFamily: "Nexa3",
                       fontSize: 12,
                     ),
@@ -570,9 +573,9 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
               color: Theme.of(context).highlightColor,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Text(
-              "Varlıklarım",
-              style: TextStyle(
+            child: Text(
+              translation(context).myAssetsSmall,
+              style: const TextStyle(
                   height: 1,
                   fontSize: 13,
                   color: Colors.white

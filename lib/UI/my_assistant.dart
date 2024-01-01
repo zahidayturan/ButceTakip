@@ -1,4 +1,5 @@
 import 'package:butcekontrol/UI/analysis_bar.dart';
+import 'package:butcekontrol/classes/language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,6 +20,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
+    var readSettings = ref.read(settingsRiverpod);
     Future<List<SpendInfo>> myList = readCategoryInfo.myMethod2(key: "a");
     return WillPopScope(
       onWillPop: () async {
@@ -113,7 +115,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                     width: 30,
                                   ),
                                   Text(
-                                    "ANALİZ",
+                                    translation(context).analysis,
                                     style: TextStyle(
                                       color: Theme.of(context).canvasColor,
                                       fontFamily: 'Nexa4',
@@ -123,7 +125,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(right: 10),
+                                    margin: EdgeInsets.only(right: 10, left: 10),
                                     width: 32,
                                     height: 32,
                                     child: DecoratedBox(
@@ -158,13 +160,12 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                   SizedBox(
                                     width: 200,
                                     child: Text(
-                                      "Merhaba Ben BütçeTakip Asistanınız !\n"
-                                      "Aylık harcamalarınıza bir bakalım.",
+                                      "${translation(context).iAmYourBudgetWiseAssistant} ${translation(context).lookAtYourMonthlyExpenses}",
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                           color: Theme.of(context).canvasColor,
                                           fontFamily: "Nexa4",
-                                          fontSize: 11,
+                                          fontSize: readSettings.Language == "العربية" ? 16 : 13,
                                           height: 1
                                       ),
                                     ),
