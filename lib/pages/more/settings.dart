@@ -127,7 +127,7 @@ class _SettingsState extends ConsumerState<Settings> {
             padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
             child:
             CustomScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               slivers: [
               SliverFillRemaining(
               hasScrollBody: false,
@@ -1486,11 +1486,11 @@ class _SettingsState extends ConsumerState<Settings> {
                               size: 18,
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 4, left: 8, right: 8),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4, left: 8, right: 8),
                             child: Text(
-                              "Haftalık Asistanım",
-                              style: TextStyle(fontFamily: "Nexa3", fontSize: 14, height: 1),
+                              translation(context).myWeeklyAssistant,
+                              style: const TextStyle(fontFamily: "Nexa3", fontSize: 14, height: 1),
                             ),
                           ),
                           const Spacer(),

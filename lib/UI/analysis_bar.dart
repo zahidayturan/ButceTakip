@@ -79,7 +79,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
                                         color: Theme.of(context).canvasColor),
                                     ),
                                     Text(
-                                      "Toplam",
+                                      translation(context).totalSmall,
                                       style: TextStyle(
                                         height: 2,
                                         fontSize: 14,
@@ -289,7 +289,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
                           var data = snapshot.data;
                           return analysisData(ref, items, data);
                         }else{
-                          return SizedBox(
+                          return const SizedBox(
                             height: 250,
                           );
                         }
@@ -311,7 +311,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
   int foundMaxdayinMoth (){ //ayın kaç gün olduğunu buluyor.
     DateTime now = DateTime.now();
     DateTime firstDayOfNextMonth = DateTime(now.year, now.month + 1, 1);
-    DateTime lastDayOfMonth = firstDayOfNextMonth.subtract(Duration(days: 1));
+    DateTime lastDayOfMonth = firstDayOfNextMonth.subtract(const Duration(days: 1));
     return lastDayOfMonth.day;
   }
   Widget analysisData(WidgetRef ref, var items, List<SpendInfo>? data) {
@@ -322,7 +322,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
     double total = double.parse(readdb.getTotalAmount(items)[0]); //Aylık Toplam fark
     DateTime dateTime = DateTime.now();
     var user = FirebaseAuth.instance.currentUser;
-    String message = "Merhabalar  ${user?.displayName ?? "Efendim"} " ;
+    String message = "Merhabalar  ${user?.displayName ?? "Efendim"}, " ;
 
     double dailySpend = (total / (foundMaxdayinMoth() - dateTime.day)) ; //Ayın kalanında harcanması gereken günlük miktar.
     double assetTotal = getAssetsApi(ref, data); //Varlıklarımdan veri çekiyor.
@@ -351,13 +351,13 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
       if(assetTotal > 0){
         message += "Neyse ki halihazırda Varlıklarınız da Paranız mevcut. ";
       }else{
-        message += "🥹🥹🥹 ";
+        message += "🥹🥹🥹 "; /// bune gardaş
       }
     }else{
-      message += "Aylık Gelir Gider durumunuzun maalesef - bakiyede olduğunu görüntülüyorum. ";
-      if(assetTotal > 0){
-        message += "neyse ki ";
-      }
+      message += "Aylık Gelir Gider durumunuzun maalesef - bakiyede olduğunu göryorum. ";
+      /// if(assetTotal > 0){
+      ///   message += "neyse ki ";
+      /// }
     }
     if(assetTotal <= 0){ ///varlık kontrolu
       message += "\nMaalesef Varlığınız bulunmuyor. Dilerseniz Varlık sayfasını düzenleyebilirsiniz. ";
@@ -383,7 +383,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
           ),
         ),
         income == 0
-        ?SizedBox(width: 1)
+        ?const SizedBox(width: 1)
         :Column(
           children: [
             SizedBox(
@@ -542,7 +542,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
           ],
         ),
         assetTotal <= 0
@@ -552,8 +552,8 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
             ref.read(botomNavBarRiverpod).setCurrentindex(4);
             Navigator.push(context, PageRouteBuilder(
               transitionDuration: const Duration(milliseconds: 1),
-              pageBuilder: (context, animation, nextanim) => assetsPage(),
-              reverseTransitionDuration: Duration(milliseconds: 1),
+              pageBuilder: (context, animation, nextanim) => const assetsPage(),
+              reverseTransitionDuration: const Duration(milliseconds: 1),
               transitionsBuilder: (context, animation, nexttanim, child) {
                 return FadeTransition(
                   opacity: animation,
@@ -565,7 +565,7 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
             settingRead.setAssistantLastShowDate;
           },
           child: Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Theme.of(context).highlightColor,
               borderRadius: BorderRadius.circular(12),
@@ -586,14 +586,14 @@ class _AnalysisBar extends ConsumerState<AnalysisBar> {
             settingRead.setAssistantLastShowDate;
           },
           child: Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Theme.of(context).highlightColor,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Text(
-              "Anladım",
-              style: TextStyle(
+            child: Text(
+              translation(context).okAnladim,
+              style: const TextStyle(
                   height: 1,
                   fontSize: 13,
                   color: Colors.white

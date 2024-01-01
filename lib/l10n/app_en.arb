@@ -356,6 +356,7 @@
     "dayMonthYear": "Day.Month.Year",
     "monthDayYear": "Month.Day.Year",
     "yearMonthDay": "Year.Month.Day",
+    "myWeeklyAssistant": "My Weekly Assistant",
 
     "helpCenter": "Help Center",
     "whatsNew": "What's New",
@@ -437,8 +438,9 @@
     "hopeGood" : "We hope you're doing well",
 
 
-    "totalAssets" : "TOTAL ASSET",
+    "totalAssets" : "TOTAL ASSETS",
     "total": "TOTAL",
+    "totalSmall": "Total",
     "past": "Past",
     "myPastAssetRecords": "MY PAST ASSET RECORDS",
     "close": "Close",
@@ -666,5 +668,15 @@
     "update2" : "Please update the application from the store",
     "update3" : "Tap to update",
 
-    "info": "Info"
+    "info": "Info",
+
+    "assetChart30Days": "30 Day Asset Chart",
+    "yourHighestIncome": "Your Highest Income",
+
+    "deleteMyAccount": "DELETE MY ACCOUNT",
+    "allDataInYourEmailAccountWillBeDeleted": "All data in your email account will be deleted.",
+    "doYouConfirm": "Do you confirm? (You will be able to log in again with the same Email account.)",
+    "deleteMyAccountSmall": "Delete My Account",
+    "deleteMyAccountSmallSize": "135",
+    "cancel": "cancel"
 }

@@ -543,8 +543,8 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     children: [
                                       Text(
                                         pageNumber == 0
-                                          ?"30 Günlük Varlık Değişimi"
-                                          :"En fazla Gelir"
+                                          ?translation(context).assetChart30Days
+                                          :translation(context).yourHighestIncome
                                       ),
                                       counterContainer(context, pageNumber),
 
