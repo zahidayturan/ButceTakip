@@ -14,6 +14,7 @@
   "backupTitle": "YEDEKLEME",
   "contactUsTitle": "İLETİŞİM",
   "myAssets": "VARLIKLARIM",
+  "myAssetsSmall": "Varliklarim",
 
   "selectLanguage": "Lütfen dil seçiniz",
 
@@ -678,5 +679,34 @@
   "doYouConfirm": "Onaylıyor musunuz? (Yeniden aynı Email ile hesap oluşturabileceksiniz.)",
   "deleteMyAccountSmall": "Hesabımı Sil",
   "deleteMyAccountSmallSize": "90",
-  "cancel": "iptal et"
+  "cancel": "iptal et",
+
+  "analysis": "ANALİZ",
+  "iAmYourBudgetWiseAssistant": "Merhaba Ben BütçeTakip Asistanınız!\n",
+  "lookAtYourMonthlyExpenses": "Aylık harcamalarınıza bir bakalım.",
+
+  "hello": "Merhabalar",
+  "sir": "Efendim",
+
+  "spendingInPositiveBalance": "Aylık Gelir Gider durumunuzunun artı bakiyede olduğunu görebiliyorum. ",
+  "keepGoingLikeThis": "Böyle Devam ",
+  "goodJobKeepGoingLikeThis": "Gayet Güzel bir oran var. ",
+  "great": "Harika! ",
+  "recommendThatYouSpendYourBudgetWisely": "Biraz bütçenizi idareli harcamanızı öneririz ",
+
+  "youSpentThisMuchOfYourMonthlyIncome": "Aylık Gelirinizi şu kadarını harcamışsınız: %",
+  "percentage": "",
+  "numberOfDaysLeft": "Ay bitimine kalan gün sayısı: ",
+  "day": "gün",
+  "spendingThisMuchPerDayOnAverage": "Ay sonuna ortalama günlük şu kadar harcayarak ulaşabilirsiniz: ",
+
+  "yourIncomeExpensesAreEqual": "Aylık gelir ve gider durumunuz eşit. ",
+  "fortunatelyYouAlreadyHaveMoneyInAssets": "Neyse ki hâlihazırda Varlıklarınızda paranız mevcut. ",
+
+  "spendingInNegativeBalance": "Aylık Gelir Gider durumunuzun maalesef eksi bakiyede olduğunu görüyorum. ",
+  "youDoNotHaveAnyAssetsEditYourAssets": "Maalesef Varlığınız bulunmuyor. Varlıklarım sayfasından varlıklarınızı düzenleyebilirsiniz. ",
+  "yourTotalMoneyOnTheMyAssetsPageIs": "Varlıklarım sayfasındaki toplam paranız: ",
+  "lastShowDate": "Son gösterilme tarihi: ",
+
+  "yourIncomeActivitiesForThisMonth": "Bu aydaki Gelir işlemleriniz"
 }

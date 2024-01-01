@@ -30,12 +30,12 @@ class assetsPage extends ConsumerStatefulWidget {
 class _assetsPage extends ConsumerState<assetsPage> {
   var icsclick = true;
   PageController _pageViewController = PageController();
-  late Timer _timer;
+  //late Timer _timer;
   @override
   void dispose() {
     // TODO: implement dispose
     _pageViewController.dispose();
-    _timer.cancel();
+  //  _timer.cancel();
     super.dispose();
   }
   int pageNumber = 0 ;
@@ -72,741 +72,749 @@ class _assetsPage extends ConsumerState<assetsPage> {
     var time = DateTime.now().hour;
     User? user = FirebaseAuth.instance.currentUser;
     //startTimer();
-    return WillPopScope(
-      onWillPop: () async{
-        if(_timer.isActive){
-          _timer.cancel();
-        }
-        return false;
-      },
-      child: SafeArea(
-          bottom: false,
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBarForPage(title: translation(context).myAssets),
-            bottomNavigationBar: const NavBar(),
-            body: FutureBuilder(
-              future:  SQLHelper.getItems(),
-              builder:
-              (context, snapshot) {
-                if(snapshot.hasData){
-                  var myData = snapshot.data; //bütün kaytları içerir.
-                  List<double> measureList = getMeasure(double.tryParse(dbRiv.getTotalAmountByKart(myData!))!, double.tryParse(dbRiv.getTotalAmountByNakit(myData!))!, double.tryParse(dbRiv.getTotalAmountByDiger(myData!))!);
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width * .029,vertical: 8),
-                    child: SizedBox(
-                      height: size.height ,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: size.height * .053,
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).indicatorColor,
-                              borderRadius: BorderRadius.circular(11),
-                            ),
-                            child: Row(
-                              children: [
-                                Center(
-                                  child: Image.asset(
-                                    time > 5 && time < 12
-                                        ? "assets/icons/good-Morning.png"
-                                        : time >= 12 && time < 18
-                                        ? "assets/icons/good-tag.png"
-                                        : time >= 18 && time <= 23
-                                        ? "assets/icons/day-and-night.png"
-                                        : "assets/icons/good-night.png",
-                                    height: 30,
-                                  ),
-                                ),
-                                SizedBox(width: size.width * .02),
-                                Text(
+    return SafeArea(
+      bottom: false,
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBarForPage(title: translation(context).myAssets),
+          bottomNavigationBar: const NavBar(),
+          body: FutureBuilder(
+            future:  SQLHelper.getItems(),
+            builder:
+            (context, snapshot) {
+              if(snapshot.hasData){
+                var myData = snapshot.data; //bütün kaytları içerir.
+                List<double> measureList = getMeasure(double.tryParse(dbRiv.getTotalAmountByKart(myData!))!, double.tryParse(dbRiv.getTotalAmountByNakit(myData!))!, double.tryParse(dbRiv.getTotalAmountByDiger(myData!))!);
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .029,vertical: 8),
+                  child: SizedBox(
+                    height: size.height ,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: size.height * .053,
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).indicatorColor,
+                            borderRadius: BorderRadius.circular(11),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 0.5,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 1)
+                              )
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Center(
+                                child: Image.asset(
                                   time > 5 && time < 12
-                                  ? translation(context).goodMorning
-                                  : time >= 12 && time < 18
-                                    ? translation(context).goodDay
-                                    : time >= 18 && time <= 23
-                                      ? translation(context).goodEvening
-                                      : translation(context).goodNight,
+                                      ? "assets/icons/good-Morning.png"
+                                      : time >= 12 && time < 18
+                                      ? "assets/icons/good-tag.png"
+                                      : time >= 18 && time <= 23
+                                      ? "assets/icons/day-and-night.png"
+                                      : "assets/icons/good-night.png",
+                                  height: 30,
+                                ),
+                              ),
+                              SizedBox(width: size.width * .02),
+                              Text(
+                                time > 5 && time < 12
+                                ? translation(context).goodMorning
+                                : time >= 12 && time < 18
+                                  ? translation(context).goodDay
+                                  : time >= 18 && time <= 23
+                                    ? translation(context).goodEvening
+                                    : translation(context).goodNight,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  height: 1
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  " ${FirebaseAuth.instance.currentUser?.displayName?.split(" ")[0] ?? ""} ${translation(context).hopeGood}",
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    height: 1
+                                      fontWeight: FontWeight.bold,
+                                      height: 1
                                   ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    " ${FirebaseAuth.instance.currentUser?.displayName?.split(" ")[0] ?? ""} ${translation(context).hopeGood}",
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        height: 1
+                              ),
+                            ],
+                          ),
+                        ), ///welcome row
+                        SizedBox(height: size.height *.01),
+                        SizedBox(
+                          height: 115,
+                          child: Container(
+                            child: Stack(
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      stops: [0.5, 1],
+                                      end: Alignment.bottomCenter,
+                                        ///Color(0xFF5AAA85)
+                                      colors: [Theme.of(context).highlightColor ,Theme.of(context).scaffoldBackgroundColor ],
                                     ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ), ///welcome row
-                          SizedBox(height: size.height *.01),
-                          SizedBox(
-                            height: 115,
-                            child: Container(
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        stops: [0.5, 1],
-                                        end: Alignment.bottomCenter,
-                                          ///Color(0xFF5AAA85)
-                                        colors: [Theme.of(context).hintColor.withOpacity(0.9) ,Theme.of(context).scaffoldBackgroundColor ],
-                                      ),
-                                      boxShadow: readSettingsRiv.DarkMode == 1 ? [
-                                        BoxShadow(
-                                          color: Colors.black54.withOpacity(0.8),
-                                          spreadRadius: 1,
+                                    boxShadow: readSettingsRiv.DarkMode == 1 ? [
+                                      BoxShadow(
+                                        color: Colors.black54.withOpacity(0.8),
+                                        spreadRadius: 1,
+                                        blurRadius: 2,
+                                        offset: const Offset(-1, 2),
+                                      )
+                                    ] : [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          spreadRadius: 0.5,
                                           blurRadius: 2,
-                                          offset: const Offset(-1, 2),
-                                        )
-                                      ] : [
-                                        BoxShadow(
-                                            color: Colors.black.withOpacity(0.2),
-                                            spreadRadius: 0.5,
-                                            blurRadius: 2,
-                                            offset: const Offset(0, 2)
-                                        )
-                                      ],
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        TextMod(translation(context).totalAssets,Theme.of(context).unselectedWidgetColor, 16),
-                                        SizedBox(height: 5),
-                                        RichText(
-                                          text: TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: "${measureList[3]}" ,style: TextStyle(
-                                                  fontFamily: 'NEXA3' ,
-                                                  fontSize: 25,
-                                                  color: Theme.of(context).unselectedWidgetColor
-                                              ),
-                                              ),
-                                              TextSpan(
-                                                text: readSettingsRiv.prefixSymbol,
-                                                style: TextStyle(
-                                                    fontFamily: 'TL',
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Theme.of(context).unselectedWidgetColor
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(height: 5),
-                                        FutureBuilder(
-                                          future: ref.read(databaseRiverpod).monthlyStatusInfo(ref),
-                                          builder: (context, snapshot) {
-                                            if(snapshot.hasData){
-                                              var dailyTotals = snapshot.data;
-                                              int totalAmount2Includes = dailyTotals!.values.where((temp) => temp['totalAmount2'] != 0).length;
-
-                                              double totalExpenses = dailyTotals!
-                                                  .values
-                                                  .map((totals) => totals['totalAmount2'] ?? 0)
-                                                  .fold(0, (prev, amount) => prev + amount);
-
-                                              double totalIncome = dailyTotals!
-                                                  .values
-                                                  .map((totals) => totals['totalAmount'] ?? 0)
-                                                  .fold(0, (prev, amount) => prev + amount);
-
-                                              var formattedTotal = totalIncome - totalExpenses;
-                                              return FutureBuilder(
-                                                  future: ref.read(databaseRiverpod).monthlyStatusInfoForCompare(ref),
-                                                  builder: (context, snapshot) {
-                                                    double total = 0.0;
-                                                    double compare = 0.0;
-                                                    if(snapshot.hasData){
-                                                      var item = snapshot.data;
-                                                      item != null ? compare = formattedTotal - item : null;
-                                                      item != null ? total = item : null;
-                                                      return  Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Icon(
-                                                            compare >= 0
-                                                            ?Icons.add
-                                                            :Icons.remove,
-                                                            size: 15,
-                                                          ),
-                                                          Text(
-                                                            compare.toStringAsFixed(2),
-                                                            style: TextStyle(
-                                                              height: 1,
-                                                              color: renkler.arkaRenk,
-                                                              fontFamily:
-                                                              "Nexa4",
-                                                              fontSize: 14,
-                                                            ),
-                                                            textDirection: TextDirection.ltr,
-
-                                                          ),
-                                                        ],
-                                                      );
-                                                    }else{
-                                                      return const Text(".");
-                                                    }
-                                                  },
-                                              );
-                                            }else{
-                                              return const Text(".");
-                                            }
-                                          },
-
-                                        ),
-                                      ],
-                                    ),
+                                          offset: const Offset(0, 2)
+                                      )
+                                    ],
                                   ),
-                                  CustomPaint(
-                                    size: size,
-                                    painter: shadowBanner(
-                                      color: Colors.white.withOpacity(0.2),
-                                      mod : 1,
-                                    ),
-                                  ),
-                                  CustomPaint(
-                                    size: size,
-                                    painter: shadowBanner(
-                                      color: Colors.white.withOpacity(0.4),
-                                      mod : 2,
-                                    ),
-                                  ),
-                                  CustomPaint(
-                                    size: size,
-                                    painter: shadowBanner(
-                                      color: Colors.white.withOpacity(0.55),
-                                      mod : 3,
-                                    ),
-                                  ),
-                                  CustomPaint(
-                                    size: size,
-                                    painter: shadowBanner(
-                                      color: Colors.white.withOpacity(0.2),
-                                      mod : 4,
-                                    ),
-                                  ),
-                                  CustomPaint(
-                                    size: size,
-                                    painter: shadowBanner(
-                                      color: Colors.white.withOpacity(0.4),
-                                      mod : 5,
-                                    ),
-                                  ),
-                                  CustomPaint(
-                                    size: size,
-                                    painter: shadowBanner(
-                                      color: Colors.white.withOpacity(0.55),
-                                      mod : 6,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 10,
-                                    top : 10,
-                                    child: SizedBox(
-                                      height: size.width * .22,
-                                      width: size.width * .22,
-                                      child: measureList[3] <= 0
-                                      ? Padding( // DATA YOK MESAJI
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Theme.of(context).indicatorColor.withOpacity(0.7),
-                                              shape: BoxShape.circle,
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                  color: Colors.black12,
-                                                  blurRadius: 1,
-                                                  offset: Offset(0, 1),
-                                                  spreadRadius: 1,
-                                                )
-                                              ],
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextMod(translation(context).totalAssets,Theme.of(context).unselectedWidgetColor, 16),
+                                      SizedBox(height: 5),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: "${measureList[3]}" ,style: TextStyle(
+                                                fontFamily: 'NEXA3' ,
+                                                fontSize: 25,
+                                                color: Theme.of(context).unselectedWidgetColor
                                             ),
-                                            child: Center(
-                                                child: Text(
-                                                  translation(context).noAssetFound,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Theme.of(context).unselectedWidgetColor
-                                                  ),
-                                                )
                                             ),
-                                          ),
-                                        )
-                                      :Stack(
-                                        children: [
-                                          DChartPie(
-                                            strokeWidth: 1,
-                                            showLabelLine: false,
-                                            animationDuration: const Duration(milliseconds: 500),
-                                            labelPosition: PieLabelPosition.outside,
-                                            labelColor:  Colors.transparent,
-                                            data: [
-                                              {'domain': translation(context).bank, 'measure': measureList[0]},
-                                              {'domain': translation(context).cashAsset, 'measure': measureList[1]},
-                                              {'domain': translation(context).other, 'measure': measureList[2]},
-                                            ],
-                                            fillColor: (pieData, index) {
-                                              return colorsList[index!];
-                                            },
-                                            donutWidth: 6,
-                                          ),
-                                          Positioned(
-                                            left: size.width * .088,
-                                            top: size.width * .08,
-                                            child: Text(
-                                              readSettingsRiv.prefixSymbol.toString(),
+                                            TextSpan(
+                                              text: readSettingsRiv.prefixSymbol,
                                               style: TextStyle(
                                                   fontFamily: 'TL',
-                                                  fontSize: 20,
+                                                  fontSize: 18,
                                                   fontWeight: FontWeight.w600,
                                                   color: Theme.of(context).unselectedWidgetColor
                                               ),
                                             ),
-                                          ),
-                                        ]
-                                      ),
-                                    ),
-                                  ),
-                                ]
-                              ),
-                            ),
-                          ),///pie row
-                          SizedBox(height: size.height *.01),
-                          Container(
-                            height : size.height * .1,
-                            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color : Theme.of(context).indicatorColor
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    assetBox(context, ref, translation(context).cardAsset, dbRiv.getTotalAmountByKart(myData)),
-                                    assetBox(context, ref, translation(context).cashAsset, dbRiv.getTotalAmountByNakit(myData)),
-                                    assetBox(context, ref, translation(context).other, dbRiv.getTotalAmountByDiger(myData)),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            opaque: false, //sayfa saydam olması için
-                                            transitionDuration: const Duration(milliseconds: 1),
-                                            pageBuilder: (context, animation, nextanim) => const addAssets(),
-                                            reverseTransitionDuration: const Duration(milliseconds: 1),
-                                            transitionsBuilder: (context, animation, nexttanim, child) {
-                                              return FadeTransition(
-                                                opacity: animation,
-                                                child: child,
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        width: size.width * .55,
-                                        height: size.height * .031,
-                                        padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.02),
-                                        decoration: BoxDecoration(
-                                            gradient: readSettingsRiv.DarkMode == 1 ? LinearGradient(
-                                              colors: [Theme.of(context).secondaryHeaderColor, Theme.of(context).shadowColor],
-                                            ) : null ,
-                                            color : readSettingsRiv.DarkMode == 1 ? null : Theme.of(context).highlightColor,
-                                            borderRadius: BorderRadius.circular(8),
-                                            border: Border.all(
-                                              color: Theme.of(context).canvasColor.withOpacity(0.5),
-                                            ),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Theme.of(context).indicatorColor,
-                                                  blurRadius: 3,
-                                                  spreadRadius: 1
-                                              )
-                                            ]
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              translation(context).addRemoveAsset,
-                                              style: const TextStyle(
-                                                  color: Color(0xFFE9E9E9),
-                                                  fontSize: 13,
-                                                  height: 1
-                                              ),
-                                            ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            opaque: false, //sayfa saydam olması için
-                                            transitionDuration: const Duration(milliseconds: 1),
-                                            pageBuilder: (context, animation, nextanim) => const HistoryAsset(),
-                                            reverseTransitionDuration: const Duration(milliseconds: 1),
-                                            transitionsBuilder: (context, animation, nexttanim, child) {
-                                              return FadeTransition(
-                                                opacity: animation,
-                                                child: child,
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        width: size.width * .35,
-                                        height: size.height * .031,
-                                        padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.02),
-                                        decoration: BoxDecoration(
-                                            color: Theme.of(context).highlightColor,
-                                            borderRadius: BorderRadius.circular(8),
-                                            border: Border.all(
-                                              color: Theme.of(context).canvasColor.withOpacity(0.5),
-                                            ),
+                                      SizedBox(height: 5),
+                                      FutureBuilder(
+                                        future: ref.read(databaseRiverpod).monthlyStatusInfo(ref),
+                                        builder: (context, snapshot) {
+                                          if(snapshot.hasData){
+                                            var dailyTotals = snapshot.data;
+                                            int totalAmount2Includes = dailyTotals!.values.where((temp) => temp['totalAmount2'] != 0).length;
+
+                                            double totalExpenses = dailyTotals!
+                                                .values
+                                                .map((totals) => totals['totalAmount2'] ?? 0)
+                                                .fold(0, (prev, amount) => prev + amount);
+
+                                            double totalIncome = dailyTotals!
+                                                .values
+                                                .map((totals) => totals['totalAmount'] ?? 0)
+                                                .fold(0, (prev, amount) => prev + amount);
+
+                                            var formattedTotal = totalIncome - totalExpenses;
+                                            return FutureBuilder(
+                                                future: ref.read(databaseRiverpod).monthlyStatusInfoForCompare(ref),
+                                                builder: (context, snapshot) {
+                                                  double total = 0.0;
+                                                  double compare = 0.0;
+                                                  if(snapshot.hasData){
+                                                    var item = snapshot.data;
+                                                    item != null ? compare = formattedTotal - item : null;
+                                                    item != null ? total = item : null;
+                                                    return  Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        SizedBox(width: size.width * .07),
+                                                        compare > 0
+                                                        ? const Icon(
+                                                            Icons.add,
+                                                            size: 15,
+                                                          )
+                                                        :const SizedBox(),
+                                                        Text(
+                                                          compare.toStringAsFixed(2),
+                                                          style: TextStyle(
+                                                            height: 1,
+                                                            color: renkler.arkaRenk,
+                                                            fontFamily:
+                                                            "Nexa4",
+                                                            fontSize: 14,
+                                                          ),
+                                                          textDirection: TextDirection.ltr,
+
+                                                        ),
+                                                        Icon(
+                                                          compare > 0
+                                                          ? Icons.call_missed_outgoing_outlined
+                                                          : Icons.call_received_outlined,
+                                                          size: 15,
+                                                          color: compare >= 0 ? const Color(0xFF1A8E58) : const Color(0xFFD91A2A),
+                                                        )
+                                                      ],
+                                                    );
+                                                  }else{
+                                                    return const Text(".");
+                                                  }
+                                                },
+                                            );
+                                          }else{
+                                            return const Text(".");
+                                          }
+                                        },
+
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                CustomPaint(
+                                  size: size,
+                                  painter: shadowBanner(
+                                    color: Colors.white.withOpacity(0.2),
+                                    mod : 1,
+                                  ),
+                                ),
+                                CustomPaint(
+                                  size: size,
+                                  painter: shadowBanner(
+                                    color: Colors.white.withOpacity(0.4),
+                                    mod : 2,
+                                  ),
+                                ),
+                                CustomPaint(
+                                  size: size,
+                                  painter: shadowBanner(
+                                    color: Colors.white.withOpacity(0.55),
+                                    mod : 3,
+                                  ),
+                                ),
+                                CustomPaint(
+                                  size: size,
+                                  painter: shadowBanner(
+                                    color: Colors.white.withOpacity(0.2),
+                                    mod : 4,
+                                  ),
+                                ),
+                                CustomPaint(
+                                  size: size,
+                                  painter: shadowBanner(
+                                    color: Colors.white.withOpacity(0.4),
+                                    mod : 5,
+                                  ),
+                                ),
+                                CustomPaint(
+                                  size: size,
+                                  painter: shadowBanner(
+                                    color: Colors.white.withOpacity(0.55),
+                                    mod : 6,
+                                  ),
+                                ),
+                                Positioned(
+                                  right: 10,
+                                  top : 10,
+                                  child: SizedBox(
+                                    height: size.width * .22,
+                                    width: size.width * .22,
+                                    child: measureList[3] <= 0
+                                    ? Padding( // DATA YOK MESAJI
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context).indicatorColor.withOpacity(0.7),
+                                            shape: BoxShape.circle,
                                             boxShadow: const [
                                               BoxShadow(
-                                                  color: Colors.black12,
-                                                  blurRadius: 3,
-                                                  spreadRadius: 1
+                                                color: Colors.black12,
+                                                blurRadius: 1,
+                                                offset: Offset(0, 1),
+                                                spreadRadius: 1,
                                               )
-                                            ]
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              translation(context).past,
-                                              style: const TextStyle(
-                                                  color: Color(0xFFE9E9E9),
-                                                  fontSize: 13,
-                                                  height: 1
-                                              ),
-                                            ),
-                                            const SizedBox(width: 5),
-                                            const Icon(
-                                              Icons.history,
-                                              size: 16,
-                                              color: Color(0xFFE9E9E9),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),///Buttons and assetBoxs
-                          SizedBox(height: size.height *.01),
-                          Container(
-                            height : size.height * .15,
-                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).indicatorColor
-                            ),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height : 20,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        pageNumber == 0
-                                          ?translation(context).assetChart30Days
-                                          :translation(context).yourHighestIncome
-                                      ),
-                                      counterContainer(context, pageNumber),
-
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: size.height * .11,
-                                  child: PageView(
-                                    controller: _pageViewController,
-                                    physics: const BouncingScrollPhysics(
-                                      decelerationRate: ScrollDecelerationRate.fast
-                                    ),
-                                    onPageChanged: (value) {
-                                      setState(() {
-                                        pageNumber = value;
-                                      });
-                                    },
-                                    children: [
-                                      pageFirst(ref, measureList[3]),
-                                      pageSecond(ref),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),///pageView Graph banner
-                          SizedBox(height: size.height *.01),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                               Text(
-                                  translation(context).myCurrencies,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontFamily: "Nexa3",
-                                  height: 1,
-                                  color: Theme.of(context).canvasColor,
-
-                                ),
-                              ),
-                              SizedBox(
-                                width: size.width * double.parse(translation(context).myCurrenciesSize),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: Container(
-                                    color: Theme.of(context).highlightColor,
-                                    height: 3,
-                                    width: double.infinity,
-                                    child: const VerticalDivider(
-                                      thickness: 1,
-                                      width: 0,
-                                      color: Colors.transparent,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                   icsclick = !icsclick;
-                                 });
-                                },
-                                borderRadius: BorderRadius.circular(20),
-                                child: Container(
-                                  width: 30,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).shadowColor,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Transform.rotate(
-                                    angle: 3.14 / 2,
-                                    child: const Icon(Icons.swap_horiz),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: size.width * .07,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: Container(
-                                    color: Theme.of(context).highlightColor,
-                                    height: 3,
-                                    width: double.infinity,
-                                    child: const VerticalDivider(
-                                      thickness: 1,
-                                      width: 0,
-                                      color: Colors.transparent,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),///divider row
-                          SizedBox(height: size.height *.01),
-                          Expanded(
-                            child: FutureBuilder(
-                              future: SQLHelper.getItemsByCurrency(readSettingsRiv.Prefix!),
-                              builder: (context, snapshot) {
-                                List ?data ;
-                                if(snapshot.hasData){
-                                  switch(icsclick){
-                                    case true:
-                                      data = List.from(snapshot.data!);
-                                      data.sort((a, b) {
-                                        DateTime dateA = convertDate(a.operationDate);
-                                        DateTime dateB = convertDate(b.operationDate);
-                                        return dateB.compareTo(dateA);
-                                      });
-                                      break;
-                                    case false:
-                                      data = List.from(snapshot.data!);
-                                      data.sort((a, b) {
-                                        DateTime dateA = convertDate(a.operationDate);
-                                        DateTime dateB = convertDate(b.operationDate);
-                                        return dateA.compareTo(dateB);
-                                      });
-                                      break;
-                                    default:
-                                  }
-                                  return data!.length == 0
-                                  ? SizedBox(
-                                    height: 150,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          "assets/image/noInfo5.png",
-                                          width: 75,
-                                          height: 75,
-                                          //color: Theme.of(context).canvasColor,
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                          width: 140,
-                                          child: DecoratedBox(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(20),
-                                                color: Theme.of(context).canvasColor,
-                                              ),
-                                              child: Center(child: TextMod(
-                                                  translation(context).currencyNotFound, Theme.of(context).primaryColor, 14))
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                  :GridView.builder(
-                                    physics: const BouncingScrollPhysics(),
-                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: size.width * .06,
-                                        mainAxisSpacing: size.height * .005,
-                                        childAspectRatio: 3
-                                    ),
-                                    itemCount: data.length,
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            PageRouteBuilder(
-                                              opaque: false, //sayfa saydam olması için
-                                              transitionDuration: const Duration(milliseconds: 1),
-                                              pageBuilder: (context, animation, nextanim) => changeCurrencyPage(data![index]),
-                                              reverseTransitionDuration: const Duration(milliseconds: 1),
-                                              transitionsBuilder: (context, animation, nexttanim, child) {
-                                                return FadeTransition(
-                                                  opacity: animation,
-                                                  child: child,
-                                                );
-                                              },
-                                            ),
-                                          );
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(horizontal: size.width *.02, vertical: size.height * .013),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(12),
-                                            color: Theme.of(context).indicatorColor,
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 6,
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          Converter().textConverterFromDB(data![index].operationTool!, context, 2),
-                                                          style: TextStyle(
-                                                            height: 1,
-                                                            color: Theme.of(context).canvasColor,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                            data[index].operationDay.toString()  == "null" ? translation(context).asset : data[index].operationDate.toString() ,
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            height: 1,
-                                                              color: Theme.of(context).canvasColor,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Text(
-                                                        "${data[index].amount.toStringAsFixed(2)} ${data[index].moneyType.toString().substring(0,3)}",style: TextStyle(
-                                                      height: 1,
-                                                      color: Theme.of(context).canvasColor,
-                                                    ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const Expanded(
-                                                flex: 1,
-                                                child: Icon(Icons.swap_horiz_rounded)
-                                              ),
                                             ],
                                           ),
+                                          child: Center(
+                                              child: Text(
+                                                translation(context).noAssetFound,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Theme.of(context).unselectedWidgetColor
+                                                ),
+                                              )
+                                          ),
+                                        ),
+                                      )
+                                    :Stack(
+                                      children: [
+                                        DChartPie(
+                                          strokeWidth: 1,
+                                          showLabelLine: false,
+                                          animationDuration: const Duration(milliseconds: 500),
+                                          labelPosition: PieLabelPosition.outside,
+                                          labelColor:  Colors.transparent,
+                                          data: [
+                                            {'domain': translation(context).bank, 'measure': measureList[0]},
+                                            {'domain': translation(context).cashAsset, 'measure': measureList[1]},
+                                            {'domain': translation(context).other, 'measure': measureList[2]},
+                                          ],
+                                          fillColor: (pieData, index) {
+                                            return colorsList[index!];
+                                          },
+                                          donutWidth: 6,
+                                        ),
+                                        Positioned(
+                                          left: readSettingsRiv.Prefix == "KWD" ? size.width * .07 : readSettingsRiv.Prefix == "JOD" || readSettingsRiv.Prefix == "IQD" ? size.width * .065 : readSettingsRiv.Prefix == "SAR" ? size.width * .06 : size.width * .084,
+                                          top:  readSettingsRiv.Prefix == "KWD" || readSettingsRiv.Prefix == "SAR" ? size.height * .033 :  readSettingsRiv.Prefix == "IQD" ? size.height * .032 : size.height * .037,
+                                          child: Text(
+                                            readSettingsRiv.prefixSymbol.toString(),
+                                            style: TextStyle(
+                                                fontFamily: 'TL',
+                                                fontSize: readSettingsRiv.Prefix == "SAR" ? 17 : 20,
+                                                fontWeight: FontWeight.w600,
+                                                color: Theme.of(context).unselectedWidgetColor
+                                            ),
+                                          ),
+                                        ),
+                                      ]
+                                    ),
+                                  ),
+                                ),
+                              ]
+                            ),
+                          ),
+                        ),///pie row
+                        SizedBox(height: size.height *.01),
+                        Container(
+                          height : size.height * .12,
+                          padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color : Theme.of(context).indicatorColor
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  assetBox(context, ref, translation(context).cardAsset, dbRiv.getTotalAmountByKart(myData)),
+                                  assetBox(context, ref, translation(context).cashAsset, dbRiv.getTotalAmountByNakit(myData)),
+                                  assetBox(context, ref, translation(context).other, dbRiv.getTotalAmountByDiger(myData)),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          opaque: false, //sayfa saydam olması için
+                                          transitionDuration: const Duration(milliseconds: 1),
+                                          pageBuilder: (context, animation, nextanim) => const addAssets(),
+                                          reverseTransitionDuration: const Duration(milliseconds: 1),
+                                          transitionsBuilder: (context, animation, nexttanim, child) {
+                                            return FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            );
+                                          },
                                         ),
                                       );
                                     },
-                                  );
-                                }else{
-                                  return Center(
-                                      child: CircularProgressIndicator(
-                                        color: Theme.of(context).disabledColor,
-                                    )
-                                  );
-                                }
-                              },
+                                    child: Container(
+                                      width: size.width * .55,
+                                      height: size.height * .031,
+                                      padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.02),
+                                      decoration: BoxDecoration(
+                                          gradient: readSettingsRiv.DarkMode == 1 ? LinearGradient(
+                                            colors: [Theme.of(context).secondaryHeaderColor, Theme.of(context).shadowColor],
+                                          ) : null ,
+                                          color : readSettingsRiv.DarkMode == 1 ? null : Theme.of(context).highlightColor,
+                                          borderRadius: BorderRadius.circular(8),
+                                          border: Border.all(
+                                            color: Theme.of(context).canvasColor.withOpacity(0.5),
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Theme.of(context).indicatorColor,
+                                                blurRadius: 3,
+                                                spreadRadius: 1
+                                            )
+                                          ]
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            translation(context).addRemoveAsset,
+                                            style: const TextStyle(
+                                                color: Color(0xFFE9E9E9),
+                                                fontSize: 13,
+                                                height: 1
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          opaque: false, //sayfa saydam olması için
+                                          transitionDuration: const Duration(milliseconds: 1),
+                                          pageBuilder: (context, animation, nextanim) => const HistoryAsset(),
+                                          reverseTransitionDuration: const Duration(milliseconds: 1),
+                                          transitionsBuilder: (context, animation, nexttanim, child) {
+                                            return FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: size.width * .35,
+                                      height: size.height * .031,
+                                      padding: EdgeInsets.symmetric(vertical: size.height * .007, horizontal: size.width *.02),
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context).highlightColor,
+                                          borderRadius: BorderRadius.circular(8),
+                                          border: Border.all(
+                                            color: Theme.of(context).canvasColor.withOpacity(0.5),
+                                          ),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.black12,
+                                                blurRadius: 3,
+                                                spreadRadius: 1
+                                            )
+                                          ]
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            translation(context).past,
+                                            style: const TextStyle(
+                                                color: Color(0xFFE9E9E9),
+                                                fontSize: 13,
+                                                height: 1
+                                            ),
+                                          ),
+                                          const SizedBox(width: 5),
+                                          const Icon(
+                                            Icons.history,
+                                            size: 16,
+                                            color: Color(0xFFE9E9E9),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),///Buttons and assetBoxs
+                        SizedBox(height: size.height *.01),
+                        Container(
+                          height : size.height * .15,
+                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).indicatorColor
+                          ),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height : 20,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      pageNumber == 0
+                                        ?"30 Günlük Varlık Değişimi"
+                                        :"En fazla Gelir"
+                                    ),
+                                    counterContainer(context, pageNumber),
+
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height * .115,
+                                child: PageView(
+                                  controller: _pageViewController,
+                                  physics: const BouncingScrollPhysics(
+                                    decelerationRate: ScrollDecelerationRate.fast
+                                  ),
+                                  onPageChanged: (value) {
+                                    setState(() {
+                                      pageNumber = value;
+                                    });
+                                  },
+                                  children: [
+                                    pageFirst(ref, measureList[3]),
+                                    pageSecond(ref),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),///pageView Graph banner
+                        SizedBox(height: size.height *.01),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                             Text(
+                                translation(context).myCurrencies,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontFamily: "Nexa3",
+                                height: 1,
+                                color: Theme.of(context).canvasColor,
+
+                              ),
                             ),
-                          ),///currencies
-                        ],
-                      ),
+                            SizedBox(
+                              width: size.width * double.parse(translation(context).myCurrenciesSize),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Container(
+                                  color: Theme.of(context).highlightColor,
+                                  height: 3,
+                                  width: double.infinity,
+                                  child: const VerticalDivider(
+                                    thickness: 1,
+                                    width: 0,
+                                    color: Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                 icsclick = !icsclick;
+                               });
+                              },
+                              borderRadius: BorderRadius.circular(20),
+                              child: Container(
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).shadowColor,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Transform.rotate(
+                                  angle: 3.14 / 2,
+                                  child: const Icon(Icons.swap_horiz),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * .07,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Container(
+                                  color: Theme.of(context).highlightColor,
+                                  height: 3,
+                                  width: double.infinity,
+                                  child: const VerticalDivider(
+                                    thickness: 1,
+                                    width: 0,
+                                    color: Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),///divider row
+                        SizedBox(height: size.height *.01),
+                        Expanded(
+                          child: FutureBuilder(
+                            future: SQLHelper.getItemsByCurrency(readSettingsRiv.Prefix!),
+                            builder: (context, snapshot) {
+                              List ?data ;
+                              if(snapshot.hasData){
+                                switch(icsclick){
+                                  case true:
+                                    data = List.from(snapshot.data!);
+                                    data.sort((a, b) {
+                                      DateTime dateA = convertDate(a.operationDate);
+                                      DateTime dateB = convertDate(b.operationDate);
+                                      return dateB.compareTo(dateA);
+                                    });
+                                    break;
+                                  case false:
+                                    data = List.from(snapshot.data!);
+                                    data.sort((a, b) {
+                                      DateTime dateA = convertDate(a.operationDate);
+                                      DateTime dateB = convertDate(b.operationDate);
+                                      return dateA.compareTo(dateB);
+                                    });
+                                    break;
+                                  default:
+                                }
+                                return data!.length == 0
+                                ? SizedBox(
+                                  height: 150,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/image/noInfo5.png",
+                                        width: 75,
+                                        height: 75,
+                                        //color: Theme.of(context).canvasColor,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                        width: 140,
+                                        child: DecoratedBox(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(20),
+                                              color: Theme.of(context).canvasColor,
+                                            ),
+                                            child: Center(child: TextMod(
+                                                translation(context).currencyNotFound, Theme.of(context).primaryColor, 14))
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                                :GridView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: size.width * .06,
+                                      mainAxisSpacing: size.height * .005,
+                                      childAspectRatio: 3
+                                  ),
+                                  itemCount: data.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            opaque: false, //sayfa saydam olması için
+                                            transitionDuration: const Duration(milliseconds: 1),
+                                            pageBuilder: (context, animation, nextanim) => changeCurrencyPage(data![index]),
+                                            reverseTransitionDuration: const Duration(milliseconds: 1),
+                                            transitionsBuilder: (context, animation, nexttanim, child) {
+                                              return FadeTransition(
+                                                opacity: animation,
+                                                child: child,
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(horizontal: size.width *.02, vertical: size.height * .013),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12),
+                                          color: Theme.of(context).indicatorColor,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 6,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        Converter().textConverterFromDB(data![index].operationTool!, context, 2),
+                                                        style: TextStyle(
+                                                          height: 1,
+                                                          color: Theme.of(context).canvasColor,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                          data[index].operationDay.toString()  == "null" ? translation(context).asset : data[index].operationDate.toString() ,
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          height: 1,
+                                                            color: Theme.of(context).canvasColor,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Text(
+                                                      "${data[index].amount.toStringAsFixed(2)} ${data[index].moneyType.toString().substring(0,3)}",style: TextStyle(
+                                                    height: 1,
+                                                    color: Theme.of(context).canvasColor,
+                                                  ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            const Expanded(
+                                              flex: 1,
+                                              child: Icon(Icons.swap_horiz_rounded)
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }else{
+                                return Center(
+                                    child: CircularProgressIndicator(
+                                      color: Theme.of(context).disabledColor,
+                                  )
+                                );
+                              }
+                            },
+                          ),
+                        ),///currencies
+                      ],
                     ),
-                  );
-                }else{
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).disabledColor,
-                    )
-                  );
-                }
-              },
-            ),
-          )
-      ),
+                  ),
+                );
+              }else{
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).disabledColor,
+                  )
+                );
+              }
+            },
+          ),
+        ),
     );
   }
   List<Color> colorsList = [
-    const Color(0xFFB7ACF9),
-    const Color(0xFFF9D1AC),
-    const Color(0xFFF9ACAC),
+    const Color(0xFFB7ACF9).withOpacity(0.5),
+    const Color(0xFFF9D1AC).withOpacity(0.5),
+    const Color(0xFFF9ACAC).withOpacity(0.5),
   ];
 
 
@@ -938,7 +946,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
         if(snapshot.hasData){
          var item = snapshot.data;
           if(item!.isEmpty){
-            return Center(
+            return const Center(
               child: Text("Veri Bulunamadı."),
             );
           }else {
@@ -973,7 +981,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                           .read(settingsRiverpod)
                           .DarkMode == 0 ? Theme
                           .of(context)
-                          .hintColor
+                          .highlightColor
                           .withOpacity(0.7) : Color(0xFFDBB704),
                       Theme
                           .of(context)
@@ -1158,7 +1166,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
       },
     );
   }
-
+/*
   Future<void> startTimer() async {
     _timer = Timer.periodic(Duration(seconds: 10), (timer) async {
       if(mounted){
@@ -1173,6 +1181,8 @@ class _assetsPage extends ConsumerState<assetsPage> {
       }
     });
   }
+
+ */
 
 }
 
