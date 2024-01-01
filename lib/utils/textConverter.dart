@@ -195,27 +195,27 @@ class Converter{
       } else if (text == "Diğer-") {
         return translation(context).otherExpense;
       }
-      else if (text == "Harçlık") {
+      else if (text == "Harçlık" || text == "Harçlık+") {//pasta çevirisi için +
         return translation(context).pocketMoneyIncome;
-      } else if (text == "Burs") {
+      } else if (text == "Burs" || text == "Burs+") { //text.contains("Burs")
         return translation(context).grantIncome;
-      } else if (text == "Maaş") {
+      } else if (text == "Maaş" || text == "Maaş+") {
         return translation(context).salaryIncome;
-      } else if (text == "Kredi") {
+      } else if (text == "Kredi" || text == "Kredi+") {
         return translation(context).creditIncome;
-      } else if (text == "Özel+") {
+      } else if (text == "Özel+" || text == "Özel++") {
         return translation(context).personalIncome;
-      } else if (text == "Kira/Aidat") {
+      } else if (text == "Kira/Aidat" || text == "Kira/Aidat+") {
         return translation(context).duesRentIncome;
-      } else if (text == "Fazla Mesai") {
+      } else if (text == "Fazla Mesai" || text == "Fazla Mesai+") {
         return translation(context).overtimeIncome;
-      } else if (text == "İş Getirisi") {
+      } else if (text == "İş Getirisi" || text == "İş Getirisi+") {
         return translation(context).freelanceIncome;
-      } else if (text == "Döviz Getirisi") {
+      } else if (text == "Döviz Getirisi" || text == "Döviz Getirisi+") {
         return translation(context).incomeViaCurrencyIncome;
-      } else if (text == "Yatırım Getirisi") {
+      } else if (text == "Yatırım Getirisi" || text == "Yatırım Getirisi+") {
         return translation(context).investmentIncome;
-      } else if (text == "Diğer+") {
+      } else if (text == "Diğer+" || text == "Diğer++") {
         return translation(context).otherIncome;
       } else {
         return text;

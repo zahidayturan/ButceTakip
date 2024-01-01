@@ -31,6 +31,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
     var size = MediaQuery.of(context).size;
     var readHome = ref.read(homeRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
+    var readSetting = ref.read(settingsRiverpod);
     CustomColors renkler = CustomColors();
     return FutureBuilder <Map<String, Map<String, double>>>(
       future: readDB.monthlyStatusInfo(ref),
@@ -89,7 +90,8 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
           }
         }
         String maxTotalAmount2Date = maxTotalAmount2Day != "" ? "$maxTotalAmount2Day.$maxTotalAmount2Month.$maxTotalAmount2Year" : translation(context).noSpending;
-
+        // ${readSettings.getMonthInList(context)} ${readSettings.yearIndex.toString()}
+        DateTime date = DateTime(readSetting.yearIndex,readSetting.monthIndex+1,0);
         return SizedBox(
           height: 184,
           child: Padding(
@@ -197,11 +199,11 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(translation(context).monthlyExpensesWithoutEnter),/// aylik gider / 30
+                                          Text("${translation(context).monthlyExpensesWithoutEnter} / ${date.day}"),/// aylik gider / ay  kaç gün ise
                                           RichText(
                                               text: TextSpan(children: [
                                                 TextSpan(
-                                                  text: (totalExpenses/30).toStringAsFixed(2),
+                                                  text: (totalExpenses/date.day).toStringAsFixed(2),
                                                   style: TextStyle(
                                                     height: 1,
                                                     color: Theme.of(context).canvasColor,

@@ -1481,7 +1481,7 @@ class _SettingsState extends ConsumerState<Settings> {
 
                             ),
                             child: Icon(
-                              Icons.assistant,
+                              Icons.assistant_rounded,
                               color: Theme.of(context).secondaryHeaderColor,
                               size: 18,
                             ),
@@ -1512,10 +1512,13 @@ class _SettingsState extends ConsumerState<Settings> {
                                 ),
                               );
                             },
-                            child: Icon(Icons.open_in_browser)
+                            child: Icon(Icons.open_in_browser_rounded)
                           ),
                           SizedBox(width: 10,),
-                          Text(switch1! ? translation(context).on : translation(context).off),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Text(switch1! ? translation(context).on : translation(context).off),
+                          ),
                           SizedBox(width: 10,),
                           Container(
                             height: 26,
