@@ -694,19 +694,19 @@
   "great": "عظيم! ",
   "recommendThatYouSpendYourBudgetWisely": "ننصحك بإنفاق ميزانيتك باعتدال ",
 
-  "youSpentThisMuchOfYourMonthlyIncome": "لقد أنفقت هذا القدر من دخلك الشهري: ",
+  "youSpentThisMuchOfYourMonthlyIncome": "لقد أنفقت هذا القدر من دخلك الشهري : ",
   "percentage": "%",
-  "numberOfDaysLeft": "عدد الأيام المتبقية حتى نهاية الشهر: ",
+  "numberOfDaysLeft": "عدد الأيام المتبقية حتى نهاية الشهر : ",
   "day": "",
-  "spendingThisMuchPerDayOnAverage": "يمكنك الوصول إلى نهاية الشهر بإنفاق هذا المبلغ يوميًا: ",
+  "spendingThisMuchPerDayOnAverage": "يمكنك الوصول إلى نهاية الشهر بإنفاق هذا المبلغ يوميًا : ",
 
   "yourIncomeExpensesAreEqual": "وضع دخلك ومصاريفك الشهرية متساوي. ",
   "fortunatelyYouAlreadyHaveMoneyInAssets": "لحسن الحظ، لديك حاليا أموال في موجوداتك. ",
 
   "spendingInNegativeBalance": "أرى أن وضع دخلك ومصاريفك الشهرية للأسف في توازن سلبي. ",
   "youDoNotHaveAnyAssetsEditYourAssets": "لسوء الحظ، ليس لديك أية موجودات. يمكنك تعديل موجوداتك من صفحة موجوداتي. ",
-  "yourTotalMoneyOnTheMyAssetsPageIs": "إجمالي أموالك في صفحة موجوداتي هي: ",
-  "lastShowDate": "تاريخ العرض الأخير: ",
+  "yourTotalMoneyOnTheMyAssetsPageIs": "إجمالي أموالك في صفحة موجوداتي هي : ",
+  "lastShowDate": "تاريخ العرض الأخير : ",
 
   "yourIncomeActivitiesForThisMonth": "عمليات دخلك هذا الشهر"
 }

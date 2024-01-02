@@ -694,19 +694,19 @@
     "great": "Great! ",
     "recommendThatYouSpendYourBudgetWisely": "We recommend that you spend your budget wisely ",
 
-    "youSpentThisMuchOfYourMonthlyIncome": "You spent this much of your Monthly Income: ",
+    "youSpentThisMuchOfYourMonthlyIncome": "You spent this much of your Monthly Income : ",
     "percentage": "%",
-    "numberOfDaysLeft": "Number of days left until the end of the month: ",
+    "numberOfDaysLeft": "Number of days left until the end of the month : ",
     "day": "days",
-    "spendingThisMuchPerDayOnAverage": "You can reach the end of the month by spending this much per day on average: ",
+    "spendingThisMuchPerDayOnAverage": "You can reach the end of the month by spending this much per day on average : ",
 
     "yourIncomeExpensesAreEqual": "Your monthly income and expenses are equal. ",
     "fortunatelyYouAlreadyHaveMoneyInAssets": "Fortunately, you already have money in Assets. ",
 
     "spendingInNegativeBalance": "I see that your monthly income and expenses are unfortunately in negative balance. ",
     "youDoNotHaveAnyAssetsEditYourAssets": "Unfortunately, you do not have any assets. You can edit your assets from My Assets page. ",
-    "yourTotalMoneyOnTheMyAssetsPageIs": "Your total money on the My Assets page: ",
-    "lastShowDate": "Last Show date:",
+    "yourTotalMoneyOnTheMyAssetsPageIs": "Your total money on the My Assets page : ",
+    "lastShowDate": "Last Show date : ",
 
     "yourIncomeActivitiesForThisMonth": "Your Income activities for this month"
 }

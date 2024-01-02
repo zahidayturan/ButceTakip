@@ -688,25 +688,25 @@
   "hello": "Merhabalar",
   "sir": "Efendim",
 
-  "spendingInPositiveBalance": "Aylık Gelir Gider durumunuzunun artı bakiyede olduğunu görebiliyorum. ",
+  "spendingInPositiveBalance": "Aylık Gelir Gider durumunuzunun + bakiyede olduğunu görebiliyorum. ",
   "keepGoingLikeThis": "Böyle Devam ",
   "goodJobKeepGoingLikeThis": "Gayet Güzel bir oran var. ",
   "great": "Harika! ",
   "recommendThatYouSpendYourBudgetWisely": "Biraz bütçenizi idareli harcamanızı öneririz ",
 
-  "youSpentThisMuchOfYourMonthlyIncome": "Aylık Gelirinizi şu kadarını harcamışsınız: %",
+  "youSpentThisMuchOfYourMonthlyIncome": "Aylık Gelirinizi şu kadarını harcamışsınız : %",
   "percentage": "",
-  "numberOfDaysLeft": "Ay bitimine kalan gün sayısı: ",
+  "numberOfDaysLeft": "Ay bitimine kalan gün sayısı : ",
   "day": "gün",
-  "spendingThisMuchPerDayOnAverage": "Ay sonuna ortalama günlük şu kadar harcayarak ulaşabilirsiniz: ",
+  "spendingThisMuchPerDayOnAverage": "Ay sonuna ortalama günlük şu kadar harcayarak ulaşabilirsiniz : ",
 
   "yourIncomeExpensesAreEqual": "Aylık gelir ve gider durumunuz eşit. ",
   "fortunatelyYouAlreadyHaveMoneyInAssets": "Neyse ki hâlihazırda Varlıklarınızda paranız mevcut. ",
 
-  "spendingInNegativeBalance": "Aylık Gelir Gider durumunuzun maalesef eksi bakiyede olduğunu görüyorum. ",
+  "spendingInNegativeBalance": "Aylık Gelir Gider durumunuzun maalesef - bakiyede olduğunu görüyorum. ",
   "youDoNotHaveAnyAssetsEditYourAssets": "Maalesef Varlığınız bulunmuyor. Varlıklarım sayfasından varlıklarınızı düzenleyebilirsiniz. ",
-  "yourTotalMoneyOnTheMyAssetsPageIs": "Varlıklarım sayfasındaki toplam paranız: ",
-  "lastShowDate": "Son gösterilme tarihi: ",
+  "yourTotalMoneyOnTheMyAssetsPageIs": "Varlıklarım sayfasındaki toplam paranız : ",
+  "lastShowDate": "Son gösterilme tarihi : ",
 
   "yourIncomeActivitiesForThisMonth": "Bu aydaki Gelir işlemleriniz"
 }
