@@ -357,6 +357,7 @@ class CustomizeList extends ConsumerWidget {
                                                                               SnackBar(
                                                                                 backgroundColor: Theme.of(context).highlightColor,
                                                                                 duration: const Duration(seconds: 1),
+                                                                                elevation: 0,
                                                                                 content: Text(
                                                                                   translation(context).repeatCancelled,
                                                                                   style: const TextStyle(
@@ -721,6 +722,7 @@ class CustomizeList extends ConsumerWidget {
                                                                                 SnackBar(
                                                                                   backgroundColor: Theme.of(context).highlightColor,
                                                                                   duration: const Duration(seconds: 1),
+                                                                                  elevation: 0,
                                                                                   content: Text(
                                                                                     translation(context).installmentCancelled,
                                                                                     style: const TextStyle(

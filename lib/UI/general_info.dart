@@ -77,7 +77,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                 ),
                                 widget.isAssistantMode
                                 ? Text(
-                                    "Toplam",
+                                  translation(context).totalSmall,
                                     style: TextStyle(
                                         height: 2,
                                         fontSize: 14,

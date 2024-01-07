@@ -14,6 +14,7 @@
   "backupTitle": "YEDEKLEME",
   "contactUsTitle": "İLETİŞİM",
   "myAssets": "VARLIKLARIM",
+  "myAssetsSmall": "Varliklarim",
 
   "selectLanguage": "Lütfen dil seçiniz",
 
@@ -111,6 +112,7 @@
   "time": "Saat",
   "monthlyIncome": "Aylık\nGelir",
   "monthlyExpenses": "Aylık\nGider",
+  "monthlyExpensesWithoutEnter": "Aylık Gider",
 
   "noActivity": "Kayıt Yok",
 
@@ -441,6 +443,7 @@
   "past": "Geçmiş",
   "myPastAssetRecords": "GEÇMİŞ VARLIK KAYITLARIM",
   "close": "Kapat",
+  "totalSmall": "Toplam",
   "doneBitti": "Bitti",
   "noAssetFound": "Net Varlık Bulunamadı!",
   "addRemoveAsset": "Varlık Ekle/Çıkart",
@@ -668,6 +671,43 @@
   "downloadedData" : "verileriniz indirildi.",
   "backupedData" : "verileriniz yedeklendi",
 
-  "close" : "Kapat"
+  "assetChart30Days": "30 Günlük Varlık Değişimi",
+  "yourHighestIncome": "En Yüksek Geliriniz",
+
+  "deleteMyAccount": "HESABIMI SİL",
+  "allDataInYourEmailAccountWillBeDeleted": "Mail hesabınızdaki tüm veriler silinecektir.",
+  "doYouConfirm": "Onaylıyor musunuz? (Yeniden aynı Email ile hesap oluşturabileceksiniz.)",
+  "deleteMyAccountSmall": "Hesabımı Sil",
+  "deleteMyAccountSmallSize": "90",
+  "cancel": "iptal et",
+
+  "analysis": "ANALİZ",
+  "iAmYourBudgetWiseAssistant": "Merhaba Ben BütçeTakip Asistanınız!\n",
+  "lookAtYourMonthlyExpenses": "Aylık harcamalarınıza bir bakalım.",
+
+  "hello": "Merhabalar",
+  "sir": "Efendim",
+
+  "spendingInPositiveBalance": "Aylık Gelir Gider durumunuzunun + bakiyede olduğunu görebiliyorum. ",
+  "keepGoingLikeThis": "Böyle Devam ",
+  "goodJobKeepGoingLikeThis": "Gayet Güzel bir oran var. ",
+  "great": "Harika! ",
+  "recommendThatYouSpendYourBudgetWisely": "Biraz bütçenizi idareli harcamanızı öneririz ",
+
+  "youSpentThisMuchOfYourMonthlyIncome": "Aylık Gelirinizi şu kadarını harcamışsınız : %",
+  "percentage": "",
+  "numberOfDaysLeft": "Ay bitimine kalan gün sayısı : ",
+  "day": "gün",
+  "spendingThisMuchPerDayOnAverage": "Ay sonuna ortalama günlük şu kadar harcayarak ulaşabilirsiniz : ",
+
+  "yourIncomeExpensesAreEqual": "Aylık gelir ve gider durumunuz eşit. ",
+  "fortunatelyYouAlreadyHaveMoneyInAssets": "Neyse ki hâlihazırda Varlıklarınızda paranız mevcut. ",
+
+  "spendingInNegativeBalance": "Aylık Gelir Gider durumunuzun maalesef - bakiyede olduğunu görüyorum. ",
+  "youDoNotHaveAnyAssetsEditYourAssets": "Maalesef Varlığınız bulunmuyor. Varlıklarım sayfasından varlıklarınızı düzenleyebilirsiniz. ",
+  "yourTotalMoneyOnTheMyAssetsPageIs": "Varlıklarım sayfasındaki toplam paranız : ",
+  "lastShowDate": "Son gösterilme tarihi : ",
+
+  "yourIncomeActivitiesForThisMonth": "Bu aydaki Gelir işlemleriniz"
 }
 

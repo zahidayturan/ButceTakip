@@ -97,6 +97,7 @@ class Communicate extends StatelessWidget {
                                   SnackBar(
                                       backgroundColor: const Color(0xff0D1C26),
                                       duration: const Duration(seconds: 1),
+                                      elevation: 0,
                                       behavior: SnackBarBehavior.floating,
                                       content: Text(translation(context).copiedToClipboard,style: TextStyle(color : renkler.yaziRenk,fontFamily: 'Nexa3',fontSize: 15),)));
                             },

@@ -522,63 +522,51 @@ class _assetsPage extends ConsumerState<assetsPage> {
                           ),
                         ),///Buttons and assetBoxs
                         SizedBox(height: size.height *.01),
-                        Container(
-                          height : size.height * .15,
-                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                              boxShadow: ref.read(settingsRiverpod).DarkMode == 1 ? [
-                                BoxShadow(
-                                  color: Colors.black54.withOpacity(0.8),
-                                  spreadRadius: 1,
-                                  blurRadius: 2,
-                                  offset: const Offset(-1, 2),
-                                )
-                              ] : [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 0.5,
-                                    blurRadius: 2,
-                                    offset: const Offset(0, 2)
-                                )
-                              ],
-                            color: Theme.of(context).indicatorColor
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height : 20,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      pageNumber == 0
-                                        ?"30 Günlük Varlık Değişimi"
-                                        :"En fazla Gelir"
-                                    ),
-                                    counterContainer(context, pageNumber),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: size.height * .115,
-                                child: PageView(
-                                  controller: _pageViewController,
-                                  physics: const BouncingScrollPhysics(
-                                    decelerationRate: ScrollDecelerationRate.fast
+                        Expanded(
+                          child: Container(
+                            //height : size.height * .15,
+                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Theme.of(context).indicatorColor
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height : 20,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        pageNumber == 0
+                                          ? translation(context).assetChart30Days
+                                          : translation(context).yourHighestIncome
+                                      ),
+                                      counterContainer(context, pageNumber),
+
+                                    ],
                                   ),
-                                  onPageChanged: (value) {
-                                    setState(() {
-                                      pageNumber = value;
-                                    });
-                                  },
-                                  children: [
-                                    pageFirst(ref, measureList[3]),
-                                    pageSecond(ref),
-                                  ],
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: size.height * .115,
+                                  child: PageView(
+                                    controller: _pageViewController,
+                                    physics: const BouncingScrollPhysics(
+                                      decelerationRate: ScrollDecelerationRate.fast
+                                    ),
+                                    onPageChanged: (value) {
+                                      setState(() {
+                                        pageNumber = value;
+                                      });
+                                    },
+                                    children: [
+                                      pageFirst(ref, measureList[3]),
+                                      pageSecond(ref),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),///pageView Graph banner
                         SizedBox(height: size.height *.01),
@@ -1025,7 +1013,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
           padding: const EdgeInsets.all(4.0),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            width: pageCount == 0 ? 24 : 12,
+            width: pageCount == 0 ? 24 : 10,
             height: pageCount == 1 ? 10 : 8,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -1036,7 +1024,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
         ),
         AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          width: pageCount == 1 ? 24 : 12,
+          width: pageCount == 1 ? 24 : 10,
           height: pageCount == 0 ? 10 : 8,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -1131,7 +1119,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     :"Varlık Girdisi"
                                   :data[index].note.toString() != ""
                                     ?data[index].note.toString()
-                                    :"Not Eklenmemiş",
+                                    : translation(context).noNoteAdded,
                               style: const TextStyle(
                                 height: 1,
                               ),

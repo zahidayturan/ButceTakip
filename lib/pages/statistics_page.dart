@@ -1955,8 +1955,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   ),
                                 ),
                               )
-                            : snapshot.data!.length > 24
-                                ? Padding(
+                            : snapshot.data!.length > 24 //24
+                                ? Padding( //Bütün listeyi gösteren yapı
                                     padding: const EdgeInsets.only(
                                         bottom: 8, right: 10, left: 10),
                                     child: InkWell(

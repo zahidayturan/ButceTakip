@@ -21,7 +21,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
   var renkler = CustomColors();
 
   @override
-
+  bool avarageSizeController = false;
   Widget build(BuildContext context) {
     ref.listen(databaseRiverpod, (previous, next) {
       return ref.watch(databaseRiverpod);
@@ -31,6 +31,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
     var size = MediaQuery.of(context).size;
     var readHome = ref.read(homeRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
+    var readSetting = ref.read(settingsRiverpod);
     CustomColors renkler = CustomColors();
     return FutureBuilder <Map<String, Map<String, double>>>(
       future: readDB.monthlyStatusInfo(ref),
@@ -89,68 +90,152 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
           }
         }
         String maxTotalAmount2Date = maxTotalAmount2Day != "" ? "$maxTotalAmount2Day.$maxTotalAmount2Month.$maxTotalAmount2Year" : translation(context).noSpending;
-
+        // ${readSettings.getMonthInList(context)} ${readSettings.yearIndex.toString()}
+        DateTime date = DateTime(readSetting.yearIndex,readSetting.monthIndex+1,0);
         return SizedBox(
           height: 184,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 8,bottom: 12),
-                    child: Container(
-                      height: 54,
+                    padding: const EdgeInsets.only(top:4,bottom: 12),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 400),
+                      height: avarageSizeController == false ? 54 : 90,
                       width: size.width,
                       decoration: BoxDecoration(
-                    color: Theme.of(context).indicatorColor,
-                        borderRadius: BorderRadius.all(Radius.circular(15))
+                          color: Theme.of(context).indicatorColor,
+                          borderRadius: const BorderRadius.all(Radius.circular(15))
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Directionality(
                           textDirection: ref.read(settingsRiverpod).Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Expanded(child: Text(translation(context).dailyAverageSpending,style: TextStyle(height: 1,fontSize: 15),textAlign: TextAlign.center,)),
-                              Container(
-                                height: 36,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                  borderRadius: BorderRadius.all(Radius.circular(10))
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: RichText(
-                                        text: TextSpan(children: [
-                                          TextSpan(
-                                            text: avarageExpenses,
-                                            style: TextStyle(
-                                              height: 1,
-                                              color: Theme.of(context).primaryColor,
-                                              fontFamily:
-                                              "Nexa4",
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: ref.read(settingsRiverpod).prefixSymbol,
-                                            style: TextStyle(
-                                              height: 1,
-                                              color: Theme.of(context).primaryColor,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily:
-                                              "TL",
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ])),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        if(avarageSizeController == false){
+                                          avarageSizeController = true;
+                                        }else{
+                                          avarageSizeController = false;
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 23,
+                                      width: 23,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).secondaryHeaderColor,
+                                        shape: BoxShape.circle,
+                                        //borderRadius: BorderRadius.all(Radius.circular(10))
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          avarageSizeController == false ? Icons.arrow_drop_down_outlined : Icons.arrow_drop_up_outlined,
+                                          color: renkler.yaziRenk,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(child: Text(translation(context).dailyAverageSpending,style: const TextStyle(height: 1,fontSize: 15),textAlign: TextAlign.center,)),
+                                  Container(
+                                    height: 36,
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context).secondaryHeaderColor,
+                                        borderRadius: const BorderRadius.all(Radius.circular(10))
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: RichText(
+                                            text: TextSpan(children: [
+                                              TextSpan(
+                                                text: avarageExpenses,
+                                                style: TextStyle(
+                                                  height: 1,
+                                                  color: Theme.of(context).primaryColor,
+                                                  fontFamily: "Nexa4",
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: ref.read(settingsRiverpod).prefixSymbol,
+                                                style: TextStyle(
+                                                  height: 1,
+                                                  color: Theme.of(context).primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: "TL",
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                            ])),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              AnimatedPadding(
+                                duration: const Duration(milliseconds: 600),
+                                padding: EdgeInsets.only(top: avarageSizeController == false ? 0 :6),
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 400),
+                                  height: avarageSizeController == false ? 0 :36,
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context).scaffoldBackgroundColor,
+                                      borderRadius: const BorderRadius.all(Radius.circular(10))
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Directionality(
+                                              textDirection: TextDirection.ltr,
+                                              child: Row(
+                                                children: [
+                                                  Text(translation(context).monthlyExpensesWithoutEnter),
+                                                  const Text(" / "),
+                                                  Text("${date.day}"),
+                                                ],
+                                              )),/// aylik gider / ay  kaç gün ise
+                                          RichText(
+                                              text: TextSpan(children: [
+                                                TextSpan(
+                                                  text: (totalExpenses/date.day).toStringAsFixed(2),
+                                                  style: TextStyle(
+                                                    height: 1,
+                                                    color: Theme.of(context).canvasColor,
+                                                    fontFamily: "Nexa4",
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: ref.read(settingsRiverpod).prefixSymbol,
+                                                  style: TextStyle(
+                                                    height: 1,
+                                                    color: Theme.of(context).canvasColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: "TL",
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ])),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -168,7 +253,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                             height: 72,
                             decoration: BoxDecoration(
                                 color: Theme.of(context).secondaryHeaderColor,
-                                borderRadius: BorderRadius.all(Radius.circular(15))
+                                borderRadius: const BorderRadius.all(Radius.circular(15))
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -176,19 +261,19 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   Center(child: Text(translation(context).spendingScore,
-                                    style: TextStyle(
-                                    height: 1,
-                                    color: Theme.of(context).primaryColor,
-                                    fontFamily:
-                                    "Nexa3",
-                                    fontSize: 15,
-                                  ),textAlign: TextAlign.center)),
+                                      style: TextStyle(
+                                        height: 1,
+                                        color: Theme.of(context).primaryColor,
+                                        fontFamily: "Nexa3",
+                                        fontSize: 15,
+                                      ),textAlign: TextAlign.center)),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Visibility(
                                         visible: size.width > 324,
-                                        child: SizedBox(height: 16, width: 16,),
+                                        child: const SizedBox(height: 16,
+                                          width: 16,),
                                       ),
                                       Directionality(
                                         textDirection: TextDirection.ltr,
@@ -200,8 +285,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                               style: TextStyle(
                                                 height: 1,
                                                 color: Theme.of(context).cardColor,
-                                                fontFamily:
-                                                "Nexa4",
+                                                fontFamily: "Nexa4",
                                                 fontSize: 22,
                                               ),
                                             ),
@@ -213,8 +297,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                                     height: 1,
                                                     color: Theme.of(context).primaryColor,
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily:
-                                                    "Nexa3",
+                                                    fontFamily: "Nexa3",
                                                     fontSize: 16,
                                                     overflow: TextOverflow.ellipsis
                                                 ),
@@ -255,9 +338,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                               )
                                             ],
                                             border: Border.all(
-                                                color: Theme
-                                                    .of(context)
-                                                    .indicatorColor, // Set border color
+                                                color: Theme.of(context).indicatorColor, // Set border color
                                                 width: 1.0),
                                           ),
                                           child: Container(
@@ -270,9 +351,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                             child: Icon(
                                               Icons.question_mark_rounded,
                                               size: 16,
-                                              color: Theme
-                                                  .of(context)
-                                                  .canvasColor,
+                                              color: Theme.of(context).canvasColor,
                                             ),
                                           ),
                                         ),
@@ -293,50 +372,50 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                     padding: const EdgeInsets.only(top: 6,bottom: 6),
                     child: InkWell(
                       highlightColor: Theme.of(context).scaffoldBackgroundColor,
-                        onTap: () {
-                          if(maxTotalAmount2Date != translation(context).noSpending){
-                            readHome.setDailyStatus(
-                                dailyTotals[maxTotalAmount2Day]!["totalAmount"].toString(),
-                                dailyTotals[maxTotalAmount2Day]!["totalAmount2"].toString(),
-                                (double.parse(dailyTotals[maxTotalAmount2Day]!["totalAmount"].toString()) - double.parse(dailyTotals[maxTotalAmount2Day]!["totalAmount2"].toString())!).toString());
-                            if ((double.parse(dailyTotals[maxTotalAmount2Day]!["totalAmount"].toString()) - double.parse(dailyTotals[maxTotalAmount2Day]!["totalAmount2"].toString())!) <= 0) {
-                              readDB.setStatus("-");
-                            } else {
-                              readDB.setStatus("+");
-                            }
-                            readDB.setDay(maxTotalAmount2Day);
-                            readDailyInfo.setDate(int.parse(maxTotalAmount2Day), int.parse(maxTotalAmount2Month), int.parse(maxTotalAmount2Year));
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
-                          }else{
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  backgroundColor: Theme.of(context).highlightColor,
-                                  duration: const Duration(seconds: 1),
-                                  behavior: SnackBarBehavior.floating,
-                                  content: Center(
-                                    child: Text(
-                                      translation(context).dataNotFound,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontFamily: 'Nexa3',
-                                        fontWeight: FontWeight.w600,
-                                        height: 1,
-                                      ),
+                      onTap: () {
+                        if(maxTotalAmount2Date != translation(context).noSpending){
+                          readHome.setDailyStatus(
+                              dailyTotals[maxTotalAmount2Day]!["totalAmount"].toString(),
+                              dailyTotals[maxTotalAmount2Day]!["totalAmount2"].toString(),
+                              (double.parse(dailyTotals[maxTotalAmount2Day]!["totalAmount"].toString()) - double.parse(dailyTotals[maxTotalAmount2Day]!["totalAmount2"].toString())!).toString());
+                          if ((double.parse(dailyTotals[maxTotalAmount2Day]!["totalAmount"].toString()) - double.parse(dailyTotals[maxTotalAmount2Day]!["totalAmount2"].toString())!) <= 0) {
+                            readDB.setStatus("-");
+                          } else {
+                            readDB.setStatus("+");
+                          }
+                          readDB.setDay(maxTotalAmount2Day);
+                          readDailyInfo.setDate(int.parse(maxTotalAmount2Day), int.parse(maxTotalAmount2Month), int.parse(maxTotalAmount2Year));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
+                        }else{
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                backgroundColor: Theme.of(context).highlightColor,
+                                duration: const Duration(seconds: 1),
+                                elevation: 0,
+                                behavior: SnackBarBehavior.floating,
+                                content: Center(
+                                  child: Text(
+                                    translation(context).dataNotFound,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontFamily: 'Nexa3',
+                                      fontWeight: FontWeight.w600,
+                                      height: 1,
                                     ),
                                   ),
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(10)))
-                              ),
-                            );
-                          }
-                        },
+                                ),
+                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                            ),
+                          );
+                        }
+                      },
                       child: Container(
                         height: 54,
                         width: size.width,
                         decoration: BoxDecoration(
                             color: Theme.of(context).indicatorColor,
-                            borderRadius: BorderRadius.all(Radius.circular(15))
+                            borderRadius: const BorderRadius.all(Radius.circular(15))
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -345,28 +424,27 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(child: Center(child: Text(translation(context).mostSpendingDay,style: TextStyle(height: 1,fontSize: 15,overflow: TextOverflow.ellipsis),textAlign: TextAlign.center,maxLines: 3,))),
+                                Expanded(child: Center(child: Text(translation(context).mostSpendingDay,style: const TextStyle(height: 1,fontSize: 15,overflow: TextOverflow.ellipsis),textAlign: TextAlign.center,maxLines: 3,))),
                                 Container(
                                   height: 36,
                                   decoration: BoxDecoration(
                                       color: Theme.of(context).scaffoldBackgroundColor,
-                                      borderRadius: BorderRadius.all(Radius.circular(10))
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Text(
-                                      getDateForMaxDay(),
+                                      borderRadius: const BorderRadius.all(Radius.circular(10))
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Text(
+                                          getDateForMaxDay(),
                                           style: TextStyle(
                                             height: 1,
                                             color: Theme.of(context).canvasColor,
-                                            fontFamily:
-                                            "Nexa4",
+                                            fontFamily: "Nexa4",
                                             fontSize: 15,
                                           ),
                                         )),
                                   ),
-                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -414,7 +492,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
               height: 72,
               decoration: BoxDecoration(
                   color: Theme.of(context).indicatorColor,
-                  borderRadius: BorderRadius.all(Radius.circular(15))
+                  borderRadius: const BorderRadius.all(Radius.circular(15))
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -423,7 +501,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                     Expanded(
                       child: PageView(
                         scrollDirection: Axis.vertical,
-                        physics: listItem!.isNotEmpty ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
+                        physics: listItem!.isNotEmpty ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
                         onPageChanged: (value) {
                           setState(() {
                             pageControllerCategory = value;
@@ -436,17 +514,15 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                               Center(child: Text(translation(context).mostSpendingCategory,style: TextStyle(
                                 height: 1,
                                 color: Theme.of(context).canvasColor,
-                                fontFamily:
-                                "Nexa3",
+                                fontFamily: "Nexa3",
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 15,
                               ),textAlign: TextAlign.center,
-                              maxLines: 3,)),
+                                maxLines: 3,)),
                               Text(Converter().textConverterFromDB(category, context, 0),style: TextStyle(
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
-                                fontFamily:
-                                "Nexa4",
+                                fontFamily: "Nexa4",
                                 fontSize: 15,
                                 overflow: TextOverflow.ellipsis,
                               ),textAlign: TextAlign.center)
@@ -460,39 +536,38 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                 Center(child: Text(Converter().textConverterFromDB(category, context, 0),style: TextStyle(
                                   height: 1,
                                   color: Theme.of(context).canvasColor,
-                                  fontFamily:
-                                  "Nexa3",
+                                  fontFamily: "Nexa3",
                                   fontSize: 15,
                                 ),textAlign: TextAlign.center,)),
-                                RichText(
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                        text:  categoryAmount.toStringAsFixed(2),
-                                        style: TextStyle(
-                                          height: 1,
-                                          color: Theme.of(context).disabledColor,
-                                          fontFamily:
-                                          "Nexa4",
-                                          fontSize: 14,
+                                Directionality(
+                                  textDirection: ref.read(settingsRiverpod).Language == "العربية" ? TextDirection.rtl : TextDirection.ltr,
+                                  child: RichText(
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                          text:  categoryAmount.toStringAsFixed(2),
+                                          style: TextStyle(
+                                            height: 1,
+                                            color: Theme.of(context).disabledColor,
+                                            fontFamily: "Nexa4",
+                                            fontSize: 14,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: ref.read(settingsRiverpod).prefixSymbol,
-                                        style: TextStyle(
-                                          height: 1,
-                                          color: Theme.of(context).disabledColor,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily:
-                                          "TL",
-                                          fontSize: 14,
+                                        TextSpan(
+                                          text: ref.read(settingsRiverpod).prefixSymbol,
+                                          style: TextStyle(
+                                            height: 1,
+                                            color: Theme.of(context).disabledColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: "TL",
+                                            fontSize: 14,
+                                          ),
                                         ),
-                                      ),
-                                    ])),
+                                      ])),
+                                ),
                                 Center(child: Text("${categoryCount.toString()} ${translation(context).activityCount}",style: TextStyle(
                                   height: 1,
                                   color: Theme.of(context).canvasColor,
-                                  fontFamily:
-                                  "Nexa3",
+                                  fontFamily: "Nexa3",
                                   fontSize: 14,
                                 ),textAlign: TextAlign.center,)),
                               ],
@@ -501,7 +576,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                         ],
                       ),
                     ),
-                    listItem!.isNotEmpty ? counterContainer(context,pageControllerCategory) : SizedBox()
+                    listItem!.isNotEmpty ? counterContainer(context,pageControllerCategory) : const SizedBox()
                   ],
                 ),
               ),
@@ -540,7 +615,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
             width: size.width,
             decoration: BoxDecoration(
                 color: Theme.of(context).indicatorColor,
-                borderRadius: BorderRadius.all(Radius.circular(15))
+                borderRadius: const BorderRadius.all(Radius.circular(15))
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -552,7 +627,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                     Expanded(
                       child: PageView(
                         scrollDirection: Axis.vertical,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         onPageChanged: (value) {
                           setState(() {
                             pageController = value;
@@ -563,46 +638,44 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(child: Center(child: Text(translation(context).changeInNetSpending,style: TextStyle(height: 1,fontSize: 15),textAlign: TextAlign.center,))),
+                              Expanded(child: Center(child: Text(translation(context).changeInNetSpending,style: const TextStyle(height: 1,fontSize: 15),textAlign: TextAlign.center,))),
                               Container(
                                 height: 36,
                                 decoration: BoxDecoration(
                                     color: compare >= 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                    borderRadius: const BorderRadius.all(Radius.circular(10))
                                 ),
                                 child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 2),
-                                          child: Text(
-                                            compare.toStringAsFixed(2),
-                                            style: TextStyle(
-                                            height: 1,
-                                            color: renkler.arkaRenk,
-                                            fontFamily:
-                                            "Nexa4",
-                                            fontSize: 15,
-                                            ),
-                                            textDirection: TextDirection.ltr,
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 2),
+                                            child: Text(
+                                              compare.toStringAsFixed(2),
+                                              style: TextStyle(
+                                                height: 1,
+                                                color: renkler.arkaRenk,
+                                                fontFamily: "Nexa4",
+                                                fontSize: 15,
+                                              ),
+                                              textDirection: TextDirection.ltr,
 
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          ref.read(settingsRiverpod).prefixSymbol!,
-                                          style: TextStyle(
-                                            height: 1,
-                                            color: renkler.arkaRenk,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily:
-                                            "TL",
-                                            fontSize: 15,
+                                          Text(
+                                            ref.read(settingsRiverpod).prefixSymbol!,
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: "TL",
+                                              fontSize: 15,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    )
+                                        ],
+                                      )
                                   ),
                                 ),
                               )
@@ -611,83 +684,79 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(child: Center(child: Text(readSettings.getMonthInListWithIndex(context,readSettings.monthIndex-1),style: TextStyle(height: 1,fontSize: 14),textAlign: TextAlign.center,))),
+                              Expanded(child: Center(child: Text(readSettings.getMonthInListWithIndex(context,readSettings.monthIndex-1),style: const TextStyle(height: 1,fontSize: 14),textAlign: TextAlign.center,))),
                               Container(
                                 height: 28,
                                 decoration: BoxDecoration(
                                     color: total >= 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                    borderRadius: const BorderRadius.all(Radius.circular(10))
                                 ),
                                 child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          total.toStringAsFixed(2),
-                                          style: TextStyle(
-                                            height: 1,
-                                            color: renkler.arkaRenk,
-                                            fontFamily:
-                                            "Nexa4",
-                                            fontSize: 14,
-                                          ),
-                                          textDirection: TextDirection.ltr,
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            total.toStringAsFixed(2),
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontFamily: "Nexa4",
+                                              fontSize: 14,
+                                            ),
+                                            textDirection: TextDirection.ltr,
 
-                                        ),
-                                        Text(
-                                          ref.read(settingsRiverpod).prefixSymbol!,
-                                          style: TextStyle(
-                                            height: 1,
-                                            color: renkler.arkaRenk,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily:
-                                            "TL",
-                                            fontSize: 14,
                                           ),
-                                        ),
-                                      ],
-                                    )
+                                          Text(
+                                            ref.read(settingsRiverpod).prefixSymbol!,
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: "TL",
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      )
                                   ),
                                 ),
                               ),
-                              Expanded(child: Center(child: Text(readSettings.getMonthInList(context),style: TextStyle(height: 1,fontSize: 14),textAlign: TextAlign.center,))),
+                              Expanded(child: Center(child: Text(readSettings.getMonthInList(context),style: const TextStyle(height: 1,fontSize: 14),textAlign: TextAlign.center,))),
                               Container(
                                 height: 28,
                                 decoration: BoxDecoration(
                                     color: formattedTotal >= 0 ? renkler.yesilRenk : renkler.kirmiziRenk,
-                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                    borderRadius: const BorderRadius.all(Radius.circular(10))
                                 ),
                                 child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          formattedTotal.toStringAsFixed(2),
-                                          style: TextStyle(
-                                            height: 1,
-                                            color: renkler.arkaRenk,
-                                            fontFamily:
-                                            "Nexa4",
-                                            fontSize: 14,
-                                          ),
-                                          textDirection: TextDirection.ltr,
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            formattedTotal.toStringAsFixed(2),
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontFamily: "Nexa4",
+                                              fontSize: 14,
+                                            ),
+                                            textDirection: TextDirection.ltr,
 
-                                        ),
-                                        Text(
-                                          ref.read(settingsRiverpod).prefixSymbol!,
-                                          style: TextStyle(
-                                            height: 1,
-                                            color: renkler.arkaRenk,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily:
-                                            "TL",
-                                            fontSize: 14,
                                           ),
-                                        ),
-                                      ],
-                                    )
+                                          Text(
+                                            ref.read(settingsRiverpod).prefixSymbol!,
+                                            style: TextStyle(
+                                              height: 1,
+                                              color: renkler.arkaRenk,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: "TL",
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      )
                                   ),
                                 ),
                               )
@@ -746,21 +815,22 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
               }else{
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    backgroundColor: Theme.of(context).highlightColor,
-                    duration: const Duration(seconds: 1),
-                    behavior: SnackBarBehavior.floating,
-                    content: Center(
-                      child: Text(
-                        translation(context).dataNotFound,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontFamily: 'Nexa3',
-                          fontWeight: FontWeight.w600,
-                          height: 1,
+                      backgroundColor: Theme.of(context).highlightColor,
+                      duration: const Duration(seconds: 1),
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      content: Center(
+                        child: Text(
+                          translation(context).dataNotFound,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontFamily: 'Nexa3',
+                            fontWeight: FontWeight.w600,
+                            height: 1,
+                          ),
                         ),
                       ),
-                    ),
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)))
                   ),
@@ -775,7 +845,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                     //width: size.width-54,
                     decoration: BoxDecoration(
                         color: Theme.of(context).indicatorColor,
-                        borderRadius: BorderRadius.all(Radius.circular(15))
+                        borderRadius: const BorderRadius.all(Radius.circular(15))
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -784,12 +854,12 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(child: Center(child: Text(translation(context).mostExpensiveSpending,style: TextStyle(height: 1,fontSize: 15,overflow: TextOverflow.ellipsis),textAlign: TextAlign.center,maxLines: 2,))),
+                            Expanded(child: Center(child: Text(translation(context).mostExpensiveSpending,style: const TextStyle(height: 1,fontSize: 15,overflow: TextOverflow.ellipsis),textAlign: TextAlign.center,maxLines: 2,))),
                             Container(
                               height: 36,
                               decoration: BoxDecoration(
                                   color: Theme.of(context).scaffoldBackgroundColor,
-                                  borderRadius: BorderRadius.all(Radius.circular(10))
+                                  borderRadius: const BorderRadius.all(Radius.circular(10))
                               ),
                               child: Center(
                                 child: Padding(
@@ -799,12 +869,11 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                         Padding(
                                           padding: const EdgeInsets.only(top: 2),
                                           child: Text(
-                                            mostExpensiveSpending.amount != 0.0 ?mostExpensiveSpending.amount.toString() : translation(context).noSpending,
+                                            mostExpensiveSpending.amount != 0.0 ?mostExpensiveSpending.realAmount.toString() : translation(context).noSpending,
                                             style: TextStyle(
                                               height: 1,
                                               color: mostExpensiveSpending.amount != 0.0 ? renkler.kirmiziRenk : Theme.of(context).canvasColor,
-                                              fontFamily:
-                                              "Nexa4",
+                                              fontFamily: "Nexa4",
                                               fontSize: 15,
                                             ),
                                           ),
@@ -815,8 +884,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                             height: 1,
                                             color: mostExpensiveSpending.amount != 0.0 ? renkler.kirmiziRenk : Theme.of(context).canvasColor,
                                             fontWeight: FontWeight.bold,
-                                            fontFamily:
-                                            "TL",
+                                            fontFamily: "TL",
                                             fontSize: 15,
                                           ),
                                         ),
@@ -831,7 +899,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 8),
+                  padding: const EdgeInsets.only(left: 8),
                   child: Container(
                     height: 36,
                     width: 36,

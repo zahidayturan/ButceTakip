@@ -14,6 +14,7 @@
     "backupTitle": "BACKUP",
     "contactUsTitle": "CONTACT US",
     "myAssets": "MY ASSETS",
+    "myAssetsSmall": "My Assets",
 
     "selectLanguage": "Please select a language",
 
@@ -111,6 +112,7 @@
     "time": "Time",
     "monthlyIncome": "Monthly\nIncome",
     "monthlyExpenses": "Monthly\nExpenses",
+    "monthlyExpensesWithoutEnter": "Monthly Expenses",
 
     "noActivity": "No Activity",
 
@@ -441,6 +443,7 @@
     "past": "Past",
     "myPastAssetRecords": "MY PAST ASSET RECORDS",
     "close": "Close",
+    "totalSmall": "Total",
     "doneBitti": "Done",
     "noAssetFound": "No Asset Found!",
     "addRemoveAsset": "Add/Remove Asset",
@@ -668,6 +671,43 @@
     "downloadedData" : "Your data downloaded",
     "backupedData" : "Your data is backed up",
 
-    "close" : "Close"
+    "close" : "Close",
+    "assetChart30Days": "30 Day Asset Chart",
+    "yourHighestIncome": "Your Highest Income",
 
+    "deleteMyAccount": "DELETE MY ACCOUNT",
+    "allDataInYourEmailAccountWillBeDeleted": "All data in your email account will be deleted.",
+    "doYouConfirm": "Do you confirm? (You will be able to log in again with the same Email account.)",
+    "deleteMyAccountSmall": "Delete My Account",
+    "deleteMyAccountSmallSize": "135",
+    "cancel": "cancel",
+
+    "analysis": "ANALYSIS",
+    "iAmYourBudgetWiseAssistant": "Hello, I am your BudgetWise Assistant!",
+    "lookAtYourMonthlyExpenses": "Let's look at your monthly expenses.",
+
+    "hello": "Hello",
+    "sir": "Sir",
+
+    "spendingInPositiveBalance": "I see that your monthly Income and Expenses are in positive balance. ",
+    "keepGoingLikeThis": "Keep going like this ",
+    "goodJobKeepGoingLikeThis": "Good job, keep going like this ",
+    "great": "Great! ",
+    "recommendThatYouSpendYourBudgetWisely": "We recommend that you spend your budget wisely ",
+
+    "youSpentThisMuchOfYourMonthlyIncome": "You spent this much of your Monthly Income : ",
+    "percentage": "%",
+    "numberOfDaysLeft": "Number of days left until the end of the month : ",
+    "day": "days",
+    "spendingThisMuchPerDayOnAverage": "You can reach the end of the month by spending this much per day on average : ",
+
+    "yourIncomeExpensesAreEqual": "Your monthly income and expenses are equal. ",
+    "fortunatelyYouAlreadyHaveMoneyInAssets": "Fortunately, you already have money in Assets. ",
+
+    "spendingInNegativeBalance": "I see that your monthly income and expenses are unfortunately in negative balance. ",
+    "youDoNotHaveAnyAssetsEditYourAssets": "Unfortunately, you do not have any assets. You can edit your assets from My Assets page. ",
+    "yourTotalMoneyOnTheMyAssetsPageIs": "Your total money on the My Assets page : ",
+    "lastShowDate": "Last Show date : ",
+
+    "yourIncomeActivitiesForThisMonth": "Your Income activities for this month"
 }

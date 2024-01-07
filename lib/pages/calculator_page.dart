@@ -1656,7 +1656,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
         currency?.lastApiUpdateDate?.split(" ")[0].replaceAll("-", ".") ??
             readCurrency.lastApiUpdateDate!.split(" ")[0].replaceAll("-", ".");
 
-    DateTime dateTextForFormat = DateTime(int.parse(dateText.split(".")[0]),
+    DateTime dateTextForFormat =  DateTime(int.parse(dateText.split(".")[0]),
         int.parse(dateText.split(".")[1]), int.parse(dateText.split(".")[2]));
 
     var readSettings = ref.watch(settingsRiverpod);
@@ -2106,6 +2106,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 SnackBar(
                                   backgroundColor: const Color(0xff0D1C26),
                                   duration: const Duration(seconds: 1),
+                                  elevation: 0,
                                   behavior: SnackBarBehavior.floating,
                                   content: Text(
                                     '${translation(context).copiedToClipboard}  ${_controllerSecond.text}',
@@ -2749,7 +2750,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         Expanded(
                           flex: 3,
                           child: Text(
-                            "${intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateTextForFormat)} / ${currency != null ? convertHourAndMinute(currency!.lastApiUpdateDate) : convertHourAndMinute(readCurrency.lastApiUpdateDate)} ",
+                            "${intl.DateFormat(ref.read(settingsRiverpod).dateFormat).format(dateTextForFormat)} / ${currency != null ? convertHourAndMinute(currency!.lastApiUpdateDate)  : convertHourAndMinute(readCurrency.lastApiUpdateDate)} ",
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -2773,7 +2774,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
 
   String convertHourAndMinute(String? date) {
     DateTime? dateFormat = DateTime.tryParse(date.toString())?.subtract(const Duration(hours: 3));
-    return "${dateFormat?.hour.toString().length == 1 ? "0" + dateFormat!.hour.toString() : dateFormat?.hour  }:${dateFormat?.minute.toString().length == 1 ? "0" + dateFormat!.minute.toString() : dateFormat?.minute}";
+    print(dateFormat);
+    return dateFormat != null ? "${dateFormat?.hour.toString().length == 1 ? "0${dateFormat!.hour}" : dateFormat?.hour  }:${dateFormat?.minute.toString().length == 1 ? "0" + dateFormat!.minute.toString() : dateFormat?.minute}" : "0.0";
   }
 
   String convertDateFormat(String? date) {

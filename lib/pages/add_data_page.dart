@@ -3972,6 +3972,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           SnackBar(
                             backgroundColor: Theme.of(context).highlightColor,
                             duration: const Duration(seconds: 1),
+                            elevation: 0,
                             behavior: SnackBarBehavior.floating,
                             content: Text(
                               translation(context).activityAdded,

@@ -221,6 +221,62 @@ class DbProvider extends ChangeNotifier {
     return items;
   }
 
+  Future <Map<String, double>> myMethodForAssistantChart(WidgetRef ref) async {
+    int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
+    DateTime startDate = DateTime(int.parse(year), int.parse(month), startDay);
+    DateTime endDate = DateTime(int.parse(year), int.parse(month)+1, startDay-1);
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(startDate.month.toString() ,startDate.year.toString());
+    items = items.where((element) => int.tryParse(element.operationDay!)! > startDay-1).toList();
+    List<SpendInfo> itemsNext = await SQLHelper.getItemsByOperationMonthAndYear(endDate.month.toString() ,endDate.year.toString());
+    itemsNext = itemsNext.where((element) => int.tryParse(element.operationDay!)! < startDay).toList();
+    items.addAll(itemsNext);
+    var groupedItems = groupBy(
+        items.where((item) => int.tryParse(item.operationDay!)! > startDay-1),
+            (item) => item.operationDay);
+    var groupedItems2 = groupBy(
+        itemsNext.where((item) => int.tryParse(item.operationDay!)! < startDay),
+            (item) => item.operationDay);
+    var dailyTotals = <String, Map<String, double>>{};
+    groupedItems.addAll(groupedItems2);
+    groupedItems.forEach((day, dayItems) {
+      double itemsMonth = double.tryParse(dayItems.first.operationMonth!)!;
+      double itemsYear = double.tryParse(dayItems.first.operationYear!)!;
+      double totalAmount = dayItems
+          .where((element) => element.operationType == 'Gelir')
+          .fold(
+          0, (previousValue, element) => previousValue + element.realAmount!);
+
+      double totalAmount2 = dayItems
+          .where((element) => element.operationType == 'Gider')
+          .fold(
+          0, (previousValue, element) => previousValue + element.realAmount!);
+      dailyTotals[day!] = {
+        'totalAmount': totalAmount,
+        'totalAmount2': totalAmount2,
+        'itemsMonth' : itemsMonth,
+      };
+    });
+    dailyTotals = Map.fromEntries(dailyTotals.entries.toList()..sort((e1, e2) => int.parse(e2.key).compareTo(int.parse(e1.key))));
+    List<MapEntry<String, Map<String, double>>> sortedEntries = dailyTotals.entries.toList();
+    sortedEntries.sort((e1, e2) {
+      double month1 = e1.value['itemsMonth']!;
+      double month2 = e2.value['itemsMonth']!;
+      return month1 == 12 ?  month1.compareTo(month2) : month2.compareTo(month1);
+    });
+    dailyTotals = Map.fromEntries(sortedEntries);
+    notifyListeners();
+
+    Map<String, double> differences = {};
+
+    dailyTotals.forEach((key, values) {
+      double totalAmount = values['totalAmount'] ?? 0.0;
+      double totalAmount2 = values['totalAmount2'] ?? 0.0;
+      differences[key] = totalAmount - totalAmount2;
+    });
+    return differences;
+  }
+
+
 
   Future <List<SpendInfo>> registeryList() async {
     List<SpendInfo> items = await SQLHelper.getRegisteryQuery();
