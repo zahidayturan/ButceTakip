@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:googleapis/translate/v3.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import '../classes/language.dart';
 import '../constans/material_color.dart';
 import '../models/Data.dart';
 import '../models/spend_info.dart';
@@ -32,6 +34,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
     var size = MediaQuery.of(context).size;
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var readDb = ref.read(databaseRiverpod);
+    readDb.setMonthandYear(DateTime.now().month.toString(), DateTime.now().year.toString()); //assistan mevcut tarihe ayarlıyor.
     Future<List<SpendInfo>> myList = readCategoryInfo.myMethod2(key: "a");
     return WillPopScope(
       onWillPop: () async {
@@ -189,8 +192,9 @@ class _myAssistant extends ConsumerState<myAssistant> {
                               ),
                               const SizedBox(height: 10,),
                               const Generalinfo(isAssistantMode: true),
-                              FutureBuilder(
-                                future: readDb.yourMethod(ref, DateTime.now().month, DateTime.now().year),
+                              ///ay başlangıç tarihi olarak değişecek.
+                              FutureBuilder( // asset page olarak değiştirilecek
+                                future: readDb.myAssistantMethod(ref, DateTime.now().month, DateTime.now().year),
                                 builder: (context, snapshot) {
                                   if(snapshot.hasData){
                                     var data = snapshot.data as Map<String, List<SpendInfo>>;
@@ -324,8 +328,8 @@ class _myAssistant extends ConsumerState<myAssistant> {
           ),
         ),
         income == 0
-            ?SizedBox(width: 1)
-            :Column(
+        ?SizedBox(width: 1)
+        :Column(
           children: [
             SizedBox(
               height: 70,

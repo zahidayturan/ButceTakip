@@ -161,10 +161,10 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     gradient: LinearGradient(
                                       begin: Alignment.topCenter,
-                                      stops: [0.5, 1],
+                                      stops: readSettingsRiv.DarkMode == 1 ?[0.5, 1] : [0.7, 1] ,
                                       end: Alignment.bottomCenter,
                                         ///Color(0xFF5AAA85)
-                                      colors: [Theme.of(context).highlightColor ,Theme.of(context).scaffoldBackgroundColor ],
+                                      colors: [readSettingsRiv.DarkMode == 1 ? Theme.of(context).highlightColor : Theme.of(context).highlightColor.withOpacity(0.9) ,Theme.of(context).scaffoldBackgroundColor ],
                                     ),
                                     boxShadow: readSettingsRiv.DarkMode == 1 ? [
                                       BoxShadow(
@@ -211,73 +211,44 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       ),
                                       SizedBox(height: 5),
                                       FutureBuilder(
-                                        future: ref.read(databaseRiverpod).monthlyStatusInfo(ref),
+                                        future: ref.read(databaseRiverpod).calculateMonthlyChangeBefore(ref),
                                         builder: (context, snapshot) {
                                           if(snapshot.hasData){
-                                            var dailyTotals = snapshot.data;
-                                            int totalAmount2Includes = dailyTotals!.values.where((temp) => temp['totalAmount2'] != 0).length;
-
-                                            double totalExpenses = dailyTotals!
-                                                .values
-                                                .map((totals) => totals['totalAmount2'] ?? 0)
-                                                .fold(0, (prev, amount) => prev + amount);
-
-                                            double totalIncome = dailyTotals!
-                                                .values
-                                                .map((totals) => totals['totalAmount'] ?? 0)
-                                                .fold(0, (prev, amount) => prev + amount);
-
-                                            var formattedTotal = totalIncome - totalExpenses;
-                                            return FutureBuilder(
-                                                future: ref.read(databaseRiverpod).monthlyStatusInfoForCompare(ref),
-                                                builder: (context, snapshot) {
-                                                  double total = 0.0;
-                                                  double compare = 0.0;
-                                                  if(snapshot.hasData){
-                                                    var item = snapshot.data;
-                                                    item != null ? compare = formattedTotal - item : null;
-                                                    item != null ? total = item : null;
-                                                    return  Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        SizedBox(width: size.width * .07),
-                                                        compare > 0
-                                                        ? const Icon(
-                                                            Icons.add,
-                                                            size: 15,
-                                                          )
-                                                        :const SizedBox(),
-                                                        Text(
-                                                          compare.toStringAsFixed(2),
-                                                          style: TextStyle(
-                                                            height: 1,
-                                                            color: renkler.arkaRenk,
-                                                            fontFamily:
-                                                            "Nexa4",
-                                                            fontSize: 14,
-                                                          ),
-                                                          textDirection: TextDirection.ltr,
-
-                                                        ),
-                                                        Icon(
-                                                          compare > 0
-                                                          ? Icons.call_missed_outgoing_outlined
-                                                          : Icons.call_received_outlined,
-                                                          size: 15,
-                                                          color: compare >= 0 ? const Color(0xFF1A8E58) : const Color(0xFFD91A2A),
-                                                        )
-                                                      ],
-                                                    );
-                                                  }else{
-                                                    return const Text(".");
-                                                  }
-                                                },
+                                            double monthlyChangeBefore = snapshot.data as double;
+                                            return Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(width: size.width * .07),
+                                                monthlyChangeBefore > 0
+                                                ? const Icon(
+                                                  Icons.add,
+                                                  size: 15,
+                                                )
+                                                :const SizedBox(),
+                                                Text(
+                                                  monthlyChangeBefore.toString(),
+                                                  style: TextStyle(
+                                                    height: 1,
+                                                    color: renkler.arkaRenk,
+                                                    fontFamily:
+                                                    "Nexa4",
+                                                    fontSize: 14,
+                                                  ),
+                                                  textDirection: TextDirection.ltr,
+                                                ),
+                                                Icon(
+                                                  monthlyChangeBefore > 0
+                                                      ? Icons.call_missed_outgoing_outlined
+                                                      : Icons.call_received_outlined,
+                                                  size: 15,
+                                                  color: monthlyChangeBefore >= 0 ? const Color(0xFF1A8E58) : const Color(0xFFD91A2A),
+                                                )
+                                              ],
                                             );
                                           }else{
                                             return const Text(".");
                                           }
                                         },
-
                                       ),
                                     ],
                                   ),
@@ -403,6 +374,21 @@ class _assetsPage extends ConsumerState<assetsPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
+                              boxShadow: ref.read(settingsRiverpod).DarkMode == 1 ? [
+                                BoxShadow(
+                                  color: Colors.black54.withOpacity(0.8),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(-1, 2),
+                                )
+                              ] : [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 2)
+                                )
+                              ],
                             color : Theme.of(context).indicatorColor
                           ),
                           child: Column(
@@ -541,6 +527,21 @@ class _assetsPage extends ConsumerState<assetsPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
+                              boxShadow: ref.read(settingsRiverpod).DarkMode == 1 ? [
+                                BoxShadow(
+                                  color: Colors.black54.withOpacity(0.8),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(-1, 2),
+                                )
+                              ] : [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 2)
+                                )
+                              ],
                             color: Theme.of(context).indicatorColor
                           ),
                           child: Column(
@@ -556,7 +557,6 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                         :"En fazla Gelir"
                                     ),
                                     counterContainer(context, pageNumber),
-
                                   ],
                                 ),
                               ),
@@ -738,6 +738,21 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(12),
                                           color: Theme.of(context).indicatorColor,
+                                          boxShadow: ref.read(settingsRiverpod).DarkMode == 1 ? [
+                                            BoxShadow(
+                                              color: Colors.black54.withOpacity(0.8),
+                                              spreadRadius: 1,
+                                              blurRadius: 2,
+                                              offset: const Offset(-1, 2),
+                                            )
+                                          ] : [
+                                            BoxShadow(
+                                                color: Colors.black.withOpacity(0.2),
+                                                spreadRadius: 0.5,
+                                                blurRadius: 2,
+                                                offset: const Offset(0, 2)
+                                            )
+                                          ],
                                         ),
                                         child: Row(
                                           children: [
@@ -926,7 +941,6 @@ class _assetsPage extends ConsumerState<assetsPage> {
       ),
     );
   }
-
   DateTime convertDate(String Date) {
     // Date format: "dd.MM.yyyy
     if(Date == "null"){
@@ -966,13 +980,18 @@ class _assetsPage extends ConsumerState<assetsPage> {
               ),
               primaryYAxis: NumericAxis(
                 minorGridLines: const MinorGridLines(width: 0),
-                isVisible: false, // Y ekseni görünmez yapılıyor
+                isVisible: true, // Y ekseni görünmez yapılıyor
+                labelStyle: const TextStyle(
+                  fontSize: 11,
+                  fontFamily: "Nexa3",
+                )
               ),
               series: <ChartSeries>[
                 SplineAreaSeries<Data, String>(
-                  dataSource: getDataSet(item!),
+                  dataSource: getDataSet(item),
                   xValueMapper: (Data data, _) => data.x,
                   yValueMapper: (Data data, _) => data.y,
+                  animationDuration: 1650,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -982,7 +1001,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                           .DarkMode == 0 ? Theme
                           .of(context)
                           .highlightColor
-                          .withOpacity(0.7) : Color(0xFFDBB704),
+                          .withOpacity(0.9) : Theme.of(context).disabledColor,
                       Theme
                           .of(context)
                           .indicatorColor
@@ -993,7 +1012,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
             );
           }
         }else{
-          return Center(child: Text("Yükleniyor."));
+          return const Center(child: Text("Yükleniyor."));
         }
       },
     );
@@ -1036,7 +1055,6 @@ class _assetsPage extends ConsumerState<assetsPage> {
     }
     return dataSetList;
   }
-
   Widget pageSecond(WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
     return FutureBuilder(
@@ -1047,7 +1065,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
           data!.sort((a, b) => b.realAmount!.compareTo(a.realAmount!));
           CustomColors renkler = CustomColors();
           if(data.isEmpty){
-            return Center(
+            return const Center(
               child: Text("Veri Bulunamadı."),
             );
           }else{
