@@ -1,5 +1,5 @@
 class informationApp {
-  static String version = "2.0.2";
-  static String Date = "08.11.2023";
+  static String version = "2.1.0";
+  static String Date = "08.01.2024";
 
 }

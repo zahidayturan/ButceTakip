@@ -522,51 +522,49 @@ class _assetsPage extends ConsumerState<assetsPage> {
                           ),
                         ),///Buttons and assetBoxs
                         SizedBox(height: size.height *.01),
-                        Expanded(
-                          child: Container(
-                            //height : size.height * .15,
-                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).indicatorColor
-                            ),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height : 20,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        pageNumber == 0
-                                          ? translation(context).assetChart30Days
-                                          : translation(context).yourHighestIncome
-                                      ),
-                                      counterContainer(context, pageNumber),
-
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: size.height * .115,
-                                  child: PageView(
-                                    controller: _pageViewController,
-                                    physics: const BouncingScrollPhysics(
-                                      decelerationRate: ScrollDecelerationRate.fast
+                        Container(
+                          height : size.height * .16,
+                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).indicatorColor
+                          ),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height : 20,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      pageNumber == 0
+                                        ? translation(context).assetChart30Days
+                                        : translation(context).yourHighestIncome
                                     ),
-                                    onPageChanged: (value) {
-                                      setState(() {
-                                        pageNumber = value;
-                                      });
-                                    },
-                                    children: [
-                                      pageFirst(ref, measureList[3]),
-                                      pageSecond(ref),
-                                    ],
-                                  ),
+                                    counterContainer(context, pageNumber),
+
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: size.height * .115,
+                                child: PageView(
+                                  controller: _pageViewController,
+                                  physics: const BouncingScrollPhysics(
+                                    decelerationRate: ScrollDecelerationRate.fast
+                                  ),
+                                  onPageChanged: (value) {
+                                    setState(() {
+                                      pageNumber = value;
+                                    });
+                                  },
+                                  children: [
+                                    pageFirst(ref, measureList[3]),
+                                    pageSecond(ref),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),///pageView Graph banner
                         SizedBox(height: size.height *.01),
@@ -948,8 +946,10 @@ class _assetsPage extends ConsumerState<assetsPage> {
         if(snapshot.hasData){
          var item = snapshot.data;
           if(item!.isEmpty){
-            return const Center(
-              child: Text("Veri Bulunamadı."),
+            return Center(
+              child: Text(
+                translation(context).dataNotFound
+              ),
             );
           }else {
             return SfCartesianChart(
