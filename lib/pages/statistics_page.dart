@@ -1968,7 +1968,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                           context,
                                           PageRouteBuilder(
                                             opaque:
-                                                false,
+                                                false, //sayfa saydam olması için
                                             transitionDuration:
                                                 const Duration(milliseconds: 1),
                                             pageBuilder:
@@ -2087,7 +2087,6 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
     var size = MediaQuery.of(context).size;
     var readSettings = ref.read(settingsRiverpod);
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
-    CustomColors renkler = CustomColors();
     Future<List<Map<String, dynamic>>> myList = read.getCategoryList(
         operationType,
         registration,
@@ -2282,7 +2281,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                           const SizedBox(
                                                               width: 5),
                                                           Container(
-                                                            width: 66,
+                                                            width: 70,
                                                             height: 25,
                                                             decoration:
                                                                 BoxDecoration(
@@ -2306,7 +2305,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                   height: 1,
                                                                   fontFamily:
                                                                       'Nexa3',
-                                                                  fontSize: 13,
+                                                                  fontSize: 14,
                                                                   color: Colors
                                                                       .white,
                                                                 ),
@@ -2314,22 +2313,13 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                             )),
                                                           ),
                                                           const SizedBox(
-                                                              width: 4),
-                                                          Padding(
-                                                            padding: const EdgeInsets.only(top: 2,left: 4,right: 4),
-                                                            child: Container(
-                                                              width: 12,
-                                                              height: 12,
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
-                                                                  color: snapshot.data![index]["operationType"]! == "Gider" ? renkler.kirmiziRenk :renkler.yesilRenk
-                                                              ),
-                                                            ),
-                                                          ),
+                                                              width: 10),
                                                           Expanded(
                                                             child: Padding(
                                                               padding:
-                                                              const EdgeInsets.only(top: 4,left: 2,right: 2),
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      top: 4),
                                                               child: Text(
                                                                 Converter().textConverterFromDB(
                                                                     snapshot.data![
@@ -2343,7 +2333,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                   height: 1,
                                                                   fontFamily:
                                                                       'Nexa3',
-                                                                  fontSize: 14,
+                                                                  fontSize: 15,
                                                                   color: Theme.of(
                                                                           context)
                                                                       .canvasColor,
@@ -2376,7 +2366,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                       fontFamily:
                                                                           'Nexa4',
                                                                       fontSize:
-                                                                          14,
+                                                                          15,
                                                                       color: Theme.of(
                                                                               context)
                                                                           .dialogBackgroundColor,
@@ -2391,7 +2381,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                       fontFamily:
                                                                           'TL',
                                                                       fontSize:
-                                                                          14,
+                                                                          16,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,

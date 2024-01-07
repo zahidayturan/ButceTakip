@@ -3,6 +3,7 @@ import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:butcekontrol/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:googleapis/cloudsearch/v1.dart';
 import '../models/spend_info.dart';
 import 'package:collection/collection.dart';
 
@@ -31,7 +32,7 @@ class DbProvider extends ChangeNotifier {
   Future<void> setMonthandYear(month, year) async{
     this.month = month;
     this.year = year;
-    notifyListeners();
+    //notifyListeners();
   }
 
   void refreshDB() async {
@@ -107,27 +108,17 @@ class DbProvider extends ChangeNotifier {
     return lastDayOfMonth.day;
   }
   Future<List<double>?> monthlyAssetChange(WidgetRef ref, double FirstTotalAsset) async { //A method that compares the previous 30 days
-    int nowYear = DateTime.now().year;
-    int nowMonth = DateTime.now().month;
+    DateTime now = DateTime.now();
     double mytotalAsset = FirstTotalAsset;
-    int ?nowDay ;
     List<double> totalList =<double> [];
     for(int i = 0 ; i < 30 ; i++){
-      nowDay = DateTime.now().day + 1 - i;
-      if (nowDay <= 0){
-        if(nowMonth <= 0){
-          nowMonth = 11 ;
-        }else{
-          nowMonth -= 1;
-        }
-        nowDay = DateTime(nowYear, nowMonth, 1).subtract(Duration(days: 1)).day;
-      }
       List<SpendInfo> dailyListTotal = await SQLHelper.SQLEntry(
         "SELECT * FROM spendinfo WHERE "
-            "operationYear == '$nowYear' AND "
-            "operationMonth == '$nowMonth' AND "
-            "operationDay == '$nowDay'"
+            "operationYear == '${now.year}' AND "
+            "operationMonth == '${now.month}' AND "
+            "operationDay == '${now.day}'"
       );
+      now = now.subtract(Duration(days: i ));
       if(dailyListTotal != null){
         double incomeTotal = dailyListTotal.where((element) => element.operationType == 'Gelir').fold(0, (previousValue, element) => previousValue + element.realAmount!);
         double expenseTotal = dailyListTotal.where((element) => element.operationType == 'Gider').fold(0, (previousValue, element) => previousValue + element.realAmount!);
@@ -154,7 +145,7 @@ class DbProvider extends ChangeNotifier {
     return items;
   }
   //it prepared to use for My_Assistant Widget
-  Future<Map<String, List>> yourMethod(WidgetRef ref, int month, int year) async {
+  Future<Map<String, List>> myAssistantMethod(WidgetRef ref, int month, int year) async {
     List<SpendInfo> items = await getMonthlyInfo(ref, month, year);
     List<SpendInfo> allItems = await SQLHelper.getItems();
     return <String, List<SpendInfo>>{
@@ -162,6 +153,16 @@ class DbProvider extends ChangeNotifier {
       "allItems" : allItems
     };
   }
+
+  Future<double> calculateMonthlyChangeBefore(WidgetRef ref) async {
+    DateTime now = DateTime.now();
+    List<SpendInfo> currentMonth = await getMonthlyInfo(ref, now.month, now.year);
+    List<SpendInfo> beforeMonth = await getMonthlyInfo(ref, now.subtract(Duration(days: foundMaxdayinMoth())).month,  now.subtract(Duration(days: foundMaxdayinMoth())).year);
+    print("current :  ${getTotalAmount(currentMonth)}");
+    print("before : ${getTotalAmount(beforeMonth)}");
+    return double.parse(getTotalAmount(currentMonth)[0]) - double.parse(getTotalAmount(beforeMonth)[0]) ;
+  }
+
   //it prepared to use for generalInfo Widget
   Future <Map<String, Object>> myMethod(WidgetRef ref) async {
     int startDay = ref.read(settingsRiverpod).monthStartDay ?? 1;
@@ -497,9 +498,9 @@ class DbProvider extends ChangeNotifier {
 
 
       if(element.operationType == "Gider"){
-        totalAmountExpense = totalAmountExpense + element.realAmount!.toDouble();
+        totalAmountExpense = totalAmountExpense + element.amount!.toDouble();
       }else{
-        totalAmountIncome = totalAmountIncome + element.realAmount!.toDouble();
+        totalAmountIncome = totalAmountIncome + element.amount!.toDouble();
       }
     });
 
@@ -525,7 +526,7 @@ class DbProvider extends ChangeNotifier {
     var giderItems = items.where((element) => element.operationType == "Gider").toList();
 
     if (giderItems.isNotEmpty) {
-      mostExpensiveSpending = giderItems.reduce((a, b) => a.realAmount! > b.realAmount! ? a : b);
+      mostExpensiveSpending = giderItems.reduce((a, b) => a.amount! > b.amount! ? a : b);
     } else {
       //print("Gider türünde öğe bulunamadı.");
     }

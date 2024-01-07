@@ -127,7 +127,7 @@ class _SettingsState extends ConsumerState<Settings> {
             padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
             child:
             CustomScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               slivers: [
               SliverFillRemaining(
               hasScrollBody: false,
@@ -1481,16 +1481,16 @@ class _SettingsState extends ConsumerState<Settings> {
 
                             ),
                             child: Icon(
-                              Icons.assistant_rounded,
+                              Icons.assistant,
                               color: Theme.of(context).secondaryHeaderColor,
                               size: 18,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4, left: 8, right: 8),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 4, left: 8, right: 8),
                             child: Text(
-                              translation(context).myWeeklyAssistant,
-                              style: const TextStyle(fontFamily: "Nexa3", fontSize: 14, height: 1),
+                              "Haftalık Asistanım",
+                              style: TextStyle(fontFamily: "Nexa3", fontSize: 14, height: 1),
                             ),
                           ),
                           const Spacer(),
@@ -1512,7 +1512,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                 ),
                               );
                             },
-                            child: Icon(Icons.open_in_browser_rounded)
+                            child: Icon(Icons.open_in_browser)
                           ),
                           SizedBox(width: 10,),
                           Padding(

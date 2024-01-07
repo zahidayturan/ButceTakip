@@ -1,4 +1,3 @@
-import 'package:butcekontrol/classes/language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
@@ -12,8 +11,8 @@ class CheckUserDelete extends ConsumerStatefulWidget {
 }
 
 class _checkUserDelete extends ConsumerState<CheckUserDelete> {
-  bool clicked = false;
-  bool cancelled = false;
+  bool clicked = false ;
+  bool cancelled = false ;
   int countdown = 3;
   late Timer _timer;
   @override
@@ -45,7 +44,7 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      translation(context).deleteMyAccount,
+                      "VERİLERİMİ SİL",
                       style: TextStyle(
                         color: Theme.of(context).dialogBackgroundColor,
                         fontFamily: 'Nexa4',
@@ -79,9 +78,10 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
                   ],
                 ),
               ),
-              Text(
-                translation(context).doYouConfirm,
-                style: const TextStyle(
+              const Text(
+                "Hesabınıza ait Harcama verileri hariç bütün veriler kalıcı olarak silinecektir. "
+                "Onaylıyor musunuz? (Yeniden aynı Email ile hesap oluşturabileceksiniz.)",
+                style: TextStyle(
                   fontSize: 15,
                   color: Color(0xFFE9E9E9),
                   fontFamily: "Nexa3"
@@ -99,9 +99,9 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
                 },
                 child: Container(
                   height: 30,
-                  width: double.parse(translation(context).deleteMyAccountSmallSize),
+                  width: 100,
                   decoration:BoxDecoration(
-                    color: const Color(0xFF0D1C26),
+                    color: Color(0xFF0D1C26),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black54.withOpacity(0.8),
@@ -118,10 +118,10 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
                     width: 1.0),
                 //color: Theme.of(context).primaryColor,
               ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
-                      translation(context).deleteMyAccountSmall,
-                      style: const TextStyle(
+                      "Hesabımı Sil",
+                      style: TextStyle(
                         color: Colors.white,
                       ),
                     ),
@@ -157,21 +157,21 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
                       Navigator.of(context).pop();
                     },
                     child: Container(
-                      padding: const EdgeInsets.only(right: 5),
+                      padding: EdgeInsets.only(right: 5),
                       decoration: BoxDecoration(
                         color: Theme.of(context).disabledColor,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.cancel_outlined,
                             size: 35,
                           color:  Color(0xFF1C2B35),
                           ),
                           Text(
-                            translation(context).cancel,
-                            style: const TextStyle(
+                            "iptal et",
+                            style: TextStyle(
                                 fontSize: 15,
                                 color: Color(0xFF0D1C26),
                                 fontFamily: "Nexa3"
@@ -190,7 +190,7 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
     );
   }
   Future<void> startCountdown(var readGglAuth) async {
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) async {
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) async {
       if(mounted){
         if (countdown > 0)  {
           setState(() {

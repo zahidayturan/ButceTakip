@@ -629,7 +629,6 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                       size.height * 0.3 -
                                                           30,
                                                       child: GridView.builder(
-                                                          physics: BouncingScrollPhysics(),
                                                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                                               crossAxisCount: 3,
                                                               mainAxisExtent:

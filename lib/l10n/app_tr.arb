@@ -112,13 +112,12 @@
   "time": "Saat",
   "monthlyIncome": "Aylık\nGelir",
   "monthlyExpenses": "Aylık\nGider",
-  "monthlyExpensesWithoutEnter": "Aylık Gider",
 
   "noActivity": "Kayıt Yok",
 
-  "monthlyStatisticsOnlyForTurkish": "İçin Analizler",
+  "monthlyStatisticsOnlyForTurkish": "İçin İstatistikler",
   "monthlyStatisticsOnlyForEnglishAndArabic": "",
-  "dailyAverageSpending": "Ortalama harcama tutarı",
+  "dailyAverageSpending": "Ortalama günlük harcama tutarı",
   "spendingScore": "Bütçe puanı",
   "mostSpendingCategory": "En çok harcama\nyapılan kategori",
   "changeInNetSpending": "Bir önceki aya göre\nnet durumun değişimi",
@@ -357,7 +356,6 @@
   "dayMonthYear": "Gün.Ay.Yıl",
   "monthDayYear": "Ay.Gün.Yıl",
   "yearMonthDay": "Yıl.Ay.Gün",
-  "myWeeklyAssistant": "Haftalık Asistanım",
 
   "helpCenter": "Yardım Merkezi",
   "whatsNew": "Yenilikler",
@@ -441,7 +439,6 @@
 
   "totalAssets" : "TOPLAM VARLIK",
   "total": "TOPLAM",
-  "totalSmall": "Toplam",
   "past": "Geçmiş",
   "myPastAssetRecords": "GEÇMİŞ VARLIK KAYITLARIM",
   "close": "Kapat",
@@ -669,7 +666,8 @@
   "update2" : "Lütfen uygulamayı mağazadan güncelleyin",
   "update3" : "Güncellemek için dokunun",
 
-  "info": "Bilgi",
+  "downloadedData" : "verileriniz indirildi.",
+  "backupedData" : "verileriniz yedeklendi",
 
   "assetChart30Days": "30 Günlük Varlık Değişimi",
   "yourHighestIncome": "En Yüksek Geliriniz",
@@ -710,3 +708,4 @@
 
   "yourIncomeActivitiesForThisMonth": "Bu aydaki Gelir işlemleriniz"
 }
+

@@ -112,13 +112,12 @@
   "time": "الوقت",
   "monthlyIncome": "الدخل\nالشهري",
   "monthlyExpenses": "المصاريف\nالشهرية",
-  "monthlyExpensesWithoutEnter": "المصاريف الشهرية",
 
   "noActivity": "لا يوجد قيد",
 
   "monthlyStatisticsOnlyForTurkish": "",
   "monthlyStatisticsOnlyForEnglishAndArabic": "إحصائيات شهر",
-  "dailyAverageSpending": "متوسط مبلغ المصاريف",
+  "dailyAverageSpending": "متوسط مبلغ المصاريف اليومية",
   "spendingScore": "معدل المصاريف",
   "mostSpendingCategory": "الفئة الأكثر إنفاقًا",
   "changeInNetSpending": "وضع التغير الصافي\nمقارنة بالشهر السابق",
@@ -357,7 +356,6 @@
   "dayMonthYear": "سنة.شهر.يوم",
   "monthDayYear": "سنة.يوم.شهر",
   "yearMonthDay": "يوم.شهر.سنة",
-  "myWeeklyAssistant": "المساعد الأسبوعي",
 
   "helpCenter": "مركز المساعدة",
   "whatsNew": "الجديد",
@@ -439,9 +437,8 @@
   "hopeGood" : "نرجو أن تكون بخير",
 
 
-  "totalAssets": "إجمالي الأصول",
+  "totalAssets": "المجموعا لموجودات",
   "total": "المجموع",
-  "totalSmall": "المجموع",
   "past": "السابق",
   "myPastAssetRecords": "سجلات موجوداتي السابقة",
   "close": "أغلق",
@@ -669,10 +666,10 @@
   "update2" : "يرجى تحديث التطبيق من المتجر",
   "update3" : "انقر للتحديث",
 
-  "info": "ملاحظة",
+  "downloadedData" : "Your data downloaded",
+  "backupedData" : "Your data is backed up",
 
-  "assetChart30Days": "تغير الموجودات لمدة 30 يومًا",
-  "yourHighestIncome": "أعلى دخل لك",
+  "close" : "أغلق"
 
   "deleteMyAccount": "احذف حسابي",
   "allDataInYourEmailAccountWillBeDeleted": "سيتم حذف جميع البيانات الموجودة في حساب بريدك الإلكتروني.",

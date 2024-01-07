@@ -112,12 +112,11 @@
     "time": "Time",
     "monthlyIncome": "Monthly\nIncome",
     "monthlyExpenses": "Monthly\nExpenses",
-    "monthlyExpensesWithoutEnter": "Monthly Expenses",
 
     "noActivity": "No Activity",
 
     "monthlyStatisticsOnlyForTurkish": "",
-    "monthlyStatisticsOnlyForEnglishAndArabic": "Analytics for",
+    "monthlyStatisticsOnlyForEnglishAndArabic": "Statistics for",
     "dailyAverageSpending": "Daily average spending",
     "spendingScore": "Budget score",
     "mostSpendingCategory": "Category with the\nmost spending",
@@ -357,7 +356,6 @@
     "dayMonthYear": "Day.Month.Year",
     "monthDayYear": "Month.Day.Year",
     "yearMonthDay": "Year.Month.Day",
-    "myWeeklyAssistant": "My Weekly Assistant",
 
     "helpCenter": "Help Center",
     "whatsNew": "What's New",
@@ -439,9 +437,8 @@
     "hopeGood" : "We hope you're doing well",
 
 
-    "totalAssets" : "TOTAL ASSETS",
+    "totalAssets" : "TOTAL ASSET",
     "total": "TOTAL",
-    "totalSmall": "Total",
     "past": "Past",
     "myPastAssetRecords": "MY PAST ASSET RECORDS",
     "close": "Close",
@@ -669,10 +666,10 @@
     "update2" : "Please update the application from the store",
     "update3" : "Tap to update",
 
-    "info": "Info",
+    "downloadedData" : "Your data downloaded",
+    "backupedData" : "Your data is backed up",
 
-    "assetChart30Days": "30 Day Asset Chart",
-    "yourHighestIncome": "Your Highest Income",
+    "close" : "Close"
 
     "deleteMyAccount": "DELETE MY ACCOUNT",
     "allDataInYourEmailAccountWillBeDeleted": "All data in your email account will be deleted.",

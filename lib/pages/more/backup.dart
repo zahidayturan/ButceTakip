@@ -241,7 +241,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           duration: const Duration(seconds: 1),
                                           behavior: SnackBarBehavior.floating,
                                           content: Text(
-                                            translation(context).yourDataHasBeenRestored,
+                                            translation(context).downloadData,
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -336,7 +336,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                             duration: const Duration(seconds: 1),
                                             behavior: SnackBarBehavior.floating,
                                             content: Text(
-                                              translation(context).yourDataIsBackedUp,
+                                              translation(context).backupedData,
                                               style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
@@ -540,7 +540,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           );
                                         },
                                         child: Text(
-                                          translation(context).deleteMyAccountSmall,
+                                          "Verilerimi Sil",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Theme.of(context).canvasColor
