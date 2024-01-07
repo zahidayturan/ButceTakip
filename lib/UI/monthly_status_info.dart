@@ -383,6 +383,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                             SnackBar(
                                 backgroundColor: Theme.of(context).highlightColor,
                                 duration: const Duration(seconds: 1),
+                                elevation: 0,
                                 behavior: SnackBarBehavior.floating,
                                 content: Center(
                                   child: Text(
@@ -808,6 +809,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                   SnackBar(
                       backgroundColor: Theme.of(context).highlightColor,
                       duration: const Duration(seconds: 1),
+                      elevation: 0,
                       behavior: SnackBarBehavior.floating,
                       content: Center(
                         child: Text(

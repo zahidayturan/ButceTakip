@@ -1,7 +1,6 @@
 import 'package:butcekontrol/UI/general_info.dart';
 import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:butcekontrol/UI/analysis_bar.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,10 +31,8 @@ class _myAssistant extends ConsumerState<myAssistant> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var readDb = ref.read(databaseRiverpod);
     var readSettings = ref.read(settingsRiverpod);
-    Future<List<SpendInfo>> myList = readCategoryInfo.myMethod2(key: "a");
     return WillPopScope(
       onWillPop: () async {
         ref.read(settingsRiverpod).setAssistantLastShowDate();
@@ -70,11 +67,17 @@ class _myAssistant extends ConsumerState<myAssistant> {
                       ),
                       child: Stack(
                         children: [
-                          FutureBuilder(
-                            future: myList,
+                          FutureBuilder<Map<String, double>>(
+                            future: readDb.myMethodForAssistantChart(ref),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                List<SpendInfo> item = snapshot.data!; // !
+                                List<Data> chartData = snapshot.data!.entries.map((entry) {
+                                  return Data(entry.key, entry.value);
+                                }).toList();
+                                /*
+                                for (var data in chartData) {
+                                  print('Gün: ${data.x}, Tutar: ${data.y}');
+                                }*/
                                 return SfCartesianChart(
                                   borderColor: Colors.transparent,
                                   borderWidth: 0,
@@ -94,16 +97,16 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                   ),
                                   series: <ChartSeries>[
                                     SplineAreaSeries<Data, String>(
-                                      dataSource:  getDataSet(readCategoryInfo.getDataType(), item),
+                                      dataSource:  chartData,
                                       xValueMapper:(Data data, _) => data.x,
                                       yValueMapper: (Data data, _) => data.y,
+                                      color: Theme.of(context).dialogBackgroundColor.withOpacity(0.1),
                                       /*
                                       gradient: LinearGradient(
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
                                         colors: [Theme.of(context).disabledColor.withOpacity(0.5) , Theme.of(context).primaryColor.withOpacity(0.2) ],
                                       ),
-
                                        */
                                       dataLabelSettings: const DataLabelSettings(
                                           isVisible: false,
@@ -226,27 +229,6 @@ class _myAssistant extends ConsumerState<myAssistant> {
     return lastDayOfMonth.day;
   }
 
-  List<Data> getDataSet(String mod, List<SpendInfo> items){
-    List<Data> dataSetList = [];
-    Map<String, double> takvim  = {};
-    items.forEach((item) {
-      if(item.operationDay != null){
-        if(takvim.containsKey(item.operationDay)){
-          takvim[item.operationDay!] = takvim[item.operationDay!]! + item.realAmount! ;
-        }else{
-          takvim[item.operationDay!] = item.realAmount!;
-        }
-      }
-    });
-    for(int i = 0 ; i < foundMaxdayinMoth() ; i++){
-      if(takvim[(i + 1).toString()] != null){
-        dataSetList.add(Data((i + 1).toString(), takvim[(i+1).toString()]));
-      }else{
-        dataSetList.add(Data((i + 1).toString(), 0));
-      }
-    }
-    return dataSetList;
-  }
 
   double getAssetsApi(WidgetRef ref, List<SpendInfo> ?data)  { //Varlıklarım sayfasından Toplam verisini çekiyor.
     return (double.parse(ref.read(databaseRiverpod).getTotalAmountByDiger(data!)) +

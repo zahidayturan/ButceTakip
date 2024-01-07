@@ -131,7 +131,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                               style: TextStyle(
                                 color: renkler.arkaPlanRenk,
                                 fontSize: 15,
-                                fontFamily: "Nexa 3",
+                                fontFamily: "Nexa3",
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -164,62 +164,65 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                               },
                             ),
                           ),
-                          //TextMod(translation(context).amount, renkler.arkaPlanRenk, 15 ),
-                          Container(
-                            width: size.width * .17,
-                            height: size.height * .032,
-                            margin: EdgeInsets.only(right: 15),
-                            decoration: BoxDecoration(
-                              color: Color(0xFF1C2B35),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 4.5),
-                              child: TextField(
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                    hintText: translation(context).enter,
-                                    hintStyle: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        height: 1
-                                    ),
-                                    contentPadding: EdgeInsets.symmetric(horizontal: size.width * .016,vertical: size.width * .02),
-                                    border: InputBorder.none
-                                ),
-                                controller: setPartOfAmountController,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(RegExp(r'^\d{0,7}(\.\d{0,2})?')),
-                                ],
-                                onTap: () {
-                                  setPartOfAmountController.text = "";
-                                },
-                                onChanged: (value) {
-                                  if(widget.data.amount! >= double.parse(value)){
-                                    setState(() {
-                                      partOfAmount = double.parse(value) ;
-                                    });
-                                    if(desiredUnit != null){
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Container(
+                              width: size.width * .2,
+                              height: size.height * .032,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF1C2B35),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: TextField(
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                      hintText: translation(context).enter,
+                                      hintStyle: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          height: 1
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(horizontal: size.width * .016,vertical: size.width * .02),
+                                      border: InputBorder.none,
+                                    isDense: true,
+                                  ),
+                                  controller: setPartOfAmountController,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(RegExp(r'^\d{0,7}(\.\d{0,2})?')),
+                                  ],
+                                  maxLines: 1,
+                                  onTap: () {
+                                    setPartOfAmountController.text = "";
+                                  },
+                                  onChanged: (value) {
+                                    if(widget.data.amount! >= double.parse(value)){
                                       setState(() {
-                                        amount = ref.read(currencyRiverpod).calculateRealAmount(partOfAmount, widget.data.moneyType!.substring(0,3)!, desiredUnit!);
+                                        partOfAmount = double.parse(value) ;
                                       });
+                                      if(desiredUnit != null){
+                                        setState(() {
+                                          amount = ref.read(currencyRiverpod).calculateRealAmount(partOfAmount, widget.data.moneyType!.substring(0,3)!, desiredUnit!);
+                                        });
+                                      }
+                                    }else{
+                                      setPartOfAmountController.text = widget.data.amount!.toString();
+                                      partOfAmount = widget.data.amount!;
                                     }
-                                  }else{
-                                    setPartOfAmountController.text = widget.data.amount!.toString();
-                                    partOfAmount = widget.data.amount!;
-                                  }
-                                },
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
+                                  },
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 4.0),
-                            child: TextMod("${widget.data.moneyType.toString().substring(0,3)}", renkler.arkaPlanRenk, 15 ),
+                            child: TextMod(widget.data.moneyType.toString().substring(0,3), renkler.arkaPlanRenk, 15 ),
                           ),
                         ],
                       ),

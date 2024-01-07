@@ -207,13 +207,13 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         read.pageMonthController.jumpToPage(read.monthIndex-1);
                         read.pageYearController.jumpToPage(read.yearIndex-2020);
                         if (adEventCounter! <= 0) {
-                          print("object");
+                          //print("object");
                           _showInterstitialAd(context);
                           readSettings.resetAdEventCounter();
                         } else {
                           readSettings.useAdEventCounter();
                         }
-                        print(readSettings.adEventCounter);
+                        //print(readSettings.adEventCounter);
                       });
                     },
                   ),
@@ -310,7 +310,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                 controller: read.pageYearController,
                                 onPageChanged: (index) {
                                   setState(() {
-                                    print(index);
+                                    //print(index);
                                     read.setIndex(index,1,ref);
                                   });
                                 },
@@ -446,7 +446,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               physics: const PageScrollPhysics(),
               onPageChanged: (index) {
                 setState(() {
-                  print(index);
+                  //print(index);
                   read.setIndex(index, 2,ref);
                   pageController.jumpToPage(1);
                   read.pageMonthController.jumpToPage(read.monthIndex-1);
@@ -928,6 +928,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     backgroundColor: Theme.of(context).highlightColor,
                     duration: const Duration(milliseconds: 800),
                     behavior: SnackBarBehavior.floating,
+                    elevation: 0,
                     content: Center(
                       child: Text(
                         translation(context).dataForTheDayNotFound,

@@ -51,7 +51,6 @@ class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
         hoverColor: Color(0xFFD91A2A),
         disabledColor: Color(0xFFF2CB05),
         unselectedWidgetColor: Color(0xFFE9E9E9), // checkbox border rengi için kullandım.
-
         fontFamily: "Nexa3",
       ),
       darkTheme: ThemeData(
