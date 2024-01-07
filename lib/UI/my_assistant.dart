@@ -35,7 +35,6 @@ class _myAssistant extends ConsumerState<myAssistant> {
     var size = MediaQuery.of(context).size;
     var readDb = ref.read(databaseRiverpod);
     readDb.setMonthandYear(DateTime.now().month.toString(), DateTime.now().year.toString()); //assistan mevcut tarihe ayarlıyor.
-    Future<List<SpendInfo>> myList = readCategoryInfo.myMethod2(key: "a");
     var readSettings = ref.read(settingsRiverpod);
     return WillPopScope(
       onWillPop: () async {

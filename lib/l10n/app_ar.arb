@@ -112,6 +112,7 @@
   "time": "الوقت",
   "monthlyIncome": "الدخل\nالشهري",
   "monthlyExpenses": "المصاريف\nالشهرية",
+  "monthlyExpensesWithoutEnter": "المصاريف الشهرية",
 
   "noActivity": "لا يوجد قيد",
 
@@ -442,6 +443,7 @@
   "past": "السابق",
   "myPastAssetRecords": "سجلات موجوداتي السابقة",
   "close": "أغلق",
+  "totalSmall": "المجموع",
   "doneBitti": "تم",
   "noAssetFound": "لم يتم العثور على صافي الموجودات!",
   "addRemoveAsset": "أضف / احذف  الموجودات",
@@ -669,7 +671,9 @@
   "downloadedData" : "Your data downloaded",
   "backupedData" : "Your data is backed up",
 
-  "close" : "أغلق"
+  "close" : "أغلق",
+  "assetChart30Days": "تغير الموجودات لمدة 30 يومًا",
+  "yourHighestIncome": "أعلى دخل لك",
 
   "deleteMyAccount": "احذف حسابي",
   "allDataInYourEmailAccountWillBeDeleted": "سيتم حذف جميع البيانات الموجودة في حساب بريدك الإلكتروني.",

@@ -112,6 +112,7 @@
     "time": "Time",
     "monthlyIncome": "Monthly\nIncome",
     "monthlyExpenses": "Monthly\nExpenses",
+    "monthlyExpensesWithoutEnter": "Monthly Expenses",
 
     "noActivity": "No Activity",
 
@@ -442,6 +443,7 @@
     "past": "Past",
     "myPastAssetRecords": "MY PAST ASSET RECORDS",
     "close": "Close",
+    "totalSmall": "Total",
     "doneBitti": "Done",
     "noAssetFound": "No Asset Found!",
     "addRemoveAsset": "Add/Remove Asset",
@@ -669,7 +671,9 @@
     "downloadedData" : "Your data downloaded",
     "backupedData" : "Your data is backed up",
 
-    "close" : "Close"
+    "close" : "Close",
+    "assetChart30Days": "30 Day Asset Chart",
+    "yourHighestIncome": "Your Highest Income",
 
     "deleteMyAccount": "DELETE MY ACCOUNT",
     "allDataInYourEmailAccountWillBeDeleted": "All data in your email account will be deleted.",

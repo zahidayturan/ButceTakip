@@ -112,6 +112,7 @@
   "time": "Saat",
   "monthlyIncome": "Aylık\nGelir",
   "monthlyExpenses": "Aylık\nGider",
+  "monthlyExpensesWithoutEnter": "Aylık Gider",
 
   "noActivity": "Kayıt Yok",
 
@@ -442,6 +443,7 @@
   "past": "Geçmiş",
   "myPastAssetRecords": "GEÇMİŞ VARLIK KAYITLARIM",
   "close": "Kapat",
+  "totalSmall": "Toplam",
   "doneBitti": "Bitti",
   "noAssetFound": "Net Varlık Bulunamadı!",
   "addRemoveAsset": "Varlık Ekle/Çıkart",

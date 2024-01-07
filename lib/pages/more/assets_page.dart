@@ -539,8 +539,8 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     children: [
                                       Text(
                                         pageNumber == 0
-                                          ?"30 Günlük Varlık Değişimi"
-                                          :"En fazla Gelir"
+                                          ? translation(context).assetChart30Days
+                                          : translation(context).yourHighestIncome
                                       ),
                                       counterContainer(context, pageNumber),
 
@@ -1119,7 +1119,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     :"Varlık Girdisi"
                                   :data[index].note.toString() != ""
                                     ?data[index].note.toString()
-                                    :"Not Eklenmemiş",
+                                    : translation(context).noNoteAdded,
                               style: const TextStyle(
                                 height: 1,
                               ),
