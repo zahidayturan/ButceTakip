@@ -119,7 +119,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                   ],
                                 );
                               }else{
-                                return Center(
+                                return const Center(
 
                                 );
                               }
@@ -145,7 +145,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(right: 10, left: 10),
+                                    margin: const EdgeInsets.only(right: 10, left: 10),
                                     width: 32,
                                     height: 32,
                                     child: DecoratedBox(
@@ -161,7 +161,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                         },
                                         icon: Image.asset(
                                           "assets/icons/remove.png",
-                                          color: Color(0xffF2F2F2),
+                                          color: const Color(0xffF2F2F2),
                                           height: 18,
                                           width: 18,
                                         ),
@@ -225,7 +225,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
   int foundMaxdayinMoth (){ //ayın kaç gün olduğunu buluyor.
     DateTime now = DateTime.now();
     DateTime firstDayOfNextMonth = DateTime(now.year, now.month + 1, 1);
-    DateTime lastDayOfMonth = firstDayOfNextMonth.subtract(Duration(days: 1));
+    DateTime lastDayOfMonth = firstDayOfNextMonth.subtract(const Duration(days: 1));
     return lastDayOfMonth.day;
   }
 
@@ -247,7 +247,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
     double expensive = double.parse(readdb.getTotalAmountNegative(items)[0]); //Aylık Gider
     double total = double.parse(readdb.getTotalAmount(items)[0]); //Aylık Toplam fark
     var user = FirebaseAuth.instance.currentUser;
-    String message = "Merhabalar  ${user?.displayName ?? "Efendim"} " ;
+    String message = "${translation(context).hello}  ${user?.displayName ?? translation(context).sir} " ;
 
     double dailySpend = (total / (foundMaxdayinMoth() - dateTime.day)) ; //Ayın kalanında harcanması gereken günlük miktar.
     double assetTotal = getAssetsApi(ref, allItems); //Varlıklarımdan veri çekiyor.
@@ -256,41 +256,41 @@ class _myAssistant extends ConsumerState<myAssistant> {
     int remainderDay = foundMaxdayinMoth() - DateTime.now().day ; // Ay bitimine kalan günü verir.
 
     if(total > 0){
-      message += "Aylık Gelir Gider durumunuzunun + bakiyede olduğunu görebiliyorum. " ;
+      message += translation(context).spendingInPositiveBalance;
       if(dailySpend >= montlyincome *.5 && dailySpend < montlyincome){
-        message += "Böyle Devam ";
+        message += translation(context).keepGoingLikeThis;
       }else if (dailySpend > montlyincome && dailySpend <= montlyincome * 1.4){
-        message += "Gayet Güzel bir oran var. ";
+        message += translation(context).goodJobKeepGoingLikeThis;
       }else if (dailySpend > montlyincome * 1.4){
-        message += "Harika ! 🎉🥳🎉";
+        message += "${translation(context).great} 🎉🥳🎉";
       }else if(dailySpend < montlyincome * .5){
-        message += "Biraz bütçenizi idareli harcamanızı öneririz 🙄. ";
+        message += "${translation(context).recommendThatYouSpendYourBudgetWisely} 🙄. ";
       }else{
         message += "error no found statement";
       }
-      message += "Aylık Gelirinizin %${percentPeriod.toStringAsFixed(0)}' ini harcamışsınız. ";
-      message += "Ay bitimine $remainderDay gün kaldı. ";
-      message += "Ay sonuna ortalama günlük ${dailySpend.toStringAsFixed(2)} ${ref.read(settingsRiverpod).Prefix} harcayarak ulaşabilirsiniz. ";
+      message += "\n\n- ${translation(context).youSpentThisMuchOfYourMonthlyIncome}${percentPeriod.toStringAsFixed(0)}${translation(context).percentage}";
+      message += "\n- ${translation(context).numberOfDaysLeft}$remainderDay ${translation(context).day}";
+      message += "\n- ${translation(context).spendingThisMuchPerDayOnAverage} ${dailySpend.toStringAsFixed(2)} ${ref.read(settingsRiverpod).Prefix}";
     }else if(total == 0 ){
-      message += "Aylık Gelir ve Gider durumunuz eşit. ";
+      message += translation(context).yourIncomeExpensesAreEqual;
       if(assetTotal > 0){
-        message += "Neyse ki halihazırda Varlıklarınız da Paranız mevcut. ";
-      }else{
+        message += translation(context).fortunatelyYouAlreadyHaveMoneyInAssets;
+      }/*else{
         message += "🥹🥹🥹 ";
-      }
+      }*/
     }else{
-      message += "Aylık Gelir Gider durumunuzun maalesef - bakiyede olduğunu görüntülüyorum. ";
+      message += translation(context).spendingInNegativeBalance;
       if(assetTotal > 0){
-        message += "neyse ki ";
+        message += translation(context).fortunatelyYouAlreadyHaveMoneyInAssets;
       }
     }
     if(assetTotal <= 0){ ///varlık kontrolu
-      message += "\nMaalesef Varlığınız bulunmuyor. Dilerseniz Varlık sayfasını düzenleyebilirsiniz. ";
+      message += "\n${translation(context).youDoNotHaveAnyAssetsEditYourAssets}";
     }else{
-      message += "\n\nVarlıklarım Sayfasında toplam ${assetTotal.toStringAsFixed(2)} ${ref.read(settingsRiverpod).Prefix} paranız bulunmaktadır. ";
+      message += "\n\n${translation(context).yourTotalMoneyOnTheMyAssetsPageIs}${assetTotal.toStringAsFixed(2)} ${ref.read(settingsRiverpod).Prefix}";
     }
     if(ref.read(settingsRiverpod).assistantLastShowDate != null){
-      message += "\n\nSon Gösterilme tarihi => ${ref.read(settingsRiverpod).assistantLastShowDate.toString().split(" ")[0]}";
+      message += "\n\n${translation(context).lastShowDate}${ref.read(settingsRiverpod).assistantLastShowDate.toString().split(" ")[0]}";
     }
 
     return Column(
@@ -308,166 +308,169 @@ class _myAssistant extends ConsumerState<myAssistant> {
           ),
         ),
         income == 0
-            ?SizedBox(width: 1)
+            ?const SizedBox(width: 1)
             :Column(
           children: [
             SizedBox(
               height: 70,
               child: Column(
                 children: [
-                  const Text(
-                    "Bu aydaki Gelir Tipindeki işlemler",
-                    style: TextStyle(
+                  Text(
+                    translation(context).yourIncomeActivitiesForThisMonth,
+                    style: const TextStyle(
                       fontFamily: "Nexa3",
-                      fontSize: 12,
+                      fontSize: 13,
                     ),
                   ),
                   const SizedBox(height: 5),
-                  Expanded(
-                    child: FutureBuilder(
-                      future: SQLHelper.SQLEntry('SELECT * FROM spendinfo WHERE (operationType == "Gelir" AND operationMonth == ${DateTime.now().month})'),
-                      builder: (context, snapshot) {
-                        if(snapshot.hasData){
-                          List<SpendInfo>? data = snapshot.data;
-                          return ListView.builder(
-                            itemCount: data!.length,
-                            scrollDirection: Axis.horizontal,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  if(data[index].operationDay != "null"){
-                                    ref.read(dailyInfoRiverpod).setSpendDetail([data[index]], 0);
-                                    showModalBottomSheet(
-                                      isScrollControlled:true,
-                                      context: context,
-                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
-                                      backgroundColor:  CustomColors().koyuuRenk,
-                                      builder: (context) {
-                                        //ref.watch(databaseRiverpod).updatest;
-                                        // genel bilgi sekmesi açılıyor.
-                                        return const SpendDetail();
-                                      },
-                                    );
-                                  }else{
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Expanded(
+                      child: FutureBuilder(
+                        future: SQLHelper.SQLEntry('SELECT * FROM spendinfo WHERE (operationType == "Gelir" AND operationMonth == ${DateTime.now().month})'),
+                        builder: (context, snapshot) {
+                          if(snapshot.hasData){
+                            List<SpendInfo>? data = snapshot.data;
+                            return ListView.builder(
+                              itemCount: data!.length,
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    if(data[index].operationDay != "null"){
+                                      ref.read(dailyInfoRiverpod).setSpendDetail([data[index]], 0);
+                                      showModalBottomSheet(
+                                        isScrollControlled:true,
+                                        context: context,
+                                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
+                                        backgroundColor:  CustomColors().koyuuRenk,
+                                        builder: (context) {
+                                          //ref.watch(databaseRiverpod).updatest;
+                                          // genel bilgi sekmesi açılıyor.
+                                          return const SpendDetail();
+                                        },
+                                      );
+                                    }else{
 
-                                  }
-                                },
-                                child: Container(
-                                  width: 170,
-                                  margin: const EdgeInsets.all(4),
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: settingRead.DarkMode == 1 ? [
-                                      BoxShadow(
-                                        color: Colors.black54.withOpacity(0.8),
-                                        spreadRadius: 1,
-                                        blurRadius: 2,
-                                        offset: const Offset(-1, 2),
-                                      )
-                                    ] : [
-                                      BoxShadow(
-                                          color: Colors.black.withOpacity(0.2),
-                                          spreadRadius: 0.5,
+                                    }
+                                  },
+                                  child: Container(
+                                    width: 170,
+                                    margin: const EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: settingRead.DarkMode == 1 ? [
+                                        BoxShadow(
+                                          color: Colors.black54.withOpacity(0.8),
+                                          spreadRadius: 1,
                                           blurRadius: 2,
-                                          offset: const Offset(0, 2)
-                                      )
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width : 6,
-                                        height: 17,
-                                        decoration: const BoxDecoration(
-                                          color: Color(0xFF1A8E58),
-                                          borderRadius: BorderRadius.horizontal(right: Radius.circular(11)),
-                                        ),
-                                      ),
-                                      Column(
-                                        children: [
-                                          Expanded(
-                                              child: SizedBox(
-                                                width : 160,
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      data[index].operationDate.toString(),
-                                                      overflow: TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                        fontFamily: "Nexa3",
-                                                        fontSize: 13,
-                                                      ),
-                                                    ),
-                                                    RichText(
-                                                        maxLines: 1,
-                                                        text: TextSpan(
-                                                            children: [
-                                                              TextSpan(
-                                                                text:  data[index].realAmount.toString(),
-                                                                style: TextStyle(
-                                                                  overflow: TextOverflow.ellipsis,
-                                                                  height: 1,
-                                                                  fontSize: 13,
-                                                                  color: Theme.of(context).canvasColor,
-                                                                  fontFamily: "Nexa3",
-                                                                ),
-                                                              ),
-                                                              TextSpan(
-                                                                text: settingRead.prefixSymbol,
-                                                                style: TextStyle(
-                                                                  overflow: TextOverflow.ellipsis,
-                                                                  height: 1,
-                                                                  fontSize: 13,
-                                                                  color: Theme.of(context).canvasColor,
-                                                                  fontFamily: "TL",
-                                                                ),
-                                                              ),
-                                                            ]
-                                                        )
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
+                                          offset: const Offset(-1, 2),
+                                        )
+                                      ] : [
+                                        BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 0.5,
+                                            blurRadius: 2,
+                                            offset: const Offset(0, 2)
+                                        )
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width : 6,
+                                          height: 17,
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xFF1A8E58),
+                                            borderRadius: BorderRadius.horizontal(right: Radius.circular(11)),
                                           ),
-                                          Expanded(
-                                            child: SizedBox(
-                                              width : 120,
-                                              child: Text(
-                                                data[index].note.toString(),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style:const TextStyle(
-                                                  fontFamily: "Nexa3",
+                                        ),
+                                        Column(
+                                          children: [
+                                            Expanded(
+                                                child: SizedBox(
+                                                  width : 160,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        data[index].operationDate.toString(),
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: const TextStyle(
+                                                          fontFamily: "Nexa3",
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                      RichText(
+                                                          maxLines: 1,
+                                                          text: TextSpan(
+                                                              children: [
+                                                                TextSpan(
+                                                                  text:  data[index].realAmount.toString(),
+                                                                  style: TextStyle(
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    height: 1,
+                                                                    fontSize: 13,
+                                                                    color: Theme.of(context).canvasColor,
+                                                                    fontFamily: "Nexa3",
+                                                                  ),
+                                                                ),
+                                                                TextSpan(
+                                                                  text: settingRead.prefixSymbol,
+                                                                  style: TextStyle(
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    height: 1,
+                                                                    fontSize: 13,
+                                                                    color: Theme.of(context).canvasColor,
+                                                                    fontFamily: "TL",
+                                                                  ),
+                                                                ),
+                                                              ]
+                                                          )
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                            ),
+                                            Expanded(
+                                              child: SizedBox(
+                                                width : 120,
+                                                child: Text(
+                                                  data[index].note.toString(),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style:const TextStyle(
+                                                    fontFamily: "Nexa3",
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          );
-                        }else{
-                          return Container(
-                            height: 70,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          );
-                        }
-                      },
+                                );
+                              },
+                            );
+                          }else{
+                            return Container(
+                              height: 70,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
           ],
         ),
         assetTotal <= 0
@@ -478,7 +481,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
             Navigator.push(context, PageRouteBuilder(
               transitionDuration: const Duration(milliseconds: 1),
               pageBuilder: (context, animation, nextanim) => const assetsPage(),
-              reverseTransitionDuration: Duration(milliseconds: 1),
+              reverseTransitionDuration: const Duration(milliseconds: 1),
               transitionsBuilder: (context, animation, nexttanim, child) {
                 return FadeTransition(
                   opacity: animation,
@@ -490,14 +493,14 @@ class _myAssistant extends ConsumerState<myAssistant> {
             settingRead.setAssistantLastShowDate;
           },
           child: Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Theme.of(context).highlightColor,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Text(
-              "Varlıklarım",
-              style: TextStyle(
+            child: Text(
+              translation(context).myAssetsSmall,
+              style: const TextStyle(
                   height: 1,
                   fontSize: 13,
                   color: Colors.white
@@ -511,14 +514,14 @@ class _myAssistant extends ConsumerState<myAssistant> {
             settingRead.setAssistantLastShowDate;
           },
           child: Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Theme.of(context).highlightColor,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Text(
-              "Anladım",
-              style: TextStyle(
+            child: Text(
+              translation(context).okAnladim,
+              style: const TextStyle(
                   height: 1,
                   fontSize: 13,
                   color: Colors.white
