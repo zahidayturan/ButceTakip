@@ -993,11 +993,11 @@ class _assetsPage extends ConsumerState<assetsPage> {
                   yValueMapper: (Data data, _) => data.y,
                   animationDuration: 1650,
                   gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+                    begin: FirstTotalAsset <= 0 ? Alignment.bottomCenter : Alignment.topCenter,
+                    end: FirstTotalAsset <= 0 ? Alignment.topCenter : Alignment.bottomCenter,
                     colors: [
                       ref
-                          .read(settingsRiverpod)
+                            .read(settingsRiverpod)
                           .DarkMode == 0 ? Theme
                           .of(context)
                           .highlightColor
