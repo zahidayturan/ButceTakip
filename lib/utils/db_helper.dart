@@ -91,7 +91,7 @@ class SQLHelper {
           database.execute("ALTER TABLE setting ADD COLUMN dateFormat TEXT DEFAULT 'dd.MM.yyyy' ");
           database.execute("ALTER TABLE setting ADD COLUMN adEventCounter INTEGER DEFAULT 5 ");
         }
-        else if(newVersion > oldVersion) {
+        if(newVersion > oldVersion) {
           database.execute("ALTER TABLE setting ADD COLUMN isAssistant TEXT DEFAULT WEEKLY");
           database.execute("ALTER TABLE setting ADD COLUMN assistantLastShowDate TEXT DEFAULT 00-00-0000");
           database.execute("ALTER TABLE setting ADD COLUMN addDataType INTEGER DEFAULT 0");
