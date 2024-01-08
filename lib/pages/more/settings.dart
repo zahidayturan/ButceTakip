@@ -441,9 +441,12 @@ class _SettingsState extends ConsumerState<Settings> {
 
                     GestureDetector(
                         onTap: () {
-                          lampCounter < 9 ? readSetting.setDarkModeNotBool() : null;
-                          lampCounter += 1;
-                          lampCounter == 12 ? lampCounter = 0 : null;
+                          setState(() {
+                            lampCounter < 9 ? readSetting.setDarkModeNotBool() : null;
+                            lampCounter += 1;
+                            lampCounter == 12 ? lampCounter = 0 : null;
+                            readSetting.setisuseinsert();
+                          });
                         },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 500),
