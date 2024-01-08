@@ -801,7 +801,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 2),
                                 child: Text(
-                                    "Android 2.0.2v ${translation(context).version2Title} (19.09.2023)",
+                                    "Android 2.1.0v ${translation(context).version2Title} (08.01.2024)",
                                     textDirection: TextDirection.ltr,
                                 ),
                               ),
