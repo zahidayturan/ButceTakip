@@ -135,6 +135,12 @@ class GglDriveRiverpod extends ChangeNotifier{
       print("silinirken hata meydana geldi $e");
     }
   }
+
+  Future<void> deleteUserData() async {
+    Reference storageRef = _storage.ref().child("ButceTakipArchive/${_auth.currentUser?.email}/Bka_CSV.cvs");
+    await storageRef.delete();
+  }
+
   Future<void> uploadFileToDrive(String fileName) async {
     Directory tempDir = await getTemporaryDirectory();
     final file = File("${tempDir.path}/$fileName");
@@ -153,6 +159,7 @@ class GglDriveRiverpod extends ChangeNotifier{
       print("ilk değer atnamadı :/");
     }
   }//+
+
   Future<String?> uploadFileToStorage() async {
     //bu çalışıyor A planı
     //var tempDir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
@@ -247,6 +254,15 @@ class GglDriveRiverpod extends ChangeNotifier{
     refreshPage();
     print("Google ile çıkış yapıldı");
   } //+
+
+  Future <void> deleteUserGoogle() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if(user != null){
+      await user.delete() ;
+    }else{
+      print("Kullanıcı otorumu açık değil");
+    }
+  }
   bool isUserLoggedIn() { // giriş var mı kontrolu iriş varsa true değilse false dönüyor.
     final User? user = _auth.currentUser;
     return user != null;

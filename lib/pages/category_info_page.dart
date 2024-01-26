@@ -1,12 +1,14 @@
 import 'package:butcekontrol/UI/spend_detail.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/models/Data.dart';
 import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 
 
@@ -49,11 +51,80 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
       ],
     );
   }
+  List<Data> getDataSet(String mod, List<SpendInfo> items){
+    List<Data> dataSetList = [];
+    Map<String, double> takvim  = {};
+    if(mod == "Aylık"){
+      items.forEach((item) {
+        if(item.operationDay != null){
+          if(takvim.containsKey(item.operationDay)){
+            takvim[item.operationDay!] = takvim[item.operationDay!]! + item.realAmount! ;
+          }else{
+            takvim[item.operationDay!] = item.realAmount!;
+          }
+        }
+      });
+      for(int i = 0 ; i < 31 ; i++){
+        if(takvim[(i + 1).toString()] != null){
+          dataSetList.add(Data((i + 1).toString(), takvim[(i+1).toString()]));
+        }else{
+          dataSetList.add(Data((i + 1).toString(), 0));
+        }
+      }
 
+
+      //buraya farklı modları yazmalısın.
+    }else if(mod == "Haftalık" || mod == "Periyot"){
+      String? month = items.first.operationMonth;
+      items.forEach((item) {
+        if(item.operationDay != null && item.operationMonth == month){
+          if(takvim.containsKey(item.operationDay)){
+            takvim[item.operationDay!] = takvim[item.operationDay!]! + item.realAmount! ;
+          }else{
+            takvim[item.operationDay!] = item.realAmount!;
+          }
+        }else if(item.operationDay != null){
+          if(takvim.containsKey(("${item.operationMonth!}/${item.operationDay!}").toString())){
+            takvim[("${item.operationMonth!}/${item.operationDay!}")] = takvim[(item.operationMonth! + "/" + item.operationDay!)]! + item.realAmount! ;
+          }else{
+            takvim[("${item.operationMonth!}/${item.operationDay!}")] = item.realAmount!;
+          }
+        }
+      });
+      print(takvim);
+
+      List<String> a = takvim.keys.toList();
+      for(int i = 0 ; i < a.length ; i++ ){
+        if(takvim[a[i]] != null){
+          dataSetList.add(Data(a[i], takvim[a[i]]));
+        }else{
+          dataSetList.add(Data(a[i], 0));
+        }
+      }
+    }else{ ///YIllık
+      items.forEach((item) {
+        if(item.operationMonth != null){
+          if(takvim.containsKey(item.operationMonth)){
+            takvim[item.operationMonth!] = takvim[item.operationMonth!]! + item.realAmount! ;
+          }else{
+            takvim[item.operationMonth!] = item.realAmount!;
+          }
+        }
+      });
+      List<String> aylar = ["Ocak", 'Şubat', 'Mart', 'Nisan' , "Mayıs" ,'Haziran', 'Temmuz', 'Ağustos', "Eylül", 'Ekim', "Kasım", "Aralık"] ;
+      for(int i = 0 ; i < aylar.length ; i++ ){
+        if(takvim[(i + 1).toString()] != null){
+          dataSetList.add(Data(aylar[i], takvim[(i+1).toString()]));
+        }else{
+          dataSetList.add(Data(aylar[i], 0));
+        }
+      }
+    }
+    return dataSetList;
+  }
   Widget list(BuildContext context) {
     var readCategoryInfo = ref.read(categoryInfoRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
-    var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     Future<List<SpendInfo>> myList = readCategoryInfo.myMethod2();
     CustomColors renkler = CustomColors();
@@ -61,15 +132,129 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
         future: myList,
         builder: (context, AsyncSnapshot<List<SpendInfo>> snapshot) {
           if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).disabledColor,
+                backgroundColor: Theme.of(context).highlightColor,
+              ),
             );
           }
-          var item = snapshot.data!; // !
+          List<SpendInfo> item = snapshot.data!; // !
           return Expanded(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  readCategoryInfo.getDataType() != "Günlük" && item.length != 1
+                  ? SizedBox(
+                    height: 250,
+                   child: SfCartesianChart(
+                     /*
+                     title: ChartTitle(
+                       text: "${readCategoryInfo.getDataType()} Grafik",
+                       alignment: ChartAlignment.center,
+                       textStyle: TextStyle(
+                         color: Theme.of(context).canvasColor,
+                         fontFamily: "Nexa3"
+                       )
+                     ),
+                      */
+                     borderColor: Colors.transparent,
+                     primaryXAxis: CategoryAxis(
+                       labelRotation: 45,
+                       majorGridLines: const MajorGridLines(width: 0), // Ana grid çizgilerini gizler
+                       minorGridLines: const MinorGridLines(width: 0), // Alt grid çizgilerini gizler
+                       axisLine: const AxisLine(
+                         color: Colors.transparent,
+                       ),
+                     ),
+                     primaryYAxis: NumericAxis(
+                        minorGridLines: const MinorGridLines(width: 0),
+                     ),
+                     tooltipBehavior: TooltipBehavior( //Grafiğe tıklanınca çıkan bilgi ekranını sağlıyor.
+                       enable: true,
+                       header: "Bilgi",
+                       color: Theme.of(context).highlightColor,
+                       borderColor: Colors.white,
+                       textStyle: const TextStyle(
+                         color: Colors.white
+                       ),
+                       duration: 1600,
+                     ),
+
+                     series: <ChartSeries>[
+
+                       SplineAreaSeries<Data, String>(
+                          dataSource:  getDataSet(readCategoryInfo.getDataType(), item),
+                           xValueMapper:(Data data, _) => data.x,
+                           yValueMapper: (Data data, _) => data.y,
+                         gradient: LinearGradient(
+                           begin: Alignment.topCenter,
+                           end: Alignment.bottomCenter,
+                           colors: [Theme.of(context).disabledColor , Theme.of(context).primaryColor ],
+                         ),
+                         dataLabelSettings: const DataLabelSettings(
+                           isVisible: false,
+                           angle: 45,
+                           alignment: ChartAlignment.far,
+                           offset: Offset(0, 0),
+                           labelAlignment: ChartDataLabelAlignment.middle
+                         ),
+                       ),
+                       /*
+                       SplineSeries<Data, String>(
+                         dataSource: ,
+                         color: Colors.white,
+                         xValueMapper:(Data data, _) => data.x,
+                         yValueMapper: (Data data, _) => data.y,
+                       ),
+                        */
+                       LineSeries<Data, String>(
+                          dataSource: getDataSet(readCategoryInfo.getDataType(), item) ,
+
+                          dataLabelSettings:  DataLabelSettings(
+                              builder: (data, point, series, pointIndex, seriesIndex) {
+                                return Container(
+                                  padding: const EdgeInsets.all(4.0),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).highlightColor, // Customize the background color as needed
+                                    borderRadius: BorderRadius.circular(8.0), // Customize the border radius as needed
+                                  ),
+                                  child: Text(
+                                    data.y.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.white, // Customize the text color as needed
+                                    ),
+                                  ),
+                                );
+                              },
+                              isVisible: false,
+                              angle: 45,
+                              alignment: ChartAlignment.far,
+                              offset: const Offset(0, 0),
+                              color: Colors.pink,
+                              labelAlignment: ChartDataLabelAlignment.middle
+                          ),
+                          color: Theme.of(context).secondaryHeaderColor,
+                          width: 2,
+                          markerSettings: const MarkerSettings(
+                            isVisible: true,
+                            width: 5,
+                            height: 5,
+                          ),
+                          isVisible: true,
+                          xValueMapper:(Data data, _) => data.x,
+                          yValueMapper: (Data data, _) => data.y,
+                       )
+                     ],
+
+                   ),
+                  )
+                  : SizedBox(
+                    height: 40,
+                    child: Center(
+                      child: Text(translation(context).noEnoughDataForTheChart),
+                    ),
+                  ),
                   Expanded(
                     child: Stack(
                       children: [
@@ -348,7 +533,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
             ),
           );
         } else {
-          return const CircularProgressIndicator();
+          return SizedBox();
         }
       },
     );
@@ -406,13 +591,24 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Padding(
+                          padding: const EdgeInsets.only(left: 4,right: 4,bottom: 4),
+                          child: Container(
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: myCategory[2] == "Gider" ? renkler.kirmiziRenk :renkler.yesilRenk
+                            ),
+                          ),
+                        ),
                           Text(
                             '${Converter().textConverterFromDB(myCategory[0], context, 0)} ',
                             style: TextStyle(
                               color: renkler.yaziRenk,
                               fontFamily: "NEXA3",
                               height: 1,
-                              fontSize: 20,
+                              fontSize: 19,
                             ),
                             textAlign: TextAlign.center,
                             maxLines: 2,
@@ -424,7 +620,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                               color: renkler.yaziRenk,
                               fontFamily: "NEXA3",
                               height: 1,
-                              fontSize: 20,
+                              fontSize: 19,
                             ),
                             textAlign: TextAlign.center,
                             maxLines: 2,

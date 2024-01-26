@@ -26,7 +26,6 @@ class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
           child: child!,
         );
       },
-
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       locale: readSettings.localChanger(), ///Dil ayarlama
@@ -34,6 +33,7 @@ class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
       debugShowCheckedModeBanner: false,
       title: "Bütçe Takip",
       theme: ThemeData(
+        useMaterial3: false,
         brightness: Brightness.light,
         primaryColor: Color(0xFFE9E9E9),
         canvasColor: Color(0xFF0D1C26),
@@ -51,10 +51,10 @@ class _ButceKontrolAppState extends ConsumerState<ButceKontrolApp> {
         hoverColor: Color(0xFFD91A2A),
         disabledColor: Color(0xFFF2CB05),
         unselectedWidgetColor: Color(0xFFE9E9E9), // checkbox border rengi için kullandım.
-
         fontFamily: "Nexa3",
       ),
       darkTheme: ThemeData(
+        useMaterial3: false,
         brightness: Brightness.dark,
         primaryColor: Color(0xFF0D1C26),
         canvasColor: Color(0xffF2F2F2),

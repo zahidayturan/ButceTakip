@@ -14,6 +14,7 @@
   "backupTitle": "YEDEKLEME",
   "contactUsTitle": "İLETİŞİM",
   "myAssets": "VARLIKLARIM",
+  "myAssetsSmall": "Varliklarim",
 
   "selectLanguage": "Lütfen dil seçiniz",
 
@@ -111,8 +112,21 @@
   "time": "Saat",
   "monthlyIncome": "Aylık\nGelir",
   "monthlyExpenses": "Aylık\nGider",
+  "monthlyExpensesWithoutEnter": "Aylık Gider",
 
   "noActivity": "Kayıt Yok",
+
+  "monthlyStatisticsOnlyForTurkish": "İçin İstatistikler",
+  "monthlyStatisticsOnlyForEnglishAndArabic": "",
+  "dailyAverageSpending": "Ortalama günlük harcama tutarı",
+  "spendingScore": "Bütçe puanı",
+  "mostSpendingCategory": "En çok harcama\nyapılan kategori",
+  "changeInNetSpending": "Bir önceki aya göre\nnet durumun değişimi",
+  "mostSpendingDay": "En çok harcama yapılan gün",
+  "monthlyIncomeExpenseScore": "Aylık olarak gelir gider oranına göre hesaplanan puan",
+  "noSpending": "Harcama yok",
+  "noResult": "Henüz yok",
+  "mostExpensiveSpending": "En pahalı harcama",
 
   "both": "HEPSİ",
   "income": "GELİR",
@@ -143,6 +157,8 @@
   "viewFullList": "Listenin Tamamını Görüntüle",
   "fullList": "Listenin Tamamı",
   "numberOfElementsShown": "Gösterilen Eleman Sayısı",
+
+  "noEnoughDataForTheChart": "Grafik için yeterli veri yok",
 
   "firstDayOfTheMonth": "Ayın Başlangıç Günü",
   "setAsOnlyForTurkish": "Olarak Ayarla",
@@ -416,15 +432,18 @@
   "github": "Github:  ",
   "developers": "GELİŞTİRİCİLER",
 
-  "goodMorning": "Günaydın! Umarız iyisinizdir",
-  "goodDay": "İyi günler! Umarız iyisinizdir",
-  "goodEvening": "İyi akşamlar! Umarız iyisinizdir",
-  "goodNight": "İyi geceler! Umarız iyisinizdir",
+  "goodMorning": "Günaydın!",
+  "goodDay": "İyi günler!",
+  "goodEvening": "İyi akşamlar!",
+  "goodNight": "İyi geceler!",
+  "hopeGood" : "Umarız iyisinizdir.",
 
+  "totalAssets" : "TOPLAM VARLIK",
   "total": "TOPLAM",
   "past": "Geçmiş",
   "myPastAssetRecords": "GEÇMİŞ VARLIK KAYITLARIM",
   "close": "Kapat",
+  "totalSmall": "Toplam",
   "doneBitti": "Bitti",
   "noAssetFound": "Net Varlık Bulunamadı!",
   "addRemoveAsset": "Varlık Ekle/Çıkart",
@@ -508,7 +527,7 @@
   "assetsPage6": "Gösterilen kayıtların, isterseniz buradan isterseniz de işlem detayından para birimini değiştirebilirsiniz. Kaydın üzerine tıkladığınızda döviz bürosu açılacaktır ve farklı para birimlerine Güncel döviz kurlarıyla dövizinizi dönüştürebilir veya bozdurabilirsiniz.",
 
   "version2Title": "Sürüm Notu",
-  "version2": "V2.0.2 Sürüm Notu",
+  "version2": "V2.1.1 Sürüm Notu",
   "budgetUpdate": "Bütçe Takip Güncellendi!",
   "implementedSuggestions": "İlk gösterimimizden bugüne kadar yorum olarak ilettiğiniz önerilerinizi Bütçe Takip uygulamamızda hayata geçirdik.",
   "whatsNewVersion": "Yenilikler",
@@ -652,6 +671,43 @@
   "downloadedData" : "verileriniz indirildi.",
   "backupedData" : "verileriniz yedeklendi",
 
-  "close" : "Kapat"
+  "assetChart30Days": "30 Günlük Varlık Değişimi",
+  "yourHighestIncome": "En Yüksek Geliriniz",
+
+  "deleteMyAccount": "HESABIMI SİL",
+  "allDataInYourEmailAccountWillBeDeleted": "Mail hesabınızdaki tüm veriler silinecektir.",
+  "doYouConfirm": "Onaylıyor musunuz? (Yeniden aynı Email ile hesap oluşturabileceksiniz.)",
+  "deleteMyAccountSmall": "Hesabımı Sil",
+  "deleteMyAccountSmallSize": "90",
+  "cancel": "iptal et",
+
+  "analysis": "ANALİZ",
+  "iAmYourBudgetWiseAssistant": "Merhaba Ben BütçeTakip Asistanınız!\n",
+  "lookAtYourMonthlyExpenses": "Aylık harcamalarınıza bir bakalım.",
+
+  "hello": "Merhabalar",
+  "sir": "Efendim",
+
+  "spendingInPositiveBalance": "Aylık Gelir Gider durumunuzunun + bakiyede olduğunu görebiliyorum. ",
+  "keepGoingLikeThis": "Böyle Devam ",
+  "goodJobKeepGoingLikeThis": "Gayet Güzel bir oran var. ",
+  "great": "Harika! ",
+  "recommendThatYouSpendYourBudgetWisely": "Biraz bütçenizi idareli harcamanızı öneririz ",
+
+  "youSpentThisMuchOfYourMonthlyIncome": "Aylık Gelirinizi şu kadarını harcamışsınız : %",
+  "percentage": "",
+  "numberOfDaysLeft": "Ay bitimine kalan gün sayısı : ",
+  "day": "gün",
+  "spendingThisMuchPerDayOnAverage": "Ay sonuna ortalama günlük şu kadar harcayarak ulaşabilirsiniz : ",
+
+  "yourIncomeExpensesAreEqual": "Aylık gelir ve gider durumunuz eşit. ",
+  "fortunatelyYouAlreadyHaveMoneyInAssets": "Neyse ki hâlihazırda Varlıklarınızda paranız mevcut. ",
+
+  "spendingInNegativeBalance": "Aylık Gelir Gider durumunuzun maalesef - bakiyede olduğunu görüyorum. ",
+  "youDoNotHaveAnyAssetsEditYourAssets": "Maalesef Varlığınız bulunmuyor. Varlıklarım sayfasından varlıklarınızı düzenleyebilirsiniz. ",
+  "yourTotalMoneyOnTheMyAssetsPageIs": "Varlıklarım sayfasındaki toplam paranız : ",
+  "lastShowDate": "Son gösterilme tarihi : ",
+
+  "yourIncomeActivitiesForThisMonth": "Bu aydaki Gelir işlemleriniz"
 }
 

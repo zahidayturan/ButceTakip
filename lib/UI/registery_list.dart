@@ -231,8 +231,7 @@ class RegisteryList extends ConsumerWidget {
                                   children: [
                                     InkWell(
                                         onTap: () {
-                                          readDailyInfo.setSpendDetail(
-                                              item, index);
+                                          readDailyInfo.setSpendDetail(item, index);
                                           showModalBottomSheet(
                                             isScrollControlled:true,
                                             context: context,
@@ -255,83 +254,99 @@ class RegisteryList extends ConsumerWidget {
                                         },
                                         highlightColor: Theme.of(context).scaffoldBackgroundColor,
                                         child: SizedBox(
-                                          height: 36,
+                                          height: 50,
                                           child: Stack(
                                             fit: StackFit.expand,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.only(right:12,left: 18,top: 3,bottom: 3),
+                                                padding: const EdgeInsets.only(right:12,left: 10,top: 3,bottom: 3),
                                                 child: ClipRRect(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(10),
+                                                  borderRadius: BorderRadius.circular(10),
                                                   child: Container(
                                                     color: Theme.of(context).indicatorColor,
                                                     child: Padding(
                                                       padding: const EdgeInsets.only(left: 20,right: 10,top: 2),
-                                                      child: Row(
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                         children: [
-                                                          SizedBox(
-                                                            width:
-                                                            110,
-                                                            child: Center(
-                                                              child: Text(
-                                                                Converter().textConverterFromDB(item[index].category!, context, 0),
-                                                                overflow: TextOverflow.ellipsis,
-                                                                textAlign: TextAlign.center,
-                                                                maxLines: 2,
-                                                                style:
-                                                                const TextStyle(
-                                                                  fontFamily:
-                                                                  "Nexa3",
-                                                                  fontSize:
-                                                                  14,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: RichText(
-                                                                maxLines: 1,
-                                                                overflow: TextOverflow.ellipsis,
-                                                                textAlign: TextAlign.end,
-                                                                text: TextSpan(children: [
-                                                                  TextSpan(
-                                                                    text:  item[index].realAmount!.toStringAsFixed(1),
-                                                                    style: TextStyle(
-                                                                      height: 1,
-                                                                      color: item[index]
-                                                                          .operationType ==
-                                                                          "Gider"
-                                                                          ? renkler
-                                                                          .kirmiziRenk
-                                                                          : Theme.of(
-                                                                          context)
-                                                                          .canvasColor,
+                                                          Row(
+                                                            children: [
+                                                              SizedBox(
+                                                                width:
+                                                                110,
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    Converter().textConverterFromDB(item[index].category!, context, 0),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    textAlign: TextAlign.center,
+                                                                    maxLines: 2,
+                                                                    style:
+                                                                    const TextStyle(
                                                                       fontFamily:
                                                                       "Nexa3",
-                                                                      fontSize: 15,
+                                                                      fontSize:
+                                                                      14,
                                                                     ),
                                                                   ),
-                                                                  TextSpan(
-                                                                    text: readSettings.prefixSymbol,
-                                                                    style: TextStyle(
-                                                                      height: 1,
-                                                                      color: item[index]
-                                                                          .operationType ==
-                                                                          "Gider"
-                                                                          ? renkler
-                                                                          .kirmiziRenk
-                                                                          : Theme.of(
-                                                                          context)
-                                                                          .canvasColor,
-                                                                      fontFamily:
-                                                                      "TL",
-                                                                      fontSize: 15,
-                                                                    ),
-                                                                  ),
-                                                                ])),
-                                                          )
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: RichText(
+                                                                    maxLines: 1,
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    textAlign: TextAlign.end,
+                                                                    text: TextSpan(children: [
+                                                                      TextSpan(
+                                                                        text:  item[index].realAmount!.toStringAsFixed(1),
+                                                                        style: TextStyle(
+                                                                          height: 1,
+                                                                          color: item[index]
+                                                                              .operationType ==
+                                                                              "Gider"
+                                                                              ? renkler
+                                                                              .kirmiziRenk
+                                                                              : Theme.of(
+                                                                              context)
+                                                                              .canvasColor,
+                                                                          fontFamily:
+                                                                          "Nexa3",
+                                                                          fontSize: 15,
+                                                                        ),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text: readSettings.prefixSymbol,
+                                                                        style: TextStyle(
+                                                                          height: 1,
+                                                                          color: item[index]
+                                                                              .operationType ==
+                                                                              "Gider"
+                                                                              ? renkler
+                                                                              .kirmiziRenk
+                                                                              : Theme.of(
+                                                                              context)
+                                                                              .canvasColor,
+                                                                          fontFamily:
+                                                                          "TL",
+                                                                          fontSize: 15,
+                                                                        ),
+                                                                      ),
+                                                                    ])),
+                                                              )
+                                                            ],
+                                                          ),
+                                                          Text(
+                                                            item[index].note!,
+                                                            overflow: TextOverflow.ellipsis,
+                                                            textAlign: TextAlign.center,
+                                                            maxLines: 2,
+                                                            style:
+                                                            const TextStyle(
+                                                              fontFamily:
+                                                              "Nexa3",
+                                                              fontSize:
+                                                              12,
+                                                            ),
+                                                          ),
                                                         ],
                                                       ),
                                                     ),
@@ -340,6 +355,7 @@ class RegisteryList extends ConsumerWidget {
                                               ),
                                               Positioned(
                                                 left: 0,
+                                                top: 7,
                                                 child: SizedBox(
                                                   width: 36,
                                                   height: 36,

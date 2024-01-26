@@ -14,6 +14,7 @@
     "backupTitle": "BACKUP",
     "contactUsTitle": "CONTACT US",
     "myAssets": "MY ASSETS",
+    "myAssetsSmall": "My Assets",
 
     "selectLanguage": "Please select a language",
 
@@ -111,8 +112,21 @@
     "time": "Time",
     "monthlyIncome": "Monthly\nIncome",
     "monthlyExpenses": "Monthly\nExpenses",
+    "monthlyExpensesWithoutEnter": "Monthly Expenses",
 
     "noActivity": "No Activity",
+
+    "monthlyStatisticsOnlyForTurkish": "",
+    "monthlyStatisticsOnlyForEnglishAndArabic": "Statistics for",
+    "dailyAverageSpending": "Daily average spending",
+    "spendingScore": "Budget score",
+    "mostSpendingCategory": "Category with the\nmost spending",
+    "changeInNetSpending": "Change in net spendings\ncompared to the previous month",
+    "mostSpendingDay": "Day with the most spending",
+    "monthlyIncomeExpenseScore": "Score calculated based on monthly income-expense ratio",
+    "noSpending": "No spending",
+    "noResult": "No result",
+    "mostExpensiveSpending": "Most expensive spending",
 
     "both": "BOTH",
     "income": "INCOME",
@@ -143,6 +157,8 @@
     "viewFullList": "View Full List",
     "fullList": "Full List",
     "numberOfElementsShown": "Number of Elements Shown",
+
+    "noEnoughDataForTheChart": "There is no enough data for the chart",
 
     "firstDayOfTheMonth": "First day of the Month",
     "setAsOnlyForTurkish": "",
@@ -415,15 +431,19 @@
     "github": "Github:  ",
     "developers": "DEVELOPERS",
 
-    "goodMorning": "Good morning! We hope you're doing well",
-    "goodDay": "Have a nice day! We hope you're doing well",
-    "goodEvening": "Good evening! We hope you're doing well",
-    "goodNight": "Goodnight! We hope you're doing well",
+    "goodMorning": "Good morning!",
+    "goodDay": "Have a nice day!",
+    "goodEvening": "Good evening!",
+    "goodNight": "Goodnight!",
+    "hopeGood" : "We hope you're doing well",
 
+
+    "totalAssets" : "TOTAL ASSET",
     "total": "TOTAL",
     "past": "Past",
     "myPastAssetRecords": "MY PAST ASSET RECORDS",
     "close": "Close",
+    "totalSmall": "Total",
     "doneBitti": "Done",
     "noAssetFound": "No Asset Found!",
     "addRemoveAsset": "Add/Remove Asset",
@@ -507,7 +527,7 @@
     "assetsPage6": "You can change the currency of the displayed records either here or from the activity details. When you click on the record, the Currency Exchange will show up and you can exchange or  convert your currency to different currencies with current exchange rates.",
 
     "version2Title": "Version",
-    "version2": "V2.0.2 Version",
+    "version2": "V2.1.1 Version",
     "budgetUpdate": "Budget Wise Updated!",
     "implementedSuggestions": "We have implemented your suggestions so far in the Budget Wise application.",
     "whatsNewVersion": "What's New",
@@ -651,6 +671,43 @@
     "downloadedData" : "Your data downloaded",
     "backupedData" : "Your data is backed up",
 
-    "close" : "Close"
+    "close" : "Close",
+    "assetChart30Days": "30 Day Asset Chart",
+    "yourHighestIncome": "Your Highest Income",
 
+    "deleteMyAccount": "DELETE MY ACCOUNT",
+    "allDataInYourEmailAccountWillBeDeleted": "All data in your email account will be deleted.",
+    "doYouConfirm": "Do you confirm? (You will be able to log in again with the same Email account.)",
+    "deleteMyAccountSmall": "Delete My Account",
+    "deleteMyAccountSmallSize": "135",
+    "cancel": "cancel",
+
+    "analysis": "ANALYSIS",
+    "iAmYourBudgetWiseAssistant": "Hello, I am your BudgetWise Assistant!",
+    "lookAtYourMonthlyExpenses": "Let's look at your monthly expenses.",
+
+    "hello": "Hello",
+    "sir": "Sir",
+
+    "spendingInPositiveBalance": "I see that your monthly Income and Expenses are in positive balance. ",
+    "keepGoingLikeThis": "Keep going like this ",
+    "goodJobKeepGoingLikeThis": "Good job, keep going like this ",
+    "great": "Great! ",
+    "recommendThatYouSpendYourBudgetWisely": "We recommend that you spend your budget wisely ",
+
+    "youSpentThisMuchOfYourMonthlyIncome": "You spent this much of your Monthly Income : ",
+    "percentage": "%",
+    "numberOfDaysLeft": "Number of days left until the end of the month : ",
+    "day": "days",
+    "spendingThisMuchPerDayOnAverage": "You can reach the end of the month by spending this much per day on average : ",
+
+    "yourIncomeExpensesAreEqual": "Your monthly income and expenses are equal. ",
+    "fortunatelyYouAlreadyHaveMoneyInAssets": "Fortunately, you already have money in Assets. ",
+
+    "spendingInNegativeBalance": "I see that your monthly income and expenses are unfortunately in negative balance. ",
+    "youDoNotHaveAnyAssetsEditYourAssets": "Unfortunately, you do not have any assets. You can edit your assets from My Assets page. ",
+    "yourTotalMoneyOnTheMyAssetsPageIs": "Your total money on the My Assets page : ",
+    "lastShowDate": "Last Show date : ",
+
+    "yourIncomeActivitiesForThisMonth": "Your Income activities for this month"
 }

@@ -129,7 +129,7 @@ class CalendarRiverpod extends ChangeNotifier {
         remainingSlots,
             (i) => DateFormat('dd.MM.yyyy')
             .format(DateTime(nextMonthDate.year, nextMonthDate.month, i + startDay)));
-    print(prevMonthDays);
+    //print(prevMonthDays);
     List<String> allDays = [
       ...prevMonthDays,
       ...currentMonthDays,
@@ -139,7 +139,8 @@ class CalendarRiverpod extends ChangeNotifier {
   }
 
   Future<double> getDateColor(int day, int month, int year) async {
-    List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(day.toString(), month.toString(), year.toString());
+    DateTime date = DateTime(year,month,day);
+    List<SpendInfo> items = await SQLHelper.getItemsByOperationDayMonthAndYear(date.day.toString(), date.month.toString(), date.year.toString());
 
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir')
@@ -157,7 +158,9 @@ class CalendarRiverpod extends ChangeNotifier {
     List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month.toString(), year.toString());
     DateTime startDate = DateTime(yearIndex, monthIndex, startDay-1);
     DateTime endDate = DateTime(yearIndex, monthIndex+1, startDay);
-    List<SpendInfo> items2 = await SQLHelper.getItemsByOperationMonthAndYear((month+1).toString(), year.toString());
+
+    DateTime nextMonth = DateTime(year,month+1);
+    List<SpendInfo> items2 = await SQLHelper.getItemsByOperationMonthAndYear((nextMonth.month).toString(), nextMonth.year.toString());
     items.addAll(items2);
     double totalAmount = items
         .where((element) => element.operationType == 'Gelir' && isDateInRange(DateTime(int.parse(element.operationYear!),int.parse(element.operationMonth!),int.parse(element.operationDay!)), startDate, endDate) == true)
@@ -180,7 +183,8 @@ class CalendarRiverpod extends ChangeNotifier {
     DateTime startDate = DateTime(yearIndex, monthIndex, startDay-1);
     DateTime endDate = DateTime(yearIndex, monthIndex+1, startDay);
     List<SpendInfo> items = await SQLHelper.getItemsByOperationMonthAndYear(month.toString(), year.toString());
-    List<SpendInfo> items2 = await SQLHelper.getItemsByOperationMonthAndYear((month+1).toString(), year.toString());
+    DateTime nextMonth = DateTime(year,month+1);
+    List<SpendInfo> items2 = await SQLHelper.getItemsByOperationMonthAndYear((nextMonth.month).toString(), nextMonth.year.toString());
     items.addAll(items2);
 
     var totalCount = items.where((element) => element.operationType == 'Gelir' && isDateInRange(DateTime(int.parse(element.operationYear!),int.parse(element.operationMonth!),int.parse(element.operationDay!)), startDate, endDate) == true);

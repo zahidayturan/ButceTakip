@@ -28,9 +28,13 @@ class SettingsRiverpod extends ChangeNotifier{
   bool backUpAlert = false ;
   String ?errorStatusBackup ;
   int ?adEventCounter;
+  String ?isAssistant;
+  String ?assistantLastShowDate;
+  int ?addDataType;
 
   Future readDb() async{
     List<SettingsInfo> setting = await SQLHelper.settingsControl() ;
+
     id = setting[setting.length - 1].id ;
     Prefix = setting[setting.length - 1].prefix ;
     DarkMode = setting[setting.length - 1].darkMode;
@@ -47,6 +51,9 @@ class SettingsRiverpod extends ChangeNotifier{
     monthStartDay = setting[setting.length - 1].monthStartDay;
     dateFormat = setting[setting.length - 1].dateFormat;
     adEventCounter = setting[setting.length -1].adEventCounter;
+    isAssistant = setting[setting.length -1].isAssistant;
+    assistantLastShowDate = setting[setting.length -1].assistantLastShowDate;
+    addDataType = setting[setting.length -1].addDataType;
 
     print("""
       id : ${setting[setting.length - 1].id}
@@ -62,19 +69,28 @@ class SettingsRiverpod extends ChangeNotifier{
       securityQu : ${setting[setting.length - 1].securityQu}
       securityClaimK(Kalan Hak) : ${setting[setting.length - 1].securityClaim}
       adCounter(Kalan Hak) : ${setting[setting.length - 1].adCounter} ----2.--> ${setting[setting.length - 1].adEventCounter}
-      tarih ve gün : ${setting[setting.length - 1].dateFormat}${setting[setting.length - 1].monthStartDay}""");
+      tarih ve gün : ${setting[setting.length - 1].dateFormat}${setting[setting.length - 1].monthStartDay}
+      isAssistant : ${setting[setting.length - 1].isAssistant}
+      assistantLastShowDate : ${setting[setting.length - 1].assistantLastShowDate}
+      addDataType :${setting[setting.length - 1].addDataType}
+      """);
     notifyListeners();
   }
   Future controlSettings(BuildContext context) async{ //settings Kayıt değerlendiriyoruz.A
     List<SettingsInfo> ?settingsReglength = await SQLHelper.settingsControl();
     if(settingsReglength.length > 0) {
+      /*
       prefixSymbol = settingsReglength[0].prefixSymbol;
       monthStartDay = settingsReglength[0].monthStartDay;
       dateFormat = settingsReglength[0].dateFormat;
-      adEventCounter = settingsReglength[0].adEventCounter;
+      //adEventCounter = settingsReglength[0].adEventCounter;
+      //isAssistant = settingsReglength[0].isAssistant;
+      //assistantLastShowDate = settingsReglength[0].assistantLastShowDate;
+       */
       await readDb();
     }else{
-      final info = SettingsInfo("TRY", 0, 0, getDeviceLocaleLanguage(), 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy",5) ;
+      //ilk defa uygulamayı indiren abinin varsayılan değerleri
+      final info = SettingsInfo("TRY", 0, 0, getDeviceLocaleLanguage(), 0, "Günlük", "00.00.0000", "null", "null", 3, 2, " ₺", 1, "dd.MM.yyyy",5, "WEEKLY", "00-00-0000", 0) ;
       await SQLHelper.addItemSetting(info);
       await readDb();
     }
@@ -85,7 +101,15 @@ class SettingsRiverpod extends ChangeNotifier{
     setisuseinsert();
     notifyListeners();
   }
-
+  void setSwitchAssistant(bool value){
+    this.isAssistant = (value == true ? "WEEKLY" : "null" );
+    setisuseinsert();
+    Updating();
+  }
+  void setAssistantLastShowDate(){
+    assistantLastShowDate = DateTime.now().toString();
+    Updating();
+  }
   void reset(){
     this.securityQu = "null";
     Updating();
@@ -266,22 +290,25 @@ class SettingsRiverpod extends ChangeNotifier{
   }
   Future Updating() async {
     final info = SettingsInfo.withId(
-        id,
-        Prefix,
-        DarkMode,
-        isPassword,
-        Language,
-        isBackUp,
-        Backuptimes,
-        lastBackup,
-        Password,
-        securityQu,
-        securityClaim,
-        adCounter,
-        prefixSymbol,
-        monthStartDay,
-        dateFormat,
-      adEventCounter
+      id,
+      Prefix,
+      DarkMode,
+      isPassword,
+      Language,
+      isBackUp,
+      Backuptimes,
+      lastBackup,
+      Password,
+      securityQu,
+      securityClaim,
+      adCounter,
+      prefixSymbol,
+      monthStartDay,
+      dateFormat,
+      adEventCounter,
+      isAssistant,
+      assistantLastShowDate,
+      addDataType
     );
     await SQLHelper.updateSetting(info);
     notifyListeners();
@@ -381,6 +408,25 @@ String getMonthInList(BuildContext context){
     translation(context).december,
   ];
   return months[monthIndex];
+  }
+  String getMonthInListWithIndex(BuildContext context, int index){
+    print(index);
+    List<String> months = [
+      "",
+      translation(context).january,
+      translation(context).february,
+      translation(context).march,
+      translation(context).april,
+      translation(context).may,
+      translation(context).june,
+      translation(context).july,
+      translation(context).august,
+      translation(context).september,
+      translation(context).october,
+      translation(context).november,
+      translation(context).december,
+    ];
+    return index != 0 ? months[index] : translation(context).december;
   }
   List<String> years = [
     "2020",

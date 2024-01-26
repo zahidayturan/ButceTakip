@@ -14,6 +14,7 @@
   "backupTitle": "النسخ الاحتياطي",
   "contactUsTitle": "تواصل معنا",
   "myAssets": "موجوداتي",
+  "myAssetsSmall": "موجوداتي",
 
   "selectLanguage": "الرجاء اختر اللغة",
 
@@ -111,8 +112,21 @@
   "time": "الوقت",
   "monthlyIncome": "الدخل\nالشهري",
   "monthlyExpenses": "المصاريف\nالشهرية",
+  "monthlyExpensesWithoutEnter": "المصاريف الشهرية",
 
   "noActivity": "لا يوجد قيد",
+
+  "monthlyStatisticsOnlyForTurkish": "",
+  "monthlyStatisticsOnlyForEnglishAndArabic": "إحصائيات شهر",
+  "dailyAverageSpending": "متوسط مبلغ المصاريف اليومية",
+  "spendingScore": "معدل المصاريف",
+  "mostSpendingCategory": "الفئة الأكثر إنفاقًا",
+  "changeInNetSpending": "وضع التغير الصافي\nمقارنة بالشهر السابق",
+  "mostSpendingDay": "اليوم الأكثر إنفاقًا",
+  "monthlyIncomeExpenseScore": "المبالغ المحسوبة وفق معدل الدخل و المصاريف الشهرية",
+  "noSpending": "لا يوجد مصاريف",
+  "noResult": "لا يوجد بعد",
+  "mostExpensiveSpending": " أبهظ المصاريف",
 
   "both": "كلاهما",
   "income": "الدخل",
@@ -143,6 +157,8 @@
   "viewFullList": "اعرض القائمة بأكملها",
   "fullList": "القائمة بأكملها",
   "numberOfElementsShown": "عدد العناصر المعروضة",
+
+  "noEnoughDataForTheChart": "لا توجد بيانات كافية للمخطط",
 
   "firstDayOfTheMonth": "بداية الشهر",
   "setAsOnlyForTurkish": "",
@@ -415,15 +431,19 @@
   "github": "جيت هاب:  ",
   "developers": "المطورون",
 
-  "goodMorning": "صباح الخير! نرجو أن تكون بخير",
-  "goodDay": "طاب يومك! نرجو أن تكون بخير",
-  "goodEvening": "طاب مساؤك! نرجو أن تكون بخير",
-  "goodNight": "ليلة سعيدة! نرجو أن تكون بخير",
+  "goodMorning": "صباح الخير!",
+  "goodDay": "طاب يومك!",
+  "goodEvening": "طاب مساؤك!",
+  "goodNight": "ليلة سعيدة!",
+  "hopeGood" : "نرجو أن تكون بخير",
 
+
+  "totalAssets": "المجموعا لموجودات",
   "total": "المجموع",
   "past": "السابق",
   "myPastAssetRecords": "سجلات موجوداتي السابقة",
   "close": "أغلق",
+  "totalSmall": "المجموع",
   "doneBitti": "تم",
   "noAssetFound": "لم يتم العثور على صافي الموجودات!",
   "addRemoveAsset": "أضف / احذف  الموجودات",
@@ -507,7 +527,7 @@
   "assetsPage6": "يمكنك تغيير العملة المعروضة في السجلات من هنا أو من تفاصيل العملية. عند النقر على السجل، سيتم فتح صرف العملات ويمكنك استبدال عملتك بعملات مختلفة بأسعار الصرف الحالي.",
 
   "version2Title": "الإصدار",
-  "version2": "الإصدار V2.0.2",
+  "version2": "الإصدار V2.1.1",
   "budgetUpdate": "تم تحديث متابعة الميزانية!",
   "implementedSuggestions": "لقد قمنا بتنفيذ اقتراحاتكم حتى الآن في تطبيق متابعة الميزانية .",
   "whatsNewVersion": "ما هو الجديد",
@@ -651,6 +671,43 @@
   "downloadedData" : "Your data downloaded",
   "backupedData" : "Your data is backed up",
 
-  "close" : "أغلق"
+  "close" : "أغلق",
+  "assetChart30Days": "تغير الموجودات لمدة 30 يومًا",
+  "yourHighestIncome": "أعلى دخل لك",
 
+  "deleteMyAccount": "احذف حسابي",
+  "allDataInYourEmailAccountWillBeDeleted": "سيتم حذف جميع البيانات الموجودة في حساب بريدك الإلكتروني.",
+  "doYouConfirm": "هل توافق؟ (ستتمكن من تسجيل الدخول مرة أخرى بنفس حساب البريد الإلكتروني.)",
+  "deleteMyAccountSmall": "احذف حسابي",
+  "deleteMyAccountSmallSize": "90",
+  "cancel": "إلغاء",
+
+  "analysis": "التحليل",
+  "iAmYourBudgetWiseAssistant": "مرحبًا، أنا مساعدك لتتبع ميزانيتك!",
+  "lookAtYourMonthlyExpenses": "لنلقي نظرة على مصاريفك الشهرية.",
+
+  "hello": "مرحبا",
+  "sir": "",
+
+  "spendingInPositiveBalance": "أرى أن وضع دخلك ومصاريفك الشهرية في توازن إيجابي. ",
+  "keepGoingLikeThis": "استمر بهذا الشكل ",
+  "goodJobKeepGoingLikeThis": "جيد جدا, استمر بهذا الشكل ",
+  "great": "عظيم! ",
+  "recommendThatYouSpendYourBudgetWisely": "ننصحك بإنفاق ميزانيتك باعتدال ",
+
+  "youSpentThisMuchOfYourMonthlyIncome": "لقد أنفقت هذا القدر من دخلك الشهري : ",
+  "percentage": "%",
+  "numberOfDaysLeft": "عدد الأيام المتبقية حتى نهاية الشهر : ",
+  "day": "",
+  "spendingThisMuchPerDayOnAverage": "يمكنك الوصول إلى نهاية الشهر بإنفاق هذا المبلغ يوميًا : ",
+
+  "yourIncomeExpensesAreEqual": "وضع دخلك ومصاريفك الشهرية متساوي. ",
+  "fortunatelyYouAlreadyHaveMoneyInAssets": "لحسن الحظ، لديك حاليا أموال في موجوداتك. ",
+
+  "spendingInNegativeBalance": "أرى أن وضع دخلك ومصاريفك الشهرية للأسف في توازن سلبي. ",
+  "youDoNotHaveAnyAssetsEditYourAssets": "لسوء الحظ، ليس لديك أية موجودات. يمكنك تعديل موجوداتك من صفحة موجوداتي. ",
+  "yourTotalMoneyOnTheMyAssetsPageIs": "إجمالي أموالك في صفحة موجوداتي هي : ",
+  "lastShowDate": "تاريخ العرض الأخير : ",
+
+  "yourIncomeActivitiesForThisMonth": "عمليات دخلك هذا الشهر"
 }

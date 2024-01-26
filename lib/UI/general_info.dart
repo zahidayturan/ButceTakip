@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Generalinfo extends ConsumerStatefulWidget {
-  const Generalinfo({Key? key}) : super(key: key);
+  final bool isAssistantMode;
+  const Generalinfo({Key? key, required this.isAssistantMode}) : super(key: key);
   @override
   ConsumerState<Generalinfo> createState() => _Generalinfo();
 }
@@ -15,14 +16,14 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
   @override
   Widget build(BuildContext context) {
     var readSettings = ref.read(settingsRiverpod);
-    var watchhome = ref.watch(homeRiverpod);
-    var watchSettings = ref.watch(settingsRiverpod);
+    ref.watch(homeRiverpod); // it provide sync between generalInfo and monthlyInfo
+    ref.watch(settingsRiverpod); // it provide sync between generalInfo and monthlyInfo
     var readdb = ref.read(databaseRiverpod);
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
     var read = ref.read(databaseRiverpod);
-    return StreamBuilder<Map<String, dynamic>>(
-        stream: readdb.myMethod(ref),
+    return FutureBuilder<Map<String, dynamic>>(
+        future: readdb.myMethod(ref),
         builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
@@ -70,11 +71,21 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       height: 1,
-                                      fontSize: 15,
+                                      fontSize: widget.isAssistantMode ? 14 : 15,
                                       fontFamily: 'Nexa3',
                                       color: Theme.of(context).canvasColor),
                                 ),
-                                Padding(
+                                widget.isAssistantMode
+                                ? Text(
+                                  translation(context).totalSmall,
+                                    style: TextStyle(
+                                        height: 2,
+                                        fontSize: 14,
+                                        fontFamily: 'Nexa3',
+                                        color: Theme.of(context).canvasColor
+                                    ),
+                                  )
+                                : Padding(
                                   padding: const EdgeInsets.only(bottom: 4),
                                   child: Stack(
                                     children: [
@@ -98,12 +109,12 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                               child: RotatedBox(
                                                 quarterTurns: 1,
                                                 child: InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      readSettings.setIndex(readSettings.currentIndex,1,ref);
-                                                      read.setMonthandYear(readSettings.monthIndex.toString(), readSettings.yearIndex.toString());
-                                                    });
-                                                  },
+                                                    onTap: () {
+                                                      setState(() {
+                                                        readSettings.setIndex(readSettings.currentIndex,1,ref);
+                                                        read.setMonthandYear(readSettings.monthIndex.toString(), readSettings.yearIndex.toString());
+                                                      });
+                                                    },
                                                     onLongPress: () {
                                                       setState(() {
                                                         readSettings.setIndex(readSettings.currentIndex,4,ref);
@@ -111,14 +122,14 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                                       });
                                                     },
                                                     highlightColor: Theme.of(context).indicatorColor,
-                                                  child: SizedBox(
-                                                    height: 20,
-                                                    width: 20,
-                                                    child: Image.asset(
-                                                      "assets/icons/arrow.png",
-                                                      color: renkler.koyuuRenk,
-                                                    ),
-                                                  )
+                                                    child: SizedBox(
+                                                      height: 20,
+                                                      width: 20,
+                                                      child: Image.asset(
+                                                        "assets/icons/arrow.png",
+                                                        color: renkler.koyuuRenk,
+                                                      ),
+                                                    )
                                                 ),
                                               ),
                                             ),
@@ -131,7 +142,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                                   readSettings.setIndex(readSettings.currentIndex,3,ref);
                                                   read.setMonthandYear(readSettings.monthIndex.toString(), readSettings.yearIndex.toString());
                                                 });
-                                                },
+                                              },
                                               child: ClipRRect(
                                                 borderRadius:
                                                 const BorderRadius.all(Radius.circular(50)),
@@ -214,7 +225,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       height: 1,
-                                      fontSize: 15,
+                                      fontSize: widget.isAssistantMode ? 14 : 15,
                                       fontFamily: 'Nexa3',
                                       color: Theme.of(context).canvasColor),
                                 ),
@@ -237,7 +248,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                         triggerMode: TooltipTriggerMode.tap,
                                         showDuration: const Duration(seconds: 2),
                                         textStyle: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: widget.isAssistantMode ? 16 : 18,
                                             color: renkler.arkaRenk,
                                             fontFamily: 'TL',
                                             fontWeight: FontWeight.bold,
@@ -256,7 +267,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                               text: readdb
                                                   .getTotalAmountPositive(items)[0],
                                               style: TextStyle(
-                                                fontSize: 16,
+                                                fontSize: widget.isAssistantMode ? 15 : 16,
                                                 fontFamily: 'Nexa3',
                                                 color: renkler.yesilRenk,
                                               ),
@@ -288,7 +299,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                         triggerMode: TooltipTriggerMode.tap,
                                         showDuration: const Duration(seconds: 2),
                                         textStyle: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: widget.isAssistantMode ? 16 : 18,
                                             color: renkler.koyuuRenk,
                                             fontFamily: 'TL',
                                             fontWeight: FontWeight.bold,
@@ -306,7 +317,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                               Text(
                                                 readdb.getTotalAmount(items)[0],
                                                 style: TextStyle(
-                                                  fontSize: 19,
+                                                  fontSize: widget.isAssistantMode ? 15 : 19,
                                                   fontFamily: 'Nexa3',
                                                   color: Theme.of(context).canvasColor,
                                                 ),
@@ -319,7 +330,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                                 style: TextStyle(
                                                   height: 1,
                                                   fontFamily: 'TL',
-                                                  fontSize: 18,
+                                                  fontSize: widget.isAssistantMode ? 16 : 18,
                                                   fontWeight: FontWeight.w600,
                                                   color: Theme.of(context).canvasColor,
                                                 ),
@@ -343,7 +354,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                         triggerMode: TooltipTriggerMode.tap,
                                         showDuration: const Duration(seconds: 2),
                                         textStyle: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: widget.isAssistantMode ? 16 : 18,
                                             color: renkler.arkaRenk,
                                             fontFamily: 'TL',
                                             fontWeight: FontWeight.bold,
@@ -362,7 +373,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                               text: readdb
                                                   .getTotalAmountNegative(items)[0],
                                               style: TextStyle(
-                                                fontSize: 16,
+                                                fontSize: widget.isAssistantMode ? 15: 16,
                                                 fontFamily: 'Nexa3',
                                                 color: renkler.kirmiziRenk,
                                               ),

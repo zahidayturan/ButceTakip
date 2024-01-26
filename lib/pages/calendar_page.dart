@@ -2,6 +2,7 @@ import 'package:butcekontrol/classes/app_bar_for_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/pages/daily_info_page.dart';
 import 'package:butcekontrol/pages/more/settings.dart';
+import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:butcekontrol/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -206,13 +207,13 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         read.pageMonthController.jumpToPage(read.monthIndex-1);
                         read.pageYearController.jumpToPage(read.yearIndex-2020);
                         if (adEventCounter! <= 0) {
-                          print("object");
+                          //print("object");
                           _showInterstitialAd(context);
                           readSettings.resetAdEventCounter();
                         } else {
                           readSettings.useAdEventCounter();
                         }
-                        print(readSettings.adEventCounter);
+                        //print(readSettings.adEventCounter);
                       });
                     },
                   ),
@@ -309,7 +310,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                 controller: read.pageYearController,
                                 onPageChanged: (index) {
                                   setState(() {
-                                    print(index);
+                                    //print(index);
                                     read.setIndex(index,1,ref);
                                   });
                                 },
@@ -445,7 +446,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
               physics: const PageScrollPhysics(),
               onPageChanged: (index) {
                 setState(() {
-                  print(index);
+                  //print(index);
                   read.setIndex(index, 2,ref);
                   pageController.jumpToPage(1);
                   read.pageMonthController.jumpToPage(read.monthIndex-1);
@@ -844,7 +845,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
     var read = ref.read(calendarRiverpod);
     var total = read.getDateColor(days,months,years);
     return SizedBox(
-      height: size.height * 0.055, //45
+      height:  size.height * 0.055, //45
       child: AspectRatio(
         aspectRatio: 1,
         child: Container(
@@ -852,7 +853,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
           //width: size.width * 0.12,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(15)),
-            color: Theme.of(context).dividerColor,
+            color:  Theme.of(context).dividerColor ,
             border: Border.all(color: Theme.of(context).focusColor,width: 1,strokeAlign: BorderSide.strokeAlignOutside),
           ),
           child: Stack(children:[
@@ -905,6 +906,15 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
 
     var controllerDate = DateTime(year,month,day);
     bool isInRange = isDateInRange(controllerDate, startDate, endDate);
+    var today= DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+    bool checkToday(){
+      if(DateTime(year,month,day).isAtSameMomentAs(today)){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
     return SizedBox(
       height: size.height * 0.065,
       width: size.height * 0.065,
@@ -913,26 +923,29 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
           onTap: () async {
             double totalAmount = await total;
             if (totalAmount == 0) {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Container(
-                      height: 40,
-                      color: const Color(0xFF0D1C26),
-                      child: Center(
-                        child: FittedBox(
-                          child: Text(
-                            translation(context).dataForTheDayNotFound,
-                            style: const TextStyle(
-                              fontFamily: 'Nexa3',
-                              fontSize: 18,
-                              color: Color(0xFFE9E9E9),
-                            ),
-                          ),
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    backgroundColor: Theme.of(context).highlightColor,
+                    duration: const Duration(milliseconds: 800),
+                    behavior: SnackBarBehavior.floating,
+                    elevation: 0,
+                    content: Center(
+                      child: Text(
+                        translation(context).dataForTheDayNotFound,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Nexa3',
+                          fontWeight: FontWeight.w600,
+                          height: 1,
                         ),
                       ),
-                    );
-                  });
+                    ),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))
+                ),
+              );
+
             } else {
               readDailyInfo.setDate(date, month, year);
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DailyInfo()));
@@ -944,7 +957,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                 date > 0 ? date.toString() : "",
                 style: TextStyle(
                   color: isInRange
-                      ? Theme.of(context).canvasColor
+                      ? checkToday()==false ?Theme.of(context).canvasColor : Theme.of(context).disabledColor
                       : Theme.of(context).indicatorColor,
                   fontSize: 18,
                   fontFamily: 'Nexa3',

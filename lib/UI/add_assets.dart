@@ -84,7 +84,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                           Text(
                             initialLabelIndexType == 0 ? translation(context).addAssetTitle : translation(context).removeAssetTitle,
                             style: TextStyle(
-                              color: Theme.of(context).dialogBackgroundColor,
+                              color: Theme.of(context).secondaryHeaderColor,
                               fontFamily: "Nexa2",
                               fontSize: 18
                             ),

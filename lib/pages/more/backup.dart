@@ -1,3 +1,4 @@
+import 'package:butcekontrol/UI/check_user_delete.dart';
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
@@ -238,6 +239,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           backgroundColor:
                                           const Color(0xff0D1C26),
                                           duration: const Duration(seconds: 1),
+                                          behavior: SnackBarBehavior.floating,
                                           content: Text(
                                             translation(context).downloadData,
                                             style: const TextStyle(
@@ -332,6 +334,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                           SnackBar(
                                             backgroundColor: const Color(0xff0D1C26),
                                             duration: const Duration(seconds: 1),
+                                            behavior: SnackBarBehavior.floating,
                                             content: Text(
                                               translation(context).backupedData,
                                               style: const TextStyle(
@@ -376,6 +379,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                             backgroundColor:
                                             const Color(0xff0D1C26),
                                             duration: const Duration(seconds: 1),
+                                            behavior: SnackBarBehavior.floating,
                                             content: Text(
                                               translation(context).backupError,
                                               style: const TextStyle(
@@ -432,89 +436,120 @@ class _BackUpState extends ConsumerState<BackUp> {
                                 ],
                               ),
                               SizedBox(height: size.height * 0.03),
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: (){
-                                      /*readSetting.setLastBackup(a : true);*/
-                                      Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          transitionDuration: const Duration(milliseconds: 1),
-                                          pageBuilder: (context, animation, nextanim) => const HelpBackup(),
-                                          reverseTransitionDuration: const Duration(milliseconds: 1),
-                                          transitionsBuilder: (context, animation, nexttanim, child) {
-                                            return FadeTransition(
-                                              opacity: animation,
-                                              child: child,
-                                            );
-                                          },
-                                        ),
-                                      );
-                                      /*
-                                      readGglAuth.refreshPage();
-                                      print("çektim geriye.");*/
-                                    },
-                                    child: Container(
-                                      width : 25,
-                                      height : 25,
+                              Center(
+                                child: InkWell(
+                                  onTap: () async {
+                                    await readGglAuth.signOutWithGoogle();
+                                    readGglAuth.setAccountStatus(false);
+                                  },
+                                  child: SizedBox(
+                                    width: size.width * 0.56,
+                                    height: 30,
+                                    child: DecoratedBox(
                                       decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Theme.of(context).scaffoldBackgroundColor,
-                                        border: Border.all(
-                                          color: Theme.of(context).canvasColor,
-                                          width: 1
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              color: Colors.white,
+                                              blurRadius: 1
+                                          )
+                                        ],
+                                        gradient: LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [renkler.kirmiziRenk, renkler.koyuuRenk],
                                         ),
                                       ),
-                                      child: Icon(
-                                          Icons.question_mark,
-                                        size: 18,
-                                        color: Theme.of(context).canvasColor,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: size.width * .08),
-                                  InkWell(
-                                    onTap: () async {
-                                      await readGglAuth.signOutWithGoogle();
-                                      readGglAuth.setAccountStatus(false);
-                                    },
-                                    child: SizedBox(
-                                      width: size.width * 0.56,
-                                      height: 30,
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          boxShadow: const [
-                                            BoxShadow(
-                                                color: Colors.white,
-                                                blurRadius: 1
-                                            )
-                                          ],
-                                          gradient: LinearGradient(
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                            colors: [renkler.kirmiziRenk, renkler.koyuuRenk],
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8),
-                                            child: Text(
-                                              translation(context).logOut,
-                                              style: TextStyle(
-                                                height: 1,
-                                                  color: renkler.arkaRenk,
-                                                  fontSize: 15,
-                                                  fontFamily: "Nexa3"
-                                              ),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8),
+                                          child: Text(
+                                            translation(context).logOut,
+                                            style: TextStyle(
+                                              height: 1,
+                                                color: renkler.arkaRenk,
+                                                fontSize: 15,
+                                                fontFamily: "Nexa3"
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: (){
+                                        /*readSetting.setLastBackup(a : true);*/
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            transitionDuration: const Duration(milliseconds: 1),
+                                            pageBuilder: (context, animation, nextanim) => const HelpBackup(),
+                                            reverseTransitionDuration: const Duration(milliseconds: 1),
+                                            transitionsBuilder: (context, animation, nexttanim, child) {
+                                              return FadeTransition(
+                                                opacity: animation,
+                                                child: child,
+                                              );
+                                            },
+                                          ),
+                                        );
+                                        /*
+                                        readGglAuth.refreshPage();
+                                        print("çektim geriye.");*/
+                                      },
+                                      child: Container(
+                                        width : 25,
+                                        height : 25,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Theme.of(context).scaffoldBackgroundColor,
+                                          border: Border.all(
+                                              color: Theme.of(context).canvasColor,
+                                              width: 1
+                                          ),
+                                        ),
+                                        child: Icon(
+                                          Icons.question_mark,
+                                          size: 18,
+                                          color: Theme.of(context).canvasColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top : 15.0),
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          showModalBottomSheet(
+                                            context: context,
+                                            shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.vertical(
+                                                    top: Radius.circular(25))),
+                                            backgroundColor:
+                                            const Color(0xff0D1C26),
+                                            builder: (context) {
+                                              // genel bilgi sekmesi açılıyor.
+                                              return CheckUserDelete();
+                                            },
+                                          );
+                                        },
+                                        child: Text(
+                                          "Verilerimi Sil",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Theme.of(context).canvasColor
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           )
