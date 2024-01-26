@@ -1,5 +1,5 @@
-import 'package:butcekontrol/Pages/add_data_page.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/pages/addDataPages/add_data_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';
@@ -211,7 +211,7 @@ class NavBar extends ConsumerWidget {
                     child: FloatingActionButton.large(
                       onPressed: () {
                         Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => const AddData(),));
+                          context, MaterialPageRoute(builder: (context) => AddData(),));
                         read.setcur();  /// arastırılacak
                       },
                       splashColor: Theme.of(context).primaryColor,

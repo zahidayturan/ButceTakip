@@ -161,7 +161,10 @@ class SettingsRiverpod extends ChangeNotifier{
   void setDarkModeNotBool(){
     DarkMode = DarkMode == 1 ? 0 : 1 ;
     Updating();
-
+  }
+  void setAddDataType(int type){
+    addDataType = type;
+    Updating();
   }
   String convertPrefix(String prefix){
     switch(prefix){

@@ -1,6 +1,7 @@
 import 'package:butcekontrol/Riverpod/update_data_riverpod.dart';
 import 'package:butcekontrol/Riverpod/appbar_type_2_riverpod.dart';
 import 'package:butcekontrol/Riverpod/settings_riverpod.dart';
+import 'package:butcekontrol/riverpod/add_data_riverpod.dart';
 import 'package:butcekontrol/riverpod/currency_riverpod.dart';
 import 'package:butcekontrol/riverpod/ggl_drive_riverpod.dart';
 import 'package:butcekontrol/riverpod/montly_info_riverpod.dart';
@@ -28,3 +29,4 @@ final gglDriveRiverpod = ChangeNotifierProvider((ref) => GglDriveRiverpod());
 final currencyRiverpod = ChangeNotifierProvider((ref) => CurrencyRiverpod());
 final montlyInfoRiverpod = ChangeNotifierProvider((ref) => MontlyInfoRiverpod());
 final assetRiverpod = ChangeNotifierProvider((ref) => AssetRiverpod());
+final addDataRiverpod = ChangeNotifierProvider((ref) => AddDataRiverpod());
