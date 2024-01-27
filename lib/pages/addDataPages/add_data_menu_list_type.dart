@@ -1,5 +1,6 @@
 import 'package:butcekontrol/classes/language.dart';
 import 'package:butcekontrol/constans/material_color.dart';
+import 'package:butcekontrol/pages/addDataPages/add_customize.dart';
 import 'package:butcekontrol/pages/addDataPages/select_category.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +26,11 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 14),
         child: SizedBox(
-          height: size.height * 0.85,
+          height: size.height * 0.74,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(height: 16,),
+              SizedBox(height: 8,),
               getRow("Türü", typeCustomButton(context)),
               SizedBox(height: 16,),
               getRow("Tarihi", dateCustomButton(context)),
@@ -43,7 +45,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
               SizedBox(height: 16,),
               getRow("İşlemi Kaydet", regCustomButton(context)),
               SizedBox(height: 16,),
-              getRow("Özelleştir", SizedBox(height: 34,)),
+              getRow("Özelleştir", customizeBarCustom(context)),
               SizedBox(height: 16,),
               getRow("Tutarı", amountCustomButton())
             ],
@@ -55,7 +57,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
 
   Widget getRow(String text,Widget widget){
     Color textColor = Theme.of(context).canvasColor;
-    double size = 17.0;
+    double size = 16.0;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -100,17 +102,21 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
     var size = MediaQuery.of(context).size;
     var readAdd = ref.read(addDataRiverpod);
     return SizedBox(
-      height: 34,
+      height: 30,
       child: getToggleSwitch(readAdd.initialLabelIndexForType, 2, [translation(context).expenses, translation(context).income], size.width > 392 ? size.width * 0.235 : 92, (index) {
         setState(() {
           if (index == 0) {
             readAdd.operationType.text = "Gider";
-
+            readAdd.selectedCategory = 0;
+            readAdd.category.clear();
+            readAdd.selectedValue = null;
           } else {
             readAdd.operationType.text = "Gelir";
-
+            readAdd.selectedCategory = 1;
+            readAdd.category.clear();
+            readAdd.selectedValue = null;
           }
-
+          readAdd.categoryColorChanger = 999;
         });
         readAdd.initialLabelIndexForType = index!;
       }),
@@ -252,32 +258,22 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
     }
 
     return SizedBox(
-      height: 38,
-      width: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(40)),
-              color: Theme.of(context).highlightColor,
-            ),
-            child: SizedBox(
-              height: 38,
-              width: 100,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 1),
-                child: InkWell(
-                  onTap: () {
-                    selectDate(context);
-                  },
-                  child: Center(
-                      child: getLineText(getFormattedDate(readAdd.operationDate.text), renkler.arkaRenk, 13,fontFamily: "Nexa4")),
-                ),
-              ),
-            ),
+      height: 30,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(40)),
+          color: Theme.of(context).highlightColor,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 1,right: 10,left: 10),
+          child: InkWell(
+            onTap: () {
+              selectDate(context);
+            },
+            child: Center(
+                child: getLineText(getFormattedDate(readAdd.operationDate.text), renkler.arkaRenk, 13,fontFamily: "Nexa4")),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -375,7 +371,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
     var readSettings = ref.read(settingsRiverpod);
 
     return SizedBox(
-      height: 38,
+      height: 30,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -385,7 +381,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
               color: Theme.of(context).highlightColor,
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 1,right: 16,left: 16),
+              padding: const EdgeInsets.only(top: 1,right: 10,left: 10),
               child: InkWell(
                 onTap: () {
                   selectTime(context);
@@ -404,7 +400,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
     var size = MediaQuery.of(context).size;
     var readAdd = ref.read(addDataRiverpod);
     return SizedBox(
-      height: 34,
+      height: 30,
       child : getToggleSwitch(
           readAdd.initialLabelIndexForTool, 3,
           [translation(context).cash, translation(context).card, translation(context).otherPaye],
@@ -434,8 +430,10 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                getDecoratedBox(boxColor :Theme.of(context).shadowColor, 60, 26,
-                    BorderRadius.all(Radius.circular(10)),
+                Visibility(
+                  visible: readAdd.note.text.isNotEmpty,
+                  child: getDecoratedBox(boxColor :Theme.of(context).canvasColor, 60, 18,
+                    BorderRadius.all(Radius.circular(5)),
                     child : GestureDetector(
                       onTap: () {
                         setState(() {
@@ -443,11 +441,14 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
                         });
                       },
                       child: Center(
-                        child: getLineText(translation(context).delete,Theme.of(context).canvasColor,12,fontFamily: "Nexa3",weight: FontWeight.w200),
+                        child: getLineText(translation(context).delete,Theme.of(context).primaryColor,11,fontFamily: "Nexa3",weight: FontWeight.w200),
                       ),
                     ),
+                  ),
                 ),
-                getLineText('${readAdd.note.text.length}/${readAdd.maxLength.toString()}', Theme.of(context).canvasColor, 12,fontFamily: "Nexa3",weight: FontWeight.w800,backgroundColor: Theme.of(context).splashColor),
+                SizedBox(
+                  height: 18,
+                    child: Center(child: getLineText('${readAdd.note.text.length}/${readAdd.maxLength.toString()}', Theme.of(context).canvasColor, 12,fontFamily: "Nexa3",weight: FontWeight.w800,backgroundColor: Theme.of(context).splashColor))),
               ],
             ),
           ],
@@ -460,6 +461,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
     return Padding(
       padding: padding ?? EdgeInsets.zero,
       child: TextFormField(
+        textAlign: TextAlign.end,
         decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(
@@ -493,7 +495,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
           padding: const EdgeInsets.only(left: 4,right: 4),
           child: getLineText(readAdd.regsController == 1 ? "Kaydedilecek" : "", Theme.of(context).canvasColor, 13,fontFamily: "Nexa3",weight: FontWeight.w800),
         ),
-        getDecoratedBox(38, 38, BorderRadius.all(Radius.circular(20)),boxColor: Theme.of(context).highlightColor,child: registration(readAdd.regsController)),
+        getDecoratedBox(30, 30, BorderRadius.all(Radius.circular(20)),boxColor: Theme.of(context).highlightColor,child: registration(readAdd.regsController)),
       ],
     );
   }
@@ -511,6 +513,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
             child: Icon(
               Icons.bookmark_add_outlined,
               color: renkler.yaziRenk,
+              size: 18,
             ),
           ));
     } else {
@@ -525,6 +528,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
           icon: Icon(
             Icons.bookmark,
             color: renkler.sariRenk,
+            size: 18,
           ));
     }
   }
@@ -559,186 +563,166 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
     }
 
     var size = MediaQuery.of(context).size;
-    return Center(
-      child: SizedBox(
-        width: 250,
-        child: Row(
-          children: [
-            readAdd.openMoneyTypeMenu == false
-                ? SizedBox(
-              height: 38,
-              width: 207,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: 112,
-                    height: 38,
-                    decoration:  BoxDecoration(
-                      borderRadius:
-                      const BorderRadius.all(Radius.circular(15)),
-                      color: Theme.of(context).disabledColor,
-                    ),
-                    child: SizedBox(
-                      height: 38,
-                      child: TextFormField(
-                          onTap: () {
-                            //_amount.clear();
-                          },
-                          style: const TextStyle(
-                              color: Color(0xff0D1C26),
-                              fontSize: 17,
-                              fontFamily: 'Nexa4',
-                              fontWeight: FontWeight.w100),
-                          controller: readAdd.amount,
-                          autofocus: false,
-                          keyboardType: const TextInputType
-                              .numberWithOptions(decimal: true),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                              RegExp(r'^\d{0,7}(\.\d{0,2})?'),
-                            )
-                          ],
-                          textAlign: TextAlign.center,
-                          onEditingComplete: () {
-                            FocusScope.of(context).unfocus();
-                          },
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              isDense: true,
-                              hintText: "00.00",
-                              hintStyle: TextStyle(
-                                color: renkler.koyuAraRenk,
-                              ),
-                              contentPadding:
-                              const EdgeInsets.only(
-                                  top: 12))),
-                    ),
-                  ),
-                ],
+    return Row(
+      children: [
+        readAdd.openMoneyTypeMenu == false
+            ? Container(
+              width: 112,
+              height: 34,
+              decoration:  BoxDecoration(
+                borderRadius:
+                const BorderRadius.all(Radius.circular(15)),
+                color: Theme.of(context).disabledColor,
               ),
+              child: TextFormField(
+                  style: const TextStyle(
+                      color: Color(0xff0D1C26),
+                      fontSize: 17,
+                      fontFamily: 'Nexa4',
+                      fontWeight: FontWeight.w100),
+                  controller: readAdd.amount,
+                  autofocus: false,
+                  keyboardType: const TextInputType
+                      .numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                      RegExp(r'^\d{0,7}(\.\d{0,2})?'),
+                    )
+                  ],
+                  textAlign: TextAlign.center,
+                  onEditingComplete: () {
+                    FocusScope.of(context).unfocus();
+                  },
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      isDense: true,
+                      hintText: "00.00",
+                      hintStyle: TextStyle(
+                        color: renkler.koyuAraRenk,
+                      ),
+                      contentPadding:
+                      const EdgeInsets.only(
+                          top: 10))),
             )
-                : const SizedBox(),
-            readAdd.openMoneyTypeMenu == false
-                ? const SizedBox(
-              width: 5,
-            )
-                : const SizedBox(),
-            InkWell(
-              borderRadius: BorderRadius.circular(20),
-              onTap: () {
-                setState(() {
-                  readAdd.openMoneyTypeMenu == false
-                      ? readAdd.openMoneyTypeMenu = true
-                      : readAdd.openMoneyTypeMenu = false;
-                  readAdd.openMoneyTypeMenu == true
-                      ? readAdd.moneyTypeWidth = 250
-                      : readAdd.moneyTypeWidth = 38;
-                  readAdd.openMoneyTypeMenu == true
-                      ? readAdd.moneyTypeHeight = 80
-                      : readAdd.moneyTypeHeight = 38;
-                });
-              },
-              child: Container(
-                height: readAdd.moneyTypeHeight,
-                width: readAdd.moneyTypeWidth,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                  color: Theme.of(context).disabledColor,
-                ),
-                child: readAdd.openMoneyTypeMenu == false
-                    ? Center(
-                  child: getLineText(getSymbolForMoneyType(), renkler.koyuuRenk, 22,fontFamily: "TL",weight: FontWeight.w500),)
-                    : Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+            : const SizedBox(),
+
+        readAdd.openMoneyTypeMenu == false
+            ? const SizedBox(width: 5,)
+            : const SizedBox(),
+
+        InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: () {
+            setState(() {
+              readAdd.openMoneyTypeMenu == false
+                  ? readAdd.openMoneyTypeMenu = true
+                  : readAdd.openMoneyTypeMenu = false;
+              readAdd.openMoneyTypeMenu == true
+                  ? readAdd.moneyTypeWidth = 250
+                  : readAdd.moneyTypeWidth = 34;
+              readAdd.openMoneyTypeMenu == true
+                  ? readAdd.moneyTypeHeight = 80
+                  : readAdd.moneyTypeHeight = 34;
+            });
+          },
+          child: Container(
+            height: readAdd.moneyTypeHeight,
+            width: readAdd.moneyTypeWidth,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              color: Theme.of(context).disabledColor,
+            ),
+            child: readAdd.openMoneyTypeMenu == false
+                ? Center(
+              child: getLineText(getSymbolForMoneyType(), renkler.koyuuRenk, 22,fontFamily: "TL",weight: FontWeight.w500),)
+                : Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceAround,
                   children: [
-                    Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceAround,
-                      children: [
-                        getAmountContainer(() {
-                          setState(() {
-                            readAdd.moneyType.text = 'TRY$moneyActivate';
-                            readAdd.openMoneyTypeMenu = false;
-                            readAdd.moneyTypeWidth = 38.0;
-                            readAdd.moneyTypeHeight = 38.0;
-                          });
-                        },"TRY"),
-                        getAmountContainer(() {
-                          setState(() {
-                            readAdd.moneyType.text = 'USD$moneyActivate';
-                            readAdd.openMoneyTypeMenu = false;
-                            readAdd.moneyTypeWidth = 38.0;
-                            readAdd.moneyTypeHeight = 38.0;
-                          });
-                        },"USD"),
-                        getAmountContainer(() {
-                          setState(() {
-                            readAdd.moneyType.text = 'EUR$moneyActivate';
-                            readAdd.openMoneyTypeMenu = false;
-                            readAdd.moneyTypeWidth = 38.0;
-                            readAdd.moneyTypeHeight = 38.0;
-                          });
-                        },"EUR"),
-                        getAmountContainer(() {
-                          setState(() {
-                            readAdd.moneyType.text = 'GBP$moneyActivate';
-                            readAdd.openMoneyTypeMenu = false;
-                            readAdd.moneyTypeWidth = 38.0;
-                            readAdd.moneyTypeHeight = 38.0;
-                          });
-                        },"GBP"),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceAround,
-                      children: [
-                        getAmountContainer(() {
-                          setState(() {
-                            readAdd.moneyType.text = 'KWD$moneyActivate';
-                            readAdd.openMoneyTypeMenu = false;
-                            readAdd.moneyTypeWidth = 38.0;
-                            readAdd.moneyTypeHeight = 38.0;
-                          });
-                        },"KWD"),
-                        getAmountContainer(() {
-                          setState(() {
-                            readAdd.moneyType.text = 'JOD$moneyActivate';
-                            readAdd.openMoneyTypeMenu = false;
-                            readAdd.moneyTypeWidth = 38.0;
-                            readAdd.moneyTypeHeight = 38.0;
-                          });
-                        },"JOD"),
-                        getAmountContainer(() {
-                          setState(() {
-                            readAdd.moneyType.text = 'IQD$moneyActivate';
-                            readAdd.openMoneyTypeMenu = false;
-                            readAdd.moneyTypeWidth = 38.0;
-                            readAdd.moneyTypeHeight = 38.0;
-                          });
-                        },"IQD"),
-                        getAmountContainer(() {
-                          setState(() {
-                            readAdd.moneyType.text = 'SAR$moneyActivate';
-                            readAdd.openMoneyTypeMenu = false;
-                            readAdd.moneyTypeWidth = 38.0;
-                            readAdd.moneyTypeHeight = 38.0;
-                          });
-                        },"SAR"),
-                      ],
-                    ),
+                    getAmountContainer(() {
+                      setState(() {
+                        readAdd.moneyType.text = 'TRY$moneyActivate';
+                        readAdd.openMoneyTypeMenu = false;
+                        readAdd.moneyTypeWidth = 34.0;
+                        readAdd.moneyTypeHeight = 34.0;
+                      });
+                    },"TRY"),
+                    getAmountContainer(() {
+                      setState(() {
+                        readAdd.moneyType.text = 'USD$moneyActivate';
+                        readAdd.openMoneyTypeMenu = false;
+                        readAdd.moneyTypeWidth = 34.0;
+                        readAdd.moneyTypeHeight = 34.0;
+                      });
+                    },"USD"),
+                    getAmountContainer(() {
+                      setState(() {
+                        readAdd.moneyType.text = 'EUR$moneyActivate';
+                        readAdd.openMoneyTypeMenu = false;
+                        readAdd.moneyTypeWidth = 34.0;
+                        readAdd.moneyTypeHeight = 34.0;
+                      });
+                    },"EUR"),
+                    getAmountContainer(() {
+                      setState(() {
+                        readAdd.moneyType.text = 'GBP$moneyActivate';
+                        readAdd.openMoneyTypeMenu = false;
+                        readAdd.moneyTypeWidth = 34.0;
+                        readAdd.moneyTypeHeight = 34.0;
+                      });
+                    },"GBP"),
                   ],
                 ),
-              ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceAround,
+                  children: [
+                    getAmountContainer(() {
+                      setState(() {
+                        readAdd.moneyType.text = 'KWD$moneyActivate';
+                        readAdd.openMoneyTypeMenu = false;
+                        readAdd.moneyTypeWidth = 34.0;
+                        readAdd.moneyTypeHeight = 34.0;
+                      });
+                    },"KWD"),
+                    getAmountContainer(() {
+                      setState(() {
+                        readAdd.moneyType.text = 'JOD$moneyActivate';
+                        readAdd.openMoneyTypeMenu = false;
+                        readAdd.moneyTypeWidth = 34.0;
+                        readAdd.moneyTypeHeight = 34.0;
+                      });
+                    },"JOD"),
+                    getAmountContainer(() {
+                      setState(() {
+                        readAdd.moneyType.text = 'IQD$moneyActivate';
+                        readAdd.openMoneyTypeMenu = false;
+                        readAdd.moneyTypeWidth = 34.0;
+                        readAdd.moneyTypeHeight = 34.0;
+                      });
+                    },"IQD"),
+                    getAmountContainer(() {
+                      setState(() {
+                        readAdd.moneyType.text = 'SAR$moneyActivate';
+                        readAdd.openMoneyTypeMenu = false;
+                        readAdd.moneyTypeWidth = 34.0;
+                        readAdd.moneyTypeHeight = 34.0;
+                      });
+                    },"SAR"),
+                  ],
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -771,8 +755,13 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
     var size = MediaQuery.of(context).size;
     var readHome = ref.read(homeRiverpod);
     var readAdd = ref.read(addDataRiverpod);
-    return SizedBox(
-      height: 38,
+    return Container(
+      height: 30,
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).highlightColor,
+        borderRadius: BorderRadius.all(Radius.circular(15))
+      ),
       child: InkWell(
         highlightColor: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(30),
@@ -785,7 +774,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
                 height: 1,
                 fontSize: 14,
                 fontFamily: 'Nexa3',
-                color: Theme.of(context).canvasColor),
+                color: renkler.yaziRenk),
             maxLines: 2,
           ),
         ),
@@ -802,9 +791,69 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
               return CategoryMenu();
             },
           ).then((_) => setState(() {}));
-
         },
       ),
+    );
+  }
+
+  Widget customizeBarCustom(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var readAdd = ref.read(addDataRiverpod);
+    return InkWell(
+      highlightColor: Theme.of(context).primaryColor,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        height: 30,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context).highlightColor
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(15))
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 2),
+                child: Text(
+                  readAdd.customize.text == ""
+                      ? translation(context).tapToCustomize
+                      : readAdd.selectedCustomizeMenu == 0
+                      ? '${translation(context).tekrarTurkEmpty} ${readAdd.customize.text} ${translation(context).turkTekrarOnly}' /// Uyuşmamalar nedeniyle bu şekilde çevrilmiştir
+                      : '${translation(context).taksitArabicOnly} ${readAdd.customize.text} ${translation(context).ayTaksitArapcaEpty} ${translation(context).taksitDevamArabicOnly}',
+                  maxLines: 2,
+                  style: TextStyle(
+                      height: 1,
+                      fontSize: 14,
+                      fontFamily: 'Nexa3',
+                      color: Theme.of(context).canvasColor),
+                ),
+              ),
+              const SizedBox(width: 4),
+              Icon(
+                Icons.manage_history_rounded,
+                color: Theme.of(context).secondaryHeaderColor,
+                size: 22,
+              ),
+            ],
+          ),
+        ),
+      ),
+      onTap: () {
+        setState(() {
+          readAdd.customize.clear();
+          readAdd.selectedValueCustomize = null;
+        });
+        showDialog(
+          context: context,
+          builder: (context) {
+            return CustomizeMenu();
+          },
+        ).then((_) => setState(() {}));
+      },
     );
   }
 }

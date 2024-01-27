@@ -60,7 +60,7 @@ class _AddDataState extends ConsumerState<AddData> {
                   ]),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 14,top: 14),
+              padding: const EdgeInsets.only(bottom: 12,top: 12),
               child: operationCustomButton(context),
             )
           ],

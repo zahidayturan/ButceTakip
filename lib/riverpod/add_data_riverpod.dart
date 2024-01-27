@@ -6,8 +6,8 @@ class AddDataRiverpod extends ChangeNotifier{
   final TextEditingController note = TextEditingController(text: "");
   int maxLength = 108;
   final TextEditingController amount = TextEditingController();
-  double moneyTypeWidth = 38.0;
-  double moneyTypeHeight = 38.0;
+  double moneyTypeWidth = 34.0;
+  double moneyTypeHeight = 34.0;
   bool openMoneyTypeMenu = false;
   final TextEditingController operationType = TextEditingController(text: "Gider");
   int initialLabelIndexForType = 0;
@@ -36,6 +36,8 @@ class AddDataRiverpod extends ChangeNotifier{
   final TextEditingController categoryEdit = TextEditingController(text: "");
   final TextEditingController categoryController = TextEditingController(text: "");
   final TextEditingController customize = TextEditingController(text: "");
+  String? selectedValueCustomize;
+  int initialLabelIndexCustomize = 0;
   final TextEditingController moneyType = TextEditingController(text: "");
 
   late PageController pageViewController;
@@ -51,6 +53,15 @@ class AddDataRiverpod extends ChangeNotifier{
     note.text = "";
     amount.text = "";
     operationTime.text = DateTimeManager.getCurrentTime();
+
+
+    category.text = "";
+    customize.text = "";
+    convertedCategory = "";
+    convertedCustomize = "";
+    userCategoryController = "";
+    systemMessage = "";
+    categoryColorChanger = 999;
 
   }
 
