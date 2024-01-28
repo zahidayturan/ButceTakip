@@ -62,6 +62,8 @@ class AddDataRiverpod extends ChangeNotifier{
     userCategoryController = "";
     systemMessage = "";
     categoryColorChanger = 999;
+    regsController = 0;
+    registration.text = "0";
 
   }
 

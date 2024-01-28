@@ -1,3 +1,4 @@
+import 'package:butcekontrol/pages/addDataPages/add_data_page.dart';
 import 'package:butcekontrol/riverpod_management.dart';
 import 'package:butcekontrol/utils/date_time_manager.dart';
 import 'package:butcekontrol/utils/textConverter.dart';
@@ -596,7 +597,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 item[index].userCategory,
                                 item[index].systemMessage));
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const UpdateData(),
+                              builder: (context) => AddData(addDataMode: 2),
                             ));
                           },
                         ),
@@ -655,7 +656,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 item[index].userCategory,
                                 item[index].systemMessage));
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const UpdateData(),
+                              builder: (context) => AddData(addDataMode: 1),
                             ));
                           },
                         ),

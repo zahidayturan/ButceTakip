@@ -211,7 +211,7 @@ class NavBar extends ConsumerWidget {
                     child: FloatingActionButton.large(
                       onPressed: () {
                         Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => AddData(),));
+                          context, MaterialPageRoute(builder: (context) => AddData(addDataMode: 0)));
                         read.setcur();  /// arastırılacak
                       },
                       splashColor: Theme.of(context).primaryColor,

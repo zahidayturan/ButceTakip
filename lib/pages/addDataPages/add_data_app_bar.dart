@@ -5,15 +5,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
-  const AddAppBar({Key? key}) : super(key: key);
+  late int addDataMode;
+  AddAppBar({Key? key,required this.addDataMode}) : super(key: key);
   @override
   Size get preferredSize => const Size.fromHeight(60);
-  @override
+  CustomColors renkler = CustomColors();
   Widget build(BuildContext context, WidgetRef ref) {
     var read = ref.read(botomNavBarRiverpod);
     var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
-    CustomColors renkler = CustomColors();
+    String getTitleText(){
+      if(addDataMode == 0){
+        return translation(context).addIncomeExpensesTitle;
+      }else if(addDataMode == 1){
+          return translation(context).editTitle;
+      }else{
+        return translation(context).addAgainTitle;
+      }
+    }
+    String getIconPath(){
+      if(addDataMode == 0){
+        return "assets/icons/add.png";
+      }else if(addDataMode == 1){
+        return "assets/icons/pencil.png";
+      }else{
+        return "assets/icons/swap.png";
+      }
+    }
     return Directionality(
       textDirection: TextDirection.ltr,
       child: SizedBox(
@@ -43,7 +61,7 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20, top: 22),
                     child: Text(
-                      translation(context).addIncomeExpensesTitle,
+                      getTitleText(),
                       style: const TextStyle(
                         height: 1,
                         fontFamily: 'Nexa4',
@@ -56,42 +74,52 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
               ),
             ),
             Positioned(
+              left: 4,
+              top: -4,
+              child: Image.asset(
+                getIconPath(),
+                height: 48,
+                width: 48,
+                color: renkler.yaziRenk.withOpacity(0.1),
+              ),
+            ),
+            Positioned(
               right: 30,
               top: 0,
               child: SizedBox(
                 height: 42,
-                child: Container(
-                  width: 72,
-                  decoration: BoxDecoration(
-                      color: renkler.arkaPlanRenk,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(1),
-                            spreadRadius: 0.8,
-                            blurRadius: 1,
-                            offset: const Offset(-2, 0)
-                        )
-                      ],
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(100),
-                        bottomLeft: Radius.circular(100),
-                        topLeft: Radius.circular(100),
-                      )),
-                  child: IconButton(
-                    padding: const EdgeInsets.only(right: 24.0),
-                    iconSize: 38,
-                    icon: Icon(
-                      Icons.swap_vert_rounded,
-                      color: renkler.koyuuRenk,
+                child: GestureDetector(
+                  onTapDown: (TapDownDetails details) async {
+                    await _showPopupMenu(details.globalPosition,context,ref);
+                  },
+                  child: Container(
+                    width: 72,
+                    decoration: BoxDecoration(
+                        color: renkler.arkaPlanRenk,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(1),
+                              spreadRadius: 0.8,
+                              blurRadius: 1,
+                              offset: const Offset(-2, 0)
+                          )
+                        ],
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(100),
+                          bottomLeft: Radius.circular(100),
+                          topLeft: Radius.circular(100),
+                        )),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 24),
+                      child: Icon(
+                        Icons.swap_vert_rounded,
+                        color: renkler.koyuuRenk,
+                        size: 38,
+                      ),
                     ),
-                    onPressed: () {
-                      readSettings.setAddDataType(readSettings.addDataType == 0 ? 1 : 0);
-                      readSettings.setisuseinsert();
-                      ref.read(addDataRiverpod).pageViewController.animateToPage(readSettings.addDataType!, duration: Duration(milliseconds: 500), curve: Curves.linear);
-                      },
-                  ),
-                ),
               ),
+                ),
+            ),
             ),
             Positioned(
               right: 0,
@@ -135,6 +163,33 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
           ],
         ),
       ),
+    );
+  }
+
+  _showPopupMenu(Offset offset,BuildContext context,WidgetRef ref) async {
+    double left = offset.dx;
+    double top = offset.dy;
+    var readSettings = ref.read(settingsRiverpod);
+    await showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(left, top+12, 12, 0),
+      color: Theme.of(context).primaryColor,
+      shadowColor: Theme.of(context).primaryColor,
+      items: [
+        PopupMenuItem<String>(
+          child: const Text('Tablo Görünümü'), value: 'Tablo',onTap: () async{
+          readSettings.setAddDataType(0);
+          readSettings.setisuseinsert();
+          ref.read(addDataRiverpod).pageViewController.animateToPage(readSettings.addDataType!, duration: Duration(milliseconds: 500), curve: Curves.linear);
+        },),
+        PopupMenuItem<String>(
+          child: const Text('Liste Görünümü'), value: 'Liste',onTap: () async{
+          readSettings.setAddDataType(1);
+          readSettings.setisuseinsert();
+          ref.read(addDataRiverpod).pageViewController.animateToPage(readSettings.addDataType!, duration: Duration(milliseconds: 500), curve: Curves.linear);
+        },),
+      ],
+      elevation: 8.0,
     );
   }
 }

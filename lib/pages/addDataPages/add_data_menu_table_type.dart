@@ -71,7 +71,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const SizedBox(
-                height: 20,
+                height: 12,
               ),
               SizedBox(
                 width: size.width * 0.95,

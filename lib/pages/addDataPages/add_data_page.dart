@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddData extends ConsumerStatefulWidget {
-  const AddData({Key? key}) : super(key: key);
+  late int addDataMode;
+  AddData({Key? key,required this.addDataMode}) : super(key: key);
   @override
   ConsumerState<AddData> createState() => _AddDataState();
 }
@@ -21,6 +22,7 @@ class _AddDataState extends ConsumerState<AddData> {
 
   @override
   void initState(){
+    print(widget.addDataMode);
     ref.read(addDataRiverpod).pageViewController = PageController(initialPage: ref.read(settingsRiverpod).addDataType!);
     var readSettings = ref.read(settingsRiverpod);
     var readAdd = ref.read(addDataRiverpod);
@@ -46,7 +48,7 @@ class _AddDataState extends ConsumerState<AddData> {
     return SafeArea(
       child: Scaffold(
         //backgroundColor: Colors.white,
-        appBar: AddAppBar(),
+        appBar: AddAppBar(addDataMode: widget.addDataMode),
         body: Column(
           children: [
             Expanded(
