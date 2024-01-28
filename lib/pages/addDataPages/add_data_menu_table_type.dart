@@ -16,48 +16,29 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:intl/intl.dart' as intl;
 
 class AddDataMenuTableType extends ConsumerStatefulWidget {
-  const AddDataMenuTableType({Key? key}) : super(key: key);
+  late int addDataMode;
+  AddDataMenuTableType({Key? key,required this.addDataMode}) : super(key: key);
   @override
   ConsumerState<AddDataMenuTableType> createState() => _AddDataMenuTableType();
 }
 
 class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
-  final InterstitialAdManager _interstitialAdManager = InterstitialAdManager();
+
   @override
-  void initState() {
-    var readSettings = ref.read(settingsRiverpod);
-    var readAdd = ref.read(addDataRiverpod);
-    readAdd.clearTexts();
-    var adCounter = readSettings.adCounter;
-    if (adCounter! < 1) {
-      _interstitialAdManager.loadInterstitialAd();
-    } else {
-    }
-    super.initState();
-  }
-
-  void _showInterstitialAd(BuildContext context) {
-    //_interstitialAdManager.loadInterstitialAd();
-    _interstitialAdManager.showInterstitialAd(context);
-  }
-
-  
   void dispose() {
-    //readAdd.category.dispose();
-    //readAdd.customize.dispose();
-    //_note.dispose();
-    //_amount.dispose();
-    //_operationType.dispose();
-    //_operationTool.dispose();
-    //_registration.dispose();
-    //_operationDate.dispose();
-    //_moneyType.dispose();
-    amountFocusNode;
-    dateFocusNode;
+    var readAdd = ref.read(addDataRiverpod);
+    readAdd.category.dispose();
+    readAdd.customize.dispose();
+    readAdd.note.dispose();
+    readAdd.amount.dispose();
+    readAdd.operationType.dispose();
+    readAdd.operationTool.dispose();
+    readAdd.registration.dispose();
+    readAdd.operationDate.dispose();
+    readAdd.moneyType.dispose();
     super.dispose();
   }
-  FocusNode amountFocusNode = FocusNode();
-  FocusNode dateFocusNode = FocusNode();
+
   CustomColors renkler = CustomColors();
   @override
   Widget build(BuildContext context) {
@@ -86,7 +67,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
               const SizedBox(
                 height: 15,
               ),
-              categoryBarCustom(context, ref),
+              categoryBarCustom(context),
               const SizedBox(
                 height: 20,
               ),
@@ -107,7 +88,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
               const SizedBox(
                 height: 15,
               ),
-              customizeBarCustom(context, ref),
+              customizeBarCustom(context),
               const SizedBox(
                 height: 15,
               ),
@@ -115,12 +96,6 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
               const SizedBox(
                 height: 5,
               ),
-              /*SizedBox(
-                  width: size.width * 0.98,
-                  child: Text(
-                      'DEBUG: ${_operationType.text} - ${readAdd.category.text} - ${readAdd.convertedCategory} - ${readAdd.userCategoryController} - ${_operationTool.text} - ${int.parse(_registration.text)} - ${_amount.text} - ${_note.text} - ${_operationDate.text} -${readAdd.customize.text} - ${readAdd.convertedCustomize} - ${selectedCustomizeMenu} - ${_moneyType.text}',
-                      style: const TextStyle(
-                          color: Colors.red, fontFamily: 'TL'))),*/
               const SizedBox(
                 height: 15,
               ),
@@ -130,7 +105,6 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
       ),
     );
   }
-
 
   Widget typeCustomButton(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -157,8 +131,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
     );
   }
 
-
-  Widget categoryBarCustom(BuildContext context, WidgetRef ref) {
+  Widget categoryBarCustom(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var readHome = ref.read(homeRiverpod);
     var readAdd = ref.read(addDataRiverpod);
@@ -243,9 +216,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
     );
   }
 
-
-
-  Widget customizeBarCustom(BuildContext context, WidgetRef ref) {
+  Widget customizeBarCustom(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var readAdd = ref.read(addDataRiverpod);
     return SizedBox(
@@ -313,7 +284,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                             child: Text(
                               readAdd.customize.text == ""
                                   ? translation(context).tapToCustomize
-                                  : readAdd.selectedCustomizeMenu == 0
+                                  : readAdd.initialLabelIndexCustomize  == 0
                                       ? '${translation(context).tekrarTurkEmpty} ${readAdd.customize.text} ${translation(context).turkTekrarOnly}' /// Uyuşmamalar nedeniyle bu şekilde çevrilmiştir
                                       : '${translation(context).taksitArabicOnly} ${readAdd.customize.text} ${translation(context).ayTaksitArapcaEpty} ${translation(context).taksitDevamArabicOnly}',
                               maxLines: 2,
@@ -343,7 +314,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return CustomizeMenu();
+                      return CustomizeMenu(addDataMode: widget.addDataMode);
                     },
                   ).then((_) => setState(() {}));
                 },
@@ -507,7 +478,6 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
     );
   }
 
-
   Widget amountCustomButton() {
     var readAdd = ref.read(addDataRiverpod);
     String moneyActivate = readAdd.operationType.text == "Gider" ? "" : "1";
@@ -532,6 +502,47 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
       } else {
         setState(() {
           readAdd.moneyType.text = "${ref.read(settingsRiverpod).Prefix}$moneyActivate";
+        });
+        return getSymbolForMoneyType();
+      }
+    }
+
+    String getSymbolForMoneyTypeForUpdateOrAgain(){
+      String controller = readAdd.moneyType.text;
+      if(controller == 'TRY$moneyActivate'|| controller == 'TRY'){
+        readAdd.moneyType.text = 'TRY$moneyActivate';
+        return '₺';
+      }else if (controller == 'USD$moneyActivate'|| controller == 'USD'){
+        readAdd.moneyType.text = 'USD$moneyActivate';
+        return '\$';
+      }
+      else if (controller == 'EUR$moneyActivate' || controller == 'EUR'){
+        readAdd.moneyType.text = 'EUR$moneyActivate';
+        return '€';
+      }
+      else if (controller == 'GBP$moneyActivate'|| controller == 'GBP'){
+        readAdd.moneyType.text = 'GBP$moneyActivate';
+        return '£';
+      }
+      else if (controller == 'KWD$moneyActivate'|| controller == 'KWD'){
+        readAdd.moneyType.text = 'KWD$moneyActivate';
+        return 'د.ك';
+      }
+      else if (controller == 'JOD$moneyActivate'|| controller == 'JOD'){
+        readAdd.moneyType.text = 'JOD$moneyActivate';
+        return 'د.أ';
+      }
+      else if (controller == 'IQD$moneyActivate'|| controller == 'IQD'){
+        readAdd.moneyType.text = 'IQD$moneyActivate';
+        return 'د.ع';
+      }
+      else if (controller == 'SAR$moneyActivate'|| controller == 'SAR'){
+        readAdd.moneyType.text = 'SAR$moneyActivate';
+        return 'ر.س';
+      }
+      else{
+        setState(() {
+          readAdd.moneyType.text = "${controller.substring(0,3)}$moneyActivate";
         });
         return getSymbolForMoneyType();
       }
@@ -590,7 +601,6 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                                               fontWeight: FontWeight.w100),
                                           controller: readAdd.amount,
                                           autofocus: false,
-                                          focusNode: amountFocusNode,
                                           keyboardType: const TextInputType
                                               .numberWithOptions(decimal: true),
                                           inputFormatters: [
@@ -649,7 +659,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                       ),
                       child: readAdd.openMoneyTypeMenu == false
                           ? Center(
-                              child: getLineText(getSymbolForMoneyType(), renkler.koyuuRenk, 22,fontFamily: "TL",weight: FontWeight.w500),)
+                              child: getLineText(widget.addDataMode == 0 ? getSymbolForMoneyType() : getSymbolForMoneyTypeForUpdateOrAgain(), renkler.koyuuRenk, 22,fontFamily: "TL",weight: FontWeight.w500),)
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -746,7 +756,6 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
     );
   }
 
-
   Widget toolCustomButton(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var readAdd = ref.read(addDataRiverpod);
@@ -768,7 +777,6 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
             }
         ),);
   }
-
 
   Widget regCustomButton(BuildContext context) {
     var readAdd = ref.read(addDataRiverpod);
@@ -826,7 +834,6 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
     }
   }
 
-
   Widget noteCustomButton(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var readAdd = ref.read(addDataRiverpod);
@@ -879,11 +886,11 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
     );
   }
 
-
   DateTime convertDateTime(String Date){
     var date = Date.split(".");
     return DateTime(int.parse(date[2]), int.parse(date[1]), int.parse(date[0]));
   }
+
   Widget getToggleSwitch(int? initialLabel, int totalSwitch,List<String>? labels,double minWidth,Function(int?)? onToggle){
     return ToggleSwitch(
       initialLabelIndex: initialLabel,

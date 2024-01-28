@@ -43,7 +43,7 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
               left: 0,
               top: 0,
               child: SizedBox(
-                height: 60,
+                height: 59,
                 child: Container(
                   width: size.width,
                   decoration: BoxDecoration(
@@ -95,7 +95,7 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                   child: Container(
                     width: 72,
                     decoration: BoxDecoration(
-                        color: renkler.arkaPlanRenk,
+                        color: Theme.of(context).focusColor,
                         boxShadow: [
                           BoxShadow(
                               color: Colors.black.withOpacity(1),
@@ -113,7 +113,7 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                       padding: const EdgeInsets.only(right: 24),
                       child: Icon(
                         Icons.swap_vert_rounded,
-                        color: renkler.koyuuRenk,
+                        color: Theme.of(context).canvasColor,
                         size: 38,
                       ),
                     ),
@@ -154,7 +154,7 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      read.setCurrentindex(read.current!);
+                      read.setCurrentindex(addDataMode == 0 ? read.current! : 0);
                     },
                   ),
                 ),
@@ -177,13 +177,13 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
       shadowColor: Theme.of(context).primaryColor,
       items: [
         PopupMenuItem<String>(
-          child: const Text('Tablo Görünümü'), value: 'Tablo',onTap: () async{
+          child: const Text('Tablo Görünümü'), value: 'Tablo',onTap: (){
           readSettings.setAddDataType(0);
           readSettings.setisuseinsert();
           ref.read(addDataRiverpod).pageViewController.animateToPage(readSettings.addDataType!, duration: Duration(milliseconds: 500), curve: Curves.linear);
-        },),
+          },),
         PopupMenuItem<String>(
-          child: const Text('Liste Görünümü'), value: 'Liste',onTap: () async{
+          child: const Text('Liste Görünümü'), value: 'Liste',onTap: (){
           readSettings.setAddDataType(1);
           readSettings.setisuseinsert();
           ref.read(addDataRiverpod).pageViewController.animateToPage(readSettings.addDataType!, duration: Duration(milliseconds: 500), curve: Curves.linear);

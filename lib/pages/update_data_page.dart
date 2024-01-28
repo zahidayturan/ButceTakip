@@ -3688,144 +3688,138 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
     return SizedBox(
       width: size.width * 0.9,
       height: 50,
-      child: Center(
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Theme.of(context).disabledColor,
-              ),
-              height: 40,
-              width: size.width*0.4,
-              child: TextButton(
-                onPressed: ()  {
-                  setAlertContent(context);
-                  double amount = double.tryParse(amount0.text) ?? 0.0;
-                  if (amount != 0.0 && category.text.isNotEmpty) {
-                    if (_isProcessOnceValidNumber(customize.text) == true &&
-                        customize.text != "") {
-                      List <String> parts = customize.text.split("/");
-                      customize.text = parts.length == 2 ?  parts[1] : parts[0];
-                      amount = double.parse((amount / double.parse(customize.text)).toStringAsFixed(2));
-                      systemMessage.text = "1/${customize.text}";
-                      convertedCustomize = "1/${customize.text}";
-                      customize.text = "1/${customize.text}";
-                    } else if (_isProcessOnceValidNumber(customize.text) == false &&
-                        customize.text != "") {
-                      systemMessage = convertedCustomize != "" ? convertedCustomize : Converter().textConverterToDB(customize.text,context,1);
-                    }
-                        if(menuController == 0){
-                          readUpdateData.updateDataBase(
-                            int.parse(id),
-                            operationType.text,
-                            convertedCategory,
-                            operationTool.text,
-                            int.parse(registration.text),
-                            amount,
-                            note.text,
-                            operationDate.text,
-                            moneyType.text,
-                            convertedCustomize != "" ? convertedCustomize : Converter().textConverterToDB(customize.text,context,1),
-                            ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
-                            userCategoryController != "" ? userCategoryController : category.text == userCategory.text ? userCategory.text : "",
-                            customize.text != "" ? systemMessage.toString() : "");
-                        read.update();}
-                        else{
-                          read.insertDataBase(
-                            operationType.text,
-                            convertedCategory,
-                            operationTool.text,
-                            int.parse(registration.text),
-                            amount,
-                            note.text,
-                            operationDate.text,
-                            moneyType.text,
-                            ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
-                            convertedCustomize != "" ? convertedCustomize : Converter().textConverterToDB(customize.text,context,1),
-                            userCategoryController != "" ? userCategoryController : category.text == userCategory.text ? userCategory.text : "",
-                            customize.text != "" ? systemMessage.toString() : "",
-                          );
-                        }
-                    read.searchText != "" ? read.searchItem(read.searchText) : null;
-                    readHome.setStatus();
-                    readDailyInfo.setSpendDetailItemWithId(int.parse(id));
-                    if (adCounter == 0) {
-                      _showInterstitialAd(context);
-                      readSettings.resetAdCounter();
-                    } else {
-                      readSettings.useAdCounter();
-                    }
-                    if(menuController == 1){
-                      Navigator.of(context).pop();
-                    }
-                    Navigator.of(context).pop();
-                    //Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor:
-                        const Color(0xff0D1C26),
-                        duration: const Duration(seconds: 1),
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        content: Text(
-                          menuController == 0 ? translation(context).activityUpdated : translation(context).activityAdded,
-                          style: TextStyle(
-                            color: renkler.yaziRenk,
-                            fontSize: 16,
-                            fontFamily: 'Nexa3',
-                            fontWeight: FontWeight.w600,
-                            height: 1.3,
-                          ),
-                        ),
-                      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Theme.of(context).disabledColor,
+        ),
+        height: 40,
+        width: size.width*0.4,
+        child: TextButton(
+          onPressed: ()  {
+            setAlertContent(context);
+            double amount = double.tryParse(amount0.text) ?? 0.0;
+            if (amount != 0.0 && category.text.isNotEmpty) {
+              if (_isProcessOnceValidNumber(customize.text) == true &&
+                  customize.text != "") {
+                List <String> parts = customize.text.split("/");
+                customize.text = parts.length == 2 ?  parts[1] : parts[0];
+                amount = double.parse((amount / double.parse(customize.text)).toStringAsFixed(2));
+                systemMessage.text = "1/${customize.text}";
+                convertedCustomize = "1/${customize.text}";
+                customize.text = "1/${customize.text}";
+              } else if (_isProcessOnceValidNumber(customize.text) == false &&
+                  customize.text != "") {
+                systemMessage = convertedCustomize != "" ? convertedCustomize : Converter().textConverterToDB(customize.text,context,1);
+              }
+                  if(menuController == 0){
+                    readUpdateData.updateDataBase(
+                      int.parse(id),
+                      operationType.text,
+                      convertedCategory,
+                      operationTool.text,
+                      int.parse(registration.text),
+                      amount,
+                      note.text,
+                      operationDate.text,
+                      moneyType.text,
+                      convertedCustomize != "" ? convertedCustomize : Converter().textConverterToDB(customize.text,context,1),
+                      ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
+                      userCategoryController != "" ? userCategoryController : category.text == userCategory.text ? userCategory.text : "",
+                      customize.text != "" ? systemMessage.toString() : "");
+                  read.update();}
+                  else{
+                    read.insertDataBase(
+                      operationType.text,
+                      convertedCategory,
+                      operationTool.text,
+                      int.parse(registration.text),
+                      amount,
+                      note.text,
+                      operationDate.text,
+                      moneyType.text,
+                      ref.read(currencyRiverpod).calculateRealAmount(amount, moneyType.text, ref.read(settingsRiverpod).Prefix!),
+                      convertedCustomize != "" ? convertedCustomize : Converter().textConverterToDB(customize.text,context,1),
+                      userCategoryController != "" ? userCategoryController : category.text == userCategory.text ? userCategory.text : "",
+                      customize.text != "" ? systemMessage.toString() : "",
                     );
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            title: Text(translation(context).missingEntry,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 22,height: 1,fontFamily: 'Nexa3')),
-                            content: Text(alertContent,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 16,height: 1,fontFamily: 'Nexa3'),),
-                            shadowColor: renkler.koyuuRenk,
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    if (alertOperator == 1) {
-                                      amount0.clear();
-                                      category.clear();
-                                    } else if (alertOperator == 2) {
-                                      amount0.clear();
-                                      category.clear();
-                                    } else if(alertOperator == 3){
-                                      category.clear();
-                                    }
-                                    else{
-                                      amount0.clear();
-                                      category.clear();
-                                    }
-                                  });
-                                  Navigator.of(context).pop();
-                                  //FocusScope.of(context).requestFocus(amountFocusNode);
-                                },
-                                child: Text("Tamam",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 18,fontFamily: 'Nexa3'),),
-                              )
-                            ],
-                          );
-                        });
                   }
-                },
-                child: Text(menuController == 0 ? translation(context).updateDone : translation(context).done,
-                    style: const TextStyle(
-                        color: Color(0xff0D1C26),
-                        fontSize: 17,
-                        fontFamily: 'Nexa4',
-                        fontWeight: FontWeight.w900)),
-              ),
-            ),
-          ],
+              read.searchText != "" ? read.searchItem(read.searchText) : null;
+              readHome.setStatus();
+              readDailyInfo.setSpendDetailItemWithId(int.parse(id));
+              if (adCounter == 0) {
+                _showInterstitialAd(context);
+                readSettings.resetAdCounter();
+              } else {
+                readSettings.useAdCounter();
+              }
+              if(menuController == 1){
+                Navigator.of(context).pop();
+              }
+              Navigator.of(context).pop();
+              //Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor:
+                  const Color(0xff0D1C26),
+                  duration: const Duration(seconds: 1),
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  content: Text(
+                    menuController == 0 ? translation(context).activityUpdated : translation(context).activityAdded,
+                    style: TextStyle(
+                      color: renkler.yaziRenk,
+                      fontSize: 16,
+                      fontFamily: 'Nexa3',
+                      fontWeight: FontWeight.w600,
+                      height: 1.3,
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      title: Text(translation(context).missingEntry,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 22,height: 1,fontFamily: 'Nexa3')),
+                      content: Text(alertContent,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 16,height: 1,fontFamily: 'Nexa3'),),
+                      shadowColor: renkler.koyuuRenk,
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (alertOperator == 1) {
+                                amount0.clear();
+                                category.clear();
+                              } else if (alertOperator == 2) {
+                                amount0.clear();
+                                category.clear();
+                              } else if(alertOperator == 3){
+                                category.clear();
+                              }
+                              else{
+                                amount0.clear();
+                                category.clear();
+                              }
+                            });
+                            Navigator.of(context).pop();
+                            //FocusScope.of(context).requestFocus(amountFocusNode);
+                          },
+                          child: Text("Tamam",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 18,fontFamily: 'Nexa3'),),
+                        )
+                      ],
+                    );
+                  });
+            }
+          },
+          child: Text(menuController == 0 ? translation(context).updateDone : translation(context).done,
+              style: const TextStyle(
+                  color: Color(0xff0D1C26),
+                  fontSize: 17,
+                  fontFamily: 'Nexa4',
+                  fontWeight: FontWeight.w900)),
         ),
       ),
     );

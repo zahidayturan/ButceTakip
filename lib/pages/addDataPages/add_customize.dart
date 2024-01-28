@@ -9,7 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class CustomizeMenu extends ConsumerStatefulWidget {
-  const CustomizeMenu({Key? key}) : super(key: key);
+  late int addDataMode;
+  CustomizeMenu({Key? key,required this.addDataMode}) : super(key: key);
   @override
   ConsumerState<CustomizeMenu> createState() => _CustomizeMenu();
 }
@@ -21,6 +22,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
   Widget build(BuildContext context){
     var size = MediaQuery.of(context).size;
     var readAdd = ref.read(addDataRiverpod);
+
     List<String> repetitiveList = [
       translation(context).dailyAddData,
       translation(context).weeklyAddData,
@@ -68,53 +70,75 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                 Center(
                   child: Column(
                     children: [
-                      SizedBox(
-                        width: 281,
-                        height: 30,
-                        child: ToggleSwitch(
-                          initialLabelIndex:
-                          readAdd.initialLabelIndexCustomize,
-                          totalSwitches: 2,
-                          labels: [
-                            translation(context).repeat,
-                            translation(context).installment
-                          ],
-                          activeBgColor: [
-                            Theme.of(context).disabledColor
-                          ],
-                          activeFgColor:
-                          const Color(0xff0D1C26),
-                          inactiveBgColor: Theme.of(context)
-                              .highlightColor,
-                          inactiveFgColor:
-                          const Color(0xFFE9E9E9),
-                          minWidth: 140,
-                          cornerRadius: 20,
-                          radiusStyle: true,
-                          animate: true,
-                          curve: Curves.linearToEaseOut,
-                          customTextStyles: const [
-                            TextStyle(
-                                fontSize: 16,
-                                height: 1,
-                                fontFamily: 'Nexa4',
-                                fontWeight: FontWeight.w800)
-                          ],
-                          onToggle: (index) {
-                            setState(() {
-                              if (index == 0) {
-                                readAdd.selectedCustomizeMenu = 0;
-                                readAdd.customize.clear();
-                              } else {
-                                readAdd.selectedCustomizeMenu = 1;
-                                readAdd.customize.clear();
-                              }
-                              readAdd.initialLabelIndexCustomize =
-                              index!;
-                            });
-                          },
+                      Visibility(
+                        visible: widget.addDataMode == 0,
+                        child: SizedBox(
+                          width: 281,
+                          height: 30,
+                          child: ToggleSwitch(
+                            initialLabelIndex:
+                            readAdd.initialLabelIndexCustomize,
+                            totalSwitches: 2,
+                            labels: [
+                              translation(context).repeat,
+                              translation(context).installment
+                            ],
+                            activeBgColor: [
+                              Theme.of(context).disabledColor
+                            ],
+                            activeFgColor:
+                            const Color(0xff0D1C26),
+                            inactiveBgColor: Theme.of(context)
+                                .highlightColor,
+                            inactiveFgColor:
+                            const Color(0xFFE9E9E9),
+                            minWidth: 140,
+                            cornerRadius: 20,
+                            radiusStyle: true,
+                            animate: true,
+                            curve: Curves.linearToEaseOut,
+                            customTextStyles: const [
+                              TextStyle(
+                                  fontSize: 16,
+                                  height: 1,
+                                  fontFamily: 'Nexa4',
+                                  fontWeight: FontWeight.w800)
+                            ],
+                            onToggle: (index) {
+                              setState(() {
+                                if (index == 0) {
+                                  readAdd.selectedCustomizeMenu = 0;
+                                  readAdd.customize.clear();
+                                } else {
+                                  readAdd.selectedCustomizeMenu = 1;
+                                  readAdd.customize.clear();
+                                }
+                                readAdd.initialLabelIndexCustomize =
+                                index!;
+                              });
+                            },
+                          ),
                         ),
                       ),
+                      Visibility(
+                      visible: widget.addDataMode != 0,
+                      child: SizedBox(
+                        width: 180,
+                        height: 30,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).highlightColor,
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              readAdd.initialLabelIndexCustomize == 1 ? translation(context).installment : translation(context).repeat, style: TextStyle(
+                                color: renkler.arkaRenk,fontSize: 18, fontFamily: 'Nexa4', height: 1,fontWeight: FontWeight.w800
+                            ),
+                            ),
+                          ),
+                        ),
+                      ),),
                       Visibility(
                         visible : readAdd.selectedCustomizeMenu == 0,
                         child: SizedBox(

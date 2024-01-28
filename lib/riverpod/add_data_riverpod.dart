@@ -1,4 +1,6 @@
+import 'package:butcekontrol/models/spend_info.dart';
 import 'package:butcekontrol/utils/date_time_manager.dart';
+import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 
 class AddDataRiverpod extends ChangeNotifier{
@@ -52,9 +54,9 @@ class AddDataRiverpod extends ChangeNotifier{
   void clearTexts() {
     note.text = "";
     amount.text = "";
+    operationDate.text =  DateTimeManager.getCurrentDayMonthYear();
     operationTime.text = DateTimeManager.getCurrentTime();
-
-
+    moneyType.text = "";
     category.text = "";
     customize.text = "";
     convertedCategory = "";
@@ -64,7 +66,120 @@ class AddDataRiverpod extends ChangeNotifier{
     categoryColorChanger = 999;
     regsController = 0;
     registration.text = "0";
-
   }
 
+  SpendInfo? updateOrAgainItems;
+  String? updateOrAgainItemsId;
+  final TextEditingController realAmount = TextEditingController();
+  final TextEditingController userCategory = TextEditingController();
+  final TextEditingController systemMessageController = TextEditingController();
+  setControllerForUpdateOrAgain(SpendInfo items,BuildContext context) {
+
+    updateOrAgainItems = items;
+    updateOrAgainItemsId = items.id.toString();
+    note.text = items.note.toString();
+    amount.text = items.amount.toString();
+
+    operationType.text = items.operationType.toString();
+    if(operationType.text == "Gider"){
+      initialLabelIndexForType = 0;
+      selectedCategory = 0;
+    }else{
+      initialLabelIndexForType = 1;
+      selectedCategory = 1;
+    }
+
+    category.text = items.category.toString();
+    convertedCategory = Converter().textConverterToDB(category.text, context, 0);
+
+    operationTool.text = items.operationTool.toString();
+    if(operationTool.text == "Nakit"){
+      initialLabelIndexForTool = 0;
+    }else if(operationTool.text == "Kart"){
+      initialLabelIndexForTool = 1;
+    }else{
+      initialLabelIndexForTool = 2;
+    }
+
+    registration.text = items.registration.toString();
+    if(registration.text == "0"){
+      regsController = 0;
+    }else{
+      regsController = 1;
+    }
+
+    operationDate.text = items.operationDate.toString();
+    List <String> parts = operationDate.text.split(".");
+    int parseDay = int.parse(parts[0]);
+    int parseMonth = int.parse(parts[1]);
+    int parseYear = int.parse(parts[2]);
+    selectedDate = DateTime(parseYear,parseMonth,parseDay);
+
+    moneyType.text = items.moneyType.toString();
+
+    customize.text = items.processOnce.toString();
+    selectedValueCustomize;
+    bool menuController = _isProcessOnceValidNumber(customize.text);
+    menuController == true ? initialLabelIndexCustomize = 1 : initialLabelIndexCustomize = 0;
+
+    realAmount.text = items.realAmount.toString();
+    userCategory.text = items.userCategory.toString();
+    systemMessageController.text = items.systemMessage.toString();
+  }
+
+  resetControllerForUpdateOrAgain(BuildContext context) {
+    updateOrAgainItemsId = updateOrAgainItems!.id.toString();
+    note.text = updateOrAgainItems!.note.toString();
+    amount.text = updateOrAgainItems!.amount.toString();
+
+    operationType.text = updateOrAgainItems!.operationType.toString();
+    if(operationType.text == "Gider"){
+      initialLabelIndexForType = 0;
+      selectedCategory = 0;
+    }else{
+      initialLabelIndexForType = 1;
+      selectedCategory = 1;
+    }
+
+    category.text = updateOrAgainItems!.category.toString();
+    convertedCategory = Converter().textConverterToDB(category.text, context, 0);
+
+    operationTool.text = updateOrAgainItems!.operationTool.toString();
+    if(operationTool.text == "Nakit"){
+      initialLabelIndexForTool = 0;
+    }else if(operationTool.text == "Kart"){
+      initialLabelIndexForTool = 1;
+    }else{
+      initialLabelIndexForTool = 2;
+    }
+
+    registration.text = updateOrAgainItems!.registration.toString();
+    if(registration.text == "0"){
+      regsController = 0;
+    }else{
+      regsController = 1;
+    }
+
+    operationDate.text = updateOrAgainItems!.operationDate.toString();
+    List <String> parts = operationDate.text.split(".");
+    int parseDay = int.parse(parts[0]);
+    int parseMonth = int.parse(parts[1]);
+    int parseYear = int.parse(parts[2]);
+    selectedDate = DateTime(parseYear,parseMonth,parseDay);
+
+    moneyType.text = updateOrAgainItems!.moneyType.toString();
+
+    customize.text = updateOrAgainItems!.processOnce.toString();
+    selectedValueCustomize;
+    bool menuController = _isProcessOnceValidNumber(customize.text);
+    menuController == true ? initialLabelIndexCustomize = 1 : initialLabelIndexCustomize = 0;
+
+    realAmount.text = updateOrAgainItems!.realAmount.toString();
+    userCategory.text = updateOrAgainItems!.userCategory.toString();
+    systemMessageController.text = updateOrAgainItems!.systemMessage.toString();
+  }
+
+  bool _isProcessOnceValidNumber(String processOnce) {
+    return processOnce.contains(RegExp(r'\d'));
+  }
 }

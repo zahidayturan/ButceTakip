@@ -5,8 +5,6 @@ import 'package:butcekontrol/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-
-import '../Pages/update_data_page.dart';
 import '../constans/material_color.dart';
 import '../models/spend_info.dart';
 import 'package:butcekontrol/classes/language.dart';
@@ -40,6 +38,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
     var readHome = ref.read(homeRiverpod);
     var readUpdateData = ref.read(updateDataRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
+    var readAdd = ref.read(addDataRiverpod);
     List<SpendInfo> item = readDailyInfo.getSpendDetailItem();
     int index = readDailyInfo.getSpendDetailIndex();
     var readSettings = ref.read(settingsRiverpod);
@@ -99,7 +98,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                         ],
                       ),
                     )
-                    :SizedBox(),
+                    :const SizedBox(),
                 item[index].moneyType!.length == 4 && item[index].moneyType!.substring(0,3) != readSettings.Prefix
                     ?SizedBox(
                   width: 90,
@@ -123,9 +122,9 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                     ],
                   ),
                 )
-                :SizedBox(width: 1),
-                Spacer(),
-                Container(
+                :const SizedBox(width: 1),
+                const Spacer(),
+                SizedBox(
                   width: 32,
                   height: 32,
                   child: DecoratedBox(
@@ -167,7 +166,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                   child: DecoratedBox(
                     decoration:  BoxDecoration(
                       color: renkler.yaziRenk,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                     ),
                     child: Center(
                       child: Padding(
@@ -556,7 +555,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 42,
                       width: 42,
                       child: DecoratedBox(
@@ -578,7 +577,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                             int parseDay = int.parse(parts[0]);
                             int parseMonth = int.parse(parts[1]);
                             int parseYear = int.parse(parts[2]);
-                            readUpdateData.setItems(SpendInfo.withId(
+                            readAdd.setControllerForUpdateOrAgain(SpendInfo.withId(
                                 item[index].id!,
                                 item[index].operationType,
                                 Converter().textConverterFromDB(item[index].category!, context, 0),
@@ -595,7 +594,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 Converter().textConverterFromDB(item[index].processOnce!, context, 1),
                                 item[index].realAmount,
                                 item[index].userCategory,
-                                item[index].systemMessage));
+                                item[index].systemMessage),context);
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => AddData(addDataMode: 2),
                             ));
@@ -620,7 +619,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 42,
                       width: 42,
                       child: DecoratedBox(
@@ -637,7 +636,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                           ),
                           onPressed: () {
                             readUpdateData.setMenu(0);
-                            readUpdateData.setItems(SpendInfo.withId(
+                            readAdd.setControllerForUpdateOrAgain(SpendInfo.withId(
                                 item[index].id!,
                                 item[index].operationType,
                                 Converter().textConverterFromDB(item[index].category!, context, 0),
@@ -654,7 +653,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 Converter().textConverterFromDB(item[index].processOnce!, context, 1),
                                 item[index].realAmount,
                                 item[index].userCategory,
-                                item[index].systemMessage));
+                                item[index].systemMessage),context);
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => AddData(addDataMode: 1),
                             ));
