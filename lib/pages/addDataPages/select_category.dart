@@ -572,6 +572,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                             height: 30,
                                             child:
                                             TextField(
+
                                               onTap: () {
                                                 setState((){
                                                   readAdd.isAdded = 1;

@@ -45,12 +45,12 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
+              /*SizedBox(
                   width: size.width * 0.99,
                   child: Text(
-                      'DEBUG: Type: ${readAdd.operationType.text} - Reg: ${int.parse(readAdd.registration.text)} - RegController: ${readAdd.regsController} - Category: ${readAdd.category.text} - ConvertedCategory ${readAdd.convertedCategory} - UserCategory: ${readAdd.userCategoryController} - Tool: ${readAdd.operationTool.text} - Amount: ${readAdd.amount.text} - Not: ${readAdd.note.text} - Date: ${readAdd.operationDate.text} -${readAdd.customize.text} - ${readAdd.convertedCustomize} - ${readAdd.selectedCustomizeMenu} - ${readAdd.moneyType.text}',
+                      'DEBUG: Type: ${readAdd.operationType.text} - Reg: ${int.parse(readAdd.registration.text)} - RegController: ${readAdd.regsController} - Category: ${readAdd.category.text} - ConvertedCategory ${readAdd.convertedCategory} - UserCategory: ${readAdd.userCategoryController} - Tool: ${readAdd.operationTool.text} - Amount: ${readAdd.amount.text} - Not: ${readAdd.note.text} - Date: ${readAdd.operationDate.text} - Customize: ${readAdd.customize.text} - ConvertedCustomize: ${readAdd.convertedCustomize} - SelectedC ${readAdd.selectedValueCustomize} - ${readAdd.selectedCustomizeMenu} - ${readAdd.moneyType.text}',
                       style: const TextStyle(
-                          color: Colors.red,fontSize: 11, fontFamily: 'TL'))),
+                          color: Colors.red,fontSize: 11, fontFamily: 'TL'))),*/
               SizedBox(height: 8,),
               getRow("Türü", typeCustomButton(context)),
               SizedBox(height: 16,),
@@ -62,7 +62,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
               SizedBox(height: 16,),
               getRow("Kategorisi", categoryBarCustom(context)),
               SizedBox(height: 16,),
-              getRow("Notu", noteCustomButton(context)),
+              getRow("Notu", noteBarCustom(context)),
               SizedBox(height: 16,),
               getRow("İşlemi Kaydet", regCustomButton(context)),
               SizedBox(height: 16,),
@@ -458,41 +458,109 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
       ),);
   }
 
-  Widget noteCustomButton(BuildContext context) {
+  Widget noteBarCustom(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var readHome = ref.read(homeRiverpod);
     var readAdd = ref.read(addDataRiverpod);
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 24),
-        child: Column(
-          children: [
-            getTextFormField(translation(context).clickToAddNote,readAdd.maxLength,2,readAdd.note),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Visibility(
-                  visible: readAdd.note.text.isNotEmpty,
-                  child: getDecoratedBox(boxColor :Theme.of(context).canvasColor, 60, 18,
-                    BorderRadius.all(Radius.circular(5)),
-                    child : GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          readAdd.note.text = "";
-                        });
-                      },
-                      child: Center(
-                        child: getLineText(translation(context).delete,Theme.of(context).primaryColor,11,fontFamily: "Nexa3",weight: FontWeight.w200),
-                      ),
+      child: Row(
+        children: [
+          SizedBox(width: 80,),
+          Expanded(
+            child: Container(
+              height: 30,
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: Theme.of(context).highlightColor,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(10))
+              ),
+              child: InkWell(
+                highlightColor: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(30),
+                child: Center(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      readAdd.note.text == ""
+                          ? translation(context).clickToAddNote
+                          : readAdd.note.text,
+                      style: TextStyle(
+                          height: 1,
+                          fontSize: 14,
+                          fontFamily: 'Nexa3',
+                          color: Theme.of(context).canvasColor),
+                      maxLines: 1,
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 18,
-                    child: Center(child: getLineText('${readAdd.note.text.length}/${readAdd.maxLength.toString()}', Theme.of(context).canvasColor, 12,fontFamily: "Nexa3",weight: FontWeight.w800,backgroundColor: Theme.of(context).splashColor))),
-              ],
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return StatefulBuilder(
+                        builder: (context, setState) {
+                          return AlertDialog(
+                            contentPadding: const EdgeInsets.only(
+                                top: 12, bottom: 12),
+                            insetPadding: const EdgeInsets.symmetric(
+                                horizontal: 12),
+                            backgroundColor: Theme.of(context).primaryColor,
+                            shadowColor: Colors.black54,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(10))),
+                            content: noteCustomButton(context),
+                          );
+                        },
+                      );
+                    },
+                  ).then((_) => setState(() {}));
+                },
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget noteCustomButton(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var readAdd = ref.read(addDataRiverpod);
+    return Padding(
+      padding: const EdgeInsets.only(left: 12,right: 12),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          getTextFormField(translation(context).clickToAddNote,readAdd.maxLength,3,readAdd.note),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Visibility(
+                visible: readAdd.note.text.isNotEmpty,
+                child: getDecoratedBox(boxColor :Theme.of(context).canvasColor, 60, 22,
+                  BorderRadius.all(Radius.circular(5)),
+                  child : GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        readAdd.note.text = "";
+                      });
+                    },
+                    child: Center(
+                      child: getLineText(translation(context).delete,Theme.of(context).primaryColor,11,fontFamily: "Nexa3",weight: FontWeight.w200),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 22,
+                  child: Center(child: getLineText('${readAdd.note.text.length}/${readAdd.maxLength.toString()}', Theme.of(context).canvasColor, 12,fontFamily: "Nexa3",weight: FontWeight.w800,backgroundColor: Theme.of(context).splashColor))),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -501,7 +569,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
     return Padding(
       padding: padding ?? EdgeInsets.zero,
       child: TextFormField(
-        textAlign: TextAlign.end,
+        textAlign: TextAlign.start,
         decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(
@@ -927,10 +995,11 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
         ),
       ),
       onTap: () {
+        /*
         setState(() {
           readAdd.customize.clear();
           readAdd.selectedValueCustomize = null;
-        });
+        });*/
         showDialog(
           context: context,
           builder: (context) {

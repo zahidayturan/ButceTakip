@@ -66,6 +66,7 @@ class AddDataRiverpod extends ChangeNotifier{
     categoryColorChanger = 999;
     regsController = 0;
     registration.text = "0";
+    selectedValueCustomize = null;
   }
 
   SpendInfo? updateOrAgainItems;
@@ -118,9 +119,10 @@ class AddDataRiverpod extends ChangeNotifier{
     moneyType.text = items.moneyType.toString();
 
     customize.text = items.processOnce.toString();
-    selectedValueCustomize;
+    selectedValueCustomize = customize.text;
     bool menuController = _isProcessOnceValidNumber(customize.text);
     menuController == true ? initialLabelIndexCustomize = 1 : initialLabelIndexCustomize = 0;
+    convertedCustomize = Converter().textConverterFromDB(customize.text, context, 1);
 
     realAmount.text = items.realAmount.toString();
     userCategory.text = items.userCategory.toString();
@@ -170,9 +172,10 @@ class AddDataRiverpod extends ChangeNotifier{
     moneyType.text = updateOrAgainItems!.moneyType.toString();
 
     customize.text = updateOrAgainItems!.processOnce.toString();
-    selectedValueCustomize;
+    selectedValueCustomize = customize.text;
     bool menuController = _isProcessOnceValidNumber(customize.text);
     menuController == true ? initialLabelIndexCustomize = 1 : initialLabelIndexCustomize = 0;
+    convertedCustomize = Converter().textConverterFromDB(customize.text, context, 1);
 
     realAmount.text = updateOrAgainItems!.realAmount.toString();
     userCategory.text = updateOrAgainItems!.userCategory.toString();
