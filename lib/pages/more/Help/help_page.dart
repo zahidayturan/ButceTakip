@@ -14,6 +14,7 @@ import 'package:butcekontrol/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../../../app/information_app.dart';
 import '../../../classes/app_bar_for_page.dart';
   import '../../../classes/language.dart';
 import '../../../constans/material_color.dart';
@@ -29,7 +30,6 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
   bool customicom1 = false ;
   bool customicom2 = false ;
   bool customicom3 = false ;
-
 
   CustomColors renkler = CustomColors();
   double heigthsssfirst = 30;
@@ -801,7 +801,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 2),
                                 child: Text(
-                                    "Android 2.1.0v ${translation(context).version2Title} (08.01.2024)",
+                                    "Android ${informationApp.version}v ${translation(context).version2Title} (${informationApp.Date})",
                                     textDirection: TextDirection.ltr,
                                 ),
                               ),

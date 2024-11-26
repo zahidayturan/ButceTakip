@@ -527,6 +527,21 @@ class _assetsPage extends ConsumerState<assetsPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
+                              boxShadow: ref.read(settingsRiverpod).DarkMode == 1 ? [
+                                BoxShadow(
+                                  color: Colors.black54.withOpacity(0.8),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(-1, 2),
+                                )
+                              ] : [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 2)
+                                )
+                              ],
                             color: Theme.of(context).indicatorColor
                           ),
                           child: Column(
@@ -608,7 +623,22 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                 width: 30,
                                 height: 30,
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).shadowColor,
+                                  color: icsclick ? Theme.of(context).shadowColor : Theme.of(context).disabledColor.withOpacity(0.8)  ,
+                                  boxShadow: ref.read(settingsRiverpod).DarkMode == 1 ? [
+                                    BoxShadow(
+                                      color: Colors.black54.withOpacity(0.8),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(-1, 2),
+                                    )
+                                  ] : [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0.5,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2)
+                                    )
+                                  ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Transform.rotate(
