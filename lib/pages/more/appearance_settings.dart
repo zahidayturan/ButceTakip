@@ -50,7 +50,7 @@ class _AppearanceSettingsState extends ConsumerState<AppearanceSettings> {
           child: Scaffold(
             //backgroundColor: const Color(0xffF2F2F2),
             bottomNavigationBar: const NavBar(),
-            appBar: AppBarForPage(title: translation(context).backupTitle),
+            appBar: AppBarForPage(title: "Görünüm Ayarları"),
             body: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(

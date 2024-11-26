@@ -73,6 +73,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                   || title == translation(context).backupTitle
                   || title == translation(context).loginPasswordTitle
                   || title == translation(context).myAssets
+                  || title == "Görünüm Ayarları"
               ?Directionality(
                 textDirection: TextDirection.ltr,
                 child: Icon(
@@ -88,7 +89,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
               ),
               highlightColor: Theme.of(context).indicatorColor,
               onPressed: () async {
-                if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2 || title == translation(context).myAssets){
+                if(title == translation(context).helpTitle || title == translation(context).settingsTitle || title == translation(context).contactUsTitle || title == translation(context).backupTitle || title == translation(context).helpTitle2 || title == translation(context).myAssets || title == "Görünüm Ayarları"){
                   Navigator.of(context).pop();
                 }else if(title == translation(context).loginPasswordTitle) {
                   if(readsetting.isPassword == 1 && readsetting.Password == "null") {
