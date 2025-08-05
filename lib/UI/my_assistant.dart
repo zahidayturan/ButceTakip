@@ -89,7 +89,6 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                     labelRotation: 45,
                                     isVisible: false,
                                     majorGridLines: const MajorGridLines(width: 0), // Ana grid çizgilerini gizler
-                                    minorGridLines: const MinorGridLines(width: 0), // Alt grid çizgilerini gizler
                                     axisLine: const AxisLine(
                                       color: Colors.transparent,
                                     ),
@@ -98,7 +97,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                     minorGridLines: const MinorGridLines(width: 0),
                                     isVisible: false, // Y ekseni görünmez yapılıyor
                                   ),
-                                  series: <ChartSeries>[
+                                  series: <CartesianSeries>[
                                     SplineAreaSeries<Data, String>(
                                       dataSource:  chartData,
                                       xValueMapper:(Data data, _) => data.x,
