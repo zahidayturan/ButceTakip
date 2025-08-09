@@ -331,7 +331,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                       )
                                     :Stack(
                                       children: [
-                                        DChartPie(
+                                        /*DChartPie(
                                           strokeWidth: 1,
                                           showLabelLine: false,
                                           animationDuration: const Duration(milliseconds: 500),
@@ -346,7 +346,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                             return colorsList[index!];
                                           },
                                           donutWidth: 6,
-                                        ),
+                                        ),*/
                                         Positioned(
                                           left: readSettingsRiv.Prefix == "KWD" ? size.width * .07 : readSettingsRiv.Prefix == "JOD" || readSettingsRiv.Prefix == "IQD" ? size.width * .065 : readSettingsRiv.Prefix == "SAR" ? size.width * .06 : size.width * .084,
                                           top:  readSettingsRiv.Prefix == "KWD" || readSettingsRiv.Prefix == "SAR" ? size.height * .033 :  readSettingsRiv.Prefix == "IQD" ? size.height * .032 : size.height * .037,

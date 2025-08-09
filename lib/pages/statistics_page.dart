@@ -2511,7 +2511,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             builder: (context, setState) {
               return Theme(
                 data: Theme.of(context).copyWith(
-                  dialogTheme: DialogTheme(
+                  dialogTheme: DialogThemeData(
                       shadowColor: Colors.black54,
                       //backgroundColor: Theme.of(context).indicatorColor,
                       shape: RoundedRectangleBorder(
@@ -3156,7 +3156,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               ),
             );
           } else {
-            return DChartPie(
+            /*return DChartPie(
               data: item,
               strokeWidth: 1,
               fillColor: (pieData, index) {
@@ -3172,7 +3172,8 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
               labelFontSize: 11,
               labelLinelength: 5,
               labelLineColor: Theme.of(context).canvasColor,
-            );
+            );*/
+            return SizedBox();
           }
         });
   }

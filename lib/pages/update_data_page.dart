@@ -2337,7 +2337,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           FocusScope.of(context).unfocus();
           return Theme(
             data: Theme.of(context).copyWith(
-              dialogTheme: DialogTheme(
+              dialogTheme: DialogThemeData(
                   shadowColor: Colors.black54,
                   backgroundColor: Theme.of(context).indicatorColor,
                   shape: RoundedRectangleBorder(

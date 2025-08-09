@@ -341,7 +341,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
           FocusScope.of(context).unfocus();
           return Theme(
             data: Theme.of(context).copyWith(
-            dialogTheme: DialogTheme(
+            dialogTheme: DialogThemeData(
                 shadowColor: Colors.black54,
                   backgroundColor: Theme.of(context).indicatorColor,
                   shape: const RoundedRectangleBorder(

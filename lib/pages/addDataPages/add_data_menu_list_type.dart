@@ -200,7 +200,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
           FocusScope.of(context).unfocus();
           return Theme(
             data: Theme.of(context).copyWith(
-              dialogTheme: DialogTheme(
+              dialogTheme: DialogThemeData(
                   shadowColor: Colors.black54,
                   backgroundColor: Theme.of(context).indicatorColor,
                   shape: const RoundedRectangleBorder(
@@ -325,7 +325,7 @@ class _AddDataMenuListType extends ConsumerState<AddDataMenuListType> {
           FocusScope.of(context).unfocus();
           return Theme(
             data: Theme.of(context).copyWith(
-              dialogTheme: DialogTheme(
+              dialogTheme: DialogThemeData(
                   shadowColor: Colors.black54,
                   backgroundColor: Theme.of(context).indicatorColor,
                   shape: const RoundedRectangleBorder(

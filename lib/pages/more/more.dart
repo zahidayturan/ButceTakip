@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcekontrol/constans/material_color.dart';
 import 'package:butcekontrol/constans/text_pref.dart';
-import 'package:flutter_share/flutter_share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../riverpod_management.dart';
 import 'Help/help_page.dart';
@@ -40,12 +39,12 @@ class More extends ConsumerWidget {
   );
    */
   Future<void> shareButceTakip(BuildContext context) async {
-    await FlutterShare.share(
+    /*await FlutterShare.share(
         title: translation(context).download,
         text: translation(context).heyDoYouWantManage,
         linkUrl: 'https://play.google.com/store/apps/details?id=com.fezaitech.butcetakip',
         chooserTitle: 'Bütçe Takip',
-    );
+    );*/
   }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
