@@ -990,7 +990,6 @@ class _assetsPage extends ConsumerState<assetsPage> {
                 isVisible: false,
                 majorGridLines: const MajorGridLines(width: 0),
                 // Ana grid çizgilerini gizler
-                minorGridLines: const MinorGridLines(width: 0),
                 // Alt grid çizgilerini gizler
                 axisLine: const AxisLine(
                   color: Colors.transparent,
@@ -1004,7 +1003,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                   fontFamily: "Nexa3",
                 )
               ),
-              series: <ChartSeries>[
+              series: <CartesianSeries>[
                 SplineAreaSeries<Data, String>(
                   dataSource: getDataSet(item),
                   xValueMapper: (Data data, _) => data.x,

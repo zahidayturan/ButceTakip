@@ -162,7 +162,6 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                      primaryXAxis: CategoryAxis(
                        labelRotation: 45,
                        majorGridLines: const MajorGridLines(width: 0), // Ana grid çizgilerini gizler
-                       minorGridLines: const MinorGridLines(width: 0), // Alt grid çizgilerini gizler
                        axisLine: const AxisLine(
                          color: Colors.transparent,
                        ),
@@ -181,8 +180,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                        duration: 1600,
                      ),
 
-                     series: <ChartSeries>[
-
+                     series: <CartesianSeries>[
                        SplineAreaSeries<Data, String>(
                           dataSource:  getDataSet(readCategoryInfo.getDataType(), item),
                            xValueMapper:(Data data, _) => data.x,
@@ -241,7 +239,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                             width: 5,
                             height: 5,
                           ),
-                          isVisible: true,
+                          isVisibleInLegend: true,
                           xValueMapper:(Data data, _) => data.x,
                           yValueMapper: (Data data, _) => data.y,
                        )

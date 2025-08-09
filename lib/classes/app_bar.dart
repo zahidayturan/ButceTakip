@@ -185,6 +185,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
             child: InkWell(
               onLongPress: () {
                 readSetting.setDarkModeNotBool();
+                readSetting.setisuseinsert();
                 readHome.setStatus();
               },
               onTap:() {
