@@ -1,4 +1,4 @@
-import 'package:butcekontrol/models/currency_info.dart';
+import 'package:butcetakip/models/currency_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 

@@ -1,13 +1,13 @@
-import 'package:butcekontrol/pages/addDataPages/add_data_page.dart';
-import 'package:butcekontrol/riverpod_management.dart';
-import 'package:butcekontrol/utils/date_time_manager.dart';
-import 'package:butcekontrol/utils/textConverter.dart';
+import 'package:butcetakip/pages/addDataPages/add_data_page.dart';
+import 'package:butcetakip/riverpod_management.dart';
+import 'package:butcetakip/utils/date_time_manager.dart';
+import 'package:butcetakip/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../constans/material_color.dart';
 import '../models/spend_info.dart';
-import 'package:butcekontrol/classes/language.dart';
+import 'package:butcetakip/classes/language.dart';
 
 ///örnek kullanım
 /*

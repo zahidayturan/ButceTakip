@@ -1,6 +1,6 @@
-import 'package:butcekontrol/models/currency_info.dart';
-import 'package:butcekontrol/models/settings_info.dart';
-import 'package:butcekontrol/utils/firestore_helper.dart';
+import 'package:butcetakip/models/currency_info.dart';
+import 'package:butcetakip/models/settings_info.dart';
+import 'package:butcetakip/utils/firestore_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

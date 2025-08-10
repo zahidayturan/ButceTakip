@@ -1,9 +1,9 @@
-import 'package:butcekontrol/Pages/more/Help/help_footer.dart';
-import 'package:butcekontrol/classes/app_bar_for_page.dart';
-import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/constans/fezai_checkbox.dart';
-import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/utils/banner_ads.dart';
+import 'package:butcetakip/Pages/more/Help/help_footer.dart';
+import 'package:butcetakip/classes/app_bar_for_page.dart';
+import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/constans/fezai_checkbox.dart';
+import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/utils/banner_ads.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';

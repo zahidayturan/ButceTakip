@@ -1,7 +1,7 @@
-import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/riverpod_management.dart';
-import 'package:butcekontrol/utils/textConverter.dart';
+import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/riverpod_management.dart';
+import 'package:butcetakip/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

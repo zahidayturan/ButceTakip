@@ -1,5 +1,5 @@
-import 'package:butcekontrol/classes/app_bar.dart';
-import 'package:butcekontrol/classes/nav_bar.dart';
+import 'package:butcetakip/classes/app_bar.dart';
+import 'package:butcetakip/classes/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../UI/monthly_info.dart';

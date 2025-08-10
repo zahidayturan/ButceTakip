@@ -1,5 +1,5 @@
-import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/utils/interstitial_ads.dart';
+import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

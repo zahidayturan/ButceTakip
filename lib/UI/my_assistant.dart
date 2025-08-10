@@ -1,7 +1,7 @@
-import 'package:butcekontrol/UI/general_info.dart';
-import 'package:butcekontrol/UI/spend_detail.dart';
+import 'package:butcetakip/UI/general_info.dart';
+import 'package:butcetakip/UI/spend_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:butcekontrol/classes/language.dart';
+import 'package:butcetakip/classes/language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

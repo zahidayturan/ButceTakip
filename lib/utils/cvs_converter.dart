@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:butcekontrol/models/spend_info.dart';
-import 'package:butcekontrol/utils/android_ino.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
+import 'package:butcetakip/models/spend_info.dart';
+import 'package:butcetakip/utils/android_ino.dart';
+import 'package:butcetakip/utils/db_helper.dart';
 import 'package:csv/csv.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';

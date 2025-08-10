@@ -1,5 +1,5 @@
-import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/pages/addDataPages/add_data_page.dart';
+import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/pages/addDataPages/add_data_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../riverpod_management.dart';

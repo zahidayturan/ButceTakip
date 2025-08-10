@@ -1,4 +1,4 @@
-import 'package:butcekontrol/utils/banner_ads.dart';
+import 'package:butcetakip/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toggle_switch/toggle_switch.dart';

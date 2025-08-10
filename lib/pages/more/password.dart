@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:butcekontrol/classes/app_bar_for_page.dart';
-import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/constans/text_pref.dart';
+import 'package:butcetakip/classes/app_bar_for_page.dart';
+import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/constans/text_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,9 +1,9 @@
-import 'package:butcekontrol/UI/spend_detail.dart';
-import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/constans/text_pref.dart';
-import 'package:butcekontrol/models/spend_info.dart';
-import 'package:butcekontrol/utils/interstitial_ads.dart';
+import 'package:butcetakip/UI/spend_detail.dart';
+import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/constans/text_pref.dart';
+import 'package:butcetakip/models/spend_info.dart';
+import 'package:butcetakip/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

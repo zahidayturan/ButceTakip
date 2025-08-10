@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:butcekontrol/UI/change_currency_page.dart';
-import 'package:butcekontrol/classes/app_bar_for_page.dart';
-import 'package:butcekontrol/classes/nav_bar.dart';
-import 'package:butcekontrol/constans/text_pref.dart';
-import 'package:butcekontrol/models/spend_info.dart';
-import 'package:butcekontrol/riverpod_management.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
-import 'package:butcekontrol/utils/textConverter.dart';
+import 'package:butcetakip/UI/change_currency_page.dart';
+import 'package:butcetakip/classes/app_bar_for_page.dart';
+import 'package:butcetakip/classes/nav_bar.dart';
+import 'package:butcetakip/constans/text_pref.dart';
+import 'package:butcetakip/models/spend_info.dart';
+import 'package:butcetakip/riverpod_management.dart';
+import 'package:butcetakip/utils/db_helper.dart';
+import 'package:butcetakip/utils/textConverter.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

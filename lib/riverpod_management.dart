@@ -1,10 +1,10 @@
-import 'package:butcekontrol/Riverpod/update_data_riverpod.dart';
-import 'package:butcekontrol/Riverpod/appbar_type_2_riverpod.dart';
-import 'package:butcekontrol/Riverpod/settings_riverpod.dart';
-import 'package:butcekontrol/riverpod/add_data_riverpod.dart';
-import 'package:butcekontrol/riverpod/currency_riverpod.dart';
-import 'package:butcekontrol/riverpod/ggl_drive_riverpod.dart';
-import 'package:butcekontrol/riverpod/montly_info_riverpod.dart';
+import 'package:butcetakip/Riverpod/update_data_riverpod.dart';
+import 'package:butcetakip/Riverpod/appbar_type_2_riverpod.dart';
+import 'package:butcetakip/Riverpod/settings_riverpod.dart';
+import 'package:butcetakip/riverpod/add_data_riverpod.dart';
+import 'package:butcetakip/riverpod/currency_riverpod.dart';
+import 'package:butcetakip/riverpod/ggl_drive_riverpod.dart';
+import 'package:butcetakip/riverpod/montly_info_riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'Riverpod/bottom_nav_bar_riverpod.dart';
 import 'Riverpod/database_provider.dart';

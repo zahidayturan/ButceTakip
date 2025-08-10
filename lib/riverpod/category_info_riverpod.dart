@@ -1,4 +1,4 @@
-import 'package:butcekontrol/classes/language.dart';
+import 'package:butcetakip/classes/language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';

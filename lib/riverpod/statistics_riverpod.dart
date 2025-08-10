@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/models/spend_info.dart';
-import 'package:butcekontrol/utils/date_time_manager.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
+import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/models/spend_info.dart';
+import 'package:butcetakip/utils/date_time_manager.dart';
+import 'package:butcetakip/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';

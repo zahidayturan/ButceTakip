@@ -1,6 +1,6 @@
-import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

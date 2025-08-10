@@ -1,8 +1,8 @@
-import 'package:butcekontrol/constans/fezai_checkbox.dart';
-import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/models/currency_info.dart';
-import 'package:butcekontrol/utils/firestore_helper.dart';
+import 'package:butcetakip/constans/fezai_checkbox.dart';
+import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/models/currency_info.dart';
+import 'package:butcetakip/utils/firestore_helper.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

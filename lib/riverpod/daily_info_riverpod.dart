@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import '../models/spend_info.dart';
 import '../utils/db_helper.dart';
-import 'package:butcekontrol/classes/language.dart';
+import 'package:butcetakip/classes/language.dart';
 
 
 class DailyInfoRiverpod extends ChangeNotifier {

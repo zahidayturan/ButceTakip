@@ -1,6 +1,6 @@
-import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/utils/interstitial_ads.dart';
-import 'package:butcekontrol/utils/textConverter.dart';
+import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/utils/interstitial_ads.dart';
+import 'package:butcetakip/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:toggle_switch/toggle_switch.dart';
 import '../riverpod_management.dart';
-import 'package:butcekontrol/classes/language.dart';
+import 'package:butcetakip/classes/language.dart';
 
 class UpdateData extends StatefulWidget {
   const UpdateData({Key? key}) : super(key: key);

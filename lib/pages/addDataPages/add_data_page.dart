@@ -1,14 +1,14 @@
-import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/models/spend_info.dart';
-import 'package:butcekontrol/pages/addDataPages/add_data_app_bar.dart';
-import 'package:butcekontrol/pages/addDataPages/add_data_menu_list_type.dart';
-import 'package:butcekontrol/pages/addDataPages/add_data_menu_table_type.dart';
-import 'package:butcekontrol/riverpod_management.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
-import 'package:butcekontrol/utils/interstitial_ads.dart';
-import 'package:butcekontrol/utils/textConverter.dart';
-import 'package:butcekontrol/utils/textConverter.dart';
+import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/models/spend_info.dart';
+import 'package:butcetakip/pages/addDataPages/add_data_app_bar.dart';
+import 'package:butcetakip/pages/addDataPages/add_data_menu_list_type.dart';
+import 'package:butcetakip/pages/addDataPages/add_data_menu_table_type.dart';
+import 'package:butcetakip/riverpod_management.dart';
+import 'package:butcetakip/utils/db_helper.dart';
+import 'package:butcetakip/utils/interstitial_ads.dart';
+import 'package:butcetakip/utils/textConverter.dart';
+import 'package:butcetakip/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

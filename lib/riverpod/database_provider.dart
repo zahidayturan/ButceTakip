@@ -1,6 +1,6 @@
-import 'package:butcekontrol/riverpod_management.dart';
-import 'package:butcekontrol/utils/date_time_manager.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
+import 'package:butcetakip/riverpod_management.dart';
+import 'package:butcetakip/utils/date_time_manager.dart';
+import 'package:butcetakip/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:googleapis/cloudsearch/v1.dart';

@@ -1,8 +1,8 @@
-import 'package:butcekontrol/Pages/calculator_page.dart';
-import 'package:butcekontrol/Pages/home_page.dart';
-import 'package:butcekontrol/Pages/calendar_page.dart';
-import 'package:butcekontrol/Pages/more/more.dart';
-import 'package:butcekontrol/Pages/statistics_page.dart';
+import 'package:butcetakip/Pages/calculator_page.dart';
+import 'package:butcetakip/Pages/home_page.dart';
+import 'package:butcetakip/Pages/calendar_page.dart';
+import 'package:butcetakip/Pages/more/more.dart';
+import 'package:butcetakip/Pages/statistics_page.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBarRiverpod extends ChangeNotifier { //statelesswidget

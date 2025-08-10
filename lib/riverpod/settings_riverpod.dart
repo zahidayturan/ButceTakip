@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/models/settings_info.dart';
-import 'package:butcekontrol/utils/db_helper.dart';
+import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/models/settings_info.dart';
+import 'package:butcetakip/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';

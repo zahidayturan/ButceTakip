@@ -1,8 +1,8 @@
-import 'package:butcekontrol/classes/language.dart';
-import 'package:butcekontrol/constans/material_color.dart';
-import 'package:butcekontrol/pages/addDataPages/add_customize.dart';
-import 'package:butcekontrol/pages/addDataPages/select_category.dart';
-import 'package:butcekontrol/riverpod_management.dart';
+import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/pages/addDataPages/add_customize.dart';
+import 'package:butcetakip/pages/addDataPages/select_category.dart';
+import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

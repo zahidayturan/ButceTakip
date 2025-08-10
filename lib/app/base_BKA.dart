@@ -1,10 +1,10 @@
-import 'package:butcekontrol/UI/app_status.dart';
-import 'package:butcekontrol/UI/introduction_page.dart';
-import 'package:butcekontrol/UI/my_assistant.dart';
-import 'package:butcekontrol/app/information_app.dart';
-import 'package:butcekontrol/classes/nav_bar.dart';
-import 'package:butcekontrol/utils/notification_service.dart';
-import 'package:butcekontrol/utils/security_file.dart';
+import 'package:butcetakip/UI/app_status.dart';
+import 'package:butcetakip/UI/introduction_page.dart';
+import 'package:butcetakip/UI/my_assistant.dart';
+import 'package:butcetakip/app/information_app.dart';
+import 'package:butcetakip/classes/nav_bar.dart';
+import 'package:butcetakip/utils/notification_service.dart';
+import 'package:butcetakip/utils/security_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../Pages/more/password_splash.dart';
