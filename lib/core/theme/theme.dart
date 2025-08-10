@@ -10,6 +10,7 @@ class AppTheme {
 
   static ThemeData lightTheme = ThemeData(
       primaryColor: colors.blackBg,
+      primaryColorLight: colors.white,
       useMaterial3: false,
       fontFamily: "FontMedium",
       scaffoldBackgroundColor: colors.whiteBg,
@@ -18,6 +19,7 @@ class AppTheme {
 
   static ThemeData darkTheme = ThemeData(
       primaryColor: colors.whiteBg,
+      primaryColorLight: colors.black,
       useMaterial3: false,
       fontFamily: "FontMedium",
       scaffoldBackgroundColor: colors.blackBg,
