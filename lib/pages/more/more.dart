@@ -1,5 +1,5 @@
 import 'package:butcetakip/Pages/more/communicate.dart';
-import 'package:butcetakip/app/information_app.dart';
+import 'package:butcetakip/core/app_info.dart';
 import 'package:butcetakip/classes/app_bar_for_page.dart';
 import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/pages/more/assets_page.dart';
@@ -442,7 +442,7 @@ class More extends ConsumerWidget {
 
                                 DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
                                 AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-                                print('Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Language: ${readSetting.Language} \nVersion: ${informationApp.version}\n\n${translation(context).write}');
+                                print('Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Language: ${readSetting.Language} \nVersion: ${AppInfo.version}\n\n${translation(context).write}');
                                 String? encodeQueryParameters(Map<String, String> params) {
                                   return params.entries
                                       .map((MapEntry<String, String> e) =>
@@ -454,7 +454,7 @@ class More extends ConsumerWidget {
                                   path: 'fezaitech@gmail.com',
                                   query: encodeQueryParameters(<String, String>{
                                     'subject': 'Bütçe Takip Öneri/Hata Bildirimi',
-                                    'body' : 'Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Language: ${readSetting.Language} \nVersion: ${informationApp.version}\n\n${translation(context).write}'
+                                    'body' : 'Phone Model: ${androidInfo.manufacturer}/${androidInfo.model} \nAndroid Version: ${androidInfo.version.release} \n Language: ${readSetting.Language} \nVersion: ${AppInfo.version}\n\n${translation(context).write}'
 
                                   }),
                                 );
@@ -619,7 +619,7 @@ class More extends ConsumerWidget {
                           height: 70,
                         ),
                         const SizedBox(height: 8),
-                        TextMod("${translation(context).version}  ${informationApp.version}", Theme.of(context).canvasColor, 13),
+                        TextMod("${translation(context).version}  ${AppInfo.version}", Theme.of(context).canvasColor, 13),
                         const SizedBox(height: 2),
                         TextMod("FezaiTech", Theme.of(context).canvasColor, 13),
                       ],

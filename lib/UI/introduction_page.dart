@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:app_settings/app_settings.dart';
-import 'package:butcetakip/App/base_BKA.dart';
 import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/constans/material_color.dart';
 import 'package:butcetakip/models/spend_info.dart';
@@ -11,10 +10,11 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../app/base_home.dart';
 
 class IntroductionPage extends ConsumerStatefulWidget {
   const IntroductionPage({Key? key}) : super(key: key);
@@ -2193,7 +2193,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
     final bool? showBTA = prefs.getBool("showBTA");
     print(showBTA);
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => base_BKA(showBTA: true, appInfo:{"appInfoString": securityFile().noBackup, "version": "1.0.0"}))
+        MaterialPageRoute(builder: (context) => BaseHome(showBTA: true, appInfo:{"appInfoString": securityFile().noBackup, "version": "1.0.0"}))
     );
   }
 
@@ -2280,7 +2280,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
               await prefs.setBool("showBTA", true);
               final bool? showBTA = prefs.getBool("showBTA");
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => base_BKA(showBTA: true,appInfo:{"appInfoString": securityFile().noBackup, "version": "1.0.0"})));
+                  builder: (context) => BaseHome(showBTA: true,appInfo:{"appInfoString": securityFile().noBackup, "version": "1.0.0"})));
             },
             child: Padding(
               padding: const EdgeInsets.only(bottom: 80),

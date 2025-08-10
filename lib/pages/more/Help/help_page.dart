@@ -14,7 +14,7 @@ import 'package:butcetakip/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import '../../../app/information_app.dart';
+import '../../../core/app_info.dart';
 import '../../../classes/app_bar_for_page.dart';
   import '../../../classes/language.dart';
 import '../../../constans/material_color.dart';
@@ -801,7 +801,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 2),
                                 child: Text(
-                                    "Android ${informationApp.version}v ${translation(context).version2Title} (${informationApp.Date})",
+                                    "Android ${AppInfo.version}v ${translation(context).version2Title} (${AppInfo.versionUpdateDate})",
                                     textDirection: TextDirection.ltr,
                                 ),
                               ),
