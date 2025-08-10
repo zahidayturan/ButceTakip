@@ -4,7 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../../../classes/app_bar_for_page.dart';
 import '../../../classes/language.dart';
-import '../../../constans/material_color.dart';
+import '../../../constants/material_color.dart';
 import '../../../utils/textConverter.dart';
 import 'help_footer.dart';
 

@@ -17,7 +17,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../../core/app_info.dart';
 import '../../../classes/app_bar_for_page.dart';
   import '../../../classes/language.dart';
-import '../../../constans/material_color.dart';
+import '../../../constants/material_color.dart';
 
 class HelpCenter extends ConsumerStatefulWidget {
   const HelpCenter({Key? key}) : super(key: key);

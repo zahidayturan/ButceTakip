@@ -1,7 +1,7 @@
-import 'package:butcetakip/constans/material_color.dart';
 import 'package:butcetakip/features/addData/add_data_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../constants/material_color.dart';
 import '../riverpod_management.dart';
 
 class NavBar extends ConsumerWidget {

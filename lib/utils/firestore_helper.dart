@@ -1,6 +1,8 @@
-import 'package:butcetakip/models/currency_info.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+
+import '../app/data/models/currency_info.dart';
 
 class firestoreHelper {
   List<currencyInfo> currenciesList = [];

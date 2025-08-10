@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:butcetakip/classes/app_bar_for_page.dart';
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/constans/text_pref.dart';
+import 'package:butcetakip/constants/text_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../UI/rename_SecQu.dart';
-import '../../constans/material_color.dart';
+import '../../constants/material_color.dart';
 import '../../riverpod_management.dart';
 
 class PasswordPage extends ConsumerStatefulWidget {

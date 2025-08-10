@@ -1,7 +1,8 @@
-import 'package:butcetakip/models/spend_info.dart';
 import 'package:butcetakip/utils/date_time_manager.dart';
 import 'package:butcetakip/utils/textConverter.dart';
 import 'package:flutter/material.dart';
+
+import '../../../app/data/models/spend_info.dart';
 
 class AddDataRiverpod extends ChangeNotifier{
 

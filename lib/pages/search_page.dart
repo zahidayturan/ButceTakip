@@ -1,6 +1,6 @@
 import 'package:butcetakip/UI/spend_detail.dart';
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

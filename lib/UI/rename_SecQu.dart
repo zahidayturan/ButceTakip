@@ -1,12 +1,9 @@
-import 'package:butcetakip/constans/material_color.dart';
+import '../constants/material_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 import '../classes/language.dart';
-import '../models/spend_info.dart';
 import '../riverpod_management.dart';
-import '../utils/db_helper.dart';
 
 class renameSecQu extends ConsumerStatefulWidget {
   const renameSecQu({Key? key}) : super(key: key);

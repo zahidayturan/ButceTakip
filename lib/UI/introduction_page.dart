@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:app_settings/app_settings.dart';
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/constans/material_color.dart';
-import 'package:butcetakip/models/spend_info.dart';
+import '../app/data/models/spend_info.dart';
+import '../constants/material_color.dart';
+
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:butcetakip/utils/db_helper.dart';
 import 'package:butcetakip/utils/security_file.dart';

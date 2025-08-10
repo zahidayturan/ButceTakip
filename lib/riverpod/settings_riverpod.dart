@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/models/settings_info.dart';
 import 'package:butcetakip/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../app/data/models/settings_info.dart';
 import '../utils/cvs_converter.dart';
 
 class SettingsRiverpod extends ChangeNotifier{

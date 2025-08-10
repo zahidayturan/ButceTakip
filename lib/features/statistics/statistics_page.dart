@@ -1,5 +1,5 @@
 import 'package:butcetakip/classes/app_bar_for_page.dart';
-import 'package:butcetakip/constans/material_color.dart';
+import '../../../constants/material_color.dart';
 import 'package:butcetakip/pages/category_info_page.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:butcetakip/utils/interstitial_ads.dart';

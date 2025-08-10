@@ -1,8 +1,9 @@
 import 'package:butcetakip/UI/spend_detail.dart';
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/constans/material_color.dart';
-import 'package:butcetakip/constans/text_pref.dart';
-import 'package:butcetakip/models/spend_info.dart';
+import '../app/data/models/spend_info.dart';
+import '../constants/material_color.dart';
+import 'package:butcetakip/constants/text_pref.dart';
+
 import 'package:butcetakip/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

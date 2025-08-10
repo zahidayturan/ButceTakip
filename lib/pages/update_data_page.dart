@@ -1,4 +1,4 @@
-import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/utils/interstitial_ads.dart';
 import 'package:butcetakip/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';

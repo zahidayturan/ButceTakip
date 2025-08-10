@@ -1,7 +1,7 @@
 import 'package:butcetakip/UI/check_user_delete.dart';
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/constans/material_color.dart';
-import 'package:butcetakip/constans/text_pref.dart';
+import 'package:butcetakip/constants/material_color.dart';
+import 'package:butcetakip/constants/text_pref.dart';
 import 'package:butcetakip/pages/more/Help/help_backup.dart';
 import 'package:butcetakip/utils/banner_ads.dart';
 import 'package:butcetakip/utils/cvs_converter.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import '../models/spend_info.dart';
+import '../app/data/models/spend_info.dart';
 import '../utils/db_helper.dart';
 import 'package:butcetakip/classes/language.dart';
 

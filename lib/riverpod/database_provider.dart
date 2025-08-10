@@ -3,9 +3,8 @@ import 'package:butcetakip/utils/date_time_manager.dart';
 import 'package:butcetakip/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:googleapis/cloudsearch/v1.dart';
-import '../models/spend_info.dart';
 import 'package:collection/collection.dart';
+import '../app/data/models/spend_info.dart';
 
 class DbProvider extends ChangeNotifier {
   bool isuseinsert = false ;

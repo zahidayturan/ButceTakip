@@ -1,6 +1,6 @@
 import 'package:butcetakip/UI/spend_detail.dart';
-import 'package:butcetakip/constans/material_color.dart';
-import 'package:butcetakip/models/spend_info.dart';
+import '../app/data/models/spend_info.dart';
+import '../constants/material_color.dart';
 import 'package:butcetakip/pages/daily_info_page.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:butcetakip/utils/textConverter.dart';

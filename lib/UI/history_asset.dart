@@ -1,11 +1,11 @@
-import 'package:butcetakip/constans/material_color.dart';
-import 'package:butcetakip/models/spend_info.dart';
+import '../app/data/models/spend_info.dart';
+import '../constants/material_color.dart';
 import 'package:butcetakip/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../classes/language.dart';
-import '../constans/text_pref.dart';
+import '../constants/text_pref.dart';
 import '../riverpod_management.dart';
 
 class HistoryAsset extends ConsumerStatefulWidget{

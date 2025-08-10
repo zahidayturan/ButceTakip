@@ -1,10 +1,9 @@
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:core';
 import 'package:intl/intl.dart';
-import '../models/spend_info.dart';
+import '../app/data/models/spend_info.dart';
 import '../utils/db_helper.dart';
 import 'package:butcetakip/classes/language.dart';
 

@@ -3,7 +3,7 @@ import 'package:butcetakip/UI/my_assistant.dart';
 import 'package:butcetakip/classes/app_bar_for_page.dart';
 import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/classes/nav_bar.dart';
-import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/pages/more/appearance_settings.dart';
 import 'package:butcetakip/pages/more/password.dart';
 import 'package:butcetakip/riverpod_management.dart';

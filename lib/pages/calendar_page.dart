@@ -1,5 +1,5 @@
 import 'package:butcetakip/classes/app_bar_for_page.dart';
-import 'package:butcetakip/constans/material_color.dart';
+import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/pages/daily_info_page.dart';
 import 'package:butcetakip/pages/more/settings.dart';
 import 'package:butcetakip/utils/date_time_manager.dart';

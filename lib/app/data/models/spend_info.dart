@@ -1,9 +1,3 @@
-import 'package:butcetakip/Riverpod/settings_riverpod.dart';
-import 'package:butcetakip/riverpod/currency_riverpod.dart';
-import 'package:flutter/material.dart';
-
-import '../riverpod_management.dart';
-
 class SpendInfo {
   int ?id ;
   String ?operationType;

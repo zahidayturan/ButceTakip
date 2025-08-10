@@ -1,12 +1,12 @@
-import 'package:butcetakip/models/currency_info.dart';
-import 'package:butcetakip/models/settings_info.dart';
 import 'package:butcetakip/utils/firestore_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:ntp/ntp.dart';
-import '../models/spend_info.dart';
+import '../app/data/models/currency_info.dart';
+import '../app/data/models/settings_info.dart';
+import '../app/data/models/spend_info.dart';
 import '../utils/db_helper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -67,8 +67,11 @@ class CurrencyRiverpod extends ChangeNotifier {
 
       await firestoreHelper.getHistoryCurrency().then((value) {
         ///küçükten büyüğe doğru sıraladık.
-        value.sort((a, b) => DateTime.tryParse(a.lastApiUpdateDate!)!.compareTo(DateTime.tryParse(b.lastApiUpdateDate!)!));
-        currenciesAllHistory = value ;
+        if(value.isNotEmpty){
+          value.sort((a, b) => DateTime.tryParse(a.lastApiUpdateDate!)!.compareTo(DateTime.tryParse(b.lastApiUpdateDate!)!));
+          currenciesAllHistory = value ;
+        }
+
       });
       print("********************");
       currenciesAllHistory.forEach((element) async {

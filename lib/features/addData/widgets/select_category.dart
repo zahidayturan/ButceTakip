@@ -1,5 +1,5 @@
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/constans/material_color.dart';
+import '../../../constants/material_color.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:butcetakip/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';

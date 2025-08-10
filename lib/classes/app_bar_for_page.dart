@@ -1,8 +1,8 @@
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/constans/material_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../constans/text_pref.dart';
+import '../constants/material_color.dart';
+import '../constants/text_pref.dart';
 import '../riverpod_management.dart';
 
 class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {

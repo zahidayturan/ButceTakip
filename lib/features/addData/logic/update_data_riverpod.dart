@@ -1,7 +1,7 @@
-import 'package:butcetakip/models/spend_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/data/models/spend_info.dart';
 import '../../../riverpod_management.dart';
 import '../../../utils/date_time_manager.dart';
 import '../../../utils/db_helper.dart';

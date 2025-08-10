@@ -5,8 +5,8 @@ import 'package:butcetakip/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../constans/material_color.dart';
-import '../models/spend_info.dart';
+import '../app/data/models/spend_info.dart';
+import '../constants/material_color.dart';
 import 'package:butcetakip/classes/language.dart';
 
 ///örnek kullanım

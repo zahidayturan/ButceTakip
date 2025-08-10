@@ -1,4 +1,3 @@
-import 'package:butcetakip/Riverpod/update_data_riverpod.dart';
 import 'package:butcetakip/Riverpod/appbar_type_2_riverpod.dart';
 import 'package:butcetakip/Riverpod/settings_riverpod.dart';
 import 'package:butcetakip/features/addData/logic/add_data_riverpod.dart';
@@ -11,9 +10,10 @@ import 'Riverpod/database_provider.dart';
 import 'Riverpod/calendar_riverpod.dart';
 import 'Riverpod/category_info_riverpod.dart';
 import 'Riverpod/daily_info_riverpod.dart';
-import 'Riverpod/home_riverpod.dart';
-import 'Riverpod/statistics_riverpod.dart';
 import 'Riverpod/asset_riverpod.dart';
+import 'features/addData/logic/update_data_riverpod.dart';
+import 'features/home/logic/home_riverpod.dart';
+import 'features/statistics/logic/statistics_riverpod.dart';
 
 final botomNavBarRiverpod = ChangeNotifierProvider((ref) => BottomNavBarRiverpod());
 final databaseRiverpod = ChangeNotifierProvider((ref) => DbProvider());

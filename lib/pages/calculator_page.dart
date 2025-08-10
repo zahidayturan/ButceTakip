@@ -1,13 +1,13 @@
-import 'package:butcetakip/constans/fezai_checkbox.dart';
+import 'package:butcetakip/UI/fezai_checkbox.dart';
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/constans/material_color.dart';
-import 'package:butcetakip/models/currency_info.dart';
+import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/utils/firestore_helper.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
+import '../app/data/models/currency_info.dart';
 import '../classes/app_bar_for_page.dart';
 import '../riverpod_management.dart';
 

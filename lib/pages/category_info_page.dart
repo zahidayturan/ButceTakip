@@ -1,8 +1,6 @@
 import 'package:butcetakip/UI/spend_detail.dart';
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/constans/material_color.dart';
-import 'package:butcetakip/models/Data.dart';
-import 'package:butcetakip/models/spend_info.dart';
+import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:butcetakip/utils/textConverter.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-
+import '../app/data/models/Data.dart';
+import '../app/data/models/spend_info.dart';
 
 class CategoryInfo extends ConsumerWidget {
   const CategoryInfo({Key? key}) : super(key: key);
