@@ -86,44 +86,6 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
               ),
             ),
             Positioned(
-              right: 30,
-              top: 0,
-              child: SizedBox(
-                height: 42,
-                child: GestureDetector(
-                  onTapDown: (TapDownDetails details) async {
-                    await _showPopupMenu(details.globalPosition,context,ref);
-                  },
-                  child: Container(
-                    width: 72,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).focusColor,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(1),
-                              spreadRadius: 0.8,
-                              blurRadius: 1,
-                              offset: const Offset(-2, 0)
-                          )
-                        ],
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(100),
-                          bottomLeft: Radius.circular(100),
-                          topLeft: Radius.circular(100),
-                        )),
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 24),
-                      child: Icon(
-                        Icons.swap_vert_rounded,
-                        color: Theme.of(context).canvasColor,
-                        size: 38,
-                      ),
-                    ),
-              ),
-                ),
-            ),
-            ),
-            Positioned(
               right: 0,
               top: 0,
               child: SizedBox(
@@ -165,33 +127,6 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
           ],
         ),
       ),
-    );
-  }
-
-  _showPopupMenu(Offset offset,BuildContext context,WidgetRef ref) async {
-    double left = offset.dx;
-    double top = offset.dy;
-    var readSettings = ref.read(settingsRiverpod);
-    await showMenu(
-      context: context,
-      position: RelativeRect.fromLTRB(left, top+12, 12, 0),
-      color: Theme.of(context).primaryColor,
-      shadowColor: Theme.of(context).primaryColor,
-      items: [
-        PopupMenuItem<String>(
-          child: const Text('Tablo Görünümü'), value: 'Tablo',onTap: (){
-          readSettings.setAddDataType(0);
-          readSettings.setisuseinsert();
-          ref.read(addDataRiverpod).pageViewController.animateToPage(readSettings.addDataType!, duration: Duration(milliseconds: 500), curve: Curves.linear);
-          },),
-        PopupMenuItem<String>(
-          child: const Text('Liste Görünümü'), value: 'Liste',onTap: (){
-          readSettings.setAddDataType(1);
-          readSettings.setisuseinsert();
-          ref.read(addDataRiverpod).pageViewController.animateToPage(readSettings.addDataType!, duration: Duration(milliseconds: 500), curve: Curves.linear);
-        },),
-      ],
-      elevation: 8.0,
     );
   }
 }

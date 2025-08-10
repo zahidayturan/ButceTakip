@@ -1,6 +1,5 @@
 import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/features/addData/widgets/add_data_app_bar.dart';
-import 'package:butcetakip/features/addData/widgets/add_data_menu_list_type.dart';
 import 'package:butcetakip/features/addData/widgets/add_data_menu_table_type.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:butcetakip/utils/db_helper.dart';
@@ -14,13 +13,12 @@ import '../../constants/material_color.dart';
 
 class AddData extends ConsumerStatefulWidget {
   late int addDataMode;
-  AddData({Key? key,required this.addDataMode}) : super(key: key);
+  AddData({super.key,required this.addDataMode});
   @override
   ConsumerState<AddData> createState() => _AddDataState();
 }
 
 class _AddDataState extends ConsumerState<AddData> {
-
 
   @override
   void initState(){
@@ -55,14 +53,7 @@ class _AddDataState extends ConsumerState<AddData> {
         body: Column(
           children: [
             Expanded(
-              child: PageView(
-                  physics: NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  controller: ref.read(addDataRiverpod).pageViewController,
-                  children: [
-                    AddDataMenuTableType(addDataMode: widget.addDataMode),
-                    AddDataMenuListType(addDataMode: widget.addDataMode,)
-                  ]),
+              child: AddDataMenuTableType(addDataMode: widget.addDataMode),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 12,top: 12),
