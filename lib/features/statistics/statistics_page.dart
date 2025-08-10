@@ -271,7 +271,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
             translation(context).tapToFilter,
             style: TextStyle(
                 color: renkler.arkaRenk,
-                fontFamily: 'Nexa3',
+                fontFamily: 'FontMedium',
                 fontSize: 15,
                 height: 1),
           ),
@@ -309,7 +309,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                     translation(context).statisticsFiltering,
                                     style: TextStyle(
                                         color: Theme.of(context).canvasColor,
-                                        fontFamily: "Nexa4",
+                                        fontFamily: "FontBold",
                                         fontSize: 21),
                                   ),
                                   SizedBox(
@@ -371,7 +371,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                           style: TextStyle(
                                               color: renkler.arkaRenk,
                                               fontSize: 15,
-                                              fontFamily: 'Nexa3'),
+                                              fontFamily: 'FontMedium'),
                                         ),
                                       ),
                                       Container(
@@ -391,7 +391,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 translation(context).expenses,
                                                 style: TextStyle(
                                                   fontSize: 13,
-                                                  fontFamily: 'Nexa4',
+                                                  fontFamily: 'FontBold',
                                                   color: renkler.koyuuRenk,
                                                 ),
                                               ),
@@ -408,7 +408,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                               fontSize: 13,
                                                               height: 1,
                                                               fontFamily:
-                                                                  'Nexa4',
+                                                                  'FontBold',
                                                               color: renkler
                                                                   .koyuuRenk),
                                                         ),
@@ -499,7 +499,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                           style: TextStyle(
                                               color: renkler.arkaRenk,
                                               fontSize: 15,
-                                              fontFamily: 'Nexa3'),
+                                              fontFamily: 'FontMedium'),
                                         ),
                                       ),
                                       Row(
@@ -525,7 +525,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                         .monthly,
                                                     style: TextStyle(
                                                       fontSize: 13,
-                                                      fontFamily: 'Nexa4',
+                                                      fontFamily: 'FontBold',
                                                       color: renkler.koyuuRenk,
                                                     ),
                                                   ),
@@ -542,7 +542,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                   fontSize: 13,
                                                                   height: 1,
                                                                   fontFamily:
-                                                                      'Nexa4',
+                                                                      'FontBold',
                                                                   color: renkler
                                                                       .koyuuRenk),
                                                             ),
@@ -653,7 +653,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                           style: TextStyle(
                                               color: renkler.arkaRenk,
                                               fontSize: 15,
-                                              fontFamily: 'Nexa3'),
+                                              fontFamily: 'FontMedium'),
                                         ),
                                       ),
                                       Container(
@@ -703,7 +703,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                           .noBig,
                                                   style: TextStyle(
                                                       color: renkler.koyuuRenk,
-                                                      fontFamily: 'Nexa4',
+                                                      fontFamily: 'FontBold',
                                                       height: 1,
                                                       fontSize: 13),
                                                 ),
@@ -750,7 +750,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                           style: TextStyle(
                                               color: renkler.arkaRenk,
                                               fontSize: 15,
-                                              fontFamily: 'Nexa3'),
+                                              fontFamily: 'FontMedium'),
                                         ),
                                       ),
                                       Container(
@@ -771,7 +771,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   height: 1,
-                                                  fontFamily: 'Nexa4',
+                                                  fontFamily: 'FontBold',
                                                   color: renkler.koyuuRenk,
                                                 ),
                                               ),
@@ -888,7 +888,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                           13,
                                                                       height: 1,
                                                                       fontFamily:
-                                                                          'Nexa4',
+                                                                          'FontBold',
                                                                       color: renkler
                                                                           .koyuuRenk),
                                                                 ),
@@ -921,7 +921,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                           .join(', '),
                                                       style: TextStyle(
                                                         fontSize: 13,
-                                                        fontFamily: 'Nexa4',
+                                                        fontFamily: 'FontBold',
                                                         height: 1,
                                                         color:
                                                             renkler.koyuuRenk,
@@ -1031,7 +1031,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       style: TextStyle(
                                           color: Theme.of(context).canvasColor,
                                           fontSize: 15,
-                                          fontFamily: 'Nexa3'),
+                                          fontFamily: 'FontMedium'),
                                     )),
                                   ),
                                 ),
@@ -1060,7 +1060,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       style: TextStyle(
                                           color: renkler.arkaRenk,
                                           fontSize: 15,
-                                          fontFamily: 'Nexa3'),
+                                          fontFamily: 'FontMedium'),
                                     )),
                                   ),
                                 ),
@@ -1871,7 +1871,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                 "% ${item[index]['percentages']}",
                                                 style: const TextStyle(
                                                   height: 1,
-                                                  fontFamily: 'Nexa3',
+                                                  fontFamily: 'FontMedium',
                                                   fontSize: 14,
                                                   color: Colors.white,
                                                 ),
@@ -1904,7 +1904,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                     0),
                                                 style: TextStyle(
                                                   height: 1,
-                                                  fontFamily: 'Nexa3',
+                                                  fontFamily: 'FontMedium',
                                                   fontSize: 15,
                                                   color: Theme.of(context)
                                                       .canvasColor,
@@ -1925,7 +1925,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                         .toStringAsFixed(2),
                                                     style: TextStyle(
                                                       height: 1,
-                                                      fontFamily: 'NEXA3',
+                                                      fontFamily: 'FontMedium',
                                                       fontSize: 15,
                                                       color: Theme.of(context)
                                                           .dialogBackgroundColor,
@@ -2027,7 +2027,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           translation(context).totalAmountStatistics,
                           style: TextStyle(
                             height: 1,
-                            fontFamily: 'NEXA3',
+                            fontFamily: 'FontMedium',
                             fontSize: 17,
                             color: Theme.of(context).canvasColor,
                           ),
@@ -2051,7 +2051,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                       text: totalAmount.toStringAsFixed(1),
                                       style: TextStyle(
                                         height: 1,
-                                        fontFamily: 'Nexa3',
+                                        fontFamily: 'FontMedium',
                                         fontSize: 17,
                                         color: Theme.of(context).canvasColor,
                                       ),
@@ -2150,7 +2150,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             style: TextStyle(
                                                 color: Theme.of(context)
                                                     .secondaryHeaderColor,
-                                                fontFamily: "Nexa4",
+                                                fontFamily: "FontBold",
                                                 fontSize: 21,
                                                 height: 1
                                             ),
@@ -2304,7 +2304,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                     const TextStyle(
                                                                   height: 1,
                                                                   fontFamily:
-                                                                      'Nexa3',
+                                                                      'FontMedium',
                                                                   fontSize: 14,
                                                                   color: Colors
                                                                       .white,
@@ -2332,7 +2332,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                     TextStyle(
                                                                   height: 1,
                                                                   fontFamily:
-                                                                      'Nexa3',
+                                                                      'FontMedium',
                                                                   fontSize: 15,
                                                                   color: Theme.of(
                                                                           context)
@@ -2364,7 +2364,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                                                         TextStyle(
                                                                       height: 1,
                                                                       fontFamily:
-                                                                          'Nexa4',
+                                                                          'FontBold',
                                                                       fontSize:
                                                                           15,
                                                                       color: Theme.of(
@@ -2422,7 +2422,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             style: TextStyle(
                                                 color: Theme.of(context)
                                                     .canvasColor,
-                                                fontFamily: "Nexa3",
+                                                fontFamily: "FontMedium",
                                                 fontSize: 15,
                                                 height: 1
                                             ),
@@ -2432,7 +2432,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                             style: TextStyle(
                                                 color: Theme.of(context)
                                                     .secondaryHeaderColor,
-                                                fontFamily: "Nexa4",
+                                                fontFamily: "FontBold",
                                                 fontSize: 15),
                                           ),
                                         ],
@@ -2523,7 +2523,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 BorderRadius.all(Radius.circular(10))),
                         //foregroundColor: Theme.of(context).canvasColor,
                         textStyle: TextStyle(
-                            fontFamily: "Nexa3",
+                            fontFamily: "FontMedium",
                             height: 1,
                             fontSize: 15) // button text color
                         ),
@@ -2532,7 +2532,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                       color: Theme.of(context).canvasColor, thickness: 1.5),
                   datePickerTheme: DatePickerThemeData(
                       dayStyle: TextStyle(
-                          fontFamily: "Nexa3",
+                          fontFamily: "FontMedium",
                           height: 1,
                           fontSize: 15,
                           color: renkler.koyuuRenk),
@@ -2547,15 +2547,15 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           Theme.of(context).disabledColor,
                       rangePickerHeaderForegroundColor: renkler.arkaRenk,
                       headerHeadlineStyle: const TextStyle(
-                          fontSize: 22, fontFamily: "Nexa4", height: 1),
+                          fontSize: 22, fontFamily: "FontBold", height: 1),
                       headerHelpStyle: const TextStyle(
-                          fontSize: 16, fontFamily: "Nexa4", height: 1),
+                          fontSize: 16, fontFamily: "FontBold", height: 1),
                       headerBackgroundColor: renkler.koyuuRenk,
                       backgroundColor: Theme.of(context).disabledColor,
                       rangePickerHeaderHelpStyle: const TextStyle(
-                          fontSize: 16, fontFamily: "Nexa4", height: 1),
+                          fontSize: 16, fontFamily: "FontBold", height: 1),
                       rangePickerHeaderHeadlineStyle: TextStyle(
-                          fontSize: 22, fontFamily: "Nexa4", height: 1),
+                          fontSize: 22, fontFamily: "FontBold", height: 1),
                       dayForegroundColor: MaterialStatePropertyAll(
                           Theme.of(context).disabledColor),
                       rangePickerShape: RoundedRectangleBorder(
@@ -2565,7 +2565,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                           color: Theme.of(context).canvasColor,
                           fontSize: 16,
                           height: 1,
-                          fontFamily: "Nexa3")),
+                          fontFamily: "FontMedium")),
                   colorScheme: ColorScheme(
                     brightness: Brightness.light,
                     primary: renkler.koyuuRenk, // üst taraf arkaplan rengi
@@ -3023,7 +3023,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                   color: renkler.arkaRenk,
                                   height: 1,
                                   fontSize: 13,
-                                  fontFamily: 'Nexa3'),
+                                  fontFamily: 'FontMedium'),
                             )),
                           )),
                       Positioned(
@@ -3062,7 +3062,7 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
                                 color: renkler.arkaRenk,
                                 height: 1,
                                 fontSize: 13,
-                                fontFamily: 'Nexa3'),
+                                fontFamily: 'FontMedium'),
                           )),
                         ),
                       ),

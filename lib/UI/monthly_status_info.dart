@@ -163,7 +163,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                                 style: TextStyle(
                                                   height: 1,
                                                   color: Theme.of(context).primaryColor,
-                                                  fontFamily: "Nexa4",
+                                                  fontFamily: "FontBold",
                                                   fontSize: 15,
                                                 ),
                                               ),
@@ -215,7 +215,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                                   style: TextStyle(
                                                     height: 1,
                                                     color: Theme.of(context).canvasColor,
-                                                    fontFamily: "Nexa4",
+                                                    fontFamily: "FontBold",
                                                     fontSize: 15,
                                                   ),
                                                 ),
@@ -264,7 +264,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                       style: TextStyle(
                                         height: 1,
                                         color: Theme.of(context).primaryColor,
-                                        fontFamily: "Nexa3",
+                                        fontFamily: "FontMedium",
                                         fontSize: 15,
                                       ),textAlign: TextAlign.center)),
                                   Row(
@@ -285,7 +285,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                               style: TextStyle(
                                                 height: 1,
                                                 color: Theme.of(context).cardColor,
-                                                fontFamily: "Nexa4",
+                                                fontFamily: "FontBold",
                                                 fontSize: 22,
                                               ),
                                             ),
@@ -297,7 +297,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                                     height: 1,
                                                     color: Theme.of(context).primaryColor,
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: "Nexa3",
+                                                    fontFamily: "FontMedium",
                                                     fontSize: 16,
                                                     overflow: TextOverflow.ellipsis
                                                 ),
@@ -399,7 +399,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
-                                      fontFamily: 'Nexa3',
+                                      fontFamily: 'FontMedium',
                                       fontWeight: FontWeight.w600,
                                       height: 1,
                                     ),
@@ -439,7 +439,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                           style: TextStyle(
                                             height: 1,
                                             color: Theme.of(context).canvasColor,
-                                            fontFamily: "Nexa4",
+                                            fontFamily: "FontBold",
                                             fontSize: 15,
                                           ),
                                         )),
@@ -514,7 +514,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                               Center(child: Text(translation(context).mostSpendingCategory,style: TextStyle(
                                 height: 1,
                                 color: Theme.of(context).canvasColor,
-                                fontFamily: "Nexa3",
+                                fontFamily: "FontMedium",
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 15,
                               ),textAlign: TextAlign.center,
@@ -522,7 +522,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                               Text(Converter().textConverterFromDB(category, context, 0),style: TextStyle(
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 15,
                                 overflow: TextOverflow.ellipsis,
                               ),textAlign: TextAlign.center)
@@ -536,7 +536,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                 Center(child: Text(Converter().textConverterFromDB(category, context, 0),style: TextStyle(
                                   height: 1,
                                   color: Theme.of(context).canvasColor,
-                                  fontFamily: "Nexa3",
+                                  fontFamily: "FontMedium",
                                   fontSize: 15,
                                 ),textAlign: TextAlign.center,)),
                                 Directionality(
@@ -548,7 +548,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                           style: TextStyle(
                                             height: 1,
                                             color: Theme.of(context).disabledColor,
-                                            fontFamily: "Nexa4",
+                                            fontFamily: "FontBold",
                                             fontSize: 14,
                                           ),
                                         ),
@@ -567,7 +567,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                 Center(child: Text("${categoryCount.toString()} ${translation(context).activityCount}",style: TextStyle(
                                   height: 1,
                                   color: Theme.of(context).canvasColor,
-                                  fontFamily: "Nexa3",
+                                  fontFamily: "FontMedium",
                                   fontSize: 14,
                                 ),textAlign: TextAlign.center,)),
                               ],
@@ -657,7 +657,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                               style: TextStyle(
                                                 height: 1,
                                                 color: renkler.arkaRenk,
-                                                fontFamily: "Nexa4",
+                                                fontFamily: "FontBold",
                                                 fontSize: 15,
                                               ),
                                               textDirection: TextDirection.ltr,
@@ -701,7 +701,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                             style: TextStyle(
                                               height: 1,
                                               color: renkler.arkaRenk,
-                                              fontFamily: "Nexa4",
+                                              fontFamily: "FontBold",
                                               fontSize: 14,
                                             ),
                                             textDirection: TextDirection.ltr,
@@ -739,7 +739,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                             style: TextStyle(
                                               height: 1,
                                               color: renkler.arkaRenk,
-                                              fontFamily: "Nexa4",
+                                              fontFamily: "FontBold",
                                               fontSize: 14,
                                             ),
                                             textDirection: TextDirection.ltr,
@@ -825,7 +825,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
-                            fontFamily: 'Nexa3',
+                            fontFamily: 'FontMedium',
                             fontWeight: FontWeight.w600,
                             height: 1,
                           ),
@@ -873,7 +873,7 @@ class _MonthlyStatusInfoState extends ConsumerState<MonthlyStatusInfo> {
                                             style: TextStyle(
                                               height: 1,
                                               color: mostExpensiveSpending.amount != 0.0 ? renkler.kirmiziRenk : Theme.of(context).canvasColor,
-                                              fontFamily: "Nexa4",
+                                              fontFamily: "FontBold",
                                               fontSize: 15,
                                             ),
                                           ),

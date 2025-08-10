@@ -251,7 +251,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                   height:
                                                   1,
                                                   fontFamily:
-                                                  'Nexa3'),
+                                                  'FontMedium'),
                                               decoration: InputDecoration(
                                                   isDense:
                                                   true,
@@ -266,7 +266,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                       fontSize:
                                                       15,
                                                       fontFamily:
-                                                      'Nexa3'),
+                                                      'FontMedium'),
                                                   counterText:
                                                   '',
                                                   border:
@@ -474,7 +474,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                               fontSize: 14,
                                               height: 1,
                                               fontFamily:
-                                              'Nexa3',
+                                              'FontMedium',
                                             ),
                                             overflow:
                                             TextOverflow
@@ -513,7 +513,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                 .koyuuRenk,
                                             fontSize: 14,
                                             height: 1,
-                                            fontFamily: 'Nexa3',
+                                            fontFamily: 'FontMedium',
                                           ),
                                         ),
                                       ),
@@ -595,7 +595,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                   height:
                                                   1,
                                                   fontFamily:
-                                                  'Nexa3'),
+                                                  'FontMedium'),
                                               decoration: InputDecoration(
                                                   isDense:
                                                   true,
@@ -610,7 +610,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                       fontSize:
                                                       15,
                                                       fontFamily:
-                                                      'Nexa3'),
+                                                      'FontMedium'),
                                                   counterText:
                                                   '',
                                                   border:
@@ -678,10 +678,10 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                         (context) {
                                                       return AlertDialog(
                                                         backgroundColor: Theme.of(context).primaryColor,
-                                                        title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3')),
+                                                        title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'FontMedium')),
                                                         content: Text(
                                                           translation(context).enterCategoryWarning,
-                                                          style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
+                                                          style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'FontMedium'),
                                                         ),
                                                         shadowColor: renkler.koyuuRenk,
                                                         actions: [
@@ -691,7 +691,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                             },
                                                             child: Text(
                                                               translation(context).ok,
-                                                              style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'Nexa3'),
+                                                              style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'FontMedium'),
                                                             ),
                                                           )
                                                         ],
@@ -913,7 +913,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                               fontSize: 14,
                                               height: 1,
                                               fontFamily:
-                                              'Nexa3',
+                                              'FontMedium',
                                             ),
                                             overflow:
                                             TextOverflow
@@ -953,7 +953,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                   .koyuuRenk,
                                               fontSize: 14,
                                               height: 1,
-                                              fontFamily: 'Nexa3',
+                                              fontFamily: 'FontMedium',
                                             ),
                                           ),
                                         ),
@@ -1187,13 +1187,13 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                             maxLength: 20,
                                                                             maxLines: 1,
                                                                             style:
-                                                                            TextStyle(color: Theme.of(context).canvasColor,fontSize: 13,fontFamily: 'Nexa3',height: 1),
+                                                                            TextStyle(color: Theme.of(context).canvasColor,fontSize: 13,fontFamily: 'FontMedium',height: 1),
                                                                             decoration: InputDecoration(
                                                                                 hintText: translation(context).enterCategory,
                                                                                 hintStyle: TextStyle(
                                                                                     color: Theme.of(context).canvasColor,
                                                                                     fontSize: 13,
-                                                                                    fontFamily: 'Nexa3'),
+                                                                                    fontFamily: 'FontMedium'),
                                                                                 counterText: '',
                                                                                 border: InputBorder.none,
                                                                                 isDense: true),
@@ -1223,10 +1223,10 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                                   (context) {
                                                                                 return AlertDialog(
                                                                                   backgroundColor: Theme.of(context).primaryColor,
-                                                                                  title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3', height: 1)),
+                                                                                  title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'FontMedium', height: 1)),
                                                                                   content: Text(
                                                                                     translation(context).enterCategoryWarning,
-                                                                                    style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
+                                                                                    style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'FontMedium'),
                                                                                   ),
                                                                                   shadowColor: renkler.koyuuRenk,
                                                                                   actions: [
@@ -1236,7 +1236,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                                       },
                                                                                       child: Text(
                                                                                         translation(context).ok,
-                                                                                        style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'Nexa3'),
+                                                                                        style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'FontMedium'),
                                                                                       ),
                                                                                     )
                                                                                   ],
@@ -1269,7 +1269,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                               .koyuuRenk,
                                                                           fontSize: 13,
                                                                           height: 1,
-                                                                          fontFamily: 'Nexa3',
+                                                                          fontFamily: 'FontMedium',
                                                                         ),
                                                                         textAlign: TextAlign.center,
                                                                         maxLines: 4,
@@ -1318,7 +1318,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                       .koyuuRenk,
                                                                   fontSize: 14,
                                                                   height: 1,
-                                                                  fontFamily: 'Nexa3',
+                                                                  fontFamily: 'FontMedium',
                                                                 ),
                                                                 textAlign: TextAlign.center,
                                                                 maxLines: 4,
@@ -1362,7 +1362,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                       .arkaRenk,
                                                                   fontSize: 14,
                                                                   height: 1,
-                                                                  fontFamily: 'Nexa3',
+                                                                  fontFamily: 'FontMedium',
                                                                 ),
                                                                 textAlign: TextAlign.center,
                                                                 maxLines: 4,
@@ -1550,7 +1550,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                         .koyuuRenk,
                                                                     fontSize: 14,
                                                                     height: 1,
-                                                                    fontFamily: 'Nexa3',
+                                                                    fontFamily: 'FontMedium',
                                                                   ),
                                                                   textAlign: TextAlign.center,
                                                                   maxLines: 4,
@@ -1594,7 +1594,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                         .arkaRenk,
                                                                     fontSize: 14,
                                                                     height: 1,
-                                                                    fontFamily: 'Nexa3',
+                                                                    fontFamily: 'FontMedium',
                                                                   ),
                                                                   textAlign: TextAlign.center,
                                                                   maxLines: 4,
@@ -1696,7 +1696,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                                         .koyuuRenk,
                                                                                     fontSize: 14,
                                                                                     height: 1,
-                                                                                    fontFamily: 'Nexa3',
+                                                                                    fontFamily: 'FontMedium',
                                                                                   ),
                                                                                   textAlign: TextAlign.center,
                                                                                   maxLines: 4,
@@ -1812,7 +1812,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                                           translation(context).selectCategory,
                                                                                           style: TextStyle(
                                                                                               fontSize: 13,
-                                                                                              fontFamily: 'Nexa3',
+                                                                                              fontFamily: 'FontMedium',
                                                                                               color:
                                                                                               Theme.of(context).canvasColor,
                                                                                               height: 1
@@ -1831,7 +1831,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                                                     fontSize: 13,
                                                                                                     height: 1,
                                                                                                     fontFamily:
-                                                                                                    'Nexa3',
+                                                                                                    'FontMedium',
                                                                                                     color: Theme.of(
                                                                                                         context)
                                                                                                         .canvasColor),
@@ -1847,7 +1847,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                                                 style: TextStyle(
                                                                                                     fontSize: 13,
                                                                                                     fontFamily:
-                                                                                                    'Nexa3',
+                                                                                                    'FontMedium',
                                                                                                     color: Theme.of(
                                                                                                         context)
                                                                                                         .canvasColor),
@@ -1922,10 +1922,10 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                                           (context) {
                                                                                         return AlertDialog(
                                                                                           backgroundColor: Theme.of(context).primaryColor,
-                                                                                          title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3', height: 1)),
+                                                                                          title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'FontMedium', height: 1)),
                                                                                           content: Text(
                                                                                             translation(context).enterCategoryWarning,
-                                                                                            style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
+                                                                                            style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'FontMedium'),
                                                                                           ),
                                                                                           shadowColor: renkler.koyuuRenk,
                                                                                           actions: [
@@ -1935,7 +1935,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                                               },
                                                                                               child: Text(
                                                                                                 translation(context).ok,
-                                                                                                style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'Nexa3'),
+                                                                                                style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'FontMedium'),
                                                                                               ),
                                                                                             )
                                                                                           ],
@@ -1968,7 +1968,7 @@ class _CategoryMenu extends ConsumerState<CategoryMenu> {
                                                                                       .koyuuRenk,
                                                                                   fontSize: 13,
                                                                                   height: 1,
-                                                                                  fontFamily: 'Nexa3',
+                                                                                  fontFamily: 'FontMedium',
                                                                                 ),
                                                                                 textAlign: TextAlign.center,
                                                                                 maxLines: 4,

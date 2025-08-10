@@ -61,7 +61,7 @@ class HelpCurrency extends StatelessWidget {
                               child: Text(
                                 translation(context).foreignExchangeSystem,
                                 style: TextStyle(
-                                  fontFamily: "Nexa4",
+                                  fontFamily: "FontBold",
                                   fontSize: 24,
                                   height: 1,
                                   color: Theme.of(context).secondaryHeaderColor,

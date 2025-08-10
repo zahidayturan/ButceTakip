@@ -77,7 +77,7 @@ class Communicate extends StatelessWidget {
                                     style: TextStyle(
                                       height: 1,
                                       fontSize: 16,
-                                      fontFamily: 'Nexa3',
+                                      fontFamily: 'FontMedium',
                                       color: Theme.of(context).canvasColor,
                                     ),
                                   ),
@@ -99,7 +99,7 @@ class Communicate extends StatelessWidget {
                                       duration: const Duration(seconds: 1),
                                       elevation: 0,
                                       behavior: SnackBarBehavior.floating,
-                                      content: Text(translation(context).copiedToClipboard,style: TextStyle(color : renkler.yaziRenk,fontFamily: 'Nexa3',fontSize: 15),)));
+                                      content: Text(translation(context).copiedToClipboard,style: TextStyle(color : renkler.yaziRenk,fontFamily: 'FontMedium',fontSize: 15),)));
                             },
                           )
                         ],
@@ -132,7 +132,7 @@ class Communicate extends StatelessWidget {
                                     child: Text(
                                       translation(context).developers,
                                       style: TextStyle(
-                                          fontFamily: "Nexa4",
+                                          fontFamily: "FontBold",
                                           fontSize: 18,
                                           color: renkler.arkaRenk),
                                     ),

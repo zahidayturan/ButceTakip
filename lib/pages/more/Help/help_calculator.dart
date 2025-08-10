@@ -72,7 +72,7 @@ class HelpCalculator extends StatelessWidget {
                             child: Text(
                               translation(context).calculatorTitle,
                               style: TextStyle(
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 24,
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
@@ -87,7 +87,7 @@ class HelpCalculator extends StatelessWidget {
                         children: [
                           Text(
                             translation(context).currencyConverter
-                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                           ),
                           const Spacer(),
                           Container(
@@ -137,7 +137,7 @@ class HelpCalculator extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14,
                                             height: 1,
-                                            fontFamily: 'Nexa3',
+                                            fontFamily: 'FontMedium',
                                             color: renkler.koyuuRenk),
                                       ),
                                     ),
@@ -264,7 +264,7 @@ class HelpCalculator extends StatelessWidget {
                         children: [
                           Text(
                             translation(context).calculateInterestCredit
-                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                           ),
                           const Spacer(),
                           Container(
@@ -334,7 +334,7 @@ class HelpCalculator extends StatelessWidget {
                         children: [
                           Text(
                             translation(context).percentageCalculation
-                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                           ),
                           const Spacer(),
                           Container(

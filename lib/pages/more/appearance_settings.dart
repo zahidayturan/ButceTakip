@@ -265,7 +265,7 @@ class _AppearanceSettingsState extends ConsumerState<AppearanceSettings> {
       text,style: TextStyle(
         color: textColor,
         height: 1,
-        fontFamily: fontFamily ?? "Nexa3",
+        fontFamily: fontFamily ?? "FontMedium",
         fontSize: size,
         fontWeight: weight ?? FontWeight.normal,
         backgroundColor: backgroundColor

@@ -142,7 +142,7 @@ class _AddDataState extends ConsumerState<AddData> {
                                 height: 1,
                                 color: renkler.arkaRenk,
                                 fontSize: 15,
-                                fontFamily: 'Nexa4',
+                                fontFamily: 'FontBold',
                                 fontWeight: FontWeight.w900)),
                       ),
                     ),
@@ -285,7 +285,7 @@ class _AddDataState extends ConsumerState<AddData> {
                           style: TextStyle(
                             color: renkler.yaziRenk,
                             fontSize: 16,
-                            fontFamily: 'Nexa3',
+                            fontFamily: 'FontMedium',
                             fontWeight: FontWeight.w600,
                             height: 1.3,
                           ),
@@ -305,13 +305,13 @@ class _AddDataState extends ConsumerState<AddData> {
                                         .secondaryHeaderColor,
                                     fontSize: 22,
                                     height: 1,
-                                    fontFamily: 'Nexa3')),
+                                    fontFamily: 'FontMedium')),
                             content: Text(
                               alertContent,
                               style: TextStyle(
                                   color: Theme.of(context).canvasColor,
                                   fontSize: 16,
-                                  fontFamily: 'Nexa3'),
+                                  fontFamily: 'FontMedium'),
                             ),
                             shadowColor: renkler.koyuuRenk,
                             actions: [
@@ -338,7 +338,7 @@ class _AddDataState extends ConsumerState<AddData> {
                                           .secondaryHeaderColor,
                                       fontSize: 18,
                                       height: 1,
-                                      fontFamily: 'Nexa3'),
+                                      fontFamily: 'FontMedium'),
                                 ),
                               )
                             ],
@@ -359,7 +359,7 @@ class _AddDataState extends ConsumerState<AddData> {
                             height: 1,
                             color: renkler.koyuuRenk,
                             fontSize: 16,
-                            fontFamily: 'Nexa4',
+                            fontFamily: 'FontBold',
                             fontWeight: FontWeight.w900)),
                   ),
                 ),
@@ -449,7 +449,7 @@ class _AddDataState extends ConsumerState<AddData> {
                               style: TextStyle(
                                 color: renkler.yaziRenk,
                                 fontSize: 16,
-                                fontFamily: 'Nexa3',
+                                fontFamily: 'FontMedium',
                                 fontWeight: FontWeight.w600,
                                 height: 1.3,
                               ),
@@ -462,8 +462,8 @@ class _AddDataState extends ConsumerState<AddData> {
                             builder: (context) {
                               return AlertDialog(
                                 backgroundColor: Theme.of(context).primaryColor,
-                                title: Text(translation(context).missingEntry,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 22,height: 1,fontFamily: 'Nexa3')),
-                                content: Text(alertContent,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 16,height: 1,fontFamily: 'Nexa3'),),
+                                title: Text(translation(context).missingEntry,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 22,height: 1,fontFamily: 'FontMedium')),
+                                content: Text(alertContent,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 16,height: 1,fontFamily: 'FontMedium'),),
                                 shadowColor: renkler.koyuuRenk,
                                 actions: [
                                   TextButton(
@@ -486,7 +486,7 @@ class _AddDataState extends ConsumerState<AddData> {
                                       Navigator.of(context).pop();
                                       //FocusScope.of(context).requestFocus(amountFocusNode);
                                     },
-                                    child: Text("Tamam",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 18,fontFamily: 'Nexa3'),),
+                                    child: Text("Tamam",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 18,fontFamily: 'FontMedium'),),
                                   )
                                 ],
                               );
@@ -497,7 +497,7 @@ class _AddDataState extends ConsumerState<AddData> {
                         style: const TextStyle(
                             color: Color(0xff0D1C26),
                             fontSize: 17,
-                            fontFamily: 'Nexa4',
+                            fontFamily: 'FontBold',
                             fontWeight: FontWeight.w900)),
                   ),
                 ),

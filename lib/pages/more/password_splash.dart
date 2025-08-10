@@ -71,7 +71,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                             style: TextStyle(
                               color: Theme.of(context).canvasColor,
                               fontSize: 18,
-                              fontFamily: "Nexa4",
+                              fontFamily: "FontBold",
                               fontWeight: FontWeight.w900
                             ),
                           ),
@@ -89,7 +89,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                         style: TextStyle(
                             color: Theme.of(context).canvasColor,
                             fontSize: 16,
-                            fontFamily: "Nexa4"
+                            fontFamily: "FontBold"
                         ),
                       ),
                     SizedBox(height: size.height/20) ,
@@ -326,7 +326,7 @@ class _PasswordSplashState extends ConsumerState<PasswordSplash> {
                               child: Text(
                                 translation(context).forgotPassword,
                                 style: const TextStyle(
-                                  fontFamily: "Nexa4"
+                                  fontFamily: "FontBold"
                                 ),
                               )
                           ),

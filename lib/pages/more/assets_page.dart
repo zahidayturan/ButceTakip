@@ -192,7 +192,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                           children: [
                                             TextSpan(
                                               text: "${measureList[3]}" ,style: TextStyle(
-                                                fontFamily: 'NEXA3' ,
+                                                fontFamily: 'FontMedium' ,
                                                 fontSize: 25,
                                                 color: Theme.of(context).unselectedWidgetColor
                                             ),
@@ -231,7 +231,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                                     height: 1,
                                                     color: renkler.arkaRenk,
                                                     fontFamily:
-                                                    "Nexa4",
+                                                    "FontBold",
                                                     fontSize: 14,
                                                   ),
                                                   textDirection: TextDirection.ltr,
@@ -590,7 +590,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                 translation(context).myCurrencies,
                               style: TextStyle(
                                 fontSize: 17,
-                                fontFamily: "Nexa3",
+                                fontFamily: "FontMedium",
                                 height: 1,
                                 color: Theme.of(context).canvasColor,
 
@@ -933,7 +933,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                   TextSpan(
                     text: "$amaount" ,style: TextStyle(
                       overflow: TextOverflow.ellipsis,
-                      fontFamily: 'NEXA3',
+                      fontFamily: 'FontMedium',
                       fontSize: 13,
                       height: 1,
                       color: Theme.of(context).canvasColor
@@ -1000,7 +1000,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                 isVisible: true, // Y ekseni görünmez yapılıyor
                 labelStyle: const TextStyle(
                   fontSize: 11,
-                  fontFamily: "Nexa3",
+                  fontFamily: "FontMedium",
                 )
               ),
               series: <CartesianSeries>[
@@ -1169,7 +1169,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
                                     text:  data[index].realAmount.toString(),
                                     style: TextStyle(
                                         fontSize: 15,
-                                        fontFamily: 'Nexa3',
+                                        fontFamily: 'FontMedium',
                                         color: Theme.of(context).secondaryHeaderColor
                                     ),
                                   ),

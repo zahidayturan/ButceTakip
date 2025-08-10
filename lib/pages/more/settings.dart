@@ -209,7 +209,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                     child: Text(
                                       translation(context).language,
                                       style: const TextStyle(
-                                          fontFamily: "Nexa3",
+                                          fontFamily: "FontMedium",
                                           fontSize: 14,
                                           height: 1),
                                     ),
@@ -231,7 +231,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                               translation(context).select,
                                               style: TextStyle(
                                                 fontSize: 14,
-                                                fontFamily: 'Nexa3',
+                                                fontFamily: 'FontMedium',
                                                 color: renkler.arkaRenk,
                                               ),
                                             ),
@@ -248,7 +248,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                                       item,
                                                       style: TextStyle(
                                                           fontSize: 14,
-                                                          fontFamily: 'Nexa3',
+                                                          fontFamily: 'FontMedium',
                                                           color: renkler
                                                               .arkaRenk),
                                                     ),
@@ -411,7 +411,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                       child: Text(
                                         translation(context).notifications,
                                         style: const TextStyle(
-                                            fontFamily: "Nexa3",
+                                            fontFamily: "FontMedium",
                                             fontSize: 14,
                                             height: 1),
                                       ),
@@ -582,7 +582,7 @@ class _SettingsState extends ConsumerState<Settings> {
                               child: Text(
                                 translation(context).loginPassword,
                                 style: const TextStyle(
-                                    fontFamily: "Nexa3", fontSize: 14, height: 1),
+                                    fontFamily: "FontMedium", fontSize: 14, height: 1),
                               ),
                             ),
                             const Spacer(),
@@ -592,7 +592,7 @@ class _SettingsState extends ConsumerState<Settings> {
                               child: Text(
                                 translation(context).on,
                                 style: TextStyle(
-                                  fontFamily: "Nexa3",
+                                  fontFamily: "FontMedium",
                                   color: Theme
                                       .of(context)
                                       .secondaryHeaderColor,
@@ -606,7 +606,7 @@ class _SettingsState extends ConsumerState<Settings> {
                               child: Text(
                                 translation(context).off,
                                 style: TextStyle(
-                                  fontFamily: "Nexa3",
+                                  fontFamily: "FontMedium",
                                   color: Theme
                                       .of(context)
                                       .canvasColor,
@@ -724,7 +724,7 @@ class _SettingsState extends ConsumerState<Settings> {
                               child: Text(
                                 translation(context).backupStatus,
                                 style: const TextStyle(
-                                    fontFamily: "Nexa3", fontSize: 14, height: 1),
+                                    fontFamily: "FontMedium", fontSize: 14, height: 1),
                               ),
                             ),
                             const Spacer(),
@@ -734,7 +734,7 @@ class _SettingsState extends ConsumerState<Settings> {
                               child: Text(
                                 translation(context).on,
                                 style: TextStyle(
-                                  fontFamily: "Nexa3",
+                                  fontFamily: "FontMedium",
                                   color: Theme
                                       .of(context)
                                       .secondaryHeaderColor,
@@ -748,7 +748,7 @@ class _SettingsState extends ConsumerState<Settings> {
                               child: Text(
                                 translation(context).off,
                                 style: TextStyle(
-                                  fontFamily: "Nexa3",
+                                  fontFamily: "FontMedium",
                                   color: Theme
                                       .of(context)
                                       .canvasColor,
@@ -845,7 +845,7 @@ class _SettingsState extends ConsumerState<Settings> {
                             child: Text(
                               translation(context).currency,
                               style: const TextStyle(
-                                  fontFamily: "Nexa3", fontSize: 14, height: 1),
+                                  fontFamily: "FontMedium", fontSize: 14, height: 1),
                             ),
                           ),
                           const Spacer(),
@@ -865,7 +865,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                       translation(context).select,
                                       style: TextStyle(
                                         fontSize: 14,
-                                        fontFamily: 'Nexa3',
+                                        fontFamily: 'FontMedium',
                                         color: renkler.arkaRenk,
                                       ),
                                     ),
@@ -1032,7 +1032,7 @@ class _SettingsState extends ConsumerState<Settings> {
                             child: Text(
                               translation(context).firstDayOfTheMonth,
                               style: const TextStyle(
-                                  fontFamily: "Nexa3", fontSize: 14, height: 1),
+                                  fontFamily: "FontMedium", fontSize: 14, height: 1),
                             ),
                           ),
                           const Spacer(),
@@ -1105,7 +1105,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                     translation(context).select,
                                     style: TextStyle(
                                       fontSize: 14,
-                                      fontFamily: 'Nexa3',
+                                      fontFamily: 'FontMedium',
                                       color: renkler.arkaRenk,
                                     ),
                                   ),
@@ -1122,7 +1122,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                             item,
                                             style: TextStyle(
                                                 fontSize: 14,
-                                                fontFamily: 'Nexa3',
+                                                fontFamily: 'FontMedium',
                                                 color: renkler.arkaRenk),
                                           ),
                                         ),
@@ -1268,7 +1268,7 @@ class _SettingsState extends ConsumerState<Settings> {
                             child: Text(
                               translation(context).dateFormat,
                               style: const TextStyle(
-                                  fontFamily: "Nexa3", fontSize: 14, height: 1),
+                                  fontFamily: "FontMedium", fontSize: 14, height: 1),
                             ),
                           ),
                           const Spacer(),
@@ -1341,7 +1341,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                     translation(context).select,
                                     style: TextStyle(
                                       fontSize: 14,
-                                      fontFamily: 'Nexa3',
+                                      fontFamily: 'FontMedium',
                                       color: renkler.arkaRenk,
                                     ),
                                   ),
@@ -1358,7 +1358,7 @@ class _SettingsState extends ConsumerState<Settings> {
                                             item,
                                             style: TextStyle(
                                                 fontSize: 14,
-                                                fontFamily: 'Nexa3',
+                                                fontFamily: 'FontMedium',
                                                 color: renkler.arkaRenk),
                                           ),
                                         ),
@@ -1494,7 +1494,7 @@ class _SettingsState extends ConsumerState<Settings> {
                             padding: EdgeInsets.only(top: 4, left: 8, right: 8),
                             child: Text(
                               "Haftalık Asistanım",
-                              style: TextStyle(fontFamily: "Nexa3", fontSize: 14, height: 1),
+                              style: TextStyle(fontFamily: "FontMedium", fontSize: 14, height: 1),
                             ),
                           ),
                           const Spacer(),
@@ -1615,7 +1615,7 @@ class _SettingsState extends ConsumerState<Settings> {
                               padding: EdgeInsets.only(top: 4, left: 8, right: 8),
                               child: Text(
                                 "Görünüm Ayarları",
-                                style: TextStyle(fontFamily: "Nexa3", fontSize: 14, height: 1),
+                                style: TextStyle(fontFamily: "FontMedium", fontSize: 14, height: 1),
                               ),
                             ),
                             const Spacer(),

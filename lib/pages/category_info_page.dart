@@ -153,7 +153,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                        alignment: ChartAlignment.center,
                        textStyle: TextStyle(
                          color: Theme.of(context).canvasColor,
-                         fontFamily: "Nexa3"
+                         fontFamily: "FontMedium"
                        )
                      ),
                       */
@@ -353,7 +353,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                     Text(
                                                       formattedDate,
                                                       style: TextStyle(
-                                                        fontFamily: 'Nexa3',
+                                                        fontFamily: 'FontMedium',
                                                         fontSize: 16,
                                                         height: 1,
                                                         color: Theme.of(context).canvasColor,
@@ -370,7 +370,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                           children: [
                                                             TextSpan(
                                                               text:item[index].realAmount.toString(),style: TextStyle(
-                                                              fontFamily: 'Nexa4',
+                                                              fontFamily: 'FontBold',
                                                               fontSize: 16,
                                                                 height: 1,
                                                                 color: Theme.of(context).canvasColor
@@ -393,7 +393,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                                           children: [
                                                             TextSpan(
                                                               text:item[index].realAmount.toString(),style: TextStyle(
-                                                              fontFamily: 'NEXA3',
+                                                              fontFamily: 'FontMedium',
                                                               fontSize: 17,
                                                               height: 1,
                                                               color: renkler.kirmiziRenk,
@@ -453,7 +453,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                                 padding: const EdgeInsets.only( right: 5),
                                 child: Text(
                                   "${item.length}",
-                                  style: TextStyle(color: Theme.of(context).dialogBackgroundColor,fontSize: 18,fontFamily: 'NEXA3'),
+                                  style: TextStyle(color: Theme.of(context).dialogBackgroundColor,fontSize: 18,fontFamily: 'FontMedium'),
                                 ),
                               ),
                             ),
@@ -484,7 +484,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                 FittedBox(
                   child: Text(translation(context).totalAmountStatistics,style: TextStyle(
                     height: 1,
-                    fontFamily: 'NEXA3',
+                    fontFamily: 'FontMedium',
                     fontSize: 17,
                     color: Theme.of(context).canvasColor,
                   ),),
@@ -505,7 +505,7 @@ class _CategoryInfoBody extends ConsumerState<CategoryInfoBody> {
                             children: [
                               TextSpan(
                                 text: data.toStringAsFixed(2),style: const TextStyle(
-                                fontFamily: 'NEXA3',
+                                fontFamily: 'FontMedium',
                                 fontSize: 17,
                                 color: Color(0xff0D1C26),
                               ),
@@ -603,7 +603,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                             '${Converter().textConverterFromDB(myCategory[0], context, 0)} ',
                             style: TextStyle(
                               color: renkler.yaziRenk,
-                              fontFamily: "NEXA3",
+                              fontFamily: "FontMedium",
                               height: 1,
                               fontSize: 19,
                             ),
@@ -615,7 +615,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                             ' ${myCategory[1]}',
                             style: TextStyle(
                               color: renkler.yaziRenk,
-                              fontFamily: "NEXA3",
+                              fontFamily: "FontMedium",
                               height: 1,
                               fontSize: 19,
                             ),
@@ -634,7 +634,7 @@ class AppbarCategoryInfo extends ConsumerWidget implements PreferredSizeWidget {
                       style: TextStyle(
                         color: renkler.yaziRenk,
                         height: 1,
-                        fontFamily: "NEXA3",
+                        fontFamily: "FontMedium",
                         fontSize: 13,
                       ),
                     ),

@@ -185,7 +185,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
               translation(context).currencyConverter,
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'Nexa4',
+                fontFamily: 'FontBold',
                 color: Theme.of(context).disabledColor,
               ),
             ),
@@ -215,7 +215,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   translation(context).select,
                                   style: TextStyle(
                                     fontSize: 14,
-                                    fontFamily: 'Nexa3',
+                                    fontFamily: 'FontMedium',
                                     height: 1,
                                     color: renkler.arkaRenk,
                                   ),
@@ -233,7 +233,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   height: 1,
-                                                  fontFamily: 'Nexa3',
+                                                  fontFamily: 'FontMedium',
                                                   color: renkler.koyuuRenk),
                                             ),
                                           ),
@@ -385,7 +385,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   style: TextStyle(
                                     height: 1,
                                     color: renkler.arkaRenk,
-                                    fontFamily: "Nexa3",
+                                    fontFamily: "FontMedium",
                                     fontSize: 12,
                                   ),
                                 ),
@@ -451,7 +451,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   style: TextStyle(
                                     fontSize: 14,
                                     height: 1,
-                                    fontFamily: 'Nexa3',
+                                    fontFamily: 'FontMedium',
                                     color: renkler.arkaRenk,
                                   ),
                                 ),
@@ -468,7 +468,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   height: 1,
-                                                  fontFamily: 'Nexa3',
+                                                  fontFamily: 'FontMedium',
                                                   color: renkler.koyuuRenk),
                                             ),
                                           ),
@@ -613,7 +613,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
-                                      fontFamily: 'Nexa3',
+                                      fontFamily: 'FontMedium',
                                       fontWeight: FontWeight.w600,
                                       height: 1.3,
                                     ),
@@ -634,7 +634,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                     style: TextStyle(
                                       height: 1,
                                       color: renkler.arkaRenk,
-                                      fontFamily: "Nexa3",
+                                      fontFamily: "FontMedium",
                                       fontSize: 12,
                                     ),
                                   ),
@@ -682,7 +682,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                         style: TextStyle(
                                           fontSize: 12,
                                           height: 1,
-                                          fontFamily: 'Nexa3',
+                                          fontFamily: 'FontMedium',
                                           color: renkler.koyuuRenk,
                                         ),
                                       ),
@@ -700,7 +700,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                                     style: TextStyle(
                                                         fontSize: 12,
                                                         height: 1,
-                                                        fontFamily: 'Nexa3',
+                                                        fontFamily: 'FontMedium',
                                                         color:
                                                             renkler.koyuuRenk),
                                                   ),
@@ -774,7 +774,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                         style: TextStyle(
                                           fontSize: 12,
                                           height: 1,
-                                          fontFamily: 'Nexa3',
+                                          fontFamily: 'FontMedium',
                                           color: renkler.koyuuRenk,
                                         ),
                                       ),
@@ -792,7 +792,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                                     style: TextStyle(
                                                         fontSize: 12,
                                                         height: 1,
-                                                        fontFamily: 'Nexa3',
+                                                        fontFamily: 'FontMedium',
                                                         color:
                                                             renkler.koyuuRenk),
                                                   ),
@@ -867,7 +867,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                         style: TextStyle(
                                           fontSize: 12,
                                           height: 1,
-                                          fontFamily: 'Nexa3',
+                                          fontFamily: 'FontMedium',
                                           color: renkler.koyuuRenk,
                                         ),
                                       ),
@@ -885,7 +885,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                                     style: TextStyle(
                                                         fontSize: 12,
                                                         height: 1,
-                                                        fontFamily: 'Nexa3',
+                                                        fontFamily: 'FontMedium',
                                                         color:
                                                             renkler.koyuuRenk),
                                                   ),
@@ -1058,7 +1058,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                                 .replaceAll("-", "."),
                                             style: const TextStyle(
                                                 color: Color(0xFFE9E9E9),
-                                                fontFamily: "Nexa3"),
+                                                fontFamily: "FontMedium"),
                                           ),
                                         ),
                                       ),
@@ -1120,7 +1120,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                         .calculateFromCurrentExchangeRate,
                                     style: const TextStyle(
                                         color: Colors.white,
-                                        fontFamily: "Nexa3",
+                                        fontFamily: "FontMedium",
                                         fontSize: 14),
                                   ),
                                 ),
@@ -1128,7 +1128,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   formattedDate,
                                   style: TextStyle(
                                       color: Theme.of(context).disabledColor,
-                                      fontFamily: "Nexa4",
+                                      fontFamily: "FontBold",
                                       fontSize: 13),
                                 ),
                               ],
@@ -1166,7 +1166,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                         .calculateFromOldExchangeRate,
                                     style: const TextStyle(
                                         color: Colors.white,
-                                        fontFamily: "Nexa3",
+                                        fontFamily: "FontMedium",
                                         fontSize: 14),
                                   ),
                                 ),
@@ -1215,7 +1215,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
-                                      fontFamily: "Nexa4",
+                                      fontFamily: "FontBold",
                                       fontWeight: FontWeight.w900),
                                   maxLines: 3,
                                   textAlign: TextAlign.start,
@@ -1231,7 +1231,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
-                                        fontFamily: "Nexa3",
+                                        fontFamily: "FontMedium",
                                       ),
                                     ),
                                     const Icon(
@@ -1244,7 +1244,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
-                                        fontFamily: "Nexa3",
+                                        fontFamily: "FontMedium",
                                       ),
                                     ),
                                     Text(
@@ -1252,7 +1252,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
-                                        fontFamily: "Nexa3",
+                                        fontFamily: "FontMedium",
                                       ),
                                     )
                                   ],
@@ -1273,7 +1273,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
-                                      fontFamily: "Nexa4",
+                                      fontFamily: "FontBold",
                                       fontWeight: FontWeight.w900),
                                   maxLines: 2,
                                   textAlign: TextAlign.start,
@@ -1286,7 +1286,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
-                                      fontFamily: "Nexa3"),
+                                      fontFamily: "FontMedium"),
                                   textAlign: TextAlign.end,
                                 ),
                               ),

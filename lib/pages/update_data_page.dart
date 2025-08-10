@@ -83,7 +83,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                           menuController == 0 ? translation(context).editTitle : translation(context).addAgainTitle,
                           style: TextStyle(
                             height: 1,
-                            fontFamily: 'Nexa4',
+                            fontFamily: 'FontBold',
                             fontSize: 20,
                             color: renkler.yaziRenk,
                           ),
@@ -267,7 +267,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 13, fontFamily: 'Nexa4',height: 1, fontWeight: FontWeight.w800)
+                fontSize: 13, fontFamily: 'FontBold',height: 1, fontWeight: FontWeight.w800)
           ],
           onToggle: (index) {
             if (index == 0) {
@@ -348,7 +348,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       height: 1,
                       color: renkler.yaziRenk,
                       fontSize: 14,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'FontBold',
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -367,7 +367,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       style: TextStyle(
                           height: 1,
                           fontSize: 14,
-                          fontFamily: 'Nexa3',
+                          fontFamily: 'FontMedium',
                           color: renkler.koyuuRenk),
                       maxLines: 2,
                     ),
@@ -764,7 +764,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                 fontSize: 14,
                                                                 height: 1,
                                                                 fontFamily:
-                                                                'Nexa3',
+                                                                'FontMedium',
                                                               ),
                                                               overflow:
                                                               TextOverflow
@@ -803,7 +803,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                   .koyuuRenk,
                                                               fontSize: 14,
                                                               height: 1,
-                                                              fontFamily: 'Nexa3',
+                                                              fontFamily: 'FontMedium',
                                                             ),
                                                           ),
                                                         ),
@@ -884,7 +884,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                     height:
                                                                     1,
                                                                     fontFamily:
-                                                                    'Nexa3'),
+                                                                    'FontMedium'),
                                                                 decoration: InputDecoration(
                                                                     isDense:
                                                                     true,
@@ -899,7 +899,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                         fontSize:
                                                                         15,
                                                                         fontFamily:
-                                                                        'Nexa3'),
+                                                                        'FontMedium'),
                                                                     counterText:
                                                                     '',
                                                                     border:
@@ -967,10 +967,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                           (context) {
                                                                         return AlertDialog(
                                                                           backgroundColor: Theme.of(context).primaryColor,
-                                                                          title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3')),
+                                                                          title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'FontMedium')),
                                                                           content: Text(
                                                                             translation(context).enterCategoryWarning,
-                                                                            style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
+                                                                            style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'FontMedium'),
                                                                           ),
                                                                           shadowColor: renkler.koyuuRenk,
                                                                           actions: [
@@ -980,7 +980,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                               },
                                                                               child: Text(
                                                                                 translation(context).ok,
-                                                                                style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'Nexa3'),
+                                                                                style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'FontMedium'),
                                                                               ),
                                                                             )
                                                                           ],
@@ -1200,7 +1200,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                 fontSize: 14,
                                                                 height: 1,
                                                                 fontFamily:
-                                                                'Nexa3',
+                                                                'FontMedium',
                                                               ),
                                                               overflow:
                                                               TextOverflow
@@ -1240,7 +1240,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                     .koyuuRenk,
                                                                 fontSize: 14,
                                                                 height: 1,
-                                                                fontFamily: 'Nexa3',
+                                                                fontFamily: 'FontMedium',
                                                               ),
                                                             ),
                                                           ),
@@ -1474,13 +1474,13 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                               maxLength: 20,
                                                                                               maxLines: 1,
                                                                                               style:
-                                                                                              TextStyle(color: Theme.of(context).canvasColor,fontSize: 13,fontFamily: 'Nexa3'),
+                                                                                              TextStyle(color: Theme.of(context).canvasColor,fontSize: 13,fontFamily: 'FontMedium'),
                                                                                               decoration: InputDecoration(
                                                                                                   hintText: translation(context).enterCategory,
                                                                                                   hintStyle: TextStyle(
                                                                                                       color: Theme.of(context).canvasColor,
                                                                                                       fontSize: 13,
-                                                                                                      fontFamily: 'Nexa3',
+                                                                                                      fontFamily: 'FontMedium',
                                                                                                       height: 1
                                                                                                   ),
                                                                                                   counterText: '',
@@ -1512,10 +1512,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                     (context) {
                                                                                                   return AlertDialog(
                                                                                                     backgroundColor: Theme.of(context).primaryColor,
-                                                                                                    title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3', height: 1)),
+                                                                                                    title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'FontMedium', height: 1)),
                                                                                                     content: Text(
                                                                                                       translation(context).enterCategoryWarning,
-                                                                                                      style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
+                                                                                                      style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'FontMedium'),
                                                                                                     ),
                                                                                                     shadowColor: renkler.koyuuRenk,
                                                                                                     actions: [
@@ -1525,7 +1525,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                         },
                                                                                                         child: Text(
                                                                                                           translation(context).ok,
-                                                                                                          style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'Nexa3'),
+                                                                                                          style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'FontMedium'),
                                                                                                         ),
                                                                                                       )
                                                                                                     ],
@@ -1558,7 +1558,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                 .koyuuRenk,
                                                                                             fontSize: 13,
                                                                                             height: 1,
-                                                                                            fontFamily: 'Nexa3',
+                                                                                            fontFamily: 'FontMedium',
                                                                                           ),
                                                                                           textAlign: TextAlign.center,
                                                                                           maxLines: 4,
@@ -1607,7 +1607,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                         .koyuuRenk,
                                                                                     fontSize: 14,
                                                                                     height: 1,
-                                                                                    fontFamily: 'Nexa3',
+                                                                                    fontFamily: 'FontMedium',
                                                                                   ),
                                                                                   textAlign: TextAlign.center,
                                                                                   maxLines: 4,
@@ -1651,7 +1651,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                         .arkaRenk,
                                                                                     fontSize: 14,
                                                                                     height: 1,
-                                                                                    fontFamily: 'Nexa3',
+                                                                                    fontFamily: 'FontMedium',
                                                                                   ),
                                                                                   textAlign: TextAlign.center,
                                                                                   maxLines: 4,
@@ -1839,7 +1839,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                           .koyuuRenk,
                                                                                       fontSize: 14,
                                                                                       height: 1,
-                                                                                      fontFamily: 'Nexa3',
+                                                                                      fontFamily: 'FontMedium',
                                                                                     ),
                                                                                     textAlign: TextAlign.center,
                                                                                     maxLines: 4,
@@ -1883,7 +1883,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                           .arkaRenk,
                                                                                       fontSize: 14,
                                                                                       height: 1,
-                                                                                      fontFamily: 'Nexa3',
+                                                                                      fontFamily: 'FontMedium',
                                                                                     ),
                                                                                     textAlign: TextAlign.center,
                                                                                     maxLines: 4,
@@ -1985,7 +1985,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                           .koyuuRenk,
                                                                                                       fontSize: 14,
                                                                                                       height: 1,
-                                                                                                      fontFamily: 'Nexa3',
+                                                                                                      fontFamily: 'FontMedium',
                                                                                                     ),
                                                                                                     textAlign: TextAlign.center,
                                                                                                     maxLines: 4,
@@ -2101,7 +2101,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                             translation(context).selectCategory,
                                                                                                             style: TextStyle(
                                                                                                               fontSize: 13,
-                                                                                                              fontFamily: 'Nexa3',
+                                                                                                              fontFamily: 'FontMedium',
                                                                                                               color:
                                                                                                               Theme.of(context).canvasColor,
                                                                                                             ),
@@ -2119,7 +2119,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                                       fontSize: 13,
                                                                                                                       height: 1,
                                                                                                                       fontFamily:
-                                                                                                                      'Nexa3',
+                                                                                                                      'FontMedium',
                                                                                                                       color: Theme.of(
                                                                                                                           context)
                                                                                                                           .canvasColor),
@@ -2135,7 +2135,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                                   style: TextStyle(
                                                                                                                       fontSize: 13,
                                                                                                                       fontFamily:
-                                                                                                                      'Nexa3',
+                                                                                                                      'FontMedium',
                                                                                                                       color: Theme.of(
                                                                                                                           context)
                                                                                                                           .canvasColor),
@@ -2210,10 +2210,10 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                             (context) {
                                                                                                           return AlertDialog(
                                                                                                             backgroundColor: Theme.of(context).primaryColor,
-                                                                                                            title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'Nexa3', height: 1)),
+                                                                                                            title: Text(translation(context).missingEntry, style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 22, fontFamily: 'FontMedium', height: 1)),
                                                                                                             content: Text(
                                                                                                               translation(context).enterCategoryWarning,
-                                                                                                              style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Nexa3'),
+                                                                                                              style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'FontMedium'),
                                                                                                             ),
                                                                                                             shadowColor: renkler.koyuuRenk,
                                                                                                             actions: [
@@ -2223,7 +2223,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                                 },
                                                                                                                 child: Text(
                                                                                                                   translation(context).ok,
-                                                                                                                  style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'Nexa3'),
+                                                                                                                  style: TextStyle(color: Theme.of(context).secondaryHeaderColor, fontSize: 18, height: 1, fontFamily: 'FontMedium'),
                                                                                                                 ),
                                                                                                               )
                                                                                                             ],
@@ -2256,7 +2256,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                                                                         .koyuuRenk,
                                                                                                     fontSize: 13,
                                                                                                     height: 1,
-                                                                                                    fontFamily: 'Nexa3',
+                                                                                                    fontFamily: 'FontMedium',
                                                                                                   ),
                                                                                                   textAlign: TextAlign.center,
                                                                                                   maxLines: 4,
@@ -2347,7 +2347,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     backgroundColor: Theme.of(context).primaryColor,
                     shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(10))),
                     foregroundColor: Theme.of(context).canvasColor,
-                    textStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15)// button text color
+                    textStyle: TextStyle(fontFamily: "FontMedium",height: 1,fontSize: 15)// button text color
                 ),
               ),
               dividerTheme: DividerThemeData(
@@ -2357,11 +2357,11 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   thickness: 1.5
               ),
               datePickerTheme: DatePickerThemeData(
-                dayStyle: TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15),
+                dayStyle: TextStyle(fontFamily: "FontMedium",height: 1,fontSize: 15),
                 todayForegroundColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                 dayOverlayColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                 headerForegroundColor: renkler.yaziRenk,
-                weekdayStyle: TextStyle(fontFamily: "Nexa4",height: 1,fontSize: 15,color: Theme.of(context).secondaryHeaderColor),
+                weekdayStyle: TextStyle(fontFamily: "FontBold",height: 1,fontSize: 15,color: Theme.of(context).secondaryHeaderColor),
                 yearForegroundColor: MaterialStatePropertyAll(Theme.of(context).canvasColor),
                 yearOverlayColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                 yearBackgroundColor: MaterialStatePropertyAll(Theme.of(context).primaryColor),
@@ -2371,21 +2371,21 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                 labelSmall: const TextStyle(
                   ///tarih seçiniz
                     fontSize: 16,
-                    fontFamily: 'Nexa4'),
+                    fontFamily: 'FontBold'),
                 titleSmall: TextStyle(
                   ///ay ve yıl
                     fontSize: 16,
-                    fontFamily: 'Nexa3',
+                    fontFamily: 'FontMedium',
                     color: renkler.koyuuRenk),
                 headlineMedium: TextStyle(
                   ///gün ay gün
                     fontSize: 26,
-                    fontFamily: 'Nexa3',
+                    fontFamily: 'FontMedium',
                     color: renkler.koyuuRenk),
                 bodyLarge: TextStyle(
                   ///alt YILLAR
                     fontSize: 16,
-                    fontFamily: 'Nexa3',
+                    fontFamily: 'FontMedium',
                     color: Theme.of(context).disabledColor),
               ),
               colorScheme: ColorScheme(
@@ -2475,7 +2475,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                               color: renkler.koyuuRenk,
                               height: 1,
                               fontSize: 13,
-                              fontFamily: 'Nexa4'),
+                              fontFamily: 'FontBold'),
                         )),
                   ),
                 ),
@@ -2584,7 +2584,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                         height: 1,
                                         color: renkler.yaziRenk,
                                         fontSize: 15,
-                                        fontFamily: 'Nexa4',
+                                        fontFamily: 'FontBold',
                                         fontWeight: FontWeight.w800)),
                               ),
                             ),
@@ -2603,7 +2603,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                     style: const TextStyle(
                                         color: Color(0xff0D1C26),
                                         fontSize: 17,
-                                        fontFamily: 'Nexa4',
+                                        fontFamily: 'FontBold',
                                         fontWeight: FontWeight.w100),
                                     controller: amount,
                                     autofocus: false,
@@ -2686,7 +2686,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "TRY", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      "TRY", style: TextStyle(fontSize: 14,fontFamily: 'FontBold',color: renkler.arkaRenk),
                                     ),
                                   ),
                                 ),
@@ -2710,7 +2710,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "USD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      "USD", style: TextStyle(fontSize: 14,fontFamily: 'FontBold',color: renkler.arkaRenk),
                                     ),
                                   ),
                                 ),
@@ -2734,7 +2734,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "EUR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      "EUR", style: TextStyle(fontSize: 14,fontFamily: 'FontBold',color: renkler.arkaRenk),
                                     ),
                                   ),
                                 ),
@@ -2758,7 +2758,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "GBP", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      "GBP", style: TextStyle(fontSize: 14,fontFamily: 'FontBold',color: renkler.arkaRenk),
                                     ),
                                   ),
                                 ),
@@ -2788,7 +2788,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "KWD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      "KWD", style: TextStyle(fontSize: 14,fontFamily: 'FontBold',color: renkler.arkaRenk),
                                     ),
                                   ),
                                 ),
@@ -2812,7 +2812,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "JOD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      "JOD", style: TextStyle(fontSize: 14,fontFamily: 'FontBold',color: renkler.arkaRenk),
                                     ),
                                   ),
                                 ),
@@ -2836,7 +2836,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "IQD", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      "IQD", style: TextStyle(fontSize: 14,fontFamily: 'FontBold',color: renkler.arkaRenk),
                                     ),
                                   ),
                                 ),
@@ -2860,7 +2860,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "SAR", style: TextStyle(fontSize: 14,fontFamily: 'Nexa4',color: renkler.arkaRenk),
+                                      "SAR", style: TextStyle(fontSize: 14,fontFamily: 'FontBold',color: renkler.arkaRenk),
                                     ),
                                   ),
                                 ),
@@ -2913,7 +2913,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
           curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 13, fontFamily: 'Nexa4', height: 1,fontWeight: FontWeight.w800)
+                fontSize: 13, fontFamily: 'FontBold', height: 1,fontWeight: FontWeight.w800)
           ],
           onToggle: (index) {
             if (index == 0) {
@@ -2964,7 +2964,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           color: renkler.yaziRenk,
                           height: 1,
                           fontSize: 13,
-                          fontFamily: 'Nexa4',
+                          fontFamily: 'FontBold',
                           fontWeight: FontWeight.w800)),
                 ),
               ),
@@ -3083,7 +3083,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                         backgroundColor: Theme.of(context).splashColor,
                         color: Theme.of(context).disabledColor,
                         fontSize: 13,
-                        fontFamily: 'Nexa4',
+                        fontFamily: 'FontBold',
                         fontWeight: FontWeight.w800,
                       ),
                     )),
@@ -3110,7 +3110,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           color: Theme.of(context).primaryColor,
                           height: 1,
                           fontSize: 15,
-                          fontFamily: 'Nexa4',
+                          fontFamily: 'FontBold',
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -3140,7 +3140,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                           color: Theme.of(context).canvasColor,
                           height: 1,
                           fontSize: 12,
-                          fontFamily: 'Nexa4',
+                          fontFamily: 'FontBold',
                           fontWeight: FontWeight.w200,
                         ),
                       ),
@@ -3211,7 +3211,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     style: TextStyle(
                       color: renkler.yaziRenk,
                       fontSize: 14,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'FontBold',
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -3230,7 +3230,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                       style: TextStyle(
                         height: 1,
                         fontSize: 14,
-                        fontFamily: 'Nexa3',
+                        fontFamily: 'FontMedium',
                           color: Theme.of(context).canvasColor
                       ),
                     ),
@@ -3292,7 +3292,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                               child: Center(
                                                 child: Text(
                                                   menuController == true ? translation(context).installment : translation(context).repeat, style: TextStyle(
-                                                    color: renkler.arkaRenk,fontSize: 18, fontFamily: 'Nexa4', height: 1,fontWeight: FontWeight.w800
+                                                    color: renkler.arkaRenk,fontSize: 18, fontFamily: 'FontBold', height: 1,fontWeight: FontWeight.w800
                                                 ),
                                                 ),
                                               ),
@@ -3319,7 +3319,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                         TextStyle(
                                                           fontSize: 18,
                                                           fontFamily:
-                                                          'Nexa3',
+                                                          'FontMedium',
                                                           color: Theme.of(
                                                               context)
                                                               .canvasColor,
@@ -3335,7 +3335,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                             Center(
                                                               child: Text(
                                                                 item,
-                                                                style: TextStyle(fontSize: 18, fontFamily: 'Nexa3', color: Theme.of(context).canvasColor),
+                                                                style: TextStyle(fontSize: 18, fontFamily: 'FontMedium', color: Theme.of(context).canvasColor),
                                                               ),
                                                             ),
                                                           ))
@@ -3455,7 +3455,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                             .canvasColor,
                                                         fontSize: 17,
                                                         fontFamily:
-                                                        'Nexa3'),
+                                                        'FontMedium'),
                                                     decoration:
                                                     InputDecoration(
                                                         hintText:
@@ -3466,7 +3466,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                             fontSize:
                                                             15,
                                                             fontFamily:
-                                                            'Nexa3'),
+                                                            'FontMedium'),
                                                         suffixText:
                                                         translation(context).month,
                                                         suffixStyle:
@@ -3477,7 +3477,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                           fontSize:
                                                           16,
                                                           fontFamily:
-                                                          'Nexa3',
+                                                          'FontMedium',
                                                         ),
                                                         counterText:
                                                         '',
@@ -3537,7 +3537,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                         fontSize: 13,
                                                         height: 1,
                                                         fontFamily:
-                                                        'Nexa4',
+                                                        'FontBold',
                                                         fontWeight:
                                                         FontWeight
                                                             .w800,
@@ -3580,7 +3580,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                           .arkaRenk,
                                                       fontSize: 12,
                                                       fontFamily:
-                                                      'Nexa3',
+                                                      'FontMedium',
                                                       height: 1
                                                     ),
                                                   ),
@@ -3613,7 +3613,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                                                       color:
                                                       renkler.koyuuRenk,
                                                       fontSize: 16,
-                                                      fontFamily: 'Nexa3',
+                                                      fontFamily: 'FontMedium',
                                                       height: 1
                                                     ),
                                                   ),
@@ -3770,7 +3770,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                     style: TextStyle(
                       color: renkler.yaziRenk,
                       fontSize: 16,
-                      fontFamily: 'Nexa3',
+                      fontFamily: 'FontMedium',
                       fontWeight: FontWeight.w600,
                       height: 1.3,
                     ),
@@ -3783,8 +3783,8 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                   builder: (context) {
                     return AlertDialog(
                       backgroundColor: Theme.of(context).primaryColor,
-                      title: Text(translation(context).missingEntry,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 22,height: 1,fontFamily: 'Nexa3')),
-                      content: Text(alertContent,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 16,height: 1,fontFamily: 'Nexa3'),),
+                      title: Text(translation(context).missingEntry,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 22,height: 1,fontFamily: 'FontMedium')),
+                      content: Text(alertContent,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 16,height: 1,fontFamily: 'FontMedium'),),
                       shadowColor: renkler.koyuuRenk,
                       actions: [
                         TextButton(
@@ -3807,7 +3807,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
                             Navigator.of(context).pop();
                             //FocusScope.of(context).requestFocus(amountFocusNode);
                           },
-                          child: Text("Tamam",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 18,fontFamily: 'Nexa3'),),
+                          child: Text("Tamam",style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 18,fontFamily: 'FontMedium'),),
                         )
                       ],
                     );
@@ -3818,7 +3818,7 @@ class _ButtonMenu extends ConsumerState<ButtonMenu> {
               style: const TextStyle(
                   color: Color(0xff0D1C26),
                   fontSize: 17,
-                  fontFamily: 'Nexa4',
+                  fontFamily: 'FontBold',
                   fontWeight: FontWeight.w900)),
         ),
       ),

@@ -109,7 +109,7 @@ class _AppStatusState extends ConsumerState<AppStatus> {
                       style: TextStyle(
                           fontSize: 44,
                           height: 1,
-                          fontFamily: "Nexa4",
+                          fontFamily: "FontBold",
                           fontWeight: FontWeight.w900,
                           color: Theme.of(context).secondaryHeaderColor),
                       textDirection: TextDirection.ltr,
@@ -123,7 +123,7 @@ class _AppStatusState extends ConsumerState<AppStatus> {
                       style: TextStyle(
                           fontSize: 32,
                           height: 1,
-                          fontFamily: "Nexa3",
+                          fontFamily: "FontMedium",
                           color: Theme.of(context).canvasColor),
                       textDirection: TextDirection.ltr,
                       textAlign: TextAlign.center,
@@ -161,7 +161,7 @@ class _AppStatusState extends ConsumerState<AppStatus> {
                 style: TextStyle(
                     fontSize: 22,
                     height: 1,
-                    fontFamily: "Nexa4",
+                    fontFamily: "FontBold",
                     fontWeight: FontWeight.w900,
                     color: Theme.of(context).canvasColor),
                 textDirection: TextDirection.ltr,
@@ -177,7 +177,7 @@ class _AppStatusState extends ConsumerState<AppStatus> {
                             color: Colors.blue,
                             fontSize: 18,
                             decoration: TextDecoration.underline,
-                            fontFamily: "Nexa3"
+                            fontFamily: "FontMedium"
                           ),
                         ),
                   onTap: () {
@@ -199,7 +199,7 @@ class _AppStatusState extends ConsumerState<AppStatus> {
                   style: TextStyle(
                       fontSize: 22,
                       height: 1,
-                      fontFamily: "Nexa3",
+                      fontFamily: "FontMedium",
                       color: Theme.of(context).canvasColor),
                   textDirection: TextDirection.ltr,
                   textAlign: TextAlign.center,
@@ -219,7 +219,7 @@ class _AppStatusState extends ConsumerState<AppStatus> {
                     style: TextStyle(
                         color: Theme.of(context).canvasColor,
                         fontSize: 18,
-                        fontFamily: "Nexa3",
+                        fontFamily: "FontMedium",
                         height: 1),
                   ),
                 ),

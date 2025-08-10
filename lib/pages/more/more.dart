@@ -121,7 +121,7 @@ class More extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Icon(Icons.settings, color: renkler.arkaRenk, size: 35),
-                                    Text(translation(context).settings,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),textAlign: TextAlign.center,
+                                    Text(translation(context).settings,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'FontMedium',height: 1),textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
@@ -183,12 +183,12 @@ class More extends ConsumerWidget {
                                           Icon(Icons.wallet_rounded, color: renkler.koyuuRenk, size: 35),
                                           Expanded(child: Padding(
                                             padding: const EdgeInsets.only(top:8.0),
-                                            child: Text(translation(context).assets,style: TextStyle(color: renkler.koyuuRenk,fontSize: 16,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                            child: Text(translation(context).assets,style: TextStyle(color: renkler.koyuuRenk,fontSize: 16,fontFamily: 'FontMedium',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                           )),
                                         ],
                                       ),
                                     ),
-                                    Text(translation(context).yourNetAsset,style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,)
+                                    Text(translation(context).yourNetAsset,style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'FontMedium',height: 1),maxLines: 2,textAlign: TextAlign.center,)
                                   ],
                                 ),
                               ),
@@ -265,7 +265,7 @@ class More extends ConsumerWidget {
                                     ref.read(settingsRiverpod).isPassword == 1
                                         ? Icon(Icons.lock, color: renkler.arkaRenk, size: 35)
                                         : Icon(Icons.lock_open, color: renkler.arkaRenk, size: 35),
-                                    Text(translation(context).loginPassword,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                    Text(translation(context).loginPassword,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'FontMedium',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                   ],
                                 ),
                               ),
@@ -316,7 +316,7 @@ class More extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Icon(Icons.download, color: renkler.arkaRenk, size: 35),
-                                    Text(translation(context).downloadData,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                    Text(translation(context).downloadData,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'FontMedium',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                   ],
                                 ),
                               ),
@@ -368,7 +368,7 @@ class More extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Icon(Icons.message, color: renkler.arkaRenk, size: 35),
-                                    Text(translation(context).contactUs,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                    Text(translation(context).contactUs,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'FontMedium',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                   ],
                                 ),
                               ),
@@ -429,7 +429,7 @@ class More extends ConsumerWidget {
                                       Icon(Icons.question_mark, color: renkler.koyuuRenk, size: 26),
                                       Expanded(child: Padding(
                                         padding: const EdgeInsets.only(top:6.0),
-                                        child: Text(translation(context).help,style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1,),textAlign: TextAlign.center,),
+                                        child: Text(translation(context).help,style: TextStyle(color: renkler.koyuuRenk,fontSize: 13,fontFamily: 'FontMedium',height: 1,),textAlign: TextAlign.center,),
                                       )),
                                     ],
                                   ),
@@ -496,7 +496,7 @@ class More extends ConsumerWidget {
                                       Icon(Icons.mail_outline_rounded, color: renkler.yaziRenk, size: 26),
                                       Expanded(child: Padding(
                                         padding: const EdgeInsets.only(top:6.0),
-                                        child: Text(translation(context).feedback,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                        child: Text(translation(context).feedback,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'FontMedium',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                       )),
                                     ],
                                   ),
@@ -551,7 +551,7 @@ class More extends ConsumerWidget {
                                       Icon(Icons.star_rate_rounded, color: renkler.arkaRenk, size: 26),
                                       Expanded(child: Padding(
                                         padding: const EdgeInsets.only(top:6.0),
-                                        child: Text(translation(context).evaluate,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1,),textAlign: TextAlign.center,),
+                                        child: Text(translation(context).evaluate,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'FontMedium',height: 1,),textAlign: TextAlign.center,),
                                       )),
                                     ],
                                   ),
@@ -595,7 +595,7 @@ class More extends ConsumerWidget {
                                       Icon(Icons.share, color: renkler.yaziRenk, size: 26),
                                       Expanded(child: Padding(
                                         padding: const EdgeInsets.only(top:6.0),
-                                        child: Text(translation(context).recommend,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'Nexa3',height: 1),maxLines: 2,textAlign: TextAlign.center,),
+                                        child: Text(translation(context).recommend,style: TextStyle(color: renkler.yaziRenk,fontSize: 13,fontFamily: 'FontMedium',height: 1),maxLines: 2,textAlign: TextAlign.center,),
                                       )),
                                     ],
                                   ),

@@ -68,7 +68,7 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                             child: Text(
                               translation(context).version2,
                               style: TextStyle(
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 24,
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
@@ -84,7 +84,7 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                             padding: const EdgeInsets.symmetric(horizontal: 12),
                             child: Text(
                               translation(context).budgetUpdate
-                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15,fontFamily: "Nexa4"),textAlign: TextAlign.start,
+                              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15,fontFamily: "FontBold"),textAlign: TextAlign.start,
                             ),
                           ),
                           const Spacer(),
@@ -131,7 +131,7 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
                           translation(context).whatsNewVersion,
                           style: TextStyle(
                               color: Theme.of(context).disabledColor,
-                              fontFamily: "Nexa4",
+                              fontFamily: "FontBold",
                               fontSize: 23
                           ),
                         ),
@@ -234,7 +234,7 @@ Widget buildText(BuildContext context,String title1, String title2,IconData icon
             padding: const EdgeInsets.only(left: 6,right: 6,top: 4),
             child: Text(
               title1
-              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+              ,style: TextStyle(color: Theme.of(context).canvasColor,height: 1.1,fontSize: 15,fontFamily: "FontBold"),textAlign: TextAlign.justify,
             ),
           ),
           Expanded(child: Padding(
@@ -266,7 +266,7 @@ Widget buildText(BuildContext context,String title1, String title2,IconData icon
             padding: const EdgeInsets.only(left: 6,right: 6,top: 4),
             child: Text(
               title2
-              ,style: TextStyle(color: title2Mode == 0 ? renkler.yesilRenk : Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 15,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+              ,style: TextStyle(color: title2Mode == 0 ? renkler.yesilRenk : Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 15,fontFamily: "FontBold"),textAlign: TextAlign.justify,
             ),
           ),
         ],

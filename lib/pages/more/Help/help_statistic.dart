@@ -60,7 +60,7 @@ class HelpStatisic extends StatelessWidget {
                             child: Text(
                               translation(context).statisticsPageHelp,
                               style: TextStyle(
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 24,
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
@@ -83,7 +83,7 @@ class HelpStatisic extends StatelessWidget {
                       const SizedBox(height: 7,),
                       Text(
                         translation(context).whatYouCanDoOnThisPage
-                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
 
@@ -138,7 +138,7 @@ class HelpStatisic extends StatelessWidget {
                       const SizedBox(height: 14,),
                       Text(
                         translation(context).statisticsFiltering
-                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Padding(
@@ -171,7 +171,7 @@ class HelpStatisic extends StatelessWidget {
                                         style: TextStyle(
                                             color: renkler.arkaRenk,
                                             fontSize: 14,
-                                            fontFamily: 'Nexa3'),
+                                            fontFamily: 'FontMedium'),
                                       ),
                                     ),
                                     Row(
@@ -193,7 +193,7 @@ class HelpStatisic extends StatelessWidget {
                                               child: Text(translation(context).monthly,style: TextStyle(
                                                 color: renkler.koyuuRenk,
                                                 fontSize: 12,
-                                                fontFamily: "Nexa4"
+                                                fontFamily: "FontBold"
                                               ),),
                                             ),
                                           ),
@@ -215,7 +215,7 @@ class HelpStatisic extends StatelessWidget {
                                                           color: renkler.arkaRenk,
                                                           height: 1,
                                                           fontSize: 12,
-                                                          fontFamily: 'Nexa3'),
+                                                          fontFamily: 'FontMedium'),
                                                     ))),
                                             Positioned(
                                               bottom: 0,
@@ -249,7 +249,7 @@ class HelpStatisic extends StatelessWidget {
                                                         color: renkler.arkaRenk,
                                                         height: 1,
                                                         fontSize: 12,
-                                                        fontFamily: 'Nexa3'),
+                                                        fontFamily: 'FontMedium'),
                                                   )),
                                             ),
                                             Positioned(
@@ -311,7 +311,7 @@ class HelpStatisic extends StatelessWidget {
                                       "% 24",
                                       style: TextStyle(
                                         height: 1,
-                                        fontFamily: 'NEXA3',
+                                        fontFamily: 'FontMedium',
                                         color: Colors.white,
                                       ),
                                     )),
@@ -322,7 +322,7 @@ class HelpStatisic extends StatelessWidget {
                                   translation(context).foodExpense,
                                   style: TextStyle(
                                     height: 1,
-                                    fontFamily: 'NEXA3',
+                                    fontFamily: 'FontMedium',
                                     fontSize: 18,
                                     color:
                                     Theme.of(context).canvasColor,
@@ -337,7 +337,7 @@ class HelpStatisic extends StatelessWidget {
                                       text: "112.40",
                                       style: TextStyle(
                                         height: 1,
-                                        fontFamily: 'NEXA3',
+                                        fontFamily: 'FontMedium',
                                         fontSize: 16,
                                         color: Theme.of(context)
                                             .dialogBackgroundColor,

@@ -179,7 +179,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
               title,
               style: const TextStyle(
                 color: Colors.white,
-                fontFamily: 'NEXA4',
+                fontFamily: 'FontBold',
                 fontSize: 22,
                 height: 1,
                 fontWeight: FontWeight.w900,
@@ -200,7 +200,7 @@ Positioned(
                 style: const TextStyle(
                   height: 1,
                   color: Colors.white,
-                  fontFamily: 'NEXA4',
+                  fontFamily: 'FontBold',
                   fontSize: 22,
                   fontWeight: FontWeight.w900,
                 ),

@@ -59,7 +59,7 @@ class HelpAddUpdate extends StatelessWidget {
                             child: Text(
                               translation(context).addEdit,
                               style: TextStyle(
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 23,
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
@@ -82,7 +82,7 @@ class HelpAddUpdate extends StatelessWidget {
                       const SizedBox(height: 7,),
                       Text(
                         translation(context).whatYouCanDoOnThisPage
-                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Row(
@@ -330,7 +330,7 @@ class HelpAddUpdate extends StatelessWidget {
                         children: [
                           Text(
                             translation(context).activityEditAddAgain
-                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                           ),
                           Container(
                             height: 30,

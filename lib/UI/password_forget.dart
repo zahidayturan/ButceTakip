@@ -82,7 +82,7 @@ class _PasswordForgetState extends ConsumerState<PasswordForget> {
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: "Nexa4",
+                          fontFamily: "FontBold",
                         height: 1
                       ),
                     ),

@@ -105,7 +105,7 @@ class _renameSecQu extends ConsumerState<renameSecQu> {
                             style: TextStyle(
                                 color: Theme.of(context).canvasColor,
                                 fontSize: 13,
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                               height: .7
                             ),
                           ),

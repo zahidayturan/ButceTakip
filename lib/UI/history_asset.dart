@@ -609,7 +609,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                         style: TextStyle(
                             color: _textColorTool,
                             fontSize: 13,
-                            fontFamily: 'Nexa3',
+                            fontFamily: 'FontMedium',
                             height: 1)),
                   ),
                 ),
@@ -635,7 +635,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                           color: _textColorTool2,
                           fontSize: 13,
                           height: 1,
-                          fontFamily: 'Nexa3',
+                          fontFamily: 'FontMedium',
                         )),
                   ),
                 ),
@@ -660,7 +660,7 @@ class _HistoryAsset extends ConsumerState<HistoryAsset> {
                         style: TextStyle(
                             color: _textColorTool3,
                             fontSize: 13,
-                            fontFamily: 'Nexa3',
+                            fontFamily: 'FontMedium',
                             height: 1)),
                   ),
                 ),

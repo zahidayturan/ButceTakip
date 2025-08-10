@@ -77,13 +77,13 @@ class _BackUpState extends ConsumerState<BackUp> {
                             Text(
                               translation(context).backupStatus,
                               style: TextStyle(
-                                fontFamily: "Nexa3",
+                                fontFamily: "FontMedium",
                                 color: Theme.of(context).canvasColor,
                               ),
                             ),
                           const Spacer(),
-                          isopen ? Text(translation(context).on, style: TextStyle(fontFamily: "Nexa3",color:  Theme.of(context).canvasColor,),)
-                              : Text(translation(context).off, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor,),),
+                          isopen ? Text(translation(context).on, style: TextStyle(fontFamily: "FontMedium",color:  Theme.of(context).canvasColor,),)
+                              : Text(translation(context).off, style: TextStyle(fontFamily: "FontMedium",color: Theme.of(context).canvasColor,),),
                           Switch(
                             activeColor: Theme.of(context).disabledColor,
                             value: isopen ,
@@ -118,7 +118,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                               style: TextStyle(
                                 height: 1,
                                 fontSize: 16,
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 color: Theme.of(context).canvasColor,
                               ),
                             ),
@@ -199,7 +199,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                     child: Text(
                                       translation(context).backupFrequency,
                                       style:TextStyle(
-                                        fontFamily: "Nexa3",
+                                        fontFamily: "FontMedium",
                                         fontSize: 15  ,
                                         color: Theme.of(context).canvasColor,
                                       ),
@@ -245,7 +245,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
-                                              fontFamily: 'Nexa3',
+                                              fontFamily: 'FontMedium',
                                               fontWeight: FontWeight.w600,
                                               height: 1.3,
                                             ),
@@ -293,7 +293,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                                 height: 1,
                                                   color: renkler.arkaRenk,
                                                   fontSize: 15,
-                                                  fontFamily: "Nexa3"
+                                                  fontFamily: "FontMedium"
                                               ),
                                             ),
                                           ),
@@ -340,7 +340,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                               style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
-                                                fontFamily: 'Nexa3',
+                                                fontFamily: 'FontMedium',
                                                 fontWeight: FontWeight.w600,
                                                 height: 1.3,
                                               ),
@@ -360,7 +360,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16,
-                                                  fontFamily: 'Nexa3',
+                                                  fontFamily: 'FontMedium',
                                                   fontWeight: FontWeight.w600,
                                                   height: 1.3,
                                                 ),
@@ -385,7 +385,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                               style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
-                                                fontFamily: 'Nexa3',
+                                                fontFamily: 'FontMedium',
                                                 fontWeight: FontWeight.w600,
                                                 height: 1.3,
                                               ),
@@ -424,7 +424,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                                   color: renkler.arkaRenk,
                                                 height: 1,
                                                   fontSize: 15,
-                                                  fontFamily: "Nexa3"
+                                                  fontFamily: "FontMedium"
                                               ),
                                             ),
                                           ),
@@ -469,7 +469,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                               height: 1,
                                                 color: renkler.arkaRenk,
                                                 fontSize: 15,
-                                                fontFamily: "Nexa3"
+                                                fontFamily: "FontMedium"
                                             ),
                                           ),
                                         ),
@@ -598,7 +598,7 @@ class _BackUpState extends ConsumerState<BackUp> {
                                                   color: renkler.arkaRenk,
                                                 height: 1,
                                                   fontSize: 15,
-                                                  fontFamily: "Nexa3"
+                                                  fontFamily: "FontMedium"
                                               ),
                                             ),
                                           ],
@@ -652,7 +652,7 @@ class _BackUpState extends ConsumerState<BackUp> {
         curve: Curves.linearToEaseOut,
         customTextStyles: const [
           TextStyle(
-              fontSize: 12, fontFamily: 'Nexa3', fontWeight: FontWeight.w800)
+              fontSize: 12, fontFamily: 'FontMedium', fontWeight: FontWeight.w800)
         ],
         onToggle: (index) {
           if (index == 0) {

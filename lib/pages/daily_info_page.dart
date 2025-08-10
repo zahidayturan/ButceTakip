@@ -203,7 +203,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                           Text(
                                                             Converter().textConverterFromDB(item[index].category!, context, 0),
                                                             style: TextStyle(
-                                                              fontFamily: 'NEXA3',
+                                                              fontFamily: 'FontMedium',
                                                               fontSize: 17,
                                                               height: 1,
                                                               color: Theme.of(context).canvasColor,
@@ -213,7 +213,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                           item[index].note! != "" ? Text(
                                                             "${translation(context).note} ${item[index].note!}",
                                                             style: TextStyle(
-                                                              fontFamily: 'NEXA3',
+                                                              fontFamily: 'FontMedium',
                                                               fontSize: 14,
                                                               height: 1,
                                                               color: Theme.of(context).canvasColor,
@@ -234,7 +234,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                           children: [
                                                             TextSpan(
                                                               text:item[index].realAmount!.toStringAsFixed(2),style: TextStyle(
-                                                              fontFamily: 'NEXA3',
+                                                              fontFamily: 'FontMedium',
                                                               fontSize: 17,
                                                               height: 1,
                                                               color: Theme.of(context).canvasColor
@@ -257,7 +257,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                                           children: [
                                                             TextSpan(
                                                               text:item[index].realAmount!.toStringAsFixed(2),style: TextStyle(
-                                                              fontFamily: 'Nexa3',
+                                                              fontFamily: 'FontMedium',
                                                               fontSize: 17,
                                                               height: 1,
                                                               color: renkler.kirmiziRenk,
@@ -308,7 +308,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                   style: TextStyle(
                                       color: Theme.of(context).dialogBackgroundColor,
                                       fontSize: 18,
-                                      fontFamily: 'NEXA4'),
+                                      fontFamily: 'FontBold'),
                                 ),
                               ),
                             ),
@@ -359,7 +359,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                 style: TextStyle(
                                   color: renkler.yaziRenk,
                                   fontSize: 15,
-                                  fontFamily: 'Nexa3',
+                                  fontFamily: 'FontMedium',
                                   fontWeight: FontWeight.w900,
                                   height: 1.4,
                                 ),
@@ -374,7 +374,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                                 style: TextStyle(
                                   color: renkler.yaziRenk,
                                   fontSize: 15,
-                                  fontFamily: 'Nexa3',
+                                  fontFamily: 'FontMedium',
                                   fontWeight: FontWeight.w900,
                                   height: 1.4,
                                 ),
@@ -402,7 +402,7 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                               style: const TextStyle(
                                 color: Color(0xff0D1C26),
                                 fontSize: 17,
-                                fontFamily: 'Nexa3',
+                                fontFamily: 'FontMedium',
                                 fontWeight: FontWeight.w900,
                                 height: 1.4,
                               ),
@@ -440,14 +440,14 @@ class _DailyInfoBody extends ConsumerState<DailyInfoBody> {
                   "${data[0]} ${translation(context).incomeInfo}",
                   style: TextStyle(
                     color: Theme.of(context).canvasColor,
-                    fontFamily: 'Nexa3',
+                    fontFamily: 'FontMedium',
                     fontSize: 17,
                   ),
                 ),
                 Text("${data[1]} ${translation(context).expenseInfo}",
                     style: TextStyle(
                       color: Theme.of(context).canvasColor,
-                      fontFamily: 'Nexa3',
+                      fontFamily: 'FontMedium',
                       fontSize: 17,
                     )),
               ],
@@ -517,7 +517,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                             "${myDate[0]} ${myDate[1]} ${myDate[2]}",
                             style: TextStyle(
                               color: renkler.yaziRenk,
-                              fontFamily: "Nexa3",
+                              fontFamily: "FontMedium",
                               height: 1,
                               fontSize: 24,
                             ),
@@ -526,7 +526,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                             translation(context).activityDetails,
                             style: TextStyle(
                               color: renkler.yaziRenk,
-                              fontFamily: "Nexa3",
+                              fontFamily: "FontMedium",
                               fontWeight: FontWeight.w400,
                               height: 1,
                               fontSize: 13,
@@ -595,7 +595,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                             style: TextStyle(
                               height: 1,
                               color: renkler.yaziRenk,
-                              fontFamily: "NEXA3",
+                              fontFamily: "FontMedium",
                               fontSize: 24,
                             ),
                           ),
@@ -604,7 +604,7 @@ class _AppbarDailyInfoState extends ConsumerState<AppbarDailyInfo> {
                             style: TextStyle(
                               height: 1,
                               color: renkler.yaziRenk,
-                              fontFamily: "NEXA3",
+                              fontFamily: "FontMedium",
                               fontSize: 13,
                             ),
                           ),

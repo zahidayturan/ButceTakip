@@ -1338,7 +1338,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                       style: TextStyle(
                                           fontSize: 17,
                                           height: 1,
-                                          fontFamily: 'Nexa3',
+                                          fontFamily: 'FontMedium',
                                           color: renkler.koyuuRenk),
                                     ),
                                   ),
@@ -1351,7 +1351,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                         style: TextStyle(
                                             fontSize: 17,
                                             height: 1,
-                                            fontFamily: 'Nexa3',
+                                            fontFamily: 'FontMedium',
                                             color: renkler.koyuuRenk),
                                       ),
                                     ),
@@ -1827,7 +1827,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                             title,
                             style: TextStyle(
                                 color: Theme.of(context).canvasColor,
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 18),
                           ),
                           SizedBox(
@@ -1879,7 +1879,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                               children: [
                                 Column(
                                   children: [
-                                    Text(translation(context).amount,style: TextStyle(color: Theme.of(context).canvasColor,fontFamily: "Nexa4",height: 1),),
+                                    Text(translation(context).amount,style: TextStyle(color: Theme.of(context).canvasColor,fontFamily: "FontBold",height: 1),),
                                     SizedBox(
                                       height: 30,
                                       width: 130,
@@ -1890,7 +1890,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                           style: TextStyle(
                                             color: Theme.of(context).canvasColor,
                                             fontSize: 17,
-                                            fontFamily: 'Nexa3',
+                                            fontFamily: 'FontMedium',
                                           ),
                                           controller: amount,
                                           autofocus: false,
@@ -1920,7 +1920,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                 ),
                                 Column(
                                   children: [
-                                    Text(translation(context).currency,style: TextStyle(color: Theme.of(context).canvasColor,fontFamily: "Nexa4",height: 1)),
+                                    Text(translation(context).currency,style: TextStyle(color: Theme.of(context).canvasColor,fontFamily: "FontBold",height: 1)),
                                     SizedBox(
                                       height: 30,
                                       width: 80,
@@ -1933,7 +1933,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                               style: TextStyle(
                                                   fontSize: 17,
                                                   height: 1,
-                                                  fontFamily: 'Nexa3',
+                                                  fontFamily: 'FontMedium',
                                                   color: Theme.of(context).canvasColor),
                                             ),
                                           ),
@@ -1946,7 +1946,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                                 style: TextStyle(
                                                     fontSize: 17,
                                                     height: 1,
-                                                    fontFamily: 'Nexa3',
+                                                    fontFamily: 'FontMedium',
                                                     color: Theme.of(context).canvasColor),
                                               ),
                                             ),
@@ -2041,7 +2041,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                 width : 130,
                                 child: Center(
                                   child: Text(
-                                    listName[index]['amount'].toString(),style: TextStyle(fontSize: 16,fontFamily: "Nexa3"),
+                                    listName[index]['amount'].toString(),style: TextStyle(fontSize: 16,fontFamily: "FontMedium"),
                                   ),
                                 ),
                               ),
@@ -2049,7 +2049,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                 width : 80,
                                 child: Center(
                                   child: Text(
-                                      '${listName[index]['currency']}',style: TextStyle(fontSize: 16,fontFamily: "Nexa3")
+                                      '${listName[index]['currency']}',style: TextStyle(fontSize: 16,fontFamily: "FontMedium")
                                   ),
                                 ),
                               ),
@@ -2128,7 +2128,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                       style: TextStyle(
                                           color: Theme.of(context).canvasColor,
                                           fontSize: 15,
-                                          fontFamily: 'Nexa3'),
+                                          fontFamily: 'FontMedium'),
                                     )),
                               ),
                             ),
@@ -2165,7 +2165,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                                       style: TextStyle(
                                           color: renkler.arkaRenk,
                                           fontSize: 15,
-                                          fontFamily: 'Nexa3'),
+                                          fontFamily: 'FontMedium'),
                                     )),
                               ),
                             ),
@@ -2238,7 +2238,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                             fontSize: 30,
                             height: 1,
                             color: Theme.of(context).secondaryHeaderColor,
-                            fontFamily: "Nexa4"),
+                            fontFamily: "FontBold"),
                         textDirection: TextDirection.ltr,
                         textAlign: TextAlign.center,
                       ),
@@ -2429,7 +2429,7 @@ class _IntroductionPageState extends ConsumerState<IntroductionPage> {
                         style: TextStyle(
                             color: Theme.of(context).canvasColor,
                             fontSize: 18,
-                            fontFamily: "Nexa3",
+                            fontFamily: "FontMedium",
                             height: 1),
                       ),
                     ),

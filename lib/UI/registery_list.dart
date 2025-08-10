@@ -42,7 +42,7 @@ class RegisteryList extends ConsumerWidget {
                     readHome.menuControllerForRegistery == false ? translation(context).savedActivities : translation(context).lastActivities,
                     style: TextStyle(
                         color: Theme.of(context).canvasColor,
-                        fontFamily: "Nexa4",
+                        fontFamily: "FontBold",
                         fontSize: 21,
                         height: 1
                     ),
@@ -148,7 +148,7 @@ class RegisteryList extends ConsumerWidget {
                       translation(context).category,
                       style: TextStyle(
                           color: Theme.of(context).canvasColor,
-                          fontFamily: "Nexa4",
+                          fontFamily: "FontBold",
                           fontSize: 15,
                         height: 1
                       ),
@@ -163,7 +163,7 @@ class RegisteryList extends ConsumerWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Theme.of(context).canvasColor,
-                          fontFamily: "Nexa4",
+                          fontFamily: "FontBold",
                           fontSize: 15,
                         height: 1
                       ),
@@ -283,7 +283,7 @@ class RegisteryList extends ConsumerWidget {
                                                                     style:
                                                                     const TextStyle(
                                                                       fontFamily:
-                                                                      "Nexa3",
+                                                                      "FontMedium",
                                                                       fontSize:
                                                                       14,
                                                                     ),
@@ -309,7 +309,7 @@ class RegisteryList extends ConsumerWidget {
                                                                               context)
                                                                               .canvasColor,
                                                                           fontFamily:
-                                                                          "Nexa3",
+                                                                          "FontMedium",
                                                                           fontSize: 15,
                                                                         ),
                                                                       ),
@@ -342,7 +342,7 @@ class RegisteryList extends ConsumerWidget {
                                                             style:
                                                             const TextStyle(
                                                               fontFamily:
-                                                              "Nexa3",
+                                                              "FontMedium",
                                                               fontSize:
                                                               12,
                                                             ),
@@ -441,7 +441,7 @@ class RegisteryList extends ConsumerWidget {
                 Text(
                   translation(context).numberOfShowingActivities,
                   style: TextStyle(
-                      color: Theme.of(context).canvasColor, fontSize: 15,height: 1,fontFamily: "Nexa4"),overflow: TextOverflow.ellipsis,
+                      color: Theme.of(context).canvasColor, fontSize: 15,height: 1,fontFamily: "FontBold"),overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(
                   height: 40,
@@ -613,7 +613,7 @@ class RegisteryList extends ConsumerWidget {
                                                     formattedDate,
                                                     style:
                                                     const TextStyle(
-                                                        fontFamily: "Nexa3",
+                                                        fontFamily: "FontMedium",
                                                         fontSize: 16,
                                                         height: 1
                                                     ),
@@ -625,7 +625,7 @@ class RegisteryList extends ConsumerWidget {
                                                         color: Theme.of(
                                                             context)
                                                             .canvasColor,
-                                                        fontFamily: "Nexa3",
+                                                        fontFamily: "FontMedium",
                                                         fontSize: 13,
                                                       ),
                                                       overflow: TextOverflow.ellipsis,
@@ -643,7 +643,7 @@ class RegisteryList extends ConsumerWidget {
                                                     item[index].operationTime!,
                                                     style:
                                                     const TextStyle(
-                                                      fontFamily: "Nexa3",
+                                                      fontFamily: "FontMedium",
                                                       fontSize: 13,
                                                     ),
                                                   ),
@@ -666,7 +666,7 @@ class RegisteryList extends ConsumerWidget {
                                                                   context)
                                                                   .canvasColor,
                                                               fontFamily:
-                                                              "Nexa4",
+                                                              "FontBold",
                                                               fontSize: 16,
                                                             ),
                                                           ),

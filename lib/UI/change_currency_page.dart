@@ -132,7 +132,7 @@ class _changeCurrencyPage extends ConsumerState<changeCurrencyPage> {
                               style: TextStyle(
                                 color: renkler.arkaPlanRenk,
                                 fontSize: 15,
-                                fontFamily: "Nexa3",
+                                fontFamily: "FontMedium",
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

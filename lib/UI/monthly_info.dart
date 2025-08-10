@@ -186,7 +186,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                                 text: day,
                                                                 style: TextStyle(
                                                                   height: 1,
-                                                                  fontFamily: "Nexa4",
+                                                                  fontFamily: "FontBold",
                                                                   color: Theme.of(context).canvasColor,
                                                                   fontSize: 19,
                                                                 ),
@@ -196,7 +196,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                                 style:
                                                                 TextStyle(
                                                                   height: 1,
-                                                                  fontFamily: "Nexa4",
+                                                                  fontFamily: "FontBold",
                                                                   color: Theme.of(context).canvasColor,
                                                                   fontSize: 12,
                                                                 ),
@@ -214,7 +214,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                       dayOfWeekName,
                                                       style: const TextStyle(
                                                         height: 1,
-                                                        fontFamily: "Nexa3",
+                                                        fontFamily: "FontMedium",
                                                         fontSize: 13,
                                                       ),
                                                     ),
@@ -242,7 +242,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                                 color: double.parse(formattedTotal) < 0
                                                                     ? renkler.kirmiziRenk
                                                                     : Theme.of(context).canvasColor,
-                                                                fontFamily: "Nexa4",
+                                                                fontFamily: "FontBold",
                                                                 fontSize: 17,
                                                               ),
                                                               maxLines: 1,
@@ -270,7 +270,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                     style: TextStyle(
                                                       height: 1,
                                                       color: Theme.of(context).canvasColor,
-                                                      fontFamily: "Nexa3",
+                                                      fontFamily: "FontMedium",
                                                       fontSize: 11,
                                                     ),
                                                   ),
@@ -298,7 +298,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                                 style: TextStyle(
                                                                   height: 1,
                                                                   color: renkler.yesilRenk,
-                                                                  fontFamily: "Nexa3",
+                                                                  fontFamily: "FontMedium",
                                                                   fontSize: 14,
                                                                 ),
                                                               ),
@@ -327,7 +327,7 @@ class _AylikinfoState extends ConsumerState<Aylikinfo> {
                                                               style: TextStyle(
                                                                 height: 1,
                                                                 color: renkler.kirmiziRenk,
-                                                                fontFamily: "Nexa3",
+                                                                fontFamily: "FontMedium",
                                                                 fontSize: 14,
                                                               ),
                                                             ),

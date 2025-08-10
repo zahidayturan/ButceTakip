@@ -271,7 +271,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
                         child: Text(
                           BugFixText,
                           style: TextStyle(
-                              fontFamily: "Nexa3",
+                              fontFamily: "FontMedium",
                               fontSize: 11,
                               color: renkler.kirmiziRenk
                           ),
@@ -311,7 +311,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
           curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 11, fontFamily: 'Nexa4', fontWeight: FontWeight.w300)
+                fontSize: 11, fontFamily: 'FontBold', fontWeight: FontWeight.w300)
           ],
           onToggle: (index) {
             if (index == 0) {
@@ -344,7 +344,7 @@ class _addAssetsState extends ConsumerState<addAssets> {
            curve: Curves.linearToEaseOut,
           customTextStyles: const [
             TextStyle(
-                fontSize: 11, fontFamily: 'Nexa4', fontWeight: FontWeight.w300)
+                fontSize: 11, fontFamily: 'FontBold', fontWeight: FontWeight.w300)
           ],
           onToggle: (index) {
             setState(() {

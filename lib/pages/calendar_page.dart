@@ -274,7 +274,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                         style: const TextStyle(
                                           color: Color(0xff0D1C26),
                                           fontSize: 19,
-                                          fontFamily: 'Nexa4',
+                                          fontFamily: 'FontBold',
                                           fontWeight: FontWeight.w600,
                                           height: 1.3,
                                         ),
@@ -323,7 +323,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                                         style: TextStyle(
                                           color: Theme.of(context).dialogBackgroundColor,
                                           fontSize: 18,
-                                          fontFamily: 'Nexa4',
+                                          fontFamily: 'FontBold',
                                           fontWeight: FontWeight.w600,
                                           height: 1.3,
                                         ),
@@ -410,7 +410,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                       child: Center(
                         child: FittedBox(
                           child: Text(
-                            selectedValueDay.toString(),style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'Nexa4'),
+                            selectedValueDay.toString(),style: TextStyle(color: renkler.koyuuRenk,fontSize: 20,height: 1,fontFamily: 'FontBold'),
                           ),
                         ),
                       ),
@@ -579,7 +579,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                               style: TextStyle(
                                 color:  Colors.white,
                                 fontSize: 16,
-                                fontFamily: 'Nexa3',
+                                fontFamily: 'FontMedium',
                                 fontWeight: FontWeight.w900,
                                 height: 1.4,
                               ),
@@ -594,7 +594,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                               style: TextStyle(
                                 color:  Colors.white,
                                 fontSize: 16,
-                                fontFamily: 'Nexa3',
+                                fontFamily: 'FontMedium',
                                 fontWeight: FontWeight.w900,
                                 height: 1.4,
                               ),
@@ -622,7 +622,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             style: TextStyle(
                               color: Color(0xff0D1C26),
                               fontSize: 16,
-                              fontFamily: 'Nexa3',
+                              fontFamily: 'FontMedium',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
                             ),
@@ -681,7 +681,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                               style: const TextStyle(
                                 color:  Colors.white,
                                 fontSize: 15,
-                                fontFamily: 'Nexa3',
+                                fontFamily: 'FontMedium',
                                 fontWeight: FontWeight.w900,
                                 height: 1.4,
                               ),
@@ -696,7 +696,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                               style: const TextStyle(
                                 color:  Colors.white,
                                 fontSize: 15,
-                                fontFamily: 'Nexa3',
+                                fontFamily: 'FontMedium',
                                 fontWeight: FontWeight.w900,
                                 height: 1.4,
                               ),
@@ -724,7 +724,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                             style: const TextStyle(
                               color: Color(0xff0D1C26),
                               fontSize: 17,
-                              fontFamily: 'Nexa3',
+                              fontFamily: 'FontMedium',
                               fontWeight: FontWeight.w900,
                               height: 1.4,
                             ),
@@ -771,7 +771,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     style: TextStyle(
                       color: Theme.of(context).canvasColor,
                       fontSize: 17,
-                      fontFamily: 'Nexa3',
+                      fontFamily: 'FontMedium',
                       fontWeight: FontWeight.w600,
                       height: 1.4,
                     ),
@@ -783,7 +783,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     style: TextStyle(
                       color: Theme.of(context).canvasColor,
                       fontSize: 17,
-                      fontFamily: 'Nexa3',
+                      fontFamily: 'FontMedium',
                       fontWeight: FontWeight.w600,
                       height: 1.4,
                     ),
@@ -806,7 +806,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     style: TextStyle(
                       color: Theme.of(context).canvasColor,
                       fontSize: 17,
-                      fontFamily: 'Nexa3',
+                      fontFamily: 'FontMedium',
                       fontWeight: FontWeight.w600,
                       height: 1.4,
                     ),
@@ -818,7 +818,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                     style: TextStyle(
                       color: Theme.of(context).canvasColor,
                       fontSize: 17,
-                      fontFamily: 'Nexa3',
+                      fontFamily: 'FontMedium',
                       fontWeight: FontWeight.w600,
                       height: 1.4,
                     ),
@@ -882,7 +882,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                 style: const TextStyle(
                   color: Color(0xFFE9E9E9),
                   fontSize: 18,
-                  fontFamily: 'Nexa3',
+                  fontFamily: 'FontMedium',
                   fontWeight: FontWeight.w900,
                   height: 1.4,
                 ),
@@ -935,7 +935,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
-                          fontFamily: 'Nexa3',
+                          fontFamily: 'FontMedium',
                           fontWeight: FontWeight.w600,
                           height: 1,
                         ),
@@ -960,7 +960,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                       ? checkToday()==false ?Theme.of(context).canvasColor : Theme.of(context).disabledColor
                       : Theme.of(context).indicatorColor,
                   fontSize: 18,
-                  fontFamily: 'Nexa3',
+                  fontFamily: 'FontMedium',
                   fontWeight: FontWeight.w600,
                   height: 1.4,
                 ),

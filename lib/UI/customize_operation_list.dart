@@ -34,7 +34,7 @@ class CustomizeList extends ConsumerWidget {
                             : translation(context).installmentActivities,
                         style: TextStyle(
                             color: Theme.of(context).canvasColor,
-                            fontFamily: "Nexa4",
+                            fontFamily: "FontBold",
                             fontSize: double.parse(translation(context).repetitiveActivitiesSize),
                         height: 1),
                       ),
@@ -237,7 +237,7 @@ class CustomizeList extends ConsumerWidget {
                                                       Converter().textConverterFromDB(item[index].processOnce!, context, 1),
                                                       style:
                                                       const TextStyle(
-                                                        fontFamily: "Nexa3",
+                                                        fontFamily: "FontMedium",
                                                         fontSize: 16,
                                                         height: 1
                                                       ),
@@ -261,7 +261,7 @@ class CustomizeList extends ConsumerWidget {
                                                                     context)
                                                                     .canvasColor,
                                                                 fontFamily:
-                                                                "Nexa4",
+                                                                "FontBold",
                                                                 fontSize: 16,
                                                               ),
                                                             ),
@@ -295,7 +295,7 @@ class CustomizeList extends ConsumerWidget {
                                                       formattedDate,
                                                       style:
                                                       const TextStyle(
-                                                        fontFamily: "Nexa3",
+                                                        fontFamily: "FontMedium",
                                                         fontSize: 13,
                                                       ),
                                                     ),
@@ -306,7 +306,7 @@ class CustomizeList extends ConsumerWidget {
                                                           color: Theme.of(
                                                               context)
                                                               .canvasColor,
-                                                          fontFamily: "Nexa3",
+                                                          fontFamily: "FontMedium",
                                                           fontSize: 13,
                                                         ),
                                                         overflow: TextOverflow.ellipsis,
@@ -331,9 +331,9 @@ class CustomizeList extends ConsumerWidget {
                                                               builder: (context) {
                                                                 return AlertDialog(
                                                                   backgroundColor: Theme.of(context).primaryColor,
-                                                                  title: Text(translation(context).cancelRepetition,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
+                                                                  title: Text(translation(context).cancelRepetition,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'FontMedium'),textAlign: TextAlign.center),
                                                                   titlePadding: EdgeInsets.all(10),
-                                                                  content: Text(translation(context).confirmNoRepeat,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
+                                                                  content: Text(translation(context).confirmNoRepeat,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'FontMedium'),textAlign: TextAlign.center,),
                                                                   shadowColor: renkler.koyuuRenk,
                                                                   contentPadding: EdgeInsets.only(top: 2,left: 16,right: 16,bottom: 2),
                                                                   actionsPadding: EdgeInsets.all(0),
@@ -345,7 +345,7 @@ class CustomizeList extends ConsumerWidget {
                                                                           onPressed: () {
                                                                             Navigator.of(context).pop();
                                                                           },
-                                                                          child: Text(translation(context).no,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                          child: Text(translation(context).no,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'FontMedium'),),
                                                                         ),
                                                                         TextButton(
                                                                           onPressed: () {
@@ -363,7 +363,7 @@ class CustomizeList extends ConsumerWidget {
                                                                                   style: const TextStyle(
                                                                                     color: Colors.white,
                                                                                     fontSize: 16,
-                                                                                    fontFamily: 'Nexa3',
+                                                                                    fontFamily: 'FontMedium',
                                                                                     fontWeight: FontWeight.w600,
                                                                                     height: 1.3,
                                                                                   ),
@@ -371,7 +371,7 @@ class CustomizeList extends ConsumerWidget {
                                                                               ),
                                                                             );
                                                                           },
-                                                                          child: Text(translation(context).yesCancel,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                          child: Text(translation(context).yesCancel,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'FontMedium'),),
                                                                         ),
                                                                       ],
 
@@ -602,7 +602,7 @@ class CustomizeList extends ConsumerWidget {
                                                       "${item[index].processOnce}",
                                                       style:
                                                       const TextStyle(
-                                                        fontFamily: "Nexa3",
+                                                        fontFamily: "FontMedium",
                                                         fontSize: 16,
                                                         height: 1
                                                       ),
@@ -626,7 +626,7 @@ class CustomizeList extends ConsumerWidget {
                                                                     context)
                                                                     .canvasColor,
                                                                 fontFamily:
-                                                                "Nexa4",
+                                                                "FontBold",
                                                                 fontSize: 16,
                                                               ),
                                                             ),
@@ -660,7 +660,7 @@ class CustomizeList extends ConsumerWidget {
                                                       formattedDate,
                                                       style:
                                                       const TextStyle(
-                                                        fontFamily: "Nexa3",
+                                                        fontFamily: "FontMedium",
                                                         fontSize: 13,
                                                       ),
                                                     ),
@@ -671,7 +671,7 @@ class CustomizeList extends ConsumerWidget {
                                                           color: Theme.of(
                                                               context)
                                                               .canvasColor,
-                                                          fontFamily: "Nexa3",
+                                                          fontFamily: "FontMedium",
                                                           fontSize: 13,
                                                         ),
                                                         overflow: TextOverflow.ellipsis,
@@ -696,9 +696,9 @@ class CustomizeList extends ConsumerWidget {
                                                                 builder: (context) {
                                                                   return AlertDialog(
                                                                     backgroundColor: Theme.of(context).primaryColor,
-                                                                    title: Text(translation(context).cancelInstallment,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center),
+                                                                    title: Text(translation(context).cancelInstallment,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'FontMedium'),textAlign: TextAlign.center),
                                                                     titlePadding: EdgeInsets.all(10),
-                                                                    content: Text(translation(context).confirmNoInstallments,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'Nexa3'),textAlign: TextAlign.center,),
+                                                                    content: Text(translation(context).confirmNoInstallments,style: TextStyle(color: Theme.of(context).canvasColor,fontSize: 17,fontFamily: 'FontMedium'),textAlign: TextAlign.center,),
                                                                     shadowColor: renkler.koyuuRenk,
                                                                     contentPadding: EdgeInsets.only(top: 2,left: 16,right: 16,bottom: 2),
                                                                     actionsPadding: EdgeInsets.all(0),
@@ -710,7 +710,7 @@ class CustomizeList extends ConsumerWidget {
                                                                             onPressed: () {
                                                                               Navigator.of(context).pop();
                                                                             },
-                                                                            child: Text(translation(context).no,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                            child: Text(translation(context).no,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'FontMedium'),),
                                                                           ),
                                                                           TextButton(
                                                                             onPressed: () {
@@ -728,7 +728,7 @@ class CustomizeList extends ConsumerWidget {
                                                                                     style: const TextStyle(
                                                                                       color: Colors.white,
                                                                                       fontSize: 16,
-                                                                                      fontFamily: 'Nexa3',
+                                                                                      fontFamily: 'FontMedium',
                                                                                       fontWeight: FontWeight.w600,
                                                                                       height: 1.3,
                                                                                     ),
@@ -736,7 +736,7 @@ class CustomizeList extends ConsumerWidget {
                                                                                 ),
                                                                               );
                                                                             },
-                                                                            child: Text(translation(context).yesCancel,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'Nexa3'),),
+                                                                            child: Text(translation(context).yesCancel,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,fontSize: 17,fontFamily: 'FontMedium'),),
                                                                           ),
                                                                         ],
 

@@ -55,7 +55,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
-                  fontFamily: 'Nexa3',
+                  fontFamily: 'FontMedium',
                   fontWeight: FontWeight.w600,
                   height: 1.3,
                 ),
@@ -132,7 +132,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                           Text(
                             translation(context).noInternetConnection,
                             style: TextStyle(
-                              fontFamily: "Nexa3",
+                              fontFamily: "FontMedium",
                               fontSize: 18,
                               color: Theme.of(context).secondaryHeaderColor,
                             ),
@@ -194,7 +194,7 @@ class _warningBackUp extends ConsumerState<warningBackUp> {
                           Text(
                             "Verileriniz indiriliyor.\n   Lütfen bekleyiniz.",
                             style: TextStyle(
-                              fontFamily: "Nexa3",
+                              fontFamily: "FontMedium",
                               fontSize: 22,
                               color: Theme.of(context).secondaryHeaderColor,
                             ),

@@ -37,7 +37,7 @@ Widget helpFooter(BuildContext context) {
                 "FezaiTech ${translation(context).helpCenter}",
                 style: TextStyle(
                   color: renkler.yaziRenk,
-                  fontFamily: 'Nexa3',
+                  fontFamily: 'FontMedium',
                   fontSize: 15,
                 ),
               ),
@@ -58,7 +58,7 @@ Widget helpFooter(BuildContext context) {
                 "Copyright ©2023",
                 style: TextStyle(
                   fontSize: 15,
-                  fontFamily: 'Nexa3',
+                  fontFamily: 'FontMedium',
                   color: renkler.yaziRenk,
                 ),
               )

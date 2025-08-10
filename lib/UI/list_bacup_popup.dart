@@ -111,7 +111,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                 Text(
                                                   "Verileriniz indiriliyor.\n   Lütfen bekleyiniz.",
                                                   style: TextStyle(
-                                                    fontFamily: "Nexa3",
+                                                    fontFamily: "FontMedium",
                                                     fontSize: 18,
                                                     color: Theme.of(context).disabledColor,
                                                   ),
@@ -160,7 +160,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                                          style: const TextStyle(
                                                            color: Colors.white,
                                                            fontSize: 16,
-                                                           fontFamily: 'Nexa3',
+                                                           fontFamily: 'FontMedium',
                                                            fontWeight: FontWeight.w600,
                                                            height: 1.3,
                                                          ),
@@ -251,7 +251,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                               "Sil",
                                               style: TextStyle(
                                                 fontSize: 11,
-                                                fontFamily: "Nexa3",
+                                                fontFamily: "FontMedium",
                                                 color: renkler.arkaRenk,
                                               ),
                                             ),
@@ -263,7 +263,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                       "${selectedIndexList.length} kayıt Seçildi",
                                       style: TextStyle(
                                         fontSize: 13,
-                                        fontFamily: "Nexa3",
+                                        fontFamily: "FontMedium",
                                         color: renkler.arkaRenk,
                                       ),
                                     ),
@@ -297,7 +297,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                               "iptal",
                                               style: TextStyle(
                                                 fontSize: 11,
-                                                fontFamily: "Nexa3",
+                                                fontFamily: "FontMedium",
                                                 color: renkler.arkaRenk,
                                               ),
                                             ),
@@ -312,7 +312,7 @@ class _listBackUpPopUp extends ConsumerState<listBackUpPopUp> {
                                     "${translation(context).numberOfRecordsShown} ${data.length}",
                                     style: TextStyle(
                                       fontSize: 13,
-                                      fontFamily: "Nexa3",
+                                      fontFamily: "FontMedium",
                                       color: renkler.arkaRenk,
                                     ),
                                   ),

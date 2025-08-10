@@ -56,15 +56,18 @@ flutter:
     - assets/image/icon_BKA/
 
   fonts:
-    - family: Nexa1
+    - family: FontRegular
       fonts:
-        - asset: assets/fonts/NEXA_BOLD.OTF
-    - family: Nexa2
+        - asset: assets/fonts/Urbanist-Regular.ttf
+    - family: FontBold
       fonts:
-        - asset: assets/fonts/NEXABLACK.OTF
-    - family: Nexa3
+        - asset: assets/fonts/Urbanist-Bold.ttf
+    - family: FontMedium
       fonts:
-        - asset: assets/fonts/NEXABOLD.OTF
-    - family: Nexa4
+        - asset: assets/fonts/Urbanist-Medium.ttf
+    - family: FontSemiBold
       fonts:
-        - asset: assets/fonts/NEXAHEAVY.OTF
+        - asset: assets/fonts/Urbanist-SemiBold.ttf
+    - family: FontLight
+      fonts:
+        - asset: assets/fonts/Urbanist-Light.ttf

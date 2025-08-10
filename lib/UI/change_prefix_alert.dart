@@ -87,7 +87,7 @@ class _changePrefixAlert extends ConsumerState<changePrefixAlert> {
                          Text(
                              translation(context).convertMessage,
                            style: TextStyle(
-                             fontFamily: "Nexa3",
+                             fontFamily: "FontMedium",
                              fontSize: 18,
                              color: Theme.of(context).secondaryHeaderColor,
                            ),
@@ -144,7 +144,7 @@ class _changePrefixAlert extends ConsumerState<changePrefixAlert> {
                            newValue,
                          style: const TextStyle(
                            fontSize: 17,
-                           fontFamily: "Nexa4",
+                           fontFamily: "FontBold",
                          ),
                        ),
                        GestureDetector(

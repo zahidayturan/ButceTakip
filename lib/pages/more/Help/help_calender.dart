@@ -88,7 +88,7 @@ class HelpCalender extends StatelessWidget {
                             child: Text(
                               translation(context).calenderPage,
                               style: TextStyle(
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 24,
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
@@ -111,7 +111,7 @@ class HelpCalender extends StatelessWidget {
                       const SizedBox(height: 7,),
                       Text(
                         translation(context).whatYouCanDoOnThisPage
-                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       SizedBox(
@@ -157,7 +157,7 @@ class HelpCalender extends StatelessWidget {
                                           style: const TextStyle(
                                             color: Color(0xff0D1C26),
                                             fontSize: 16,
-                                            fontFamily: 'Nexa4',
+                                            fontFamily: 'FontBold',
                                             fontWeight: FontWeight.w600,
                                             height: 1.3,
                                           ),
@@ -194,7 +194,7 @@ class HelpCalender extends StatelessWidget {
                                           style: TextStyle(
                                             color: Theme.of(context).dialogBackgroundColor,
                                             fontSize: 16,
-                                            fontFamily: 'Nexa4',
+                                            fontFamily: 'FontBold',
                                             fontWeight: FontWeight.w600,
                                             height: 1.3,
                                           ),
@@ -270,7 +270,7 @@ class HelpCalender extends StatelessWidget {
                               child: Text(
                                 "1",style:TextStyle(
                                 color: renkler.koyuuRenk,
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 17
                               ) ,
                               ),
@@ -326,7 +326,7 @@ class HelpCalender extends StatelessWidget {
                                     child: Text(
                                       "16",style:TextStyle(
                                         color: Theme.of(context).canvasColor,
-                                        fontFamily: "Nexa3",
+                                        fontFamily: "FontMedium",
                                         fontSize: 17
                                     ) ,
                                     ),
@@ -385,7 +385,7 @@ class HelpCalender extends StatelessWidget {
                                         style: TextStyle(
                                           color:  Colors.white,
                                           fontSize: 15,
-                                          fontFamily: 'Nexa3',
+                                          fontFamily: 'FontMedium',
                                           fontWeight: FontWeight.w900,
                                           height: 1.4,
                                         ),
@@ -398,7 +398,7 @@ class HelpCalender extends StatelessWidget {
                                         style: TextStyle(
                                           color:  Colors.white,
                                           fontSize: 15,
-                                          fontFamily: 'Nexa3',
+                                          fontFamily: 'FontMedium',
                                           fontWeight: FontWeight.w900,
                                           height: 1.4,
                                         ),
@@ -431,7 +431,7 @@ class HelpCalender extends StatelessWidget {
                                       style: TextStyle(
                                         color: Color(0xff0D1C26),
                                         fontSize: 15,
-                                        fontFamily: 'Nexa3',
+                                        fontFamily: 'FontMedium',
                                         fontWeight: FontWeight.w900,
                                         height: 1.4,
                                       ),

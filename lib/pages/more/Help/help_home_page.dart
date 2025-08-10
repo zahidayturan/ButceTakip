@@ -59,7 +59,7 @@ class HelpHomePage extends StatelessWidget {
                             child: Text(
                               translation(context).homePageHelp,
                               style: TextStyle(
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 24,
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
@@ -70,7 +70,7 @@ class HelpHomePage extends StatelessWidget {
                           Text(
                             translation(context).activityDetail,
                             style: TextStyle(
-                              fontFamily: "Nexa4",
+                              fontFamily: "FontBold",
                               fontSize: 15,
                               height: 1,
                               color: Theme.of(context).secondaryHeaderColor,
@@ -93,7 +93,7 @@ class HelpHomePage extends StatelessWidget {
                       const SizedBox(height: 7,),
                       Text(
                         translation(context).whatYouCanDoOnThisPage
-                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Row(
@@ -278,7 +278,7 @@ class HelpHomePage extends StatelessWidget {
                                               style: TextStyle(
                                                 color: renkler.arkaRenk,
                                                 fontSize: 17,
-                                                fontFamily: 'Nexa3',
+                                                fontFamily: 'FontMedium',
                                               ),
                                             ),
                                             // Ay gösterge
@@ -288,7 +288,7 @@ class HelpHomePage extends StatelessWidget {
                                               style: TextStyle(
                                                 color: renkler.arkaRenk,
                                                 fontSize: 17,
-                                                fontFamily: 'Nexa4',
+                                                fontFamily: 'FontBold',
                                               ),
                                             ),
                                             // Yıl gösterge
@@ -360,7 +360,7 @@ class HelpHomePage extends StatelessWidget {
                                           padding: EdgeInsets.only(left: 9, top: 5),
                                           child: Text("16", style: TextStyle(
                                               height: 1,
-                                              fontFamily: "Nexa4",
+                                              fontFamily: "FontBold",
                                               fontSize: 19,
                                             ),
                                           ),
@@ -370,7 +370,7 @@ class HelpHomePage extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8),
                                       child: Text(translation(context).monday, style: const TextStyle(height: 1,
-                                          fontFamily: "Nexa3", fontSize: 13,
+                                          fontFamily: "FontMedium", fontSize: 13,
                                         ),
                                       ),
                                     ),
@@ -393,7 +393,7 @@ class HelpHomePage extends StatelessWidget {
                                                 style: TextStyle(
                                                   height: 1,
                                                   color: renkler.kirmiziRenk,
-                                                  fontFamily: "Nexa4",
+                                                  fontFamily: "FontBold",
                                                   fontSize: 17,
                                                 ),
                                                 maxLines: 1,
@@ -421,7 +421,7 @@ class HelpHomePage extends StatelessWidget {
                                             context)
                                             .canvasColor,
                                         fontFamily:
-                                        "Nexa3",
+                                        "FontMedium",
                                         fontSize: 11,
                                       ),
                                     ),
@@ -447,7 +447,7 @@ class HelpHomePage extends StatelessWidget {
                                                   style: TextStyle(
                                                     height: 1,
                                                     color: renkler.yesilRenk,
-                                                    fontFamily: "Nexa3",
+                                                    fontFamily: "FontMedium",
                                                     fontSize: 14,
                                                   ),
                                                 ),
@@ -478,7 +478,7 @@ class HelpHomePage extends StatelessWidget {
                                                   color: renkler
                                                       .kirmiziRenk,
                                                   fontFamily:
-                                                  "Nexa3",
+                                                  "FontMedium",
                                                   fontSize: 14,
                                                 ),
                                               ),
@@ -528,7 +528,7 @@ class HelpHomePage extends StatelessWidget {
                                   style: TextStyle(
                                     color: renkler.arkaRenk,
                                     height: 1,
-                                    fontFamily: 'Nexa3',
+                                    fontFamily: 'FontMedium',
                                     fontSize: 16,
                                   ),
                                 ),
@@ -544,7 +544,7 @@ class HelpHomePage extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 16,
                                       height: 1,
-                                      fontFamily: 'Nexa4',
+                                      fontFamily: 'FontBold',
                                       fontWeight: FontWeight.w900,
                                       color: Theme.of(context).canvasColor
                                   )),
@@ -563,7 +563,7 @@ class HelpHomePage extends StatelessWidget {
                         children: [
                           Text(
                             translation(context).activityDetailsDropdown
-                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                            ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                           ),
                           Container(
                             height: 30,

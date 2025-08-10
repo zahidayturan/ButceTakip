@@ -5,14 +5,14 @@ class TextMod extends StatelessWidget {
   final String text;
   final double size;
 
-  const TextMod(this.text, this.color, this.size, {Key? key}) : super(key: key);
+  const TextMod(this.text, this.color, this.size, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Text(
           text,
           style: TextStyle(
-            fontFamily: "Nexa3",
+            fontFamily: "FontMedium",
             color: color,
             fontSize: size,
             //fontWeight: FontWeight.w900,
@@ -20,7 +20,3 @@ class TextMod extends StatelessWidget {
       );
   }
 }
-/*
-  Arkadaşlar bu class tamamen kod fazlalığını ortadan kaldırmak için yazılmıştır text parametrelini oto olarak bunu kulanabilirsiniz.
-
- */

@@ -84,7 +84,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                           translation(context).helpCenter,
                           style: TextStyle(
                               color: Theme.of(context).disabledColor,
-                              fontFamily: "Nexa4",
+                              fontFamily: "FontBold",
                               fontSize: 23
                           ),
                         ),
@@ -142,7 +142,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 style:TextStyle(
                                   height: 1,
                                   fontSize: 22,
-                                  fontFamily: "Nexa3",
+                                  fontFamily: "FontMedium",
                                   color: Theme.of(context).canvasColor,
                                 ),
                               ),
@@ -744,7 +744,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                                 translation(context).whatsNew,
                                 style: TextStyle(
                                   height: 1,
-                                  fontFamily: "Nexa3",
+                                  fontFamily: "FontMedium",
                                   fontSize: 22,
                                   color: Theme.of(context).canvasColor,
                                 ),
@@ -844,7 +844,7 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: Text(
                                 translation(context).faq,
                                 style: TextStyle(
-                                    fontFamily: "Nexa3",
+                                    fontFamily: "FontMedium",
                                     fontSize: 22,
                                     height: 1,
                                     color: Theme.of(context).canvasColor
@@ -906,13 +906,13 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: ExpansionTile(
                                 title: Text(
                                   translation(context).question1,
-                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
                                       translation(context).answer1,
-                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                     ),
                                   )
                                 ],
@@ -951,13 +951,13 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: ExpansionTile(
                                 title: Text(
                                   translation(context).question2,
-                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
                                       translation(context).answer2,
-                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                   GestureDetector(
@@ -1039,13 +1039,13 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: ExpansionTile(
                                 title: Text(
                                   translation(context).question3,
-                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
                                       translation(context).answer3,
-                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -1085,13 +1085,13 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: ExpansionTile(
                                 title: Text(
                                   translation(context).question4,
-                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
                                       translation(context).answer4,
-                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                   GestureDetector(
@@ -1173,13 +1173,13 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: ExpansionTile(
                                 title: Text(
                                   translation(context).question5,
-                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
                                       translation(context).answer5,
-                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -1219,13 +1219,13 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: ExpansionTile(
                                 title: Text(
                                   translation(context).question6,
-                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
                                       translation(context).answer6,
-                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -1264,13 +1264,13 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: ExpansionTile(
                                 title: Text(
                                   translation(context).question7,
-                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
                                       translation(context).answer7,
-                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -1309,13 +1309,13 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
                               child: ExpansionTile(
                                 title: Text(
                                   translation(context).question8,
-                                  style: const TextStyle(fontSize: 15.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                  style: const TextStyle(fontSize: 15.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                 ),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(
                                       translation(context).answer8,
-                                      style: const TextStyle(fontSize: 14.0, fontFamily: "Nexa3"),textAlign: TextAlign.justify,
+                                      style: const TextStyle(fontSize: 14.0, fontFamily: "FontMedium"),textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],

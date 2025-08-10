@@ -1,6 +1,7 @@
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../core/theme/theme.dart';
 import '../l10n/app_localizations.dart';
 import 'base_home.dart';
 
@@ -22,59 +23,22 @@ class _BaseAppState extends ConsumerState<BaseApp> {
     return MaterialApp(
       builder: (context, child) {
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+          data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1)),
           child: child!,
         );
       },
+
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: readSettings.localChanger(), ///Dil ayarlama
+      locale: readSettings.localChanger(),
 
       debugShowCheckedModeBanner: false,
       title: "Bütçe Takip",
-      theme: ThemeData(
-        useMaterial3: false,
-        brightness: Brightness.light,
-        primaryColor: Color(0xFFE9E9E9),
-        canvasColor: Color(0xFF0D1C26),
-        secondaryHeaderColor: Color(0xFF0D1C26),
-        indicatorColor: Color(0xFFE9E9E9),
-        splashColor: Color(0xffF2F2F2),
-        cardColor: Color(0xFFF2CB05),
-        shadowColor: Color(0xFFF2CB05),
-        dialogBackgroundColor: Color(0xFFF2CB05),
-        highlightColor: Color(0xFF0D1C26),
-        dividerColor: Colors.white,
-        focusColor: Colors.white,
-        scaffoldBackgroundColor: Color(0xffF2F2F2),
-        hintColor: Color(0xFF1A8E58),
-        hoverColor: Color(0xFFD91A2A),
-        disabledColor: Color(0xFFF2CB05),
-        unselectedWidgetColor: Color(0xFFE9E9E9), // checkbox border rengi için kullandım.
-        fontFamily: "Nexa3",
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: false,
-        brightness: Brightness.dark,
-        primaryColor: Color(0xFF0D1C26),
-        canvasColor: Color(0xffF2F2F2),
-        secondaryHeaderColor: Color(0xFFDBB704),
-        indicatorColor: Color(0xFF1C2B35),
-        splashColor: Color(0xFF1C2B35),
-        cardColor:  Color(0xFF0D1C26),
-        shadowColor: Color(0xFF1C2B35),
-        dialogBackgroundColor: Color(0xffF2F2F2),
-        highlightColor: Color(0xFF1C2B35),
-        focusColor: Color(0xFF1C2B35),
-        scaffoldBackgroundColor: Color(0xFF0D1C26),
-        dividerColor: Color(0xFF0D1C26),
-        hintColor: Color(0xFF1C2B35),
-        hoverColor: Color(0xFF1C2B35),
-        disabledColor: Color(0xFFDBB704),
-        unselectedWidgetColor: Color(0xFFDBB704),
-        fontFamily: "Nexa3",
-      ),
+
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       themeMode: readSettings.DarkMode == 0 ? ThemeMode.light : ThemeMode.dark,
+
       home: BaseHome(showBTA: widget.showBTA,appInfo:widget.appInfo),
     );
   }

@@ -72,7 +72,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                   style: TextStyle(
                                       height: 1,
                                       fontSize: widget.isAssistantMode ? 14 : 15,
-                                      fontFamily: 'Nexa3',
+                                      fontFamily: 'FontMedium',
                                       color: Theme.of(context).canvasColor),
                                 ),
                                 widget.isAssistantMode
@@ -81,7 +81,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                     style: TextStyle(
                                         height: 2,
                                         fontSize: 14,
-                                        fontFamily: 'Nexa3',
+                                        fontFamily: 'FontMedium',
                                         color: Theme.of(context).canvasColor
                                     ),
                                   )
@@ -162,7 +162,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                                           style: TextStyle(
                                                             color: renkler.arkaRenk,
                                                             fontSize: 17,
-                                                            fontFamily: 'Nexa3',
+                                                            fontFamily: 'FontMedium',
                                                           ),
                                                         ),
                                                         // Ay gösterge
@@ -172,7 +172,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                                           style: TextStyle(
                                                             color: renkler.arkaRenk,
                                                             fontSize: 17,
-                                                            fontFamily: 'Nexa4',
+                                                            fontFamily: 'FontBold',
                                                           ),
                                                         ),
                                                         // Yıl gösterge
@@ -226,7 +226,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                   style: TextStyle(
                                       height: 1,
                                       fontSize: widget.isAssistantMode ? 14 : 15,
-                                      fontFamily: 'Nexa3',
+                                      fontFamily: 'FontMedium',
                                       color: Theme.of(context).canvasColor),
                                 ),
                               ],
@@ -268,7 +268,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                                   .getTotalAmountPositive(items)[0],
                                               style: TextStyle(
                                                 fontSize: widget.isAssistantMode ? 15 : 16,
-                                                fontFamily: 'Nexa3',
+                                                fontFamily: 'FontMedium',
                                                 color: renkler.yesilRenk,
                                               ),
                                             ),
@@ -318,7 +318,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                                 readdb.getTotalAmount(items)[0],
                                                 style: TextStyle(
                                                   fontSize: widget.isAssistantMode ? 15 : 19,
-                                                  fontFamily: 'Nexa3',
+                                                  fontFamily: 'FontMedium',
                                                   color: Theme.of(context).canvasColor,
                                                 ),
                                                 maxLines: 1,
@@ -374,7 +374,7 @@ class _Generalinfo extends ConsumerState<Generalinfo> {
                                                   .getTotalAmountNegative(items)[0],
                                               style: TextStyle(
                                                 fontSize: widget.isAssistantMode ? 15: 16,
-                                                fontFamily: 'Nexa3',
+                                                fontFamily: 'FontMedium',
                                                 color: renkler.kirmiziRenk,
                                               ),
                                             ),

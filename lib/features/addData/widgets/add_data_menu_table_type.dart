@@ -162,7 +162,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                       height: 1,
                       color: renkler.yaziRenk,
                       fontSize: 14,
-                      fontFamily: 'Nexa4',
+                      fontFamily: 'FontBold',
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -181,7 +181,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                       style: TextStyle(
                           height: 1,
                           fontSize: 14,
-                          fontFamily: 'Nexa3',
+                          fontFamily: 'FontMedium',
                           color: renkler.koyuuRenk),
                       maxLines: 2,
                     ),
@@ -251,7 +251,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                           style: TextStyle(
                             color: renkler.yaziRenk,
                             fontSize: 14,
-                            fontFamily: 'Nexa4',
+                            fontFamily: 'FontBold',
                             fontWeight: FontWeight.w800,
                           ),
                         ),
@@ -285,7 +285,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                               style: TextStyle(
                                   height: 1,
                                   fontSize: 14,
-                                  fontFamily: 'Nexa3',
+                                  fontFamily: 'FontMedium',
                                   color: Theme.of(context).canvasColor),
                             ),
                           ),
@@ -345,7 +345,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                 backgroundColor: Theme.of(context).primaryColor,
                 shape: const RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(10))),
                 foregroundColor: Theme.of(context).canvasColor,
-                textStyle: const TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15)// button text color
+                textStyle: const TextStyle(fontFamily: "FontMedium",height: 1,fontSize: 15)// button text color
               ),
               ),
             dividerTheme: DividerThemeData(
@@ -355,11 +355,11 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                 thickness: 1.5
               ),
             datePickerTheme: DatePickerThemeData(
-                dayStyle: const TextStyle(fontFamily: "Nexa3",height: 1,fontSize: 15),
+                dayStyle: const TextStyle(fontFamily: "FontMedium",height: 1,fontSize: 15),
                 todayForegroundColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                 dayOverlayColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                 headerForegroundColor: renkler.yaziRenk,
-                weekdayStyle: TextStyle(fontFamily: "Nexa4",height: 1,fontSize: 15,color: Theme.of(context).secondaryHeaderColor),
+                weekdayStyle: TextStyle(fontFamily: "FontBold",height: 1,fontSize: 15,color: Theme.of(context).secondaryHeaderColor),
                 yearForegroundColor: MaterialStatePropertyAll(Theme.of(context).canvasColor),
                 yearOverlayColor: MaterialStatePropertyAll(Theme.of(context).disabledColor),
                 yearBackgroundColor: MaterialStatePropertyAll(Theme.of(context).primaryColor),
@@ -369,21 +369,21 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                   labelSmall: const TextStyle(
                       ///tarih seçiniz
                       fontSize: 16,
-                      fontFamily: 'Nexa4'),
+                      fontFamily: 'FontBold'),
                   titleSmall: TextStyle(
                       ///ay ve yıl
                       fontSize: 16,
-                      fontFamily: 'Nexa3',
+                      fontFamily: 'FontMedium',
                       color: renkler.koyuuRenk),
                   headlineMedium: TextStyle(
                       ///gün ay gün
                       fontSize: 26,
-                      fontFamily: 'Nexa3',
+                      fontFamily: 'FontMedium',
                       color: renkler.koyuuRenk),
                   bodyLarge: TextStyle(
                       ///alt YILLAR
                       fontSize: 16,
-                      fontFamily: 'Nexa3',
+                      fontFamily: 'FontMedium',
                       color: Theme.of(context).disabledColor),
                ),
             colorScheme: ColorScheme(
@@ -460,7 +460,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                         selectDate(context);
                       },
                       child: Center(
-                          child: getLineText(getFormattedDate(readAdd.operationDate.text), renkler.koyuuRenk, 13,fontFamily: "Nexa4")),
+                          child: getLineText(getFormattedDate(readAdd.operationDate.text), renkler.koyuuRenk, 13,fontFamily: "FontBold")),
                     ),
                   ),
                 ),
@@ -571,7 +571,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                                   SizedBox(
                                     width: 95,
                                     child: Center(
-                                      child: getLineText(translation(context).amountDetails, renkler.yaziRenk, 15,fontFamily: "Nexa4",weight: FontWeight.w800),
+                                      child: getLineText(translation(context).amountDetails, renkler.yaziRenk, 15,fontFamily: "FontBold",weight: FontWeight.w800),
                                     ),
                                   ),
                                   Container(
@@ -591,7 +591,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                                           style: const TextStyle(
                                               color: Color(0xff0D1C26),
                                               fontSize: 17,
-                                              fontFamily: 'Nexa4',
+                                              fontFamily: 'FontBold',
                                               fontWeight: FontWeight.w100),
                                           controller: readAdd.amount,
                                           autofocus: false,
@@ -786,7 +786,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
               SizedBox(
                 width: 70,
                 child: Center(
-                  child: getLineText(translation(context).save, renkler.yaziRenk, 13,fontFamily: "Nexa4",weight: FontWeight.w800),
+                  child: getLineText(translation(context).save, renkler.yaziRenk, 13,fontFamily: "FontBold",weight: FontWeight.w800),
                 ),
               ),
               getDecoratedBox(38, 38, BorderRadius.all(Radius.circular(20)),boxColor: Theme.of(context).disabledColor,child: registration(readAdd.regsController)),
@@ -849,7 +849,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                 Positioned(
                     bottom: 0,
                     right: 20,
-                    child: getLineText('${readAdd.note.text.length}/${readAdd.maxLength.toString()}', Theme.of(context).disabledColor, 13,fontFamily: "Nexa4",weight: FontWeight.w800,backgroundColor: Theme.of(context).splashColor)),
+                    child: getLineText('${readAdd.note.text.length}/${readAdd.maxLength.toString()}', Theme.of(context).disabledColor, 13,fontFamily: "FontBold",weight: FontWeight.w800,backgroundColor: Theme.of(context).splashColor)),
               ],
             ),
           ),
@@ -858,7 +858,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
             children: [
               getDecoratedBox(boxColor: Theme.of(context).secondaryHeaderColor, 110, 34,
                 BorderRadius.all(Radius.circular(20)),
-                child : Center(child: getLineText(translation(context).addNote, Theme.of(context).primaryColor, 14,fontFamily:  'Nexa4',weight: FontWeight.w800)),
+                child : Center(child: getLineText(translation(context).addNote, Theme.of(context).primaryColor, 14,fontFamily:  'FontBold',weight: FontWeight.w800)),
                 padding: EdgeInsets.only(left: 20, right: 20)),
               getDecoratedBox(boxColor :Theme.of(context).shadowColor, 60, 26,
                 BorderRadius.all(Radius.circular(10)),
@@ -869,7 +869,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
                     });
                   },
                   child: Center(
-                    child: getLineText(translation(context).delete,Theme.of(context).canvasColor,12,fontFamily: "Nexa4",weight: FontWeight.w200),
+                    child: getLineText(translation(context).delete,Theme.of(context).canvasColor,12,fontFamily: "FontBold",weight: FontWeight.w200),
                   ),
                 ),
                 padding: EdgeInsets.only(right: 20, left: 20)),
@@ -903,7 +903,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
       customTextStyles: const [
         TextStyle(
             fontSize: 13,
-            fontFamily: 'Nexa4',
+            fontFamily: 'FontBold',
             height: 1,
             fontWeight: FontWeight.w800)
       ],
@@ -916,7 +916,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
       text,style: TextStyle(
       color: textColor,
       height: 1,
-      fontFamily: fontFamily ?? "Nexa3",
+      fontFamily: fontFamily ?? "FontMedium",
       fontSize: size,
       fontWeight: weight ?? FontWeight.normal,
       backgroundColor: backgroundColor
@@ -986,7 +986,7 @@ class _AddDataMenuTableType extends ConsumerState<AddDataMenuTableType> {
             text,
             style: TextStyle(
                 fontSize: 14,
-                fontFamily: 'Nexa4',
+                fontFamily: 'FontBold',
                 color: renkler.arkaRenk),
           ),
         ),

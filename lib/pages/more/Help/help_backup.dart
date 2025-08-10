@@ -62,7 +62,7 @@ class HelpBackup extends StatelessWidget {
                             child: Text(
                               translation(context).backupSystem1,
                               style: TextStyle(
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 24,
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
@@ -113,7 +113,7 @@ class HelpBackup extends StatelessWidget {
                                         color: renkler.arkaRenk,
                                         height: 1,
                                         fontSize: 15,
-                                        fontFamily: "Nexa3"
+                                        fontFamily: "FontMedium"
                                     ),
                                   ),
                                 ],
@@ -132,7 +132,7 @@ class HelpBackup extends StatelessWidget {
                       const SizedBox(height: 7,),
                       Text(
                         translation(context).whatYouCanDoOnThisPage
-                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       Text(
@@ -157,7 +157,7 @@ class HelpBackup extends StatelessWidget {
                           curve: Curves.linearToEaseOut,
                           customTextStyles: const [
                             TextStyle(
-                                fontSize: 9, fontFamily: 'Nexa3', fontWeight: FontWeight.w800, height: 1)
+                                fontSize: 9, fontFamily: 'FontMedium', fontWeight: FontWeight.w800, height: 1)
                           ],
                           onToggle: (index) {
 
@@ -192,7 +192,7 @@ class HelpBackup extends StatelessWidget {
                                         height: 1,
                                         color: renkler.arkaRenk,
                                         fontSize: 11,
-                                        fontFamily: "Nexa3"
+                                        fontFamily: "FontMedium"
                                     ),
                                   ),
                                 ),
@@ -237,7 +237,7 @@ class HelpBackup extends StatelessWidget {
                                           height: 1,
                                           color: renkler.arkaRenk,
                                           fontSize: 11,
-                                          fontFamily: "Nexa3"
+                                          fontFamily: "FontMedium"
                                       ),
                                     ),
                                   ),
@@ -318,7 +318,7 @@ class HelpBackup extends StatelessWidget {
                                 "${translation(context).numberOfRecordsShown} 2",
                                 style: TextStyle(
                                   fontSize: 13,
-                                  fontFamily: "Nexa3",
+                                  fontFamily: "FontMedium",
                                   color: renkler.arkaRenk,
                                 ),
                               ),

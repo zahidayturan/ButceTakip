@@ -47,7 +47,7 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
                       "VERİLERİMİ SİL",
                       style: TextStyle(
                         color: Theme.of(context).dialogBackgroundColor,
-                        fontFamily: 'Nexa4',
+                        fontFamily: 'FontBold',
                         fontWeight: FontWeight.w900,
                         height: 1,
                         fontSize: 22,
@@ -84,7 +84,7 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
                 style: TextStyle(
                   fontSize: 15,
                   color: Color(0xFFE9E9E9),
-                  fontFamily: "Nexa3"
+                  fontFamily: "FontMedium"
                 ),
               ),
               !clicked
@@ -145,7 +145,7 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
                           style: const TextStyle(
                               fontSize: 16,
                               color: Color(0xFFE9E9E9),
-                              fontFamily: "Nexa3"
+                              fontFamily: "FontMedium"
                           ),
                         ),
                       )
@@ -174,7 +174,7 @@ class _checkUserDelete extends ConsumerState<CheckUserDelete> {
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Color(0xFF0D1C26),
-                                fontFamily: "Nexa3"
+                                fontFamily: "FontMedium"
                             ),
                           )
                         ],

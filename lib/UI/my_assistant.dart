@@ -139,7 +139,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                     translation(context).analysis,
                                     style: TextStyle(
                                       color: Theme.of(context).canvasColor,
-                                      fontFamily: 'Nexa4',
+                                      fontFamily: 'FontBold',
                                       fontWeight: FontWeight.w900,
                                       height: 1,
                                       fontSize: 18,
@@ -185,7 +185,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                           color: Theme.of(context).canvasColor,
-                                          fontFamily: "Nexa4",
+                                          fontFamily: "FontBold",
                                           fontSize: readSettings.Language == "العربية" ? 16 : 13,
                                           height: 1
                                       ),
@@ -304,7 +304,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
             style: const TextStyle(
                 height: 1,
                 fontSize: 12,
-                fontFamily: "Nexa4"
+                fontFamily: "FontBold"
             ),
             textAlign: TextAlign.justify,
           ),
@@ -320,7 +320,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                   Text(
                     translation(context).yourIncomeActivitiesForThisMonth,
                     style: const TextStyle(
-                      fontFamily: "Nexa3",
+                      fontFamily: "FontMedium",
                       fontSize: 13,
                     ),
                   ),
@@ -401,7 +401,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                                         data[index].operationDate.toString(),
                                                         overflow: TextOverflow.ellipsis,
                                                         style: const TextStyle(
-                                                          fontFamily: "Nexa3",
+                                                          fontFamily: "FontMedium",
                                                           fontSize: 13,
                                                         ),
                                                       ),
@@ -416,7 +416,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                                                     height: 1,
                                                                     fontSize: 13,
                                                                     color: Theme.of(context).canvasColor,
-                                                                    fontFamily: "Nexa3",
+                                                                    fontFamily: "FontMedium",
                                                                   ),
                                                                 ),
                                                                 TextSpan(
@@ -444,7 +444,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                                   maxLines: 1,
                                                   overflow: TextOverflow.ellipsis,
                                                   style:const TextStyle(
-                                                    fontFamily: "Nexa3",
+                                                    fontFamily: "FontMedium",
                                                   ),
                                                 ),
                                               ),

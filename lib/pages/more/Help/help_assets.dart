@@ -61,7 +61,7 @@ class HelpAssets extends StatelessWidget {
                             child: Text(
                               translation(context).assetsPage1,
                               style: TextStyle(
-                                fontFamily: "Nexa4",
+                                fontFamily: "FontBold",
                                 fontSize: 24,
                                 height: 1,
                                 color: Theme.of(context).secondaryHeaderColor,
@@ -84,7 +84,7 @@ class HelpAssets extends StatelessWidget {
                       const SizedBox(height: 7,),
                       Text(
                         translation(context).whatYouCanDoOnThisPage
-                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "Nexa4"),textAlign: TextAlign.justify,
+                        ,style: TextStyle(color: Theme.of(context).secondaryHeaderColor,height: 1.1,fontSize: 16,fontFamily: "FontBold"),textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 14,),
                       FittedBox(
@@ -169,7 +169,7 @@ class HelpAssets extends StatelessWidget {
                             Text(
                               "2071" ,
                               style: TextStyle(
-                                fontFamily: 'NEXA3',
+                                fontFamily: 'FontMedium',
                                 fontSize: 17,
                                 height: 1,
                                 color: Theme.of(context).canvasColor

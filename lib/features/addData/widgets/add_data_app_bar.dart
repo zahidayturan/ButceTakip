@@ -66,7 +66,7 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                       getTitleText(),
                       style: const TextStyle(
                         height: 1,
-                        fontFamily: 'Nexa4',
+                        fontFamily: 'FontBold',
                         fontSize: 20,
                         color: Color(0xFFE9E9E9),
                       ),

@@ -158,13 +158,13 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                 Text(
                                   translation(context).passwordStatus,
                                   style: TextStyle(
-                                    fontFamily: "Nexa3",
+                                    fontFamily: "FontMedium",
                                     color: Theme.of(context).canvasColor
                                   ),
                                 ),
                                 const Spacer(),
-                                isopen ? Text(translation(context).on, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor),)
-                                    : Text(translation(context).off, style: TextStyle(fontFamily: "Nexa3",color: Theme.of(context).canvasColor),),
+                                isopen ? Text(translation(context).on, style: TextStyle(fontFamily: "FontMedium",color: Theme.of(context).canvasColor),)
+                                    : Text(translation(context).off, style: TextStyle(fontFamily: "FontMedium",color: Theme.of(context).canvasColor),),
                                 Switch(
                                   activeColor: Theme.of(context).disabledColor,
                                   value: isopen ,
@@ -196,7 +196,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                               style: TextStyle(
                                   color: Theme.of(context).canvasColor,
                                   fontSize: 18,
-                                  fontFamily: "Nexa4"
+                                  fontFamily: "FontBold"
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -263,7 +263,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                           style: TextStyle(
                             color: Theme.of(context).canvasColor,
                             height: 1,
-                            fontFamily: "Nexa4"
+                            fontFamily: "FontBold"
                           ),
                         ),
                         SizedBox(height: size.height/30) ,
@@ -558,7 +558,7 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
-                                    fontFamily: 'Nexa3',
+                                    fontFamily: 'FontMedium',
                                     fontWeight: FontWeight.w600,
                                     height: 1.3,
                                   ),

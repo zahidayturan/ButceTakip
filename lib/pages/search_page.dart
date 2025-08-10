@@ -153,7 +153,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                 translation(context).noMatchData,
                                 style: const TextStyle(
                                     color: Colors.white,
-                                    fontFamily: "Nexa3",
+                                    fontFamily: "FontMedium",
                                     height: 1
                                 ),
                               ),
@@ -252,7 +252,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                                               height: 1,
                                                               color: renkler.arkaRenk,
                                                               fontFamily:
-                                                              "Nexa3",
+                                                              "FontMedium",
                                                               fontSize: 15,
                                                             ),
                                                           ),

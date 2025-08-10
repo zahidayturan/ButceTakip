@@ -101,7 +101,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                               TextStyle(
                                   fontSize: 16,
                                   height: 1,
-                                  fontFamily: 'Nexa4',
+                                  fontFamily: 'FontBold',
                                   fontWeight: FontWeight.w800)
                             ],
                             onToggle: (index) {
@@ -133,7 +133,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                           child: Center(
                             child: Text(
                               readAdd.initialLabelIndexCustomize == 1 ? translation(context).installment : translation(context).repeat, style: TextStyle(
-                                color: renkler.arkaRenk,fontSize: 18, fontFamily: 'Nexa4', height: 1,fontWeight: FontWeight.w800
+                                color: renkler.arkaRenk,fontSize: 18, fontFamily: 'FontBold', height: 1,fontWeight: FontWeight.w800
                             ),
                             ),
                           ),
@@ -158,7 +158,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontFamily:
-                                      'Nexa3',
+                                      'FontMedium',
                                       color: Theme.of(
                                           context)
                                           .canvasColor,
@@ -175,7 +175,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                                                 fontSize:
                                                 18,
                                                 fontFamily:
-                                                'Nexa3',
+                                                'FontMedium',
                                                 color:
                                                 Theme.of(context).canvasColor),
                                           ),
@@ -291,7 +291,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                                         .canvasColor,
                                     fontSize: 17,
                                     fontFamily:
-                                    'Nexa3'),
+                                    'FontMedium'),
                                 decoration:
                                 InputDecoration(
                                     hintText:
@@ -304,7 +304,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                                         12.5,
                                         height: 1,
                                         fontFamily:
-                                        'Nexa3'),
+                                        'FontMedium'),
                                     suffixText:
                                     translation(context).month,
                                     suffixStyle:
@@ -315,7 +315,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                                       fontSize: 15,
                                       height: 1,
                                       fontFamily:
-                                      'Nexa3',
+                                      'FontMedium',
                                     ),
                                     counterText: '',
                                     border:
@@ -368,7 +368,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                                     color: const Color(
                                         0xffF2CB05),
                                     fontSize: 13,
-                                    fontFamily: 'Nexa4',
+                                    fontFamily: 'FontBold',
                                     fontWeight:
                                     FontWeight.w800,
                                     height: 1,
@@ -411,7 +411,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                                   color: renkler
                                       .arkaRenk,
                                   fontSize: 12,
-                                  fontFamily: 'Nexa3',
+                                  fontFamily: 'FontMedium',
                                   height: 1,
                                 ),
                               ),
@@ -440,7 +440,7 @@ class _CustomizeMenu extends ConsumerState<CustomizeMenu> {
                                 style: TextStyle(
                                     color: renkler.koyuuRenk,
                                     fontSize: 16,
-                                    fontFamily: 'Nexa3',
+                                    fontFamily: 'FontMedium',
                                     height: 1
                                 ),
                               ),

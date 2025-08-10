@@ -73,7 +73,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                             style: TextStyle(
                               color: skipController == 0 ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
                               height: 1,
-                              fontFamily: 'Nexa3',
+                              fontFamily: 'FontMedium',
                               fontSize: 15,
                             ),
                           ),
@@ -99,7 +99,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                               style: TextStyle(
                                   fontSize: 15,
                                   height: 1,
-                                  fontFamily: 'Nexa4',
+                                  fontFamily: 'FontBold',
                                   fontWeight: FontWeight.w900,
                               color: Theme.of(context).canvasColor
                               )),
@@ -304,7 +304,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                                                           height: 1,
                                                           color: item.operationType == "Gelir" ? renkler.yesilRenk : renkler.kirmiziRenk,
                                                           fontFamily:
-                                                          "Nexa3",
+                                                          "FontMedium",
                                                           fontSize: 14,
                                                         ),
                                                       ),
