@@ -1,11 +1,10 @@
 import 'package:butcetakip/classes/app_bar.dart';
-import 'package:butcetakip/classes/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../UI/monthly_info.dart';
-import '../UI/general_info.dart';
-import '../UI/daily_info.dart';
-import '../riverpod_management.dart';
+import '../../UI/monthly_info.dart';
+import '../../UI/general_info.dart';
+import '../../UI/daily_info.dart';
+import '../../riverpod_management.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);

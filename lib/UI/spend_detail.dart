@@ -1,4 +1,4 @@
-import 'package:butcetakip/pages/addDataPages/add_data_page.dart';
+import 'package:butcetakip/features/addData/add_data_page.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:butcetakip/utils/date_time_manager.dart';
 import 'package:butcetakip/utils/textConverter.dart';

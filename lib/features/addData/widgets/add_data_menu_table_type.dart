@@ -1,8 +1,8 @@
 import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/constans/material_color.dart';
 import 'package:butcetakip/models/spend_info.dart';
-import 'package:butcetakip/pages/addDataPages/add_customize.dart';
-import 'package:butcetakip/pages/addDataPages/select_category.dart';
+import 'package:butcetakip/features/addData/widgets/add_customize.dart';
+import 'package:butcetakip/features/addData/widgets/select_category.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:butcetakip/utils/date_time_manager.dart';
 import 'package:butcetakip/utils/db_helper.dart';

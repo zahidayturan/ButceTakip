@@ -1,7 +1,7 @@
 import 'package:butcetakip/Riverpod/update_data_riverpod.dart';
 import 'package:butcetakip/Riverpod/appbar_type_2_riverpod.dart';
 import 'package:butcetakip/Riverpod/settings_riverpod.dart';
-import 'package:butcetakip/riverpod/add_data_riverpod.dart';
+import 'package:butcetakip/features/addData/logic/add_data_riverpod.dart';
 import 'package:butcetakip/riverpod/currency_riverpod.dart';
 import 'package:butcetakip/riverpod/ggl_drive_riverpod.dart';
 import 'package:butcetakip/riverpod/montly_info_riverpod.dart';
