@@ -1,10 +1,11 @@
-import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../l10n/language.dart';
 
 class AppStatus extends ConsumerStatefulWidget {
   final String status;

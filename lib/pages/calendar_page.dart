@@ -1,4 +1,4 @@
-import 'package:butcetakip/classes/app_bar_for_page.dart';
+import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/pages/daily_info_page.dart';
 import 'package:butcetakip/pages/more/settings.dart';
@@ -6,8 +6,8 @@ import 'package:butcetakip/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../l10n/language.dart';
 import '../riverpod_management.dart';
-import 'package:butcetakip/classes/language.dart';
 
 class Calendar extends ConsumerWidget {
   const Calendar({Key? key}) : super(key: key);

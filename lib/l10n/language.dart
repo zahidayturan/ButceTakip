@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../l10n/app_localizations.dart';
+import 'app_localizations.dart';
 
 AppLocalizations translation(BuildContext context) {
   return AppLocalizations.of(context)!;

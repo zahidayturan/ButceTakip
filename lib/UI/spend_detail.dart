@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../app/data/models/spend_info.dart';
 import '../constants/material_color.dart';
-import 'package:butcetakip/classes/language.dart';
+import '../l10n/language.dart';
 
 ///örnek kullanım
 /*

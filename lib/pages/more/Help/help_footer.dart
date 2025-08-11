@@ -1,6 +1,7 @@
-import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:flutter/material.dart';
+
+import '../../../l10n/language.dart';
 
 
 Widget helpFooter(BuildContext context) {

@@ -1,7 +1,6 @@
 import 'package:butcetakip/Pages/more/communicate.dart';
 import 'package:butcetakip/core/app_info.dart';
-import 'package:butcetakip/classes/app_bar_for_page.dart';
-import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/pages/more/assets_page.dart';
 import 'package:butcetakip/pages/more/password.dart';
 import 'package:butcetakip/pages/more/settings.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/constants/text_pref.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../l10n/language.dart';
 import '../../riverpod_management.dart';
 import 'Help/help_page.dart';
 import 'password_splash.dart';

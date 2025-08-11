@@ -1,5 +1,4 @@
 import 'package:butcetakip/UI/spend_detail.dart';
-import 'package:butcetakip/classes/language.dart';
 import '../app/data/models/spend_info.dart';
 import '../constants/material_color.dart';
 import 'package:butcetakip/constants/text_pref.dart';
@@ -8,6 +7,7 @@ import 'package:butcetakip/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../l10n/language.dart';
 import '../riverpod_management.dart';
 import '../utils/db_helper.dart';
 

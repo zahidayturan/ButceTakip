@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../app/data/models/spend_info.dart';
+import '../../../l10n/language.dart';
 
 class StatisticsRiverpod extends ChangeNotifier {
     /*String operationType = 'Gider';

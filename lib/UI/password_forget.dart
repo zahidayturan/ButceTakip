@@ -1,10 +1,10 @@
-import 'package:butcetakip/classes/language.dart';
 import '../constants/material_color.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../l10n/language.dart';
 import '../utils/db_helper.dart';
 
 /*

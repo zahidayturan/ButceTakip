@@ -4,9 +4,8 @@ import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:butcetakip/classes/language.dart';
-
 import '../constants/text_pref.dart';
+import '../l10n/language.dart';
 
 class Aylikinfo extends ConsumerStatefulWidget {
   const Aylikinfo({Key? key}) : super(key: key);

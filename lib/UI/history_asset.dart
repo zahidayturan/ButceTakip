@@ -4,8 +4,8 @@ import 'package:butcetakip/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../classes/language.dart';
 import '../constants/text_pref.dart';
+import '../l10n/language.dart';
 import '../riverpod_management.dart';
 
 class HistoryAsset extends ConsumerStatefulWidget{

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:app_settings/app_settings.dart';
-import 'package:butcetakip/classes/language.dart';
 import '../app/data/models/spend_info.dart';
 import '../constants/material_color.dart';
 
@@ -16,6 +15,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../app/base_home.dart';
+import '../l10n/language.dart';
 
 class IntroductionPage extends ConsumerStatefulWidget {
   const IntroductionPage({Key? key}) : super(key: key);

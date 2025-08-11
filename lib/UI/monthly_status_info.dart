@@ -6,8 +6,9 @@ import 'package:butcetakip/riverpod_management.dart';
 import 'package:butcetakip/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:butcetakip/classes/language.dart';
 import 'package:intl/intl.dart' as intl;
+
+import '../l10n/language.dart';
 
 
 class MonthlyStatusInfo extends ConsumerStatefulWidget {

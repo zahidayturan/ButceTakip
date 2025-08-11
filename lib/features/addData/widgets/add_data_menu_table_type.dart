@@ -1,4 +1,3 @@
-import 'package:butcetakip/classes/language.dart';
 import '../../../constants/material_color.dart';
 import 'package:butcetakip/features/addData/widgets/add_customize.dart';
 import 'package:butcetakip/features/addData/widgets/select_category.dart';
@@ -8,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:intl/intl.dart' as intl;
+
+import '../../../l10n/language.dart';
 
 class AddDataMenuTableType extends ConsumerStatefulWidget {
   late int addDataMode;

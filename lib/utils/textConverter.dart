@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../classes/language.dart';
+import '../l10n/language.dart';
 
 class Converter{
   String textConverterToDB(String text, BuildContext context, int operetionType)

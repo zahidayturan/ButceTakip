@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:toggle_switch/toggle_switch.dart';
+import '../l10n/language.dart';
 import '../riverpod_management.dart';
-import 'package:butcetakip/classes/language.dart';
 
 class UpdateData extends StatefulWidget {
   const UpdateData({Key? key}) : super(key: key);

@@ -103,7 +103,7 @@ class _NavBarItem extends StatelessWidget {
                 size: 30,
                 color: Theme.of(context).primaryColor,
               ),
-              Text(label,style: TextStyle(fontSize: 10))
+              Text(label,style: TextStyle(fontSize: 10,color: Theme.of(context).primaryColor))
             ],
           ),
         ),

@@ -9,8 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
 import '../constants/text_pref.dart';
 
-import 'package:butcetakip/classes/language.dart';
-
+import '../l10n/language.dart';
 import '../pages/daily_info_page.dart';
 
 

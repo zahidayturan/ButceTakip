@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../app/data/models/spend_info.dart';
-import '../classes/language.dart';
+import '../l10n/language.dart';
 import '../riverpod_management.dart';
 import '../utils/db_helper.dart';
 

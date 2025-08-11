@@ -1,10 +1,11 @@
-import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
-import 'package:butcetakip/classes/app_bar_for_page.dart';
+import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/Pages/more/Help/help_footer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../l10n/language.dart';
 
 
 class VersionsHelp extends ConsumerStatefulWidget {

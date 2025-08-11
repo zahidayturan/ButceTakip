@@ -1,4 +1,4 @@
-import 'package:butcetakip/classes/app_bar.dart';
+import 'package:butcetakip/core/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../UI/monthly_info.dart';

@@ -1,5 +1,4 @@
-import 'package:butcetakip/classes/app_bar_for_page.dart';
-import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/widgets/nav_bar.dart';
+import '../../l10n/language.dart';
 
 class Communicate extends StatelessWidget {
   const Communicate({Key? key}) : super(key: key);

@@ -1,10 +1,10 @@
 import 'package:butcetakip/UI/spend_detail.dart';
-import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../l10n/language.dart';
 import '../riverpod_management.dart';
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({Key? key}) : super(key: key);

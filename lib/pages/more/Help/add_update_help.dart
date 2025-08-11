@@ -1,10 +1,11 @@
 import 'package:butcetakip/Pages/more/Help/help_footer.dart';
-import 'package:butcetakip/classes/app_bar_for_page.dart';
-import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+import '../../../l10n/language.dart';
 
 class HelpAddUpdate extends StatelessWidget {
   const HelpAddUpdate({Key? key}) : super(key: key);

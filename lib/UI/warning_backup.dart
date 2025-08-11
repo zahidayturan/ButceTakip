@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../classes/language.dart';
 import '../constants/material_color.dart';
+import '../l10n/language.dart';
 import '../riverpod_management.dart';
 import '../utils/cvs_converter.dart';
 

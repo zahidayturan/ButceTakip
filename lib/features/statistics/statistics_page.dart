@@ -1,4 +1,4 @@
-import 'package:butcetakip/classes/app_bar_for_page.dart';
+import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import '../../../constants/material_color.dart';
 import 'package:butcetakip/pages/category_info_page.dart';
 import 'package:butcetakip/riverpod_management.dart';
@@ -7,9 +7,9 @@ import 'package:butcetakip/utils/textConverter.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:d_chart/d_chart.dart';
-import 'package:butcetakip/classes/language.dart';
 import 'package:intl/intl.dart' as intl;
+
+import '../../l10n/language.dart';
 
 class Statistics extends ConsumerWidget {
   const Statistics({super.key});

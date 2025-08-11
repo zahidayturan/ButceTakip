@@ -1,4 +1,3 @@
-import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/core/enums/page_type_enum.dart';
 import 'package:butcetakip/features/addData/widgets/add_data_app_bar.dart';
 import 'package:butcetakip/features/addData/widgets/add_data_menu_table_type.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/data/models/spend_info.dart';
 import '../../constants/material_color.dart';
+import '../../l10n/language.dart';
 
 class AddData extends ConsumerStatefulWidget {
   late int addDataMode;

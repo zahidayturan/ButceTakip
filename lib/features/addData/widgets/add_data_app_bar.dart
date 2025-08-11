@@ -1,10 +1,9 @@
-import 'package:butcetakip/classes/language.dart';
-
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/material_color.dart';
+import '../../../l10n/language.dart';
 
 class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   late int addDataMode;

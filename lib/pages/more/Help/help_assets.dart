@@ -1,9 +1,9 @@
 import 'package:butcetakip/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import '../../../classes/app_bar_for_page.dart';
-import '../../../classes/language.dart';
+import '../../../core/widgets/app_bar_for_page.dart';
 import '../../../constants/material_color.dart';
+import '../../../l10n/language.dart';
 import '../../../utils/textConverter.dart';
 import 'help_footer.dart';
 

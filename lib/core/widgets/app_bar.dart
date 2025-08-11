@@ -1,19 +1,17 @@
 import 'package:butcetakip/UI/customize_operation_list.dart';
-import 'package:butcetakip/UI/introduction_page.dart';
 import 'package:butcetakip/UI/registery_list.dart';
 import 'package:butcetakip/UI/warning_backup.dart';
-import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/pages/more/Help/help_page.dart';
 import 'package:butcetakip/pages/more/settings.dart';
 import 'package:butcetakip/pages/search_page.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../l10n/language.dart';
 
 class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
-  const AppBarCustom({Key? key}) : super(key: key);
+  const AppBarCustom({super.key});
   @override
   Size get preferredSize => const Size.fromHeight(60);
   @override
@@ -23,7 +21,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: AppBar(
-        backgroundColor: const Color(0xFF0D1C26),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Padding(
           padding: const EdgeInsets.only(top: 5),
           child: readSetting.backUpAlert
@@ -32,7 +30,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
               Navigator.push(
                 context,
                 PageRouteBuilder(
-                  opaque: false, //sayfa saydam olması için
+                  opaque: false,
                   transitionDuration: const Duration(milliseconds: 1),
                   pageBuilder: (context, animation, nextanim) => const warningBackUp(),
                   reverseTransitionDuration: const Duration(milliseconds: 1),
@@ -160,16 +158,6 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                   },
                 ),
               );
-              /*
-              final SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.setBool("showBTA", false);
-              final bool? showBTA = prefs.getBool("showBTA");
-              print("aaaa");
-              print(showBTA);
-
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const IntroductionPage())
-              );*/
             },
             icon: const Icon(
               Icons.help_outline_rounded,
@@ -219,36 +207,4 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
       ),
     );
   }
-
 }
-/*
-Row(   /// her bir kaydın oldugu satır
-mainAxisAlignment: MainAxisAlignment.spaceBetween,
-children:  [
-SizedBox(
-height:  40,
-width : 40 ,
-child: DecoratedBox(
-decoration: const BoxDecoration(
-color: Colors.white,
-borderRadius: BorderRadius.all(Radius.circular(40)),
-),
-child: Center(
-child: Icon(
-Icons.remove_red_eye,
-color: Theme.of(context).disabledColor,
-),
-),
-),
-),
-Text("İşlem kategorisi"),
-const Text(
-"189 TL",
-style: TextStyle(
-color:  Colors.green,
-),
-),
-],
-),
-
- */

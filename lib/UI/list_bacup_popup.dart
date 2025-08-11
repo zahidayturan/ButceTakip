@@ -2,7 +2,7 @@ import '../constants/material_color.dart';
 import 'package:butcetakip/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../classes/language.dart';
+import '../l10n/language.dart';
 import '../riverpod_management.dart';
 
 class listBackUpPopUp extends ConsumerStatefulWidget{

@@ -1,8 +1,8 @@
-import 'package:butcetakip/classes/language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 import '../app/data/models/spend_info.dart';
+import '../l10n/language.dart';
 import '../utils/db_helper.dart';
 
 

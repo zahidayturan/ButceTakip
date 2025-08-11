@@ -4,10 +4,9 @@ import 'package:butcetakip/utils/textConverter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../UI/spend_detail.dart';
-import 'package:butcetakip/classes/language.dart';
-
 import '../app/data/models/spend_info.dart';
 import '../constants/text_pref.dart';
+import '../l10n/language.dart';
 
 class DailyInfo extends ConsumerWidget {
   const DailyInfo({Key? key}) : super(key: key);

@@ -1,15 +1,13 @@
 import 'package:butcetakip/UI/general_info.dart';
 import 'package:butcetakip/UI/spend_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:butcetakip/classes/language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:googleapis/translate/v3.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../app/data/models/Data.dart';
 import '../app/data/models/spend_info.dart';
-import '../classes/language.dart';
 import '../constants/material_color.dart';
+import '../l10n/language.dart';
 import '../pages/more/assets_page.dart';
 import '../riverpod_management.dart';
 import '../utils/db_helper.dart';

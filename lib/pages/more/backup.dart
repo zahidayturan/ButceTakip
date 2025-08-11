@@ -1,5 +1,4 @@
 import 'package:butcetakip/UI/check_user_delete.dart';
-import 'package:butcetakip/classes/language.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/constants/text_pref.dart';
 import 'package:butcetakip/pages/more/Help/help_backup.dart';
@@ -11,8 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import '../../classes/app_bar_for_page.dart';
+import '../../core/widgets/app_bar_for_page.dart';
 import '../../core/widgets/nav_bar.dart';
+import '../../l10n/language.dart';
 import '../../riverpod_management.dart';
 
 class BackUp extends ConsumerStatefulWidget {
