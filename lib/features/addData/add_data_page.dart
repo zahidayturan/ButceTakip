@@ -1,4 +1,5 @@
 import 'package:butcetakip/classes/language.dart';
+import 'package:butcetakip/core/enums/page_type_enum.dart';
 import 'package:butcetakip/features/addData/widgets/add_data_app_bar.dart';
 import 'package:butcetakip/features/addData/widgets/add_data_menu_table_type.dart';
 import 'package:butcetakip/riverpod_management.dart';
@@ -74,7 +75,7 @@ class _AddDataState extends ConsumerState<AddData> {
   Widget operationCustomButton(BuildContext context) {
     var read = ref.read(databaseRiverpod);
     var readAdd = ref.read(addDataRiverpod);
-    var read2 = ref.read(botomNavBarRiverpod);
+    var readNavBar = ref.read(bottomNavBarRiverpod);
     var readHome = ref.read(homeRiverpod);
     var size = MediaQuery.of(context).size;
     var readSettings = ref.read(settingsRiverpod);
@@ -272,7 +273,7 @@ class _AddDataState extends ConsumerState<AddData> {
                       readSettings.useAdCounter();
                     }
                     Navigator.of(context).pop();
-                    read2.setCurrentindex(0);
+                    readNavBar.goToHome();
                     readHome.setStatus();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

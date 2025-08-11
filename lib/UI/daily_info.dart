@@ -37,7 +37,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
     String formattedDate = intl.DateFormat(dateFormat).format(now)  ;
     var readDB = ref.read(databaseRiverpod);
     var readDailyInfo = ref.read(dailyInfoRiverpod);
-    var readNavBar = ref.read(botomNavBarRiverpod);
+    var readNavBar = ref.read(bottomNavBarRiverpod);
     var readCalendar = ref.read(calendarRiverpod);
     var readSetting = ref.read(settingsRiverpod);
     CustomColors renkler = CustomColors();
@@ -90,7 +90,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            readNavBar.setCurrentindex(2);
+                            readNavBar.goToCalendar();
                             Navigator.of(context).popUntil((route) => route.isFirst) ;
                             readCalendar.setIndex(0, 3,ref);
                             readCalendar.resetPageController();

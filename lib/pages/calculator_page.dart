@@ -24,10 +24,10 @@ class _CalculatorState extends ConsumerState<Calculator> {
     CustomColors renkler = CustomColors();
     var size = MediaQuery.of(context).size;
     var watchCurrency = ref.watch(currencyRiverpod);
-    var read2 = ref.read(botomNavBarRiverpod);
+    var readNavBar = ref.read(bottomNavBarRiverpod);
     return WillPopScope(
       onWillPop: () async {
-        read2.setCurrentindex(0);
+        readNavBar.goToHome();
         return false;
       },
       child: Container(

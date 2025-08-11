@@ -2,7 +2,7 @@ import 'package:app_settings/app_settings.dart';
 import 'package:butcetakip/UI/my_assistant.dart';
 import 'package:butcetakip/classes/app_bar_for_page.dart';
 import 'package:butcetakip/classes/language.dart';
-import 'package:butcetakip/classes/nav_bar.dart';
+import 'package:butcetakip/core/widgets/nav_bar.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/pages/more/appearance_settings.dart';
 import 'package:butcetakip/pages/more/password.dart';
@@ -79,10 +79,6 @@ class _SettingsState extends ConsumerState<Settings> {
       translation(context).monthDayYear,
       translation(context).yearMonthDay
     ];
-    var readNavBar = ref.read(botomNavBarRiverpod);
-    readNavBar.currentColor = Theme
-        .of(context)
-        .primaryColor;
     ref
         .watch(settingsRiverpod)
         .isuseinsert;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MontlyInfoRiverpod extends ChangeNotifier{
+class MonthlyInfoRiverpod extends ChangeNotifier{
   bool isuseinsert = false; // root dizini rebuild yaptırmak ve password çıkarmak için kullanacağım.
 
   int ?currentIndex;

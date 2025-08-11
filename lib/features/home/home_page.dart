@@ -11,8 +11,6 @@ class Home extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var readNavBar = ref.read(botomNavBarRiverpod);
-    readNavBar.currentColor = const Color(0xffF2F2F2);
     return Scaffold(
       //backgroundColor: Color(0xffF2F2F2),
       appBar: AppBarCustom(),

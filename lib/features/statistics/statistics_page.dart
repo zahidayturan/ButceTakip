@@ -39,11 +39,11 @@ class _StaticticsBody extends ConsumerState<StaticticsBody> {
       //myCategoryList(context);
       return ref.watch(databaseRiverpod);
     });
-    var read2 = ref.read(botomNavBarRiverpod);
+    var readNavBar = ref.read(bottomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
-        read2.setCurrentindex(0);
+        readNavBar.goToHome();
         return false;
       },
       child: Column(

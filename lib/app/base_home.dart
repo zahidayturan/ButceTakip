@@ -2,7 +2,7 @@ import 'package:butcetakip/UI/app_status.dart';
 import 'package:butcetakip/UI/introduction_page.dart';
 import 'package:butcetakip/UI/my_assistant.dart';
 import 'package:butcetakip/core/app_info.dart';
-import 'package:butcetakip/classes/nav_bar.dart';
+import 'package:butcetakip/core/widgets/nav_bar.dart';
 import 'package:butcetakip/utils/notification_service.dart';
 import 'package:butcetakip/utils/security_file.dart';
 import 'package:flutter/material.dart';
@@ -214,7 +214,7 @@ class _BaseHomeState extends ConsumerState<BaseHome> {
       }
     }
     if (widget.showBTA) {
-      return ref.watch(botomNavBarRiverpod).body();
+      return ref.watch(bottomNavBarRiverpod).body();
     } else {
       return IntroductionPage();
     }

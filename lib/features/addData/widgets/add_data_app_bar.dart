@@ -13,7 +13,7 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(60);
   CustomColors renkler = CustomColors();
   Widget build(BuildContext context, WidgetRef ref) {
-    var read = ref.read(botomNavBarRiverpod);
+    var read = ref.read(bottomNavBarRiverpod);
     var readSettings = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     String getTitleText(){
@@ -118,7 +118,11 @@ class AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      read.setCurrentindex(addDataMode == 0 ? read.current! : 0);
+                      if(addDataMode == 0){
+                        // aynı sayfayı tekrar setle
+                        return;
+                      }
+                      read.goToHome();
                     },
                   ),
                 ),

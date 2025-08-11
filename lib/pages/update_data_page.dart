@@ -36,7 +36,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(60);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var read = ref.read(botomNavBarRiverpod);
+    var read = ref.read(bottomNavBarRiverpod);
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
     int menuController = ref.read(updateDataRiverpod).getMenuController();
@@ -119,7 +119,7 @@ class _AddAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      read.setCurrentindex(0);
+                      read.goToHome();
                     },
                   ),
                 ),

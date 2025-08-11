@@ -2,7 +2,6 @@ import 'package:butcetakip/classes/app_bar_for_page.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/pages/daily_info_page.dart';
 import 'package:butcetakip/pages/more/settings.dart';
-import 'package:butcetakip/utils/date_time_manager.dart';
 import 'package:butcetakip/utils/interstitial_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,8 +14,6 @@ class Calendar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var readNavBar = ref.read(botomNavBarRiverpod);
-    readNavBar.currentColor = const Color(0xffF2F2F2);
     return  SafeArea(
       bottom: false,
       child: Scaffold(
@@ -54,10 +51,10 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var read2 = ref.read(botomNavBarRiverpod);
+    var readNavBar = ref.read(bottomNavBarRiverpod);
     return WillPopScope(
       onWillPop: () async {
-        read2.setCurrentindex(0);
+        readNavBar.goToHome();
         return false;
       },
       child: SingleChildScrollView(
@@ -356,7 +353,7 @@ class _CalendarBody extends ConsumerState<CalendarBody> {
                         );
                       },
                     ),
-                  ).then((value) => ref.read(botomNavBarRiverpod).setCurrentindex(4));
+                  ).then((value) => ref.read(bottomNavBarRiverpod).goToMore());
                 },
                 child: Tooltip(
                   message: translation(context).calendarMonthStartDayButton,

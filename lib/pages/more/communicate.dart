@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../classes/nav_bar.dart';
+import '../../core/widgets/nav_bar.dart';
 
 class Communicate extends StatelessWidget {
   const Communicate({Key? key}) : super(key: key);

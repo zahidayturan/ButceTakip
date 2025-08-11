@@ -13,7 +13,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var read2 = ref.read(botomNavBarRiverpod);
+    var readNavBar = ref.read(bottomNavBarRiverpod);
     var readsetting = ref.read(settingsRiverpod);
     var size = MediaQuery.of(context).size;
     CustomColors renkler = CustomColors();
@@ -166,7 +166,7 @@ class AppBarForPage extends ConsumerWidget implements PreferredSizeWidget {
                   }
                 }
                 else{
-                  read2.setCurrentindex(0);
+                  readNavBar.goToHome();
                 }
                 //Navigator.of(context).pop();
               },

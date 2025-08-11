@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:butcetakip/UI/change_currency_page.dart';
 import 'package:butcetakip/classes/app_bar_for_page.dart';
-import 'package:butcetakip/classes/nav_bar.dart';
+import 'package:butcetakip/core/widgets/nav_bar.dart';
 import 'package:butcetakip/constants/text_pref.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:butcetakip/utils/db_helper.dart';

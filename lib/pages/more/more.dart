@@ -52,10 +52,10 @@ class More extends ConsumerWidget {
     var darkMode = readSetting.DarkMode;
     var size = MediaQuery.of(context).size;
     ref.watch(settingsRiverpod).isuseinsert;
-    var read2 = ref.read(botomNavBarRiverpod);
+    var readNavBar = ref.read(bottomNavBarRiverpod);
     return WillPopScope(
       onWillPop: () async {
-        read2.setCurrentindex(0);
+        readNavBar.goToHome();
         return false;
       },
       child: Container(

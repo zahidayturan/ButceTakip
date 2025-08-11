@@ -12,7 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../../classes/app_bar_for_page.dart';
-import '../../classes/nav_bar.dart';
+import '../../core/widgets/nav_bar.dart';
 import '../../riverpod_management.dart';
 
 class AppearanceSettings extends ConsumerStatefulWidget {
