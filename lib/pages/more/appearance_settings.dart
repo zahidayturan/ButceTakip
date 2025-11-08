@@ -3,7 +3,6 @@ import 'package:butcetakip/utils/interstitial_ads.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/widgets/app_bar_for_page.dart';
 import '../../core/widgets/nav_bar.dart';
 import '../../riverpod_management.dart';
 
@@ -42,7 +41,6 @@ class _AppearanceSettingsState extends ConsumerState<AppearanceSettings> {
           child: Scaffold(
             //backgroundColor: const Color(0xffF2F2F2),
             bottomNavigationBar: const NavBar(),
-            appBar: AppBarForPage(title: "Görünüm Ayarları"),
             body: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(

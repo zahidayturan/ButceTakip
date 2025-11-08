@@ -1,5 +1,4 @@
 import 'package:butcetakip/Pages/more/Help/help_footer.dart';
-import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/UI/fezai_checkbox.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/utils/banner_ads.dart';
@@ -29,7 +28,6 @@ class HelpCalculator extends StatelessWidget {
     String first = "TRY";
     return SafeArea(
         child: Scaffold(
-          appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(

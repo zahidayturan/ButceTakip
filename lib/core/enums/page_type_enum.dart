@@ -1,7 +1,6 @@
 enum PageType {
   home,
   statistics,
-  calendar,
-  calculator,
-  more
+  assets,
+  account
 }

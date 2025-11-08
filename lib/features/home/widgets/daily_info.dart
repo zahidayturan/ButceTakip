@@ -89,7 +89,7 @@ class _GunlukInfoState extends ConsumerState<GunlukInfo> {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            readNavBar.goToCalendar();
+                            readNavBar.goToHome();
                             Navigator.of(context).popUntil((route) => route.isFirst) ;
                             readCalendar.setIndex(0, 3,ref);
                             readCalendar.resetPageController();

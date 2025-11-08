@@ -1,6 +1,5 @@
-import 'package:butcetakip/Pages/calculator_page.dart';
-import 'package:butcetakip/Pages/calendar_page.dart';
-import 'package:butcetakip/Pages/more/more.dart';
+import 'package:butcetakip/features/account/account_page.dart';
+import 'package:butcetakip/features/assets/assets_page.dart';
 import 'package:flutter/material.dart';
 import '../../features/home/home_page.dart';
 import '../../features/statistics/statistics_page.dart';
@@ -24,30 +23,24 @@ class BottomNavBarRiverpod extends ChangeNotifier {
     setCurrentPage(PageType.statistics);
   }
 
-  void goToCalendar() {
-    setCurrentPage(PageType.calendar);
+  void goToAssets() {
+    setCurrentPage(PageType.assets);
   }
 
-  void goToCalculator() {
-    setCurrentPage(PageType.calculator);
-  }
-
-  void goToMore() {
-    setCurrentPage(PageType.more);
+  void goToAccount() {
+    setCurrentPage(PageType.account);
   }
 
   Widget body() {
     switch (currentPage) {
       case PageType.home:
-        return const Home();
+        return const HomePage();
       case PageType.statistics:
-        return const Statistics();
-      case PageType.calendar:
-        return const Calendar();
-      case PageType.calculator:
-        return const Calculator();
-      case PageType.more:
-        return More();
+        return const StatisticsPage();
+      case PageType.assets:
+        return const AssetsPage();
+      case PageType.account:
+        return const AccountPage();
     }
   }
 }

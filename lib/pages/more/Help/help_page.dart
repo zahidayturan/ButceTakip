@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../../core/app_info.dart';
-import '../../../core/widgets/app_bar_for_page.dart';
 import '../../../constants/material_color.dart';
 import '../../../l10n/language.dart';
 
@@ -41,8 +40,6 @@ class _HelpCenterState extends ConsumerState<HelpCenter> {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
       child: Scaffold(
-        //backgroundColor: const Color(0xffF2F2F2),
-        appBar: AppBarForPage(title: translation(context).helpTitle),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(

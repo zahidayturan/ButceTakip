@@ -477,7 +477,7 @@ class _myAssistant extends ConsumerState<myAssistant> {
             ?GestureDetector(
           onTap: () {
             Navigator.of(context).pop();
-            ref.read(bottomNavBarRiverpod).goToMore();
+            ref.read(bottomNavBarRiverpod).goToHome();
             Navigator.push(context, PageRouteBuilder(
               transitionDuration: const Duration(milliseconds: 1),
               pageBuilder: (context, animation, nextanim) => const assetsPage(),

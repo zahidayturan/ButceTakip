@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/constants/text_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -136,7 +135,6 @@ class _PasswordPageState extends ConsumerState<PasswordPage> {
         color: renkler.koyuuRenk,
         child: SafeArea(
           child: Scaffold(
-            appBar: AppBarForPage(title: translation(context).loginPasswordTitle),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
               child: SingleChildScrollView(

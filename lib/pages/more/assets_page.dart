@@ -1,5 +1,4 @@
 import 'package:butcetakip/UI/change_currency_page.dart';
-import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/core/widgets/nav_bar.dart';
 import 'package:butcetakip/constants/text_pref.dart';
 import 'package:butcetakip/riverpod_management.dart';
@@ -73,7 +72,6 @@ class _assetsPage extends ConsumerState<assetsPage> {
       bottom: false,
       child: Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBarForPage(title: translation(context).myAssets),
           bottomNavigationBar: const NavBar(),
           body: FutureBuilder(
             future:  SQLHelper.getItems(),

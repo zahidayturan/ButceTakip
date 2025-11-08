@@ -48,20 +48,20 @@ class NavBar extends ConsumerWidget {
               ),
               _NavBarItem(
                 icon: Icons.wallet,
-                isSelected: currentPage == PageType.calendar,
+                isSelected: currentPage == PageType.assets,
                 label: "Varlıklarım",
                 onPressed: () {
-                  readNavBar.goToCalendar();
+                  readNavBar.goToAssets();
                   readCalendar.resetPageController();
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
               ),
               _NavBarItem(
                 icon: Icons.account_circle_outlined,
-                isSelected: currentPage == PageType.more,
-                label: "Profilim",
+                isSelected: currentPage == PageType.account,
+                label: "Hesabım",
                 onPressed: () {
-                  readNavBar.goToMore();
+                  readNavBar.goToAccount();
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
               ),

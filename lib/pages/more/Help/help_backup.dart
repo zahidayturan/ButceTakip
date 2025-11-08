@@ -2,7 +2,6 @@ import 'package:butcetakip/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import '../../../core/widgets/app_bar_for_page.dart';
 import '../../../constants/material_color.dart';
 import '../../../l10n/language.dart';
 import '../../../utils/textConverter.dart';
@@ -18,7 +17,6 @@ class HelpBackup extends StatelessWidget {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
         child: Scaffold(
-          appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(

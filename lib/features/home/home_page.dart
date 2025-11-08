@@ -1,31 +1,15 @@
-import 'package:butcetakip/core/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'widgets/monthly_info.dart';
-import 'widgets/general_info.dart';
-import 'widgets/daily_info.dart';
-import '../../riverpod_management.dart';
 
-class Home extends ConsumerWidget {
-  const Home({Key? key}) : super(key: key);
+class HomePage extends ConsumerWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      //backgroundColor: Color(0xffF2F2F2),
-      appBar: AppBarCustom(),
       bottomNavigationBar: null,
       resizeToAvoidBottomInset: false,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Generalinfo(isAssistantMode: false),
-          Aylikinfo(),
-          SizedBox(height: 4),
-          GunlukInfo(),
-        ],
-      ),
+      body: Center(child: Text("Ana Sayfa")),
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,6 @@ class Communicate extends StatelessWidget {
       child: Scaffold(
         //backgroundColor: const Color(0xffF2F2F2),
         bottomNavigationBar: const NavBar(),
-        appBar: AppBarForPage(title: translation(context).contactUsTitle),
         body : CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [

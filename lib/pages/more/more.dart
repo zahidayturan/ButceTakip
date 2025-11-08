@@ -1,6 +1,5 @@
 import 'package:butcetakip/Pages/more/communicate.dart';
 import 'package:butcetakip/core/app_info.dart';
-import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/pages/more/assets_page.dart';
 import 'package:butcetakip/pages/more/password.dart';
 import 'package:butcetakip/pages/more/settings.dart';
@@ -63,8 +62,6 @@ class More extends ConsumerWidget {
         child: SafeArea(
           bottom: false,
           child: Scaffold(
-            //backgroundColor: const Color(0xffF2F2F2),
-            appBar: AppBarForPage(title: translation(context).otherActivitiesTitle),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

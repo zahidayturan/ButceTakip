@@ -1,6 +1,5 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:butcetakip/UI/my_assistant.dart';
-import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/core/widgets/nav_bar.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/pages/more/appearance_settings.dart';
@@ -119,7 +118,6 @@ class _SettingsState extends ConsumerState<Settings> {
         bottom: false,
         child: Scaffold(
           bottomNavigationBar: const NavBar(),
-          appBar: AppBarForPage(title: translation(context).settingsTitle),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
             child:

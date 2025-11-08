@@ -1,5 +1,4 @@
 import 'package:butcetakip/Pages/more/Help/help_footer.dart';
-import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/utils/banner_ads.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,6 @@ class HelpHomePage extends StatelessWidget {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
         child: Scaffold(
-          appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(

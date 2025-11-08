@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import '../../core/widgets/app_bar_for_page.dart';
 import '../../core/widgets/nav_bar.dart';
 import '../../l10n/language.dart';
 import '../../riverpod_management.dart';
@@ -57,7 +56,6 @@ class _BackUpState extends ConsumerState<BackUp> {
         child: Scaffold(
           //backgroundColor: const Color(0xffF2F2F2),
           bottomNavigationBar: const NavBar(),
-          appBar: AppBarForPage(title: translation(context).backupTitle),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal:18, vertical: 8 ),
             child: Column(

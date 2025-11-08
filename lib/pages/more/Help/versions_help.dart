@@ -1,7 +1,6 @@
 import 'package:butcetakip/constants/material_color.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
-import 'package:butcetakip/core/widgets/app_bar_for_page.dart';
 import 'package:butcetakip/Pages/more/Help/help_footer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,7 +24,6 @@ class _VersionsHelpState extends ConsumerState<VersionsHelp> {
     var size = MediaQuery.of(context).size ;
     return SafeArea(
         child: Scaffold(
-          appBar: AppBarForPage(title: translation(context).helpTitle2),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(

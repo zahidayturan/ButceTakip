@@ -190,7 +190,7 @@ class AppBarCustom extends ConsumerWidget  implements  PreferredSizeWidget {
                       );
                     },
                   ),
-                ).then((value) => ref.read(bottomNavBarRiverpod).goToMore());
+                ).then((value) => ref.read(bottomNavBarRiverpod).goToHome());
               },
               highlightColor: const Color(0xFF0D1C26),
               child: Icon(
