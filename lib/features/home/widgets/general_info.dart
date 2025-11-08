@@ -1,9 +1,9 @@
-import '../constants/material_color.dart';
+import '../../../constants/material_color.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../l10n/language.dart';
+import '../../../l10n/language.dart';
 
 class Generalinfo extends ConsumerStatefulWidget {
   final bool isAssistantMode;

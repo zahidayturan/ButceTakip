@@ -1,11 +1,11 @@
-import '../constants/material_color.dart';
+import '../../../constants/material_color.dart';
 import 'package:butcetakip/pages/daily_info_page.dart';
 import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../constants/text_pref.dart';
-import '../l10n/language.dart';
+import '../../../constants/text_pref.dart';
+import '../../../l10n/language.dart';
 
 class Aylikinfo extends ConsumerStatefulWidget {
   const Aylikinfo({Key? key}) : super(key: key);

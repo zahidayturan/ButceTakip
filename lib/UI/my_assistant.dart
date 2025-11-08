@@ -1,4 +1,4 @@
-import 'package:butcetakip/UI/general_info.dart';
+import 'package:butcetakip/features/home/widgets/general_info.dart';
 import 'package:butcetakip/UI/spend_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
