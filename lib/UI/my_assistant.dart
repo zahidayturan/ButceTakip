@@ -1,4 +1,3 @@
-import 'package:butcetakip/features/home/widgets/general_info.dart';
 import 'package:butcetakip/UI/spend_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -192,7 +191,6 @@ class _myAssistant extends ConsumerState<myAssistant> {
                                 ],
                               ),
                               const SizedBox(height: 10,),
-                              const Generalinfo(isAssistantMode: true),
                               ///ay başlangıç tarihi olarak değişecek.
                               FutureBuilder( // asset page olarak değiştirilecek
                                 future: readDb.myAssistantMethod(ref, DateTime.now().month, DateTime.now().year),

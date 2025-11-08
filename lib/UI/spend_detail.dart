@@ -596,7 +596,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 item[index].userCategory,
                                 item[index].systemMessage),context);
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AddData(addDataMode: 2),
+                              builder: (context) => AddDataPage(),
                             ));
                           },
                         ),
@@ -655,7 +655,7 @@ class SpendDetailState extends ConsumerState<SpendDetail> {
                                 item[index].userCategory,
                                 item[index].systemMessage),context);
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AddData(addDataMode: 1),
+                              builder: (context) => AddDataPage(),
                             ));
                           },
                         ),
