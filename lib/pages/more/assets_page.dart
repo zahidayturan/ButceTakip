@@ -11,7 +11,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../UI/add_assets.dart';
 import '../../UI/history_asset.dart';
 import '../../UI/spend_detail.dart';
-import '../../app/data/models/Data.dart';
 import '../../app/data/models/spend_info.dart';
 import '../../constants/material_color.dart';
 import '../../l10n/language.dart';
@@ -977,51 +976,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
               ),
             );
           }else {
-            return SfCartesianChart(
-              borderColor: Colors.transparent,
-              borderWidth: 0,
-              plotAreaBorderWidth: 0,
-              primaryXAxis: CategoryAxis(
-                isVisible: false,
-                majorGridLines: const MajorGridLines(width: 0),
-                // Ana grid çizgilerini gizler
-                // Alt grid çizgilerini gizler
-                axisLine: const AxisLine(
-                  color: Colors.transparent,
-                ),
-              ),
-              primaryYAxis: NumericAxis(
-                minorGridLines: const MinorGridLines(width: 0),
-                isVisible: true, // Y ekseni görünmez yapılıyor
-                labelStyle: const TextStyle(
-                  fontSize: 11,
-                  fontFamily: "FontMedium",
-                )
-              ),
-              series: <CartesianSeries>[
-                SplineAreaSeries<Data, String>(
-                  dataSource: getDataSet(item),
-                  xValueMapper: (Data data, _) => data.x,
-                  yValueMapper: (Data data, _) => data.y,
-                  animationDuration: 1650,
-                  gradient: LinearGradient(
-                    begin: FirstTotalAsset <= 0 ? Alignment.bottomCenter : Alignment.topCenter,
-                    end: FirstTotalAsset <= 0 ? Alignment.topCenter : Alignment.bottomCenter,
-                    colors: [
-                      ref
-                            .read(settingsRiverpod)
-                          .DarkMode == 0 ? Theme
-                          .of(context)
-                          .highlightColor
-                          .withOpacity(0.9) : Theme.of(context).disabledColor,
-                      Theme
-                          .of(context)
-                          .indicatorColor
-                    ],
-                  ),
-                ),
-              ],
-            );
+            return SizedBox();
           }
         }else{
           return const Center(child: Text("Yükleniyor."));
@@ -1059,14 +1014,7 @@ class _assetsPage extends ConsumerState<assetsPage> {
       ],
     );
   }
-  List<Data> getDataSet(List<double> items){
-    List<Data> dataSetList = [];
-    Map<String, double> takvim  = {};
-    for(int i = 0 ; i < items.length ; i++){
-      dataSetList.add(Data((i + 1).toString(), items[i]));
-    }
-    return dataSetList;
-  }
+
   Widget pageSecond(WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
     return FutureBuilder(

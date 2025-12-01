@@ -2,8 +2,6 @@ import 'package:butcetakip/UI/spend_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import '../app/data/models/Data.dart';
 import '../app/data/models/spend_info.dart';
 import '../constants/material_color.dart';
 import '../l10n/language.dart';
@@ -66,63 +64,6 @@ class _myAssistant extends ConsumerState<myAssistant> {
                       ),
                       child: Stack(
                         children: [
-                          FutureBuilder<Map<String, double>>(
-                            future: readDb.myMethodForAssistantChart(ref),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                List<Data> chartData = snapshot.data!.entries.map((entry) {
-                                  return Data(entry.key, entry.value);
-                                }).toList();
-                                /*
-                                for (var data in chartData) {
-                                  print('Gün: ${data.x}, Tutar: ${data.y}');
-                                }*/
-                                return SfCartesianChart(
-                                  borderColor: Colors.transparent,
-                                  borderWidth: 0,
-                                  plotAreaBorderWidth: 0,
-                                  primaryXAxis: CategoryAxis(
-                                    labelRotation: 45,
-                                    isVisible: false,
-                                    majorGridLines: const MajorGridLines(width: 0), // Ana grid çizgilerini gizler
-                                    axisLine: const AxisLine(
-                                      color: Colors.transparent,
-                                    ),
-                                  ),
-                                  primaryYAxis: NumericAxis(
-                                    minorGridLines: const MinorGridLines(width: 0),
-                                    isVisible: false, // Y ekseni görünmez yapılıyor
-                                  ),
-                                  series: <CartesianSeries>[
-                                    SplineAreaSeries<Data, String>(
-                                      dataSource:  chartData,
-                                      xValueMapper:(Data data, _) => data.x,
-                                      yValueMapper: (Data data, _) => data.y,
-                                      color: Theme.of(context).dialogBackgroundColor.withOpacity(0.1),
-                                      /*
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [Theme.of(context).disabledColor.withOpacity(0.5) , Theme.of(context).primaryColor.withOpacity(0.2) ],
-                                      ),
-                                       */
-                                      dataLabelSettings: const DataLabelSettings(
-                                          isVisible: false,
-                                          angle: 45,
-                                          alignment: ChartAlignment.far,
-                                          offset: Offset(0, 0),
-                                          labelAlignment: ChartDataLabelAlignment.middle
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }else{
-                                return const Center(
-
-                                );
-                              }
-                            },
-                          ),
                           Column (
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
