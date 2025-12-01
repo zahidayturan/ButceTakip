@@ -18,8 +18,7 @@ class _BaseAppState extends ConsumerState<BaseApp> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(settingsRiverpod).isuseinsert;
-    var readSettings = ref.read(settingsRiverpod);
+
     return MaterialApp(
       builder: (context, child) {
         return MediaQuery(
@@ -30,14 +29,14 @@ class _BaseAppState extends ConsumerState<BaseApp> {
 
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: readSettings.localChanger(),
+      locale: const Locale("tr"),
 
       debugShowCheckedModeBanner: false,
       title: "Bütçe Takip",
 
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: readSettings.DarkMode == 0 ? ThemeMode.light : ThemeMode.dark,
+      themeMode: ThemeMode.light,
 
       home: BaseHome(showBTA: widget.showBTA,appInfo:widget.appInfo),
     );

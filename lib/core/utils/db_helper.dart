@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
-import '../app/data/models/currency_info.dart';
-import '../app/data/models/settings_info.dart';
-import '../app/data/models/spend_info.dart';
+import '../../app/data/models/currency_info.dart';
+import '../../app/data/models/settings_info.dart';
+import '../../app/data/models/spend_info.dart';
 
 class SQLHelper {
   static Future <void> createCurrnecyTable(sql.Database database) async {

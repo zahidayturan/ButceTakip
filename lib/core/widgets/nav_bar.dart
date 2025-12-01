@@ -13,7 +13,6 @@ class NavBar extends ConsumerWidget {
 
     final PageType currentPage = ref.watch(bottomNavBarRiverpod).currentPage;
     final readNavBar = ref.read(bottomNavBarRiverpod);
-    final readCalendar = ref.read(calendarRiverpod);
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
 
@@ -52,7 +51,6 @@ class NavBar extends ConsumerWidget {
                 label: "Varlıklarım",
                 onPressed: () {
                   readNavBar.goToAssets();
-                  readCalendar.resetPageController();
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
               ),

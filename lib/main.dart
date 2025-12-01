@@ -3,12 +3,12 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:butcetakip/utils/notification_service.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/base_app.dart';
 import 'core/services/app_info_service.dart';
+import 'core/utils/notification_service.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

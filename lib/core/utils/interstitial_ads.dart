@@ -1,6 +1,7 @@
-import 'package:butcetakip/utils/ads_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+import 'ads_helper.dart';
 
 class InterstitialAdManager {
   InterstitialAd? _interstitialAd;

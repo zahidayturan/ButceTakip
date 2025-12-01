@@ -1,33 +1,17 @@
-import 'package:butcetakip/Riverpod/appbar_type_2_riverpod.dart';
-import 'package:butcetakip/Riverpod/settings_riverpod.dart';
-import 'package:butcetakip/features/addData/logic/add_data_riverpod.dart';
-import 'package:butcetakip/riverpod/currency_riverpod.dart';
-import 'package:butcetakip/riverpod/ggl_drive_riverpod.dart';
-import 'package:butcetakip/riverpod/monthly_info_riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'Riverpod/database_provider.dart';
-import 'Riverpod/calendar_riverpod.dart';
-import 'Riverpod/category_info_riverpod.dart';
-import 'Riverpod/daily_info_riverpod.dart';
-import 'Riverpod/asset_riverpod.dart';
-import 'core/logic/bottom_nav_bar_riverpod.dart';
 import 'features/addData/logic/update_data_riverpod.dart';
+import 'features/addData/logic/add_data_riverpod.dart';
 import 'features/home/logic/home_riverpod.dart';
 import 'features/statistics/logic/statistics_riverpod.dart';
 
-final bottomNavBarRiverpod = ChangeNotifierProvider((ref) => BottomNavBarRiverpod());
-final databaseRiverpod = ChangeNotifierProvider((ref) => DbProvider());
+import 'core/logic/bottom_nav_bar_riverpod.dart';
+
+/// Feature Riverpod
 final homeRiverpod = ChangeNotifierProvider((ref) => HomeRiverpod());
-final appBarTypeProvider = ChangeNotifierProvider((ref) => AppBarType2Riverpod());
-final calendarRiverpod = ChangeNotifierProvider((ref) => CalendarRiverpod());
-final dailyInfoRiverpod = ChangeNotifierProvider((ref) => DailyInfoRiverpod());
 final statisticsRiverpod = ChangeNotifierProvider((ref) => StatisticsRiverpod());
-final categoryInfoRiverpod = ChangeNotifierProvider((ref) => CategoryInfoRiverpod());
-final settingsRiverpod = ChangeNotifierProvider((ref) => SettingsRiverpod());
 final updateDataRiverpod = ChangeNotifierProvider((ref) => UpdateDataRiverpod());
-final gglDriveRiverpod = ChangeNotifierProvider((ref) => GglDriveRiverpod());
-final currencyRiverpod = ChangeNotifierProvider((ref) => CurrencyRiverpod());
-final monthlyInfoRiverpod = ChangeNotifierProvider((ref) => MonthlyInfoRiverpod());
-final assetRiverpod = ChangeNotifierProvider((ref) => AssetRiverpod());
 final addDataRiverpod = ChangeNotifierProvider((ref) => AddDataRiverpod());
+
+/// Core Riverpod
+final bottomNavBarRiverpod = ChangeNotifierProvider((ref) => BottomNavBarRiverpod());

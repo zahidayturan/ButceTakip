@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../l10n/language.dart';
+import '../../l10n/language.dart';
 
 class AppStatus extends ConsumerStatefulWidget {
   final String status;
@@ -38,16 +38,13 @@ class _AppStatusState extends ConsumerState<AppStatus> {
   }
   int lampCounter = 0;
   Widget lampMode(BuildContext context){
-    var readSetting = ref.read(settingsRiverpod);
-    var darkMode = readSetting.DarkMode;
+
+    var darkMode = false;
     return Padding(
       padding: const EdgeInsets.only(right: 16),
       child: GestureDetector(
           onTap: () {
-            lampCounter < 10 ? readSetting.setDarkModeNotBool() : null;
-            lampCounter += 1;
-            lampCounter == 15 ? lampCounter = 0 : null;
-            print(lampCounter);
+
           },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 400),
@@ -72,9 +69,8 @@ class _AppStatusState extends ConsumerState<AppStatus> {
   String? selectedLanguage;
   Widget helloPage(BuildContext context) {
     CustomColors renkler = CustomColors();
-    var readSetting = ref.read(settingsRiverpod);
-    var darkMode = readSetting.DarkMode;
-    var language = readSetting.Language == 'Turkce' ? "Türkçe" : readSetting.Language;
+
+    var darkMode = false;
 
     return Container(
       decoration: BoxDecoration(
