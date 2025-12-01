@@ -17,17 +17,19 @@ class AppInfoService {
       await _firestore.collection("appInfo").doc("security").get();
       Map<String, dynamic>? data = querySnapshot.data();
 
-      if (data != null) {
-        String? appInfoString = data["appStatus"];
-        String? appVersionInfoString = data["version"];
-        return {
-          "appInfoString": appInfoString ?? "normal",
-          "version": appVersionInfoString ?? "1.0.0"
-        };
-      } else {
+      if (data == null) {
         debugPrint("App info not found in Firestore.");
         return {"appInfoString": "normal", "version": "1.0.0"};
       }
+
+      String appInfoString = data["appStatus"];
+      String appVersionInfoString = data["version"];
+
+      return {
+        "appInfoString": appInfoString,
+        "version": appVersionInfoString
+      };
+
     } catch (e) {
       debugPrint("Error fetching app info: $e");
       return {"appInfoString": "normal", "version": "1.0.0"}; // Default fallback

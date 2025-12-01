@@ -17,13 +17,8 @@ void main() async{
     DeviceOrientation.portraitUp,
   ]);
 
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: Color(0xFF03111A),
-    statusBarColor: Color(0xFF03111A),
-  ));
-
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(FirebaseNotificationService.backgroundMessage);
 
   final container = ProviderContainer();
   final appInfoService = container.read(appInfoServiceProvider);
@@ -31,8 +26,6 @@ void main() async{
 
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final bool showBTA = prefs.getBool("showBTA") ?? false;
-  FirebaseMessaging.onBackgroundMessage(FirebaseNotificationService.backgroundMessage);
-  debugPrint("Device Token: ${await FirebaseMessaging.instance.getToken()}  son");
 
   runApp( ProviderScope(child: BaseApp(showBTA: showBTA, appInfo: appInfoData)));
 }

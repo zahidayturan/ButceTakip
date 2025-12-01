@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 
 class DatabaseHelper {
 
-  static const String _newDbName = 'bt_v2-test0.db';
+  static const String _newDbName = 'bt_v3-test0.db';
   static const String _oldDbName = 'bt.db';
 
   static Future<void> _createTables(sql.Database database) async {

@@ -1837,7 +1837,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get care2 => 'Beklediğiniz için teşekkür ederiz';
 
   @override
-  String get care3 => 'iletişim için';
+  String get care3 => 'İletişim İçin';
 
   @override
   String get update1 => 'Bütçe Takip güncellendi!';
