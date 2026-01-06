@@ -11,4 +11,5 @@ class AppIcons {
   static const String expense = "expense_icon";
 
   static const String back = "back_icon";
+  static const String openCamera = "cam_open_icon";
 }

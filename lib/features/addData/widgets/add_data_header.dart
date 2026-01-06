@@ -8,11 +8,12 @@ import '../../../core/constants/app_icons.dart';
 import '../../../core/constants/icon_mod.dart';
 
 class AddDataHeader extends ConsumerWidget {
-  final String label;
-  const AddDataHeader({super.key,required this.label});
+  final bool isIncome;
+  const AddDataHeader({super.key,required this.isIncome});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String label = isIncome ? "Gelir Ekle" : "Gider Ekle";
     return Container(
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(

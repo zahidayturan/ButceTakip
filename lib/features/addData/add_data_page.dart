@@ -1,4 +1,5 @@
 import 'package:butcetakip/features/addData/widgets/add_data_header.dart';
+import 'package:butcetakip/features/addData/widgets/add_receipt_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../riverpod_management.dart';
@@ -17,7 +18,9 @@ class AddDataPage extends ConsumerWidget {
         resizeToAvoidBottomInset: false,
         body: Column(
           children: [
-            AddDataHeader(label: isIncome ? "Gelir Ekle" : "Gider Ekle")
+            AddDataHeader(isIncome: isIncome),
+            SizedBox(height: 14),
+            AddReceiptButton()
           ],
         ),
       ),

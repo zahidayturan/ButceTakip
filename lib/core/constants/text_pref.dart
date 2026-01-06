@@ -30,6 +30,7 @@ class TextMod extends StatelessWidget {
   final Color? color;
   final String level;
   final FontWeight weight;
+  final String? fontFamily;
   final AppFontSize userFontSizePreference;
 
   const TextMod(
@@ -38,6 +39,7 @@ class TextMod extends StatelessWidget {
         this.color,
         this.level = 'm',
         this.weight = FontWeight.normal,
+        this.fontFamily = "FontMedium",
         this.userFontSizePreference = AppFontSize.normal,
       });
 
@@ -49,8 +51,11 @@ class TextMod extends StatelessWidget {
 
     return Text(
       text,
+      softWrap: true,
+      maxLines: 5,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
-        fontFamily: "FontMedium",
+        fontFamily: fontFamily,
         fontWeight: weight,
         color: color ?? Colors.black,
         fontSize: finalSize,
