@@ -1,16 +1,18 @@
 import 'package:butcetakip/core/constants/app_colors.dart';
 import 'package:butcetakip/core/constants/text_pref.dart';
+import 'package:butcetakip/riverpod_management.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_icons.dart';
 import '../../../core/constants/icon_mod.dart';
 import '../../addData/add_data_page.dart';
 
-class HomeHeaderBody extends StatelessWidget {
+class HomeHeaderBody extends ConsumerWidget {
   const HomeHeaderBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return Container(
       width: double.infinity,
       color: Theme.of(context).primaryColorLight,
@@ -30,7 +32,7 @@ class HomeHeaderBody extends StatelessWidget {
                 color: AppColors().green,
                 icon: IconMod(AppIcons.income),
                 label: "Gelir Ekle",
-                onTap: () => _navigate(context),
+                onTap: () => _navigate(context,ref,true),
               ),
               const SizedBox(width: 30),
               _buildActionButton(
@@ -38,7 +40,7 @@ class HomeHeaderBody extends StatelessWidget {
                 color: Theme.of(context).scaffoldBackgroundColor,
                 icon: IconMod(AppIcons.expense, color: AppColors().red),
                 label: "Gider Ekle",
-                onTap: () => _navigate(context),
+                onTap: () => _navigate(context,ref,false),
               )
             ],
           )
@@ -47,9 +49,10 @@ class HomeHeaderBody extends StatelessWidget {
     );
   }
 
-  void _navigate(BuildContext context) {
+  void _navigate(BuildContext context,WidgetRef ref, bool isIncome) {
+    ref.read(addDataRiverpod).setAddDataType(isIncome);
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const AddDataPage()),
+      MaterialPageRoute(builder: (context) => AddDataPage()),
     );
   }
 
@@ -60,22 +63,27 @@ class HomeHeaderBody extends StatelessWidget {
     required String label,
     required VoidCallback onTap,
   }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        padding: const EdgeInsets.all(12),
+    return Material(
+      color: Colors.transparent,
+      child: Ink(
         decoration: BoxDecoration(
-          color: color,
           borderRadius: BorderRadius.circular(8),
+          color: color,
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            icon,
-            const SizedBox(width: 12),
-            TextMod(label),
-          ],
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                icon,
+                const SizedBox(width: 12),
+                TextMod(label)
+              ],
+            ),
+          ),
         ),
       ),
     );

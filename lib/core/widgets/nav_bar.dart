@@ -89,18 +89,21 @@ class _NavBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: InkWell(
-        onTap: onPressed,
-        child: AnimatedOpacity(
-          duration: _kAnimationDuration,
-          opacity: isSelected ? 1.0 : 0.6,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 4,
-            children: [
-              IconMod(appIcon),
-              Text(label,style: TextStyle(fontSize: 10,color: Theme.of(context).primaryColor))
-            ],
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onPressed,
+          child: AnimatedOpacity(
+            duration: _kAnimationDuration,
+            opacity: isSelected ? 1.0 : 0.6,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 4,
+              children: [
+                IconMod(appIcon),
+                Text(label,style: TextStyle(fontSize: 10,color: Theme.of(context).primaryColor))
+              ],
+            ),
           ),
         ),
       ),

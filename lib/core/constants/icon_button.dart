@@ -7,6 +7,7 @@ class IconButtonMod extends StatelessWidget {
   final Color? color;
   final String level;
   final double? customSize;
+  final VoidCallback? onTap;
 
   const IconButtonMod(
       this.appIcon, {
@@ -14,26 +15,27 @@ class IconButtonMod extends StatelessWidget {
         this.color,
         this.level = 'm',
         this.customSize,
+        this.onTap,
       });
-  
 
   @override
   Widget build(BuildContext context) {
-
-    return GestureDetector(
-      onTap: () {
-
-      },
-      child: InkWell(
-        child: Container(
+    return Material(
+      color: Colors.transparent,
+      child: Ink(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          color: color ?? AppColors().lemon,
+        ),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(50),
+          child: Container(
             width: 40,
             height: 40,
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: color ?? AppColors().lemon
-            ),
+            padding: const EdgeInsets.all(10),
             child: appIcon,
+          ),
         ),
       ),
     );

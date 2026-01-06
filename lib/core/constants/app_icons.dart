@@ -9,4 +9,6 @@ class AppIcons {
 
   static const String income = "income_icon";
   static const String expense = "expense_icon";
+
+  static const String back = "back_icon";
 }
