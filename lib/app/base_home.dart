@@ -1,6 +1,6 @@
 import 'package:butcetakip/core/widgets/app_status.dart';
 import 'package:butcetakip/features/introduction/introduction_page.dart';
-import 'package:butcetakip/core/app_info.dart';
+import 'package:butcetakip/core/constants/app_info.dart';
 import 'package:butcetakip/core/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
