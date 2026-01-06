@@ -1,4 +1,4 @@
-class currencyInfo {
+class CurrencyInfo {
   int ?id;
   String ?BASE;
   String ?TRY; //Türk Lirası
@@ -12,7 +12,7 @@ class currencyInfo {
 
   String ?lastApiUpdateDate;
 
-  currencyInfo(
+  CurrencyInfo(
       this.BASE,
       this.TRY,
       this.USD,
@@ -24,7 +24,7 @@ class currencyInfo {
       this.SAR,
       this.lastApiUpdateDate
       );
-  currencyInfo.withId(
+  CurrencyInfo.withId(
       this.id,
       this.BASE,
       this.TRY,
@@ -51,7 +51,7 @@ class currencyInfo {
     map["lastApiUpdateDate"] = lastApiUpdateDate;
     return map;
   }
-  currencyInfo.fromObject(dynamic o){
+  CurrencyInfo.fromObject(dynamic o){
     id = o["id"];
     BASE = o["BASE"] ;
     TRY = o["TRY"];

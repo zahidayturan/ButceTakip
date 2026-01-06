@@ -30,7 +30,7 @@ class _BaseAppState extends ConsumerState<BaseApp> {
       supportedLocales: AppLocalizations.supportedLocales,
       locale: const Locale("tr"),
 
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       title: "Bütçe Takip",
 
       theme: AppTheme.lightTheme,

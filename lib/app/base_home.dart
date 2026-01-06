@@ -1,5 +1,5 @@
 import 'package:butcetakip/core/widgets/app_status.dart';
-import 'package:butcetakip/core/widgets/introduction_page.dart';
+import 'package:butcetakip/features/introduction/introduction_page.dart';
 import 'package:butcetakip/core/app_info.dart';
 import 'package:butcetakip/core/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ class _BaseHomeState extends ConsumerState<BaseHome> {
     if (appInfoString == security.careCode) {
       return AppStatus(status: "care");
     } else if (appInfoString == security.updateCode) {
-      String currentVersion = AppInfo.version;
+      String currentVersion = AppInfo.appVersion;
       String newVersion = widget.appInfo!["version"]!;
       if (_compareVersions(currentVersion, newVersion) == -1) {
         return AppStatus(status: "update");
@@ -73,7 +73,7 @@ class _BaseHomeState extends ConsumerState<BaseHome> {
 
     if (appInfoString == security.careCode ||
         (appInfoString == security.updateCode &&
-         _compareVersions(AppInfo.version, widget.appInfo!["version"]!) == -1)
+         _compareVersions(AppInfo.appVersion, widget.appInfo!["version"]!) == -1)
     ) {
       showNavBar = false;
     }
