@@ -38,6 +38,7 @@ dependencies:
   shared_preferences: ^2.2.0
   syncfusion_flutter_charts: ^30.2.4
   home_widget: ^0.8.0
+  flutter_svg: ^2.2.3
 
 dev_dependencies:
   flutter_test:
